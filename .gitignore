@@ -1,0 +1,15 @@
+# Child repo folders (each is its own git repo, cloned by scripts/clone-all.sh)
+/meta/
+/platform/
+/sdk/
+/kb/
+/apps/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
+*.swp
