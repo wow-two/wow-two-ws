@@ -26,15 +26,18 @@ set -euo pipefail
 WORKSPACE_REPO_ORG="wow-two"
 WORKSPACE_REPO_NAME="wow-two-workspace"
 
-declare -A ORG_FOLDERS=(
-  ["wow-two"]="meta"
-  ["wow-two-platform"]="platform"
-  ["wow-two-sdk"]="sdk"
-  ["wow-two-kb"]="kb"
-  ["wow-two-apps"]="apps"
-)
+ORGS="wow-two wow-two-platform wow-two-sdk wow-two-kb wow-two-apps"
 
-ORGS=("wow-two" "wow-two-platform" "wow-two-sdk" "wow-two-kb" "wow-two-apps")
+org_to_folder() {
+  case "$1" in
+    wow-two)          echo "meta" ;;
+    wow-two-platform) echo "platform" ;;
+    wow-two-sdk)      echo "sdk" ;;
+    wow-two-kb)       echo "kb" ;;
+    wow-two-apps)     echo "apps" ;;
+    *)                echo "$1" ;;
+  esac
+}
 
 # ── Parse args ──────────────────────────────────────────────────────────────
 
@@ -104,19 +107,15 @@ echo ""
 WORKSPACE_ROOT=""
 
 if [ -f "CLAUDE.md" ] && [ -d ".claude/rules" ]; then
-  # Running from workspace root (e.g. ./scripts/clone-all.sh from parent)
   WORKSPACE_ROOT="$(pwd)"
   info "Already inside workspace: $WORKSPACE_ROOT"
 elif [ -f "../CLAUDE.md" ] && [ -d "../.claude/rules" ]; then
-  # Running from scripts/ folder
   WORKSPACE_ROOT="$(cd .. && pwd)"
   info "Already inside workspace: $WORKSPACE_ROOT"
 elif [ -d "$WORKSPACE_REPO_NAME" ] && [ -f "$WORKSPACE_REPO_NAME/CLAUDE.md" ]; then
-  # Workspace already cloned next to us
   WORKSPACE_ROOT="$(cd "$WORKSPACE_REPO_NAME" && pwd)"
   skip "Workspace repo $WORKSPACE_REPO_NAME"
 else
-  # Clone workspace repo
   info "Cloning workspace repo..."
   url=$(clone_url "$WORKSPACE_REPO_ORG" "$WORKSPACE_REPO_NAME")
 
@@ -143,18 +142,16 @@ total_cloned=0
 total_skipped=0
 total_failed=0
 
-for org in "${ORGS[@]}"; do
-  folder="${ORG_FOLDERS[$org]}"
+for org in $ORGS; do
+  folder=$(org_to_folder "$org")
   target_dir="$WORKSPACE_ROOT/$folder"
 
   info "Organization: $org → $folder/"
 
-  # Create org folder
   if ! $DRY_RUN; then
     mkdir -p "$target_dir"
   fi
 
-  # List all repos in the org (exclude the workspace repo itself)
   repos=$(gh repo list "$org" --limit 100 --json name --jq '.[].name' 2>/dev/null || true)
 
   if [ -z "$repos" ]; then
