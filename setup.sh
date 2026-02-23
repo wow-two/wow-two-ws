@@ -30,9 +30,10 @@ echo "║  WoW 2.0 — Quick Setup                  ║"
 echo "╚══════════════════════════════════════════╝"
 echo ""
 
-# Step 1: Clone workspace repo
+# Step 1: Clone or update workspace repo
 if [ -d "$DIR" ] && [ -f "$DIR/CLAUDE.md" ]; then
-  echo "⊘ Workspace already exists at ./$DIR"
+  echo "⊘ Workspace already exists at ./$DIR — pulling latest..."
+  git -C "$DIR" pull --quiet 2>/dev/null || echo "  (pull skipped — offline or no remote)"
 else
   echo "▸ Cloning workspace repo..."
   if $USE_SSH; then
