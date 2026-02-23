@@ -22,22 +22,31 @@ wow-two                  → meta: roadmap, refinement, org config
 | [wow-two-kb](https://github.com/wow-two-kb) | 21 | Knowledge base — .NET code samples & docs |
 | [wow-two-apps](https://github.com/wow-two-apps) | 0 | Community products (migration pending) |
 
-## Quick start
+## Getting started
 
-### 1. Clone this workspace
+One command to clone everything — workspace + all 50 repos:
 
 ```bash
-git clone https://github.com/wow-two/workspace.git wow-two-workspace
-cd wow-two-workspace
+curl -sLO https://raw.githubusercontent.com/wow-two/wow-two-workspace/main/setup.sh && bash setup.sh
 ```
 
-### 2. Clone all repos
+That's it. Use `bash setup.sh --ssh` for SSH, or `bash setup.sh --dry-run` to preview.
+
+<details>
+<summary>Manual setup (step by step)</summary>
 
 ```bash
+# 1. Clone the workspace
+git clone https://github.com/wow-two/wow-two-workspace.git
+cd wow-two-workspace
+
+# 2. Clone all org repos into the workspace
 ./scripts/clone-all.sh
 ```
 
-This clones every repo from all 5 orgs into the correct folder structure:
+</details>
+
+Result:
 
 ```
 wow-two-workspace/
@@ -48,9 +57,7 @@ wow-two-workspace/
 └── apps/          ← wow-two-apps repos
 ```
 
-### 3. Open in your editor
-
-Open the workspace root folder. Claude will automatically pick up `CLAUDE.md` and `.claude/rules/` for multi-repo context.
+Open the workspace root in your editor — Claude auto-picks up `CLAUDE.md` and `.claude/rules/`.
 
 ## Tech stack
 

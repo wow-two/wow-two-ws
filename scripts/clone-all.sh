@@ -1,26 +1,31 @@
 #!/usr/bin/env bash
 #
-# clone-all.sh — Clone all WoW 2.0 repos into the workspace folder structure.
+# clone-all.sh — Bootstrap the WoW 2.0 workspace.
+#
+# Clones the workspace repo first (if not already inside it),
+# then clones all org repos into the correct folder structure.
 #
 # Usage:
-#   ./scripts/clone-all.sh              # Clone using HTTPS
-#   ./scripts/clone-all.sh --ssh        # Clone using SSH
-#   ./scripts/clone-all.sh --dry-run    # Show what would be cloned without doing it
+#   # Standalone (e.g. downloaded via curl):
+#   ./clone-all.sh                  # Clone workspace + all repos (HTTPS)
+#   ./clone-all.sh --ssh            # Clone using SSH
+#   ./clone-all.sh --dry-run        # Preview without cloning
+#
+#   # From inside the workspace:
+#   ./scripts/clone-all.sh          # Only clone org repos
 #
 # Prerequisites:
 #   - git
-#   - gh CLI (GitHub CLI) — used to dynamically list repos per org
-#     Install: https://cli.github.com/
+#   - gh CLI (GitHub CLI) — https://cli.github.com/
 #   - Authenticated with `gh auth login`
 
 set -euo pipefail
 
 # ── Config ──────────────────────────────────────────────────────────────────
 
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-WORKSPACE_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
+WORKSPACE_REPO_ORG="wow-two"
+WORKSPACE_REPO_NAME="wow-two-workspace"
 
-# Org → local folder mapping
 declare -A ORG_FOLDERS=(
   ["wow-two"]="meta"
   ["wow-two-platform"]="platform"
@@ -69,6 +74,11 @@ clone_url() {
 
 # ── Preflight ───────────────────────────────────────────────────────────────
 
+if ! command -v git &>/dev/null; then
+  err "git not found. Install git first."
+  exit 1
+fi
+
 if ! command -v gh &>/dev/null; then
   err "GitHub CLI (gh) not found. Install from https://cli.github.com/"
   exit 1
@@ -79,17 +89,55 @@ if ! gh auth status &>/dev/null 2>&1; then
   exit 1
 fi
 
-# ── Main ────────────────────────────────────────────────────────────────────
+# ── Step 1: Clone workspace repo (if running standalone) ───────────────────
 
 echo ""
 echo "╔══════════════════════════════════════════╗"
 echo "║  WoW 2.0 — Clone All Repos              ║"
 echo "╚══════════════════════════════════════════╝"
 echo ""
-echo "Workspace: $WORKSPACE_ROOT"
 echo "Protocol:  $($USE_SSH && echo "SSH" || echo "HTTPS")"
 $DRY_RUN && echo "Mode:      DRY RUN (no changes)"
 echo ""
+
+# Detect if we're already inside the workspace repo
+WORKSPACE_ROOT=""
+
+if [ -f "CLAUDE.md" ] && [ -d ".claude/rules" ]; then
+  # Running from workspace root (e.g. ./scripts/clone-all.sh from parent)
+  WORKSPACE_ROOT="$(pwd)"
+  info "Already inside workspace: $WORKSPACE_ROOT"
+elif [ -f "../CLAUDE.md" ] && [ -d "../.claude/rules" ]; then
+  # Running from scripts/ folder
+  WORKSPACE_ROOT="$(cd .. && pwd)"
+  info "Already inside workspace: $WORKSPACE_ROOT"
+elif [ -d "$WORKSPACE_REPO_NAME" ] && [ -f "$WORKSPACE_REPO_NAME/CLAUDE.md" ]; then
+  # Workspace already cloned next to us
+  WORKSPACE_ROOT="$(cd "$WORKSPACE_REPO_NAME" && pwd)"
+  skip "Workspace repo $WORKSPACE_REPO_NAME"
+else
+  # Clone workspace repo
+  info "Cloning workspace repo..."
+  url=$(clone_url "$WORKSPACE_REPO_ORG" "$WORKSPACE_REPO_NAME")
+
+  if $DRY_RUN; then
+    log "Would clone: $url → $WORKSPACE_REPO_NAME/"
+    WORKSPACE_ROOT="$(pwd)/$WORKSPACE_REPO_NAME"
+  else
+    if git clone --quiet "$url" "$WORKSPACE_REPO_NAME"; then
+      ok "Workspace repo cloned → $WORKSPACE_REPO_NAME/"
+      WORKSPACE_ROOT="$(cd "$WORKSPACE_REPO_NAME" && pwd)"
+    else
+      err "Failed to clone workspace repo"
+      exit 1
+    fi
+  fi
+fi
+
+echo "Workspace: $WORKSPACE_ROOT"
+echo ""
+
+# ── Step 2: Clone all org repos ────────────────────────────────────────────
 
 total_cloned=0
 total_skipped=0
@@ -106,7 +154,7 @@ for org in "${ORGS[@]}"; do
     mkdir -p "$target_dir"
   fi
 
-  # List all repos in the org
+  # List all repos in the org (exclude the workspace repo itself)
   repos=$(gh repo list "$org" --limit 100 --json name --jq '.[].name' 2>/dev/null || true)
 
   if [ -z "$repos" ]; then
@@ -116,6 +164,11 @@ for org in "${ORGS[@]}"; do
   fi
 
   while IFS= read -r repo; do
+    # Skip the workspace repo — it's the parent, not a child
+    if [ "$repo" = "$WORKSPACE_REPO_NAME" ]; then
+      continue
+    fi
+
     repo_path="$target_dir/$repo"
     url=$(clone_url "$org" "$repo")
 
@@ -154,4 +207,4 @@ if [ "$total_failed" -gt 0 ]; then
   exit 1
 fi
 
-echo "Done! Open the workspace root in your editor to get started."
+echo "Done! Open $WORKSPACE_ROOT in your editor to get started."
