@@ -9,7 +9,7 @@ The workspace orchestrator for the [WoW 2.0](https://github.com/wow-two) ecosyst
 1. **This repo** (`wow-two-ws`) — tracks workspace config, scripts, docs, Claude setup
 2. **Child repos** — each is an independent git repo inside `workbench/` with its own remote, branches, and history
 
-The entire `workbench/` folder is gitignored, so `git status` at the workspace root only shows workspace-level changes. Running `git status` inside any child folder (e.g. `workbench/sdk/sdk.language.core/`) shows that repo's own changes. No tangling between layers.
+The entire `workbench/` folder is gitignored, so `git status` at the workspace root only shows workspace-level changes. Running `git status` inside any child folder (e.g. `workbench/sdk/wow-two-sdk.language.core/`) shows that repo's own changes. No tangling between layers.
 
 ### Workbench structure
 
@@ -35,7 +35,7 @@ You can also add your own repos under `workbench/` — for ventures, products, e
 ### One-command setup
 
 ```bash
-curl -sLO https://raw.githubusercontent.com/wow-two/wow-two-ws/main/setup.sh && bash setup.sh
+curl -sLO https://raw.githubusercontent.com/wow-two/wow-two-ws/main/scripts/setup.sh && bash setup.sh
 ```
 
 This clones the workspace repo, then runs `scripts/clone-all.sh` which uses `gh repo list` to discover and clone every repo from every org into `workbench/`.
@@ -67,7 +67,7 @@ CLAUDE.md                                    ← workspace-level instructions (a
 └── templates/                               ← CLAUDE.md templates for new repos
 
 workbench/meta/some-repo/CLAUDE.md           ← repo-specific overrides (if present)
-workbench/sdk/sdk.language.core/CLAUDE.md    ← repo-specific overrides (if present)
+workbench/sdk/wow-two-sdk.language.core/CLAUDE.md  ← repo-specific overrides (if present)
 ```
 
 ### Key principles
@@ -91,16 +91,16 @@ workbench/sdk/sdk.language.core/CLAUDE.md    ← repo-specific overrides (if pre
 
 | Doc | What it covers |
 |---|---|
-| [`wow-2.0-refinement.md`](wow-2.0-refinement.md) | Vision, roadmap, current phase, task list |
-| [`branching-strategy.md`](branching-strategy.md) | Trunk-based dev/main flow, CI publish channels |
-| [`versioning-strategy.md`](versioning-strategy.md) | .NET-aligned versioning, pre-release suffixes |
+| [`wow-two-refinement.md`](docs/wow-two-refinement.md) | Vision, roadmap, current phase, task list |
+| [`branching-strategy.md`](docs/branching-strategy.md) | Trunk-based dev/main flow, CI publish channels |
+| [`versioning-strategy.md`](docs/versioning-strategy.md) | .NET-aligned versioning, pre-release suffixes |
 | [`.claude/rules/repo-registry.md`](.claude/rules/repo-registry.md) | Full index of all repos by org, purpose, and status |
 
 ## Tech stack
 
 - **Backend**: .NET 8/9, ASP.NET Core, EF Core, MediatR, MassTransit
 - **Frontend**: React (stack decisions TBD)
-- **CI/CD**: GitHub Actions (templates in `platform.pipelines`)
+- **CI/CD**: GitHub Actions (templates in `wow-two-platform.pipelines`)
 - **Packages**: NuGet (backend), npm (frontend, future)
 - **Architecture**: Clean Architecture, CQRS, event-driven, DI
 

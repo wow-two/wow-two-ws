@@ -23,6 +23,8 @@ This workspace (`wow-two-ws`) is a meta-repo tracking workspace-level config onl
 │   ├── repo-registry.md          ← full index of all repos
 │   ├── behavior-rules.md         ← lookup rules, workflows, conventions
 │   └── templates/                ← CLAUDE.md templates per repo type
+├── docs/                         ← ecosystem-wide strategy & standards
+├── ideas/                        ← project specs & proposals
 ├── scripts/                      ← workspace automation (clone, setup)
 └── workbench/                    ← all managed repos (gitignored)
     ├── meta/                     ← wow-two org repos (roadmap, docs, refinement)
@@ -56,13 +58,13 @@ This workspace (`wow-two-ws`) is a meta-repo tracking workspace-level config onl
 
 - Backend: .NET 8/9, ASP.NET Core, EF Core, MediatR, MassTransit
 - Frontend: React (stack decisions TBD — Vite, state management, etc.)
-- CI/CD: GitHub Actions (pipeline templates in `platform.pipelines`)
+- CI/CD: GitHub Actions (pipeline templates in `wow-two-platform.pipelines`)
 - Packages: NuGet (backend), npm (frontend, future)
 - Architecture: Clean Architecture, CQRS, event-driven, DI
 
 ## Key files
 
-- `wow-2.0-refinement.md` — current project state, vision, task list, and roadmap
+- `docs/wow-two-refinement.md` — current project state, vision, task list, and roadmap
 - `.claude/rules/repo-registry.md` — all repos indexed by org with current names
 - `.claude/rules/behavior-rules.md` — lookup and workflow conventions
 - `.claude/rules/templates/` — CLAUDE.md templates for each repo type
