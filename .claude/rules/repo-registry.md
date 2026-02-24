@@ -1,5 +1,7 @@
 > **Usage:** This is a lookup table. Do NOT read these files or repos proactively.
 > Only access a repo when the current task specifically requires it.
+>
+> **Path:** All repos live under `workbench/` — e.g. `workbench/sdk/sdk.language.core/`, `workbench/meta/refinement/`.
 
 # Repo Registry
 

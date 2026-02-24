@@ -1,13 +1,5 @@
-# Child repo folders (each is its own git repo, cloned by scripts/clone-all.sh)
-/meta/
-/platform/
-/sdk/
-/kb/
-/apps/
-
-# Local-only folders (not part of wow-two ecosystem, never tracked or cloned)
-/ventures/
-/products/
+# All managed repos live in workbench/ (each subfolder is its own git repo)
+/workbench/
 
 # OS
 .DS_Store

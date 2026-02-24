@@ -3,7 +3,7 @@
 # Run this anywhere to bootstrap the full workspace.
 #
 # Usage:
-#   curl -sLO https://raw.githubusercontent.com/wow-two/wow-two-workspace/main/setup.sh && bash setup.sh
+#   curl -sLO https://raw.githubusercontent.com/wow-two/wow-two-ws/main/setup.sh && bash setup.sh
 #   bash setup.sh --ssh        # Use SSH instead of HTTPS
 #   bash setup.sh --dry-run    # Preview only
 
@@ -21,8 +21,8 @@ for arg in "$@"; do
   esac
 done
 
-REPO="wow-two/wow-two-workspace"
-DIR="wow-two-workspace"
+REPO="wow-two/wow-two-ws"
+DIR="wow-two-ws"
 
 echo ""
 echo "╔══════════════════════════════════════════╗"

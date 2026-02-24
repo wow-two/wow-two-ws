@@ -24,7 +24,7 @@ set -euo pipefail
 # ── Config ──────────────────────────────────────────────────────────────────
 
 WORKSPACE_REPO_ORG="wow-two"
-WORKSPACE_REPO_NAME="wow-two-workspace"
+WORKSPACE_REPO_NAME="wow-two-ws"
 
 ORGS="wow-two wow-two-platform wow-two-sdk wow-two-kb wow-two-apps"
 
@@ -144,7 +144,7 @@ total_failed=0
 
 for org in $ORGS; do
   folder=$(org_to_folder "$org")
-  target_dir="$WORKSPACE_ROOT/$folder"
+  target_dir="$WORKSPACE_ROOT/workbench/$folder"
 
   info "Organization: $org → $folder/"
 

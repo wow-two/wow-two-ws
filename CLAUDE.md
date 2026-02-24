@@ -12,25 +12,25 @@
 
 WoW 2.0 (Way of Web 2.0) is a full-stack developer ecosystem for building production apps with .NET + React. It provides plug-and-play libraries, pre-built clients, Docker images, and hosted APIs — backed by a knowledge base of real-world patterns, gotchas, and solutions.
 
-This workspace is the root folder containing all WoW 2.0 repos organized by GitHub org. It is a meta-repo tracking workspace-level config only. All child folders are independent git repos (git-ignored from this root).
+This workspace (`wow-two-ws`) is a meta-repo tracking workspace-level config only. All managed repos are independent git repos living inside `workbench/`, which is gitignored as a whole.
 
 ## Workspace layout
 
 ```
-.                             ← you are here (wow-two workspace root)
-├── CLAUDE.md                 ← this file
-├── .claude/rules/            ← auto-loaded rules
-│   ├── repo-registry.md      ← full index of all repos
-│   ├── behavior-rules.md     ← lookup rules, workflows, conventions
-│   └── templates/            ← CLAUDE.md templates per repo type
-├── scripts/                  ← workspace automation (clone, setup)
-├── meta/                     ← wow-two org repos (roadmap, docs, refinement)
-├── platform/                 ← wow-two-platform org repos (internal infra)
-├── sdk/                      ← wow-two-sdk org repos (public libs/tools)
-├── kb/                       ← wow-two-kb org repos (tech knowledge base)
-├── apps/                     ← wow-two-apps org repos (community products)
-├── products/                 ← (future) community-driven profit projects
-└── ventures/                 ← personal venture repos built with wow-two (Haven, etc.)
+.                                 ← you are here (wow-two-ws root)
+├── CLAUDE.md                     ← this file
+├── .claude/rules/                ← auto-loaded rules
+│   ├── repo-registry.md          ← full index of all repos
+│   ├── behavior-rules.md         ← lookup rules, workflows, conventions
+│   └── templates/                ← CLAUDE.md templates per repo type
+├── scripts/                      ← workspace automation (clone, setup)
+└── workbench/                    ← all managed repos (gitignored)
+    ├── meta/                     ← wow-two org repos (roadmap, docs, refinement)
+    ├── platform/                 ← wow-two-platform org repos (internal infra)
+    ├── sdk/                      ← wow-two-sdk org repos (public libs/tools)
+    ├── kb/                       ← wow-two-kb org repos (tech knowledge base)
+    ├── apps/                     ← wow-two-apps org repos (community products)
+    └── ...                       ← any additional repos (ventures, products, experiments)
 ```
 
 ## GitHub orgs
@@ -43,13 +43,6 @@ This workspace is the root folder containing all WoW 2.0 repos organized by GitH
 | **wow-two-kb** | [github.com/wow-two-kb](https://github.com/wow-two-kb) | Knowledge base — code samples + docs |
 | **wow-two-apps** | [github.com/wow-two-apps](https://github.com/wow-two-apps) | Community products |
 
-### Non-org folders
-
-| Folder | Owner | Purpose |
-|---|---|---|
-| `ventures/` | Personal | Venture repos built with wow-two (Haven, StringArt, etc.) — not part of any wow-two org |
-| `products/` | Community (future) | Community-driven profit projects under wow-two brand |
-
 ## Working rules
 
 - **Parallel sessions**: typically 2-3 related repos per chat session
@@ -57,6 +50,7 @@ This workspace is the root folder containing all WoW 2.0 repos organized by GitH
 - **Each repo has its own CLAUDE.md**: child CLAUDE.md overrides this root for repo-specific rules
 - **Passive language only**: describe where things are, never instruct to pre-read
 - **Commit style**: conventional commits (`feat:`, `fix:`, `docs:`, `refactor:`)
+- **All repos live in `workbench/`**: org repos, ventures, products, experiments — everything managed by this workspace
 
 ## Tech stack
 

@@ -1,66 +1,100 @@
-# WoW 2.0 — Way of Web 2.0
+# wow-two-ws
 
-A full-stack developer ecosystem for building production apps with **.NET + React**.
+The workspace orchestrator for the [WoW 2.0](https://github.com/wow-two) ecosystem. This repo manages, clones, and organizes all repos across multiple GitHub orgs into a single local workspace. It tracks only workspace-level config — scripts, docs, Claude setup. All managed repos are independent git repos living inside `workbench/`, which is gitignored as a whole.
 
-Plug-and-play libraries, pre-built clients, Docker images, hosted APIs, and a knowledge base of real-world patterns — built first for the internal team, designed to scale to the open-source community.
+## How git works
 
-## Ecosystem structure
+### Two layers of git
 
-```
-wow-two                  → meta: roadmap, refinement, org config
-├── wow-two-platform     → internal infra: pipelines, DI, comms, data access
-├── wow-two-sdk          → public libs: language extensions, AI, tools
-├── wow-two-kb           → knowledge base: code samples, demos, docs
-├── wow-two-apps         → community products built with the ecosystem
-└── (local only)         → ventures/, products/ — not cloned by setup script
-```
+1. **This repo** (`wow-two-ws`) — tracks workspace config, scripts, docs, Claude setup
+2. **Child repos** — each is an independent git repo inside `workbench/` with its own remote, branches, and history
 
-| Org | Repos | Description |
-|-----|-------|-------------|
-| [wow-two](https://github.com/wow-two) | 6 | Entry point, roadmap, org-wide config |
-| [wow-two-platform](https://github.com/wow-two-platform) | 16 | Internal infra — pipelines, DI, comms, data access |
-| [wow-two-sdk](https://github.com/wow-two-sdk) | 7 | Public NuGet packages — language, AI, tools |
-| [wow-two-kb](https://github.com/wow-two-kb) | 21 | Knowledge base — .NET code samples & docs |
-| [wow-two-apps](https://github.com/wow-two-apps) | 0 | Community products (migration pending) |
+The entire `workbench/` folder is gitignored, so `git status` at the workspace root only shows workspace-level changes. Running `git status` inside any child folder (e.g. `workbench/sdk/sdk.language.core/`) shows that repo's own changes. No tangling between layers.
+
+### Workbench structure
+
+The clone script maps each GitHub org to a folder inside `workbench/`:
+
+| GitHub Org | Local Folder | Role |
+|---|---|---|
+| [wow-two](https://github.com/wow-two) | `workbench/meta/` | Roadmap, org config, legacy |
+| [wow-two-platform](https://github.com/wow-two-platform) | `workbench/platform/` | Internal infra — pipelines, DI, comms, data |
+| [wow-two-sdk](https://github.com/wow-two-sdk) | `workbench/sdk/` | Public NuGet packages — language, AI, tools |
+| [wow-two-kb](https://github.com/wow-two-kb) | `workbench/kb/` | Knowledge base — code samples & docs |
+| [wow-two-apps](https://github.com/wow-two-apps) | `workbench/apps/` | Community products |
+
+You can also add your own repos under `workbench/` — for ventures, products, experiments, or anything else you're building with the ecosystem. They'll be gitignored from the workspace automatically.
 
 ## Getting started
 
-One command to clone everything — workspace + all 50 repos:
+### Prerequisites
+
+- `git`
+- [`gh` CLI](https://cli.github.com/) authenticated via `gh auth login`
+
+### One-command setup
 
 ```bash
-curl -sLO https://raw.githubusercontent.com/wow-two/wow-two-workspace/main/setup.sh && bash setup.sh
+curl -sLO https://raw.githubusercontent.com/wow-two/wow-two-ws/main/setup.sh && bash setup.sh
 ```
 
-That's it. Use `bash setup.sh --ssh` for SSH, or `bash setup.sh --dry-run` to preview.
+This clones the workspace repo, then runs `scripts/clone-all.sh` which uses `gh repo list` to discover and clone every repo from every org into `workbench/`.
 
-<details>
-<summary>Manual setup (step by step)</summary>
+| Flag | Effect |
+|---|---|
+| `--ssh` | Use SSH URLs instead of HTTPS |
+| `--dry-run` | Preview what would be cloned |
+
+### Manual setup
 
 ```bash
-# 1. Clone the workspace
-git clone https://github.com/wow-two/wow-two-workspace.git
-cd wow-two-workspace
-
-# 2. Clone all org repos into the workspace
-./scripts/clone-all.sh
+git clone https://github.com/wow-two/wow-two-ws.git
+cd wow-two-ws
+bash scripts/clone-all.sh
 ```
 
-</details>
+## How Claude works with this workspace
 
-Result:
+The workspace is designed for Claude-assisted development. Open the workspace root in your editor — Claude auto-loads `CLAUDE.md` and `.claude/rules/`.
+
+### Architecture
 
 ```
-wow-two-workspace/
-├── meta/          ← wow-two repos
-├── platform/      ← wow-two-platform repos
-├── sdk/           ← wow-two-sdk repos
-├── kb/            ← wow-two-kb repos
-├── apps/          ← wow-two-apps repos
-├── ventures/      ← your venture repos (local only, not cloned by setup)
-└── products/      ← (future) community profit projects
+CLAUDE.md                                    ← workspace-level instructions (auto-loaded)
+.claude/rules/
+├── repo-registry.md                         ← index of all repos (lazy-loaded lookup)
+├── behavior-rules.md                        ← cross-repo workflows, naming, conventions
+└── templates/                               ← CLAUDE.md templates for new repos
+
+workbench/meta/some-repo/CLAUDE.md           ← repo-specific overrides (if present)
+workbench/sdk/sdk.language.core/CLAUDE.md    ← repo-specific overrides (if present)
 ```
 
-Open the workspace root in your editor — Claude auto-picks up `CLAUDE.md` and `.claude/rules/`.
+### Key principles
+
+- **Lazy loading** — Claude never pre-reads repos or files; the registry is a lookup table, not a reading list
+- **Scoped context** — each child repo can have its own `CLAUDE.md` that overrides the workspace root for repo-specific rules
+- **No tangling** — `workbench/` is gitignored, so Claude can commit to either layer without cross-contamination
+- **Cross-repo awareness** — when updating a library, Claude checks the registry for consumers and coordinates breaking changes
+- **Parallel sessions** — typically 2-3 related repos per chat session
+
+### Common workflows
+
+| Task | Claude does |
+|---|---|
+| Work on a specific repo | Reads its `CLAUDE.md`, follows repo-specific rules |
+| Find a repo by topic | Looks up `repo-registry.md`, matches by domain |
+| Update a shared library | Identifies consumers in registry, checks for breakage |
+| Add a new repo | Clones it into the right folder, creates `CLAUDE.md` from template |
+
+## Key docs
+
+| Doc | What it covers |
+|---|---|
+| [`wow-2.0-refinement.md`](wow-2.0-refinement.md) | Vision, roadmap, current phase, task list |
+| [`branching-strategy.md`](branching-strategy.md) | Trunk-based dev/main flow, CI publish channels |
+| [`versioning-strategy.md`](versioning-strategy.md) | .NET-aligned versioning, pre-release suffixes |
+| [`.claude/rules/repo-registry.md`](.claude/rules/repo-registry.md) | Full index of all repos by org, purpose, and status |
 
 ## Tech stack
 
@@ -70,21 +104,9 @@ Open the workspace root in your editor — Claude auto-picks up `CLAUDE.md` and 
 - **Packages**: NuGet (backend), npm (frontend, future)
 - **Architecture**: Clean Architecture, CQRS, event-driven, DI
 
-## What developers get
-
-| Format | Example |
-|--------|---------|
-| NuGet/npm library | `sdk.language.core` — add to project, configure, done |
-| Pluggable client | Pre-built API client with typed contracts |
-| Docker image | `docker run wow-cache` — run locally or host |
-| Hosted API | Managed service for select tools |
-| Wiki + KB | Real issues, patterns, decisions — not just API docs |
-
 ## Project status
 
-**Phase 0 — Foundation** (current): wiring up the workspace, Claude setup, repo structure, clone scripts.
-
-See [`wow-2.0-refinement.md`](wow-2.0-refinement.md) for the full roadmap.
+**Phase 0 — Foundation** (current): workspace wiring, Claude setup, repo structure, clone scripts. See [Key docs](#key-docs) for the full roadmap.
 
 ## Contributing
 
