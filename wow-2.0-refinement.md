@@ -87,7 +87,7 @@ WoW 2.0 is "done" when the core .NET + React stack has full coverage (libs + doc
 - [x] Create `.claude/rules/repo-registry.md` — full index of all repos across all orgs
 - [x] Create `.claude/rules/behavior-rules.md` — lookup rules, cross-repo workflow, naming conventions
 - [x] Create `.gitignore` — meta repo tracks only Claude config, ignores child repos
-- [ ] Create `CLAUDE.md` templates for each repo type (platform lib, sdk package, kb module, app)
+- [x] Create `CLAUDE.md` templates for each repo type (platform lib, sdk package, kb module, app)
 - [ ] Define Claude workflows: code review, PR descriptions, changelog generation, issue triage
 - [ ] Setup Claude for documentation generation from code
 - [ ] Define prompt templates for common tasks (new sdk package, new kb entry)
@@ -124,6 +124,19 @@ WoW 2.0 is "done" when the core .NET + React stack has full coverage (libs + doc
 - [ ] Define package publishing workflow (local dev → pre-release → stable NuGet)
 - [ ] Cleanup stale repos — archive or update Backend modules that haven't been touched
 - [ ] Create a "Getting Started" guide — zero to working app in 15 minutes
+
+---
+
+### T5: Backlog (discovered during Phase 0)
+
+| # | Task | Priority | Target | Notes |
+|---|------|----------|--------|-------|
+| B1 | Deploy CLAUDE.md templates to all child repos | P0 | Feb 28 | Script to auto-generate from templates |
+| B2 | Remove hardcoded `currentDate` from `behavior-rules.md` | P2 | Feb 28 | Auto-injected by Claude, shouldn't be in file |
+| B3 | Handle `kb/Backend` — old un-migrated repo in wow-two-kb | P2 | — | Archive on GitHub or add to registry as legacy |
+| B4 | Migrate DDLParser from `WoW-2-0-Projects` to `wow-two-apps` | P1 | — | Only app worth migrating from old org |
+| B5 | Archive old GitHub orgs | P3 | — | WoW-2-0, WoW-2-0-Backbone, WoW-2-0-Core, WoW-2-0-Wiki, WoW-2-0-Intelli-Flow — won't block current work |
+| B6 | Grant new orgs to GitKraken OAuth | P0 | Done | Re-authorize GitHub integration for wow-two-* orgs |
 
 ---
 
@@ -237,5 +250,9 @@ Full path:    wow-two-platform/platform.pipelines
 - [ ] Update all repo references, links, package sources
 - [ ] Archive old orgs (WoW-2-0, WoW-2-0-Backbone, WoW-2-0-Core, WoW-2-0-Wiki)
 - [ ] Archive wow-two-0-intelli-flow
-- [ ] Create `wow-two/workspace` repo — Claude orchestration hub (CLAUDE.md, .claude/rules/, .gitignore)
-- [ ] Clone all repos into workspace folder, organized by org subfolder
+- [x] Create `wow-two/wow-two-workspace` repo — Claude orchestration hub (CLAUDE.md, .claude/rules/, .gitignore)
+- [x] Clone all repos into workspace folder, organized by org subfolder
+- [x] Create `setup.sh` + `scripts/clone-all.sh` — one-command bootstrap for full workspace
+- [x] Create `README.md` — workspace overview, getting started, ecosystem structure
+- [x] Create `branching-strategy.md` — simplified trunk-based (main + dev)
+- [x] Create `versioning-strategy.md` — .NET-version-aligned SemVer
