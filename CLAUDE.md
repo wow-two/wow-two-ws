@@ -28,7 +28,9 @@ This workspace is the root folder containing all WoW 2.0 repos organized by GitH
 ├── platform/                 ← wow-two-platform org repos (internal infra)
 ├── sdk/                      ← wow-two-sdk org repos (public libs/tools)
 ├── kb/                       ← wow-two-kb org repos (tech knowledge base)
-└── apps/                     ← wow-two-apps org repos (community products)
+├── apps/                     ← wow-two-apps org repos (community products)
+├── products/                 ← (future) community-driven profit projects
+└── ventures/                 ← personal venture repos built with wow-two (Haven, etc.)
 ```
 
 ## GitHub orgs
@@ -40,6 +42,13 @@ This workspace is the root folder containing all WoW 2.0 repos organized by GitH
 | **wow-two-sdk** | [github.com/wow-two-sdk](https://github.com/wow-two-sdk) | Public libs, tools, clients |
 | **wow-two-kb** | [github.com/wow-two-kb](https://github.com/wow-two-kb) | Knowledge base — code samples + docs |
 | **wow-two-apps** | [github.com/wow-two-apps](https://github.com/wow-two-apps) | Community products |
+
+### Non-org folders
+
+| Folder | Owner | Purpose |
+|---|---|---|
+| `ventures/` | Personal | Venture repos built with wow-two (Haven, StringArt, etc.) — not part of any wow-two org |
+| `products/` | Community (future) | Community-driven profit projects under wow-two brand |
 
 ## Working rules
 

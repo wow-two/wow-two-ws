@@ -11,7 +11,8 @@ wow-two                  → meta: roadmap, refinement, org config
 ├── wow-two-platform     → internal infra: pipelines, DI, comms, data access
 ├── wow-two-sdk          → public libs: language extensions, AI, tools
 ├── wow-two-kb           → knowledge base: code samples, demos, docs
-└── wow-two-apps         → community products built with the ecosystem
+├── wow-two-apps         → community products built with the ecosystem
+└── (local only)         → ventures/, products/ — not cloned by setup script
 ```
 
 | Org | Repos | Description |
@@ -54,7 +55,9 @@ wow-two-workspace/
 ├── platform/      ← wow-two-platform repos
 ├── sdk/           ← wow-two-sdk repos
 ├── kb/            ← wow-two-kb repos
-└── apps/          ← wow-two-apps repos
+├── apps/          ← wow-two-apps repos
+├── ventures/      ← your venture repos (local only, not cloned by setup)
+└── products/      ← (future) community profit projects
 ```
 
 Open the workspace root in your editor — Claude auto-picks up `CLAUDE.md` and `.claude/rules/`.

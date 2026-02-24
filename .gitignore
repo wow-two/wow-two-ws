@@ -5,6 +5,10 @@
 /kb/
 /apps/
 
+# Local-only folders (not part of wow-two ecosystem, never tracked or cloned)
+/ventures/
+/products/
+
 # OS
 .DS_Store
 Thumbs.db
