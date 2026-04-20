@@ -17,7 +17,8 @@ The clone script maps each GitHub org to a folder inside `workbench/`:
 
 | GitHub Org | Local Folder | Role |
 |---|---|---|
-| [wow-two](https://github.com/wow-two) | `workbench/meta/` | Roadmap, org config, legacy |
+| [wow-two](https://github.com/wow-two) | `workbench/wow-two/` | Core: vision, roadmap, standards, org config |
+| [wow-two-meta](https://github.com/wow-two-meta) | `workbench/wow-two-meta/` | Off-ecosystem: career strategy, legacy archives |
 | [wow-two-platform](https://github.com/wow-two-platform) | `workbench/platform/` | Internal infra — pipelines, DI, comms, data |
 | [wow-two-sdk](https://github.com/wow-two-sdk) | `workbench/sdk/` | Public NuGet packages — language, AI, tools |
 | [wow-two-kb](https://github.com/wow-two-kb) | `workbench/kb/` | Knowledge base — code samples & docs |
@@ -66,7 +67,7 @@ CLAUDE.md                                    ← workspace-level instructions (a
 ├── behavior-rules.md                        ← cross-repo workflows, naming, conventions
 └── templates/                               ← CLAUDE.md templates for new repos
 
-workbench/meta/some-repo/CLAUDE.md           ← repo-specific overrides (if present)
+workbench/wow-two/some-repo/CLAUDE.md              ← repo-specific overrides (if present)
 workbench/sdk/wow-two-sdk.language.core/CLAUDE.md  ← repo-specific overrides (if present)
 ```
 

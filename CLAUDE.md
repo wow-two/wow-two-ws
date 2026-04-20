@@ -27,7 +27,8 @@ This workspace (`wow-two-ws`) is a meta-repo tracking workspace-level config onl
 ├── ideas/                        ← project specs & proposals
 ├── scripts/                      ← workspace automation (clone, setup)
 └── workbench/                    ← all managed repos (gitignored)
-    ├── meta/                     ← wow-two org repos (roadmap, docs, refinement)
+    ├── wow-two/                  ← wow-two org repos (vision, roadmap, standards, org config)
+    ├── wow-two-meta/             ← wow-two-meta org repos (career strategy, legacy archives)
     ├── platform/                 ← wow-two-platform org repos (internal infra)
     ├── sdk/                      ← wow-two-sdk org repos (public libs/tools)
     ├── kb/                       ← wow-two-kb org repos (tech knowledge base)
@@ -39,7 +40,8 @@ This workspace (`wow-two-ws`) is a meta-repo tracking workspace-level config onl
 
 | Org | Link | Role |
 |-----|------|------|
-| **wow-two** | [github.com/wow-two](https://github.com/wow-two) | Entry point, meta, roadmap |
+| **wow-two** | [github.com/wow-two](https://github.com/wow-two) | Core — vision, roadmap, standards, org config |
+| **wow-two-meta** | [github.com/wow-two-meta](https://github.com/wow-two-meta) | Off-ecosystem — career strategy, legacy archives |
 | **wow-two-platform** | [github.com/wow-two-platform](https://github.com/wow-two-platform) | Internal infra — pipelines, DI, comms |
 | **wow-two-sdk** | [github.com/wow-two-sdk](https://github.com/wow-two-sdk) | Public libs, tools, clients |
 | **wow-two-kb** | [github.com/wow-two-kb](https://github.com/wow-two-kb) | Knowledge base — code samples + docs |

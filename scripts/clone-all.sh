@@ -26,11 +26,12 @@ set -euo pipefail
 WORKSPACE_REPO_ORG="wow-two"
 WORKSPACE_REPO_NAME="wow-two-ws"
 
-ORGS="wow-two wow-two-platform wow-two-sdk wow-two-kb wow-two-apps"
+ORGS="wow-two wow-two-meta wow-two-platform wow-two-sdk wow-two-kb wow-two-apps"
 
 org_to_folder() {
   case "$1" in
-    wow-two)          echo "meta" ;;
+    wow-two)          echo "wow-two" ;;
+    wow-two-meta)     echo "wow-two-meta" ;;
     wow-two-platform) echo "platform" ;;
     wow-two-sdk)      echo "sdk" ;;
     wow-two-kb)       echo "kb" ;;

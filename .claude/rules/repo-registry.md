@@ -1,26 +1,36 @@
 > **Usage:** This is a lookup table. Do NOT read these files or repos proactively.
 > Only access a repo when the current task specifically requires it.
 >
-> **Path:** All repos live under `workbench/` — e.g. `workbench/sdk/wow-two-sdk.language.core/`, `workbench/meta/wow-two.refinement/`.
+> **Path:** All repos live under `workbench/` — e.g. `workbench/sdk/wow-two-sdk.language.core/`, `workbench/wow-two/wow-two.refinement/`.
 
 # Repo Registry
 
-*Last updated: 2026-02-24 06:00 PM*
+*Last updated: 2026-04-20*
 
 All repos use the naming convention: `{org}.{domain}[.{subdomain}]`, lowercase, dot-separated. Repo prefix matches org name exactly.
 
-## wow-two (meta)
+## wow-two (core)
 
-Org: [github.com/wow-two](https://github.com/wow-two) — entry point, roadmap, org-wide config.
+Org: [github.com/wow-two](https://github.com/wow-two) — core identity: vision, roadmap, standards, org-wide GitHub config.
 
 | Repo | Purpose | Status |
 |------|---------|--------|
-| `wow-two.refinement` | Refinement doc, roadmap, vision | Active |
+| `wow-two.refinement` | Refinement doc, vision, current state | Active |
 | `wow-two.roadmap` | Project roadmap and milestones | Active |
-| `wow-two.career-strategies` | Career strategy docs | Active |
+| `wow-two.standards` | Ecosystem-wide enforceable standards + ADRs | Active |
 | `.github` | Org-wide GitHub config (templates, profiles) | Active |
-| `legacy.core` | Legacy core code (pre-migration) | Archive |
-| `WOW2.Core---Old` | Old core (pre-migration) | Archive |
+
+Also under `workbench/wow-two/`: `wow-two-modular-library-analysis.md` — historical analysis, loose file awaiting a future home repo.
+
+## wow-two-meta (off-ecosystem)
+
+Org: [github.com/wow-two-meta](https://github.com/wow-two-meta) — docs adjacent to but not part of the wow-two ecosystem: personal career strategy, legacy archives.
+
+| Repo | Purpose | Status |
+|------|---------|--------|
+| `wow-two-meta.career-strategies` | Career strategy docs (personal, not ecosystem) | Active |
+| `wow-two-meta.legacy.core` | Legacy core code (pre-migration) | Archive |
+| `wow-two-meta.legacy.old-core` | Old core, formerly `WOW2.Core---Old` | Archive |
 
 ## wow-two-platform (internal infra)
 
