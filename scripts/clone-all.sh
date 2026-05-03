@@ -26,18 +26,11 @@ set -euo pipefail
 WORKSPACE_REPO_ORG="wow-two"
 WORKSPACE_REPO_NAME="wow-two-ws"
 
-ORGS="wow-two wow-two-meta wow-two-platform wow-two-sdk wow-two-kb wow-two-apps"
+ORGS="wow-two wow-two-meta wow-two-platform wow-two-sdk wow-two-sdk-beta wow-two-kb wow-two-apps"
 
+# Folder name == org name (1:1 mapping). Kept as a function for future exceptions.
 org_to_folder() {
-  case "$1" in
-    wow-two)          echo "wow-two" ;;
-    wow-two-meta)     echo "wow-two-meta" ;;
-    wow-two-platform) echo "platform" ;;
-    wow-two-sdk)      echo "sdk" ;;
-    wow-two-kb)       echo "kb" ;;
-    wow-two-apps)     echo "apps" ;;
-    *)                echo "$1" ;;
-  esac
+  echo "$1"
 }
 
 # ── Parse args ──────────────────────────────────────────────────────────────

@@ -9,20 +9,20 @@ The workspace orchestrator for the [WoW 2.0](https://github.com/wow-two) ecosyst
 1. **This repo** (`wow-two-ws`) — tracks workspace config, scripts, docs, Claude setup
 2. **Child repos** — each is an independent git repo inside `workbench/` with its own remote, branches, and history
 
-The entire `workbench/` folder is gitignored, so `git status` at the workspace root only shows workspace-level changes. Running `git status` inside any child folder (e.g. `workbench/sdk/wow-two-sdk.language.core/`) shows that repo's own changes. No tangling between layers.
+The entire `workbench/` folder is gitignored, so `git status` at the workspace root only shows workspace-level changes. Running `git status` inside any child folder (e.g. `workbench/wow-two-sdk/wow-two-sdk.language.core/`) shows that repo's own changes. No tangling between layers.
 
 ### Workbench structure
 
-The clone script maps each GitHub org to a folder inside `workbench/`:
+Folder name matches org name 1:1. The clone script discovers repos in each org and drops them into the matching folder:
 
 | GitHub Org | Local Folder | Role |
 |---|---|---|
 | [wow-two](https://github.com/wow-two) | `workbench/wow-two/` | Core: vision, roadmap, standards, org config |
 | [wow-two-meta](https://github.com/wow-two-meta) | `workbench/wow-two-meta/` | Off-ecosystem: career strategy, legacy archives |
-| [wow-two-platform](https://github.com/wow-two-platform) | `workbench/platform/` | Internal infra — pipelines, DI, comms, data |
-| [wow-two-sdk](https://github.com/wow-two-sdk) | `workbench/sdk/` | Public NuGet packages — language, AI, tools |
-| [wow-two-kb](https://github.com/wow-two-kb) | `workbench/kb/` | Knowledge base — code samples & docs |
-| [wow-two-apps](https://github.com/wow-two-apps) | `workbench/apps/` | Community products |
+| [wow-two-platform](https://github.com/wow-two-platform) | `workbench/wow-two-platform/` | Internal infra — pipelines, DI, comms, data |
+| [wow-two-sdk](https://github.com/wow-two-sdk) | `workbench/wow-two-sdk/` | Public NuGet packages — language, AI, tools |
+| [wow-two-kb](https://github.com/wow-two-kb) | `workbench/wow-two-kb/` | Knowledge base — code samples & docs |
+| [wow-two-apps](https://github.com/wow-two-apps) | `workbench/wow-two-apps/` | Community products |
 
 You can also add your own repos under `workbench/` — for ventures, products, experiments, or anything else you're building with the ecosystem. They'll be gitignored from the workspace automatically.
 
@@ -67,8 +67,8 @@ CLAUDE.md                                    ← workspace-level instructions (a
 ├── behavior-rules.md                        ← cross-repo workflows, naming, conventions
 └── templates/                               ← CLAUDE.md templates for new repos
 
-workbench/wow-two/some-repo/CLAUDE.md              ← repo-specific overrides (if present)
-workbench/sdk/wow-two-sdk.language.core/CLAUDE.md  ← repo-specific overrides (if present)
+workbench/wow-two/some-repo/CLAUDE.md                       ← repo-specific overrides (if present)
+workbench/wow-two-sdk/wow-two-sdk.language.core/CLAUDE.md   ← repo-specific overrides (if present)
 ```
 
 ### Key principles

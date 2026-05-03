@@ -23,18 +23,32 @@ This workspace (`wow-two-ws`) is a meta-repo tracking workspace-level config onl
 │   ├── repo-registry.md          ← full index of all repos
 │   ├── behavior-rules.md         ← lookup rules, workflows, conventions
 │   └── templates/                ← CLAUDE.md templates per repo type
-├── docs/                         ← ecosystem-wide strategy & standards
+├── docs/                         ← ecosystem-wide strategy, plans, conventions
+├── system/                       ← project-internal operations
+│   └── sessions/                 ← one folder per ongoing work session
+│       └── {session-name}/
+│           ├── session-{name}.md ← durable procedure (rarely edited)
+│           └── context.md        ← current state (frequently edited, kept compact)
 ├── ideas/                        ← project specs & proposals
 ├── scripts/                      ← workspace automation (clone, setup)
-└── workbench/                    ← all managed repos (gitignored)
-    ├── wow-two/                  ← wow-two org repos (vision, roadmap, standards, org config)
-    ├── wow-two-meta/             ← wow-two-meta org repos (career strategy, legacy archives)
-    ├── platform/                 ← wow-two-platform org repos (internal infra)
-    ├── sdk/                      ← wow-two-sdk org repos (public libs/tools)
-    ├── kb/                       ← wow-two-kb org repos (tech knowledge base)
-    ├── apps/                     ← wow-two-apps org repos (community products)
+└── workbench/                    ← all managed repos (gitignored). Folder name = org name.
+    ├── wow-two/                  ← vision, roadmap, standards, org config
+    ├── wow-two-meta/             ← off-ecosystem: career strategy, legacy archives
+    ├── wow-two-platform/         ← internal infra
+    ├── wow-two-sdk/              ← public libs/tools
+    ├── wow-two-sdk-beta/         ← beta-forever SDK packages
+    ├── wow-two-kb/               ← tech knowledge base
+    ├── wow-two-apps/             ← community products
     └── ...                       ← any additional repos (ventures, products, experiments)
 ```
+
+## Sessions
+
+When starting a chat that continues durable project work, look in `system/sessions/{session-name}/` first:
+- `session-{name}.md` describes the procedure
+- `context.md` shows current state (current phase, last action, open items, live pointers) — read this first
+
+Update `context.md` after meaningful milestones, not every commit. Keep it compact — git log is the journal, not context.md.
 
 ## GitHub orgs
 
@@ -44,6 +58,7 @@ This workspace (`wow-two-ws`) is a meta-repo tracking workspace-level config onl
 | **wow-two-meta** | [github.com/wow-two-meta](https://github.com/wow-two-meta) | Off-ecosystem — career strategy, legacy archives |
 | **wow-two-platform** | [github.com/wow-two-platform](https://github.com/wow-two-platform) | Internal infra — pipelines, DI, comms |
 | **wow-two-sdk** | [github.com/wow-two-sdk](https://github.com/wow-two-sdk) | Public libs, tools, clients |
+| **wow-two-sdk-beta** | [github.com/wow-two-sdk-beta](https://github.com/wow-two-sdk-beta) | Beta SDK packages — beta-forever, private |
 | **wow-two-kb** | [github.com/wow-two-kb](https://github.com/wow-two-kb) | Knowledge base — code samples + docs |
 | **wow-two-apps** | [github.com/wow-two-apps](https://github.com/wow-two-apps) | Community products |
 

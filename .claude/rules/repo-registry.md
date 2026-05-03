@@ -1,7 +1,7 @@
 > **Usage:** This is a lookup table. Do NOT read these files or repos proactively.
 > Only access a repo when the current task specifically requires it.
 >
-> **Path:** All repos live under `workbench/` — e.g. `workbench/sdk/wow-two-sdk.language.core/`, `workbench/wow-two/wow-two.refinement/`.
+> **Path:** All repos live under `workbench/{org}/` — e.g. `workbench/wow-two-sdk/wow-two-sdk.language.core/`, `workbench/wow-two/wow-two.refinement/`. Folder name = org name (1:1).
 
 # Repo Registry
 
@@ -68,6 +68,15 @@ Org: [github.com/wow-two-sdk](https://github.com/wow-two-sdk) — installable pa
 | `wow-two-sdk.ai.nlp` | NLP utilities | Active |
 | `wow-two-sdk.package-analyzer` | Batch repo/package management across orgs | v1.0 |
 | `wow-two-sdk.resilience-patterns` | Resilience and retry patterns | Active |
+
+## wow-two-sdk-beta (beta SDK packages)
+
+Org: [github.com/wow-two-sdk-beta](https://github.com/wow-two-sdk-beta) — beta-forever packages. Mirror of `wow-two-sdk` for unstable / iterating libs. Repos are **public** (Pages requirement on free tier) but Issues/Discussions disabled to keep contributor surface minimal.
+
+| Repo | Purpose | Status |
+|------|---------|--------|
+| `wow-two-sdk-beta.ui` | `@wow-two-beta/ui` — React UI library (single repo, many subpath exports). Foundation + domain layering, ESLint enforced. Storybook catalog + Vite playground. | Active (beta) |
+| `wow-two-sdk-beta.backend` | `Wow.Two.Sdk.Beta.*` (NuGet) — backend libs. Not yet created. | Planned |
 
 ## wow-two-kb (knowledge base)
 
