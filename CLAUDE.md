@@ -1,87 +1,51 @@
 # WoW 2.0 — Workspace Root
 
-## Important: Lazy Loading
+Full-stack .NET + React developer ecosystem. `wow-two-ws` is a meta-repo (workspace config only); managed repos are independent gits under `workbench/` (gitignored as a whole).
 
-- Do NOT pre-read or scan files at conversation start
-- Only open a file when the current question or task specifically requires its content
-- The repo registry in `.claude/rules/repo-registry.md` is a lookup table, not a reading list
-- Answer from what you already know first, then read files only if needed
-- When a task requires context, read the minimum number of files necessary
+## Lazy loading
 
-## What is this
+- Don't pre-read or scan at startup — open a file only when the task needs it; read the minimum.
+- `.claude/rules/repo-registry.md` and `conventions/conventions.md` are lookup tables, not reading lists.
 
-WoW 2.0 (Way of Web 2.0) is a full-stack developer ecosystem for building production apps with .NET + React. It provides plug-and-play libraries, pre-built clients, Docker images, and hosted APIs — backed by a knowledge base of real-world patterns, gotchas, and solutions.
+## Response style
 
-This workspace (`wow-two-ws`) is a meta-repo tracking workspace-level config only. All managed repos are independent git repos living inside `workbench/`, which is gitignored as a whole.
+> Highest-priority style rule: **`.claude/rules/response-style.md`** (auto-loaded). Super-compact default — density over length. Runtime-enforced via `.claude/settings.json` hook.
 
-## Workspace layout
+Most-violated cuts (enforce hard; full list lives in that file):
+
+- **No self-narration — pre OR post-action.** Pre: "Let me check…", "I'll search…". Post: "Searched the registry:", "Checked the doc:". Both shapes cut — just give the result.
+- **Compact format for analyses / lookups** — `from X:` + bullets over prose.
+- **No scaffolding openers / closing recap.** "Looked through…", "So to summarize…" → delete.
+- **Imperatives over first-person.** "I'll bump the version" → `Directory.Packages.props:12 → 2.0.0`.
+- **Multiple items** (comments / findings / options) → one `###` header each + `---` between groups.
+
+A reply violating any of these is a style miss regardless of correctness.
+
+## Conventions
+
+- Touching code · repo structure · naming · versioning → read **`conventions/conventions.md` first** (the single index to all conventions), then open only the file you need. Don't pre-read; don't skip.
+- A convention applies to every repo; a repo-level `CLAUDE.md` / `.claude/rules/` overrides for that repo.
+
+## Layout
 
 ```
-.                                 ← you are here (wow-two-ws root)
-├── CLAUDE.md                     ← this file
-├── .claude/rules/                ← auto-loaded rules
-│   ├── repo-registry.md          ← full index of all repos
-│   ├── behavior-rules.md         ← lookup rules, workflows, conventions
-│   └── templates/                ← CLAUDE.md templates per repo type
-├── docs/                         ← ecosystem-wide strategy, plans, conventions
-├── system/                       ← project-internal operations
-│   └── sessions/                 ← one folder per ongoing work session
-│       └── {session-name}/
-│           ├── session-{name}.md ← durable procedure (rarely edited)
-│           └── context.md        ← current state (frequently edited, kept compact)
-├── ideas/                        ← project specs & proposals
-├── scripts/                      ← workspace automation (clone, setup)
-└── workbench/                    ← all managed repos (gitignored). Folder name = org name.
-    ├── wow-two/                  ← vision, roadmap, standards, org config
-    ├── wow-two-meta/             ← off-ecosystem: career strategy, legacy archives
-    ├── wow-two-platform/         ← internal infra
-    ├── wow-two-sdk/              ← public libs/tools
-    ├── wow-two-sdk-beta/         ← beta-forever SDK packages
-    ├── wow-two-kb/               ← tech knowledge base
-    ├── wow-two-apps/             ← community products
-    └── ...                       ← any additional repos (ventures, products, experiments)
+CLAUDE.md · .claude/rules/ (response-style · repo-registry · behavior-rules · templates/) · conventions/ (how we build)
+docs/ (strategy, playbooks) · system/sessions/ · ideas/ · scripts/ · workbench/ (all repos, gitignored)
 ```
+
+## Orgs & repos
+
+- 7 orgs, folder = org name: `wow-two` (core) · `-meta` (off-ecosystem) · `-platform` (infra) · `-sdk` (public libs) · `-sdk-beta` (beta libs) · `-kb` (knowledge base) · `-apps` (products). Full index: `.claude/rules/repo-registry.md`.
 
 ## Sessions
 
-When starting a chat that continues durable project work, look in `system/sessions/{session-name}/` first:
-- `session-{name}.md` describes the procedure
-- `context.md` shows current state (current phase, last action, open items, live pointers) — read this first
-
-Update `context.md` after meaningful milestones, not every commit. Keep it compact — git log is the journal, not context.md.
-
-## GitHub orgs
-
-| Org | Link | Role |
-|-----|------|------|
-| **wow-two** | [github.com/wow-two](https://github.com/wow-two) | Core — vision, roadmap, standards, org config |
-| **wow-two-meta** | [github.com/wow-two-meta](https://github.com/wow-two-meta) | Off-ecosystem — career strategy, legacy archives |
-| **wow-two-platform** | [github.com/wow-two-platform](https://github.com/wow-two-platform) | Internal infra — pipelines, DI, comms |
-| **wow-two-sdk** | [github.com/wow-two-sdk](https://github.com/wow-two-sdk) | Public libs, tools, clients |
-| **wow-two-sdk-beta** | [github.com/wow-two-sdk-beta](https://github.com/wow-two-sdk-beta) | Beta SDK packages — beta-forever, private |
-| **wow-two-kb** | [github.com/wow-two-kb](https://github.com/wow-two-kb) | Knowledge base — code samples + docs |
-| **wow-two-apps** | [github.com/wow-two-apps](https://github.com/wow-two-apps) | Community products |
+- Durable work → `system/sessions/{name}/`: read `context.md` first (state), `session-{name}.md` for the procedure. Update `context.md` at milestones; keep it compact (git log is the journal).
 
 ## Working rules
 
-- **Parallel sessions**: typically 2-3 related repos per chat session
-- **Cross-repo changes**: when updating a lib, check its consumers for breaking changes
-- **Each repo has its own CLAUDE.md**: child CLAUDE.md overrides this root for repo-specific rules
-- **Passive language only**: describe where things are, never instruct to pre-read
-- **Commit style**: conventional commits (`feat:`, `fix:`, `docs:`, `refactor:`)
-- **All repos live in `workbench/`**: org repos, ventures, products, experiments — everything managed by this workspace
-
-## Tech stack
-
-- Backend: .NET 8/9, ASP.NET Core, EF Core, MediatR, MassTransit
-- Frontend: React (stack decisions TBD — Vite, state management, etc.)
-- CI/CD: GitHub Actions (pipeline templates in `wow-two-platform.pipelines`)
-- Packages: NuGet (backend), npm (frontend, future)
-- Architecture: Clean Architecture, CQRS, event-driven, DI
-
-## Key files
-
-- `docs/wow-two-refinement.md` — current project state, vision, task list, and roadmap
-- `.claude/rules/repo-registry.md` — all repos indexed by org with current names
-- `.claude/rules/behavior-rules.md` — lookup and workflow conventions
-- `.claude/rules/templates/` — CLAUDE.md templates for each repo type
+- 2–3 related repos per session. Updating a lib → check consumers for breaking changes.
+- Each repo's own `CLAUDE.md` overrides this root. Conventional commits (`feat`/`fix`/`docs`/`refactor`).
+- Passive language — describe where things are; never instruct to pre-read.
+- **Git:** only commit/push when explicitly asked — the developer manages git manually.
+- **Skills** (`.claude/skills/`): `open-active` (open the working set in Rider/WebStorm) · `create-repo` (scaffold a conformant repo).
+- **Live state / roadmap:** `workbench/wow-two/wow-two.refinement`.

@@ -1,0 +1,17 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "airfryer-3d",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": ["-m", "http.server", "4173", "--directory", "workbench/labs/airfryer-3d"],
+      "port": 4173
+    },
+    {
+      "name": "home-modeler",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev", "--prefix", "workbench/labs/home-modeler"],
+      "port": 5180
+    }
+  ]
+}

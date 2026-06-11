@@ -5,7 +5,7 @@
 
 # Repo Registry
 
-*Last updated: 2026-04-20*
+*Last updated: 2026-06-09*
 
 All repos use the naming convention: `{org}.{domain}[.{subdomain}]`, lowercase, dot-separated. Repo prefix matches org name exactly.
 
@@ -43,7 +43,7 @@ Org: [github.com/wow-two-platform](https://github.com/wow-two-platform) — pipe
 | `wow-two-platform.core.app` | Base application setup | Active |
 | `wow-two-platform.core.exceptions` | Exception handling patterns | Active |
 | `wow-two-platform.core.validations` | Validation utilities | Active |
-| `wow-two-platform.comms.infra` | MediatR + MassTransit communication | Active |
+| `wow-two-platform.comms.infra` | MediatR (in-process) + MassTransit (distributed) — don't confuse them | Active |
 | `wow-two-platform.data.relational` | Relational DB patterns (EF Core) | Active |
 | `wow-two-platform.data.transport` | Data transportation | Draft |
 | `wow-two-platform.storage.cache` | Caching abstractions | Active |
@@ -53,6 +53,8 @@ Org: [github.com/wow-two-platform](https://github.com/wow-two-platform) — pipe
 | `wow-two-platform.main` | Main platform assembly | Active |
 | `wow-two-platform.design-patterns` | Common design patterns | Active |
 | `wow-two-platform.contrimap` | POCO mapping | POC |
+| `wow-two-platform.drydock` | Product ops & deploy control plane (Clean-Arch .NET 10 + React) | Active |
+| `wow-two-platform.secrets-vault` | Secrets vault — envelope-encrypted store + management UI | Active |
 | `.github` | Org-wide GitHub config | Active |
 
 ## wow-two-sdk (public libs & tools)
@@ -76,7 +78,8 @@ Org: [github.com/wow-two-sdk-beta](https://github.com/wow-two-sdk-beta) — beta
 | Repo | Purpose | Status |
 |------|---------|--------|
 | `wow-two-sdk-beta.ui` | `@wow-two-beta/ui` — React UI library (single repo, many subpath exports). Foundation + domain layering, ESLint enforced. Storybook catalog + Vite playground. | Active (beta) |
-| `wow-two-sdk-beta.backend` | `Wow.Two.Sdk.Beta.*` (NuGet) — backend libs. Not yet created. | Planned |
+| `wow-two-sdk.backend.beta` | `WoW.Two.Sdk.Backend.Beta` (nuget.org) — backend SDK mono-lib: hosting, observability, web, mediator, identity, data. | Active (beta) |
+| `wow-two-sdk-beta.product-template` | Copyable product-repo template — the canonical conformant structure `create-repo` stamps out (a template, not a package) | Active |
 
 ## wow-two-kb (knowledge base)
 

@@ -1,0 +1,14 @@
+{
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo '{\"hookSpecificOutput\":{\"hookEventName\":\"UserPromptSubmit\",\"additionalContext\":\"STYLE (enforce): super-compact only -- bullets / tables / arrows, backticks for identifiers. No paragraph > 2 lines. No scaffolding / narration / recap. Multiple items (comments / findings / options) -> one ### header per item + --- between groups. Expand only when asked.\"}}'"
+          }
+        ]
+      }
+    ]
+  }
+}
