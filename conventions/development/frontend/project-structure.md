@@ -2,16 +2,16 @@
 
 *Last updated: 2026-06-10*
 
-Two shapes, chosen by app count. Both live under a repo's `engineering/codebase/frontend-services/` (per [../repo/repo-structure.md](../repo/repo-structure.md)). `@{brand}` = the repo's package scope (`@haven`, `@drydock`, …).
+Two shapes, chosen by app count. Both live under a repo's `engineering/codebase/{slug}.frontend-services/` (dot-prefixed with the repo slug, per [../repo/repo-structure.md](../repo/repo-structure.md)). `@{brand}` = the repo's package scope (`@haven`, `@drydock`, …).
 
 ## Shape A — single Vite app (default)
 
 One product, one frontend. No workspace, no shared packages.
 
 ```
-frontend-services/            ← the Vite app itself
+{slug}.frontend-services/     ← the Vite app itself
 ├── index.html
-├── vite.config.ts            ← base '/', dev proxy /api → backend HTTP port
+├── vite.config.ts            ← base '/', HTTPS dev (mkcert), proxy /api → backend HTTP port
 ├── tsconfig.json · package.json
 └── src/
     ├── main.tsx              ← React mount
@@ -27,12 +27,28 @@ frontend-services/            ← the Vite app itself
 
 Use this until a second app or genuine cross-app reuse appears. Don't pre-build a workspace.
 
+## Dev server — HTTPS by default
+
+The Vite dev server runs over **HTTPS** via **`vite-plugin-mkcert`** (a locally-trusted cert — no browser warning). The backend serves plain **HTTP** (TLS terminated upstream in prod — see [../backend/launch-profiles.md](../backend/runtime/launch-profiles.md)); the frontend stays HTTPS so `Secure` auth cookies + secure-context keep working and an OAuth redirect doesn't hit a cert interstitial. Proxy `/api` to the backend's **HTTP** port with `changeOrigin: false` so the dev origin (`host:port`) is preserved end-to-end — the OAuth `redirect_uri` + session cookie then stay on the dev origin (register that origin's `/…/callback` with the provider).
+
+```ts
+import mkcert from 'vite-plugin-mkcert';
+
+plugins: [react(), tailwindcss(), mkcert()],
+server: {
+  port: 7025,
+  proxy: { '/api': { target: 'http://localhost:<backend-http>', changeOrigin: false, secure: false } },
+},
+```
+
+First `npm run dev` may prompt once to trust the local CA (keychain) — expected.
+
 ## Shape B — pnpm workspace (multi-app)
 
 Multiple apps sharing code. Mirrors the backend's `Common/` pattern; `"workspace:*"` ≈ .NET `<ProjectReference>`.
 
 ```
-frontend-services/
+{slug}.frontend-services/
 ├── package.json              ← workspace root (orchestration scripts)
 ├── pnpm-workspace.yaml       ← declares members
 ├── packages/
@@ -85,9 +101,9 @@ Each app uses the **same internal `src/` layout** as Shape A.
 ## Per-app file conventions
 
 - **One component per folder**, camelCase folders, PascalCase files — see [components.md](components.md) / [naming.md](naming.md).
-- Ports: HTTPS even / HTTP odd per the launch-profile rule; pick the next free even port per app.
+- Ports: the backend is a **single HTTP port** (even) per the [launch-profile rule](../backend/runtime/launch-profiles.md); the frontend dev server (HTTPS via mkcert) picks any free port.
 
 ## See also
 
-- [../repo/repo-structure.md](../repo/repo-structure.md) — where `engineering/codebase/frontend-services/` sits
+- [../repo/repo-structure.md](../repo/repo-structure.md) — where `engineering/codebase/{slug}.frontend-services/` sits
 - [styling.md](styling.md) · [state-and-data.md](state-and-data.md) · [components.md](components.md)

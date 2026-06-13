@@ -73,5 +73,5 @@ Domain and Infrastructure mirror each other but aren't forced to be 1:1. Infrast
 ## See also
 
 - [service-architecture.md](service-architecture.md) — the 5 layers
-- [entities.md](entities.md) — where entities live
-- [enums.md](enums.md) — where enums live
+- [entities.md](../persistence/entities.md) — where entities live
+- [enums.md](../persistence/enums.md) — where enums live

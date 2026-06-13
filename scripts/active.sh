@@ -36,8 +36,8 @@ DELAY="${DELAY:-0.4}"
 #   backend  = .sln/.slnx path relative to workbench/, or '-' if none
 #   frontend = folder (with package.json) relative to workbench/, or '-' if none
 PROJECTS=(
-  "drydock|wow-two-platform/wow-two-platform.drydock/platform/src/drydock.backend/Drydock.slnx|wow-two-platform/wow-two-platform.drydock/platform/src/drydock.frontend"
-  "secrets-vault|wow-two-platform/wow-two-platform.secrets-vault/engineering/codebase/backend-services/Wow-Two-Platform.Secrets-Vault.sln|wow-two-platform/wow-two-platform.secrets-vault/engineering/codebase/frontend-services"
+  "drydock|wow-two-platform/wow-two-platform.drydock/engineering/codebase/drydock.backend-services/Drydock.slnx|wow-two-platform/wow-two-platform.drydock/engineering/codebase/drydock.frontend-services"
+  "secrets-vault|wow-two-platform/wow-two-platform.secrets-vault/engineering/codebase/secrets-vault.backend-services/Wow-Two-Platform.Secrets-Vault.sln|wow-two-platform/wow-two-platform.secrets-vault/engineering/codebase/secrets-vault.frontend-services"
   "smart-qr|ventures/smart-qr-poc/platform/src/backend/SmartQr.sln|ventures/smart-qr-poc/platform/src/frontend"
   "trademark-watcher|ventures/trademark-watcher-poc/platform/src/backend/Trademark.Watcher.sln|-"
   "acquisition-explorer|-|ventures/acquisition-explorer-poc/platform/acquisition-explorer-frontend"

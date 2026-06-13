@@ -1,6 +1,8 @@
 # WoW 2.0 — Versioning Strategy
 
-> **Scope**: All .NET library packages (SDK + Platform repos).
+> **Scope**: .NET **library packages** (SDK + Platform libs) — the `<Version>` / NuGet version, where **x = .NET major**.
+>
+> **Apps** (product repos) do **not** use this scheme — their release + deployable **image tag** is the **product iteration version** (`vX.Y.Z`, see [`../conventions/planning/version-planning/version-docs.md`](../conventions/planning/version-planning/version-docs.md)). One axis, no .NET-major segment. E.g. a library ships `v10.0.1`; the secrets-vault app ships `v1.0.0`.
 
 ---
 
@@ -23,11 +25,13 @@ The first segment of the version always matches the target .NET SDK major versio
 ### Segment meanings
 
 ```
-9.2.1
-│ │ └── Patch: bug fixes, no API changes
-│ └──── Release: new features, backward compatible within same .NET version
-└────── .NET SDK version (always matches TargetFramework major)
+10.2.1
+│ │ └── z — non-breaking release / patch (features + fixes); kept 0–99
+│ └──── y — breaking change, OR z rolling over at 100 (…0.99 → 0.1.0)
+└────── x — .NET SDK major (always matches TargetFramework major)
 ```
+
+**Bump rules:** `x` only on a .NET major upgrade · `y` on a breaking change **or** `z` hitting 100 (then `z` → 0) — _features alone don't bump `y`_ · `z` every other release (0–99).
 
 ### Examples
 
@@ -96,9 +100,9 @@ main branch:  Version from .csproj (no suffix = stable)
 Since the major version is locked to .NET version, breaking API changes within the same .NET version bump the **release** segment:
 
 ```
-9.0.0  → stable release
-9.1.0  → new feature (non-breaking)
-9.2.0  → breaking API change (document in CHANGELOG)
+10.0.0  → stable release
+10.0.1  → new feature or fix (non-breaking) — z increments
+10.1.0  → breaking API change (document in CHANGELOG) — y bumps, z resets
 ```
 
 **Note**: This is a deliberate deviation from strict SemVer where major = breaking. The trade-off is worth it for the clarity of .NET version alignment. Breaking changes are communicated via CHANGELOG and release notes.
@@ -132,5 +136,5 @@ Use `Directory.Build.props` to enforce this:
 |-----------|-------------------|-------|
 | SDK libs (`sdk.*`) | Yes | Public packages, strict versioning |
 | Platform libs (`platform.*`) | Yes | Internal packages, same convention |
-| Apps (`apps.*`) | Optional | Apps may use simpler versioning |
+| Apps (`apps.*`) + platform apps | **No** | Use the **product iteration version** (`vX.Y.Z`, `version-docs.md`) as the release + deployable image tag — not the .NET-major scheme |
 | KB modules (`kb.*`) | No | No published packages |

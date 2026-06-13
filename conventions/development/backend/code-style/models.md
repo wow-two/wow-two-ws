@@ -57,7 +57,7 @@ Default to `sealed record` for every data carrier. Open `record` (non-sealed) on
 
 - Always `List<T>` for collection-typed properties (EF Core compat, Npgsql array mapping, mutability for `Add`)
 - Never `T[]`, `ICollection<T>`, `IEnumerable<T>`, `IReadOnlyList<T>` on entities
-- Three patterns (see [entities.md](entities.md) for entity-specific guidance):
+- Three patterns (see [entities.md](../persistence/entities.md) for entity-specific guidance):
   - `public required List<T> Prop { get; set; }` — always-populated value collections
   - `public List<T> Prop { get; set; } = null!;` — EF navigation properties
   - `public List<T>? Prop { get; set; }` — genuinely optional collections
@@ -87,9 +87,9 @@ Per the starter table in [documentation.md](documentation.md):
 
 ## See also
 
-- [entities.md](entities.md) — entity-specific modeling rules
-- [enums.md](enums.md) — enums
-- [settings.md](settings.md) — settings records
-- [result-pattern.md](result-pattern.md) — Result type structure
+- [entities.md](../persistence/entities.md) — entity-specific modeling rules
+- [enums.md](../persistence/enums.md) — enums
+- [settings.md](../runtime/settings.md) — settings records
+- [result-pattern.md](../foundation/result-pattern.md) — Result type structure
 - [code-organization.md](code-organization.md) — file-per-type
 - [documentation.md](documentation.md) — XML doc + starter table

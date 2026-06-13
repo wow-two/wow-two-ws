@@ -102,7 +102,7 @@ public sealed class ChannelGetAllQueryHandler(PipelineRegistry registry)
 | Shape | `static class` with nested `Success : ISuccessResult` and `Failure : IFailureResult` records |
 | Failure | Always has `string ErrorMessage` property |
 
-See [result-pattern.md](result-pattern.md) for the modeling rules.
+See [result-pattern.md](../foundation/result-pattern.md) for the modeling rules.
 
 ## DTOs
 
@@ -121,7 +121,7 @@ DTOs carry **only the data payload** — no metadata, no envelope. Reusable acro
 
 ### Rules
 
-- **`sealed record`** with body properties (see [models.md](models.md))
+- **`sealed record`** with body properties (see [models.md](../code-style/models.md))
 - **`required`** on all non-nullable properties
 - **Pure data** — no behavior, no metadata (pagination/status/timestamps live in the envelope)
 - **Flat** — no nesting unless the entity genuinely has a sub-object
@@ -206,7 +206,7 @@ public async Task<IActionResult> GetChannels()
 
 ### Documentation
 
-Every controller action gets `/// <summary>` one-liner — verb at start (per [documentation.md](documentation.md) starter table). Keep it **abstract** — don't list implementation details that go stale. Route and HTTP method are already visible from attributes.
+Every controller action gets `/// <summary>` one-liner — verb at start (per [documentation.md](../code-style/documentation.md) starter table). Keep it **abstract** — don't list implementation details that go stale. Route and HTTP method are already visible from attributes.
 
 ```csharp
 // ✅ Correct — short verb, abstract
@@ -252,8 +252,8 @@ Every controller action gets `/// <summary>` one-liner — verb at start (per [d
 
 ## See also
 
-- [result-pattern.md](result-pattern.md) — Result type modeling
-- [models.md](models.md) — DTO record style
-- [service-architecture.md](service-architecture.md) — Application/Infrastructure split
-- [host-configuration.md](host-configuration.md) — controller registration
-- [documentation.md](documentation.md) — XML doc + starter table
+- [result-pattern.md](../foundation/result-pattern.md) — Result type modeling
+- [models.md](../code-style/models.md) — DTO record style
+- [service-architecture.md](../architecture/service-architecture.md) — Application/Infrastructure split
+- [host-configuration.md](../architecture/host-configuration.md) — controller registration
+- [documentation.md](../code-style/documentation.md) — XML doc + starter table

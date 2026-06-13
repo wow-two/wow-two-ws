@@ -95,4 +95,4 @@ phones: readonly string[]
 ## See also
 
 - [enums.md](enums.md) · [forms.md](forms.md) · [components.md](components.md)
-- [../backend/models.md](../backend/models.md) — the C# record rules this mirrors
+- [../backend/models.md](../backend/code-style/models.md) — the C# record rules this mirrors

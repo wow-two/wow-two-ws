@@ -9,6 +9,27 @@ DI registration, middleware, and startup wiring split into two files in `Api/Con
 - `{Service}/Api/Configurations/HostConfiguration.cs` — slim orchestrator
 - `{Service}/Api/Configurations/HostConfiguration.Extensions.cs` — all extension methods
 
+## Program.cs
+
+**Pristine** — the entry point does nothing but wire + run. No comments, no logs, no DI, no startup calls. Only the two `Configure` calls, `app.Run()`, and the test marker.
+
+```csharp
+using {Brand}.{Service}.Configurations;
+
+var builder = WebApplication.CreateBuilder(args);
+builder.Configure();
+
+var app = builder.Build();
+app.Configure();
+
+app.Run();
+
+public partial class Program;
+```
+
+- `public partial class Program;` (no XML doc) lets `WebApplicationFactory<Program>` resolve the host in integration tests.
+- **All startup work** — migrations, seeding, warm-up, startup logs — lives in `HostConfiguration.Configure(WebApplication)` (or an extension it calls), never in `Program.cs`. A blocking startup task uses `.GetAwaiter().GetResult()` inside `Configure(app)` to keep the entry point sync.
+
 ## HostConfiguration
 
 Static class with two `Configure` overloads — one for `WebApplicationBuilder`, one for `WebApplication`. No DI logic inline — just chains extension methods in order.
@@ -59,7 +80,7 @@ Static class with extension methods on `WebApplicationBuilder`. Each method regi
 
 ## Documentation
 
-Only `/// <summary>` required — one-liner starting with **"Configures"** (per [documentation.md](documentation.md) starter table). No `<remarks>` or `<example>`.
+Only `/// <summary>` required — one-liner starting with **"Configures"** (per [documentation.md](../code-style/documentation.md) starter table). No `<remarks>` or `<example>`.
 
 ```csharp
 /// <summary>Configures all services: settings, integrations, application services, pipelines, SignalR, CORS.</summary>
@@ -77,7 +98,7 @@ public static WebApplicationBuilder AddPipelines(this WebApplicationBuilder buil
 
 ## Rules
 
-- `Program.cs` is a slim 3-liner: `builder.Configure()` → `app.Configure()` → `app.Run()`
+- `Program.cs` is **pristine** (see above) — only the two `Configure` calls, `app.Run()`, and the `Program` marker. No comments, logs, DI, or startup calls — those live in `HostConfiguration`.
 - `HostConfiguration.Configure()` chains extension methods — no inline DI logic
 - Each extension method in `HostConfigurationExtensions` groups related registrations
 - Inline comments above registration groups explain the "why"
@@ -86,4 +107,4 @@ public static WebApplicationBuilder AddPipelines(this WebApplicationBuilder buil
 ## See also
 
 - [service-architecture.md](service-architecture.md) — the 5 layers
-- [api-endpoints.md](api-endpoints.md) — what registers in `AddControllers` + endpoint conventions
+- [api-endpoints.md](../presentation/api-endpoints.md) — what registers in `AddControllers` + endpoint conventions

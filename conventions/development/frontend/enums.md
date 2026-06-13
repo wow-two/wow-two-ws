@@ -63,5 +63,5 @@ if (listing.priceCurrency?.value === "usd") { }
 
 ## See also
 
-- [../backend/enums.md](../backend/enums.md) — the C# enum these mirror (PascalCase ↔ camelCase wire values)
+- [../backend/enums.md](../backend/persistence/enums.md) — the C# enum these mirror (PascalCase ↔ camelCase wire values)
 - [models.md](models.md) · [forms.md](forms.md) · [naming.md](naming.md)

@@ -57,4 +57,4 @@ export const PersonExtensions = {
 ## See also
 
 - [naming.md](naming.md) — helper-file suffixes
-- [../backend/services.md](../backend/services.md) — the C# static-helper conventions this echoes
+- [../backend/services.md](../backend/architecture/services.md) — the C# static-helper conventions this echoes

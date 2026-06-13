@@ -6,7 +6,7 @@ Configuration classes that bind to `appsettings.json` sections via `IOptions<T>`
 
 ## Location
 
-`{Service}/Infrastructure/Settings/{Name}Settings.cs` — one file per settings class (per [code-organization.md](code-organization.md)).
+`{Service}/Infrastructure/Settings/{Name}Settings.cs` — one file per settings class (per [code-organization.md](../code-style/code-organization.md)).
 
 | Layer | Folder | Examples |
 |---|---|---|
@@ -19,7 +19,7 @@ Configuration classes that bind to `appsettings.json` sections via `IOptions<T>`
 
 - **`sealed record`** — immutable after binding
 - **Naming** — suffix with `Settings` (`ClassificationSettings`, `ScrapeSettings`)
-- **No positional constructor** — body properties only (see [models.md](models.md))
+- **No positional constructor** — body properties only (see [models.md](../code-style/models.md))
 
 ### Members
 
@@ -44,7 +44,7 @@ public sealed record ClassificationSettings
 
 ## Registration
 
-Register in `HostConfigurationExtensions.AddSettings()` via `IOptions<T>` binding — see [host-configuration.md](host-configuration.md):
+Register in `HostConfigurationExtensions.AddSettings()` via `IOptions<T>` binding — see [host-configuration.md](../architecture/host-configuration.md):
 
 ```csharp
 public static WebApplicationBuilder AddSettings(this WebApplicationBuilder builder)
@@ -65,7 +65,7 @@ public static WebApplicationBuilder AddSettings(this WebApplicationBuilder build
 
 ## Documentation
 
-Per the starter table in [documentation.md](documentation.md):
+Per the starter table in [documentation.md](../code-style/documentation.md):
 
 ### Settings class
 
@@ -83,6 +83,13 @@ Per the starter table in [documentation.md](documentation.md):
 public required int MaxBatchSize { get; init; }
 ```
 
+## Identity / auth config
+
+Auth, OAuth, sign-in, and token concerns use the keyword **`Identity`** — aligning with the beta SDK (`WoW.Two.Sdk.Backend.Beta.Identity`). Apply where it fits:
+
+- **Config section:** `Identity:` — `Identity:GitHub:ClientId`, `Identity:AllowedGitHubLogins`. Not `OAuth:` / `Auth:`.
+- **Namespaces / folders:** `Identity` / `Identity/` (OAuth providers nest under it: `Identity.OAuth.GitHub`).
+
 ## Multiple environments
 
 - Per-environment overrides via `appsettings.{Environment}.json`
@@ -91,6 +98,6 @@ public required int MaxBatchSize { get; init; }
 
 ## See also
 
-- [host-configuration.md](host-configuration.md) — registration
-- [models.md](models.md) — record style
-- [documentation.md](documentation.md) — XML doc + starter table
+- [host-configuration.md](../architecture/host-configuration.md) — registration
+- [models.md](../code-style/models.md) — record style
+- [documentation.md](../code-style/documentation.md) — XML doc + starter table

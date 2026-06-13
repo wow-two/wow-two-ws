@@ -21,7 +21,7 @@ Interface in `Application/`, implementation in `Infrastructure/` — the Clean A
 ### Class shape
 
 - **Non-static** class
-- **Primary constructor** for DI injection (allowed exception to the body-property rule for records — see [models.md](models.md))
+- **Primary constructor** for DI injection (allowed exception to the body-property rule for records — see [models.md](../code-style/models.md))
 - **Sealed** unless intentionally designed for inheritance — `sealed` should be the default
 
 ### Lifetime
@@ -36,16 +36,17 @@ Register in the appropriate `HostConfigurationExtensions` method (see [host-conf
 | Suffix | Purpose | Examples |
 |---|---|---|
 | `Service` | Internal business logic, orchestration, data operations | `ChannelsSeedService`, `ListingPublishingService`, `SeedDataReaderService` |
-| `Client` | External HTTP/API calls (single provider) — see [clients.md](clients.md) | `TelegramClient`, `ClaudeClient`, `LocationApiClient` |
+| `Client` | External HTTP/API calls (single provider) — see [clients.md](../integrations/clients.md) | `TelegramClient`, `ClaudeClient`, `LocationApiClient` |
 | `Factory` | Creates/resolves instances dynamically | `AiClientFactory` |
-| `Repository` | Direct DB queries (Dapper/SQL) — see [data-access.md](data-access.md) | `OtpRepository`, `LandmarkRepository` |
+| `Repository` | Direct DB queries (Dapper/SQL) — see [data-access.md](../persistence/data-access.md) | `OtpRepository`, `LandmarkRepository` |
 | `Registry` | Static / scoped lookup of pre-registered items | `PipelineRegistry`, `ChannelDefinitions` |
-| `Tracker` | Mutable in-process state | `PipelineExecutionTracker` |
-| (no suffix) | Static definitions, constants, enums | `ChannelSlugs`, `DatabasePathConstants` |
+| `Tracker` | Mutable **in-process** state (not DB I/O — that's a `Repository`) | `PipelineExecutionTracker` |
+| `Extensions` | **Static helper** classes — expose the helpers as extension methods where natural | `MigrationChecksumExtensions`, `CorsExtensions` |
+| (no suffix) | Static **definitions** only — constants, enums, registries | `ChannelSlugs`, `DatabasePathConstants` |
 
 ## Documentation
 
-Per the starter table in [documentation.md](documentation.md):
+Per the starter table in [documentation.md](../code-style/documentation.md):
 
 ### Service class
 
@@ -93,7 +94,7 @@ public static class ChannelSlugs { }
 
 ## See also
 
-- [clients.md](clients.md) — HTTP API wrappers
-- [data-access.md](data-access.md) — Dapper repositories
+- [clients.md](../integrations/clients.md) — HTTP API wrappers
+- [data-access.md](../persistence/data-access.md) — Dapper repositories
 - [host-configuration.md](host-configuration.md) — DI registration
-- [documentation.md](documentation.md) — XML doc + starter table
+- [documentation.md](../code-style/documentation.md) — XML doc + starter table

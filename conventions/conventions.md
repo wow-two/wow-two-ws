@@ -1,6 +1,6 @@
 # Conventions — wow-two
 
-*Last updated: 2026-06-10*
+*Last updated: 2026-06-13*
 
 > **The single index to every convention.** When a task touches *how we build* — code, repo structure,
 > naming, versioning — search HERE first, then open only the file(s) you need. Lookup table,
@@ -29,13 +29,25 @@
 
 | Need | File |
 |---|---|
-| Repo layout · `product/` + `engineering/` · code under `engineering/codebase/{backend,frontend}-services` · naming · folder-docs (no README below root) · archetypes · **audit** | [development/repo/repo-structure.md](development/repo/repo-structure.md) |
+| Repo layout · `product/` + `engineering/` · code under `engineering/codebase/{slug}.{backend,frontend}-services` · naming · folder-docs (no README below root) · archetypes · **image-publish contract** (§13) · **audit** | [development/repo/repo-structure.md](development/repo/repo-structure.md) |
 | Tech stack — backend + frontend + beta SDKs | [development/repo/tech-stack.md](development/repo/tech-stack.md) |
 | Port ledger — allocated dev ports | [development/repo/ports.md](development/repo/ports.md) |
 
-### backend/ — .NET code style · [backend-conventions.md](development/backend/backend-conventions.md)
+### backend/ — .NET conventions (by sub-domain) · [backend-conventions.md](development/backend/backend-conventions.md)
 
-`documentation` · `code-organization` · `models` · `entities` · `enums` · `services` · `clients` · `settings` · `result-pattern` · `service-architecture` · `domain-structuring` · `host-configuration` · `database` · `data-access` · `api-endpoints` · `launch-profiles`
+Meta: `authoring` (cite symbols, not namespaces). Sub-domains:
+
+| Sub-domain | Docs |
+|---|---|
+| `code-style/` | `documentation` · `code-organization` · `models` |
+| `architecture/` | `service-architecture` · `domain-structuring` · `host-configuration` · `services` |
+| **`persistence/`** (focus) | `database` · `entities` · `enums` · `data-access` · `migrations` · `tooling-cli` |
+| `presentation/` | `controllers` · `api-endpoints` |
+| `runtime/` | `settings` · `launch-profiles` |
+| `foundation/` | `result-pattern` (+ validation · time · errors) |
+| **`integrations/`** (focus) | `clients` |
+| `testing/` | `testing` |
+| `messaging/` · `observability/` · `identity/` · `platform/` | proposed — write as built |
 
 ### frontend/ — React / TS code style · [frontend-conventions.md](development/frontend/frontend-conventions.md)
 

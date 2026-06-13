@@ -17,7 +17,7 @@ export default defineConfig({
 });
 ```
 
-Pair with the launch-profile rule (HTTPS even / HTTP odd) — the proxy targets the **HTTP odd** port.
+Pair with the launch-profile rule (single HTTP backend port) — the proxy targets the backend's **HTTP** port (the frontend dev server itself is HTTPS via mkcert).
 
 ## Client shape
 
@@ -53,4 +53,4 @@ export class ApiError extends Error {
 
 - [hooks.md](hooks.md) — data-fetching hooks
 - [models.md](models.md) — DTO ↔ domain mapping
-- [../backend/api-endpoints.md](../backend/api-endpoints.md) — the `ApiResponse<T>` / `Problem()` shapes this consumes
+- [../backend/api-endpoints.md](../backend/presentation/api-endpoints.md) — the `ApiResponse<T>` / `Problem()` shapes this consumes

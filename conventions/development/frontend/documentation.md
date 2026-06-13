@@ -2,7 +2,7 @@
 
 *Last updated: 2026-06-09*
 
-JSDoc on every public export. Mirrors the backend XML-doc starter table ([../backend/documentation.md](../backend/documentation.md)) so a type reads the same in C# and TS.
+JSDoc on every public export. Mirrors the backend XML-doc starter table ([../backend/documentation.md](../backend/code-style/documentation.md)) so a type reads the same in C# and TS.
 
 ## Format
 
@@ -55,5 +55,5 @@ export enum Currency { }
 
 ## See also
 
-- [../backend/documentation.md](../backend/documentation.md) — the C# starter table this mirrors
+- [../backend/documentation.md](../backend/code-style/documentation.md) — the C# starter table this mirrors
 - [components.md](components.md) · [enums.md](enums.md) · [extensions.md](extensions.md)

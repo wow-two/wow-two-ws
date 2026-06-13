@@ -41,8 +41,8 @@ A product repo *ships a thing to users*; a library repo *is consumed by other re
     ├── architecture/             ← system + per-area design (architecture.md + …)
     ├── codebase/                 ← THE CODE — and the only place code lives
     │   ├── codebase.md           ← what services live here (lead doc)
-    │   ├── backend-services/     ← .NET (Clean Arch) — solution + projects (+ tests/)
-    │   ├── frontend-services/    ← React (Vite / pnpm)
+    │   ├── {slug}.backend-services/   ← .NET (Clean Arch) — solution + projects (+ tests/)
+    │   ├── {slug}.frontend-services/  ← React (Vite / pnpm)
     │   ├── database/             ← SQL / migrations, when managed apart (optional)
     │   └── pipelines/            ← data pipelines (optional)
     ├── development/              ← build guidelines + process
@@ -55,6 +55,11 @@ A product repo *ships a thing to users*; a library repo *is consumed by other re
     ├── scripts/                 ← dev / ops scripts (scripts.md + …)
     └── secrets/                 ← gitignored local env (optional)
 ```
+
+> **`{slug}`** = the repo's distinctive lowercase hyphenated name — its last dot-segment
+> (`secrets-vault`, `drydock`; the product-template's slug is `sample`). The two code dirs carry it
+> as a **dot-prefix** so multiple open repos never collide on a bare `backend-services/` /
+> `frontend-services/` folder name in an IDE.
 
 ## 3. Doc rule — no README below root
 
@@ -74,40 +79,42 @@ A product repo *ships a thing to users*; a library repo *is consumed by other re
 
 1. **Top-level dirs are exactly `product/` and `engineering/`** (lowercase). Plus root `README.md`, `CLAUDE.md`, `.claude/`.
 2. **All code lives under `engineering/codebase/`.** Always a `codebase/` wrapper — never services directly under `engineering/`.
-3. **The code dirs are exactly `codebase/backend-services/` and `codebase/frontend-services/`** (+ optional `database/`, `pipelines/`). Never `backend`/`frontend`, never `{name}.backend`, never a loose dir outside `codebase/`.
-4. **`backend-services/` holds the solution + projects directly.** `.sln`/`.slnx` at its root; projects `{Brand}.{Domain}[.{SubDomain}]` PascalCase. Clean-Arch layers per [`backend/service-architecture.md`](../backend/service-architecture.md).
-5. **`frontend-services/` holds the app directly (single) or a pnpm workspace (multi)** — app folders (lowercase) + `packages/` for shared (`@{brand}/common`, `@{brand}/ui`).
+3. **The code dirs are exactly `codebase/{slug}.backend-services/` and `codebase/{slug}.frontend-services/`** (dot-prefixed with the repo `{slug}`; + optional `database/`, `pipelines/`). Never bare `backend-services`/`frontend-services`, never `backend`/`frontend`, never `{name}.backend`, never a loose dir outside `codebase/`. **Rationale:** the `{slug}.` prefix keeps the two folders uniquely named so several repos open side-by-side in IDEs never collide on identical `backend-services/` / `frontend-services/` folder names. (`{slug}` = the repo's distinctive lowercase hyphenated name — its last dot-segment, e.g. `secrets-vault`, `drydock`; product-template = `sample`.)
+4. **`{slug}.backend-services/` holds the solution + projects directly.** `.sln`/`.slnx` at its root; projects `{Brand}.{Domain}[.{SubDomain}]` PascalCase. Clean-Arch layers + **solution-folder grouping** (`services/ platform/ libraries/ tools/ tests/`, the `product → platform` ref rule, `.sln` encoding) → [`backend/service-architecture.md`](../backend/architecture/service-architecture.md). (Apps only — library/SDK repos use their own package layout.)
+5. **`{slug}.frontend-services/` holds the app directly (single) or a pnpm workspace (multi)** — app folders (lowercase) + `packages/` for shared (`@{brand}/common`, `@{brand}/ui`).
 6. **Per-repo `development/` guidelines defer to shared conventions** (`wow-two-ws/conventions/*.md`) — only repo-specific deltas live in the repo.
 
 ## 6. Tests
 
-- **Backend:** a `tests/` folder inside `codebase/backend-services/`, its projects in the same solution (`{Brand}.{Domain}.Tests`).
+- **Backend:** a `tests/` folder inside `codebase/{slug}.backend-services/`, its projects in the same solution (`{Brand}.{Domain}.Tests`).
 - **Frontend:** colocated with the code (`*.test.ts(x)` beside source, or `__tests__/`).
 
 ## 7. Typed clients / contracts
 
-- A backend's typed client consumed by the **frontend** → lives in `codebase/frontend-services/` (generated / maintained there).
-- A backend's typed client consumed by **another backend** → a package project inside `codebase/backend-services/` (`{Brand}.{Service}.Client` / `.Abstractions`), referenced or published like any package.
+- A backend's typed client consumed by the **frontend** → lives in `codebase/{slug}.frontend-services/` (generated / maintained there).
+- A backend's typed client consumed by **another backend** → a package project inside `codebase/{slug}.backend-services/` (`{Brand}.{Service}.Client` / `.Abstractions`), referenced or published like any package.
 - **No** separate top-level `contracts/`.
 
 ## 8. Deployment
 
 - **One image per deployable service is the unit;** `docker compose` *orchestrates* them — it is not an alternative to per-service images.
 - **Single-service** → a `Dockerfile` is enough (+ optional compose for local env/volumes). **Multi-service** → per-service Dockerfiles + one compose.
-- **Location:** `engineering/deployment/` holds `Dockerfile` + `docker-compose.yml`; **build context = `engineering/codebase/`** (compose: `context: ../codebase`, `dockerfile: ../deployment/Dockerfile`); `.dockerignore` at the context root (`codebase/`).
+- **Location:** `engineering/deployment/` holds `Dockerfile` + `docker-compose.yml`; **build context = `engineering/codebase/`** (compose: `context: ../codebase`, `dockerfile: ../deployment/Dockerfile`); `.dockerignore` at the context root (`codebase/`). The `Dockerfile` `COPY`s the context's `{slug}.backend-services/` + `{slug}.frontend-services/` (prefixed paths).
 
 ## 9. Single-service vs multi-service
 
-| | `codebase/backend-services/` | `codebase/frontend-services/` |
+| | `codebase/{slug}.backend-services/` | `codebase/{slug}.frontend-services/` |
 |---|---|---|
 | **Single** (drydock, smart-qr, secrets-vault) | solution + Clean-Arch projects directly | the Vite app directly (`package.json` at root) |
 | **Multi** (haven) | one folder per service under a shared solution | pnpm workspace: app folders + `packages/` |
 
 ## 10. Migration ripple (do in lockstep with any rename)
 
-- **`wow-two-ws/scripts/active.sh`** — the `PROJECTS` registry (backend `.sln` + frontend dir paths).
-- Each repo's **deploy script** (SPA → `wwwroot` relative path), **`Dockerfile`** (`COPY` paths), and **compose** context.
-- **`.sln`/`.slnx`:** moving the backend folder as a unit preserves its relative project refs; a depth change (introducing `codebase/`) re-paths only *external* references, not the solution internals.
+The two code dirs carry the repo `{slug}.` prefix (`{slug}.backend-services/`, `{slug}.frontend-services/`) — any rename touches every path that names them:
+
+- **`wow-two-ws/scripts/active.sh`** — the `PROJECTS` registry (backend `.sln` + frontend dir paths → both prefixed).
+- Each repo's **deploy script** (SPA → `wwwroot` relative path: `..`/`..`/`{slug}.backend-services`/`{Brand}.Api`/`wwwroot`), **`Dockerfile`** (`COPY {slug}.backend-services/` + `COPY {slug}.frontend-services/`), **`.dockerignore`** (`{slug}.backend-services/{Brand}.Api/wwwroot/`), and **compose** context.
+- **`.sln`/`.slnx`:** moving/renaming the backend folder as a unit preserves its relative project refs; a depth change (introducing `codebase/`) re-paths only *external* references, not the solution internals.
 
 ## 11. Audit — product repos vs this standard (2026-06-10)
 
@@ -118,7 +125,7 @@ A product repo *ships a thing to users*; a library repo *is consumed by other re
 | secrets-vault | 🚧 | 🚧 | 🚧 | ✓ | rename pilot: `business-logic`→`product`, `platform-development`→`engineering`, `src`→`codebase`, READMEs→`{folder}.md`, `analysis`→`research` |
 | smart-qr | ✗ | ✗ | ✗ | ✓ | full conform (next) |
 | haven | ✗ (`business/`+`platform/`) | ✗ (`src/`) | ✗ | ✓ | top-level rename; `src`→`codebase`; folder-docs |
-| drydock | ✗ | ✗ | ✗ | ✓ | top-level; `*.backend`→`codebase/backend-services`; folder-docs |
+| drydock | ✗ | ✗ | ✗ | ✓ | top-level; `*.backend`→`codebase/{slug}.backend-services`; folder-docs |
 | trademark · yt-scraper · acquisition · pdf-editor | ✗ | ✗ | ✗ | ✗ | scaffold to standard |
 
 > The 2026-06-09 audit is **superseded** — the top-level names changed (`business-logic/`+`platform-development/` → `product/`+`engineering/`) and `src/`→`codebase/`, plus the no-README rule.
@@ -129,3 +136,13 @@ A product repo *ships a thing to users*; a library repo *is consumed by other re
 - **Repos:** `{org}.{domain}[.{subdomain}]`, lowercase, dot-separated — `sdk.language.core`, `platform.storage.cache`.
 - **NuGet:** PascalCase branded — `WoW.Two.Sdk.Language.Core`.
 - **Branches:** `main` · `feature/*` · `fix/*` · `docs/*`. **Commits:** conventional (`feat:`/`fix:`/`docs:`/`refactor:`).
+
+## 13. Image publishing (the deploy artifact)
+
+A product repo publishes its **single deployable image** via a fixed-name CI workflow, so the control plane (Drydock) can both **detect** that the repo is publishable and **resolve** what to ship.
+
+- **Marker file:** `.github/workflows/publish-docker-image.yml` — its presence = the repo publishes a deployable image (Drydock keys on this exact path).
+- **Trigger + build:** on a published GitHub **release** (semver tag), build from `engineering/deployment/Dockerfile` (context `engineering/codebase/`, §8) and push to **`ghcr.io/{owner}/{repo}`** (lowercased) with **two tags — the release tag + `latest`**.
+- **Resolution contract:** Drydock resolves a deployable as *latest release → its tag → `ghcr.io/{owner}/{repo}:{tag}`*, pinning the explicit release tag (reproducible deploy + rollback).
+- **Tag value:** apps use the **product iteration version** (`vX.Y.Z`, `version-docs.md`); libraries use the .NET-major scheme (`docs/versioning-strategy.md`).
+- Per-repo today; a reusable/example workflow + the full `deployment` convention domain is a later step.

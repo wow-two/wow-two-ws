@@ -8,10 +8,29 @@
       "port": 4173
     },
     {
-      "name": "home-modeler",
+      "name": "prism",
       "runtimeExecutable": "npm",
-      "runtimeArgs": ["run", "dev", "--prefix", "workbench/labs/home-modeler"],
+      "runtimeArgs": ["run", "dev", "--prefix", "workbench/ventures/prism"],
       "port": 5180
+    },
+    {
+      "name": "smart-qr",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": ["-C", "workbench/ventures/smart-qr-poc/platform/src/frontend", "dev"],
+      "port": 7025
+    },
+    {
+      "name": "ui-showcase",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": ["-C", "workbench/wow-two-sdk-beta/wow-two-sdk-beta.ui/apps/showcase", "dev"],
+      "port": 5174,
+      "autoPort": true
+    },
+    {
+      "name": "secrets-vault",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev", "--prefix", "workbench/wow-two-platform/wow-two-platform.secrets-vault/engineering/codebase/secrets-vault.frontend-services"],
+      "port": 5173
     }
   ]
 }
