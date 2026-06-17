@@ -1,77 +1,104 @@
 # Mediator
 
-*Last updated: 2026-06-13*
+*Last updated: 2026-06-14*
 
-In-process request/response + fan-out via the SDK mediator. Use-cases are `IRequest<TResponse>` with one handler; cross-cutting concerns are `INotification` (many handlers) or `IPipelineBehavior<TRequest,TResponse>`. SDK source: `wow-two-sdk.backend.beta/src/Mediator/`.
+> In-process request/response mediator component conventions.
+> Purpose — decouple presentation from infrastructure so a use-case is dispatched, not called directly.
+> Use case — between the presentation and infrastructure layers; not for infrastructure-to-infrastructure calls.
 
-## Contracts
+## Queries, Commands, Events and their Handlers
 
-Two message shapes. One handler per request; N handlers per notification.
+### Common
 
-| Message | Marker | Handler | Cardinality |
-|---|---|---|---|
-| Use-case (returns a value) | `IRequest<TResponse>` | `IRequestHandler<TRequest,TResponse>` | exactly 1 |
-| Use-case (no value) | `IRequest` (= `IRequest<Unit>`) | `IRequestHandler<TRequest>` (= `IRequestHandler<TRequest,Unit>`) | exactly 1 |
-| Domain event / fan-out | `INotification` | `INotificationHandler<TNotification>` | 0..N |
+- A **query, command and event are all request messages** — declared, named and handled separately for separation of concerns. Query = read, command =
+  write, event = fan-out fact ("X happened").
+- **Naming** — `{Domain}{Action}[{Meta}]{Kind}`, **domain-first, singular** (`Code`, `Product`, `Channel` — not `Codes`) so related types sort
+  together. Action mirrors the controller method stem.
+- **Shape** — messages = `public sealed record` (carry inputs as members); handlers = `public sealed class`.
+- **Cardinality** — a query and a command have **exactly one** handler each; an event has **0..N** handlers.
+- SDK markers rebase onto `IRequest` / `INotification`; SDK handler interfaces refine `IRequestHandler` / `INotificationHandler` — same DI scan, same
+  pipeline, no extra wiring.
+- **Result** — result-carrying requests return `AppResult<TSuccess, TFailure>` as their `TResult` — construction, shape and `.Match` collapse in
+  [result-pattern.md](../foundation/result-pattern.md). Cannot-fail: a value type directly (query) or no value (`ICommand`, returns `Unit`).
 
-- A void use-case returns `Unit` — never `Task`/`void`. Return `Unit.Value` (or `Unit.Task`); `Send(IRequest)` dispatches as `Send<Unit>` under the hood.
-- `IRequestHandler<,>.Handle` and `INotificationHandler<>.Handle` both take `(message, CancellationToken)` and return `Task<TResponse>` / `Task`.
-- One application use-case = one request type + one handler. Don't reuse a request across handlers — that's what `INotification` is for.
+### Query
 
-## Dispatch — inject the abstraction
+- **Marker** — `IQuery<TResult>` (invariant — result type fixed per query)
+- **Handler** — `IQueryHandler<TQuery,TResult>`
+- **Verb** — `GET`
+- **Location** — `Application/{Domain}/Queries/`
+- **Example** — `CodeGetByIdQuery`
 
-Never inject the concrete `Mediator`. Pick the narrowest abstraction:
+### Command
 
-| Inject | Method | Use in |
-|---|---|---|
-| `ISender` | `Send<TResponse>(IRequest<TResponse>, ct)` / `Send(IRequest, ct)` | controllers, handlers issuing a sub-request |
-| `IPublisher` | `Publish<TNotification>(TNotification, ct)` | raising domain events |
-| `IMediator` (= `ISender` + `IPublisher`) | both | only when a type genuinely needs both |
+- **Markers** — `ICommand` (no value) / `ICommand<TResult>` (value)
+- **Handlers** — `ICommandHandler<TCommand>` / `ICommandHandler<TCommand,TResult>`
+- **Verbs** — `POST` `PUT` `PATCH` `DELETE`
+- **Location** — `Application/{Domain}/Commands/`
+- **Examples** — `CodeSetActiveCommand` (no value) · `CodeCreateCommand` (value)
 
-- Controllers dispatch via `ISender.Send` then map the result — see [../presentation/controllers.md](../presentation/controllers.md) (`ISender.Send` + `Result.Match`).
-- `Publish` invokes notification handlers **sequentially** in registration order; a throwing handler aborts the rest. Don't assume isolation/parallelism.
+### Events
 
-## Registration — scan, don't hand-wire
+> Document now, deferred use — uses what the SDK mediator already offers.
 
-Call `AddMediator(assembly)` **once per handler-bearing assembly** (typically the Application layer). It registers `IMediator`/`ISender`/`IPublisher` and scans for closed implementations of `IRequestHandler<,>` and `INotificationHandler<>` — binding each to its interface as transient.
+- **Marker** — `INotification`
+- **Handler** — `INotificationHandler<TEvent>` (0..N)
+- **Raised via** — `IPublisher.PublishAsync` — sequential, registration order; a throwing handler aborts the rest
+- **Location** — `Application/{Domain}/Events/`
+- **Example** — `CodeCreatedEvent` (naming `{Domain}{Action}Event`)
 
-```csharp
-services.AddMediator(typeof(SomeApplicationMarker).Assembly);
-```
+### Comments
 
-- Handlers are discovered, never registered by hand. Adding a handler = adding the class; no DI edit.
-- Parameterless `AddMediator()` scans `Assembly.GetCallingAssembly()` — pass the assembly explicitly when wiring from a different layer (e.g. composition root).
-- `IMediator`/`ISender`/`IPublisher` use `TryAdd` — safe to call across assemblies; the mediator binds once.
+XML doc summaries — byte-identical to the SDK marker source. No `<example>` blocks (go stale).
 
-## Cross-cutting — pipeline behaviors
+- **Definition** (SDK markers / handler interfaces) → `Defines …` — e.g. `Defines a query that returns TResult` ·
+  `Defines a handler for the TQuery query`. Keep `<typeparam>` lines.
+- **Message** (concrete query/command/event) → `Represents a {query/command/event} to {action}` — e.g. `Represents a query to get all channels`.
+- **Handler** (concrete) → `Handles <see cref="{Request}"/>.`
 
-Cross-cutting logic wrapping every request is an `IPipelineBehavior<TRequest,TResponse>` (open generic). Register with `AddMediatorBehavior(typeof(X<,>))`.
+---
 
-> **Registration order = execution order.** Behaviors stack outermost-first in the order registered (first registered runs first / wraps the rest). Order matters — register logging before validation if you want failed validations logged.
+## Registration & usage
 
-```csharp
-services
-    .AddMediatorLoggingBehavior()       // outermost — wraps everything
-    .AddMediatorValidationBehavior()    // throws before the handler on invalid input
-    .AddMediatorIdempotencyBehavior();  // dedup marked requests
-```
+`AddMediator(assembly)` **once per handler-bearing assembly** (typically Application) — registers `IMediator`/`ISender`/
+`IPublisher` (`TryAdd`, safe across assemblies) + scans closed `IRequestHandler<,>`/`INotificationHandler<>` as
+transient. Adding a handler = adding the class; no DI edit. Parameterless overload scans
+`Assembly.GetCallingAssembly()` — pass explicitly from a different layer.
+
+Never inject concrete `Mediator`. Pick the narrowest abstraction:
+
+| Inject                                   | Method      | Use in                                      |
+|------------------------------------------|-------------|---------------------------------------------|
+| `ISender`                                | `SendAsync`    | controllers, handlers issuing a sub-request |
+| `IPublisher`                             | `PublishAsync` | raising domain events                       |
+| `IMediator` (= `ISender` + `IPublisher`) | both        | only when a type genuinely needs both       |
+
+- **Dispatch** — `ISender.SendAsync` — strongly-typed `IRequest<TResponse>` overload returns `ValueTask<TResponse>`; no-response `IRequest` overload returns `ValueTask<Unit>`. Events → `IPublisher.PublishAsync` (`ValueTask`). Handlers implement `HandleAsync`.
+- Controllers dispatch via `ISender.SendAsync` then `.Match` — see [../presentation/controllers.md](../presentation/controllers.md).
+- A query/command **is** an `IRequest<T>`, so `SendAsync` binds to it natively — no extension layer.
+
+---
+
+## Pipeline behaviors
+
+Cross-cutting logic wrapping every request = `IPipelineBehavior<TRequest,TResponse>` (open generic,
+`where TRequest : notnull`); implement `HandleAsync(request, RequestHandlerDelegate<TResponse> nextStep, ct)` and `await nextStep()`
+**exactly once** to continue. Register via `AddMediatorBehavior(typeof(X<,>))`.
+
+> **Registration order = execution order.** First registered runs first / wraps the rest. Register logging before
+> validation to log failed validations.
 
 Built-ins (each = `AddMediatorBehavior(typeof(<Behavior><,>))`):
 
-| Extension | Behavior | Opt-in marker | Effect |
-|---|---|---|---|
-| `AddMediatorLoggingBehavior` | `LoggingBehavior<,>` | — (all requests) | logs request name + elapsed ms; failures at `Error` |
-| `AddMediatorValidationBehavior` | `ValidationBehavior<,>` | — (`IValidator<TRequest>` present) | runs `IValidator<T>.ValidateAndThrow`, throws on invalid |
-| `AddMediatorIdempotencyBehavior` | `IdempotencyBehavior<,>` | `IIdempotent` | dedups by `IIdempotent.IdempotencyKey`, caches + replays the response |
-| `AddMediatorAuthorizationBehavior` | `AuthorizationBehavior<,>` | `IRequireAuthorization` | ASP.NET Core authz; throws `UnauthorizedAccessException` / `AuthorizationException` |
+| Extension                          | Behavior                   | Opt-in marker                      | Effect                                                                              |
+|------------------------------------|----------------------------|------------------------------------|-------------------------------------------------------------------------------------|
+| `AddMediatorLoggingBehavior`       | `LoggingBehavior<,>`       | — (all)                            | logs request name + elapsed ms; failures at `Error`                                 |
+| `AddMediatorValidationBehavior`    | `ValidationBehavior<,>`    | — (`IValidator<TRequest>` present) | `IValidator<T>.ValidateAndThrow`, throws on invalid                                 |
+| `AddMediatorIdempotencyBehavior`   | `IdempotencyBehavior<,>`   | `IIdempotent`                      | dedups by `IdempotencyKey`, caches + replays response                               |
+| `AddMediatorAuthorizationBehavior` | `AuthorizationBehavior<,>` | `IRequireAuthorization`            | ASP.NET Core authz; throws `UnauthorizedAccessException` / `AuthorizationException` |
 
-- **Idempotency:** a request opts in by implementing `IIdempotent` (`string IdempotencyKey`). First call runs + stores via `IIdempotencyStore`; repeats with the same key replay the cached response. `AddMediatorIdempotencyBehavior` wires the single-instance `InMemoryIdempotencyStore` — swap in a distributed `IIdempotencyStore` for multi-instance. TTL via `IdempotencyBehavior<,>.Ttl` (default 24h). Requests without the marker pass through untouched.
-- **Authorization:** `IRequireAuthorization.PolicyName` (nullable → default policy); `AddMediatorAuthorizationBehavior` also wires `AddHttpContextAccessor()` + `AddAuthorization()`.
-- Custom behavior: implement `IPipelineBehavior<TRequest,TResponse>` (`where TRequest : notnull`), call `next()` to continue, register via `AddMediatorBehavior(typeof(Yours<,>))`.
-
-## See also
-
-- [../presentation/controllers.md](../presentation/controllers.md) — controllers dispatch via `ISender.Send`, map with `Result.Match`
-- [../foundation/result-pattern.md](../foundation/result-pattern.md) — `Result<T>` as the handler return carrier
-- [../code-style/documentation.md](../code-style/documentation.md) — XML doc format for handlers/behaviors
-- [backend-conventions.md](../backend-conventions.md) — backend sub-domain index
+- **Idempotency:** opt in via `IIdempotent.IdempotencyKey`. First call stores via `IIdempotencyStore` (wires
+  single-instance `InMemoryIdempotencyStore` — swap a distributed store for multi-instance); repeats replay. TTL via
+  `IdempotencyBehavior<,>.Ttl` (default 24h). Unmarked requests pass through.
+- **Authorization:** `IRequireAuthorization.PolicyName` (nullable → default policy); also wires
+  `AddHttpContextAccessor()` + `AddAuthorization()`.

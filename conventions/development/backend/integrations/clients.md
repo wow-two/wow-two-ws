@@ -1,17 +1,21 @@
 # Clients
 
-*Last updated: 2026-06-13*
+*Last updated: 2026-06-14*
 
-External HTTP/API integration classes that wrap a single provider's API.
+> External HTTP/API integration classes that wrap a single provider's API; one client per provider, no business logic inside.
+> Purpose — every outbound call rides one `IHttpClientFactory`-managed, resilience-wrapped path, so no socket exhaustion, stale DNS, or hand-rolled Polly.
+> Use case — reach for a client whenever a service calls a third-party or sibling REST/SDK endpoint (Telegram, billing, maps, GitHub).
+
+---
 
 ## Location
 
 Clients live in integration folders grouped by provider:
 
-| Layer | Folder | Examples |
-|---|---|---|
-| Common (shared across services) | `{Repo}.Common/Integrations/{Provider}/` | `TelegramClient` |
-| Service-specific | `{Service}/Infrastructure/Integrations/{Provider}/` | `LocationApiClient` |
+- Common (shared across services) → `{Repo}.Common/Integrations/{Provider}/` — e.g. `TelegramClient`
+- Service-specific → `{Service}/Infrastructure/Integrations/{Provider}/` — e.g. `LocationApiClient`
+
+---
 
 ## Modeling
 
@@ -24,10 +28,12 @@ Clients live in integration folders grouped by provider:
 
 ### Lifetime
 
-Every outbound client is a typed/named `HttpClient` managed by `IHttpClientFactory` — **never** a manually-`new`'d `HttpClient` (socket exhaustion + no DNS refresh). Two paths, both ending in the SDK resilience pipeline:
+Every outbound client is a typed/named `HttpClient` managed by `IHttpClientFactory` — **never** a manually-`new`'d `HttpClient` (socket
+exhaustion + no DNS refresh). Two paths, both ending in the SDK resilience pipeline:
 
-- **SDK helper (preferred)** — register via `AddResilientClient<T>` / `AddRefitApiClient<TApi>`; the pipeline is applied for you (see [Resilience](#resilience-mandatory)).
-- **Manual `AddHttpClient<T>()`** — only when you need configuration the helpers don't expose. You **must** chain `.AddSdkResilience(...)` yourself (next section).
+- **SDK helper (preferred)** — register via `AddResilientClient<T>` / `AddRefitApiClient<TApi>`; the pipeline is applied for you (see
+  [Resilience](#resilience-mandatory)).
+- **Manual `AddHttpClient<T>()`** — only when you need configuration the helpers don't expose. You **must** chain `.AddSdkResilience(...)` yourself.
 
 ```csharp
 builder.Services.AddHttpClient<TelegramClient>(c =>
@@ -44,15 +50,21 @@ builder.Services.AddHttpClient<TelegramClient>(c =>
 - Settings type follows [settings.md](../runtime/settings.md) rules — `sealed record`, `init`-only
 - Never hard-code base URLs or credentials in the client
 
+---
+
 ## Resilience (mandatory)
 
-> **Rule:** every outbound `HttpClient` carries the SDK resilience pipeline. Either register via `AddResilientClient<T>` / `AddRefitApiClient<TApi>` (which apply it), or chain `AddSdkResilience(...)` onto a manual `AddHttpClient<T>()`. **Never ship a bare `HttpClient`**, and **never** hand-roll Polly handlers — tune through `HttpResilienceOptions` instead.
+> **Rule:** every outbound `HttpClient` carries the SDK resilience pipeline. Either register via `AddResilientClient<T>` / `AddRefitApiClient<TApi>`
+> (which apply it), or chain `AddSdkResilience(...)` onto a manual `AddHttpClient<T>()`. **Never ship a bare `HttpClient`**, and **never** hand-roll Polly
+> handlers — tune through `HttpResilienceOptions` instead.
 
 SDK source: `workbench/wow-two-sdk-beta/wow-two-sdk.backend.beta/src/http/`.
 
 ### What the pipeline does
 
-`AddSdkResilience` (in `HttpResilienceBuilderExtensions`) wraps the client in one standard handler — retry → circuit breaker → per-attempt timeout, all inside a total-request timeout. It is a thin tuning layer over `IHttpClientBuilder.AddStandardResilienceHandler(...)` from `Microsoft.Extensions.Http.Resilience` (Polly v8), driven entirely by `HttpResilienceOptions`:
+`AddSdkResilience` (in `HttpResilienceBuilderExtensions`) wraps the client in one standard handler — retry → circuit breaker → per-attempt timeout, all
+inside a total-request timeout. It is a thin tuning layer over `IHttpClientBuilder.AddStandardResilienceHandler(...)` from
+`Microsoft.Extensions.Http.Resilience` (Polly v8), driven entirely by `HttpResilienceOptions`:
 
 ```csharp
 public static IHttpClientBuilder AddSdkResilience(
@@ -62,13 +74,12 @@ public static IHttpClientBuilder AddSdkResilience(
 
 ### Registration helpers
 
-Prefer these over raw `AddHttpClient` — they bundle base address + resilience (and, for Refit, SDK JSON) into one call. All three return `IHttpClientBuilder`, so you can chain further (`.AddSdkResilience(...)` is already applied; add auth/header handlers after).
+Prefer these over raw `AddHttpClient` — they bundle base address + resilience (and, for Refit, SDK JSON) into one call. All return `IHttpClientBuilder`, so
+you can chain further (`.AddSdkResilience(...)` is already applied; add auth/header handlers after).
 
-| Helper | File | Use for |
-|---|---|---|
-| `AddRefitApiClient<TApi>` | `RefitClientServiceCollectionExtensions` | Declarative Refit interface clients (**default for new clients**) |
-| `AddResilientClient<TClient>` | `TypedClientServiceCollectionExtensions` | Plain typed-client class (constructor-injected `HttpClient`, no Refit) |
-| `AddResilientClient(name, …)` | `TypedClientServiceCollectionExtensions` | Named client resolved via `IHttpClientFactory.CreateClient(name)` |
+- `AddRefitApiClient<TApi>` (`RefitClientServiceCollectionExtensions`) — declarative Refit interface clients (**default for new clients**)
+- `AddResilientClient<TClient>` (`TypedClientServiceCollectionExtensions`) — plain typed-client class (constructor-injected `HttpClient`, no Refit)
+- `AddResilientClient(name, …)` (`TypedClientServiceCollectionExtensions`) — named client resolved via `IHttpClientFactory.CreateClient(name)`
 
 ```csharp
 // Refit (default) — wires SDK JSON (JsonOptionsPresets.Default) + base address + resilience
@@ -90,7 +101,8 @@ builder.Services.AddRefitApiClient<IBillingApi>(
     configureClient: c => c.DefaultRequestHeaders.Add("X-Tenant", "acme"));
 ```
 
-`AddRefitApiClient<TApi>` builds its `RefitSettings` from `CreateDefaultRefitSettings()` — `SystemTextJsonContentSerializer` over `JsonOptionsPresets.Default`. Don't pass a hand-built `RefitSettings`; override JSON at the preset layer.
+`AddRefitApiClient<TApi>` builds its `RefitSettings` from `CreateDefaultRefitSettings()` — `SystemTextJsonContentSerializer` over
+`JsonOptionsPresets.Default`. Don't pass a hand-built `RefitSettings`; override JSON at the preset layer.
 
 ### Tuning — `HttpResilienceOptions`
 
@@ -104,18 +116,19 @@ Adjust via the `configureResilience` / `configure` delegate. Do **not** add a cu
 | `CircuitBreakerSamplingDuration` | `30s` | failure-rate window (must be ≥ 2× `AttemptTimeout`) |
 | `CircuitBreakerFailureRatio` | `0.1` | trip threshold (10% failures in the window) |
 
-OTel `HttpClient` instrumentation is wired by the observability package, so every call through the pipeline is traced automatically — no per-client tracing setup.
+OTel `HttpClient` instrumentation is wired by the observability package, so every call through the pipeline is traced automatically — no per-client tracing
+setup.
 
 ### Cross-cutting handlers (beyond resilience)
 
 These layer onto the same `IHttpClientBuilder`; chain after the registration helper. Each has its own options type — don't reinvent.
 
-| Concern | Extension | Options |
-|---|---|---|
-| OAuth2 client-credentials bearer token (cached) | `OAuth2ClientCredentialsHttpClientBuilderExtensions` | `OAuth2ClientCredentialsOptions` |
-| Mutual TLS (client cert) | `MutualTlsHttpClientBuilderExtensions` | `MutualTlsOptions` |
-| Request hedging (parallel attempts) | `HttpHedgingBuilderExtensions` | `HttpHedgingOptions` |
-| Inbound→outbound header propagation | `HeaderPropagationServiceCollectionExtensions` | — |
+- OAuth2 client-credentials bearer token (cached) → `OAuth2ClientCredentialsHttpClientBuilderExtensions` · `OAuth2ClientCredentialsOptions`
+- Mutual TLS (client cert) → `MutualTlsHttpClientBuilderExtensions` · `MutualTlsOptions`
+- Request hedging (parallel attempts) → `HttpHedgingBuilderExtensions` · `HttpHedgingOptions`
+- Inbound→outbound header propagation → `HeaderPropagationServiceCollectionExtensions` (`AddConventionalHeaderPropagation` + per-client `AddPropagatedHeaders`)
+
+---
 
 ## Naming
 
@@ -125,6 +138,8 @@ These layer onto the same `IHttpClientBuilder`; chain after the registration hel
 | `{Provider}{Domain}Client` | Multi-domain provider with separate clients | `GoogleMapsClient`, `GooglePlacesClient` |
 | `{Provider}ApiClient` | Generic wrapper around a provider's REST API | `LocationApiClient` |
 | `I{Provider}Api` | Refit interface (declarative client) | `IBillingApi`, `IGitHubApi` |
+
+---
 
 ## Documentation
 
@@ -151,16 +166,13 @@ public sealed class TelegramClient(HttpClient http, IOptions<TelegramSettings> s
 
 - `/// <summary>` one-liner — verb start (`Sends`, `Gets`, `Posts`, `Uploads`)
 
+---
+
 ## Error handling
 
 - HTTP errors bubble up — let the calling service handle / translate
 - Don't catch `HttpRequestException` inside the client (loses context)
 - Provider-specific error responses get deserialized to a typed model — return Result or throw a typed exception
-- Don't catch-and-retry inside the client — retries/circuit-breaking are the resilience pipeline's job (`HttpResilienceOptions`), not the client's
-
-## See also
-
-- [services.md](../architecture/services.md) — service naming + DI lifetime
-- [settings.md](../runtime/settings.md) — settings records
-- [documentation.md](../code-style/documentation.md) — XML doc + starter table
-- `workbench/wow-two-sdk-beta/wow-two-sdk.backend.beta/src/http/core/README.md` — outbound HTTP quickstart (Refit + typed clients + resilience)
+- Don't catch-and-retry inside the client — retries/circuit-breaking are the resilience pipeline's job (`HttpResilienceOptions`), not the client's. Service
+  naming + DI lifetime live in [services.md](../architecture/services.md); outbound-HTTP quickstart in
+  `workbench/wow-two-sdk-beta/wow-two-sdk.backend.beta/src/http/Core/Core.md`

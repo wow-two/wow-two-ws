@@ -1,207 +1,188 @@
 # Result pattern
 
-*Last updated: 2026-06-13*
+*Last updated: 2026-06-14*
 
-Operations that can succeed or fail return a **result type** instead of throwing. The canonical carrier is the SDK's generic `Result` / `Result<T>`; named domain containers (sealed-class inheritance, CQRS static containers) are the per-operation alternative when a single railway value is too coarse.
+Every handler and endpoint returns `AppResult<TSuccess, TFailure>` — a discriminated union carrying a typed success **or** a typed, context-bearing failure; raw `Ok(dto)` returns are banned ecosystem-wide.
 
-## Canonical carrier — SDK `Result` / `Result<T>`
+## The model — `AppResult<TSuccess, TFailure>`
 
-> **Default for new code.** `WoW.Two.Sdk.Backend.Beta.Results.Result` (no value) and `Result<T>` (value-carrying), in [`src/Foundation/Results/Result.cs`](../../../../workbench/wow-two-sdk-beta/wow-two-sdk.backend.beta/src/Foundation/Results/Result.cs) + [`ResultOfT.cs`](../../../../workbench/wow-two-sdk-beta/wow-two-sdk.backend.beta/src/Foundation/Results/ResultOfT.cs).
-
-Both are **abstract records** with a private constructor and two nested sealed-record cases:
-
-- `Result` → `Result.Success` · `Result.Failure(DomainError Error)`
-- `Result<T>` → `Result<T>.Success(T Value)` · `Result<T>.Failure(DomainError Error)`
-
-Construct via static factories — never `new` a case directly:
-
-| Factory | Returns | Use |
-|---|---|---|
-| `Result.Ok()` | `Result.Success` | Void operation succeeded |
-| `Result.Fail(error)` | `Result.Failure` | Void operation failed, carries `DomainError` |
-| `Result<T>.Ok(value)` | `Result<T>.Success` | Operation produced `value` |
-| `Result<T>.Fail(error)` | `Result<T>.Failure` | Operation failed, carries `DomainError` |
-
-Failure **always** carries a `DomainError` (§ DomainError) — there is no bare-string failure case on the SDK carrier. `IsSuccess` is a convenience predicate (`this is Success`); prefer `Match` over reading it.
-
-### Consume — `Match` / `Map`
-
-`Match<TOut>(onSuccess, onFailure)` collapses both cases into one value; `onFailure` receives the `DomainError`. `Map<TOut>(selector)` transforms the success value and propagates the failure unchanged — `Result.Map` lifts a void result into `Result<TOut>`, `Result<T>.Map` re-maps the value.
+- `abstract record AppResult<TSuccess, TFailure>` with a **private constructor** → the only subtypes are its two nested cases.
+- Constrained: `where TSuccess : ISuccessResult`, `where TFailure : IFailureResult` — both are empty marker interfaces. The compiler refuses any payload that isn't a declared success/failure type.
+- Two nested sealed cases:
+  - `Success(TSuccess Data, IApplicationSuccessContext? Context = null)`
+  - `Failure(TFailure Error, IApplicationFailureContext? Context = null)`
+- Canonical `AppResult<,>` ships in the **SDK** — `WoW.Two.Sdk.Backend.Beta.Mediator` (`src/Mediator/Result/`). Products still hold a local `ApplicationResult` copy in `Common/Mediator/` until the pending code migration drops it for the SDK reference (see § Rename). Pairs with the mediator — [`../messaging/mediator.md`](../messaging/mediator.md) for `IQuery`/`ICommand`/dispatch.
 
 ```csharp
-using WoW.Two.Sdk.Backend.Beta.Results;
-using WoW.Two.Sdk.Backend.Beta.Errors;
+public abstract record AppResult<TSuccess, TFailure>
+    where TSuccess : ISuccessResult
+    where TFailure : IFailureResult
+{
+    private AppResult() { }
 
-Result<User> result = repo.Find(id) is { } user
-    ? Result<User>.Ok(user)
-    : Result<User>.Fail(DomainError.NotFound("user.not_found", "User not found"));
-
-string label = result.Match(
-    onSuccess: u => u.DisplayName,
-    onFailure: err => $"[{err.Code}] {err.Message}");
-
-Result<UserDto> dto = result.Map(u => u.ToDto());   // failure flows through untouched
+    public sealed record Success(TSuccess Data, IApplicationSuccessContext? Context = null) : AppResult<TSuccess, TFailure>;
+    public sealed record Failure(TFailure Error, IApplicationFailureContext? Context = null) : AppResult<TSuccess, TFailure>;
+}
 ```
 
-> **Drift — do NOT cite `ErrorOr<T>` or implicit `DomainError`→result conversions.** They appear only in [`src/Foundation/Errors/README.md`](../../../../workbench/wow-two-sdk-beta/wow-two-sdk.backend.beta/src/Foundation/Errors/README.md) (`public ErrorOr<User> GetUser(...) => ... DomainError.NotFound(...)`). No `ErrorOr` type and no `implicit operator` exists in any `.cs` under `Foundation/Results` or `Foundation/Errors`. Until the SDK ships them, return `Result<T>.Fail(error)` explicitly. The README is stale.
+---
 
-## DomainError
+## Why it carries more than the payload
 
-`WoW.Two.Sdk.Backend.Beta.Errors.DomainError` ([`src/Foundation/Errors/DomainError.cs`](../../../../workbench/wow-two-sdk-beta/wow-two-sdk.backend.beta/src/Foundation/Errors/DomainError.cs)) is the immutable failure payload:
+The union deliberately holds **more than the success DTO** — that surplus is the reason raw returns are banned:
+
+- **Typed failure** — `Failure.Error` is a domain `IFailureResult`, not a bare string/exception. Each operation's failure carries a **message + a `FailureCategory`** (the category pattern below) — a uniform, mappable shape, not per-operation ad-hoc flags. A handler that returned just the DTO would have nowhere to put a typed, mappable failure.
+- **Per-side context** — `Success.Context` (`IApplicationSuccessContext`) and `Failure.Context` (`IApplicationFailureContext`) are optional, separately-typed extension slots: cache-hit metadata / pagination on success; retry-after hints / validation detail on failure. Two layers, each independently extensible, neither leaking into the other.
+- **Exhaustiveness** — a closed union (private ctor + sealed cases) makes the success/failure split compiler-checked at every call site; a raw `dto` erases the failure branch entirely.
+
+---
+
+## The success / failure payloads
+
+`TSuccess` / `TFailure` are **per-operation domain result containers** (the `{Domain}{Operation}Result` types), not generic. They implement the markers and hold the operation's data / error shape. Every `Failure` follows the **category pattern** — it implements the app's `I{App}Failure` (below), so it carries a `string ErrorMessage` + a `FailureCategory`, never per-operation ad-hoc flags:
 
 ```csharp
-public sealed record DomainError(string Code, string Message, DomainErrorCategory Category, string? Detail = null)
+/// <summary>Outcome of fetching a single code.</summary>
+public abstract record CodeGetByIdResult
+{
+    private CodeGetByIdResult() { }
+
+    public sealed record Success(CodeDto Code) : CodeGetByIdResult, ISuccessResult;
+
+    /// <summary>Category maps the HTTP status (NotFound → 404).</summary>
+    public sealed record Failure(string ErrorMessage, FailureCategory Category) : CodeGetByIdResult, IAppFailure;
+}
 ```
 
-- `Code` — stable, dotted, machine-readable (`orders.not_found`). Not localized.
-- `Message` — human-readable; localize when possible.
-- `Category` — a `DomainErrorCategory` member; drives the HTTP mapping.
-- `Detail?` — optional extra context.
-- `StatusCode` — computed `(int)Category`; no manual switch needed.
+- `Failure` carries a **message** (`ErrorMessage`, surfaced as the ProblemDetails detail) + a **`FailureCategory`** (drives the HTTP status) — the uniform two-field shape every operation's failure shares, not a bespoke `bool NotFound` per operation.
+- The container itself is the `TSuccess` / `TFailure` argument: `AppResult<CodeGetByIdResult.Success, CodeGetByIdResult.Failure>`.
+- Container *file shape* (abstract-record + private ctor, nested `Success`/`Failure` cases, markers) is the §`The success / failure payloads` shape above. The request/handler layout that produces it → [`../messaging/mediator.md`](../messaging/mediator.md) (CQRS request + handler).
 
-Prefer the convenience factories over the positional constructor — they pin the category:
+---
 
-| Factory | Category | HTTP |
-|---|---|---|
-| `DomainError.Validation(code, message, detail?)` | `Validation` | 400 |
-| `DomainError.Unauthorized(...)` | `Unauthorized` | 401 |
-| `DomainError.Forbidden(...)` | `Forbidden` | 403 |
-| `DomainError.NotFound(...)` | `NotFound` | 404 |
-| `DomainError.Conflict(...)` | `Conflict` | 409 |
-| `DomainError.BusinessRule(...)` | `BusinessRule` | 422 |
-| `DomainError.Unexpected(...)` | `Unexpected` | 500 |
-| `DomainError.Unavailable(...)` | `Unavailable` | 503 |
+## The category pattern — uniform failure shape
 
-`DomainErrorCategory` is an HTTP-status-valued enum — each member's integer value *is* its status code: `Validation = 400`, `Unauthorized = 401`, `Forbidden = 403`, `NotFound = 404`, `Conflict = 409`, `BusinessRule = 422`, `TooManyRequests = 429`, `Unexpected = 500`, `Unavailable = 503`. (`TooManyRequests` has no convenience factory yet — use the positional constructor with `DomainErrorCategory.TooManyRequests`.)
+Every product defines **one** failure interface + **one** category enum; every operation's `Failure` implements the interface. This replaces per-operation ad-hoc flags with a single mappable shape, and keeps the failure→HTTP map in one place.
 
-## When to use which
+**1. Product failure interface** — refines the SDK's empty `IFailureResult` marker with the two fields the API layer needs:
 
-| Shape | Use when |
+```csharp
+/// <summary>Product-side failure shape every operation's Failure implements.</summary>
+public interface IAppFailure : IFailureResult
+{
+    /// <summary>Human-readable message surfaced as the ProblemDetails detail.</summary>
+    string ErrorMessage { get; }
+
+    /// <summary>Category that drives the HTTP status code.</summary>
+    FailureCategory Category { get; }
+}
+```
+
+**2. `FailureCategory` enum** — the closed set of failure kinds, each mapping to one HTTP status:
+
+```csharp
+/// <summary>Categorizes a failure so the API layer can map it to an HTTP status code.</summary>
+public enum FailureCategory
+{
+    Unexpected = 0,   // → 500
+    Validation,       // → 400
+    NotFound,         // → 404
+    Conflict,         // → 409
+    Unauthorized,     // → 401
+    Forbidden         // → 403
+}
+```
+
+**3. Product-side `ApiResults.ToStatusCode`** — the single app-side category→status map (lives in the `Api` project):
+
+```csharp
+/// <summary>Maps a failure category to an HTTP status code — the single app-side error→status map.</summary>
+internal static class ApiResults
+{
+    public static int ToStatusCode(FailureCategory category) => category switch
+    {
+        FailureCategory.Validation   => StatusCodes.Status400BadRequest,
+        FailureCategory.NotFound     => StatusCodes.Status404NotFound,
+        FailureCategory.Conflict     => StatusCodes.Status409Conflict,
+        FailureCategory.Unauthorized => StatusCodes.Status401Unauthorized,
+        FailureCategory.Forbidden    => StatusCodes.Status403Forbidden,
+        _                            => StatusCodes.Status500InternalServerError
+    };
+}
+```
+
+- **Stays product-side.** The SDK `IFailureResult` remains an **empty marker** — the `Category` lives on the product's `I{App}Failure`, never the SDK. Each app implements its own `I{App}Failure` + `FailureCategory`; drydock's `IDrydockFailure` / `FailureCategory` is the reference implementation.
+- Naming: `I{App}Failure` per app (`IDrydockFailure`, `ISmartQrFailure`, …); the enum is plain `FailureCategory`.
+- **Future option:** the cross-app DRY-lift of `FailureCategory` + the `ToStatusCode` map into the SDK is a possible later move — deferred while it stays product-side and each app owns its own copy.
+
+---
+
+## Construction — Success vs Failure
+
+A handler `new`s the case directly (no factory layer) and wraps the domain container:
+
+```csharp
+// success
+return new AppResult<CodeGetByIdResult.Success, CodeGetByIdResult.Failure>
+    .Success(new CodeGetByIdResult.Success(code.ToDto()));
+
+// failure — typed, with the category the controller maps on
+return new AppResult<CodeGetByIdResult.Success, CodeGetByIdResult.Failure>
+    .Failure(new CodeGetByIdResult.Failure("Code not found", FailureCategory.NotFound));
+```
+
+- A void-ish command still returns `AppResult<…>` with a `Success` payload (which may be empty) — **never** bare `Unit`, `Task`, or a naked DTO.
+- `Context` is optional; pass it only when the success/failure side has metadata to surface.
+
+---
+
+## Consumption — `.Match(onSuccess, onFailure)`
+
+Controllers collapse the union with `.Match` — the mandated mapping path; the controller stays a thin dispatcher with no `if`/`switch` over the cases:
+
+```csharp
+[HttpGet("{id:guid}")]
+public async Task<IActionResult> GetById(Guid id, CancellationToken ct) =>
+    (await sender.Send(new CodeGetByIdQuery { Id = id, UserId = userId }, ct)).Match<IActionResult>(
+        onSuccess: ok => Ok(ApiResponse<CodeDto>.Ok(ok.Data.Code)),
+        onFailure: fail => Problem(detail: fail.Error.ErrorMessage, statusCode: ApiResults.ToStatusCode(fail.Error.Category)));
+```
+
+- `Match<TOut>(onSuccess, onFailure)` — one explicit type arg (`TOut`); `TSuccess`/`TFailure` infer from the receiver. Returns one value from both branches — success → `Ok`/`Created`/`NoContent`; failure → always `Problem`, the status mapped by `ApiResults.ToStatusCode(fail.Error.Category)` off the failure's `FailureCategory` (e.g. `NotFound` → 404). The controller never inlines a status literal or a bare `NotFound()`/`Conflict()` — see [`../presentation/controllers.md`](../presentation/controllers.md).
+- Each arm receives the **case object**, not a deconstructed payload — success arm gets the `.Success` case (reach `.Data` / `.Context`), failure arm gets the `.Failure` case (reach `.Error` / `.Context`).
+- `.Match` ships in the SDK — `AppResultExtensions.Match` (`src/Mediator/Result/`), two overloads: a case-object success arm (`Func<AppResult<…>.Success, TOut>`) and a no-arg success arm (`Func<TOut>`), each paired with a `Func<AppResult<…>.Failure, TOut>` failure arm. Products consume via the SDK once they reference it; the local-copy repos switch over from raw `switch`/`is` as part of the migration below.
+- See [`../presentation/controllers.md`](../presentation/controllers.md) for the controller shape and [`../messaging/mediator.md`](../messaging/mediator.md) for the `ISender.Send` dispatch it sits on.
+
+---
+
+## The rule — enforced on every handler & endpoint
+
+| Rule | Statement |
 |---|---|
-| **`Result` / `Result<T>` (railway)** | Default. One success value (or none) + one error. Composes via `Map`/`Match`; failure already HTTP-aware through `DomainError`. New CQRS handlers, service methods, repository ops. |
-| **Named domain container** (sealed-class inheritance, *below*) | A single error payload is too coarse — the operation has **multiple distinct outcomes**, a **typed failure enum** (`SeedFailure`), or **variant-specific success data** that doesn't fit one `T`. The base name reads as the outcome category (`SeedResult<T>`). |
-| **CQRS static container** (`{Domain}{Op}Result` with `ISuccessResult`/`IFailureResult`) | Product-side query/command result feeding the `ApiResponse` mapper. Lives in the product, not the SDK. See [api-endpoints.md](../presentation/api-endpoints.md). |
+| **Return type** | Every `IQueryHandler` / `ICommandHandler` returns `AppResult<TSuccess, TFailure>`. Every controller action maps one. |
+| **No raw success** | `Ok(dto)`, `return dto`, `return Unit.Value` from a handler are **banned** — the typed failure + context must always be expressible. |
+| **Typed failure** | Failures travel as the operation's `IFailureResult` — concretely the app's `I{App}Failure` (`ErrorMessage` + `FailureCategory`), never a thrown exception, bare string, or per-op ad-hoc flag crossing the boundary. |
+| **Map, don't branch** | Controllers call `.Match` (products still on the local copy: exhaustive `switch`/`is` until they reference the SDK) — no business logic, no `try/catch` (errors → [`../presentation/problem-details.md`](../presentation/problem-details.md)). |
 
-> `ISuccessResult` / `IFailureResult` are **product-side** marker interfaces, not SDK types — they don't exist under the SDK `Foundation`. Real SDK named containers (e.g. `EmailSendResult` in [`comms/email/IEmailSender.cs`](../../../../workbench/wow-two-sdk-beta/wow-two-sdk.backend.beta/src/comms/email/IEmailSender.cs), carrying its own `FailureReason`) follow the same *named-container* spirit without those interfaces.
+Rationale: a uniform union means the failure path is **always typed and mappable**, context rides alongside the payload without polluting it, and the success/failure split is compiler-enforced at every seam — none of which a raw `Ok(dto)` can guarantee.
 
-## Named domain container — sealed-class inheritance
+---
 
-When the railway carrier is too coarse, model the outcome as **sealed class inheritance** — one abstract base with `Success` and `Failure` as sealed inner classes.
+## Migration — products → SDK `AppResult`
 
-### Why this shape
+The canonical union ships as **`AppResult<TSuccess, TFailure>`** in the SDK (`WoW.Two.Sdk.Backend.Beta.Mediator`). Products still carry a local `ApplicationResult<TSuccess, TFailure>` in `Common/Mediator/` — the pending code migration deletes that copy and repoints products at the SDK type (and only the carrier moves — markers and context interfaces keep their names). This doc already uses the target name `AppResult`; until a product migrates, its local symbol is `ApplicationResult` with the same shape.
 
-- Pattern-matching exhaustiveness — `switch` over the base with `Success` and `Failure` cases is compiler-checked
-- The base name reads as the outcome category (`SeedResult<T>`, `ChannelGetAllResult`)
-- Different payloads on each variant — `Success` holds the data, `Failure` holds the error (and an optional typed failure enum the railway `DomainError` can't express)
-- Sealed inner classes prevent external subclassing
-- Static factory methods on each variant keep construction explicit
-
-### File-per-type exception
-
-`Success` and `Failure` are **nested inside** the abstract base — they exist only as variants of the parent. The whole hierarchy lives in **one file** (per [code-organization.md](../code-style/code-organization.md) nested-types rule).
-
-### Modeling
-
-#### Base class
-
-- **Abstract class** with private constructor (prevents external subclassing)
-- **Shared properties** — common to both outcomes (e.g. `Id`, `OperationVersion`)
-- **`{ get; private init; }`** — properties set only via the static factory methods
-
-#### Success / Failure inner classes
-
-- **`public sealed class Success : {Base}`** and **`public sealed class Failure : {Base}`**
-- **Static `Create()` factory** — each subclass exposes a static factory method
-- **Outcome-specific properties**: Success holds the payload, Failure holds error details + optional failure enum
-
-```csharp
-/// <summary>Represents the outcome of reading seed data for an entity type.</summary>
-/// <example>Success with deserialized entities, or failure with reason and message</example>
-public abstract class SeedResult<T>
-{
-    private SeedResult() { }
-
-    /// <summary>Seed data read successfully — entities ready for upsert.</summary>
-    /// <example>3 channel records deserialized from seed file</example>
-    public sealed class Success : SeedResult<T>
-    {
-        /// <summary>Gets the deserialized entities.</summary>
-        /// <example>Collection of channels</example>
-        public IReadOnlyList<T> Entities { get; private init; } = [];
-
-        public static Success Create(IReadOnlyList<T> entities) => new() { Entities = entities };
-    }
-
-    /// <summary>Seed data read failed — error tracked for diagnostics.</summary>
-    /// <example>Seed file missing from expected path</example>
-    public sealed class Failure : SeedResult<T>
-    {
-        /// <summary>Gets the failure reason category.</summary>
-        /// <example>Seed file missing from expected path</example>
-        public SeedFailure FailureType { get; private init; }
-
-        /// <summary>Gets the human-readable error message.</summary>
-        /// <example>File not found: Data/Seed/channels.json</example>
-        public string ErrorMessage { get; private init; } = "";
-
-        public static Failure Create(SeedFailure failureType, string errorMessage) =>
-            new() { FailureType = failureType, ErrorMessage = errorMessage };
-    }
-}
-```
-
-### Usage
-
-```csharp
-var result = seedReader.Read<ChannelEntity>();
-
-switch (result)
-{
-    case SeedResult<ChannelEntity>.Success success:
-        foreach (var channel in success.Entities) { /* upsert */ }
-        break;
-    case SeedResult<ChannelEntity>.Failure failure:
-        logger.LogError("Seed failed: {Type} — {Message}", failure.FailureType, failure.ErrorMessage);
-        break;
-}
-```
-
-## CQRS variant — domain result containers
-
-For CQRS query/command handlers, the domain result container is a **static class** with nested `Success : ISuccessResult` / `Failure : IFailureResult` records:
-
-```csharp
-/// <summary>Represents the outcome of fetching all channels.</summary>
-/// <example>Success with channels, or failure with error message</example>
-public static class ChannelGetAllResult
-{
-    public sealed record Success(IReadOnlyList<ChannelWithPipelinesDto> Channels) : ISuccessResult;
-    public sealed record Failure(string ErrorMessage) : IFailureResult;
-}
-```
-
-See [api-endpoints.md](../presentation/api-endpoints.md) for full CQRS shape.
+---
 
 ## Naming
 
-| Type | Naming | Example |
-|---|---|---|
-| Railway carrier (SDK) | `Result` / `Result<T>` | — (don't rename per-domain) |
-| Failure payload (SDK) | `DomainError` | `DomainError.NotFound("user.not_found", …)` |
-| Domain operation result | `{Domain}{Operation}Result` | `SeedResult<T>`, `ChannelGetAllResult` |
-| Failure reason enum | `{Domain}{Operation}Failure` or `{Domain}Failure` | `SeedFailure` |
-
-## Documentation
-
-Per [documentation.md](../code-style/documentation.md):
-
-- **SDK carrier / abstract base** — `<summary>` starts with **Represents the outcome of**
-- **Success variant** — `<summary>` describes the success state (no fixed starter)
-- **Failure variant** — `<summary>` describes the failure state (no fixed starter)
-- **Members on each variant** — follow the standard property rules
-
-## See also
-
-- [api-endpoints.md](../presentation/api-endpoints.md) — CQRS Result containers + ApiResponse / ProblemDetails mapping
-- [code-organization.md](../code-style/code-organization.md) — nested-types file rule
-- [documentation.md](../code-style/documentation.md) — XML doc + starter table
+| Type | Name |
+|---|---|
+| Union carrier | `AppResult<TSuccess, TFailure>` |
+| Nested cases | `AppResult<,>.Success` · `AppResult<,>.Failure` |
+| Success / failure markers | `ISuccessResult` · `IFailureResult` (SDK, both empty) |
+| Context markers | `IApplicationSuccessContext` · `IApplicationFailureContext` |
+| Per-operation container | `{Domain}{Operation}Result` (e.g. `CodeGetByIdResult`, `ChannelGetAllResult`) |
+| Product failure interface | `I{App}Failure` (e.g. `IDrydockFailure`) — `ErrorMessage` + `Category` |
+| Failure category enum | `FailureCategory` (`Unexpected`/`Validation`/`NotFound`/`Conflict`/`Unauthorized`/`Forbidden`) |
+| Category→status map | `ApiResults.ToStatusCode(FailureCategory)` (product `Api` project) |

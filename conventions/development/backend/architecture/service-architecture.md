@@ -1,6 +1,6 @@
 # Service architecture
 
-*Last updated: 2026-06-13*
+*Last updated: 2026-06-14*
 
 ## Solution organization
 
@@ -73,4 +73,4 @@ Persistence     (implements Application repository interfaces)
 
 - [host-configuration.md](host-configuration.md) — the `Configure` / `Extensions` split
 - [domain-structuring.md](domain-structuring.md) — subdomains within `Domain/` and `Infrastructure/`
-- [api-endpoints.md](../presentation/api-endpoints.md) — Api layer details
+- [controllers.md](../presentation/controllers.md) — Api layer details (thin-dispatcher controllers)

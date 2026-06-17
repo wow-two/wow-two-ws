@@ -1,23 +1,24 @@
 # State & data
 
-*Last updated: 2026-06-10*
+*Last updated: 2026-06-14*
 
 ## API client — same-origin `/api`
 
-The SPA is served from the .NET host's `wwwroot` in production, so **all API URLs are relative** (`/api/...`). In dev, Vite proxies `/api` to the backend's HTTP launch profile. No base-URL config, no CORS in prod.
+The SPA is served from the .NET host's `wwwroot` in production, so **all API URLs are relative** (`/api/...`). In dev, Vite proxies `/api` to the backend's **HTTPS** port — the frontend always reaches the backend over HTTPS. No base-URL config, no CORS in prod.
 
 ```ts
-// vite.config.ts — dev proxy to the backend's HTTP (odd) port
+// vite.config.ts — dev proxy to the backend's HTTPS (even) port
 export default defineConfig({
   base: '/',                                   // root-relative assets
   plugins: [react(), tailwindcss()],
   server: {
-    proxy: { '/api': { target: 'http://localhost:8211', changeOrigin: true } },
+    // secure:false → accept the .NET dev self-signed cert
+    proxy: { '/api': { target: 'https://localhost:8210', changeOrigin: true, secure: false } },
   },
 });
 ```
 
-Pair with the launch-profile rule (single HTTP backend port) — the proxy targets the backend's **HTTP** port (the frontend dev server itself is HTTPS via mkcert).
+**Always proxy to the backend's HTTPS (even) port** with `secure: false` (the .NET dev cert is self-signed) — never the HTTP port. The Vite dev server itself is HTTPS where mkcert is set up.
 
 ## Client shape
 
@@ -53,4 +54,5 @@ export class ApiError extends Error {
 
 - [hooks.md](hooks.md) — data-fetching hooks
 - [models.md](models.md) — DTO ↔ domain mapping
-- [../backend/api-endpoints.md](../backend/presentation/api-endpoints.md) — the `ApiResponse<T>` / `Problem()` shapes this consumes
+- [../backend/presentation/response-models.md](../backend/presentation/response-models.md) — the `ApiResponse<T>` success envelope this consumes
+- [../backend/presentation/problem-details.md](../backend/presentation/problem-details.md) — the `Problem()` / ProblemDetails error shape this consumes

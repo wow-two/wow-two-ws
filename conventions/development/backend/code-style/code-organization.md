@@ -1,6 +1,6 @@
 # Code organization
 
-*Last updated: 2026-02-23*
+*Last updated: 2026-06-14*
 
 ## One file per type (REQUIRED)
 
@@ -43,6 +43,19 @@ Nested types (sealed inner classes, value-object records inside a parent) live i
 - File name = primary type name + `.cs` (`Channel.cs`, `IEntity.cs`, `ChannelGetAllQuery.cs`)
 - For the generic+non-generic exception, the non-generic name wins (`IEntity.cs`, not `IEntity{T}.cs`)
 - Generic-only types use the simple base name (`Repository.cs` for `Repository<T>`)
+
+## Source folders
+
+- **Backend source folders are PascalCase**, matching their namespace segment 1:1 (`Mediator/Cqrs/`, `Application/Channels/Queries/`, `Data/Migrations/`). Distinct from the top-level **project** dir `{slug}.backend-services/`, which stays kebab — that's the IDE-collision-proof project folder, not a source folder ([repo/repo-structure.md](../../repo/repo-structure.md) §3).
+
+## Acronyms
+
+- **Acronyms are always PascalCase, never all-caps** — `Id` not `ID`, `Ai` not `AI`, `Api` not `API`, `Sql`, `Http`, `Json`, `Io`, `Ui`, `Mqtt`, `Grpc`.
+- First letter capital, rest lowercase, **even when it distorts an established acronym** — consistency over original styling.
+- Applies to type / namespace / folder / member names.
+- This governs *all-caps runs* only — a mixed-case proper name with no all-caps run (`OAuth`, `SendGrid`, `MailKit`) is unaffected.
+- Cross-ref: the SDK's `docs/conventions/naming.md` §Acronyms matches this rule
+  ([wow-two-sdk-beta/wow-two-sdk.backend.beta](../../../../../wow-two-sdk-beta/wow-two-sdk.backend.beta/docs/conventions/naming.md)).
 
 ## Section dividers
 

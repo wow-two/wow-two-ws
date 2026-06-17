@@ -45,6 +45,9 @@ PROJECTS=(
   "pdf-editor|ventures/pdf-editor/platform/pdf-editor.backend-services/PdfEditor.BackendServices.sln|-"
   "backend-beta|wow-two-sdk-beta/wow-two-sdk.backend.beta/src/WoW.Two.Sdk.Backend.Beta.slnx|-"
   "frontend-beta|-|wow-two-sdk-beta/wow-two-sdk-beta.ui"
+  "sift|ventures/sift/engineering/codebase/sift.backend-services/Sift.sln|ventures/sift/engineering/codebase/sift.frontend-services"
+  "transcript-forge|ventures/transcript-forge/engineering/codebase/transcript-forge.backend-services/TranscriptForge.sln|ventures/transcript-forge/engineering/codebase/transcript-forge.frontend-services"
+  "prism|-|ventures/10x-ventures-prism/engineering/codebase/prism.frontend-services"
 )
 
 MODE="both"     # both | backend | frontend

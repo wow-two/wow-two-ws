@@ -18,5 +18,7 @@
 | haven | frontends (Vite) | 7501–7507 (crm · admin · channels · map) |
 | ventures/prism | frontend (Vite) | 5180 |
 | product-template (`Sample` example) | API · Vite | 8220 https / 8221 http · 8225 |
+| sift | API · Vite | 8230 https / 8231 http · 8226 |
+| transcript-forge | API · Vite | 8232 https / 8233 http · 8227 |
 
-**Next free backend even port: 8230.** Append a row whenever you allocate.
+**Next free backend even port: 8234.** Append a row whenever you allocate.

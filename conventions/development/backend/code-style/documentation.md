@@ -1,6 +1,6 @@
 # Documentation
 
-*Last updated: 2026-02-23*
+*Last updated: 2026-06-14*
 
 ## XML doc format
 
@@ -62,7 +62,8 @@ The first word of every `<summary>` is fixed by type-kind. This is the canonical
 | Client (HTTP wrapper) | **Wraps** or **Integrates with** | `Wraps the Telegram Bot API for sending messages and managing topics.` |
 | Factory | **Creates** | `Creates AI clients keyed by provider + model tier.` |
 | Repository | **Fetches** (read-heavy) or **Persists** (write-heavy) | `Fetches unclassified listings via Dapper.` |
-| Query/Command (CQRS message) | **Requests** (queries) or **Triggers** (commands) | `Requests all channels with their pipelines.` |
+| CQRS marker / handler interface (`IQuery`, `ICommand`, `IQueryHandler`, …) | **Defines** | `Defines a query that returns <typeparamref name="TResult"/>.` |
+| Query/Command (concrete CQRS message) | **Represents** | `Represents a query to get all channels with their pipelines and sources.` |
 | Query/Command handler | **Handles `<see cref="X"/>`** | `Handles <see cref="ChannelGetAllQuery"/>.` |
 | Static constants class | **Contains** | `Contains the canonical kebab-case slugs for every channel.` |
 | Static registry class | **Tracks** or **Holds** | `Tracks live pipeline executions keyed by pipeline id.` |
@@ -81,6 +82,8 @@ The first word of every `<summary>` is fixed by type-kind. This is the canonical
 | Controller action | Verb at start (HTTP method shape): `Gets`, `Creates`, `Updates`, `Deletes`, `Executes`, `Cancels` | `Gets all channels with their pipelines.` |
 
 A doc violating the starter table is a style miss regardless of content quality.
+
+**Defines / Represents / Handles** — the CQRS verb trio, by layer: **Defines** an interface / marker definition · **Represents** a concrete message model · **Handles** a handler. Same three verbs apply to the mediator markers — see [mediator.md](../messaging/mediator.md) (§ Comment conventions).
 
 ## Summary & remarks tone
 
@@ -177,4 +180,4 @@ var applied = await history.GetAppliedAsync(connection, ct);
 - [entities.md](../persistence/entities.md) — entity-specific doc rules
 - [enums.md](../persistence/enums.md) — enum value documentation
 - [services.md](../architecture/services.md) — service / client / factory naming
-- [api-endpoints.md](../presentation/api-endpoints.md) — query/command/handler docs
+- [mediator.md](../messaging/mediator.md) — query/command/handler naming + docs

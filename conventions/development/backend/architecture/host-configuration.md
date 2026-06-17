@@ -1,6 +1,6 @@
 # Host configuration
 
-*Last updated: 2026-02-23*
+*Last updated: 2026-06-14*
 
 DI registration, middleware, and startup wiring split into two files in `Api/Configurations/`.
 
@@ -107,4 +107,4 @@ public static WebApplicationBuilder AddPipelines(this WebApplicationBuilder buil
 ## See also
 
 - [service-architecture.md](service-architecture.md) — the 5 layers
-- [api-endpoints.md](../presentation/api-endpoints.md) — what registers in `AddControllers` + endpoint conventions
+- [controllers.md](../presentation/controllers.md) — what registers in `AddControllers` + controller conventions

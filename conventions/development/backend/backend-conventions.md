@@ -1,11 +1,11 @@
 # Conventions — Development — Backend (.NET)
 
-*Last updated: 2026-06-13*
+*Last updated: 2026-06-14*
 
 > .NET conventions for every backend service under `wow-two-ws/`. Lookup table — open a file when the
 > task touches it; do not pre-read. Organized by **sub-domain** (one folder per concern; scales as the
 > surface grows). Repo layout is one level up: [../repo/repo-structure.md](../repo/repo-structure.md).
-> How to write a doc here: [authoring.md](authoring.md) (cite symbols + paths, never namespaces).
+> How to write a doc here → template + rules in [../../conventions.md](../../conventions.md) (cite symbols + paths, never namespaces).
 
 ## Sub-domains
 
@@ -19,18 +19,37 @@
 | `foundation/` | Cross-cutting primitives — results, errors, validation, time | Active |
 | **`integrations/`** | Outbound HTTP clients + resilience | **Focus** |
 | `testing/` | Test strategy + harness | Active |
-| `messaging/` · `observability/` · `identity/` · `platform/` | Mediator · logging/tracing · auth · email/jobs/etc. | Proposed (write as built) |
+| `messaging/` | Mediator — request/response, CQRS, notifications | Active |
+| `identity/` | Auth — JWT bearer | Active |
+| `observability/` · `platform/` | logging/tracing · email/jobs/etc. | Proposed (write as built) |
 
 > **Focus (this workstream):** `persistence/` + `integrations/` — delivered by the smart-qr migrator work,
 > polished here. Other sub-domains are updated opportunistically, not the primary target.
+
+## Polish status
+
+Tracks where each doc stands. `baseline` = pre-session (Haven-lifted, untouched) · `drafted` = authored/extended this session, unreviewed · `in progress` = actively polishing · `polished` = reviewed + final.
+
+| Doc | Status |
+|---|---|
+| `persistence/migrations/bespoke-migrations.md` · `migration-dialects.md` | **in progress** |
+| `persistence/migrations/{migrations,ef,dbup,tooling-cli}.md` | drafted |
+| `persistence/database.md` · `entities.md` · `data-access.md` · `enums.md` | drafted |
+| `integrations/clients.md` | drafted |
+| `foundation/result-pattern.md` · `validation.md` · `time.md` | drafted |
+| `messaging/mediator.md` · `architecture/startup-defaults.md` · `presentation/problem-details.md` · `identity/jwt-auth.md` | drafted |
+| `code-style/members.md` · `code-style/idioms.md` | drafted |
+| `code-style/*` · `architecture/{service-architecture,domain-structuring,host-configuration,services}` · `presentation/controllers` · `runtime/*` · `testing/testing.md` | baseline |
 
 ## code-style/ — layer-agnostic authoring
 
 | File | What it covers |
 |---|---|
+| [members.md](code-style/members.md) | Member bodies — block `{ }` over expression `=>`, debuggability rationale |
 | [documentation.md](code-style/documentation.md) | XML doc format + consolidated starter table per type-kind |
 | [code-organization.md](code-style/code-organization.md) | One file per type, section dividers, parameter formatting, raw strings, SQL line length |
 | [models.md](code-style/models.md) | Record style (`{ get; init; }`), member rules, naming |
+| [idioms.md](code-style/idioms.md) | Idiomatic C# sugar — method groups (`IDE0200`); room to grow (target-typed `new`, collection expressions) |
 
 ## architecture/ — layering + host wiring
 
@@ -49,15 +68,25 @@
 | [entities.md](persistence/entities.md) | Entity records, `IKeyedEntity<TId>` PK contract, audit/soft-delete/tenant traits |
 | [enums.md](persistence/enums.md) | Enum naming, native PG enum mapping (`MapEnums`), string-conversion fallback |
 | [data-access.md](persistence/data-access.md) | Dapper, `IDbConnectionFactory`, `SqlNaming`, generic repositories |
-| [migrations.md](persistence/migrations.md) | SQL migrator authoring — layout, Apply/Rollback, `@no-transaction`, drift/orphan, `AddSqlMigrations` |
-| [tooling-cli.md](persistence/tooling-cli.md) | `dotnet tool` CLIs — packaging, exit codes, destructive-op target guard, secret hygiene |
+
+### persistence/migrations/ — the migration sub-domain
+
+| File | What it covers |
+|---|---|
+| [migrations.md](persistence/migrations/migrations.md) | Strategy index — pick `Ef` / `DbUp` / `Sql` (default) + shared concepts |
+| [bespoke-migrations.md](persistence/migrations/bespoke-migrations.md) | Bespoke-SQL migrator — components + lifecycle (provider-agnostic): `AddDatabaseBespokeMigrations`, layout, drift/orphan |
+| [migration-dialects.md](persistence/migrations/migration-dialects.md) | Writing Apply/Rollback SQL — dialect rules (Postgres): quoting, rollback idioms, `@no-transaction` |
+| [ef-migrations.md](persistence/migrations/ef-migrations.md) | EF Core code-first migrations — `AddEfMigrationsRunner<TContext>` |
+| [dbup-migrations.md](persistence/migrations/dbup-migrations.md) | DbUp forward-only scripts — `AddDbUpRunner` |
+| [migration-tooling.md](persistence/migrations/migration-tooling.md) | `dotnet tool` CLIs — packaging, exit codes, destructive-op target guard, secret hygiene |
 
 ## presentation/ — delivery surface
 
 | File | What it covers |
 |---|---|
-| [controllers.md](presentation/controllers.md) | Thin-dispatcher controllers — `ISender.Send` + `Result.Match` |
-| [api-endpoints.md](presentation/api-endpoints.md) | CQRS naming, DTO rules, response shape *(reconcile with controllers.md — see open decisions)* |
+| [controllers.md](presentation/controllers.md) | Thin-dispatcher controllers — `ISender.Send` + `AppResult.Match` |
+| [response-models.md](presentation/response-models.md) | `ApiResponse<T>` success envelope + DTO rules (`{Entity}Dto`) |
+| [problem-details.md](presentation/problem-details.md) | RFC-7807 error responses — `Problem()`, `ApiResults.ToStatusCode`, global handler |
 
 ## runtime/ — config + launch
 
@@ -70,7 +99,21 @@
 
 | File | What it covers |
 |---|---|
-| [result-pattern.md](foundation/result-pattern.md) | Result carrier — `Result<T>` Ok/Fail, `DomainError`, CQRS containers |
+| [result-pattern.md](foundation/result-pattern.md) | Result carrier — `AppResult<TSuccess, TFailure>` union, `ISuccessResult`/`IFailureResult` markers, per-operation containers |
+| [validation.md](foundation/validation.md) | Input validation — `IValidator<T>`, mediator validation behavior |
+| [time.md](foundation/time.md) | Time abstraction — `TimeProvider`, no `DateTime.Now` |
+
+## messaging/ — mediator
+
+| File | What it covers |
+|---|---|
+| [mediator.md](messaging/mediator.md) | In-process request/response + fan-out — `IRequest`/`INotification`, CQRS query/command naming, `ISender`/`IPublisher`, pipeline behaviors |
+
+## identity/ — auth
+
+| File | What it covers |
+|---|---|
+| [jwt-auth.md](identity/jwt-auth.md) | JWT bearer auth — token issuance + validation wiring |
 
 ## integrations/ — outbound HTTP  (focus)
 

@@ -10,7 +10,7 @@
     {
       "name": "prism",
       "runtimeExecutable": "npm",
-      "runtimeArgs": ["run", "dev", "--prefix", "workbench/ventures/prism"],
+      "runtimeArgs": ["run", "dev", "--prefix", "workbench/ventures/10x-ventures-prism/engineering/codebase/prism.frontend-services"],
       "port": 5180
     },
     {

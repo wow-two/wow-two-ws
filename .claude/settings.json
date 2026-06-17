@@ -5,7 +5,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "echo '{\"hookSpecificOutput\":{\"hookEventName\":\"UserPromptSubmit\",\"additionalContext\":\"STYLE (enforce): super-compact only -- bullets / tables / arrows, backticks for identifiers. No paragraph > 2 lines. No scaffolding / narration / recap. Multiple items (comments / findings / options) -> one ### header per item + --- between groups. Expand only when asked.\"}}'"
+            "command": "echo '{\"hookSpecificOutput\":{\"hookEventName\":\"UserPromptSubmit\",\"additionalContext\":\"STYLE (enforce): super-compact -- bullets / tables / arrows, backtick every identifier, no paragraph > 2 lines, no narration / recap. A reply with >=2 sections -> a ### header per section AND a --- rule BETWEEN every section (dense, but separated -- never run sections together into a wall of text). 1 topic -> tight bullets, no header/rule. Expand only when asked.\"}}'"
           }
         ]
       }

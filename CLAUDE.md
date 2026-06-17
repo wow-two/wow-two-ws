@@ -47,5 +47,6 @@ docs/ (strategy, playbooks) · system/sessions/ · ideas/ · scripts/ · workben
 - Each repo's own `CLAUDE.md` overrides this root. Conventional commits (`feat`/`fix`/`docs`/`refactor`).
 - Passive language — describe where things are; never instruct to pre-read.
 - **Git:** only commit/push when explicitly asked — the developer manages git manually.
+- **No `README.md` below a repo root.** Only a repo's top-level `README.md` is allowed; every other folder's lead doc is `{folder}.md` (e.g. `Data/Migrations/migrations.md`, not `.../README.md`). See `conventions/development/repo/repo-structure.md` §3. **Exception:** a packable project's NuGet `PackageReadmeFile` README (e.g. `src/README.md` next to the `.csproj`) is a functional package file, not a folder doc — leave it.
 - **Skills** (`.claude/skills/`): `open-active` (open the working set in Rider/WebStorm) · `create-repo` (scaffold a conformant repo).
 - **Live state / roadmap:** `workbench/wow-two/wow-two.refinement`.

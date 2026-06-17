@@ -9,7 +9,7 @@
 
 ```
 explore/
-├── README.md           ← this index
+├── explore.md          ← this index
 └── platforms/          ← third-party SaaS / APIs
     └── {vendor}.md
 ```

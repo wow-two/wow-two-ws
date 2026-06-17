@@ -70,5 +70,5 @@ var next = CronExpressionParser.NextOccurrence(                  // DateTimeOffs
 ## See also
 
 - [result-pattern.md](./result-pattern.md) — foundation sibling
-- [Time/README.md](../../../../workbench/wow-two-sdk-beta/wow-two-sdk.backend.beta/src/Foundation/Time/README.md) — package quickstart
+- [Time/time.md](../../../../workbench/wow-two-sdk-beta/wow-two-sdk.backend.beta/src/Foundation/Time/time.md) — package quickstart
 - [NodaTime](https://nodatime.org/) · [TimeZoneConverter](https://github.com/mattjohnsonpint/TimeZoneConverter) · [Cronos](https://github.com/HangfireIO/Cronos)
