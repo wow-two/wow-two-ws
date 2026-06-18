@@ -1,6 +1,6 @@
 # Documentation
 
-*Last updated: 2026-06-14*
+*Last updated: 2026-06-17*
 
 ## XML doc format
 
@@ -79,7 +79,9 @@ The first word of every `<summary>` is fixed by type-kind. This is the canonical
 | Property (read-only) | **Gets** | `Gets the kebab-case slug of the channel.` |
 | Property (read-write) | **Gets or sets** | `Gets or sets the kebab-case slug of the channel.` |
 | Method (action) | Verb at start: `Adds`, `Gets`, `Creates`, `Sends`, `Configures`, `Maps`, `Builds` | `Sends the OTP to the resolved Telegram chat.` |
+| Controller (class) | **Manages** (resource) · **Reports** (non-resource) | `Manages portfolio products.` · `Reports the vault's seal state.` |
 | Controller action | Verb at start (HTTP method shape): `Gets`, `Creates`, `Updates`, `Deletes`, `Executes`, `Cancels` | `Gets all channels with their pipelines.` |
+| Request model (`{Verb}{Noun}ApiRequest`) | **Represents** | `Represents the create-code request body.` |
 
 A doc violating the starter table is a style miss regardless of content quality.
 

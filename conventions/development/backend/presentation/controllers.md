@@ -1,23 +1,48 @@
 # Controllers
 
-*Last updated: 2026-06-14*
+*Last updated: 2026-06-17*
 
-Thin HTTP dispatchers — build a request → `ISender.SendAsync` → `AppResult.Match` → HTTP. No logic, data access, or `try/catch`.
+> API Controllers documentation.
 
 ## Controller shape
 
 ### Documentation
 
-- Controller `/// <summary>` is `Manages {resource}.` — e.g. `Manages products.`. (Verb/noun-first one-line rule detailed under [Method shape › Documentation](#documentation-1).)
+- Controller documentation should include summary and remark
+
+#### Summary
+
+- See [baseline summary docs](../code-style/documentation.md)
+- resource controllers, keyword - `Manages {resource}`, e.g. `Manages products.`
+- non-resource controllers (status / health), keyword - `Reports {what}`, e.g. `Reports the vault's seal state.`
+- mustn't spill details, like where the endpoints are used, is there any supportive controller etc
+
+#### Remarks
+
+- optional — a load-bearing caveat that won't fit the one-line summary (e.g. a data-plane gate covering every action)
+- omit on most controllers; never restate the summary
 
 ### Attributes
 
-- `[ApiController]` + literal `[Route("api/{noun}")]` — lowercase, no token (`[Route("api/products")]`, not `[Route("api/[controller]")]`).
+- `[ApiController]` - declare as an API controller
+- `[Route("api/{noun}")]` - declare the literal route, with kebab-case, e.g. `[Route("api/products")]`
 
-### Declaration & dependencies
+### Declaration
 
-- `sealed`, inherits `ControllerBase` — never `Controller` (no views).
-- Primary-ctor inject `ISender` only (see [../messaging/mediator.md](../messaging/mediator.md)); every action takes `CancellationToken ct` **last**.
+- must be non-inheritable - `sealed`
+- must inherit - `ControllerBase`
+- must have plural or resource / process matching noun name - e.g. `ProductsController`, `IdentityController`
+- must use primary ctor
+
+### Dependencies
+
+- may inject a caller-context accessor or other helper dependencies
+- must inject [mediator components](../messaging/mediator.md) for application-layer communication
+- must not inject services, repositories, validators directly
+
+### Examples
+
+#### Good
 
 ```csharp
 /// <summary>Manages portfolio products.</summary>
@@ -26,22 +51,38 @@ Thin HTTP dispatchers — build a request → `ISender.SendAsync` → `AppResult
 public sealed class ProductsController(ISender sender) : ControllerBase
 ```
 
+#### Bad
+
+```csharp
+// ❌ not sealed · `[controller]` token route · injects a repo, not the mediator · summary spills detail
+/// <summary>Controller that exposes all product endpoints used by the dashboard and the public API.</summary>
+[ApiController]
+[Route("api/[controller]")]
+public class ProductsController(IProductRepository repository) : ControllerBase
+```
+
 ---
 
 ## Method shape
 
 ### Documentation
 
-- Controller + every action: one-line `/// <summary>`, **verb first**, abstract — the route + HTTP verb are on the attributes, don't restate them. See [../code-style/documentation.md](../code-style/documentation.md).
-- **The action's summary verb mirrors the method stem** — present-3rd-person of the method name + object. Never `Lists` / `Returns` / `Retrieves`; the verb is always the stem.
+#### Summary
 
-| Method | `<summary>` |
-|---|---|
-| `Get` | `Gets all {plural}.` |
-| `GetById` | `Gets a {singular} by id.` |
-| `Create` | `Creates a {singular}.` |
-| `UpdateById` | `Updates a {singular}.` |
-| `DeleteById` | `Deletes a {singular}.` |
+- See [baseline summary docs](../code-style/documentation.md)
+- must not restate HTTP verbs
+- must state the action - e.g. `Sends the given message`, `Sets the x status y`
+- must use specified verbs for the standard CRUD actions :
+
+| Method       | `<summary>`                |
+|--------------|----------------------------|
+| `Get`        | `Gets all {plural}.`       |
+| `GetById`    | `Gets a {singular} by id.` |
+| `Create`     | `Creates a {singular}.`    |
+| `UpdateById` | `Updates a {singular}.`    |
+| `DeleteById` | `Deletes a {singular}.`    |
+
+  - load-bearing caveat → `<remarks>`
 
 ```csharp
 // ✅  /// <summary>Gets a single product by id.</summary>
@@ -50,118 +91,137 @@ public sealed class ProductsController(ISender sender) : ControllerBase
 
 ### Attributes
 
-`[ProducesResponseType]` on **every** action — typed for success, bare for the error statuses the action can emit. .NET 10 generic form preferred. These attributes sit directly above the method signature.
+- must have `[ProducesResponseType]` - 
+- must have `[ProducesResponseType<T>(status)]` - 
+- must have `[ProducesResponseType(status)]` - 
+- must have `[Consumes(mediaType)]` - 
+- must have `[Tags("…")]` - 
+- must have `[EndpointSummary("…")]`
+- must have `[EndpointDescription("…")]`
 
-| Attribute | Use | Example |
-|---|---|---|
-| `[ProducesResponseType<T>(status)]` | typed success body — `T` is the `ApiResponse<...>` returned | `[ProducesResponseType<ApiResponse<ProductDto>>(StatusCodes.Status200OK)]` |
-| `[ProducesResponseType(status)]` | error / no-body statuses (no payload type) | `[ProducesResponseType(StatusCodes.Status404NotFound)]` |
-| `[Consumes(mediaType)]` | constrain the request body type — only when non-JSON or worth pinning | `[Consumes(MediaTypeNames.Multipart.FormData)]` |
-| `[Tags("…")]` | group actions in the spec under a custom tag (override the controller-name default) | `[Tags("Codes")]` |
-| `[EndpointSummary("…")]` | one-line operation summary in the spec (.NET 10 — pairs with / replaces the XML `<summary>`) | `[EndpointSummary("List all products")]` |
-| `[EndpointDescription("…")]` | longer operation description when the summary isn't enough | `[EndpointDescription("Returns every product owned by the caller.")]` |
+### Naming
 
-- **Always:** one typed `[ProducesResponseType<ApiResponse<T>>(200)]` (or `201`) + one bare `[ProducesResponseType(status)]` per failure the action returns (commonly `400` / `404` / `409`).
-- `[Consumes]` only when it adds signal — multipart uploads, `text/plain` bodies; skip it for the default JSON case.
-- `[Tags]` / `[EndpointSummary]` / `[EndpointDescription]` are optional polish — reach for them when the generated spec needs a clearer name or grouping.
-- **Not used:** output-cache, OData, or API-versioning attributes — out of scope for our stack.
+- must have plural resource / process name - e.g. - 
+- must use suffixes that makes the method distinct if needed - e.g. `Create` -> `CreateTimedToken`, `CreateSlidingToken`
+- must use specified names for the standard CRUD actions :
 
-### Name — id-suffix
-
-`api/{noun}` is plural; an `{id}` route param → a `ById` suffix. These five names are fixed.
-
-| HTTP + route | Method |
-|---|---|
-| `GET api/products` | `Get` |
-| `GET api/products/{id}` | `GetById` |
-| `POST api/products` | `Create` |
-| `PUT api/products/{id}` | `UpdateById` |
+| HTTP + route               | Method       |
+|----------------------------|--------------|
+| `GET api/products`         | `Get`        |
+| `GET api/products/{id}`    | `GetById`    |
+| `POST api/products`        | `Create`     |
+| `PUT api/products/{id}`    | `UpdateById` |
 | `DELETE api/products/{id}` | `DeleteById` |
 
-- `Get` for the list — not `List` / `GetAll`. Never bare `Update` / `Delete` when the route carries `{id}`.
-- Non-CRUD actions name the verb + sub-resource (`SetActiveById`, `GetImageById`) — same `ById` rule.
+
+### Shape
+
+- See (baseline method docs)[insert baseline method docs here for no-lambda body etc]
 
 ### Return type
 
-- Every action returns `Task<IActionResult>` — **never** `ActionResult<T>`.
-- One return type covers JSON, `NoContent`, `Problem`, and `File`/streaming alike — a `File(bytes, contentType)` action is still `IActionResult`.
+- must return `Task<IActionResult>`, unless it's a streaming or specific response
 
 ---
 
 ## Method content
 
+### API Request binding
+
+- must use [api request models](request models link) to bind request payload
+- must use the [`ICurrentUser`](need to build api-context-building.md and add link here) for user context
+- must use `User` / `HttpContext` for other things that are not supported by the `ICurrentUser`
+
+### Cancellation
+
+- must take and pass down a `CancellationToken`
+
+### Application request mapping
+
+- each request declares it's own mapping method for a correct application request ( mapping extension method link)
+- must use that mapping method to build the application request
+
 ### No business logic
 
-- **No `try/catch`** — handlers own their failures and return an `AppResult` failure; an uncaught throw falls through to the host's global handler → 500 ([problem-details.md](problem-details.md)).
-- No data access, no mapping, no orchestration in the action — build the request, send, map. Everything else is the handler's job.
+- must delegate any business logic into internal components, for application requests - using [mediator components](../messaging/mediator.md)
+- must not have exception catching, validation, orchestration, manual mapping
+- must use existing mapping logic for success or failure results and return without branching
+- must save the result into a variable instead of doing request mapping, mediator call and return in a single line
 
-### Mediator dispatch
+### Response model mapping 
 
-- Send the request via `ISender.SendAsync(request, ct)` (see [../messaging/mediator.md](../messaging/mediator.md)); `ct` is the **last** argument to `SendAsync`.
+- muse use - .Match - need to rewrite **Block body** — save the dispatch result in a local first, then `.Match` on it ([members.md](../code-style/members.md)).
+- for [Application Result](insert application result link) - must  
 
-### Mapping — `AppResult.Match`
+### Response mapping
 
-Collapse the [`AppResult`](../foundation/result-pattern.md) via `.Match(onSuccess, onFailure)` — success wrapped in `ApiResponse<T>` (see [response-models.md](response-models.md)), failure → `Problem`.
+**Success mapping**
 
-- **Block body, dispatch result saved to a local first** — never an expression body. A one-liner can't be breakpointed/inspected; the local lets you see `result` on the spot.
+| Outcome                      | Return                                                                 |
+|------------------------------|------------------------------------------------------------------------|
+| List / single read           | `Ok(ApiResponse<T>.Ok(dto))`                                           |
+| Created (resource has an id) | `CreatedAtAction(nameof(GetById), new { id }, ApiResponse<T>.Ok(dto))` |
+| Mutated, no body             | `NoContent()`                                                          |
+| Binary / stream              | `File(bytes, contentType)`                                             |
+
+- `CreatedAtAction` always points at `nameof(GetById)` with the new `{ id }` — the `Location` header round-trips to the
+  read action.
+- `T` is always a DTO; `ApiResponse<T>` never wraps another envelope — see [response-models.md](response-models.md).
+
+**Failure mapping — `Problem`**
+
+- must use `ProblemDetails` for failures that must have context, not bare `NotFound()` / `Conflict()` / `BadRequest()`
+- `ApiResults.ToStatusCode(FailureCategory)` is the single app-side category→status map; the controller never inlines a
+  status literal for a failure. `IFailureResult` carries **no** `StatusCode` — the `Category` lives on the product's
+  `I{App}Failure` and the failure→HTTP mapping stays product-side here (category
+  pattern → [result-pattern.md](../foundation/result-pattern.md)). RFC-7807 wiring lives
+  in [problem-details.md](problem-details.md).
+- `fail.Error` is the typed `I{App}Failure` off the `AppResult` `.Failure`
+  case ([result-pattern.md](../foundation/result-pattern.md)); reach its `ErrorMessage` for the detail and `.Category`
+  for the status map.
+
+#### Good
+
+- include all necessary attributes in the examples :
 
 ```csharp
-/// <summary>Gets all registered products.</summary>
-[HttpGet]
-[ProducesResponseType<ApiResponse<IReadOnlyList<ProductDto>>>(StatusCodes.Status200OK)]
-public async Task<IActionResult> Get(CancellationToken ct)
-{
-    var result = await sender.SendAsync(new GetProductsQuery(), ct);
-
-    return result.Match<IActionResult>(
-        ok => Ok(ApiResponse<IReadOnlyList<ProductDto>>.Ok(ok.Data.Products)),
-        fail => Problem(detail: fail.Error.ErrorMessage, statusCode: ApiResults.ToStatusCode(fail.Error.Category)));
-}
-
 /// <summary>Creates a product.</summary>
 [HttpPost]
 [ProducesResponseType<ApiResponse<ProductDto>>(StatusCodes.Status201Created)]
 [ProducesResponseType(StatusCodes.Status400BadRequest)]
-public async Task<IActionResult> Create([FromBody] CreateProductRequest request, CancellationToken ct)
+public async Task<IActionResult> Create([FromBody] CreateProductCommand command, CancellationToken ct)
 {
-    var result = await sender.SendAsync(new CreateProductCommand(request.Slug, request.Name), ct);
+    var result = await sender.SendAsync(command, ct);
 
     return result.Match<IActionResult>(
         ok => CreatedAtAction(nameof(GetById), new { id = ok.Data.Product.Id }, ApiResponse<ProductDto>.Ok(ok.Data.Product)),
         fail => Problem(detail: fail.Error.ErrorMessage, statusCode: ApiResults.ToStatusCode(fail.Error.Category)));
 }
+```
 
-/// <summary>Deletes a product.</summary>
-[HttpDelete("{id:guid}")]
-[ProducesResponseType(StatusCodes.Status204NoContent)]
-[ProducesResponseType(StatusCodes.Status404NotFound)]
-public async Task<IActionResult> DeleteById(Guid id, CancellationToken ct)
+#### Bad
+
+```csharp
+// ❌ try/catch · expression body, no local · raw DTO without ApiResponse · bare helper, not Problem + category
+[HttpPost]
+public async Task<IActionResult> Create(CreateProductCommand command, CancellationToken ct)
 {
-    var result = await sender.SendAsync(new DeleteProductCommand(id), ct);
-
-    return result.Match<IActionResult>(
-        NoContent,
-        fail => Problem(detail: fail.Error.ErrorMessage, statusCode: ApiResults.ToStatusCode(fail.Error.Category)));
+    try { return Ok(await sender.SendAsync(command, ct)); }
+    catch (NotFoundException) { return NotFound(); }
 }
 ```
 
-- Each arm receives the **case object**, not a deconstructed DTO and not an `(error, message)` tuple — success arm reaches `ok.Data` (then the container's DTO field) / `ok.Context`; failure arm reaches `fail.Error` / `fail.Context`. `.Match<IActionResult>(...)` — annotate `TOut` so both arms unify.
-- Two `onSuccess` shapes: `Func<AppResult<…>.Success, TOut>` (case object) for queries/creates; `Func<TOut>` (no arg) for void commands → `NoContent()`.
+---
 
-**Success mapping**
+## Known endpoints
 
-| Outcome | Return |
-|---|---|
-| List / single read | `Ok(ApiResponse<T>.Ok(dto))` |
-| Created (resource has an id) | `CreatedAtAction(nameof(GetById), new { id }, ApiResponse<T>.Ok(dto))` |
-| Mutated, no body | `NoContent()` |
-| Binary / stream | `File(bytes, contentType)` |
+Identity and system endpoints have **fixed, cross-app names** — don't invent per-app variants (`auth/login`,
+`admin/session`).
 
-- `CreatedAtAction` always points at `nameof(GetById)` with the new `{ id }` — the `Location` header round-trips to the read action.
-- `T` is always a DTO; `ApiResponse<T>` never wraps another envelope — see [response-models.md](response-models.md).
-
-**Failure mapping — `Problem`**
-
-- Failure arm is always `Problem(detail: fail.Error.ErrorMessage, statusCode: ApiResults.ToStatusCode(fail.Error.Category))` — never bare `NotFound()` / `Conflict()` / `BadRequest()`.
-- `ApiResults.ToStatusCode(FailureCategory)` is the single app-side category→status map; the controller never inlines a status literal for a failure. `IFailureResult` carries **no** `StatusCode` — the `Category` lives on the product's `I{App}Failure` and the failure→HTTP mapping stays product-side here (category pattern → [result-pattern.md](../foundation/result-pattern.md)). RFC-7807 wiring lives in [problem-details.md](problem-details.md).
-- `fail.Error` is the typed `I{App}Failure` off the `AppResult` `.Failure` case ([result-pattern.md](../foundation/result-pattern.md)); reach its `ErrorMessage` for the detail and `.Category` for the status map.
+- Identity → `IdentityController` at `api/identity`: `sign-in` · `sign-out` · `me` · `guest` (· `sign-up` · `refresh` ·
+  `callback` where the app has them). Summary `Manages identity.`
+- System → `SystemController` at `api/system`: `status`. Non-resource → verb-first summary (`Reports …`).
+- An app implements only the capabilities it has; the **name and path are canonical**, the HTTP verb may vary by
+  mechanism (OAuth challenge `GET sign-in` vs credential `POST sign-in`).
+- Full table + per-mechanism notes + legacy-controller
+  migration → [controllers-known-endpoints.md](controllers-known-endpoints.md).

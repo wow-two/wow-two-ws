@@ -1,6 +1,6 @@
 # Conventions — wow-two
 
-*Last updated: 2026-06-14*
+*Last updated: 2026-06-17*
 
 > **The single index to every convention.** When a task touches *how we build* — code, repo structure,
 > naming, versioning — search HERE first, then open only the file(s) you need. Lookup table,
@@ -61,6 +61,7 @@ Rules:
 |---|---|---|
 | **development** (below) | how we build — repo shape, backend & frontend code style | Active |
 | **planning** (below) | how we plan — version docs (grows over time) | Active |
+| **agentic-workflow** (below) | how parallel chats / agents share a repo — lanes · no-revert · scope containment | Active |
 | deployment | VPS, Docker, Traefik, CI/CD, release | Planned |
 | security | secrets handling, auth patterns, threat model | Planned |
 
@@ -85,7 +86,7 @@ Meta: `authoring` (cite symbols, not namespaces). Sub-domains:
 | `code-style/` | `documentation` · `code-organization` · `members` · `models` · `idioms` |
 | `architecture/` | `service-architecture` · `domain-structuring` · `host-configuration` · `services` |
 | **`persistence/`** (focus) | `database` · `entities` · `enums` · `data-access` · `migrations/` (`migrations` · `bespoke-migrations` · `migration-dialects` · `ef-migrations` · `dbup-migrations` · `migration-tooling`) |
-| `presentation/` | `controllers` · `response-models` · `problem-details` |
+| `presentation/` | `controllers` · `controllers-known-endpoints` · `request-models` · `response-models` · `problem-details` |
 | `runtime/` | `settings` · `launch-profiles` |
 | `foundation/` | `result-pattern` · `validation` · `time` |
 | **`integrations/`** (focus) | `clients` |
@@ -106,6 +107,12 @@ Meta: `authoring` (cite symbols, not namespaces). Sub-domains:
 |---|---|
 | Version docs — naming, lifecycle, cadence + iteration template | [planning/version-planning/version-docs.md](planning/version-planning/version-docs.md) |
 | Engineering planning — repo roadmap + backlog | [planning/engineering-planning/engineering-planning-conventions.md](planning/engineering-planning/engineering-planning-conventions.md) |
+
+## agentic-workflow — index: [agentic-workflow/agentic-workflow.md](agentic-workflow/agentic-workflow.md)
+
+| Need | File |
+|---|---|
+| Parallel chats on one tree · assume-intentional / no-revert · lane discipline · scope containment · commit discipline | [agentic-workflow/agentic-workflow.md](agentic-workflow/agentic-workflow.md) |
 
 ## Scaffolding
 

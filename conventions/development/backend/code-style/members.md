@@ -35,3 +35,4 @@ public async Task<IActionResult> Get(CancellationToken ct) =>
 - [code-organization.md](code-organization.md) — one file per type, dividers, parameter + raw-string formatting
 - [controllers.md](../presentation/controllers.md) — applies this rule to controller actions (block body, save the dispatch result)
 - [models.md](models.md) — record style + property rules
+- [request-models.md](../presentation/request-models.md) — applies it to the `ToCommand` mapping method

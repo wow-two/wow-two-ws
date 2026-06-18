@@ -1,6 +1,6 @@
 # Mediator
 
-*Last updated: 2026-06-14*
+*Last updated: 2026-06-17*
 
 > In-process request/response mediator component conventions.
 > Purpose — decouple presentation from infrastructure so a use-case is dispatched, not called directly.
@@ -55,6 +55,21 @@ XML doc summaries — byte-identical to the SDK marker source. No `<example>` bl
   `Defines a handler for the TQuery query`. Keep `<typeparam>` lines.
 - **Message** (concrete query/command/event) → `Represents a {query/command/event} to {action}` — e.g. `Represents a query to get all channels`.
 - **Handler** (concrete) → `Handles <see cref="{Request}"/>.`
+
+---
+
+## The application request
+
+> **Application request** — the mediator message a handler executes: concretely a `Command` or `Query`. It maps in from the presentation **api request** (the request body — see [request-models.md](../presentation/request-models.md)) plus caller context.
+
+- **Inputs ride the application request; collaborators come from DI.** Replay test: *could a cold handler run it off a queue?* If yes it's an **input** → on the request. Repos, clock, gateways are **collaborators** → handler ctor (DI), never inputs.
+- **Caller context is an input.** The actor (`UserId`), source IP, etc. are server-authoritative inputs → they ride the application request too; the handler never reads them from `ICurrentUser` / `HttpContext`. Sourced at the edge, merged in the mapping (never by a pipeline).
+- It's still a `Command` / `Query` — "application request" is the role it plays opposite the **api request**; the `Api` / `Application` qualifier disambiguates (both implement `IRequest<T>`).
+
+### One model or two
+
+- **Body == application request** (no server-only inputs) → **one model**: bind the `Command` / `Query` directly (`[FromBody] TCommand`); no api request.
+- **Application request ⊃ body** (needs actor / source IP / a route id) → **two models**: an api request + the `Command` / `Query`; the api request maps in at the edge (`request.ToCommand(...)` → [request-models.md](../presentation/request-models.md)).
 
 ---
 

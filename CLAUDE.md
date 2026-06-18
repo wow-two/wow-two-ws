@@ -50,3 +50,12 @@ docs/ (strategy, playbooks) · system/sessions/ · ideas/ · scripts/ · workben
 - **No `README.md` below a repo root.** Only a repo's top-level `README.md` is allowed; every other folder's lead doc is `{folder}.md` (e.g. `Data/Migrations/migrations.md`, not `.../README.md`). See `conventions/development/repo/repo-structure.md` §3. **Exception:** a packable project's NuGet `PackageReadmeFile` README (e.g. `src/README.md` next to the `.csproj`) is a functional package file, not a folder doc — leave it.
 - **Skills** (`.claude/skills/`): `open-active` (open the working set in Rider/WebStorm) · `create-repo` (scaffold a conformant repo).
 - **Live state / roadmap:** `workbench/wow-two/wow-two.refinement`.
+
+## Agentic workflow (parallel chats)
+
+> Multiple chats / agents edit the **same working tree on one branch** at once. Full rule: `conventions/agentic-workflow/agentic-workflow.md`.
+
+- **Assume existing changes are intentional** — another lane's in-flight (or crashed-mid-task) work. A change that looks incomplete / out-of-scope is **not yours to revert**.
+- **Never** `git checkout -- .` / `restore` / `stash` / `reset --hard` to "clean up" changes you didn't author — it silently destroys uncommitted work. Found unexpected changes → **stop and ask the human**.
+- **Stay in your lane** — each agent edits only its allowlisted files; a build break rooted outside your lane is a **hand-off (STOP + report)**, not a repair. Deleting projects / editing `.sln`·`.csproj` is not a controllers / frontend lane's job.
+- **No worktrees** — coordinate by disjoint file sets.
