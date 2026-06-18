@@ -72,6 +72,7 @@ The application request is built **at the edge** by an extension method co-locat
 - pass caller context + route ids explicitly - `request.ToCommand(callerContext, id)`; never read them in the handler
 - the application request **never references the api request** - the dependency points one way (api request → application request)
 - the mapping method **builds + returns** the application request — block body, not `=>` ([members.md](../code-style/members.md))
+- the controller binds the api request, then maps at the edge — `request.ToCommand(callerContext, id)` → send ([controllers.md](controllers.md))
 
 #### Good
 

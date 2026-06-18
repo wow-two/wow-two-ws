@@ -54,6 +54,8 @@ Rules:
   symbol). Verify a symbol exists in source before citing; examples come from real code.
 - **No duplication** — reference another convention inline; don't restate it. Supersede a stale note in place rather than stacking.
 - **Location** — `{sub-domain}/{name}.md`; a folder's lead doc is `{folder}.md`, `README.md` only at a repo root.
+- **Bullet case** — a bullet is a **lowercase fragment**, not a sentence (capitalize only an identifier / proper noun that opens it). Terse `key - detail` fragments; `controllers.md` is the reference.
+- **Order is normative** — list sections and their bullets in the **order they're applied**; readers + adopters follow that order unless a special case is called out (e.g. the attribute order, the doc-block order in `controllers.md`).
 
 ## Domains
 
@@ -86,7 +88,7 @@ Meta: `authoring` (cite symbols, not namespaces). Sub-domains:
 | `code-style/` | `documentation` · `code-organization` · `members` · `models` · `idioms` |
 | `architecture/` | `service-architecture` · `domain-structuring` · `host-configuration` · `services` |
 | **`persistence/`** (focus) | `database` · `entities` · `enums` · `data-access` · `migrations/` (`migrations` · `bespoke-migrations` · `migration-dialects` · `ef-migrations` · `dbup-migrations` · `migration-tooling`) |
-| `presentation/` | `controllers` · `controllers-known-endpoints` · `request-models` · `response-models` · `problem-details` |
+| `presentation/` | `controllers` · `controllers-known-endpoints` · `request-models` · `response-models` · `api-context-building` · `problem-details` |
 | `runtime/` | `settings` · `launch-profiles` |
 | `foundation/` | `result-pattern` · `validation` · `time` |
 | **`integrations/`** (focus) | `clients` |

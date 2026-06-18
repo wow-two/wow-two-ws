@@ -8,7 +8,7 @@
 
 ## Bodies
 
-- **Method bodies are block `{ }` — (almost) never expression-bodied (`=>`).** A block body lets you save intermediates to locals + set a breakpoint on any line; a one-liner `=>` has to be rewritten before you can debug it.
+- **must use a block body `{ }`, never an expression body `=>`** — so you can save intermediates to locals + breakpoint any line (a one-liner has to be rewritten to debug)
 - **Reserve `=>` for trivial pure getters** — a property/accessor that just returns a field or a constant, with no logic: `public string Name => _name;`.
 - **Any logic → block body** — a branch, a call chain, a computation, an `await`, a `match`: write it as `{ … }` even if it currently fits on one line.
 - **One blank line before `return`** — separate the body's work from its result; the return reads at a glance and `result` is a clean breakpoint target.
