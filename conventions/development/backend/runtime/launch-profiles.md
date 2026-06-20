@@ -2,15 +2,19 @@
 
 *Last updated: 2026-06-19*
 
-> ASP.NET Core run configuration. Allocated ports are tracked in [../repo/ports.md](../repo/ports.md).
+> ASP.NET Core run configuration; ports tracked in [ports.md](../../repo/ports.md). Dev runs HTTPS (TLS is terminated upstream in prod) so `Secure` cookies + secure-context behaviour match prod.
 
 ## `launchSettings.json`
 
-Every API project's `Properties/launchSettings.json` has a **single `https` profile** binding **two** URLs — the **HTTPS** port first, the **HTTP** port second.
+- must declare a **single `https` profile** — no separate `http` profile
+- must bind two URLs in `applicationUrl`, HTTPS first - `"https://localhost:{even};http://localhost:{even+1}"`
+- must use the allocated **even** port for HTTPS, the adjacent **odd** port for HTTP
+- must allocate the next free even port from [ports.md](../../repo/ports.md) - never reuse one across projects
+- must set `ASPNETCORE_ENVIRONMENT` to `Development`
+- must trust the dev cert once per machine - `dotnet dev-certs https --trust`
+- the Vite dev server proxies `/api` to the even (HTTPS) port with `secure: false` - see [state-and-data.md](../../frontend/state-and-data.md)
 
-- **Port pairing:** HTTPS on the service's allocated **even** port, HTTP on the adjacent **odd** port (`even`, then `even + 1`). Pick the next free even port from [../repo/ports.md](../repo/ports.md); never reuse a port across projects.
-- **HTTPS in dev:** one-time `dotnet dev-certs https --trust`. The Vite dev server proxies `/api` to the backend's **HTTPS** (even) port with `secure: false` (self-signed dev cert) — see [../../frontend/state-and-data.md](../../frontend/state-and-data.md).
-- TLS is terminated **upstream** in prod (Cloudflare / reverse proxy); dev mirrors prod over HTTPS so `Secure` cookies + secure-context behaviour stay consistent.
+### Example
 
 ```json
 {
