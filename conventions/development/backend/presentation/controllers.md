@@ -10,7 +10,7 @@
 
 #### Summary
 
-- see [baseline summary docs](../code-style/documentation.md)
+- see [baseline summary docs](../code-style/documentation/summary.md)
 - resource controllers, keyword - `Manages {resource}`, e.g. `Manages products.`
 - non-resource controllers (status / health), keyword - `Reports {what}`, e.g. `Reports the vault's seal state.`
 - mustn't spill details — where the endpoints are used, whether a supporting controller exists, etc.
@@ -62,7 +62,7 @@ public class ProductsController(IProductRepository repository) : ControllerBase
 
 #### Summary
 
-- see [baseline summary docs](../code-style/documentation.md)
+- see [baseline summary docs](../code-style/documentation/summary.md)
 - must not restate the HTTP verb
 - must state the action - e.g. `Sends the given message.`, `Sets the code's active state.`
 - must use the specified verbs for standard CRUD actions:

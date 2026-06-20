@@ -1,37 +1,28 @@
-# Backend — Launch Profiles & `.http`
+# Backend — Launch Profiles
 
-*Last updated: 2026-06-12*
+*Last updated: 2026-06-19*
 
 > ASP.NET Core run configuration. Allocated ports are tracked in [../repo/ports.md](../repo/ports.md).
 
 ## `launchSettings.json`
 
-Every API project's `Properties/launchSettings.json` has a **single `http` profile** — no `https`.
+Every API project's `Properties/launchSettings.json` has a **single `https` profile** binding **two** URLs — the **HTTPS** port first, the **HTTP** port second.
 
-- **No TLS in dev.** Skips the dev-cert dance — `dotnet run` / IDE Run / `curl` all work on first click on any machine, and `ASPNETCORE_URLS` overrides cleanly.
-- Bind the project's allocated **even** port over HTTP (the canonical service port). One URL, `http` scheme.
-- TLS is terminated **upstream** in prod (Cloudflare / reverse proxy), so app-level HTTPS buys nothing — dev mirrors that.
-- Pick the next free port from [../repo/ports.md](../repo/ports.md); never reuse a port across projects.
+- **Port pairing:** HTTPS on the service's allocated **even** port, HTTP on the adjacent **odd** port (`even`, then `even + 1`). Pick the next free even port from [../repo/ports.md](../repo/ports.md); never reuse a port across projects.
+- **HTTPS in dev:** one-time `dotnet dev-certs https --trust`. The Vite dev server proxies `/api` to the backend's **HTTPS** (even) port with `secure: false` (self-signed dev cert) — see [../../frontend/state-and-data.md](../../frontend/state-and-data.md).
+- TLS is terminated **upstream** in prod (Cloudflare / reverse proxy); dev mirrors prod over HTTPS so `Secure` cookies + secure-context behaviour stay consistent.
 
 ```json
 {
   "$schema": "https://json.schemastore.org/launchsettings.json",
   "profiles": {
-    "http": {
+    "https": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": false,
-      "applicationUrl": "http://localhost:8220",
+      "applicationUrl": "https://localhost:8220;http://localhost:8221",
       "environmentVariables": { "ASPNETCORE_ENVIRONMENT": "Development" }
     }
   }
 }
 ```
-
-## `.http` files (Rider HTTP Client)
-
-- One `{ProjectName}.http` at the project root next to `Program.cs` (Rider auto-discovers it).
-- Declare `@host = http://localhost:{port}` at the top — the fallback default so Run works on first click. Reference as `{{host}}`; never bake the scheme into a URL line.
-- Reusable headers once: `@contentType = application/json` → `{{contentType}}`.
-- No `http-client.env.json` for single-env POCs — add only with ≥2 real environments.
-- Reference example: `…/10x-ven-haven/engineering/codebase/haven.backend-services/Haven.Channels.Supply/Requests/listings.http`.

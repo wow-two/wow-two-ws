@@ -1,8 +1,18 @@
 # Host configuration
 
-*Last updated: 2026-06-14*
+*Last updated: 2026-06-18*
 
-DI registration, middleware, and startup wiring split into two files in `Api/Configurations/`.
+> All host wiring — DI registration, configuration binding, middleware, startup — lives in the host's `Api/Configurations/` composition root, sourced only from the SDK or the host itself.
+> Purpose — one place to read everything a service is wired with; no hidden, self-registering config buried in a layer, service, or model.
+> Use case — reach for this whenever you add a setting, a service registration, or a startup step to a backend host.
+
+## Configuration source
+
+- configuration enters from exactly two places: the **SDK** (its public `Add*` / `Use*` extensions — `AddApiDefaults`, `AddDatabaseBespokeMigrations`, `AddDataSourceConnectionFactory`) or the **host itself** (`HostConfiguration` + its extensions).
+- non-host projects — the application, domain, infrastructure, and persistence [layers](service-architecture.md), plus models — **never** bind or register configuration: no `services.Configure<T>()`, no `AddOptions<T>()`, no `IConfiguration` reads, no self-registering `IServiceCollection` extension methods.
+- a layer that needs a setting takes it as a **method parameter** the host passes in (`AddPersistence(this IServiceCollection services, IConfiguration configuration)`) — it does not reach into config on its own.
+- this kills **hidden config methods** — a registration buried in an infra/persistence project that the host calls blind; every wire-up must be readable from the host's `Configure` chain alone.
+- the SDK is the only allowed non-host source because its surface is a published, reviewed contract (see [startup-defaults.md](startup-defaults.md)); a product layer is not — if layers keep needing the same block, extract it to the SDK first.
 
 ## Location
 
@@ -98,13 +108,9 @@ public static WebApplicationBuilder AddPipelines(this WebApplicationBuilder buil
 
 ## Rules
 
+- all configuration is wired **only** in the host, sourced from the SDK or the host itself — never a layer/service/model (see Configuration source).
 - `Program.cs` is **pristine** (see above) — only the two `Configure` calls, `app.Run()`, and the `Program` marker. No comments, logs, DI, or startup calls — those live in `HostConfiguration`.
 - `HostConfiguration.Configure()` chains extension methods — no inline DI logic
 - Each extension method in `HostConfigurationExtensions` groups related registrations
 - Inline comments above registration groups explain the "why"
 - Return `WebApplicationBuilder` for chaining
-
-## See also
-
-- [service-architecture.md](service-architecture.md) — the 5 layers
-- [controllers.md](../presentation/controllers.md) — what registers in `AddControllers` + controller conventions

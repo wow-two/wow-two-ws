@@ -11,7 +11,7 @@
 
 #### Summary
 
-- [Summary doc block conventions](../code-style/documentation.md)
+- [Summary doc block conventions](../code-style/documentation/summary.md)
 - keyword - `Represents the {verb}-{noun} request body.`, e.g. `Represents the create-code request body.`
 
 #### Remarks
@@ -28,7 +28,7 @@
 ### Members
 
 - **body-only** - only what the client sends; never the actor, source IP, route id, or a server timestamp (those are caller context, merged in the mapping)
-- `required` on every non-nullable property; each carries a `Gets {what}.` summary (property doc rule → [documentation.md](../code-style/documentation.md))
+- `required` on every non-nullable property; each carries a `Gets {what}.` summary (property doc rule → [documentation.md](../code-style/documentation/summary.md))
 - nested body types take the same suffix - `RuleApiRequest` inside `CreateCodeApiRequest`
 - no validation attributes - business validation is the application request's, in the pipeline ([validation.md](../foundation/validation.md))
 

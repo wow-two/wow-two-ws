@@ -1,8 +1,8 @@
 # SQL Authoring
 
-*Last updated: 2026-06-16*
+*Last updated: 2026-06-18*
 
-> Author-facing Apply/Rollback SQL dialect idioms for the bespoke migrator — Postgres today, SQLite/SqlServer later.
+> Author-facing Apply/Rollback SQL dialect idioms for the bespoke migrator — Postgres and SQLite today, SqlServer later.
 > Purpose — the engine runs `.sql` **verbatim** (no auto-quote, rewrite, or portability check), so per-provider correctness is the author's job.
 > Use case — reach here when hand-writing a migration's `Apply.sql` / `Rollback.sql` and needing the dialect-correct form.
 
@@ -18,8 +18,8 @@
 
 ## Postgres
 
-> The only shipping dialect. SQLite / SqlServer get sibling `##` sections when those tracks land — until then, every rule below is
-> Postgres-specific.
+> The default dialect — every rule in this section is Postgres-specific. SQLite is covered in the `## SQLite` section below; SqlServer gets a
+> sibling section when that track lands.
 
 ### Reserved-word quoting
 
@@ -135,3 +135,54 @@ ALTER TYPE code_status ADD VALUE IF NOT EXISTS 'archived';
   `timestamptz` for instants. `001-baseline/Apply.sql` is the worked example (see its header comment).
 - Name constraints explicitly — `CONSTRAINT pk_codes PRIMARY KEY (id)`, `CONSTRAINT fk_routing_rules_codes_code_id FOREIGN KEY (code_id)
   REFERENCES codes (id) ON DELETE CASCADE` — so `Rollback.sql` and later `ALTER`s can reference them by name.
+
+---
+
+## SQLite
+
+> Shipping since 2026-06-18 (the `Sqlite` dialect — SDK `Bespoke/bespoke.md`). Use for drydock / secrets-vault and any SQLite-backed product.
+> Select it with `MigrationOptions.Provider = DatabaseProvider.Sqlite` + `AddSqliteConnectionFactory(connectionString)`. Authoring differs from
+> Postgres in types, enums, `ALTER TABLE`, foreign keys, and transactionality.
+
+### Type affinity
+
+- SQLite has five affinities — `INTEGER`, `TEXT`, `REAL`, `BLOB`, `NUMERIC` — not rich types; write columns to mirror the EF model's *stored* shape.
+- Common EF-on-SQLite mappings — GUID → `TEXT` · bool → `INTEGER` (0/1) · enum → `INTEGER` (ordinal) · `byte[]` → `BLOB` · `DateTimeOffset` → the
+  product's converter (drydock / secrets-vault use `DateTimeOffsetToBinaryConverter` → `INTEGER`; the migrator's own `migration_history` uses `TEXT`).
+- Match whatever the product's EF model already stores so EF round-trips the migrated schema — the schema-mirror rule below is non-negotiable here.
+- `INTEGER PRIMARY KEY` is the rowid alias (autoincrement); a GUID PK is `id TEXT NOT NULL PRIMARY KEY`.
+
+### No native enums
+
+- SQLite has no enum type — store enums as `INTEGER` (ordinal) or `TEXT`, optionally guarded by `CHECK (status IN (0, 1, 2))`.
+- There is **no** `ALTER TYPE … ADD VALUE` migration — adding an enum member is a code-only change, not a schema change.
+
+### Reserved-word quoting
+
+- Same as Postgres — double-quote reserved words: `"order"`, `"group"`, `"user"`. (SQLite also accepts backticks / `[brackets]`; prefer the
+  standard double quote.) Quote it everywhere the column appears, `Rollback.sql` included.
+
+### Transactional DDL + `@no-transaction`
+
+- SQLite has transactional DDL like Postgres — each file's per-file transaction rolls back cleanly on failure, so plain non-idempotent DDL is fine in
+  a normal migration.
+- There is **no** `CREATE INDEX CONCURRENTLY` — indexes build inside the transaction; **don't** mark an index migration `@no-transaction`.
+- `@no-transaction` is rarely needed on SQLite; the realistic case is a connection `PRAGMA` that cannot run inside a transaction (e.g.
+  `PRAGMA journal_mode = WAL`). When used, the same idempotency rule applies — `CREATE INDEX IF NOT EXISTS`, guarded statements.
+
+### Limited `ALTER TABLE`
+
+- SQLite `ALTER TABLE` supports only `ADD COLUMN`, `RENAME TO`, `RENAME COLUMN`, and `DROP COLUMN` (3.35+) — there is no `ALTER COLUMN` type or
+  constraint change.
+- For anything else (change a type, add/drop a constraint, reorder), use the **table-rebuild** pattern in the Apply: `CREATE` the new table →
+  `INSERT INTO new SELECT … FROM old` → `DROP TABLE old` → `ALTER TABLE new RENAME TO old`, recreating indexes. Invert it in `Rollback.sql`.
+
+### Foreign keys
+
+- SQLite enforces FKs only when `PRAGMA foreign_keys = ON` is set **per connection** (off by default). Declaring the FK in DDL is necessary but not
+  sufficient — the host must set the pragma on every connection for `ON DELETE CASCADE` etc. to fire.
+
+### Rollback + schema-mirror
+
+- Same discipline as Postgres — every `Apply.sql` ships an inverting `Rollback.sql` (reverse dependency order, `DROP TABLE IF EXISTS`, drop the table
+  not its parts), and the Apply SQL is the schema-first source of truth EF maps over (never generates).

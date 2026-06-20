@@ -1,6 +1,6 @@
 # Conventions — wow-two
 
-*Last updated: 2026-06-17*
+*Last updated: 2026-06-18*
 
 > **The single index to every convention.** When a task touches *how we build* — code, repo structure,
 > naming, versioning — search HERE first, then open only the file(s) you need. Lookup table,
@@ -70,6 +70,8 @@ Rules:
 ---
 
 ## development — index: [development/development-conventions.md](development/development-conventions.md)
+
+Cross-area: **[dev-cycle.md](development/dev-cycle.md)** — 2-cycle app↔SDK maturation (implement in-app → extract to SDK + conventions → adopt across the named active apps).
 
 ### repo/ — repo shape & setup · [repo-conventions.md](development/repo/repo-conventions.md)
 

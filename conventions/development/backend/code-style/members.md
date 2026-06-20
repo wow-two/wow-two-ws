@@ -11,7 +11,7 @@
 - **must use a block body `{ }`, never an expression body `=>`** — so you can save intermediates to locals + breakpoint any line (a one-liner has to be rewritten to debug)
 - **Reserve `=>` for trivial pure getters** — a property/accessor that just returns a field or a constant, with no logic: `public string Name => _name;`.
 - **Any logic → block body** — a branch, a call chain, a computation, an `await`, a `match`: write it as `{ … }` even if it currently fits on one line.
-- **One blank line before `return`** — separate the body's work from its result; the return reads at a glance and `result` is a clean breakpoint target.
+- **blank lines separate operations, not closely-related lines** — keep one operation's lines together (no blank within); a blank only *between* operations. e.g. an action body: guard → ⎵ → map-request + send + store-result → ⎵ → return.
 
 ```csharp
 // ✅ trivial pure getter — expression body fine

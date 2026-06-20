@@ -46,7 +46,7 @@ public abstract record ApiResponse<T> : ApiResponse
 
 ## Response shape — the DTO
 
-The payload `T`. Pure data, entity-first; record + property style is owned by [models.md](../code-style/models.md), the summary starter (`Represents …`) by [documentation.md](../code-style/documentation.md).
+The payload `T`. Pure data, entity-first; record + property style is owned by [models.md](../code-style/models.md), the summary starter (`Represents …`) by [documentation.md](../code-style/documentation/summary.md).
 
 ### Naming
 
@@ -57,7 +57,7 @@ The payload `T`. Pure data, entity-first; record + property style is owned by [m
 
 ### Members
 
-- `sealed record`, `required` on every non-nullable property; each carries a `Gets {what}.` summary ([documentation.md](../code-style/documentation.md))
+- `sealed record`, `required` on every non-nullable property; each carries a `Gets {what}.` summary ([documentation.md](../code-style/documentation/summary.md))
 - flat - no nesting unless the entity genuinely has a sub-object
 - no metadata - pagination / status / timestamps that aren't entity fields don't go in the DTO or the envelope
 - location - `Application/{Feature}/Models/{Name}.cs`
