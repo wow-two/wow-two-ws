@@ -1,6 +1,6 @@
 # Mediator
 
-*Last updated: 2026-06-17*
+*Last updated: 2026-06-22*
 
 > In-process request/response mediator component conventions.
 > Purpose — decouple presentation from infrastructure so a use-case is dispatched, not called directly.
@@ -49,7 +49,7 @@
 
 ### Comments
 
-XML doc summaries — byte-identical to the SDK marker source. No `<example>` blocks (go stale).
+XML doc summaries — byte-identical to the SDK marker source.
 
 - **Definition** (SDK markers / handler interfaces) → `Defines …` — e.g. `Defines a query that returns TResult` ·
   `Defines a handler for the TQuery query`. Keep `<typeparam>` lines.

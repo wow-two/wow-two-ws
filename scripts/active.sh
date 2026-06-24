@@ -48,6 +48,7 @@ PROJECTS=(
   "sift|ventures/sift/engineering/codebase/sift.backend-services/Sift.sln|ventures/sift/engineering/codebase/sift.frontend-services"
   "transcript-forge|ventures/transcript-forge/engineering/codebase/transcript-forge.backend-services/TranscriptForge.sln|ventures/transcript-forge/engineering/codebase/transcript-forge.frontend-services"
   "prism|-|ventures/10x-ventures-prism/engineering/codebase/prism.frontend-services"
+  "arcade|ventures/ventures.arcade/engineering/codebase/arcade.backend-services/Arcade.sln|ventures/ventures.arcade/engineering/codebase/arcade.frontend-services"
 )
 
 MODE="both"     # both | backend | frontend

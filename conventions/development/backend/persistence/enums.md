@@ -1,6 +1,6 @@
 # Enums
 
-*Last updated: 2026-06-16*
+*Last updated: 2026-06-22*
 
 > Domain enums — where they live, how they're documented, named, modeled, and mapped to a database column.
 > Purpose — keep enums co-located with their entities and round-trip them losslessly across providers via shared SDK converters.
@@ -21,39 +21,31 @@
 
 ### Enum-level
 
-- `/// <summary>` starts with **Defines** — per [documentation.md](../code-style/documentation.md) starter table
-- `/// <example>` describes when/where the enum is used (not the value list)
+- `/// <summary>` starts with **Defines** — per [documentation.md](../code-style/documentation.md) starter table — and describes when/where the enum is used (not the value list)
 
 ```csharp
-/// <summary>Defines the category of a channel.</summary>
-/// <example>Classifies channels as supply (scraping listings) or demand (capturing inquiries)</example>
+/// <summary>Defines the category of a channel — supply (scraping listings) or demand (capturing inquiries).</summary>
 public enum ChannelType { Supply, Demand }
 ```
 
 ### Value-level
 
 - `/// <summary>` on each value describes what the value means
-- `/// <example>` on each value gives a concrete usage example
 
 ```csharp
 /// <summary>Defines the execution status of a pipeline run.</summary>
-/// <example>running, completed, failed, cancelled</example>
 public enum PipelineRunStatus
 {
     /// <summary>Pipeline is currently executing.</summary>
-    /// <example>ScrapeListings pipeline processing a batch of 50 URLs</example>
     Running,
 
     /// <summary>Pipeline finished successfully.</summary>
-    /// <example>All 50 URLs scraped and persisted without errors</example>
     Completed,
 
     /// <summary>Pipeline terminated due to an error.</summary>
-    /// <example>Database connection timeout during persist node</example>
     Failed,
 
     /// <summary>Manually stopped by user before completion.</summary>
-    /// <example>User clicked Stop in pipeline dashboard mid-execution</example>
     Cancelled
 }
 ```

@@ -1,6 +1,6 @@
 # Validation
 
-*Last updated: 2026-06-13*
+*Last updated: 2026-06-20*
 
 Input validation runs through the SDK `IValidator<T>` seam, backed by FluentValidation and assembly-scanned at startup.
 
@@ -17,15 +17,31 @@ Validation answers *"is this caller-supplied payload well-formed?"*; guards answ
 
 ## Author validators
 
-Validators are FluentValidation `AbstractValidator<T>` — one per validated type, plain FluentValidation, no SDK base class:
+Validators are FluentValidation `AbstractValidator<T>` — one per validated type, `public sealed`, plain FluentValidation, no SDK base class.
+
+- **Name** `{Type}Validator` — `{Command}Validator` for a command (`ProductCreateCommandValidator`). **Co-locate** with the type it validates (same folder as the command; see [mediator.md](../messaging/mediator.md)).
+- **Summaries** — type: `Validates <see cref="{Type}"/>.`; constructor: `Configures the {action} field rules.`
+- **Syntax** — one rule per `RuleFor`; each chained call on its own line (`.Must(...)` then `.WithMessage(...)`); a blank line between `RuleFor`s.
+- **Messages** — omit `.WithMessage` when FluentValidation's default reads fine (it names the property); add one only where the rule's intent isn't obvious from the property and validator (e.g. a format check).
+- **`nameof`** — use `nameof` wherever a rule references another member by name.
+- **Shared predicates** — factor a reusable check into a static helper (`ProductValidation.IsValidRepo`) called via `.Must(...)`; don't inline the same lambda across validators.
 
 ```csharp
-public sealed class CreateUserValidator : AbstractValidator<CreateUserRequest>
+/// <summary>Validates <see cref="ProductCreateCommand"/>.</summary>
+public sealed class ProductCreateCommandValidator : AbstractValidator<ProductCreateCommand>
 {
-    public CreateUserValidator()
+    /// <summary>Configures the create-product field rules.</summary>
+    public ProductCreateCommandValidator()
     {
-        RuleFor(x => x.Email).NotEmpty().EmailAddress();
-        RuleFor(x => x.Age).InclusiveBetween(13, 120);
+        RuleFor(x => x.Slug)
+            .NotEmpty();
+
+        RuleFor(x => x.Name)
+            .NotEmpty();
+
+        RuleFor(x => x.Repo)
+            .Must(ProductValidation.IsValidRepo)
+            .WithMessage("Repo must be a 'owner/repo' reference (a single slash, no spaces, no scheme).");
     }
 }
 ```
@@ -54,36 +70,23 @@ Consumers depend only on the SDK `WoW.Two.Sdk.Backend.Beta.Validation.IValidator
 
 ### Branch on the result (no throw)
 
-`Validate(T)` returns a `ValidationResult` — an abstract record with `Success` and `Failure(IReadOnlyList<ValidationError> Errors)` variants (`IsValid` is sugar for `this is Success`). Pattern-match it:
+`Validate(T)` returns a `ValidationError?` — `null` means valid, non-null is the aggregate failure. Branch on it:
 
 ```csharp
-switch (validator.Validate(request))
-{
-    case ValidationResult.Success:
-        // proceed
-        break;
-    case ValidationResult.Failure failure:
-        // failure.Errors : IReadOnlyList<ValidationError>
-        break;
-}
+var error = validator.Validate(request);
+if (error is not null)
+    return AppResult<…>.Fail(error);   // error is a ValidationError : AppError
 ```
 
-Each `ValidationError` is `(string Property, string Message, string Code)` — `Property` is the member path, `Code` the stable rule code (from FluentValidation `ErrorCode`).
+`ValidationError : AppError { IReadOnlyList<FieldError> Failures }` (`Type = Validation`); each `FieldError` is `(string Property, string Message, string Code)` — `Property` the member path, `Code` the stable rule code (FluentValidation `ErrorCode`).
 
 ### Throw for the pipeline
 
-`ValidateAndThrow(T)` raises `ValidationException` (carrying `Errors`) when any rule fails — use it where a request-pipeline behavior / filter catches and translates exceptions centrally. The adapter's throw path is `Validate(...) is ValidationResult.Failure failure → throw new ValidationException(failure.Errors)`.
+`ValidateAndThrow(T)` raises a `ValidationException` (a `ValidationException : AppException` whose `.Error` is the `ValidationError`) when any rule fails — used by the mediator `ValidationBehavior`; the terminal `ExceptionToResultBehavior` converts the throw to an `AppResult.Failure` ([problem-details.md](../presentation/problem-details.md)).
 
 ## Map to HTTP
 
-Over HTTP, a validation failure becomes a `DomainError` of category Validation — map each `ValidationError` to `DomainError.Validation(code, message, detail?)` (→ `DomainErrorCategory.Validation`, `StatusCode` 400):
-
-```csharp
-ValidationError e = failure.Errors[0];
-return Result<UserDto>.Fail(DomainError.Validation(e.Code, e.Message, e.Property));
-```
-
-The `Result<T>.Failure(DomainError)` then drives the response status off `DomainError.StatusCode`. See [result-pattern.md](result-pattern.md) and the Errors foundation.
+A `ValidationError` is an `AppError` (`Type = Validation`) → `400` with an `errors:[{property,code,message}]` extension (from its `Failures`), rendered by the shared `AppErrorProblemDetailsFactory`. The controller just `.Match`es the `AppResult`; nothing hand-maps. See [problem-details.md](../presentation/problem-details.md).
 
 ## Guards vs. validators
 
@@ -96,8 +99,7 @@ Do not run boundary input through `Guard.Against`, and do not model argument pre
 
 ## See also
 
-- [result-pattern.md](result-pattern.md) — `Result<T>` success/failure containers carrying `DomainError`
-- `src/Foundation/Validation/` (SDK) — `IValidator<T>`, `ValidationResult`, `ValidationError`, `ValidationException`, `FluentValidationAdapter<T>`, `AddFluentValidatorsFromAssemblies`
-- `src/Foundation/Errors/DomainError.cs` (SDK) — `DomainError.Validation`, `DomainErrorCategory`
+- [result-pattern.md](result-pattern.md) — `Result`/`AppResult` carrying `AppError` · [problem-details.md](../presentation/problem-details.md) — `errors[]` rendering
+- `src/Foundation/Validation/` (SDK) — `IValidator<T>`, `FieldError`, `ValidationError`, `ValidationException`, `FluentValidationAdapter<T>`, `AddFluentValidatorsFromAssemblies`
 - `src/Foundation/Guards/` (SDK) — `Guard.Against`, `IGuardClause`, `NotSlug` / `NotUlid`
 - [FluentValidation docs](https://docs.fluentvalidation.net/)

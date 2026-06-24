@@ -20,6 +20,18 @@
       "port": 7025
     },
     {
+      "name": "smart-qr-static",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": ["-m", "http.server", "4180", "--directory", "workbench/ventures/smart-qr-poc/platform/src/backend/SmartQr.Api/wwwroot"],
+      "port": 4180
+    },
+    {
+      "name": "smart-qr-api",
+      "runtimeExecutable": "dotnet",
+      "runtimeArgs": ["run", "--no-build", "--project", "workbench/ventures/smart-qr-poc/platform/src/backend/SmartQr.Api/SmartQr.Api.csproj", "--launch-profile", "https"],
+      "port": 7020
+    },
+    {
       "name": "ui-showcase",
       "runtimeExecutable": "pnpm",
       "runtimeArgs": ["-C", "workbench/wow-two-sdk-beta/wow-two-sdk-beta.ui/apps/showcase", "dev"],

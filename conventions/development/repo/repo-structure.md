@@ -1,6 +1,6 @@
 # Repo Structure Standard
 
-*Last updated: 2026-06-10*
+*Last updated: 2026-06-24*
 
 > **Scope:** the on-disk layout + naming for **product / venture repos** under `wow-two-ws/workbench/`.
 > The *structural* layer — folders + names, not code style (that lives in [`backend/`](../backend/) and
@@ -60,6 +60,28 @@ A product repo *ships a thing to users*; a library repo *is consumed by other re
 > (`secrets-vault`, `drydock`; the product-template's slug is `sample`). The two code dirs carry it
 > as a **dot-prefix** so multiple open repos never collide on a bare `backend-services/` /
 > `frontend-services/` folder name in an IDE.
+
+## 2.1 Business-folder layout (the venture layer)
+
+> The venture-side counterpart to `engineering/`. In repos still on the `business/`+`platform/` shape
+> (haven, smart-qr), **`business/` is the venture layer** (the conceptual sibling of `product/` in §2);
+> `platform/` stays the **technical** layer. Same folder discipline as §4 — folders the moment a concern
+> can grow past one file. **Reference implementation:** `workbench/ventures/10x-ven-haven/business/`.
+
+```
+business/                          ← the venture layer — model · positioning · GTM. NO code.
+├── business-context.md           ← current state + active business tasks + decisions (changes often)
+├── business-knowledge.md         ← model · pricing · positioning · target users (durable lead doc)
+│   …plus standalone analysis docs may sit at root until a folder earns them
+├── analysis/                     ← product / feature / market research + analysis docs
+├── marketing/                    ← GTM · channels · campaigns (mkt-context/knowledge/analysis/guides/tasks)
+├── planning/                     ← business planning (business-planning.md) — distinct from platform/planning/
+└── flows/                        ← business / supply / user flow diagrams (*.mermaid)
+```
+
+- **Core docs at root:** `business-context.md` (current state) + `business-knowledge.md` (model/pricing/positioning). Standalone analysis docs may also sit at root until a subfolder earns them.
+- **Subfolders, created as needed** (omit until real, per §4): `analysis/` · `marketing/` · `planning/` · `flows/`.
+- **`planning/` is the *business* roadmap** — keep it distinct from `platform/planning/` (the technical roadmap); cross-reference, don't merge.
 
 ## 3. Doc rule — no README below root
 

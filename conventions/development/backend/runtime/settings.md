@@ -1,6 +1,6 @@
 # Settings
 
-*Last updated: 2026-02-23*
+*Last updated: 2026-06-22*
 
 Configuration classes that bind to `appsettings.json` sections via `IOptions<T>` or direct configuration binding.
 
@@ -29,15 +29,12 @@ Configuration classes that bind to `appsettings.json` sections via `IOptions<T>`
 
 ```csharp
 /// <summary>Configuration for AI classification pipeline behavior.</summary>
-/// <example>ClassificationSettings</example>
 public sealed record ClassificationSettings
 {
     /// <summary>Gets the maximum number of listings per AI classification batch.</summary>
-    /// <example>25</example>
     public required int MaxBatchSize { get; init; }
 
     /// <summary>Gets the timeout in seconds for a single classification API call.</summary>
-    /// <example>30</example>
     public required int TimeoutSeconds { get; init; }
 }
 ```
@@ -70,16 +67,13 @@ Per the starter table in [documentation.md](../code-style/documentation.md):
 ### Settings class
 
 - `/// <summary>` starts with **Configuration for**
-- `/// <example>` contains the `appsettings.json` section name (the binding key)
 
 ### Properties
 
 - `/// <summary>` starts with **"Gets the {property}"** — settings are init-only, so "Gets" not "Gets or sets"
-- `/// <example>` — concrete value the section would contain
 
 ```csharp
 /// <summary>Gets the maximum number of listings per AI classification batch.</summary>
-/// <example>25</example>
 public required int MaxBatchSize { get; init; }
 ```
 
@@ -94,6 +88,7 @@ Auth, OAuth, sign-in, and token concerns use the keyword **`Identity`** — alig
 
 - Per-environment overrides via `appsettings.{Environment}.json`
 - Env var overrides registered in `HostConfigurationExtensions.AddEnvironmentOverrides()` — map specific env vars to config keys, don't auto-bind everything
+- **No product/brand prefix on env-var names** — UPPER_SNAKE by **role**, not by app: `DB_CONNECTION`, `REDIS_CONNECTION`, `BILLING_SECRET_KEY` — never `SMARTQR_DB_CONNECTION`. The repo / deployment scopes the env; the name states the role.
 - Secrets (API keys, connection strings) — never in `appsettings.json`; use env vars, Azure Key Vault, or user secrets in dev
 
 ## See also

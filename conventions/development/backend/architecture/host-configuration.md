@@ -1,6 +1,6 @@
 # Host configuration
 
-*Last updated: 2026-06-18*
+*Last updated: 2026-06-22*
 
 > All host wiring — DI registration, configuration binding, middleware, startup — lives in the host's `Api/Configurations/` composition root, sourced only from the SDK or the host itself.
 > Purpose — one place to read everything a service is wired with; no hidden, self-registering config buried in a layer, service, or model.
@@ -45,30 +45,32 @@ public partial class Program;
 Static class with two `Configure` overloads — one for `WebApplicationBuilder`, one for `WebApplication`. No DI logic inline — just chains extension methods in order.
 
 ```csharp
-public static class HostConfiguration
+/// <summary>Provides host configuration extensions.</summary>
+public static partial class HostConfiguration
 {
-    /// <summary>Configures all services: settings, integrations, application services, pipelines, SignalR, CORS.</summary>
+    /// <summary>Configures the application builder (services).</summary>
+    /// <param name="builder">The web application builder to configure.</param>
+    /// <returns>The same <paramref name="builder"/> for chaining.</returns>
     public static WebApplicationBuilder Configure(this WebApplicationBuilder builder)
     {
+        builder.AddApiDefaults(o => o.ServiceName = "{service}");   // SDK boot floor first
+
         builder
-            .AddEnvironmentOverrides()
             .AddSettings()
-            .AddIntegrations()
-            .AddApplicationServices()
-            .AddPipelines()
-            .AddSchedulers()
-            .AddObservers()
-            .AddControllers()
-            .AddSignalR()
-            .AddCors();
+            .AddPersistence()
+            .AddApplicationServices();   // product seams — no trailing comments; method names self-document
 
         return builder;
     }
 
-    /// <summary>Configures middleware and maps endpoints.</summary>
+    /// <summary>Runs startup tasks, then configures middleware and endpoints.</summary>
+    /// <param name="app">The built web application to configure.</param>
+    /// <returns>The same <paramref name="app"/> for chaining.</returns>
     public static WebApplication Configure(this WebApplication app) { ... }
 }
 ```
+
+- the class summary and the two `Configure` summaries above are **locked** — identical across every app, don't reword per app.
 
 ## HostConfigurationExtensions
 
@@ -88,26 +90,24 @@ Static class with extension methods on `WebApplicationBuilder`. Each method regi
 | `AddSignalR()` | Adds SignalR hub services |
 | `AddCors()` | Configures CORS from settings |
 
+## Layer registration
+
+Layers (`Application`, `Infrastructure`, `Persistence`) ship **no** `DependencyInjection.cs` and **no** `Add*(this IServiceCollection)` — the host inlines their registrations into the matching `Add{Layer}Layer` extension above. Two consequences to handle when collapsing a layer into the host:
+
+- **Assembly scans** (mediator handlers, FluentValidation validators) anchor on a **public marker type in the scanned layer** — `typeof(IApplicationMarker).Assembly` — never the parameterless overload: called from the host, `Assembly.GetCallingAssembly()` resolves to the *host* assembly, not the layer (see [mediator.md](../messaging/mediator.md)). Add one empty `public interface I{Layer}Marker;` to each scanned layer.
+- **Internal adapters** (EF stores, typed clients) stay `internal` — the host registers them by concrete type, so grant it visibility with `<InternalsVisibleTo Include="{Host}" />` in the layer's `.csproj`. Don't widen them to `public` just to wire them.
+
+Startup tasks (DB init, seeding, warm-up) move host-side too — into `Configurations/AppInitialization.cs`, called from `Program.cs` after `Build()` (per [Program.cs](#programcs) — the entry point stays pristine).
+
 ## Documentation
 
-Only `/// <summary>` required — one-liner starting with **"Configures"** (per [documentation.md](../code-style/documentation.md) starter table). No `<remarks>` or `<example>`.
-
-```csharp
-/// <summary>Configures all services: settings, integrations, application services, pipelines, SignalR, CORS.</summary>
-public static WebApplicationBuilder Configure(this WebApplicationBuilder builder) { }
-
-/// <summary>Configures middleware and maps endpoints.</summary>
-public static WebApplication Configure(this WebApplication app) { }
-
-/// <summary>Configures typed HTTP clients for external API integrations.</summary>
-public static WebApplicationBuilder AddIntegrations(this WebApplicationBuilder builder) { }
-
-/// <summary>Configures pipeline nodes, orchestrators, registry, and execution infrastructure.</summary>
-public static WebApplicationBuilder AddPipelines(this WebApplicationBuilder builder) { }
-```
+- the class + the two `Configure` overloads use the **locked** summaries shown above (don't reword per app).
+- each private `Add*` extension gets a one-liner `<summary>` starting with **"Registers"** (or "Configures"). No `<remarks>` on host wiring.
+- the `Configure` chain carries **no trailing per-method comments** — the method names self-document. Inline comments only where a step's *why* isn't obvious (imperative one-liner, per [documentation.md](../code-style/documentation.md)).
 
 ## Rules
 
+- **service-registration `Add*` extensions live only in `Configurations/`** — never in a layer (persistence, infrastructure, codes, …). The host calls the SDK's `Add*` directly and inlines the product glue; a layer never ships its own `AddXyz(this IServiceCollection)`. (A multi-host app duplicates the few glue lines per host — that is the accepted cost of host-owned wiring.)
 - all configuration is wired **only** in the host, sourced from the SDK or the host itself — never a layer/service/model (see Configuration source).
 - `Program.cs` is **pristine** (see above) — only the two `Configure` calls, `app.Run()`, and the `Program` marker. No comments, logs, DI, or startup calls — those live in `HostConfiguration`.
 - `HostConfiguration.Configure()` chains extension methods — no inline DI logic

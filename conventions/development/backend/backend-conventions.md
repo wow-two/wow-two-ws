@@ -1,6 +1,6 @@
 # Conventions — Development — Backend (.NET)
 
-*Last updated: 2026-06-14*
+*Last updated: 2026-06-20*
 
 > .NET conventions for every backend service under `wow-two-ws/`. Lookup table — open a file when the
 > task touches it; do not pre-read. Organized by **sub-domain** (one folder per concern; scales as the
@@ -47,6 +47,7 @@ Tracks where each doc stands. `baseline` = pre-session (Haven-lifted, untouched)
 |---|---|
 | [members.md](code-style/members.md) | Member bodies — block `{ }` over expression `=>`, debuggability rationale |
 | [documentation.md](code-style/documentation.md) | XML doc format + consolidated starter table per type-kind |
+| [naming.md](code-style/naming.md) | Symbol naming — no brand/product prefix on types/members/extensions; predicates `Is`/`Has`/`Can`, never `Be` |
 | [code-organization.md](code-style/code-organization.md) | One file per type, section dividers, parameter formatting, raw strings, SQL line length |
 | [models.md](code-style/models.md) | Record style (`{ get; init; }`), member rules, naming |
 | [idioms.md](code-style/idioms.md) | Idiomatic C# sugar — method groups (`IDE0200`); room to grow (target-typed `new`, collection expressions) |
@@ -126,6 +127,7 @@ Tracks where each doc stands. `baseline` = pre-session (Haven-lifted, untouched)
 | File | What it covers |
 |---|---|
 | [testing.md](testing/testing.md) | E2E-first (Testcontainers + `WebApplicationFactory`, Respawn); unit for pure logic; harness mirrors the SDK scaffold |
+| [test-databases.md](testing/test-databases.md) | Test-DB selection — tiers (`RelationalTestDb<TContext>` · `MultiHostFixture` · `MigratorHarness`), Postgres default, `WOW2_TEST_DB` switch + SQLite speed fallback |
 
 ## Notes
 

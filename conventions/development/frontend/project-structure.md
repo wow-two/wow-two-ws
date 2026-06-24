@@ -11,7 +11,7 @@ One product, one frontend. No workspace, no shared packages.
 ```
 {slug}.frontend-services/     ← the Vite app itself
 ├── index.html
-├── vite.config.ts            ← base '/', HTTPS dev (mkcert), proxy /api → backend HTTP port
+├── vite.config.ts            ← base '/', HTTPS dev (mkcert), even port, proxy /api → backend HTTPS port
 ├── tsconfig.json · package.json
 └── src/
     ├── main.tsx              ← React mount
@@ -27,21 +27,23 @@ One product, one frontend. No workspace, no shared packages.
 
 Use this until a second app or genuine cross-app reuse appears. Don't pre-build a workspace.
 
-## Dev server — HTTPS by default
+## Dev server
 
-The Vite dev server runs over **HTTPS** via **`vite-plugin-mkcert`** (a locally-trusted cert — no browser warning). The backend serves plain **HTTP** (TLS terminated upstream in prod — see [../backend/launch-profiles.md](../backend/runtime/launch-profiles.md)); the frontend stays HTTPS so `Secure` auth cookies + secure-context keep working and an OAuth redirect doesn't hit a cert interstitial. Proxy `/api` to the backend's **HTTP** port with `changeOrigin: false` so the dev origin (`host:port`) is preserved end-to-end — the OAuth `redirect_uri` + session cookie then stay on the dev origin (register that origin's `/…/callback` with the provider).
+- must run over **HTTPS** via `vite-plugin-mkcert` (locally-trusted cert — no browser warning)
+- must bind an **even** port - track it in [ports.md](../repo/ports.md)
+- must proxy `/api` to the backend's **HTTPS** (even) port with `secure: false` (self-signed dev cert) and `changeOrigin: false` (preserves the dev origin) - see [state-and-data.md](state-and-data.md)
+- should keep TLS upstream in prod - HTTPS in dev keeps `Secure` cookies + secure-context consistent
+- first run may prompt once to trust the local CA (keychain) - expected
 
 ```ts
 import mkcert from 'vite-plugin-mkcert';
 
 plugins: [react(), tailwindcss(), mkcert()],
 server: {
-  port: 7025,
-  proxy: { '/api': { target: 'http://localhost:<backend-http>', changeOrigin: false, secure: false } },
+  port: 7024,
+  proxy: { '/api': { target: 'https://localhost:<backend-even>', changeOrigin: false, secure: false } },
 },
 ```
-
-First `npm run dev` may prompt once to trust the local CA (keychain) — expected.
 
 ## Shape B — pnpm workspace (multi-app)
 
@@ -101,7 +103,7 @@ Each app uses the **same internal `src/` layout** as Shape A.
 ## Per-app file conventions
 
 - **One component per folder**, camelCase folders, PascalCase files — see [components.md](components.md) / [naming.md](naming.md).
-- Ports: the backend is a **single HTTP port** (even) per the [launch-profile rule](../backend/runtime/launch-profiles.md); the frontend dev server (HTTPS via mkcert) picks any free port.
+- Ports: the backend binds an even (HTTPS) + odd (HTTP) pair per the [launch-profile rule](../backend/runtime/launch-profiles.md); the frontend dev server (HTTPS via mkcert) binds an **even** port. Both tracked in [ports.md](../repo/ports.md).
 
 ## See also
 

@@ -1,6 +1,6 @@
 # Database
 
-*Last updated: 2026-06-16*
+*Last updated: 2026-06-22*
 
 > Schema-first DB rules — column constraints, Postgres/Npgsql type mappings, and how EF Core maps over a SQL-owned schema (it never owns DDL).
 > Purpose — one source of truth for the schema (the SQL) so EF config can't silently drift; integer-unit storage sidesteps `NUMERIC` precision bugs.
@@ -288,8 +288,7 @@ builder
 
 ### Documentation
 
-Single `/// <summary>` one-liner starting with "Configures" — per [documentation.md](../code-style/documentation.md) starter table. No `<remarks>` /
-`<example>`.
+Single `/// <summary>` one-liner starting with "Configures" — per [documentation.md](../code-style/documentation.md) starter table. No `<remarks>`.
 
 ```csharp
 /// <summary>Configures the listings table mapping and relationships.</summary>

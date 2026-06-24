@@ -1,6 +1,6 @@
 # Code organization
 
-*Last updated: 2026-06-14*
+*Last updated: 2026-06-22*
 
 ## One file per type (REQUIRED)
 
@@ -54,8 +54,7 @@ Nested types (sealed inner classes, value-object records inside a parent) live i
 - First letter capital, rest lowercase, **even when it distorts an established acronym** — consistency over original styling.
 - Applies to type / namespace / folder / member names.
 - This governs *all-caps runs* only — a mixed-case proper name with no all-caps run (`OAuth`, `SendGrid`, `MailKit`) is unaffected.
-- Cross-ref: the SDK's `docs/conventions/naming.md` §Acronyms matches this rule
-  ([wow-two-sdk-beta/wow-two-sdk.backend.beta](../../../../../wow-two-sdk-beta/wow-two-sdk.backend.beta/docs/conventions/naming.md)).
+- Canonical for the whole ecosystem — the backend-beta SDK follows this rule too (its package-id grammar in `docs/architecture/package-layout.md` notes the same case-sensitive-CI trap).
 
 ## Section dividers
 
@@ -187,7 +186,6 @@ public interface IEntity { Guid Id { get; } }
 
 ## Banned symbols
 
-Per `naming.md` in the SDK conventions:
 - `var` for non-obvious types (let analyzers complain)
 - Hungarian notation (`m_`, `s_`, `_`)
 - Suffix `Helper`, `Util`, `Manager` for *public* types — internal helpers ok

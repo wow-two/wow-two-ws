@@ -1,6 +1,6 @@
 # Entities
 
-*Last updated: 2026-06-14*
+*Last updated: 2026-06-22*
 
 > Domain entities — plain `sealed record` types mapping 1:1 to database tables, living in the Domain assembly with zero ORM dependency.
 > Purpose — keep the domain model EF-Core-free and consistent, so contracts (`IKeyedEntity<TId>`, traits) drive both EF interceptors and hand-written SQL.
@@ -22,12 +22,10 @@ The `/// <summary>` is the top line of the file — write it first, then the rec
 
 ### Entity-level
 
-- `/// <summary>` starts with **Represents**
-- `/// <example>` contains a human-readable description of what the entity holds
+- `/// <summary>` starts with **Represents** + a human-readable description of what the entity holds
 
 ```csharp
 /// <summary>Represents an external listing channel.</summary>
-/// <example>OLX Uzbekistan supply channel with scraping sources and pipeline config</example>
 public sealed record ChannelEntity : IKeyedEntity<Guid> { }
 ```
 
@@ -37,24 +35,21 @@ public sealed record ChannelEntity : IKeyedEntity<Guid> { }
 
 ```csharp
 /// <summary>Gets or sets the kebab-case slug of the channel, used as unique code reference.</summary>
-/// <example>olx-uz</example>
 public required string Slug { get; set; }
 ```
 
 ### Relations
 
-- `/// <summary>` starts with **"Gets or sets"** + describes the relation
-- `<example>` uses the "Collection of {entity}" convention
+- `/// <summary>` starts with **"Gets or sets"** + describes the relation, using the "collection of {entity}" convention
 
 ```csharp
-/// <summary>Gets or sets the search URLs that belong to this channel.</summary>
-/// <example>Collection of channel sources</example>
+/// <summary>Gets or sets the collection of search URLs that belong to this channel.</summary>
 public List<ChannelSourceEntity> Sources { get; set; } = null!;
 ```
 
 ### Primary keys & foreign keys
 
-- **No `<example>` on PK/FK properties** — `Id`, `ListingId`, etc. are self-explanatory UUIDs; fake UUID examples add noise. `<summary>` only.
+- PK/FK properties (`Id`, `ListingId`, etc.) carry a `<summary>` like every other member.
 
 ```csharp
 /// <summary>Gets or sets the unique identifier of the listing.</summary>

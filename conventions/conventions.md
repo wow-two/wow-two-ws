@@ -1,6 +1,6 @@
 # Conventions — wow-two
 
-*Last updated: 2026-06-18*
+*Last updated: 2026-06-22*
 
 > **The single index to every convention.** When a task touches *how we build* — code, repo structure,
 > naming, versioning — search HERE first, then open only the file(s) you need. Lookup table,
@@ -64,6 +64,8 @@ Rules:
 | **development** (below) | how we build — repo shape, backend & frontend code style | Active |
 | **planning** (below) | how we plan — version docs (grows over time) | Active |
 | **agentic-workflow** (below) | how parallel chats / agents share a repo — lanes · no-revert · scope containment | Active |
+| **marketing** (below) | how we name & brand — name selection · scoring rubric · verification · domains | Active |
+| **design** (below) | how we design — variant-driven exploration · per-app specs · light/dark parity | Active |
 | deployment | VPS, Docker, Traefik, CI/CD, release | Planned |
 | security | secrets handling, auth patterns, threat model | Planned |
 
@@ -80,6 +82,7 @@ Cross-area: **[dev-cycle.md](development/dev-cycle.md)** — 2-cycle app↔SDK m
 | Repo layout · `product/` + `engineering/` · code under `engineering/codebase/{slug}.{backend,frontend}-services` · naming · folder-docs (no README below root) · archetypes · **image-publish contract** (§13) · **audit** | [development/repo/repo-structure.md](development/repo/repo-structure.md) |
 | Tech stack — backend + frontend + beta SDKs | [development/repo/tech-stack.md](development/repo/tech-stack.md) |
 | Port ledger — allocated dev ports | [development/repo/ports.md](development/repo/ports.md) |
+| Single-host serving — SPA baked into the backend `wwwroot` (vite `outDir` + static-serve + `BuildSpa` target + dev proxy) · CORS posture | [development/repo/single-host-serving.md](development/repo/single-host-serving.md) |
 
 ### backend/ — .NET conventions (by sub-domain) · [backend-conventions.md](development/backend/backend-conventions.md)
 
@@ -87,14 +90,14 @@ Meta: `authoring` (cite symbols, not namespaces). Sub-domains:
 
 | Sub-domain | Docs |
 |---|---|
-| `code-style/` | `documentation` · `code-organization` · `members` · `models` · `idioms` |
+| `code-style/` | `documentation` · `naming` · `code-organization` · `members` · `models` · `idioms` |
 | `architecture/` | `service-architecture` · `domain-structuring` · `host-configuration` · `services` |
 | **`persistence/`** (focus) | `database` · `entities` · `enums` · `data-access` · `migrations/` (`migrations` · `bespoke-migrations` · `migration-dialects` · `ef-migrations` · `dbup-migrations` · `migration-tooling`) |
 | `presentation/` | `controllers` · `controllers-known-endpoints` · `request-models` · `response-models` · `api-context-building` · `problem-details` |
 | `runtime/` | `settings` · `launch-profiles` |
 | `foundation/` | `result-pattern` · `validation` · `time` |
 | **`integrations/`** (focus) | `clients` |
-| `testing/` | `testing` |
+| `testing/` | `testing` · `test-databases` |
 | `messaging/` | `mediator` |
 | `identity/` | `jwt-auth` |
 | `observability/` · `platform/` | proposed — write as built |
@@ -118,10 +121,23 @@ Meta: `authoring` (cite symbols, not namespaces). Sub-domains:
 |---|---|
 | Parallel chats on one tree · assume-intentional / no-revert · lane discipline · scope containment · commit discipline | [agentic-workflow/agentic-workflow.md](agentic-workflow/agentic-workflow.md) |
 
+## marketing — index: [marketing/marketing-conventions.md](marketing/marketing-conventions.md)
+
+| Need | File |
+|---|---|
+| Brand-name + domain selection — style taxonomy · house scoring rubric · verification runbook (TM · RDAP · handles · cross-language) · domain strategy · decision workflow + checklist | [marketing/brand-naming-and-domains.md](marketing/brand-naming-and-domains.md) |
+| Go-to-market — channel taxonomy · launch sequence · SEO-for-commodity · activation/retention · pricing & CRO (fee-efficiency) · metrics · GTM workflow + checklist | [marketing/marketing-strategy.md](marketing/marketing-strategy.md) |
+
+## design — index: [design/design-conventions.md](design/design-conventions.md)
+
+| Need | File |
+|---|---|
+| Design exploration — variant-driven (a few in-context options → pick → lock → cascade → spec) · other modes · mode-selection · per-app spec shape | [design/research/design-exploration.md](design/research/design-exploration.md) |
+
 ## Scaffolding
 
 - New conformant repo → skill **`create-repo`**. Template repo: `workbench/wow-two-sdk-beta/wow-two-sdk-beta.product-template/`.
 
 ## Precedence
 
-A convention applies to **every** repo under `wow-two-ws/`; a repo-level rule overrides for that repo. The SDK's own `docs/conventions/` covers SDK-package concerns (naming, layout, registry) — no overlap.
+A convention applies to **every** repo under `wow-two-ws/`; a repo-level rule overrides for that repo. **Naming + documentation conventions are centralized here** — they apply to the backend-beta SDK too. The SDK keeps only package **layout / registry** as internal architecture under its own `docs/` (`docs/architecture/package-layout.md`, `docs/package-registry.md`).

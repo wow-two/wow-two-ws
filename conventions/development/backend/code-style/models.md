@@ -1,6 +1,6 @@
 # Models
 
-*Last updated: 2026-02-23*
+*Last updated: 2026-06-22*
 
 General rules for all C# models (entities, result types, DTOs, settings, value objects).
 
@@ -8,7 +8,7 @@ General rules for all C# models (entities, result types, DTOs, settings, value o
 
 Records use **body properties with `{ get; init; }`** — not positional constructors (primary ctors). Applies to entities, DTOs, results, and all data-carrying records.
 
-**Why:** Positional constructor parameters don't support standard XML doc comments (`/// <summary>`, `/// <example>`). Body properties do.
+**Why:** Positional constructor parameters don't support standard XML doc comments (`/// <summary>`). Body properties do.
 
 **Exception:** Primary constructors are fine for **DI injection** (services, controllers, handlers) where XML docs on parameters aren't needed.
 
@@ -17,11 +17,9 @@ Records use **body properties with `{ get; init; }`** — not positional constru
 public sealed record PipelineDto
 {
     /// <summary>Gets the kebab-case pipeline id.</summary>
-    /// <example>sup-scrape-olx-urls</example>
     public required string Id { get; init; }
 
     /// <summary>Gets the display name.</summary>
-    /// <example>Scrape URLs</example>
     public required string Name { get; init; }
 }
 
@@ -64,7 +62,7 @@ Default to `sealed record` for every data carrier. Open `record` (non-sealed) on
 
 ## Documentation
 
-Every public model gets `/// <summary>` (required) + `/// <example>` (required, see per-kind tables in linked files). Properties: `/// <summary>` + `/// <example>` (except PK/FK which skip `<example>`).
+Every public model gets `/// <summary>` (required). Properties get `/// <summary>` too.
 
 Per the starter table in [documentation.md](documentation.md):
 

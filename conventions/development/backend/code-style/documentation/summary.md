@@ -1,6 +1,6 @@
 # Summary
 
-*Last updated: 2026-06-17*
+*Last updated: 2026-06-22*
 
 > The `<summary>` block — its mandated first word per type-kind (the starter table) + tone. The canonical summary reference; every convention links here.
 
@@ -60,7 +60,7 @@ A doc violating the starter table is a style miss regardless of content quality.
 
 - Start with `Gets` or `Gets or sets` — always state what the property holds, even if obvious from name
 - Always state the parent entity context: `Gets or sets the kebab-case slug of the channel`, not `Gets or sets the slug`
-- PKs / FKs: `<summary>` only — skip `<example>` (UUIDs are self-explanatory; fake values add noise)
+- PKs / FKs: `<summary>` like every other member — state what the key identifies
 - **State what the value is — not who sets it, when, or how.** No "stamped by the interceptor", "populated by the DB", "set at construction". An entity-trait contract describes the field; the population mechanism (interceptor, trigger, app code) is the implementer's choice and must not leak in.
   - ✅ `Gets or sets the timestamp when the entity was created.`
   - ❌ `Gets or sets the UTC timestamp when the entity was created. Stamped by the audit interceptor on insert; preserved on every subsequent update.`

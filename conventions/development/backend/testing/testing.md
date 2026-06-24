@@ -1,6 +1,6 @@
 # Backend — Testing
 
-*Last updated: 2026-06-12*
+*Last updated: 2026-06-24*
 
 > How we test .NET services. Prefer **end-to-end / integration over unit** — run the real flow, mock as little as possible.
 
@@ -35,8 +35,38 @@ Per feature, success **and** the edges (`401` auth, `404` ownership with **no ex
 ## Layout & naming
 
 - Tests live in a `tests/` folder in the backend solution.
-- `{Brand}.Tests` — pure-logic units (Docker-free).
-- `{Brand}.IntegrationTests` — E2E (Testcontainers); ships a `README.md` noting the Docker prerequisite + coverage.
+- **Test projects are named `{Product}.Tests.{Type}`** — every test project sits under a shared `.Tests.` prefix; `Type` ∈ {`Unit`, `Integration`, `E2E`}, one project per tier that has tests:
+  - **`{Product}.Tests.Unit`** — pure, I/O-free logic (evaluators, formatters, generators, validators in isolation). No host, no DB, Docker-free.
+  - **`{Product}.Tests.Integration`** — real DB / infra **below** the HTTP pipeline (a repository or handler over a real `DbContext`).
+  - **`{Product}.Tests.E2E`** — the full API over HTTP via host-boot (real Postgres, real pipeline). The **primary tier** — push request-flow coverage here; it catches serialization / mediator / model-binding / filter failures that green handlers miss. Ships a `README.md` noting the Docker prerequisite + coverage.
+- A **descriptive `{Type}`** is allowed for a specialized suite that doesn't fit the three tiers — e.g. **`{Product}.Tests.Migrations`** for migrator-engine tests. Keep it a single noun naming the suite's subject.
+- **The bare `{Product}.Tests` name is disallowed** — ambiguous about its type. Create a `{Product}.Tests.{Type}` project instead.
+- The tier maps 1:1 to the DB-selection tiers in [test-databases.md](test-databases.md): `Tests.Unit` → pure-logic (no DB) · `Tests.Integration` → repository / handler (`RelationalTestDb<TContext>`) · `Tests.E2E` → host-boot (`MultiHostFixture` + `PostgresFixture`).
+- Existing apps (`SmartQr.*`, `SecretsVault.*`) are being renamed to match; stragglers get retrofitted.
+
+## Method naming
+
+Pattern — `{Unit}_Should{Expectation}[_When{Condition}]`. PascalCase segments; the `_` separates the three parts (not words). Reads as a sentence: *"{unit} should {expectation} when {condition}"*.
+
+- **`{Unit}`** — the action / method / behaviour under test: `Create`, `GetById`, `Attempt`, `Classify`.
+- **`Should{Expectation}`** — the asserted outcome. Integration → `ShouldReturn{Status}` (`ShouldReturn404`); unit → `Should{Behaviour}` (`ShouldReturnCanceled`, `ShouldThrow`).
+- **`When{Condition}`** — the scenario under test.
+
+| | Rule |
+|---|---|
+| must | three-part `_Should…_When…`, PascalCase each segment |
+| must | integration names state the HTTP status (`ShouldReturn201`, `ShouldReturn422`) |
+| must | the `When` describes behaviour / state, never implementation |
+| may | drop `_When…` only when the behaviour is unconditional |
+
+| Layer | Shape | Example |
+|---|---|---|
+| Integration (E2E) | `{Action}_ShouldReturn{Status}_When{Condition}` | `Create_ShouldReturn422_WhenMedicationDoesNotExist` |
+| Unit (pure logic) | `{Method}_Should{Outcome}_When{Condition}` | `Attempt_ShouldReturnCanceled_WhenOperationCanceled` |
+| Unconditional | `{Method}_Should{Outcome}` | `Flatten_ShouldCapDepthAtFive` |
+
+✅ `GetById_ShouldReturn404_WhenRecordDoesNotExist` · `Classify_ShouldBeTransient_WhenDbTimeout`
+❌ `Attempt_converts_cancellation_to_canceled` (snake, no Should/When) · `Test_Create` · `Should_Work`
 
 ## Harness extraction
 

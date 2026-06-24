@@ -1,13 +1,14 @@
 # Documentation
 
-*Last updated: 2026-06-17*
+*Last updated: 2026-06-22*
 
 > XML-doc index/baseline — the cross-cutting format + the required-tags table, with per-block conventions (`<summary>`, `<remarks>`, `<param>`, `<returns>`, `<exception>`) split into `documentation/`.
 
 ## XML doc format
 
-- **One-liner by default** — `<summary>`, `<remarks>`, `<example>` content is a compact single line
+- **One-liner by default** — `<summary>`, `<remarks>` content is a compact single line
 - **Inline tags** — opening and closing tags on the same line as the content, never on separate lines
+- **`and`, not `+`** — write `and` in prose (summaries, remarks, inline comments); never `+`, which reads as a code operator — `PG and SQLite`, not `PG + SQLite`
 
 ```csharp
 // ✅ Correct — compact one-liner, tags inline
@@ -23,21 +24,21 @@
 
 ## Required tags per type-kind
 
-`/// <summary>` is required on every public type and member. `/// <example>` is required where the table below marks it.
+`/// <summary>` is required on every public type and member.
 
 | Type-kind | Required tags | Notes |
 |---|---|---|
-| Interface | `<summary>` | No `<example>` — interfaces define shape, examples are for implementations |
-| Enum | `<summary>` + `<example>` (when/where used) | Plus `<summary>` + `<example>` on each value |
-| Entity (record mapping to table) | `<summary>` + `<example>` (entity description) | Per-member `<summary>` + `<example>`; PKs/FKs skip `<example>` |
-| DTO | `<summary>` + `<example>` | Same as entity |
-| Settings record | `<summary>` + `<example>` (appsettings section name) | Per-member `<summary>` + `<example>` |
+| Interface | `<summary>` | Interfaces define shape; describe the contract |
+| Enum | `<summary>` (when/where used) | Plus `<summary>` on each value |
+| Entity (record mapping to table) | `<summary>` (entity description) | Per-member `<summary>` |
+| DTO | `<summary>` | Same as entity |
+| Settings record | `<summary>` (appsettings section name) | Per-member `<summary>` |
 | Service / Client / Repository | `<summary>` + `<remarks>` (flow / key behavior) | Methods get `<summary>` one-liner |
 | Static class (constants, helpers, registries) | `<summary>` | Members may or may not need `<summary>` depending on visibility |
 | Extension class | `<summary>` (purpose of the extensions) | Each extension method gets its own `<summary>` |
-| Configuration class (EF `IEntityTypeConfiguration<T>`) | `<summary>` one-liner | No `<remarks>` or `<example>` |
+| Configuration class (EF `IEntityTypeConfiguration<T>`) | `<summary>` one-liner | No `<remarks>` |
 | Handler (query/command) | `<summary>` = `Handles <see cref="{Q|C}"/>.` | Nothing else |
-| Result type (Success/Failure containers) | `<summary>` + `<example>` on the abstract base and each variant | Members per the entity rule |
+| Result type (Success/Failure containers) | `<summary>` on the abstract base and each variant | Members per the entity rule |
 
 ## Per-block conventions
 
@@ -51,16 +52,6 @@ Each XML doc block has its own rules — start here:
 | `<returns>` | [documentation/returns.md](documentation/returns.md) | Skipped by default; only when summary can't carry it |
 | `<exception>` | [documentation/exceptions.md](documentation/exceptions.md) | Only exceptions the method throws itself |
 
-## `<example>` content rules
-
-`<example>` values must be **human-readable** — no C# type names, class names, or code identifiers in the example body:
-
-- ✅ `Collection of channels` — not ❌ `Collection of ChannelEntity`
-- ✅ `Seed file missing from expected path` — not ❌ `SeedFailure.FileNotFound`
-- ✅ Describe the meaning, not the C# value
-
-Use `<see cref="..."/>` inside `<summary>` when referencing code; reserve `<example>` for runtime values or descriptions.
-
 ## Cross-references
 
 - `<see cref="X"/>` for inline references inside `<summary>` and `<remarks>` — the IDE resolves the link
@@ -68,7 +59,7 @@ Use `<see cref="..."/>` inside `<summary>` when referencing code; reserve `<exam
 
 ## Terminology
 
-- **Collection** — use "collection" in `<summary>` and `<example>` when referring to any grouping type (`List<T>`, `T[]`, `Dictionary<K,V>`, etc.). Keeps docs stable when the implementation type changes.
+- **Collection** — use "collection" in `<summary>` when referring to any grouping type (`List<T>`, `T[]`, `Dictionary<K,V>`, etc.). Keeps docs stable when the implementation type changes.
 - **The {entity}** — refer to the owning entity by name (`the channel`, `the listing`), not by C# type name in prose. The type name belongs in `<see cref>`.
 
 ## Inline comments (within method bodies)
@@ -92,6 +83,19 @@ var applied = await history.GetAppliedAsync(connection, ct);
 - Auto-generated code — skip
 - `Program.cs` 3-liner — skip
 - Test classes / methods — name carries the meaning
+- **`<example>` tags** — don't use them; they restate the obvious and go stale.
+- **Change / refactor narration** — `// moved from X`, `// now uses Y`, `// renamed`, `// was inline`. Git owns the diff; comment the code's *intent*, never its edit history.
+- **Rationale / justification essays** — `// UserId is server-set, so this only validates the enum`, `// stays in the handler because it's a business rule`, `// keep ours per D1`. Ask *who is this note for?* — a reader can scan the code, which is the source of truth and greppable. A genuinely non-obvious *why* is **one** terse line (see Inline comments above), never a multi-line note re-explaining a design the code already encodes.
+
+## Wrapper / package docs
+
+For a library that ships reusable wrappers (the SDK pattern) — docs ride the wrapper's own cadence, not the underlying lib's.
+
+- **every wrapper ships ≥1 xUnit test that doubles as runnable docs** — even trivial wrappers; the test proves the registration call works and is the "Storybook for backend" (demonstrates intended usage AND catches regressions)
+- **`<Module>.standard.md`** — RFC 2119 (`MUST` / `SHOULD` / `MAY`) behaviour contract only, not API; survives API churn
+- **`<Module>.spec.md`** — concrete API surface + usage snippets; tracks the code, updated when the wrapper API changes
+
+---
 
 ## See also
 
