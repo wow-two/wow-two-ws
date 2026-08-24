@@ -1,6 +1,6 @@
 # JSX
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-08-24*
 
 > Grouping, keying, spreading and conditional rendering in JSX, plus the element API underneath it.
 > Purpose — every one of these compiles to a `jsx()` call, so an idiom's cost is a render decision, not a style one.
@@ -26,7 +26,7 @@
 | `startTransition` · `flushSync` | the imperative scheduling escapes | 0 | 0 | `use with care` |
 
 - must spread the rest props last, after the props the component sets itself, so a consumer can override
-  ([constructs](../../constructs/constructs.md) § *JSX attributes*).
+  ([constructs](../../../mla/constructs/constructs.md) § *JSX attributes*).
 - must key a list child on the item's identity — a positional key reuses the wrong child on a reorder and carries its
   focus, its input value and its scroll position to a different row.
 - must reach for `<Fragment key={id}>` when a list entry renders two siblings; `<>` takes no key.
@@ -59,8 +59,19 @@
 
 ---
 
+## React types — import named, never the UMD namespace
+
+- must import React types by name and reference them bare — `import { type ReactNode } from "react"` → `ReactNode`.
+- must not reference the `React.*` UMD global (`React.ReactNode`, `React.JSX.Element`, `React.MouseEvent`) — with
+  `jsx: "react-jsx"` no `React` value is in scope, so `React.*` triggers TS `ts(2686)`.
+- must spell `React.JSX.Element` as `ReactElement`, or reach `JSX.Element` through
+  `import { type JSX } from "react"`.
+
+---
+
 ## Neighbours
 
 - [react](react.md) — the full construct roster
-- [html](../../../lla/constructs/html/html.md) — the elements JSX resolves to
-- [constructs](../../constructs/constructs.md) § *JSX attributes* — attribute order and `cn()`
+- [style](../../notation/style/style.md) — the in-file layout these imports sit in
+- [html](../html/html.md) — the elements JSX resolves to
+- [constructs](../../../mla/constructs/constructs.md) § *JSX attributes* — attribute order and `cn()`

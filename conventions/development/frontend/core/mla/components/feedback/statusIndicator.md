@@ -1,9 +1,9 @@
 # StatusIndicator
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-08-23*
 
 > A tone dot with a line of copy — a service's health, at a glance.
-> What a feedback component is → [feedback](../../constructs/visual/feedback.md).
+> What an indicator is → [indicator](../../constructs/visual/indicator.md).
 > Its full surface → `StatusIndicator.spec.md`.
 
 ## Reach for it when

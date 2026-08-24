@@ -1,6 +1,6 @@
 # Action
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-08-23*
 
 > A trigger that runs a command and carries no value of its own.
 > Purpose — separating "do this" from "set this" keeps a control's model contract out of every button.
@@ -14,7 +14,7 @@
 - must stay indifferent to what the command does; the caller owns the effect.
 
 ```txt
-✅ Button · CopyButton · Fab · SpeedDial · Toolbar · DisclosureButton · ToggleButton
+✅ Button · CopyButton · FabButton · SpeedDialButton · Toolbar · DisclosureButton · ToggleButton
 ❌ Switch                   (its on/off state is the value — a control)
 ```
 
@@ -51,7 +51,8 @@
 ### Component name
 
 - must end `*Button` — an action carries no value, so the button word is the whole role.
-- must end a grouped strip `*Group`, or give it its own shape word — `Toolbar`.
+- must admit `*Group` for a grouped strip and `*Bar` for a fixed one — `Toolbar` — all shape words ([visual
+  kinds](visual.md) § *Shape words*).
 - must name the affordance — `CopyButton`, never `CopyToClipboardHandlerButton`.
 
 ```vue
@@ -100,7 +101,7 @@ defineEmits<{ (e: 'press'): void }>();                                          
 - must open an [overlay](overlay.md) by flipping the overlay's model, never by mounting it as a child.
 
 ```txt
-✅ SectionHeader → Button → Spinner        (a busy action swaps its leading slot)
+✅ SectionHeading → Button → Spinner       (a busy action swaps its leading slot)
 ❌ Button → Modal                          (the trigger owning the surface it opens)
 ```
 
@@ -108,6 +109,7 @@ defineEmits<{ (e: 'press'): void }>();                                          
 
 ## Neighbours
 
+- [actions](../../components/actions/actions.md) — which one to reach for, and with what values
 - [control](control.md) — the kind for a widget that owns a value
 - [nav](nav.md) — the kind for a trigger that moves rather than runs
 - [overlay](overlay.md) — the surface an action opens

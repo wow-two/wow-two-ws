@@ -1,6 +1,6 @@
 # Components
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-08-23*
 
 > Which thing to reach for, and with what values — the application register over the roles `constructs/` defines
 > and the surfaces the SDK specs.
@@ -47,18 +47,31 @@ The three sections, the doc-field rules and the template are [mla](../mla.md) §
 they govern `constructs/` equally, so they are stated once above both.
 
 - must give each role **one file**, named for the role in the plural.
-- must name the group folder for its visual group, mirroring `constructs/visual/` one for one.
+- must name the group folder for the shipping group, never for a kind — the mapping is many-to-one and
+  [visual kinds](../constructs/visual/visual.md) § *Kinds* owns it in its `Lives in` column.
+- must file a kind that lives in two groups under each of them — `state` under `display/` and `feedback/`,
+  `panel` under `display/` and `layout/` — and a kind that ships outside `presentation/` under neither.
 - must index only the folders in this file's group table, never the components — each group's own lead does that.
+
+---
+
+## Reaching for one
+
+- should reach for a `@wow-two-beta/ui` component before hand-rolling one; a missing one is built locally,
+  then extracted once it is generic ([boundaries](../../../shapes/app/architecture/boundaries.md)).
+- must not duplicate a pure layout wrapper across products; an atom carrying logic is never product-local.
 
 ---
 
 ## The groups
 
-One folder per visual group, mirroring `constructs/visual/`. Each folder's lead indexes its own components; this
-table indexes the folders, never the components.
+One folder per construct folder — the visual groups, plus `behavior/` and `data/`. Each folder's lead indexes
+its own members; this table indexes the folders, never the members.
 
 | Group | Components | Construct |
 |---|---|---|
+| [behavior](behavior/behavior.md) | seams and hooks | [behavior](../constructs/behavior/behavior.md) |
+| [data](data/data.md) | carriers and shapes | [data](../constructs/data/data.md) |
 | [actions](actions/actions.md) | 15 | [action](../constructs/visual/action.md) |
 | [display](display/display.md) | 73 | [display](../constructs/visual/display.md) |
 | [feedback](feedback/feedback.md) | 27 | [feedback](../constructs/visual/feedback.md) |

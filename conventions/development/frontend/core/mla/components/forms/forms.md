@@ -1,6 +1,6 @@
 # Forms
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-08-20*
 
 > Which control or field to reach for, and with what values — the application register over the SDK's `forms/` group.
 > Purpose — seventy-four components ship here, most of them controls; this folder says which one a case wants.
@@ -25,7 +25,7 @@
 | [ChoiceCard](choiceCard.md) | field | an option reads as a card with a title and a description |
 | [CodeEditor](codeEditor.md) | control | code is edited with line numbers and tab indenting |
 | [ColorArea](colorArea.md) | control | saturation and value are dragged on a square |
-| [ColorField](colorField.md) | control | a hex colour is typed, with a live swatch beside it |
+| [ColorInput](colorInput.md) | control | a hex colour is typed, with a live swatch beside it |
 | [ColorPicker](colorPicker.md) | control | a colour is picked from a full panel behind a trigger |
 | [ColorSlider](colorSlider.md) | control | one colour channel is dragged along a track |
 | [ColorSwatch](colorSwatch.md) | display | a colour is previewed as a chip |
@@ -34,10 +34,10 @@
 | [Combobox](combobox.md) | control | a list is filtered by typing and one row is chosen |
 | [CronInput](cronInput.md) | control | a cron string is built with a readable preview |
 | [CurrencyInput](currencyInput.md) | control | a number carries a leading currency symbol |
-| [DateField](dateField.md) | control | a date is typed, with a calendar on the trailing button |
+| [DateInput](dateInput.md) | control | a date is typed, with a calendar on the trailing button |
 | [DatePicker](datePicker.md) | control | a date is picked from a popover behind a trigger |
 | [DateRangePicker](dateRangePicker.md) | control | both ends of a range are picked in one popover |
-| [DateTimeField](dateTimeField.md) | control | a date and a wall-clock time are typed in one field |
+| [DateTimeInput](dateTimeInput.md) | control | a date and a wall-clock time are typed in one input |
 | [Editable](editable.md) | control | text is read in place and edited on click |
 | [EmailInput](emailInput.md) | control | the value is an email address |
 | [EmojiPicker](emojiPicker.md) | control | an emoji is picked from a searchable, categorised grid |
@@ -78,14 +78,14 @@
 | [SearchInput](searchInput.md) | control | the value is a query, with a leading icon and a clear |
 | [Select](select.md) | control | one option is chosen from a closed list |
 | [Slider](slider.md) | control | a number is dragged along a track |
-| [Stepper](stepper.md) | display | progress is shown and the flow stays the caller's |
+| [Stepper](stepper.md) | control | it owns the active step and swaps the panel behind it |
 | [Switch](switch.md) | control | a toggle holds a boolean, labelled from elsewhere |
 | [SwitchField](switchField.md) | field | a toggle applies at once and needs its label |
 | [TagsInput](tagsInput.md) | control | free-form tags are typed and committed as chips |
 | [TelInput](telInput.md) | control | the value is a telephone number |
 | [TextAreaInput](textAreaInput.md) | control | the value is multi-line text |
 | [TextInput](textInput.md) | control | the value is one line of text and no variant fits |
-| [TimeField](timeField.md) | control | a time is typed, with a popover on the trailing button |
+| [TimeInput](timeInput.md) | control | a time is typed, with a popover on the trailing button |
 | [TimePicker](timePicker.md) | control | a time is picked from popover columns |
 | [UrlInput](urlInput.md) | control | the value is a URL |
 | [Wizard](wizard.md) | form | one submit is split into steps taken in order |

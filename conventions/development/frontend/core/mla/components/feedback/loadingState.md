@@ -1,9 +1,9 @@
 # LoadingState
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-08-23*
 
 > The centred busy report for a whole section — spinner, title and description, stacked.
-> What a feedback component is → [feedback](../../constructs/visual/feedback.md).
+> What a state is → [state](../../constructs/visual/state.md).
 > Its full surface → `LoadingState.spec.md`.
 
 ## Reach for it when

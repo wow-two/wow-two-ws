@@ -1,6 +1,6 @@
 # Constructs
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-08-22*
 
 > What each role a frontend declares **is** — the role, the suffix it takes, the shape of its contract.
 > Purpose — the definition register; which one to reach for and with what values is
@@ -11,7 +11,7 @@
 
 | Folder | Covers | Lead |
 |---|---|---|
-| `visual/` | the 15 kinds that render, what each composes with, where it lives | [visual](visual/visual.md) |
+| `visual/` | the 16 kinds that render, what each composes with, where it lives | [visual](visual/visual.md) |
 | `behavior/` | the seams a component consumes, and the `use*` state it owns | [behavior](behavior/behavior.md) |
 | `data/` | the model and carrier types a slice declares | [data](data/data.md) |
 
@@ -36,6 +36,33 @@ The rest of this file is the authoring pass for one rendering kind.
 
 The suffix is the kind written down — a reader who knows it knows the contract and the folder.
 
+### Three slots
+
+A name is built from three independent slots. Each answers a different question, and only the kind is required.
+
+| Slot | Says | Values |
+|---|---|---|
+| **domain** | what capability or subject it belongs to | a domain folder's name |
+| **kind** | what it does | the sixteen visual kinds |
+| **shape** | what form it wears | the shape words |
+
+- must fill the kind slot in every name; the domain and shape slots are optional.
+- must order the slots domain → shape → kind, so the kind word ends the name.
+- must draw the domain slot from a folder that exists — the SDK's
+  ([domains](../domains/domains.md)) or a product's own
+  ([architecture](../../../shapes/app/architecture/architecture.md) § *Domains*).
+- must read the kind slot off [visual kinds](visual/visual.md) § *Kinds*, never invent a synonym for one.
+- must let a shape word close the name in the kind's place only where that kind admits the word
+  ([visual kinds](visual/visual.md) § *Shape words*).
+- must not coin a fourth slot — a word fitting none of the three is the component's subject, and it belongs to
+  the domain folder's name rather than to the component's.
+
+```txt
+✅ AuthProvider · NotificationToast · CodesListPage       (domain + kind)
+✅ ProgressBar (indicator) · Toolbar (action)             (the shape closes the name)
+❌ CodesListContainer                                     (Container names no kind)
+```
+
 - must end every component name with the suffix its kind fixes; the kind's doc states which
   ([visual kinds](visual/visual.md) § *Suffix routing*).
 - must read the suffix as the thing the component **is**, never as the thing it decorates — it trails, never leads.
@@ -43,6 +70,10 @@ The suffix is the kind written down — a reader who knows it knows the contract
   a control, an overlay or a page, and the reader pays that ambiguity on every file they open.
 - an enum needs no kind suffix; its own name carries the role (`*Type` · `*Status` · `*Level`)
   ([enums](../../lla/components/enums.md)).
+- a [primitive](visual/primitive.md) needs none either — each is a single behaviour, not one role with many
+  components, so the behaviour's own word is the whole name (`Slot` · `Portal` · `Presence`).
+- must give a primitive the family suffix where it does join one — `ColorModeProvider` and
+  `FormControlContext` are providers first, and a primitive second.
 - must not reach for a synonym of a listed suffix — a `*Container`, a `*Dialog`, a `*Selector` names nothing new.
 - must name a seam from the [headless suffixes](behavior/headless-suffixes.md) instead; no component suffix fits one.
 - must coin a suffix only through the gate below (§ *Adding a new suffix*).
@@ -62,7 +93,7 @@ The suffix is the kind written down — a reader who knows it knows the contract
 - must suffix `*Simple` for the free-children counterpart of a slotted root — `AlertSimple` · `ToastSimple`.
 - must prefix `App*` for app-frame singletons only
   ([naming](../../lla/notation/naming/naming.md) § *App-shell baselines*).
-- compound subpart naming and export → [compound](compound.md).
+- compound subpart naming and export → [compound](compound/compound.md).
 
 ```txt
 ✅ AlertSimple · BannerSimple · AccordionItem · MenuItem · AppShell · AppErrorBoundary
@@ -100,8 +131,8 @@ The verb table and the multi-line exception live one layer down
 - must name the props `interface` `{Component}Props`, one per file
   ([typescript](../../lla/constructs/typescript/typescript.md)).
 - must mark every member `readonly`, and type an array prop `ReadonlyArray<T>` to block `.push()`.
-- must read a prop through whichever access its framework fixes — [vue](../frameworks/vue/macros.md) bans
-  destructure and takes defaults through `withDefaults`; [react](../frameworks/react/react.md) destructures in
+- must read a prop through whichever access its framework fixes — [vue](../../lla/constructs/vue/macros.md) bans
+  destructure and takes defaults through `withDefaults`; [react](../../lla/constructs/react/react.md) destructures in
   the parameter. The `interface` above is the shared surface either way.
 
 ```tsx
@@ -123,8 +154,6 @@ interface FillControlsProps {
   ([styling](../../../shapes/app/platform/styling.md)).
 - must put a multi-variant class map in a co-located `*.variants.ts` / `*Styles.ts` built with
   `tailwind-variants` — never inline a large conditional class string.
-- should reach for a `@wow-two-beta/ui` component before hand-rolling; a missing one is built locally, then
-  extracted once generic ([boundaries](../../../shapes/app/architecture/boundaries.md)).
 - must duplicate a pure DRY or layout wrapper inline; an atom carrying logic is never product-local.
 
 ---
@@ -133,11 +162,35 @@ interface FillControlsProps {
 
 - must put one attribute per line once an element has 3+ attributes **and** the line passes 120 characters.
 - must give peer siblings one shape — never mix inline and wrapped.
-- must set Prettier `printWidth: 120` — the width trigger is then automatic, the 3-attribute floor a review gate.
+- the width trigger is automatic once Prettier is configured ([library](../../../shapes/library/library.md)).
 
 ---
 
 ## 8. Adding a new suffix — the gate [REQUIRED]
+
+### Relation or form
+
+A suffix routes a name to one kind, so only a word that **cannot move** may hold that slot. A word naming a
+relation the component must stand in is fixed: `*Input` is a value inside a form, `*Field` is a label over a
+control, and neither word survives outside that relation. A word naming the form a component wears travels
+freely — a bar, a card, a group, an area is a shape any kind can take, so it routes nothing.
+
+- must admit a word as a routing suffix only when it names a relation the component must stand in.
+- must treat a word naming a shape as a **shape word** — the kinds that admit it list it, and the routing
+  table never carries it ([visual kinds](visual/visual.md) § *Suffix routing*).
+- must test a candidate by moving it: name two components in different kinds that could each wear the word.
+  Two honest hits means it is a shape word.
+- must read a shape word as trailing, not routing — `ProgressBar` and `Toolbar` are both correct, and neither
+  indicator nor action owns `*Bar`.
+- must let the tree settle a dispute — a shape word already ships across kinds, a relation word never does.
+  `*Group` spans four component folders, `*Card` three, `*Bar` · `*Area` · `*Overlay` · `*Text` two each;
+  every relation word holds exactly one.
+
+```txt
+✅ ProgressBar (indicator) · UndoBar (feedback) · Toolbar (action)   (one shape, three kinds)
+✅ TextInput · SelectInput · NumberInput          (one relation, one kind — the suffix routes)
+❌ `*Bar` listed as the indicator's suffix        (it names the strip, never what the strip does)
+```
 
 Answer in order; the first **yes** picks the suffix, and coining requires four `no`s.
 
@@ -158,8 +211,8 @@ Answer in order; the first **yes** picks the suffix, and coining requires four `
 
 ## Neighbours
 
-- [visual](visual/visual.md) — the 15 kinds that render, and what each composes with
-- [vue SFC](../frameworks/vue/vue-sfc.md) — the Vue counterpart: blocks, macro order, emit and slot verbs
+- [visual](visual/visual.md) — the 16 kinds that render, and what each composes with
+- [vue SFC](../../lla/constructs/vue/vue-sfc.md) — the Vue counterpart: blocks, macro order, emit and slot verbs
 - [props](../../lla/notation/naming/props.md) — the prop-name vocabulary these shapes are spelled in
 - [enums](../../lla/components/enums.md) — modelling a value as an enum member rather than parallel `is*` booleans
 - [architecture](../../../shapes/app/architecture/architecture.md) — the `presentation/` layer a component lives in

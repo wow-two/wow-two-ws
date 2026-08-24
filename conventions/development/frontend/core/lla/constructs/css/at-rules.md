@@ -1,6 +1,6 @@
 # At-rules
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-08-23*
 
 > Every CSS at-rule, which of them a Tailwind-only codebase still writes, and the ones a utility replaces.
 > Purpose — most at-rules have a variant that does the same job in the markup, where the class can be seen.
@@ -38,7 +38,7 @@ Six at-rules appear across both stylesheets: `@import`, `@theme`, `@custom-varia
 - must define an animation body in `@keyframes` and reference it through an `--animate-*` token
   ([custom properties](custom-properties.md)).
 - must keep the reduced-motion safety net global, so an untagged animation cannot slip past it.
-- must reach for `@utility` over `@apply` if a class must exist at all — `tailwind-merge` can resolve the first.
+- must reach for `@utility` over `@apply` on the terms [authoring](../tailwind/authoring.md) fixes.
 
 ---
 

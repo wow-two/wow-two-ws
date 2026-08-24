@@ -1,9 +1,9 @@
 # ProgressBar
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-08-23*
 
 > The horizontal track — a task's completion read left to right.
-> What a feedback component is → [feedback](../../constructs/visual/feedback.md).
+> What an indicator is → [indicator](../../constructs/visual/indicator.md).
 > Its full surface → `ProgressBar.spec.md`.
 
 ## Reach for it when

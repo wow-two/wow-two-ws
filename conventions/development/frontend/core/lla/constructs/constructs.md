@@ -13,8 +13,8 @@ A construct is anything the language or the framework offers as a baseline to de
 | Platform | Offers | Index |
 |---|---|---|
 | TypeScript | declarations | [typescript](typescript/typescript.md) |
-| Vue 3 | macros, reactivity, directives, slots, built-in components | [vue](../../mla/frameworks/vue/vue.md) |
-| React 19 | hooks, component forms, boundaries, JSX | [react](../../mla/frameworks/react/react.md) |
+| Vue 3 | macros, reactivity, directives, slots, built-in components | [vue](vue/vue.md) |
+| React 19 | hooks, component forms, boundaries, JSX | [react](react/react.md) |
 | HTML | elements and global attributes | [html](html/html.md) |
 | CSS | custom properties, at-rules, selectors, values | [css](css/css.md) |
 | Tailwind v4 | utilities, variants, authoring at-rules | [tailwind](tailwind/tailwind.md) |

@@ -1,6 +1,6 @@
 # Core
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-08-23*
 
 > What holds in every frontend deliverable we build — the language forms, the roles we declare, the things
 > complete on their own, and the capabilities a codebase reaches for.
@@ -26,8 +26,8 @@
 
 **Routing.** A kind you declare → `mla/constructs/{kind}.md`. Which one to reach for, and with what values →
 `mla/components/`. A language form used end to end → `lla/components/{form}.md`. How any symbol is written →
-`lla/notation/`. A concrete technology or capability → `mla/domains/{domain}/`. The delta one framework adds →
-`mla/frameworks/{framework}/`. A rule spanning frontends we both own → `hla/`.
+`lla/notation/`. A concrete technology or capability → `mla/domains/{domain}/`. A framework's own constructs →
+`lla/constructs/{framework}/`. A rule spanning frontends we both own → `hla/`.
 Where a folder is **created in the source tree**, how an app builds, routes and serves, how a package is
 published → [shapes](../shapes/shapes.md), never `core/`.
 
@@ -52,9 +52,9 @@ imports, and the platform constructs banned outright. A rule naming a *kind* we 
 naming a capability is not `lla/`. Full boundary and buckets → [lla](lla/lla.md).
 
 ### `mla/` — one app
-Four buckets. `constructs/` = the kinds we declare, one file per suffix. `components/` = which one to reach for,
-and with what values. `domains/` = a capability, its contract and its providers. `frameworks/` = the delta one
-framework adds. Full boundary → [mla](mla/mla.md).
+Three buckets. `constructs/` = the kinds we declare, one file per suffix. `components/` = which one to reach
+for, and with what values. `domains/` = a capability, its contract and its providers.
+Full boundary → [mla](mla/mla.md).
 
 - **A third party is a member of the domain that consumes it**, never its own axis. If the app cannot render
   without it, it is a provider, whoever wrote it.

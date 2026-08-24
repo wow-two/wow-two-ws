@@ -1,6 +1,6 @@
 # React 19
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-08-23*
 
 > Every construct React 19 offers a component or a hook, and the ones banned outright.
 > Purpose — React 19 retired a set of constructs the SDK still leans on, so a verdict here is also a migration order.
@@ -16,7 +16,7 @@
 | JSX | fragments · `key` · spread · conditional idioms · the element API | [jsx](jsx.md) |
 
 Hook naming, return shape and JSDoc verbs are not construct rules — they live in
-[hooks](../../constructs/behavior/hooks.md).
+[hooks](../../../mla/constructs/behavior/hooks.md).
 
 ---
 
@@ -73,34 +73,19 @@ export const SearchInput = forwardRef<HTMLInputElement, SearchInputProps>((props
 
 ## Banned
 
-- **class component** — reach for a function plus hooks ([components](components.md)); no hook runs in a class, so
-  every SDK composable, every context read and `ref`-as-a-prop are all unreachable from one.
-- **`forwardRef`** — reach for `ref` on the props interface ([components](components.md)); it is deprecated in React
-  19 and slated for removal, and its wrapper loses the inferred display name, so devtools shows `ForwardRef` for 233
-  of the SDK's files.
-- **Server Components · `'use client'` · `'use server'`** — no replacement is needed ([components](components.md));
-  every app here is a Vite SPA, so the directives are inert strings and a file marked `'use server'` ships its
-  "server" code to the browser.
-- **`useOptimistic`** — reach for a passive mutation plus a refetch
-  ([state & data](../../domains/data/state-and-data.md) § *Mutations*); optimistic state has to be rolled back
-  on failure, and nothing here owns that rollback.
-- **`useInsertionEffect` · `useDebugValue` · `useActionState`** — no replacement is needed ([hooks](hooks.md)); the
-  first serves CSS-in-JS, banned in [css](../../../lla/constructs/css/css.md), the second is stripped from production,
-  and the third needs a Server Action runtime we do not ship.
+Each verdict and its reason live in the sub-doc named beside it; this roster only indexes them.
 
----
-
-## Open
-
-- 324 `forwardRef` sites across 233 files still carry the pre-19 shape. Migrate to `ref` as a prop per group, dropping
-  `ComponentPropsWithoutRef` (164 sites) for `ComponentProps` as each one lands.
+- **class component** · **`forwardRef`** · **Server Components** · **`'use client'`** · **`'use server'`** →
+  [components](components.md)
+- **`useOptimistic`** → [state & data](../../../mla/domains/data/state-and-data.md) § *Mutations*
+- **`useInsertionEffect`** · **`useDebugValue`** · **`useActionState`** → [hooks](hooks.md)
 
 ---
 
 ## Neighbours
 
 - [vue](../vue/vue.md) — the same roster for the other framework
-- [typescript](../../../lla/constructs/typescript/typescript.md) — the language layer every construct here sits on
-- [constructs](../../constructs/constructs.md) — the app roles these constructs are shaped into
-- [hooks](../../constructs/behavior/hooks.md) — naming, return shape and lifecycle for a custom hook
-- [state & data](../../domains/data/state-and-data.md) — where shared state is allowed to live
+- [typescript](../typescript/typescript.md) — the language layer every construct here sits on
+- [constructs](../../../mla/constructs/constructs.md) — the app roles these constructs are shaped into
+- [hooks](../../../mla/constructs/behavior/hooks.md) — naming, return shape and lifecycle for a custom hook
+- [state & data](../../../mla/domains/data/state-and-data.md) — where shared state is allowed to live

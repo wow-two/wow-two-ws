@@ -1,6 +1,6 @@
 # Feedback
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-08-22*
 
 > Which report to reach for, and with what values — the application register over the SDK's `feedback/` group.
 > Use case — picking between two reports that both work, or fixing the value one carries here.
@@ -15,7 +15,7 @@
 | [Banner](banner.md) | the condition affects the whole app and pins across the top |
 | [BannerSimple](bannerSimple.md) | the pinned strip takes free-form children |
 | [Callout](callout.md) | a doc-style aside sits inline in prose, quieter than an alert |
-| [FeedbackToasts](feedbackToasts.md) | toasts come from the headless `notify()` bus |
+| [FeedbackToastHost](feedbackToastHost.md) | toasts come from the headless `notify()` bus |
 | [InlineSpinner](inlineSpinner.md) | a busy mark sits mid-flow with a word beside it |
 | [LiveCursor](liveCursor.md) | a collaborator's pointer is drawn on a shared surface |
 | [LoadingOverlay](loadingOverlay.md) | a region stays visible but must stop answering |
@@ -32,8 +32,7 @@
 | [StatusIndicator](statusIndicator.md) | a service's health reads as a dot plus a line |
 | [Toast](toast.md) | one transient card is mounted by hand, outside the queue |
 | [ToastSimple](toastSimple.md) | the transient card takes free-form children |
-| [Toaster](toaster.md) | the app fires toasts imperatively from anywhere |
-| [Tour](tour.md) | a feature is walked, spotlighting one target per step |
+| [ToastHost](toastHost.md) | the app fires toasts imperatively from anywhere |
 | [TrendIndicator](trendIndicator.md) | a metric's delta reads as a signed arrow |
 | [TypingIndicator](typingIndicator.md) | someone is composing a message right now |
 | [UndoBar](undoBar.md) | a destructive act stays reversible for a few seconds |

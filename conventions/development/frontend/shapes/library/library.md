@@ -44,6 +44,13 @@ themselves, and which suffix routes to which, are [visual kinds](../../core/mla/
 
 ---
 
+## Formatting
+
+- must set Prettier `printWidth: 120` in the package, so the width trigger is automatic and the
+  3-attribute floor stays a review gate ([JSX attributes](../../core/mla/constructs/constructs.md)).
+
+---
+
 ## Neighbours
 
 - [shapes](../shapes.md) — the test that put these rules here rather than in `core/`

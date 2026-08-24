@@ -1,6 +1,6 @@
 # View
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-08-23*
 
 > One presentation of one subject, swappable for a sibling that presents the same subject differently.
 > Purpose — a display mode becomes a component, so the parent switches modes instead of branching.
@@ -104,6 +104,7 @@ defineProps<{ readonly mode: 'month' | 'agenda' }>();                           
 
 ## Neighbours
 
+- [display](../../components/display/display.md) — which one to reach for, and with what values
 - [page](page.md) — the routed owner that picks which view shows
 - [panel](panel.md) — the sibling kind for a region a composite positions rather than swaps
 - [display](display.md) — the parts a view renders its subject with

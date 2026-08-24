@@ -1,22 +1,27 @@
-# Code organization
+# Style
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-08-24*
 
-File-per-type and one-component-per-folder live in [naming](../naming/naming.md) /
-[constructs](../../../mla/constructs/constructs.md); this file covers in-file layout.
+> How a file is laid out inside — the language baseline, the dividers, and the order its members run in.
+> Purpose — two files holding the same contents in a different order cost a reader twice to compare.
+> Use case — opening a new file, or deciding where a helper goes once one already exists.
+
+- must read file-per-type and one-component-per-folder at [naming](../naming/naming.md) and
+  [constructs](../../../mla/constructs/constructs.md); this file covers in-file layout only.
 
 ## Language baseline
 
-- **No `var`** — `const` by default, `let` only when reassigning. Applies to `.ts`, `.tsx`, inline `<script>`.
-- TypeScript **strict** mode on.
+- must not write `var` — `const` by default, `let` only when reassigning, in `.ts`, `.tsx` and an inline
+  `<script>` alike.
+- must keep TypeScript **strict** mode on.
 
 ---
 
 ## Section dividers
 
-- **`// ── Section ──`** for field groups inside interfaces or large objects.
-- **Plain comments** for logical sections inside JSX — no dashes/decorators.
-- **Don't over-divide** — 2-3 fields don't need a divider.
+- must mark a field group inside an interface or a large object with `// ── Section ──`.
+- must use a plain comment for a logical section inside JSX — no dashes, no decorators.
+- should not divide 2-3 fields; a divider there costs more than it saves.
 
 ```typescript
 // ✅ lightweight label for field groups
@@ -42,29 +47,21 @@ export interface Listing {
 
 ## Import order
 
-Group order, intra-group sort, and `type`-import form live in [imports](imports.md) —
-`side-effect → third-party → SDK → @/ alias → relative`, blank-line-separated.
-
----
-
-## React types — import named, never the UMD namespace
-
-- must import React types by name and reference them bare — `import { type ReactNode } from "react"` → `ReactNode`.
-- must not reference the `React.*` UMD global (`React.ReactNode`, `React.JSX.Element`, `React.MouseEvent`) — with
-  `jsx: "react-jsx"` no `React` value is in scope, so `React.*` triggers TS `ts(2686)`.
-- `React.JSX.Element` → `ReactElement`; or `JSX.Element` via `import { type JSX } from "react"`.
+- must take group order, intra-group sort and the `type`-import form from [imports](imports.md) —
+  `side-effect → third-party → SDK → @/ alias → relative`, blank-line-separated.
 
 ---
 
 ## File-internal order
 
-Components: imports → types → constants → helpers → component → sub-components — see
-[constructs](../../../mla/constructs/constructs.md).
-Non-component modules: imports → types → constants → exported members.
+- must order a component file imports → types → constants → helpers → component → sub-components
+  ([constructs](../../../mla/constructs/constructs.md)).
+- must order a non-component module imports → types → constants → exported members.
 
 ---
 
 ## Neighbours
 
 - [naming](../naming/naming.md) · [constructs](../../../mla/constructs/constructs.md)
+- [imports](imports.md) — the group order this file's rule defers to
 - [the C# sibling](../../../../../backend/dotnet/core/lla/notation/style/style.md) — same section order

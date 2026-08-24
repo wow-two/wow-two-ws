@@ -1,6 +1,6 @@
 # State
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-08-23*
 
 > A whole-region stand-in rendered **instead of** content — because there is none, it is still loading, or it failed.
 > Purpose — the three non-happy paths get one kind, so every region answers empty, loading, and failed the same way.
@@ -52,6 +52,8 @@
 
 - must end `*State` — the whole-region stand-in for content that is absent, pending, or failed.
 - must end `*Gate` for a conditional-render guard, `*Boundary` for the fallback of a failed subtree.
+- must admit `*Overlay` for a stand-in painted over the region it covers — all shape words ([visual
+  kinds](visual.md) § *Shape words*).
 
 ```vue
 <script setup lang="ts">
@@ -105,6 +107,8 @@ defineProps<{ items: ReadonlyArray<unknown> }>();                               
 
 ## Neighbours
 
+- [display](../../components/display/display.md) · [feedback](../../components/feedback/feedback.md) — which one to
+  reach for, and with what values
 - [feedback](feedback.md) — the kind that reports an operation instead of standing in for content
 - [display](display.md) — the content a state stands in for
 - [page](page.md) — the owner that picks between content and stand-in

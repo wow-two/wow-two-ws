@@ -1,6 +1,6 @@
 # UndoBar
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-08-22*
 
 > The snackbar with one reversal — a destructive act that stays undoable for a few seconds.
 > What a feedback component is → [feedback](../../constructs/visual/feedback.md).
@@ -19,7 +19,7 @@
 | Reach for | When |
 |---|---|
 | `AlertModal` | the act cannot be reversed and has to be confirmed first |
-| [Toaster](toaster.md) | several notices may stack, or nothing is reversible |
+| [ToastHost](toastHost.md) | several notices may stack, or nothing is reversible |
 | [Toast](toast.md) | the card is mounted by hand with no lifecycle |
 
 ---

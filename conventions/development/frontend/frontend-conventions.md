@@ -1,6 +1,6 @@
 # Conventions — Development — Frontend
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-08-24*
 
 > Conventions for every frontend under `wow-two-ws/`. Lookup table — open a file when the task
 > touches it; do not pre-read. The tree splits twice, and the cuts are orthogonal.
@@ -29,8 +29,8 @@ The scope model — what `lla` · `mla` · `hla` each own, and how to route a ru
 
 **Routing.** A kind you declare → `core/mla/constructs/{kind}.md`; which one to reach for, and with what values
 → `core/mla/components/`. A language form used end to end → `core/lla/components/{form}.md`; how any symbol is
-written → `core/lla/notation/`. A concrete technology or capability → `core/mla/domains/{domain}/`; the delta one
-framework adds → `core/mla/frameworks/{framework}/`. A rule spanning frontends we both own → `core/hla/`.
+written → `core/lla/notation/`. A concrete technology or capability → `core/mla/domains/{domain}/`; a framework's
+own constructs → `core/lla/constructs/{framework}/`. A rule spanning frontends we both own → `core/hla/`.
 Where a folder is created, how the thing builds, routes, styles and ships → `shapes/{app,library}/`.
 
 ---
@@ -66,7 +66,7 @@ A thing occupies one home per layer it has. Two tests, applied in order:
 | `Constants` | `const` · `as const` | the language's own | [constants](core/lla/components/constants.md) |
 | `Enums` | `const` object · union | the language's own | [enums](core/lla/components/enums.md) |
 | `Extensions` | `const` object of statics | the language's own | [extensions](core/lla/components/extensions.md) |
-| `Page` · `Overlay` | — | the 15 kinds that render | [components](core/mla/components/components.md) |
+| `Page` · `Overlay` | — | the 16 kinds that render | [components](core/mla/components/components.md) |
 | `Model` · `Dto` | `interface` · `type` | the layer a type may cross | [data](core/mla/constructs/data/data.md) |
 | `Result` | discriminated union | the carrier every call returns | [result](core/mla/constructs/data/result.md) |
 | a hook | `useState` · `useEffect` | the `use*` state it owns | [behavior](core/mla/constructs/behavior/behavior.md) |
@@ -113,15 +113,15 @@ The lead is [lla](core/lla/lla.md) — the three buckets and the boundary.
 
 ### `core/mla/` — one app
 
-The lead is [mla](core/mla/mla.md) — the four buckets, the SDK boundary, and the doc template both registers take.
+The lead is [mla](core/mla/mla.md) — the three buckets, the SDK boundary, and the doc template both registers take.
 
 | File | What it covers |
 |---|---|
 | [constructs](core/mla/constructs/constructs.md) | The authoring pass: kind → name → docs → props → gate |
-| [visual](core/mla/constructs/visual/visual.md) | The 15 kinds that render, suffix routing, where a group is placed |
+| [visual](core/mla/constructs/visual/visual.md) | The 16 kinds that render, suffix routing, where a group is placed |
 | [behavior](core/mla/constructs/behavior/behavior.md) | The seams a component consumes, and the `use*` state it owns |
 | [data](core/mla/constructs/data/data.md) | The `*Dto` family, `*Model`, `*Content`, and the `Result` carrier |
-| [compound](core/mla/constructs/compound.md) | A root that owns named subparts, and how both halves export |
+| [compound](core/mla/constructs/compound/compound.md) | A root that owns named subparts, and how both halves export |
 | [components](core/mla/components/components.md) | The three registers, the gate, and one folder per visual group |
 
 ### `core/mla/domains/` — a capability, its contract and its providers
@@ -132,15 +132,15 @@ One row per domain → [domains](core/mla/domains/domains.md). The four with the
 [submission](core/mla/domains/forms/submission.md) (submit path, field errors, validation timing) ·
 [api](core/mla/domains/api/type-mapping.md) (the .NET ↔ wire ↔ TS scalar contract).
 
-### `core/mla/frameworks/` — the framework delta
+### `core/lla/constructs/{react,vue}/` — each framework's own constructs
 
-- [react](core/mla/frameworks/react/react.md) — [components](core/mla/frameworks/react/components.md) ·
-  [hooks](core/mla/frameworks/react/hooks.md) · [jsx](core/mla/frameworks/react/jsx.md) ·
-  [boundaries](core/mla/frameworks/react/boundaries.md).
-- [vue](core/mla/frameworks/vue/vue.md) — [SFC](core/mla/frameworks/vue/vue-sfc.md) ·
-  [composition](core/mla/frameworks/vue/composition.md) · [macros](core/mla/frameworks/vue/macros.md) ·
-  [reactivity](core/mla/frameworks/vue/reactivity.md) · [template](core/mla/frameworks/vue/template.md) ·
-  [builtins](core/mla/frameworks/vue/builtins.md).
+- [react](core/lla/constructs/react/react.md) — [components](core/lla/constructs/react/components.md) ·
+  [hooks](core/lla/constructs/react/hooks.md) · [jsx](core/lla/constructs/react/jsx.md) ·
+  [boundaries](core/lla/constructs/react/boundaries.md).
+- [vue](core/lla/constructs/vue/vue.md) — [SFC](core/lla/constructs/vue/vue-sfc.md) ·
+  [composition](core/lla/constructs/vue/composition.md) · [macros](core/lla/constructs/vue/macros.md) ·
+  [reactivity](core/lla/constructs/vue/reactivity.md) · [template](core/lla/constructs/vue/template.md) ·
+  [builtins](core/lla/constructs/vue/builtins.md).
 
 ### `core/hla/` — between our own frontends
 
@@ -169,6 +169,7 @@ The lead is [app](shapes/app/app.md) — its vectors and their status.
 
 | Gap | Why |
 |---|---|
+| **Testing** | No convention at any layer; the backend has `shapes/service/architecture/clean/testing.md` |
 | **Accessibility** | No consumer-side keyboard / ARIA / focus baseline; the SDK ships the primitives only |
 | **Static assets** | Image, font and public-folder handling unspecified; icons ship, assets do not |
 | **Library delivery** | `exports`, `sideEffects`, peer deps and versioning are read off the packages, not written |

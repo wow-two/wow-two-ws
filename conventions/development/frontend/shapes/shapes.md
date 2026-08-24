@@ -1,6 +1,6 @@
 # Shapes
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-08-24*
 
 > What differs by **deliverable** — the kind of thing being built, not how far a rule reaches.
 > Purpose — an app and a component library share every naming, kind and notation rule, and almost no structure.
@@ -36,6 +36,8 @@ Not *does the rule change between deliverables* — a rule can be fixed forever 
   doc states both answers in one place.
 
 ---
+
+## Reading a shape
 
 - must read [core](../core/core.md) first — every rule there holds here too, unchanged.
 - must not restate a core rule in a shape; a shape states only what its deliverable changes.

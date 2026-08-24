@@ -1,6 +1,6 @@
 # Feedback
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-08-23*
 
 > A report of what the system just did or is doing — the outcome of an action, not the content of a page.
 > Purpose — outcome reporting is one kind, so severity, dismissal, and live-region wiring are decided once.
@@ -12,10 +12,14 @@
 - must be readable by a page reader without focus moving to it — a live region, not a silent swap.
 - must stand in for nothing; a component that replaces missing content is a [state](state.md).
 - must carry its own copy; a bare mark with no text is an [indicator](indicator.md).
+- the ✅ list names **kinds**, never the folder's residents — a state or an indicator may live in
+  `presentation/feedback/` when its case sends it there ([state](state.md) § *Location*).
 
 ```txt
-✅ Alert · Banner · Callout · Toast · Toaster · UndoBar · Spinner · Skeleton · ProgressBar · Tour
+✅ Alert · Banner · Callout · Toast · UndoBar
 ❌ Badge                  (a category chip on content — a display)
+❌ Skeleton               (it replaces a region's content — a state, filed in this folder by case)
+❌ ProgressBar            (a bare mark with no copy — an indicator)
 ```
 
 ---
@@ -25,7 +29,7 @@
 ### Group
 
 - must live in `presentation/feedback/` in the SDK, whether it is inline, pinned, or transient.
-- must keep the queue and the surface apart — the store publishes, `Toaster` renders.
+- must keep the queue and the surface apart — the store publishes, a [host](host.md) renders.
 
 ```txt
 ✅ presentation/feedback/toast/{Toast.vue, ToastSimple.vue, Toast.spec.md, index.ts}
@@ -50,7 +54,9 @@
 
 ### Component name
 
-- must end an inline note `*Callout`, a transient one `*Toast`, a section note `*Alert` · `*Banner`.
+- must end an inline note `*Callout`, a transient one `*Toast`, a section note `*Alert`.
+- must admit `*Banner` for a full-width strip and `*Bar` for a persistent one — `UndoBar` — all shape words ([visual
+  kinds](visual.md) § *Shape words*).
 
 ```vue
 <script setup lang="ts">
@@ -99,7 +105,7 @@ defineProps<{ color?: string }>();                                         // �
 - must not mount a [view](view.md), a [panel](panel.md), or a [control](control.md).
 
 ```txt
-✅ AppShell → Toaster → Toast → Button      ·      Field → FormErrorMessage
+✅ AppShell → ToastHost → Toast → Button      ·      Field → FormErrorMessage
 ❌ Toast → TextInput                        (asking for input inside a report)
 ```
 
@@ -107,6 +113,7 @@ defineProps<{ color?: string }>();                                         // �
 
 ## Neighbours
 
+- [feedback](../../components/feedback/feedback.md) — which one to reach for, and with what values
 - [indicator](indicator.md) — the kind for a passive mark with no copy of its own
 - [state](state.md) — the kind that stands in for content instead of reporting on it
 - [state and data](../../domains/data/state-and-data.md) — the bus and store a viewport subscribes to

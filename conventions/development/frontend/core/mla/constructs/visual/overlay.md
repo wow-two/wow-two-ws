@@ -1,6 +1,6 @@
 # Overlay
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-08-23*
 
 > A surface that leaves the document flow and paints above the page until it is dismissed.
 > Purpose — an action gets its own surface without taking a URL, so it never forks by breakpoint.
@@ -49,9 +49,10 @@
 
 ### Component name
 
-- must end `*Modal` for a blocking dialog, `*Drawer` for an edge slide, `*Sheet` for a bottom one.
-- must end a trigger-anchored floating panel `*Popover` · `*Tooltip` · `*HoverCard`.
-- must end `*Overlay` for a layer painted over one child — `BadgeOverlay` · `LoadingOverlay`.
+- must end `*Modal` for a blocking dialog.
+- must end a trigger-anchored floating panel `*Popover` · `*Tooltip`.
+- must admit `*Drawer` for an edge slide, `*Sheet` for a bottom one, `*Card` for `HoverCard`, and `*Overlay` for a
+  layer painted over one child — all shape words ([visual kinds](visual.md) § *Shape words*).
 - must not prefix `Overlay*`; the word says what the thing is, so it trails.
 
 ```vue
@@ -108,6 +109,7 @@ defineProps<{ isVisible: boolean }>();                             // ❌ not th
 
 ## Neighbours
 
+- [overlays](../../components/overlays/overlays.md) — which one to reach for, and with what values
 - [action](action.md) — the trigger that opens an overlay
 - [primitive](primitive.md) — the portal, focus-scope, and dismiss behaviour an overlay builds on
 - [routing](../../../../shapes/app/routing/routing.md) — why an action stays routeless and a place does not

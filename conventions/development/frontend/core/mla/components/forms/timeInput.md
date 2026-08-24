@@ -1,10 +1,10 @@
-# TimeField
+# TimeInput
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-08-20*
 
-> The typed time — an `HH:MM` field forgiving about how it is typed, with hour and minute columns behind a clock.
+> The typed time — an `HH:MM` input forgiving about how it is typed, with hour and minute columns behind a clock.
 > What a control is → [control](../../constructs/visual/control.md).
-> Its full surface → `TimeField.spec.md`.
+> Its full surface → `TimeInput.spec.md`.
 
 ## Reach for it when
 
@@ -19,7 +19,7 @@
 | Reach for | When |
 |---|---|
 | [TimePicker](timePicker.md) | the time is chosen off a column, not typed |
-| [DateTimeField](dateTimeField.md) | a day rides with the time |
+| [DateTimeInput](dateTimeInput.md) | a day rides with the time |
 | [CronInput](cronInput.md) | the value is a schedule rather than one clock time |
 
 ---

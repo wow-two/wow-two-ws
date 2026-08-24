@@ -65,7 +65,7 @@ Exhaustive through TypeScript 5.9. A form we have never written is still listed,
 - may declare `field: T | null` where `null` is a **value** the caller must state, so omitting the key becomes a
   compile error — a cleared selection, an absent error. Never where it only means absent.
 - must keep a `class` to an `Error` subclass, a chained builder, or a React error boundary
-  ([react boundaries](../../../mla/frameworks/react/boundaries.md)) — a value set is a `const` object.
+  ([react boundaries](../react/boundaries.md)) — a value set is a `const` object.
 - must declare a module-level operation as a `function`, leaving the arrow for an inline callback.
 - must reach for `satisfies` where a check must keep the literal type, and `as` only where narrowing cannot reach.
 

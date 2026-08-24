@@ -1,6 +1,6 @@
 # Overlays
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-08-22*
 
 > Which overlay to reach for, and with what values — the application register over the SDK's `overlays/` group.
 > Use case — picking between two surfaces that both work, or fixing the value one carries here.
@@ -18,3 +18,4 @@
 | [HoverCard](hoverCard.md) | a hover previews something inline, read-only |
 | [Modal](modal.md) | a flow owns the screen until it resolves |
 | [Popover](popover.md) | content belongs to one trigger and the page need not dim |
+| [Tour](tour.md) | a feature is walked, spotlighting one target per step |

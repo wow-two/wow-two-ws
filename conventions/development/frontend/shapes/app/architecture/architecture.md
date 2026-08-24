@@ -1,6 +1,6 @@
 # Architecture
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-08-20*
 
 > The slice tree a TypeScript app is built on — five Clean-Arch layers at `src/`, each sliced by domain.
 > Purpose — one inward dependency direction, so a layer reads without its callers.
@@ -56,7 +56,7 @@ Dependency runs inward: `presentation → application → domain`, `integration 
 - must suffix a component by its [kind](../../../core/mla/constructs/visual/visual.md), a seam by a
   [headless role](../../../core/mla/constructs/behavior/headless-suffixes.md).
 - must name a hook per [hooks](../../../core/mla/constructs/behavior/hooks.md) § *Naming*; a data
-  `use{Entity}` returns `{Entity}State`.
+  `use{Entity}` returns a [result](../../../core/mla/constructs/data/result.md), never a bespoke state bag.
 - must export `{domain}Api` from `integration/{domain}`, its fns `{verb}{Noun}`.
 - must name an extension object `{Noun}Extensions` (`as const`); constant casing is
   [naming](../../../core/lla/notation/naming/naming.md)'s.
@@ -87,8 +87,6 @@ A place is a URL, and a route renders the same place at every breakpoint.
 
 ---
 
----
-
 ## Slice tree
 
 ```
@@ -112,7 +110,7 @@ src/
 
 - [app](../app.md) — the shape this vector belongs to
 - [boundaries](boundaries.md) — what stays in the app, what extracts to the SDK, how the app is packaged
-- [compound](../../../core/mla/constructs/compound.md) — the root-and-subpart rules a slice's folder holds
+- [compound](../../../core/mla/constructs/compound/compound.md) — the root-and-subpart rules a slice's folder holds
 - [constructs](../../../core/mla/constructs/constructs.md) — the kinds each slice holds
 - [models](../../../core/mla/constructs/data/models.md) — the model types a slice declares, and variant-set dispatch
 - [routing](../routing/routing.md) — how a place becomes a route, and the router wrapper that owns it

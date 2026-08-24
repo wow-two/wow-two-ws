@@ -1,6 +1,6 @@
 # Calendar
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-08-20*
 
 > The inline month grid that picks one date — no trigger, no popover, always on the page.
 > What a control is → [control](../../constructs/visual/control.md).
@@ -20,7 +20,7 @@
 |---|---|
 | [DatePicker](datePicker.md) | the grid belongs behind a trigger |
 | [RangeCalendar](rangeCalendar.md) | the selection has two ends |
-| [DateField](dateField.md) | the date is typed rather than clicked |
+| [DateInput](dateInput.md) | the date is typed rather than clicked |
 | `EventCalendar` | the days are read for what is on them, not picked |
 
 ---

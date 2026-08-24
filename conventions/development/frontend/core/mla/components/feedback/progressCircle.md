@@ -1,9 +1,9 @@
 # ProgressCircle
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-08-23*
 
 > The ring — the same completion as a bar, wherever only a square fits.
-> What a feedback component is → [feedback](../../constructs/visual/feedback.md).
+> What an indicator is → [indicator](../../constructs/visual/indicator.md).
 > Its full surface → `ProgressCircle.spec.md`.
 
 ## Reach for it when

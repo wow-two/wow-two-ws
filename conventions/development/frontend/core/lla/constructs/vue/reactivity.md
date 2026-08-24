@@ -77,4 +77,4 @@ state.user === user; // false
 
 - [vue](vue.md) — the full construct roster
 - [macros](macros.md) — where props and emits enter the graph
-- [hooks](../../constructs/behavior/hooks.md) — the composable shape these primitives are wrapped into
+- [hooks](../../../mla/constructs/behavior/hooks.md) — the composable shape these primitives are wrapped into

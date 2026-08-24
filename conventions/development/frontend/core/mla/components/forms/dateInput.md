@@ -1,10 +1,10 @@
-# DateField
+# DateInput
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-08-20*
 
-> The typed date — a `YYYY-MM-DD` text field with a [Calendar](calendar.md) on its trailing button.
+> The typed date — a `YYYY-MM-DD` text input with a [Calendar](calendar.md) on its trailing button.
 > What a control is → [control](../../constructs/visual/control.md).
-> Its full surface → `DateField.spec.md`.
+> Its full surface → `DateInput.spec.md`.
 
 ## Reach for it when
 
@@ -19,8 +19,8 @@
 | Reach for | When |
 |---|---|
 | [DatePicker](datePicker.md) | the date is browsed for, not known |
-| [DateTimeField](dateTimeField.md) | a time of day rides with the date |
-| [TimeField](timeField.md) | only the time of day is captured |
+| [DateTimeInput](dateTimeInput.md) | a time of day rides with the date |
+| [TimeInput](timeInput.md) | only the time of day is captured |
 | [Calendar](calendar.md) | the grid should stay open on the page |
 
 ---

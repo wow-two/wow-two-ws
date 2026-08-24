@@ -1,9 +1,9 @@
 # InlineSpinner
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-08-23*
 
 > Spinner plus label on one line — the busy mark that drops into a row or a sentence.
-> What a feedback component is → [feedback](../../constructs/visual/feedback.md).
+> What an indicator is → [indicator](../../constructs/visual/indicator.md).
 > Its full surface → `InlineSpinner.spec.md`.
 
 ## Reach for it when

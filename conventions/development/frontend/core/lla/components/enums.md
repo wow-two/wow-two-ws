@@ -1,6 +1,6 @@
 # Enums
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-08-20*
 
 > How to declare an enum and layer its display and send-object data — the enum is a `const` object, PascalCase
 > key to camelCase wire value, and the only enum constant; displays and payloads attach as `Record<Enum, …>`.
@@ -39,7 +39,7 @@
 - must JSDoc the type with a one-liner opening `Defines …`, and each member with `Refers to …`
   ([documentation](../notation/documentation/documentation.md)).
 - must use a **PascalCase key** and a **camelCase value** ([serialization
-  casing](../../../../backend/dotnet/mla/platform/responses/serialization.md#contract)).
+  casing](../../../../backend/dotnet/shapes/service/platform/responses/serialization.md#contract)).
 - must not add an `Unresolved` / `Unknown` sentinel member — three concerns stay separate:
   - **nothing selected** → `null` or an optional field in form state; omit on send, never emit null.
   - **any / all** → a real member present on **both** sides, or modelled as absence.

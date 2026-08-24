@@ -1,6 +1,6 @@
 # RecurrenceEditor
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-08-20*
 
 > The repeat rule an end user builds — frequency, interval, and an end, with the next occurrences listed back.
 > What a control is → [control](../../constructs/visual/control.md).
@@ -20,7 +20,7 @@
 |---|---|
 | [CronInput](cronInput.md) | the reader writes cron, and the consumer is a job runner |
 | [DateRangePicker](dateRangePicker.md) | the value is one span, not a repetition |
-| [DateTimeField](dateTimeField.md) | the value is a single moment |
+| [DateTimeInput](dateTimeInput.md) | the value is a single moment |
 | `EventCalendar` | occurrences are read rather than defined |
 
 ---

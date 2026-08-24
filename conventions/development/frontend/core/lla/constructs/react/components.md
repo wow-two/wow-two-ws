@@ -25,10 +25,10 @@
 | `'use client'` · `'use server'` | the directives that mark the RSC boundary | 0 | 0 | `banned` |
 
 - must declare a component as an exported `function`; its folder shape is
-  [constructs](../../constructs/constructs.md) § *Folder*.
+  [constructs](../../../mla/constructs/constructs.md) § *Folder*.
 - must take one `props` parameter, destructured in the signature — `readonly` carries through, inline
   defaults stay clean, and a destructured `const` holds a narrowing across closures that a `props.x` read
-  re-widens ([constructs](../../constructs/constructs.md) § *Props interface*).
+  re-widens ([constructs](../../../mla/constructs/constructs.md) § *Props interface*).
 - must hoist a non-primitive default to module scope — an inline `{ items = [] }` mints a fresh identity
   every render, so every deps array that reads it churns.
 - must declare `ref` on the props interface when a consumer needs the node, and pass it straight to the element.
@@ -68,4 +68,4 @@ export const SearchInput = forwardRef<HTMLInputElement, SearchInputProps>((props
 
 - [react](react.md) — the full construct roster
 - [hooks](hooks.md) — `useImperativeHandle` and the rest of the hook set
-- [constructs](../../constructs/constructs.md) — folder, doc, props interface and JSX rules
+- [constructs](../../../mla/constructs/constructs.md) — folder, doc, props interface and JSX rules

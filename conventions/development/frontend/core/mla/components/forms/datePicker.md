@@ -1,6 +1,6 @@
 # DatePicker
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-08-20*
 
 > The date trigger — a button showing the formatted date, opening a [Calendar](calendar.md) in a popover.
 > What a control is → [control](../../constructs/visual/control.md).
@@ -18,10 +18,10 @@
 
 | Reach for | When |
 |---|---|
-| [DateField](dateField.md) | the reader types the date faster than clicking it |
+| [DateInput](dateInput.md) | the reader types the date faster than clicking it |
 | [Calendar](calendar.md) | the grid should stay open on the page |
 | [DateRangePicker](dateRangePicker.md) | the selection has two ends |
-| [DateTimeField](dateTimeField.md) | a time of day rides with the date |
+| [DateTimeInput](dateTimeInput.md) | a time of day rides with the date |
 
 ---
 

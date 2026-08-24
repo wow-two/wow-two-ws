@@ -1,9 +1,9 @@
 # TypingIndicator
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-08-23*
 
 > Three bouncing dots — someone is composing, right now.
-> What a feedback component is → [feedback](../../constructs/visual/feedback.md).
+> What an indicator is → [indicator](../../constructs/visual/indicator.md).
 > Its full surface → `TypingIndicator.vue`.
 
 ## Reach for it when

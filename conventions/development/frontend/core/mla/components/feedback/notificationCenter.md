@@ -1,9 +1,9 @@
 # NotificationCenter
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-08-23*
 
 > The panel of notices already delivered — a header, a scrolling list, an optional footer.
-> What a feedback component is → [feedback](../../constructs/visual/feedback.md).
+> What a panel is → [panel](../../constructs/visual/panel.md).
 > Its full surface → `NotificationCenter.vue`.
 
 ## Reach for it when
@@ -18,7 +18,7 @@
 
 | Reach for | When |
 |---|---|
-| [Toaster](toaster.md) | the notice is transient and has to be caught as it happens |
+| [ToastHost](toastHost.md) | the notice is transient and has to be caught as it happens |
 | `ActivityFeed` | the list is a domain record rather than a report to the reader |
 | `NotificationDot` | only the unread count belongs on the trigger |
 

@@ -1,9 +1,9 @@
 # AddressForm
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-08-24*
 
 > A country-aware address block — the country drives the region options and the postal label.
-> What a form is → [form](../../domains/forms/forms.md).
+> What a form is → [field](../../constructs/visual/field.md).
 > Its full surface → `AddressForm.spec.md`.
 
 ## Reach for it when

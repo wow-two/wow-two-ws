@@ -1,6 +1,6 @@
 # Control
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-08-23*
 
 > A widget that owns exactly one value and hands every change back to its caller.
 > Purpose — one model contract across 70-odd inputs, so a form binds any of them the same way.
@@ -14,7 +14,7 @@
 - must not submit; a component with a submit is a form ([forms](../../domains/forms/forms.md)).
 
 ```txt
-✅ TextInput · NumberInput · Select · Combobox · Slider · ColorPicker · DatePicker · JsonEditor
+✅ TextInput · NumberInput · SelectInput · ComboboxInput · SliderInput · ColorPicker · JsonEditor
 ❌ AddressForm             (it owns several values and a submit — a form)
 ```
 
@@ -52,7 +52,8 @@
 - must end `*Input` for a raw typeable control, `*Picker` for a selector that opens its own panel.
 - must end `*Editor` for an editing surface over one format — `JsonEditor` · `MarkdownEditor`.
 - must end `*Controls` for a control set that submits nothing of its own.
-- must name a homogeneous group of one control `{Control}Group` — `RadioGroup` · `CheckboxGroup`.
+- must admit `*Group` for a homogeneous set of one control — `RadioGroup` · `CheckboxGroup` — and `*Area` for a
+  free-drag surface — all shape words ([visual kinds](visual.md) § *Shape words*).
 
 ```vue
 <script setup lang="ts">
@@ -110,6 +111,7 @@ defineEmits<{ (e: 'change', event: Event): void }>();                           
 
 ## Neighbours
 
+- [forms](../../components/forms/forms.md) — which one to reach for, and with what values
 - [field](field.md) — the labelled wrapper that gives a control its name, helper, and error
 - [action](action.md) — the kind for a trigger that owns no value
 - [forms](../../domains/forms/forms.md) — submit, validation, and how a control binds to a form

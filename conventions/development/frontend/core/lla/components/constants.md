@@ -1,9 +1,10 @@
 # Constants
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-08-24*
 
-A single fixed value, or an unrelated group of them. Distinct from an [enum](enums.md) — a closed value **set** a
-field ranges over.
+> A single fixed value, or an unrelated group of them, declared once and read everywhere.
+> Purpose — a literal repeated across files drifts, and nothing names what the value means.
+> Use case — adding a fixed value, or choosing between a constant and an enum for a closed set.
 
 ## Const vs enum
 

@@ -1,9 +1,9 @@
 # LiveCursor
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-08-23*
 
 > A remote collaborator's pointer, drawn on a shared surface.
-> What a feedback component is → [feedback](../../constructs/visual/feedback.md).
+> What an indicator is → [indicator](../../constructs/visual/indicator.md).
 > Its full surface → `LiveCursor.vue`.
 
 ## Reach for it when

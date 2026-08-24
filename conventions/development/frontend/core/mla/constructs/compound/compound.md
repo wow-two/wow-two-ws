@@ -30,7 +30,8 @@ export const Modal = Object.assign(ModalRoot, { Content: ModalContent, Header: M
 
 ## Neighbours
 
-- [constructs](constructs.md) — the authoring pass a compound root still runs end to end
-- [panel](visual/panel.md) — the kind a subpart most often is
-- [architecture](../../../shapes/app/architecture/architecture.md) — the slice a compound folder sits in, in a product
-- [library](../../../shapes/library/library.md) — the folder a compound takes in a package
+- [constructs](../constructs.md) — the authoring pass a compound root still runs end to end
+- [panel](../visual/panel.md) — the kind a subpart most often is
+- [architecture](../../../../shapes/app/architecture/architecture.md) — the slice a compound folder sits in, in a
+  product
+- [library](../../../../shapes/library/library.md) — the folder a compound takes in a package

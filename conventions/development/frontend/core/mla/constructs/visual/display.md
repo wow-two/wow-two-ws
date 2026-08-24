@@ -1,6 +1,6 @@
 # Display
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-08-23*
 
 > A render of content the component does not own — it shows what it is given and changes nothing.
 > Purpose — the largest kind gets one rule set: take data in, render it, emit intent, never mutate.
@@ -14,7 +14,7 @@
 - must report system state through [feedback](feedback.md) instead of styling an error itself.
 
 ```txt
-✅ Heading · Card · DataTable · Avatar · Timeline · Sparkline · PdfViewer · VideoPlayer · DotsGlyph
+✅ Card · DataTable · PdfViewer · VideoPlayer · DotsGlyph · StatusBadge · PricingCard
 ❌ EmptyState             (it stands in for content that is absent — a state)
 ```
 
@@ -46,15 +46,19 @@
 ### Construct
 
 - must be generic over the row or item type when it renders a collection — `DataTable<TRow>`.
-- must keep a compound display's parts in one folder ([compound](../compound.md)).
+- must keep a compound display's parts in one folder ([compound](../compound/compound.md)).
 
 ### Component name
 
-- must end a tabular surface `*Table` · `*Grid` · `*Row` · `*Cell`.
-- must end a media render `*Preview` · `*Carousel` · `*Gallery`.
+- must end `*Preview` for a stand-in render of a larger thing.
 - must end `*Viewer` for a read-only document surface, `*Player` for a media transport one.
-- must end `*Card` for a bordered box, `*Badge` · `*Tag` · `*Status` for a chip carrying its own text.
-- must end `*Renderer` for a render dispatching on a discriminator, `*Glyph` for a fixed-geometry SVG mark.
+- must end `*Renderer` for a render dispatching on a discriminator.
+- must admit `*Table` · `*Grid` · `*Row` · `*Cell` for a tabular surface, `*Carousel` · `*Gallery` for a media set,
+  `*Card` for a bordered box, `*Badge` · `*Tag` · `*Status` for a chip, `*Glyph` for a fixed SVG mark, `*Overlay`
+  for a layer over one child, and `*Text` for a styled run.
+- must admit `*Heading` for a typographic outline entry, `*Avatar` for a portrait mark, `*Sparkline` for an
+  axis-free trend, and `*Timeline` for a vertical event rail.
+- must read every one of them as a shape word ([visual kinds](visual.md) § *Shape words*).
 
 ```vue
 <script setup lang="ts">
@@ -109,6 +113,7 @@ defineProps<{ queryKey: string }>();                                            
 
 ## Neighbours
 
+- [display](../../components/display/display.md) — which one to reach for, and with what values
 - [state](state.md) — the stand-in when there is nothing to display
 - [indicator](indicator.md) — the passive marks a display hangs off its rows
 - [feedback](feedback.md) — the kind that reports system state rather than content

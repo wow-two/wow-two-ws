@@ -1,6 +1,6 @@
 # ToastSimple
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-08-22*
 
 > The toast card's surface with free-form children — elevated, tone-driven, no structure.
 > What a feedback component is → [feedback](../../constructs/visual/feedback.md).
@@ -18,7 +18,7 @@
 | Reach for | When |
 |---|---|
 | [Toast](toast.md) | the structured icon, title, description and actions are wanted |
-| [Toaster](toaster.md) | a queue, a portal and auto-dismiss are wanted with it |
+| [ToastHost](toastHost.md) | a queue, a portal and auto-dismiss are wanted with it |
 | `Card` | the panel holds content rather than a report — no live region, no elevation |
 
 ---

@@ -1,6 +1,6 @@
 # Layout
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-08-23*
 
 > An arrangement of whatever it is given — it places children and owns no content of its own.
 > Purpose — spacing, stacking, and framing become named components instead of ad-hoc utility strings.
@@ -14,7 +14,7 @@
 - must stay in flow; a component that floats out of flow is an [overlay](overlay.md).
 
 ```txt
-✅ Box · Stack · Grid · Container · Section · TwoColumn · AppShell · Surface · Frame
+✅ BoxLayout · StackLayout · GridLayout · TwoColumnLayout · AppShell · SurfaceLayout · FrameLayout
 ❌ SectionHeader           (it renders a title and actions — that is a display)
 ```
 
@@ -28,7 +28,7 @@
 - must keep the app frame here too — `AppShell` is a layout with named regions, not a page.
 
 ```txt
-✅ presentation/layout/stack/{Stack.vue, Stack.spec.md, index.ts}
+✅ presentation/layout/stackLayout/{StackLayout.vue, StackLayout.spec.md, index.ts}
 ❌ presentation/display/stack/Stack.vue      (arrangement is not display)
 ```
 
@@ -50,6 +50,8 @@
 ### Component name
 
 - must end `*Layout` for chrome around a router outlet, `*Shell` for the app frame — one `*Shell` per app.
+- must admit `*Bar` · `*Group` · `*Area` · `*Section` · `*Grid` · `*Row` · `*Cell` — all shape words ([visual
+  kinds](visual.md) § *Shape words*).
 
 ```vue
 <script setup lang="ts">
@@ -95,7 +97,7 @@ defineProps<{ items: ReadonlyArray<NavEntry> }>();                              
 - must not branch on route or auth; a conditional region is a [state](state.md) or a guard the page owns.
 
 ```txt
-✅ CreateCodePage → AppShell → TwoColumn → Stack → FillControls
+✅ CreateCodePage → AppShell → TwoColumnLayout → StackLayout → FillControls
 ❌ AppShell → useAuth()          (a layout reading session state)
 ```
 
@@ -103,6 +105,7 @@ defineProps<{ items: ReadonlyArray<NavEntry> }>();                              
 
 ## Neighbours
 
+- [layout](../../components/layout/layout.md) — which one to reach for, and with what values
 - [page](page.md) — the routed owner that picks the frame
 - [panel](panel.md) — the kind for a region a composite owns rather than one a caller fills
 - [styling](../../../../shapes/app/platform/styling.md) — tokens, `cn()`, and the variant files a layout uses

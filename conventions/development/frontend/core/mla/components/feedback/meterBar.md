@@ -1,9 +1,9 @@
 # MeterBar
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-08-23*
 
 > A gauge whose fill changes tone as the value crosses its thresholds.
-> What a feedback component is → [feedback](../../constructs/visual/feedback.md).
+> What an indicator is → [indicator](../../constructs/visual/indicator.md).
 > Its full surface → `MeterBar.spec.md`.
 
 ## Reach for it when

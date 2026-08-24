@@ -1,6 +1,6 @@
 # ColorSwatch
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-08-20*
 
 > The colour chip — one square or circle over a checkerboard, so partial alpha reads as partial.
 > A [display](../../constructs/visual/display.md), not a control, though the SDK ships it in `forms/`.
@@ -20,7 +20,7 @@
 |---|---|
 | [ColorSwatchPicker](colorSwatchPicker.md) | several chips form a palette the reader chooses from |
 | [ColorPicker](colorPicker.md) | clicking it should open a panel rather than run a command |
-| [ColorField](colorField.md) | the hex is to be read as text as well as colour |
+| [ColorInput](colorInput.md) | the hex is to be read as text as well as colour |
 | `Badge` | the chip carries a label rather than a raw colour |
 
 ---

@@ -1,9 +1,9 @@
 # Spinner
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-08-22*
 
 > The bare indeterminate mark — a spinning ring and a visually hidden label.
-> What a feedback component is → [feedback](../../constructs/visual/feedback.md).
+> What an indicator is → [indicator](../../constructs/visual/indicator.md).
 > Its full surface → `Spinner.spec.md`.
 
 ## Reach for it when

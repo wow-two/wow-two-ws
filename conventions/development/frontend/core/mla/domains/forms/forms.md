@@ -1,6 +1,6 @@
 # Forms
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-08-24*
 
 > Form state, validation and control wiring — every form runs on the `@wow-two-beta/ui` `/forms-engine` facade
 > (`useAppForm`) composed with the presentation `Field` chrome.
@@ -45,10 +45,11 @@ export { useAppForm } from '@wow-two-beta/ui/forms-engine/tanstack';
   updating a frontend model. No third case exists, so no bespoke `*Values` / `*Draft` type.
 - must let fields stay forgiving while editing (`""` for a required string, an enum as `string`).
 - must take a row key from `useFieldArray`'s `row.key`, never from a modeled `id`.
-- must validate with one whole-form schema — `zod` 4 by default, over the `StandardSchemaV1` seam.
+- must validate with one whole-form schema behind the `StandardSchemaV1` seam; the provider and its
+  version live in [validation](../validation/validation.md).
 - may write a **partial** schema covering only the fields the form owns — the backend is the source of truth.
 - must name the schema `{Model}Schema` beside the mappers in `application/{domain}/`, the const `empty{Model}`.
-- must keep validation messages in the schema (`z.string().min(3, '…')`), never in the component.
+- must keep validation messages in the schema, never in the component.
 
 ---
 

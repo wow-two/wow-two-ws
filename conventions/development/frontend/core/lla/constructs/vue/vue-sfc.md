@@ -1,6 +1,6 @@
 # Vue SFC
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-08-20*
 
 > Block layout, in-file order, shared DOM vocabulary, and JSDoc verbs for a Vue Single-File Component.
 > Use case — writing or reviewing any `.vue` file, above all in `@wow-two-beta/ui-vue`.
@@ -9,7 +9,8 @@
 
 - must put exported types and module-scope constants in a plain `<script lang="ts">`.
 - must put instance logic in `<script setup lang="ts">`.
-- must order blocks `<script>` → `<script setup>` → `<template>` → `<style>`.
+- must order blocks `<script>` → `<script setup>` → `<template>`; a `<style>` block is banned
+  ([css](../css/css.md) § *Banned*).
 - must not repeat an import across the two blocks — Vue merges them into one module scope.
 - must not add a plain `<script>` block that exports nothing.
 
@@ -27,24 +28,24 @@
 ## Imports
 
 - must import across a **published library's** `src/` with relative paths — an alias in the emitted `.d.ts`
-  will not resolve; app code takes the `@/` alias ([imports](../../../lla/notation/style/imports.md)).
+  will not resolve; app code takes the `@/` alias ([imports](../../notation/style/imports.md)).
 - must use the `@src/*` alias in `tests/` only.
 - must ignore the IDE's "import can be shortened" hint inside a library's `src/`.
-- group order and intra-group sort → [imports](../../../lla/notation/style/imports.md).
+- group order and intra-group sort → [imports](../../notation/style/imports.md).
 
 ---
 
 ## Docs
 
 - must anchor the component doc immediately above `defineOptions`
-  ([constructs](../../constructs/constructs.md) § *Docs*).
+  ([constructs](../../../mla/constructs/constructs.md) § *Docs*).
 - must doc a `computed` as the value it yields (`The …`), never `Computes …`.
 - must doc a `watch` by the effect it causes (`Emits …` · `Syncs …` · `Resets …`), never `Watches …`.
 - must doc a function with a third-person verb — `Copies …` · `Resolves …`.
 - must mark a non-exported type, constant, or helper `@internal`.
 - must keep a doc a **one-liner**; a non-JSDoc `/* */` comment is one line stating a role, with no exception.
-- the multi-line exception, § Scope, and the verb table →
-  [documentation](../../../lla/notation/documentation/documentation.md).
+- the multi-line exception, § *Scope*, and the verb table →
+  [documentation](../../notation/documentation/documentation.md).
 
 ---
 
@@ -66,7 +67,7 @@
 | Element tag | `ElementTag` | `ElementTag.Div` |
 
 - must take every DOM literal from `foundation/utils`, adding a missing one there rather than declaring it locally.
-- constant casing → [naming](../../../lla/notation/naming/naming.md) § *Quick reference*.
+- constant casing → [naming](../../notation/naming/naming.md) § *Quick reference*.
 - must not extract a DOM attribute **name** used once in a template — markup is not code.
 
 ---

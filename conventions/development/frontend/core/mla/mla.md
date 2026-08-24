@@ -1,6 +1,6 @@
 # MLA — one app
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-08-23*
 
 > Mid-level architecture: every rule that needs an app around it to mean anything.
 > Purpose — keep app-shaped decisions out of `lla/`, where they would read as language rules.
@@ -20,14 +20,13 @@ TypeScript or a framework defines, which is why they land at this level however 
 
 ---
 
-## The four buckets
+## The three buckets
 
 | Bucket | Answers | Lead |
 |---|---|---|
 | `constructs/` | what is this kind — one file per kind | [constructs](constructs/constructs.md) |
 | `components/` | which one to reach for, and with what values | [components](components/components.md) |
 | `domains/` | a capability, its contract and its providers | [domains](domains/domains.md) |
-| `frameworks/` | the delta one framework adds | [react](frameworks/react/react.md) · [vue](frameworks/vue/vue.md) |
 
 - **Three registers, one owner each.** `constructs/` defines the kind, `components/` chooses between kinds and
   fixes values, and one component's own props and slots live in its `{Component}.spec.md` in the SDK repo.

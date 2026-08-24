@@ -1,6 +1,6 @@
 # Vue 3
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-08-23*
 
 > Every construct Vue 3 offers a `.vue` file or a composable, and the ones banned outright.
 > Purpose — Vue is a second baseline under TypeScript, and a wrong pick costs a lost update, a leak, or an XSS.
@@ -87,25 +87,18 @@ const open = defineModel<boolean>('open');
 
 ## Banned
 
-- **Options API** — reach for `<script setup>` ([macros](macros.md)); an object component types `this` through a
-  declaration-merging shim, so a prop added by a macro is invisible to it and every rule in
-  [vue SFC](vue-sfc.md) about block order has nothing to order.
-- **`defineModel`** — reach for `defineProps` + an `'update:x'` emit ([macros](macros.md)); it declares the prop
-  outside the props `interface`, so the member cannot be `readonly`, cannot be documented, and cannot carry the
-  alias spelling the SDK ships on all 14 dual-surface components.
-- **`Transition` · `TransitionGroup` · `KeepAlive` · `Suspense`** — reach for `Presence` (23 SFCs) and
-  `AnimatedLayout` ([built-ins](builtins.md)); the first two drive enter / leave from `v-enter-from` class names with
-  no Tailwind utility form, and `@apply` is banned ([tailwind](../../../lla/constructs/tailwind/tailwind.md)).
-- **custom directive** — reach for a composable plus a wrapper component ([template](template.md)); a directive's
-  hooks run outside the setup scope, so `onScopeDispose` never fires for it and teardown has to be hand-written.
-- **`toRef` · `toRefs`** — reach for `computed(() => …)` ([reactivity](reactivity.md)); `toRefs` snapshots the key
-  set at call time, so a key added later never becomes a ref and reads `undefined` forever.
+Each verdict and its reason live in the sub-doc named beside it; this roster only indexes them.
+
+- **Options API** · **`defineModel`** → [macros](macros.md)
+- **`Transition`** · **`TransitionGroup`** · **`KeepAlive`** · **`Suspense`** → [built-ins](builtins.md)
+- **custom directive** → [template](template.md)
+- **`toRef`** · **`toRefs`** → [reactivity](reactivity.md)
 
 ---
 
 ## Neighbours
 
 - [react](../react/react.md) — the same roster for the other framework
-- [typescript](../../../lla/constructs/typescript/typescript.md) — the language layer every construct here sits on
+- [typescript](../typescript/typescript.md) — the language layer every construct here sits on
 - [vue SFC](vue-sfc.md) — block layout, in-file order, attribute forwarding
-- [constructs](../../constructs/constructs.md) — the app roles these constructs are shaped into
+- [constructs](../../../mla/constructs/constructs.md) — the app roles these constructs are shaped into

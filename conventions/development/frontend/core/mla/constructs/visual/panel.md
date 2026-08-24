@@ -1,6 +1,6 @@
 # Panel
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-08-23*
 
 > One pane of a composite that owns it — the composite positions it and decides when it shows.
 > Purpose — a compound root keeps its regions as named parts instead of arbitrary children.
@@ -11,7 +11,7 @@
 - must be **invalid outside its root** — one that stands alone is a [view](view.md) or a [display](display.md).
 - must take its identity from the root — the tab value, the step index, the pane order.
 - must not decide its own visibility; the root's context does.
-- must be one of two or more parts, or it folds back into the root ([compound](../compound.md)).
+- must be one of two or more parts, or it folds back into the root ([compound](../compound/compound.md)).
 
 ```txt
 ✅ TabsPanel · StepperPanel · ResizablePanel
@@ -25,7 +25,7 @@
 ### Group
 
 - must sit in its root's folder, beside the root file — `display/tabs/TabsPanel.vue`.
-- must be exported both flat and attached as `Root.Panel` ([compound](../compound.md)).
+- must be exported both flat and attached as `Root.Panel` ([compound](../compound/compound.md)).
 
 ### Folder
 
@@ -45,6 +45,8 @@
 #### [Renders](../../../lla/notation/documentation/documentation.md)
 
 - must name the pane's part in the root — `the panel for one tab`.
+- must admit `*Section` for a bounded region of the same pane, as a shape word
+  ([visual kinds](visual.md) § *Shape words*).
 
 ### Construct
 
@@ -108,7 +110,9 @@ defineProps<{ value: string; isActive: boolean }>();      // ❌ the context alr
 
 ## Neighbours
 
+- [display](../../components/display/display.md) · [layout](../../components/layout/layout.md) — which one to reach
+  for, and with what values
 - [view](view.md) — the sibling kind for a body that swaps rather than one a root positions
 - [layout](layout.md) — the kind for arrangement that carries no identity of its own
-- [compound](../compound.md) — the compound root and subpart export rules
+- [compound](../compound/compound.md) — the compound root and subpart export rules
 - [visual kinds](visual.md) — every other kind, and the composition ladder

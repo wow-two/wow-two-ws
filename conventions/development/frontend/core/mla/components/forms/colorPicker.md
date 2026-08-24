@@ -1,6 +1,6 @@
 # ColorPicker
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-08-20*
 
 > The assembled colour control — a trigger opening a panel of area, hue, optional alpha, hex field and presets.
 > What a control is → [control](../../constructs/visual/control.md).
@@ -19,7 +19,7 @@
 | Reach for | When |
 |---|---|
 | [ColorSwatchPicker](colorSwatchPicker.md) | the choice is a fixed palette, inline, with no free colour |
-| [ColorField](colorField.md) | the reader types a hex and needs no panel |
+| [ColorInput](colorInput.md) | the reader types a hex and needs no panel |
 | [ColorArea](colorArea.md) | you are building a bespoke panel and need only the SV square |
 | [ColorSlider](colorSlider.md) | one channel is being edited on its own |
 | [ColorSwatch](colorSwatch.md) | the colour is shown and never edited |

@@ -1,6 +1,6 @@
 # TimePicker
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-08-20*
 
 > The time trigger — a button opening hour and minute columns, with no text entry at all.
 > What a control is → [control](../../constructs/visual/control.md).
@@ -18,8 +18,8 @@
 
 | Reach for | When |
 |---|---|
-| [TimeField](timeField.md) | the reader types the time faster than picking it |
-| [DateTimeField](dateTimeField.md) | a day rides with the time |
+| [TimeInput](timeInput.md) | the reader types the time faster than picking it |
+| [DateTimeInput](dateTimeInput.md) | a day rides with the time |
 | [DateRangePicker](dateRangePicker.md) | the span is measured in days, not minutes |
 
 ---

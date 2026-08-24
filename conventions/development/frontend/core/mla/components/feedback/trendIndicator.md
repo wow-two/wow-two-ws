@@ -1,9 +1,9 @@
 # TrendIndicator
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-08-23*
 
 > A signed delta with an arrow — whether a metric moved the right way.
-> What a feedback component is → [feedback](../../constructs/visual/feedback.md).
+> What an indicator is → [indicator](../../constructs/visual/indicator.md).
 > Its full surface → `TrendIndicator.spec.md`.
 
 ## Reach for it when

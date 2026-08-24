@@ -1,9 +1,9 @@
 # PresenceIndicator
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-08-23*
 
 > The presence dot — one person's connection state, usually pinned to an avatar.
-> What a feedback component is → [feedback](../../constructs/visual/feedback.md).
+> What an indicator is → [indicator](../../constructs/visual/indicator.md).
 > Its full surface → `PresenceIndicator.vue`.
 
 ## Reach for it when

@@ -1,9 +1,9 @@
 # LoadingOverlay
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-08-23*
 
 > A scrim over a centred spinner — the region stays readable but stops answering.
-> What a feedback component is → [feedback](../../constructs/visual/feedback.md).
+> What a state is → [state](../../constructs/visual/state.md).
 > Its full surface → `LoadingOverlay.spec.md`.
 
 ## Reach for it when

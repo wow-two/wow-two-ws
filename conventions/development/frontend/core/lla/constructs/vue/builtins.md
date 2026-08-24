@@ -24,7 +24,7 @@
 - must reach for `Presence` for enter / leave, and `AnimatedLayout` for a reorder — both read the computed duration
   off the node, so the timing follows the Tailwind motion tokens rather than a second class vocabulary.
 - must give `<component :is>` a value from a `const` object, never a raw string
-  ([enums](../../../lla/components/enums.md)).
+  ([enums](../../components/enums.md)).
 - must keep `defineAsyncComponent` out of a published package; a consumer's app is where a route split belongs.
 - must not reach for a built-in to hide a component that should not be rendered — that is `v-if`
   ([template](template.md)).
@@ -43,9 +43,9 @@
 
 - **`<Transition>` · `<TransitionGroup>`** — reach for `Presence` / `AnimatedLayout`; both drive the animation from
   `v-enter-from`-style class names, which have no Tailwind utility form and would need `@apply`, banned in
-  [tailwind](../../../lla/constructs/tailwind/tailwind.md). `<Transition>` also demands a single root child, which
+  [tailwind](../tailwind/tailwind.md). `<Transition>` also demands a single root child, which
   collides with the `inheritAttrs: false` + `cn()` box every component owns.
-- **`<KeepAlive>`** — reach for the query layer's cache ([state & data](../../domains/data/state-and-data.md));
+- **`<KeepAlive>`** — reach for the query layer's cache ([state & data](../../../mla/domains/data/state-and-data.md));
   a cached instance keeps its watchers, timers and subscriptions running off-screen, and makes `onActivated` /
   `onDeactivated` mandatory on every child that touches the DOM.
 - **`<Suspense>`** — reach for the query layer's own loading state; it is still flagged experimental in 3.5, and it
@@ -57,4 +57,4 @@
 
 - [vue](vue.md) — the full construct roster
 - [template](template.md) — the directives these components are written beside
-- [visual kinds](../../constructs/visual/visual.md) — the SDK components to reach for first
+- [visual kinds](../../../mla/constructs/visual/visual.md) — the SDK components to reach for first

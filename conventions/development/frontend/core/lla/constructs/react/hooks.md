@@ -35,7 +35,7 @@
 - must reach for `useSyncExternalStore` for anything React does not own — a media query, a browser permission, a
   queue. The SDK's 16 sites are all of that shape, and every one of them avoids the effect-plus-state tearing bug.
 - must keep an effect to one concern, and abort in-flight work in its cleanup
-  ([hooks](../../constructs/behavior/hooks.md) § *Lifecycle rules*).
+  ([hooks](../../../mla/constructs/behavior/hooks.md) § *Lifecycle rules*).
 - must reach for `useLayoutEffect` only where a measurement must land before paint; it blocks the frame.
 - must not use `useImperativeHandle` to hand a DOM node upward — assign the ref instead; keep it for a real
   imperative API (`focus()`, `scrollToIndex()`). All 10 SDK sites return `someRef.current` unchanged, which
@@ -56,13 +56,13 @@ useEffect(() => subscribe(() => setMatches(query.matches)), []);
 ## Banned
 
 - **`useInsertionEffect`** — no replacement is needed; it exists so a CSS-in-JS runtime can inject a rule before
-  layout, and every such runtime is banned in [css](../../../lla/constructs/css/css.md).
+  layout, and every such runtime is banned in [css](../css/css.md).
 - **`useDebugValue`** — reach for a named hook; it is stripped from a production build, so a label a debugging session
   depends on is absent exactly where an incident happens.
 - **`useOptimistic`** — reach for a passive mutation plus a refetch
-  ([state & data](../../domains/data/state-and-data.md) § *Mutations*); the hook reverts to the real value when
+  ([state & data](../../../mla/domains/data/state-and-data.md) § *Mutations*); the hook reverts to the real value when
   the action settles, and there is nothing here to reconcile a rejection against.
-- **`useActionState`** — reach for the form engine ([forms](../../domains/forms/forms.md)); it reads an
+- **`useActionState`** — reach for the form engine ([forms](../../../mla/domains/forms/forms.md)); it reads an
   action's return, which needs a Server Action runtime no app here ships.
 
 ---
@@ -70,5 +70,5 @@ useEffect(() => subscribe(() => setMatches(query.matches)), []);
 ## Neighbours
 
 - [react](react.md) — the full construct roster
-- [hooks](../../constructs/behavior/hooks.md) — naming, return shape and JSDoc for a custom hook
-- [state & data](../../domains/data/state-and-data.md) — which state a hook is even allowed to hold
+- [hooks](../../../mla/constructs/behavior/hooks.md) — naming, return shape and JSDoc for a custom hook
+- [state & data](../../../mla/domains/data/state-and-data.md) — which state a hook is even allowed to hold

@@ -1,6 +1,6 @@
 # Authoring
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-08-23*
 
 > The at-rules Tailwind adds to CSS for extending itself, and the ones that reopen the configuration it replaced.
 > Purpose — these five are the whole seam between our theme and the framework, so what goes through them is the API.
@@ -32,7 +32,9 @@ exists in either repo.
 
 - must add a token to `@theme` rather than a utility, whenever the new thing is a value
   ([custom properties](../css/custom-properties.md)).
-- must reach for `@utility` only when a genuine new property shorthand is needed, never to bundle existing utilities.
+- must reach for `@utility` only when a genuine new property shorthand is needed, never to bundle existing
+  utilities — `tailwind-merge` resolves a real utility and cannot resolve an `@apply` bundle, so a bundle
+  earns no class at all.
 - must define a variant with `@custom-variant` when it is used in more than one component.
 - must keep every authoring block in a `bootstrap/` stylesheet
   ([architecture](../../../../shapes/app/architecture/architecture.md)).

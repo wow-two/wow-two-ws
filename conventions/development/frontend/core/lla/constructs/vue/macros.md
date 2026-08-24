@@ -25,7 +25,7 @@
 - must call every macro at the top of `<script setup>`, in the order
   [vue SFC](vue-sfc.md) § *Order inside `<script setup>`* fixes.
 - must type `defineProps` through a named `interface`, never an inline object literal — the interface is what
-  [constructs](../../constructs/constructs.md) § *Props interface* marks `readonly` and documents.
+  [constructs](../../../mla/constructs/constructs.md) § *Props interface* marks `readonly` and documents.
 - must read a prop as `props.x` at the point of use, never through a `const` copied at setup root — the copy
   snapshots, and the template renders the stale value.
 - may snapshot a **seed** prop, and only a seed — one named `default*` / `initial*`, or one feeding a

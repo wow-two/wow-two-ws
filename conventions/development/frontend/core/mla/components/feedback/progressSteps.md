@@ -1,9 +1,9 @@
 # ProgressSteps
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-08-23*
 
 > The named stages of a flow, with the current one marked and the earlier ones complete.
-> What a feedback component is → [feedback](../../constructs/visual/feedback.md).
+> What an indicator is → [indicator](../../constructs/visual/indicator.md).
 > Its full surface → `ProgressSteps.spec.md`.
 
 ## Reach for it when

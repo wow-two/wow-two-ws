@@ -1,8 +1,10 @@
 # Extensions
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-08-24*
 
-Static helper functions grouped by **domain noun**, declared as `const` objects.
+> Static helper functions grouped by the domain noun they operate on, declared as a `const` object.
+> Purpose — a loose helper has no home, so it is rewritten in every file that needs it.
+> Use case — adding a helper, or deciding which noun's object it belongs to.
 
 ## Naming & shape
 

@@ -1,6 +1,6 @@
 # Feedback
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-08-22*
 
 > The notice bus app code publishes on, and the surface that renders a notice.
 > Purpose — a publisher is rarely inside a component, so the hub is module state rather than an injected value.
@@ -35,7 +35,7 @@
 ```txt
 ✅ notify({ tone: NoticeTone.Success, title: 'Saved' })
 ✅ createQueryClient({ onError: feedbackQueryErrors() })
-❌ <Toaster/> mounted alongside <FeedbackToasts/>          every notice renders twice
+❌ <ToastHost/> mounted alongside <FeedbackToastHost/>          every notice renders twice
 ```
 
 ---

@@ -1,6 +1,6 @@
 # Indicator
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-08-23*
 
 > A small passive mark that reflects live state it does not control — presence, trend, activity, status.
 > Purpose — a mark that only reads state stays free of props for tone, copy, and dismissal it will never use.
@@ -15,7 +15,6 @@
 
 ```txt
 ✅ PresenceIndicator · StatusIndicator · TrendIndicator · TypingIndicator · NotificationDot · Status
-❌ ProgressBar             (it reports a running operation with copy — that is feedback)
 ```
 
 ---
@@ -51,7 +50,8 @@
 ### Component name
 
 - must end `*Indicator` — a passive mark of live outside state.
-- must end `*Bar` for a horizontal magnitude strip — `MeterBar` · `ProgressBar`.
+- must admit `*Bar` for a magnitude strip, `*Status` for its chip form, and `*Spinner` for an
+  indeterminate ring ([visual kinds](visual.md) § *Shape words*).
 
 ```vue
 <script setup lang="ts">
@@ -104,6 +104,7 @@ defineEmits<{ (e: 'click'): void }>();                                      // �
 
 ## Neighbours
 
+- [feedback](../../components/feedback/feedback.md) — which one to reach for, and with what values
 - [feedback](feedback.md) — the kind that reports an operation, with copy and dismissal
 - [display](display.md) — the surfaces an indicator is embedded in
 - [enums](../../../lla/components/enums.md) — the member-per-state modelling a tone prop uses

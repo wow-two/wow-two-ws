@@ -56,7 +56,7 @@
 
 - **key modifiers** — reach for the shared `Key` const object and an `event.key` check (68 sites); Vue's aliases are a
   separate vocabulary, so a template alias and a script check drift apart on the same physical key.
-- **`v-model` modifiers** — reach for a `computed` or the form layer ([forms](../../domains/forms/forms.md));
+- **`v-model` modifiers** — reach for a `computed` or the form layer ([forms](../../../mla/domains/forms/forms.md));
   they apply only to a native element's `v-model`, so the same prop behaves differently on a component than on an
   `<input>`, and the form engine never sees the value the user actually typed.
 - **`v-text`** — reach for `{{ }}`; it sets the same `textContent` while hiding the expression from the template's own
@@ -74,5 +74,5 @@
 ## Neighbours
 
 - [vue](vue.md) — the full construct roster
-- [html](../../../lla/constructs/html/html.md) — the elements these directives are written on
+- [html](../html/html.md) — the elements these directives are written on
 - [built-ins](builtins.md) — the components a template may render without importing

@@ -1,6 +1,6 @@
 # Field
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-08-23*
 
 > A [control](control.md) plus the copy that names it — label, helper, error, and the required and invalid state.
 > Purpose — one wrapper owns the label wiring and the error slot, so no control has to grow its own.
@@ -14,7 +14,7 @@
 - must wrap exactly one value; several values under one label is a form ([forms](../../domains/forms/forms.md)).
 
 ```txt
-✅ Field · LabeledInput · CheckboxField · RadioField · SwitchField · ColorField · DateField
+✅ Field · LabeledInput · CheckboxField · RadioField · SwitchField
 ❌ Fieldset               (it groups fields under a legend — a layout for a form)
 ```
 
@@ -52,6 +52,8 @@
 
 - must end `*Field` — the generic wrapper included; `{Control}Field` names a fused pair.
 - must end a submittable form `*Form`; it composes fields ([forms](../../domains/forms/forms.md)).
+- must admit `*Card` for a bordered choice and `*Text` for form copy — all shape words ([visual kinds](visual.md) §
+  *Shape words*).
 - must not prefix `Form*` — the wrapper is a field whether or not a form is around it.
 
 ```vue
@@ -98,7 +100,7 @@ defineProps<{ modelValue?: string }>();                                         
 - must not mount a [panel](panel.md), a [view](view.md), or another field.
 
 ```txt
-✅ AppForm → Field → Select      ·      Field → label slot → Tooltip
+✅ AppForm → Field → SelectInput      ·      Field → label slot → Tooltip
 ❌ Field → Field                 (two labels for one value)
 ```
 
@@ -106,6 +108,7 @@ defineProps<{ modelValue?: string }>();                                         
 
 ## Neighbours
 
+- [forms](../../components/forms/forms.md) — which one to reach for, and with what values
 - [control](control.md) — the widget a field names
 - [forms](../../domains/forms/forms.md) — submit, validation, and where a field's error comes from
 - [primitive](primitive.md) — the form-control context that carries id and state to the control

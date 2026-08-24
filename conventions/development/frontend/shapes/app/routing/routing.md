@@ -1,6 +1,6 @@
 # Routing
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-08-23*
 
 > How a wow-two React app defines routes — a declarative `RouteConfig` passed to the SDK-owned
 > `createAppRouter` wrapper. Apps author routes; the wrapper owns the react-router machinery.
@@ -24,7 +24,7 @@
   (`react` / `react-router-dom`, no `@/…`) — until a 2nd consumer.
 - must combine it into the front SDK **`@wow-two-beta/ui`** (a `/router` subpath, a 1-line import swap) once a
   2nd consumer lands.
-- must keep the SDK's *presentation* components router-free — the router ships as its own subpath.
+- must keep the SDK's *presentation* components router-free ([library](../../library/library.md)).
 
 ---
 
@@ -43,11 +43,8 @@
 
 ## Places and actions
 
-- must give every **place** a route + a `*Page` (deep-linkable / refreshable / shareable), and every **action**
-  a routeless `*Modal` (`useState`-driven) presented as `ResponsiveModal` (Modal ↔ BottomSheet). Full doctrine:
-  [routing and responsive surfaces](../architecture/architecture.md).
-- must render responsiveness in the **component, not the route** — one route per place at every breakpoint;
-  never fork routes by device.
+- must read the doctrine at [architecture](../architecture/architecture.md) § *Routing and responsive surfaces*
+  — which surface a place takes, which an action takes, and where responsiveness is decided.
 
 ---
 
@@ -76,36 +73,8 @@
 
 ## Capability matrix
 
-> What the router layer provides — app-local in `bootstrap/router/` now, combining into the front SDK
-> `@wow-two-beta/ui` (`/router` subpath) later. `[x]` shipped · `[ ]` planned.
-
-**Core**
-- [x] `createAppRouter(routes, options)` · `AppRoute` / `RouteConfig` model
-- [x] `AppRoot` (`<ScrollRestoration>` + `<Outlet>`) · `AppErrorBoundary` (root) · `NotFound` (`*`)
-- [x] `lazy` code-split places · `redirect` · `layout` nesting · `basename` · `history:'hash'`
-- [x] `DocumentTitle` (`handle.title` + `titleSuffix`) · `DocumentMeta` (`handle.meta`) · `useParams`
-
-**Navigation & UX**
-- [x] `paths` typed registry + `definePath` param-inferring builders (no raw `to=` strings)
-- [x] `NavigationProgress` — mode-switch bar ↔ backend heartbeat (`ProgressProvider` / `track()`)
-- [x] `usePrefetch` / `prefetchProps` — intent (hover/focus) prefetch (wired into `AppNavLink`)
-- [x] `AppNavLink` — `NavLink` active + View Transitions
-- [x] `useNavigationBlocker` — dirty-form + `beforeunload` prompt
-- [x] `RoutePersistence` + index-restore — tab-reopen returns to last route
-
-**Access & data**
-- [x] `AppRoute.guard` seam → loader redirect (chain-aware runner)
-- [x] `returnTo` — `requireAuth` capture + `useReturnTo` restore (open-redirect-safe)
-- [x] `useTypedSearchParams`
-
-**a11y & meta**
-- [x] `RouteAnnouncer` — focus reset + aria-live route announce
-- [x] `PageViewTracker` — analytics sink on navigation (`onPageView` option)
-- [x] `RouteHandle.meta` → `DocumentMeta` — description / name meta tags
-- [x] `lazyRoute` — stale-deploy chunk retry-once (+ `reloadOnChunkError`)
-
-**SDK dependency**
-- [x] `NavItem asChild` (Slottable) — adopted in `AppNavLink`
+- must read what ships today in the SDK repo's `engineering/planning/capability-ledger.md`
+  — a surface register lives beside its code, never in a convention.
 
 ---
 

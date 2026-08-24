@@ -1,6 +1,6 @@
 # DateRangePicker
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-08-20*
 
 > The span trigger — one button for both ends, opening a [RangeCalendar](rangeCalendar.md) that closes on completion.
 > What a control is → [control](../../constructs/visual/control.md).
@@ -20,7 +20,7 @@
 |---|---|
 | [DatePicker](datePicker.md) | one day is picked |
 | [RangeCalendar](rangeCalendar.md) | the grid should stay open on the page |
-| [DateField](dateField.md) | each end is typed, and they validate separately |
+| [DateInput](dateInput.md) | each end is typed, and they validate separately |
 
 ---
 

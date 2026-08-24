@@ -1,9 +1,10 @@
 # Hooks
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-08-24*
 
-Custom hooks encapsulate state, lifecycle, and operations. Data-fetching hooks own the API call + mapping
-([state & data](../../domains/data/state-and-data.md)).
+> A `use*` function owning state, lifecycle and the operations over them for whatever calls it.
+> Purpose — a component that owns its own effects cannot be reused, so the behaviour leaves it named.
+> Use case — naming a new hook, fixing its return shape, or deciding what disposes its subscription.
 
 ## Naming
 
@@ -25,8 +26,9 @@ Custom hooks encapsulate state, lifecycle, and operations. Data-fetching hooks o
 
 ## Return shape
 
-- **Object return** for multiple values: `{ listings, loading, error, refetch }`.
-- **Tuple return** only for simple state-like hooks: `[value, setValue]`.
+- must return a [result](../data/result.md) from a hook that can fail — the success and the failure are
+  modelled, never a loose `error` field beside the data.
+- the object-vs-tuple choice is application, not definition ([behavior](../../components/behavior/behavior.md)).
 
 ```typescript
 /** Manages the supply listings fetch lifecycle with pagination and filtering. */
@@ -49,12 +51,10 @@ Verbs → [documentation](../../../lla/notation/documentation/documentation.md) 
 
 ## Lifecycle rules
 
-- Abort in-flight fetches on unmount / dependency change with `AbortController`; ignore `AbortError`.
-- Keep effects narrow — one concern per `useEffect`; don't fetch + subscribe in the same effect.
 - must return a **disposer** from any factory that subscribes, times, opens a socket, or observes — and must
   leave nothing running once it is called.
 - must let the hook that owns the subscription dispose it itself, in its framework's teardown seam
-  ([vue](../../frameworks/vue/reactivity.md) · [react](../../frameworks/react/hooks.md)).
+  ([vue](../../../lla/constructs/vue/reactivity.md) · [react](../../../lla/constructs/react/hooks.md)).
 
 ---
 

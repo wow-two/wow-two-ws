@@ -1,9 +1,9 @@
 # Tour
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-08-22*
 
 > The guided walk — a mask cut around one target per step, with a tooltip beside it.
-> What a feedback component is → [feedback](../../constructs/visual/feedback.md).
+> What an overlay is → [overlay](../../constructs/visual/overlay.md).
 > Its full surface → `Tour.spec.md`.
 
 ## Reach for it when
@@ -18,9 +18,9 @@
 
 | Reach for | When |
 |---|---|
-| [OnboardingChecklist](onboardingChecklist.md) | the tasks are done at the reader's pace, in any order |
+| [OnboardingChecklist](../feedback/onboardingChecklist.md) | the tasks are done at the reader's pace, in any order |
 | `Tooltip` | one control needs a hint and nothing is sequenced |
-| [Callout](callout.md) | the guidance belongs in the content, permanently |
+| [Callout](../feedback/callout.md) | the guidance belongs in the content, permanently |
 
 ---
 

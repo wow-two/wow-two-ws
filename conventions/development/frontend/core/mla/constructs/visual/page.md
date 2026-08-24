@@ -46,7 +46,7 @@
 
 ### Construct
 
-- must make the route entry the file's default export ([vue SFC](../../frameworks/vue/vue-sfc.md)).
+- must make the route entry the file's default export ([vue SFC](../../../lla/constructs/vue/vue-sfc.md)).
 - must be lazy-imported from the route table ([routing](../../../../shapes/app/routing/routing.md)).
 
 ### Component name

@@ -1,9 +1,9 @@
 # Skeleton
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-08-23*
 
 > The placeholder block — the shape of content that has not arrived yet.
-> What a feedback component is → [feedback](../../constructs/visual/feedback.md).
+> What a state is → [state](../../constructs/visual/state.md).
 > Its full surface → `Skeleton.spec.md`.
 
 ## Reach for it when

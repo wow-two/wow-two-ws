@@ -1,6 +1,6 @@
 # Nav
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-08-23*
 
 > A component whose whole job is moving the user somewhere — another place, another section, another command.
 > Purpose — wayfinding is one kind, so a link row, a menu, and a palette share one contract and one a11y story.
@@ -108,6 +108,7 @@ const route = useRoute();                                    // ❌ a nav readin
 
 ## Neighbours
 
+- [nav](../../components/nav/nav.md) — which one to reach for, and with what values
 - [action](action.md) — the kind for a trigger that runs a command instead of moving
 - [overlay](overlay.md) — the surface a menu or palette floats in
 - [routing](../../../../shapes/app/routing/routing.md) — the route table a nav's destinations point at

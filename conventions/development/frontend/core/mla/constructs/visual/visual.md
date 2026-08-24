@@ -1,6 +1,6 @@
 # Visual constructs
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-08-22*
 
 > The index of the **kinds that render** — what each kind is, what it composes with, what it is for.
 > Purpose — pick the kind before the name; the kind fixes the suffix, the group folder, and the contract shape.
@@ -10,7 +10,7 @@
 ([primitive](primitive.md)), and a layout composes every other one ([layout](layout.md)).
 
 Every example here is spelled in Vue. The rule above a fence is framework-neutral; the fence shows one
-spelling of it, and React's differences live in [react](../../frameworks/react/react.md).
+spelling of it, and React's differences live in [react](../../../lla/constructs/react/react.md).
 
 ---
 
@@ -46,35 +46,61 @@ overlay → overlays/ → `*Modal` · `*Drawer` · `*Sheet`  →  Modal.spec.md
 | [display](display.md) | a render of content it does not own | layout · view | showing data | `display/` |
 | [feedback](feedback.md) | a report of system state | layout · provider | saying what happened | `feedback/` |
 | [indicator](indicator.md) | a passive mark of live state | display · nav | status at a glance | `feedback/` |
-| [state](state.md) | a stand-in for no content | view · panel | empty · loading · failed | `display/` `feedback/` |
+| [state](state.md) | a no-content stand-in | view · panel | empty · loading · failed | `display/` · `feedback/` |
 | [provider](provider.md) | a context supplier, slot only | any subtree | sharing one capability | `auth/` · `query/` |
+| [host](host.md) | a mount point for one bus | feedback · overlay | rendering what is published | the domain's group |
 | [primitive](primitive.md) | headless behavior, no styling | every visual kind | reusing behavior | `primitives/` |
 
 ---
 
 ## Suffix routing
 
-One kind per suffix. The kind's doc is the **authority** — it states the suffix and the shape words that stand
-in for it; this table only routes.
+A suffix routes only when the word names a **relation** the component must stand in; a word naming the shape it
+wears routes nothing and is listed per kind below
+([constructs](../constructs.md) § *Relation or form*). One kind per routing suffix. The kind's doc is the
+**authority** — it states the suffix and the shape words it admits; this table only routes.
 
 | Suffix | Kind, and the doc that states it |
 |---|---|
 | `*Page` | [page](page.md) |
 | `*View` | [view](view.md) |
-| `{Root}Panel` · `*Tab` · `*Section` | [panel](panel.md) |
+| `{Root}Panel` · `*Tab` | [panel](panel.md) |
 | `*Layout` · `*Shell` | [layout](layout.md) |
-| `*Modal` · `*Drawer` · `*Sheet` · `*Popover` · `*Tooltip` · `*HoverCard` · `*Overlay` | [overlay](overlay.md) |
+| `*Modal` · `*Popover` · `*Tooltip` | [overlay](overlay.md) |
 | `*Menu` · `*Item` | [nav](nav.md) |
-| `*Button` · `*Group` | [action](action.md) |
-| `*Input` · `*Picker` · `*Editor` · `*Controls` · `{Control}Group` | [control](control.md) |
+| `*Button` | [action](action.md) |
+| `*Input` · `*Picker` · `*Editor` · `*Controls` | [control](control.md) |
 | `*Field` · `*Form` | [field](field.md) |
-| `*Table` · `*Grid` · `*Row` · `*Cell` · `*Card` · `*Badge` · `*Tag` · `*Status` | [display](display.md) |
-| `*Preview` · `*Carousel` · `*Gallery` · `*Viewer` · `*Player` · `*Renderer` · `*Glyph` | [display](display.md) |
-| `*Callout` · `*Toast` · `*Alert` · `*Banner` | [feedback](feedback.md) |
-| `*Indicator` · `*Bar` | [indicator](indicator.md) |
+| `*Viewer` · `*Player` · `*Renderer` · `*Preview` | [display](display.md) |
+| `*Callout` · `*Toast` · `*Alert` | [feedback](feedback.md) |
+| `*Indicator` | [indicator](indicator.md) |
 | `*State` · `*Gate` · `*Boundary` | [state](state.md) |
 | `*Provider` · `*Context` | [provider](provider.md) |
+| `*Host` | [host](host.md) |
 | none — the behaviour's own word | [primitive](primitive.md) |
+
+## Shape words
+
+A shape word ends a name the same way a suffix does, and says nothing about the kind. Every kind listed here
+admits it; none owns it, so the reader takes the kind from the folder and the doc, never from the word.
+
+| Shape word | Kinds that admit it |
+|---|---|
+| `*Bar` | indicator · feedback · action · layout |
+| `*Group` | action · control · display · layout |
+| `*Card` | display · overlay · field |
+| `*Area` | control · layout |
+| `*Overlay` | overlay · display · state |
+| `*Text` | display · field |
+| `*Table` · `*Grid` · `*Row` · `*Cell` | display · layout |
+| `*Badge` · `*Tag` · `*Status` · `*Glyph` | display · indicator |
+| `*Spinner` | indicator |
+| `*Heading` · `*Avatar` · `*Sparkline` | display |
+| `*Timeline` | display · layout |
+| `*Carousel` · `*Gallery` | display |
+| `*Sheet` · `*Drawer` | overlay |
+| `*Banner` | feedback |
+| `*Section` | panel · layout |
 
 - must read the modifiers (`*Compact` · `*Simple` · `App*`) at [constructs](../constructs.md) § *Naming*.
 - must run a new suffix through [constructs](../constructs.md) § *Adding a new suffix*.

@@ -1,6 +1,6 @@
 # CSS
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-08-20*
 
 > What raw CSS is still allowed to do in a Tailwind-only codebase, and the features banned outright.
 > Purpose — Tailwind owns declarations; CSS keeps only the four jobs a utility cannot do.
@@ -36,8 +36,8 @@
 - **CSS Modules · styled-components · Sass · a per-component `.css`** — reach for utilities; a second source of
   appearance disagrees with the first silently ([styling](../../../../shapes/app/platform/styling.md)).
 - **`<style>` in a Vue SFC, scoped or not** — reach for utilities; 406 SFCs carry none today.
-- **`!important`** — reach for a more specific utility or `cn()`, whose `tailwind-merge` pass resolves the conflict.
-  The one exception is written in [selectors](selectors.md) § *Banned*.
+- **`!important`** — reach for a more specific utility or `cn()` ordering; the reason and the one exception are
+  [selectors](selectors.md)' ([selectors](selectors.md) § *The selectors*).
 - **`@import` of a remote stylesheet** — reach for a bundled dependency; it blocks first paint and defeats the CSP.
 
 ---

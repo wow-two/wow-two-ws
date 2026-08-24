@@ -31,4 +31,4 @@
 - [lla constructs](../constructs/constructs.md) — the constructs being notated
 - [constructs](../../mla/constructs/constructs.md) — the app roles that override these defaults
 - [components](../components/components.md) — constants, enums and extensions, which override their own
-- [Vue SFC](../../mla/frameworks/vue/vue-sfc.md) — the framework delta, which overrides rather than restates
+- [Vue SFC](../constructs/vue/vue-sfc.md) — a framework construct, which overrides rather than restates

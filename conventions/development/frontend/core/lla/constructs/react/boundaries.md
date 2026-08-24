@@ -1,6 +1,6 @@
 # Boundaries
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-08-23*
 
 > The constructs that cross the tree — Context, portals, `Suspense`, error boundaries and `lazy`.
 > Purpose — each one moves a value or a render past the parent that would otherwise own it, so each needs a verdict.
@@ -29,7 +29,7 @@
   offers no function form of, and the [class ban](components.md) carves it out by name.
 - must pair `lazy` with a `<Suspense>` fallback in the same file, so the boundary cannot be forgotten at the call site.
 - must not put app state behind Context that the query layer already caches
-  ([state & data](../../domains/data/state-and-data.md)).
+  ([state & data](../../../mla/domains/data/state-and-data.md)).
 - must not let a context default stand in for a missing provider — throw, so the failure names the missing ancestor.
 
 ```tsx
@@ -50,15 +50,8 @@ const context = useContext(FieldContext) ?? emptyField;
 
 ---
 
-## Open
-
-- 46 `<Context.Provider>` elements across 41 files still carry the pre-19 spelling. Drop `.Provider` alongside the
-  `forwardRef` migration ([react](react.md) § *Open*) — the two land in the same files.
-
----
-
 ## Neighbours
 
 - [react](react.md) — the full construct roster
 - [components](components.md) — the class ban this doc carves an exception out of
-- [state & data](../../domains/data/state-and-data.md) — what belongs in Context at all
+- [state & data](../../../mla/domains/data/state-and-data.md) — what belongs in Context at all
