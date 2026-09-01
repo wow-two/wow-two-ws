@@ -13,7 +13,8 @@
 - must rename to the canonical when the name you reached for appears in § *Folds*.
 - must run § *Adding a new suffix* when no existing suffix fits.
 - must leave *how* a role behaves to the cited authority — this doc is the vocabulary.
-- framework-named types (`Middleware` · `Filter` · `Interceptor`) are exempt; the framework owns the name.
+- framework-named types (`Middleware` · `Filter`, and an `Interceptor` deriving from a framework base such as
+  `SaveChangesInterceptor`) are exempt; the framework owns the name.
 
 ---
 
@@ -65,7 +66,8 @@ Split by what the type is for — [data](data/data.md) holds, [behavior](behavio
 | `Constants` | a holder of `const` and `static readonly` values | [constants](data/constants.md) |
 | `Mapper` | any deterministic in→out transform, owning no data | [mapper](behavior/mapper.md) |
 | `Pipeline` · `PipelineStep` | an ordered multi-step flow, and one step of it | [pipelines](patterns/pipelines.md) |
-| `Middleware` · `Filter` · `Interceptor` | a framework hook — exempt from the gate | — |
+| `Interceptor` | a step a message passes through on its way to its handler | [interceptor](behavior/interceptor.md) |
+| `Middleware` · `Filter` | a framework hook — exempt from the gate, because the framework owns the name | — |
 | `Cipher` · `Hasher` · `Issuer` · `Authenticator` | one cryptographic or auth operation | — |
 | `Renderer` | turns a model into a representation of it — text, markup, an image | — |
 | `Generator` | derives a value from its inputs — an id, a code, a matrix | — |
@@ -187,11 +189,13 @@ Rename to the canonical; never introduce the synonym.
 | `Map` | `Mapper` | the type is a function, and `Map` reads as data |
 | `Resolver` | `Mapper` · `Broker` · `Service` | pure → `Mapper`; out-of-process → `Broker`; injected collaborators → `Service` |
 | `Emitter` | `Renderer` | emitting a representation of a model is rendering it |
-| `Source` | `Generator` | a type that derives a value generates it |
-| `Observer` | `Handler` · `BackgroundService` | reacting is a handler's verb; polling on a timer is a hosted service |
-| `Scheduler` | `BackgroundService` | a poller schedules nothing, it runs |
+| `Source` | `Generator` · `Broker` | derives a value → `Generator`; reads one from an external store → `Broker`, the seam a provider swap stops at |
+| `Observer` | `Handler` · `BackgroundService` · `Service` | the word names a position and a permission, never a verb — a bound receiver is a `Handler`, a timer poller a `BackgroundService`, and a notified hook whose work is its own verb is a `Service` named for that work |
+| `Scheduler` | `BackgroundService` · `Service` | runs itself on a timer → `BackgroundService`, because a poller schedules nothing; takes a request to deliver later → `Service`, which is a capability a caller reaches for |
 | `HostedService` | `BackgroundService` | both are host-run work; the name should say how it executes, not that it is hosted |
 | `Keeper` | `Service` | a synonym for a stateful service |
+| `Behavior` | `Interceptor` | the word names a category, not a job — a pipeline step intercepts |
+| `Filter` · `Observer` | `Interceptor` | both sit in the chain; what each does goes in the middle word, `FilteringInterceptor` · `ObservingInterceptor` |
 
 - must keep a **third-party** name as it ships — a fold governs only names we choose.
 - must fold a name in our own SDK like any other — the SDK is ours, so a convention change reaches it as a
@@ -211,6 +215,19 @@ Both take arguments and hand back an object. The line is which end the caller ca
   [factories](patterns/factories.md) is the same role with a variant to choose.
 - must name it singular — `DbUpProviderFactory`, never `…Factories`; the type is one factory with many
   methods, not a bag of them.
+
+---
+
+### The non-generic companion
+
+A generic type often needs a same-named non-generic `static class` beside it, so a caller can state both type
+arguments explicitly — `Result` beside `Result<T>`, `SagaTestHarness` beside `SagaTestHarness<TState>`. The
+companion is a language idiom, not a role.
+
+- must give the companion the generic type's exact name, with no suffix — it is the same thing, arity apart.
+- must keep it to entry points that return the generic type; anything else belongs on its own type.
+- must not read it as a bare noun failing the three static forms — the generic type's name already carries
+  the role, and a suffix here would name the companion something the generic type is not.
 
 ---
 

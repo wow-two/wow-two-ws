@@ -55,6 +55,21 @@ The defining rule of cycle 2. A known domain (forms, validation, auth, tables, s
 
 ---
 
+## A consumer never gates an SDK fix
+
+The SDK is beta for as long as it takes, and its own shape outranks the contract it has with today's consumers.
+A mature SDK is what makes every later product fast, so the maturing is the higher-value work — a consumer
+re-pins and moves on.
+
+- must fix a wrong shape in the SDK when one is found, whatever it breaks downstream.
+- must not weigh "this breaks consumers" as a reason to keep a shape the conventions reject — the cost of
+  carrying it compounds across every product built on it afterwards.
+- must not soften a fix into an overload, a flag, or a parallel type to spare a consumer a re-pin.
+- must name the break in the commit message, so a consumer knows what to change.
+- the exception is a shape that is **right** and merely inconvenient; churn for its own sake is not a fix.
+
+---
+
 ## Roles — every app is both source and target
 
 - **source** — the app that pioneered a block extracts it (current set: drydock → presentation/controller conventions; smart-qr → the migration layer).

@@ -8,9 +8,9 @@
 
 ## Shape
 
-- must declare a narrow interface naming the decision, suffixed `Strategy` — `IOutboxClaimStrategy`
-  (`src/Messaging/Reliability/Ef/OutboxDispatcher.cs`), implemented by `PostgresSkipLockedOutboxClaimStrategy` and
-  `PollingOutboxClaimStrategy`.
+- must declare a narrow interface naming the decision, carrying the role the decision serves —
+  `IOutboxClaimRepository` (`src/Messaging/Reliability/Ef/OutboxDispatcher.cs`), implemented by the
+  skip-locked and the unlocked-read variants.
 - must name each implementation for **how** it decides, never for the caller that happens to use it.
 - must bind exactly one implementation per host, in `HostConfiguration.Extensions.cs` — composition picks, not runtime.
 - must resolve a per-key choice through a `Registry` or a `Factory`, never a `switch` inside the consumer

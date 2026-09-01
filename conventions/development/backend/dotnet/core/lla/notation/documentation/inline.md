@@ -34,6 +34,9 @@ var applied = await history.GetAppliedAsync(connection, ct);
 - Test classes / methods — name carries the meaning
 - **`<example>` tags** — don't use them; they restate the obvious and go stale.
 - **Change / refactor narration** — `// moved from X`, `// renamed` — comment intent, never edit history.
+- **Defence against a shape that was rejected** — `// not a factory the SDK calls`, `// an instance rather than a
+  static because…`. A shape that did not fit leaves no trace: the reader meets what is, not the argument that got
+  here. State the behaviour positively, or say nothing.
 - **Rationale / justification essays** — `// stays in the handler because it's a business rule`.
   - a genuinely non-obvious *why* is **one** terse line, never a note re-explaining the code.
 

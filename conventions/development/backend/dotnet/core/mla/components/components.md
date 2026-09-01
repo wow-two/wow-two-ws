@@ -4,7 +4,7 @@
 
 > The things that are complete on their own — declared, and immediately doing their whole job.
 > Purpose — a component needs no service, no domain and no collaborator present to mean something.
-> Use case — a constants holder, an enum, a settings record, a clock seam.
+> Use case — a constants holder, an enum, a settings record, a clock seam, a result, a mapper.
 
 ## The registers [REQUIRED]
 
@@ -47,6 +47,9 @@ thing a doc owns.
 | [settings](settings.md) | the record binds and validates without another type existing |
 | [options](options.md) | the delegate fills the class, and its defaults hold when none runs |
 | [time](time.md) | the seam answers the clock question on its own |
+| [result](result.md) | the value carries its own success or failure, with nothing else present |
+| [value-object](value-object.md) | the type is valid on its values alone, needing no store |
+| [mapper](mapper.md) | the transform runs on its arguments, with no collaborator to inject |
 
 ---
 
