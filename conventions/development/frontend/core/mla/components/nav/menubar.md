@@ -1,10 +1,9 @@
 # Menubar
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > The application menu strip — the File · Edit · View shape.
 > What a nav component is → [nav](../../constructs/visual/nav.md).
-> Its full surface → `Menubar.spec.md`.
 
 ## Reach for it when
 
@@ -26,5 +25,4 @@
 
 ## Values
 
-- must give each `MenubarMenu` a stable `value` — the strip opens by that id
 - should keep the default `4` px content offset — tighter than a standalone menu's `6`

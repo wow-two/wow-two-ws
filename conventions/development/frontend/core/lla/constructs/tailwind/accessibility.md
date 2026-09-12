@@ -1,15 +1,12 @@
 # Accessibility
 
-*Last updated: 2026-08-17*
+*Last updated: 2026-09-10*
 
 > The utilities that change what a screen reader gets rather than what the screen shows, and their misuses.
 > Purpose — these are the only utilities whose whole effect is invisible, so a wrong one is never caught by looking.
 > Use case — reach here whenever text must exist for a reader and not for the eye, or the reverse.
 
 ## The utilities
-
-The smallest group in either tree. `sr-only` carries icon-only labels and live regions; `not-sr-only` reveals one on
-focus.
 
 | Utility | Applies | Verdict |
 |---|---|---|
@@ -68,3 +65,17 @@ focus.
 - [global attributes](../html/global-attributes.md) — `aria-label`, `aria-hidden`, `role`
 - [variants](variants.md) — `focus:`, `forced-colors:`, `motion-reduce:`
 - [interactive](../html/interactive.md) — the icon-only controls that need a name
+
+---
+
+## Verification
+
+- must verify keyboard focus order, visible focus, activation and escape/dismissal without a pointer.
+- must verify focus in forced colors; shadow-based indicators need the [outline fallback](border.md).
+- must verify reduced motion removes nonessential movement without removing state feedback.
+- must verify text contrast and control boundaries in light and dark themes.
+- must verify zoom and reflow with long labels, validation messages and translated content.
+- must verify RTL reading order, logical spacing and directional interaction where supported.
+- must verify accessible names, roles, states and live announcements with assistive technology on affected interactions.
+- must not treat a passing automated accessibility scan as proof of keyboard or announcement correctness.
+- matrix and evidence ownership → [library testing](../../../../shapes/library/testing/testing.md).

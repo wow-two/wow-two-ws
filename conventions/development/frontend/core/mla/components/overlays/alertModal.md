@@ -1,10 +1,9 @@
 # AlertModal
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > The confirm — a modal locked to `alertdialog` that a stray click outside cannot dismiss.
 > What an overlay is → [overlay](../../constructs/visual/overlay.md).
-> Its full surface → `AlertModal.spec.md`.
 
 ## Reach for it when
 
@@ -26,6 +25,4 @@
 
 ## Values
 
-- must not pass `dismissOnOutsideClick` — the type omits it and the scrim is inert
 - should land initial focus on the safe option, `Cancel`
-- should keep `dismissOnEscape` on, clearing it only when a stray Escape loses work

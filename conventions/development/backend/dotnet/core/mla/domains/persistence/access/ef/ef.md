@@ -1,9 +1,9 @@
 # Ef
 
-*Last updated: 2026-08-17*
+*Last updated: 2026-09-10*
 
 > Reaching the database through EF Core — the change tracker, the mapping, and code-first migrations.
-> Purpose — EF is a mapper here, not the schema's author; the applied SQL stays canonical.
+> Schema authority follows the selected migration strategy.
 > Use case — mapping an entity, or generating and applying a code-first migration.
 
 ## What lives here

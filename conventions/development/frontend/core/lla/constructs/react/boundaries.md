@@ -1,6 +1,6 @@
 # Boundaries
 
-*Last updated: 2026-08-23*
+*Last updated: 2026-09-10*
 
 > The constructs that cross the tree — Context, portals, `Suspense`, error boundaries and `lazy`.
 > Purpose — each one moves a value or a render past the parent that would otherwise own it, so each needs a verdict.
@@ -8,20 +8,18 @@
 
 ## The constructs
 
-`SDK` counts `@wow-two-beta/ui`; `App` counts `smart-qr`.
-
-| Construct | Is | SDK | App | Verdict |
-|---|---|---|---|---|
-| `createContext` | a value channel any descendant may read | 48 | 0 | `use` |
-| `useContext` | the read half of that channel | 51 | 0 | `use` |
-| `<Context>` as a provider | React 19's provider — the context itself, no `.Provider` | 0 | 0 | `use` |
-| `<Context.Provider>` | the pre-19 spelling, deprecated in 19 | 46 | 0 | `banned` |
-| `createPortal` | children rendered under a DOM parent outside the tree | 1 | 0 | `use with care` |
-| `<Suspense>` | a boundary that renders a fallback while a child awaits | 1 | 0 | `use with care` |
-| `lazy` | a component behind a dynamic `import()` | 1 | 0 | `use with care` |
-| error boundary (`componentDidCatch`) | the class that catches a throw below it | 0 | 0 | `use with care` |
-| `getDerivedStateFromError` | the static that turns that throw into state | 0 | 0 | `use with care` |
-| router `errorElement` | the route-level failure surface | 1 | 0 | `use` |
+| Construct | Is | Verdict |
+| --- | --- | --- |
+| `createContext` | a value channel any descendant may read | `use` |
+| `useContext` | the read half of that channel | `use` |
+| `<Context>` as a provider | React 19's provider — the context itself, no `.Provider` | `use` |
+| `<Context.Provider>` | the legacy provider spelling | `banned` |
+| `createPortal` | children rendered under a DOM parent outside the tree | `use with care` |
+| `<Suspense>` | a boundary that renders a fallback while a child awaits | `use with care` |
+| `lazy` | a component behind a dynamic `import()` | `use with care` |
+| error boundary (`componentDidCatch`) | the class that catches a throw below it | `use with care` |
+| `getDerivedStateFromError` | the static that turns that throw into state | `use with care` |
+| router `errorElement` | the route-level failure surface | `use` |
 
 - must reach a portal through `Portal.tsx`, which owns the target lookup and the mount gate.
 - must reach for the router's `errorElement` for a route-level failure; `AppErrorBoundary` is the one that exists.
@@ -45,8 +43,8 @@ const context = useContext(FieldContext) ?? emptyField;
 
 ## Banned
 
-- **`<Context.Provider>`** — reach for `<Context>` itself; React 19 renders the context as its own provider and
-  deprecates the `.Provider` property, so the older spelling warns today and breaks on removal.
+- **`<Context.Provider>`** — use `<Context>` under the React 19 house policy;
+  the legacy spelling remains supported, with deprecation announced for a future version.
 
 ---
 

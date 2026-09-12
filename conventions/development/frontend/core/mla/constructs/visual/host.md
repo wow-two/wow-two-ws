@@ -1,6 +1,6 @@
 # Host
 
-*Last updated: 2026-08-22*
+*Last updated: 2026-09-10*
 
 > A component that renders, at one fixed mount point, whatever a domain's bus publishes.
 > Purpose — a notice raised from a query hook needs a surface, and that surface belongs to no view.
@@ -9,7 +9,8 @@
 ## Gate
 
 - must render only what its bus publishes — a host takes no children of its own.
-- must be mounted once, and must fail loudly on a second mount rather than render everything twice.
+- must have one active renderer per bus and application scope; a duplicate in that scope fails clearly.
+- must isolate state per SSR request and release the registration on unmount so a remount is valid.
 - must own no copy — every word it shows arrives with the notice it was handed.
 - must not install a capability; a component rendering only its slot is a [provider](provider.md).
 
@@ -26,7 +27,7 @@
 ### Group
 
 - must live in the group its domain's own surfaces live in — the toast host beside `feedback/`.
-- must be mounted from `bootstrap/`, never from inside a page.
+- must take mount placement from the capability's application or local scope.
 
 ### Folder
 
@@ -58,13 +59,6 @@
 - must end `*Host` — one bus, one host, and the domain word leads.
 - must name the domain hosted, never the widget stacked — `ToastHost`, not `CardHost`.
 
-```vue
-<script setup lang="ts">
-/** Renders every toast published on the feedback bus, stacked at one corner. */
-defineOptions({ name: 'ToastHost' });
-</script>
-```
-
 ---
 
 ## Content
@@ -73,12 +67,13 @@ defineOptions({ name: 'ToastHost' });
 
 #### [The](../../../lla/notation/documentation/documentation.md)
 
-- must take its bus as a prop, defaulting to the app's own, so a test can drive it.
+- must accept an explicit bus or use the app-scoped bus installed by its capability.
+- must define pre-mount delivery in the bus contract: buffer, reject or drop explicitly; never imply guaranteed delivery.
 - must take placement and limits as props — position, max, default duration.
 
 ### Slots
 
-- must declare no slot; a mount point accepting children is a [layout](layout.md).
+- may expose a scoped item-render slot without accepting unrelated layout children.
 
 ### Emits
 
@@ -86,25 +81,13 @@ defineOptions({ name: 'ToastHost' });
 
 - must emit nothing — the publisher already knows what it published.
 
-```vue
-<script setup lang="ts">
-defineProps<{ bus?: FeedbackBus; position?: Corner; max?: number }>();   // ✅ the bus comes in
-defineSlots<{ default(): unknown }>();                                   // ❌ children make it a layout
-</script>
-```
-
 ---
 
 ## Composition
 
-- must be mounted once in `bootstrap/`, above every route.
-- must compose its own domain's surface, never a foreign one.
-- must not nest — two hosts for one bus render every notice twice.
-
-```txt
-✅ App → ToastHost → Toast
-❌ CodesListPage → ToastHost      (a page cannot own an app-wide mount)
-```
+- must take application-wide mounting from bootstrap; an isolated scoped host may live with its scope.
+- must compose its capability's surface and keep its queue/lifecycle ownership explicit.
+- must keep duplicate-host detection scoped to the actual bus, not to unrelated app instances.
 
 ---
 
@@ -113,4 +96,4 @@ defineSlots<{ default(): unknown }>();                                   // ❌ 
 - [provider](provider.md) — the slot-only kind a host is most often mistaken for
 - [feedback](feedback.md) — the reports a host stacks, each carrying its own copy
 - [hooks](../behavior/hooks.md) — the `use{Domain}Host()` composable a host is published through
-- [visual kinds](visual.md) — every other kind, and the composition ladder
+- [visual kinds](visual.md) — every other kind, and the composition contract

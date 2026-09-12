@@ -1,10 +1,9 @@
 # Code
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > Code set in mono — inline inside a sentence, or as a block.
 > What a display is → [display](../../constructs/visual/display.md).
-> Its full surface → `Code.spec.md`.
 
 ## Reach for it when
 
@@ -27,4 +26,3 @@
 ## Values
 
 - should leave `variant` at `inline`; `block` only for multi-line code
-- must not expect syntax highlighting — the atom only styles

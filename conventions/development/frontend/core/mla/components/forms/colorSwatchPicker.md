@@ -1,10 +1,9 @@
 # ColorSwatchPicker
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > The inline palette — a fixed set of swatches, arrow-navigable in both axes, with no panel to open.
 > What a control is → [control](../../constructs/visual/control.md).
-> Its full surface → `ColorSwatchPicker.spec.md`.
 
 ## Reach for it when
 
@@ -21,13 +20,10 @@
 | [ColorPicker](colorPicker.md) | any colour is allowed, not only the palette |
 | [ColorSwatch](colorSwatch.md) | one chip is shown and nothing is chosen |
 | [RadioGroup](radioGroup.md) | the options carry labels and the colour is decoration |
-| `OptionTileGroup` | each option needs a title and a description |
+| [ChoiceCard](choiceCard.md) | each option needs a title and description |
 
 ---
 
 ## Values
 
-- must supply `colors` — it is the one required prop, and the palette is the product's
 - should leave `swatchSize` at `md` and `swatchShape` at `square`
-- must treat `null` as a real selection — "nothing chosen", not "no value given"
-- must name the group; `role="group"` takes no `aria-invalid`, so error copy names it

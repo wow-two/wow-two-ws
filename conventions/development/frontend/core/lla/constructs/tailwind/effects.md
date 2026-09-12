@@ -1,14 +1,12 @@
 # Effects
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > Every shadow, opacity and blend utility, and the ones that make an element invisible without removing it.
 > Purpose — elevation and opacity are the two cheapest ways to say "this is above" and "this is unavailable".
 > Use case — reach here before raising a surface, dimming a control or blending two layers.
 
 ## The utilities
-
-`opacity-50` and `shadow-sm` lead the group; the shadow scale runs to `shadow-2xl` and the ambient washes live in CSS.
 
 | Utility | Applies | Verdict |
 |---|---|---|
@@ -27,11 +25,11 @@
 | `text-shadow-*` | a shadow behind text | `use with care` |
 | an arbitrary shadow — `shadow-[inset_0_-1px_…]` | an inset hairline the scale lacks | `use with care` |
 | a shadow used as a border | an edge with no colour token behind it | `use with care` |
-| a shadow used as a focus ring | a focus indicator that fails forced-colors mode | `banned` |
+| a shadow-only focus indicator | focus disappears in forced colors | `banned` |
 | `opacity-*` on a text run to lower its contrast | contrast dropped below the tuned ratio | `banned` |
 
 - must take elevation from the scale, and let a higher tier mean a higher stacking tier too ([z-index](z-index.md)).
-- must express the focus indicator as a ring, never a shadow ([border](border.md)).
+- must use the [focus recipe](border.md); Tailwind rings are box shadows and need its outline fallback.
 - must lower a text's emphasis with `text-muted-foreground`, not with opacity ([color](color.md)).
 - must reach for the ambient surface treatments already defined rather than a new gradient
   ([values](../css/values.md)).
@@ -42,8 +40,7 @@
 
 - **`opacity-0` used as hiding** — reach for `hidden`; a transparent element still takes focus, still receives the
   click, and still covers whatever sits behind it.
-- **a shadow standing in for the focus ring** — reach for `focus-visible:ring-2` ([border](border.md)); shadows are
-  not painted in Windows forced-colors mode, so the focus indicator disappears for the users who most need it.
+- **a shadow-only focus indicator** — use the [outline-and-ring recipe](border.md).
 - **`opacity-*` lowering text contrast** — reach for `text-muted-foreground` or `text-subtle-foreground`
   ([color](color.md)); the token contrasts were measured at full opacity, so dimming lands below AA and the theme
   audit cannot see it.

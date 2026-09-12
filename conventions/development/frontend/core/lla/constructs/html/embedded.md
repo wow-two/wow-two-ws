@@ -1,14 +1,12 @@
 # Embedded
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > Every element that pulls content in from outside the document, and the ones we never embed.
 > Purpose — embedded content is the only markup that fails at runtime, shifts the layout, or runs foreign code.
 > Use case — reach here before adding an image, an icon, a media player or a frame.
 
 ## The elements
-
-Exhaustive for HTML embedded content. `svg` is the icon baseline; `iframe` appears once, behind a hashed source.
 
 | Element | Means | Verdict |
 |---|---|---|

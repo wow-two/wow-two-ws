@@ -12,16 +12,18 @@
 |---|---|
 | [styling](styling.md) | the Tailwind v4 wiring in `index.css`, brand tokens, the dark-mode switch |
 | [dev-server](dev-server.md) | HTTPS through mkcert, the `/api` proxy, previewing a route |
+| [assets](assets.md) | images, fonts and public files |
+| [delivery](../delivery/delivery.md) | reproducible builds, host handoff and caching |
 
 - must take the utility, token and variant rules themselves from `core/` — this vector wires them, and states
   none of them ([tailwind](../../../core/lla/constructs/tailwind/tailwind.md)).
 
 ---
 
-## Open
+## Delivery
 
-- **build output** — bundle targets, chunking, asset hashing and the `wwwroot` handoff are unwritten.
-- **static assets** — image, font and `public/` handling is unwritten.
+- must follow [app delivery](../delivery/delivery.md) for build outputs, supported targets and the host handoff.
+- must follow [assets](assets.md) for images, fonts and public URLs.
 
 ---
 

@@ -1,10 +1,9 @@
 # Cluster
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > The centred wrapping row — hero CTAs, auth-page actions, footer link groups.
 > What a layout is → [layout](../../constructs/visual/layout.md).
-> Its full surface → `Cluster.spec.md`.
 
 ## Reach for it when
 
@@ -26,6 +25,4 @@
 
 ## Values
 
-- must leave `gap` at `4` and `justify` at `center` — the centring is the reason for it
-- must pick `gap` from `2`, `3`, `4`, `6`, `8` — the scale here is shorter than [Stack](stack.md)'s
 - should reach for [Inline](inline.md) rather than `justify="start"`

@@ -1,10 +1,9 @@
 # ButtonGroup
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > A connected row or column of buttons that stay independent of each other.
 > What an action is → [action](../../constructs/visual/action.md).
-> Its full surface → `ButtonGroup.spec.md`.
 
 ## Reach for it when
 
@@ -27,6 +26,5 @@
 
 ## Values
 
-- must keep `isAttached` on for the connected look; off falls back to a gapped row
 - should set `orientation="vertical"` only when the surrounding layout is a column
 - should pass `shape="square"` or `"circle"` on icon-only members

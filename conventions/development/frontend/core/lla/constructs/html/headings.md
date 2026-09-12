@@ -1,14 +1,12 @@
 # Headings
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > The six heading elements, the outline they build, and the shapes that build no outline at all.
 > Purpose — headings are how a screen-reader user navigates a page; a wrong level is a wrong map.
 > Use case — reach here before adding a section title, and whenever a component must title itself.
 
 ## The elements
-
-Exhaustive. `h2` dominates both trees, `h1` appears three times — one per routed page, which is the intended shape.
 
 | Element | Means | Verdict |
 |---|---|---|
@@ -18,7 +16,7 @@ Exhaustive. `h2` dominates both trees, `h1` appears three times — one per rout
 | `<h4>` · `<h5>` · `<h6>` | deeper nesting, rarely earned | `use with care` |
 | a heading level taken from a prop | the level a component's placement decides | `use with care` |
 | `<hgroup>` | a heading with its subtitle attached | `use with care` |
-| a heading inside `<section>` / `<article>` | the accessible name of that landmark | `use` |
+| a heading inside `<section>` / `<article>` | content structure; explicit naming is separate | `use` |
 | a visually hidden heading (`sr-only`) | structure for the outline that the design does not show | `use` |
 | a `<div>` or `<p>` styled to look like a heading | a title outside the outline | `banned` |
 | `role="heading" aria-level` on a `<div>` | a heading rebuilt out of a meaningless box | `banned` |
@@ -31,7 +29,7 @@ Exhaustive. `h2` dominates both trees, `h1` appears three times — one per rout
 - must descend one level at a time — the next heading is one deeper, the same, or shallower.
 - must pick the level from the section's depth, then size it with a utility
   ([typography](../tailwind/typography.md)).
-- must name every `<section>` with a heading, or drop the landmark for a `<div>` ([landmarks](landmarks.md)).
+- section naming → [landmarks](landmarks.md); nesting a heading does not assign the section an accessible name.
 - must take the level from a prop when a component renders at more than one depth.
 
 ---
@@ -52,7 +50,7 @@ Exhaustive. `h2` dominates both trees, `h1` appears three times — one per rout
 ```vue
 <!-- ✅ depth picks the tag, the utility picks the size; the component takes its level from its placement -->
 <h2 class="text-lg font-semibold text-foreground">Saved codes</h2>
-<component :is="`h${props.level}`" class="text-sm font-medium">{{ props.title }}</component>
+<component :is="HeadingTag[props.level]" class="text-sm font-medium">{{ props.title }}</component>
 
 <!-- ❌ the tag chosen for its size — the outline now tracks the type scale -->
 <h4 class="text-lg font-semibold text-foreground">Saved codes</h4>

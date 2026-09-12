@@ -1,6 +1,6 @@
 # Analytics
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > The product-event sink — three canonical calls in, whatever vendor an app registers out.
 > Purpose — consent, super-properties, failure isolation and pre-init buffering are solved once, not per vendor.
@@ -17,8 +17,8 @@
 - must merge super-properties into event properties only, never into identification traits.
 - must return an unregister from a registration, and leak nothing when it is called.
 - must surface a sink failure on the error handler alone — reporting is never worth an app crash.
-- must register nothing automatically ([conventions](../../../../../../conventions.md) § *Product principles*).
-- must touch no browser global, so the module imports and runs unchanged under SSR.
+- must inherit registration and instance ownership from [domain lifetime](../domains.md#lifetime).
+- must declare supported runtimes per entry; keep browser sink loading behind client-only actions.
 - must stay separate from the local record seam and from user-visible notices.
 
 ---
@@ -47,3 +47,11 @@
 - [observability](../observability/observability.md) — what the app records locally, a separate seam
 - [feedback](../feedback/feedback.md) — user-visible notices, never an analytics sink
 - [flags](../flags/flags.md) — the variant an exposure event reports
+
+---
+
+## Identity
+
+- must drop calls made while reporting is disabled; do not buffer them for later consent.
+- must clear buffered calls and user-bound properties when consent is revoked or identity changes.
+- must keep payloads within [security](../security/security.md#data), including page URL/query data.

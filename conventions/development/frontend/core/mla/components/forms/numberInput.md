@@ -1,10 +1,9 @@
 # NumberInput
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > A number typed or stepped — `type="number"` with a stepper pair on the trailing edge.
 > What a control is → [control](../../constructs/visual/control.md).
-> Its full surface → `NumberInput.spec.md`.
 
 ## Reach for it when
 
@@ -31,5 +30,3 @@
 
 - should leave `step` at `1`; set it to the smallest meaningful increment otherwise
 - should leave `size` at `md`, `border` at `sm`, `ring` at `md` — the input house set
-- must leave `state` unset; the surrounding field's invalid flag drives it
-- must set `min` where a negative value is meaningless — nothing is bounded by default

@@ -1,6 +1,6 @@
 # Dtos
 
-*Last updated: 2026-08-18*
+*Last updated: 2026-09-10*
 
 > A projection of a domain shape onto the wire — data a caller reads, and no behavior.
 > Purpose — keep the entity off the wire, so a stored shape and a published shape change independently.
@@ -12,8 +12,7 @@
 - must sit in a `Models/` folder under the domain that returns it.
 
 ### File
-- must give it its own file, named for the type →
-  [one type, one file](../../mla.md).
+- file rules → [one type, one file](../../mla.md).
 
 ---
 
@@ -22,7 +21,7 @@
 ### Type doc
 
 #### [Summary](../../../lla/notation/documentation/summary.md)
-- must start with **Represents**.
+- type summary baseline → [data](data.md) § *Shared rules*.
 - must name which projection it is when the entity carries more than one.
 
 ```csharp
@@ -33,8 +32,7 @@
 ```
 
 ### Construct
-- must declare a `sealed record` — identity is the values it carries →
-  [constructs](../../../lla/constructs/constructs.md) § *Data components*.
+- declaration baseline → [data](data.md) § *Shared rules*.
 - must declare `{ get; init; }` unless a projection is built in steps; then `set`, and say why.
 
 ### Type name

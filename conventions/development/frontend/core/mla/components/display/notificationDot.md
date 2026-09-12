@@ -1,10 +1,9 @@
 # NotificationDot
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > The bare dot — something is new, and the count does not matter.
-> What a display is → [display](../../constructs/visual/display.md).
-> Its full surface → `NotificationDot.spec.md`.
+> Kind → [indicator](../../constructs/visual/indicator.md).
 
 ## Reach for it when
 
@@ -25,6 +24,4 @@
 
 ## Values
 
-- should leave `tone` at `destructive` and `size` at `sm`
-- must set `position` only when the parent is a positioning context
 - should set `hasPulse` for live arrivals only; a standing pulse reads as broken

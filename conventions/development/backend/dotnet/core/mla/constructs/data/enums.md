@@ -1,6 +1,6 @@
 # Enums
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > A closed set of named options we own — the values a field may hold, fixed at compile time.
 > Purpose — a magic value carries no meaning and no compiler check; the name carries both.
@@ -12,8 +12,7 @@
 - must sit in an `Enums/` folder under the domain that owns the set.
 
 ### File
-- must give it its own file, named for the type →
-  [one type, one file](../../mla.md).
+- file rules → [one type, one file](../../mla.md).
 
 ---
 

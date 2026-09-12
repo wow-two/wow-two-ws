@@ -1,6 +1,6 @@
 # Outbox
 
-*Last updated: 2026-08-16*
+*Last updated: 2026-09-10*
 
 > A message staged as a row in the same transaction as the state change, published after that transaction commits.
 > Purpose — remove the dual write: a state change and its event either both land or neither does.
@@ -15,15 +15,22 @@
 - must dispatch out of band — `AddEfOutboxDispatcher<TContext>` runs the drain, never the request thread.
 - must pair the outbox with an **inbox** on the consuming side — `AddEfInbox<TContext>`, `IInboxProcessor` — because
   at-least-once delivery means a duplicate arrives.
-- must claim rows through an `IOutboxClaimStrategy`; scale-out takes `PostgresSkipLockedOutboxClaimStrategy`, a single
+- must claim rows through an `IOutboxClaimRepository`; scale-out takes `PostgresSkipLockedOutboxClaimRepository`, a single
   instance takes the polling default ([strategies](strategies.md)).
 - must prune processed rows on a retention window — `PruneProcessedAsync`, not a manual cleanup script.
 
 ```csharp
 // ✅ the row and the staged message share one commit
 context.Orders.Add(order);
-await outbox.EnqueueAsync(
-    new OutboxRecord(id, typeName, serializer.Serialize(new OrderPlacedEvent(order.Id)), occurredOnUtc, headers), ct);
+OutboxRecord message = new()
+{
+    Id = id,
+    Type = typeName,
+    Payload = payload,
+    OccurredOnUtc = occurredOnUtc,
+    Headers = headers,
+};
+await outbox.EnqueueAsync(message, ct);
 await context.SaveChangesAsync(ct);
 ```
 

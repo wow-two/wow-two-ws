@@ -1,6 +1,6 @@
 # Enums
 
-*Last updated: 2026-08-20*
+*Last updated: 2026-09-10*
 
 > How to declare an enum and layer its display and send-object data — the enum is a `const` object, PascalCase
 > key to camelCase wire value, and the only enum constant; displays and payloads attach as `Record<Enum, …>`.
@@ -24,10 +24,9 @@
 
 ## 2. Location
 
-- must create a domain enum in the [`domain` layer](../../../shapes/app/architecture/architecture.md), at
-  `domain/{sub-domain}/enums/{EnumName}.ts`.
-- must place a non-domain enum in the layer that owns it; casing and the `Enum`-suffix ban are
-  [naming](../notation/naming/naming.md)'s, and apply to every enum.
+- source placement → [app architecture](../../../shapes/app/architecture/architecture.md) or
+  [library](../../../shapes/library/library.md).
+- casing and the `Enum`-suffix ban → [naming](../notation/naming/naming.md).
 
 ---
 
@@ -38,12 +37,11 @@
   const object tree-shakes and its value **is** the wire string.
 - must JSDoc the type with a one-liner opening `Defines …`, and each member with `Refers to …`
   ([documentation](../notation/documentation/documentation.md)).
-- must use a **PascalCase key** and a **camelCase value** ([serialization
-  casing](../../../../backend/dotnet/shapes/service/platform/responses/serialization.md#contract)).
+- must use PascalCase keys and camelCase values for house vocabularies; preserve exact external protocol/DOM values.
 - must not add an `Unresolved` / `Unknown` sentinel member — three concerns stay separate:
-  - **nothing selected** → `null` or an optional field in form state; omit on send, never emit null.
+  - **nothing selected** → `null` or an optional field according to the declared state/wire contract.
   - **any / all** → a real member present on **both** sides, or modelled as absence.
-  - **unmappable inbound** (deploy skew) → coerced or dropped at the read boundary, never in the union.
+  - **unmappable inbound** → validate at the read boundary; do not silently coerce a value into a valid member.
 
 ```typescript
 /** Defines the QR data-module body shape. */
@@ -81,8 +79,7 @@ export type ModuleShape = (typeof ModuleShape)[keyof typeof ModuleShape];
 - must read display from the `Displays` record by value.
 - must type a model or DTO field as the enum — the wire string already fits
   ([models](../../mla/constructs/data/models.md)).
-- must type a form-values field as `string`, narrowed back to the enum on submit
-  ([forms](../../mla/domains/forms/forms.md)).
+- raw form values and parsed enum output → [forms](../../mla/domains/forms/forms.md).
 
 ```tsx
 if (code.barcodeFormat === BarcodeFormat.QrCode) { }          // ✅ compare by member

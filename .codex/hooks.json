@@ -1,0 +1,64 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"/Users/max/Projects/10x-ws/workbench/career/engineering/wow-two/wow-two-ws/.codex/hooks/claude_adapter.py\"",
+            "timeout": 20,
+            "additionalContextLimit": 65536
+          }
+        ],
+        "matcher": "startup|resume|clear|compact"
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"/Users/max/Projects/10x-ws/workbench/career/engineering/wow-two/wow-two-ws/.codex/hooks/claude_adapter.py\"",
+            "timeout": 20,
+            "additionalContextLimit": 65536
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"/Users/max/Projects/10x-ws/workbench/career/engineering/wow-two/wow-two-ws/.codex/hooks/claude_adapter.py\"",
+            "timeout": 20
+          }
+        ],
+        "matcher": "Bash|exec_command|shell_command|shell"
+      }
+    ],
+    "PostToolUse": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"/Users/max/Projects/10x-ws/workbench/career/engineering/wow-two/wow-two-ws/.codex/hooks/claude_adapter.py\"",
+            "timeout": 20
+          }
+        ],
+        "matcher": "apply_patch|Write|Edit|MultiEdit|NotebookEdit"
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"/Users/max/Projects/10x-ws/workbench/career/engineering/wow-two/wow-two-ws/.codex/hooks/claude_adapter.py\"",
+            "timeout": 20
+          }
+        ]
+      }
+    ]
+  }
+}

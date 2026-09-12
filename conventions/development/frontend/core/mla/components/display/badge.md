@@ -1,10 +1,9 @@
 # Badge
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > The plain pill — a status or category word the reader cannot click.
 > What a display is → [display](../../constructs/visual/display.md).
-> Its full surface → `Badge.spec.md`.
 
 ## Reach for it when
 
@@ -29,5 +28,3 @@
 ## Values
 
 - should leave `variant` at `neutral` and `size` at `md`
-- must pick `variant` from the meaning — `success` · `warning` · `danger` · `info`
-- should use `outline` where a filled pill would crowd an already dense row

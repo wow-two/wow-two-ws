@@ -1,6 +1,6 @@
 # Builders
 
-*Last updated: 2026-08-16*
+*Last updated: 2026-09-10*
 
 > A type that accumulates a configuration across calls and closes it into one immutable value.
 > Purpose — keep a many-optioned construction out of the constructor overload set and out of the caller.
@@ -8,8 +8,8 @@
 
 ## Shape
 
-- must suffix the type with `Builder` and name it for what it builds — `EventSagaBuilder` builds an
-  `EventSagaDefinition` (`src/Messaging/EventSaga/EventSaga.cs`).
+- declaration and name → [builder](../behavior/builder.md).
+- must close `EventSagaBuilder` into `EventSagaDefinition` (`src/Messaging/EventSaga/EventSagaBuilder.cs`).
 - must return the builder from every configuring call, and close on a single terminal `Build()`.
 - must return an immutable value from `Build()` — a `sealed record`, or `init`-only members.
 - must validate in `Build()`, not per call — a half-configured chain stays legal until it closes.
@@ -21,7 +21,13 @@ public sealed class EventSagaBuilder
 {
     public EventSagaBuilder Step<TStep>() where TStep : IEventSagaStep { _stepTypes.Add(typeof(TStep)); return this; }
 
-    public EventSagaDefinition Build() => new(_name, _stepTypes.AsReadOnly(), _destinations.AsReadOnly());
+    public EventSagaDefinition Build()
+    {
+        return new EventSagaDefinition(
+            _name,
+            _stepTypes.AsReadOnly(),
+            _destinations.AsReadOnly());
+    }
 }
 ```
 

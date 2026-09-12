@@ -1,15 +1,12 @@
 # Filters
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > Every filter and backdrop-filter utility, what each costs to paint, and the ones that stand in for a token.
 > Purpose — a filter repaints on every composited frame, and it silently changes what `fixed` measures against.
 > Use case — reach here before blurring, dimming or desaturating anything.
 
 ## The utilities
-
-The smallest styling group in either tree — `backdrop-blur-md` and `backdrop-blur-sm` behind overlays, `brightness-95`
-on a hover, and single uses of `invert`, `grayscale` and `drop-shadow-sm`.
 
 | Utility | Applies | Verdict |
 |---|---|---|

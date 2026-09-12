@@ -14,7 +14,7 @@
 #   active.sh -f | --frontend       frontends only (WebStorm)
 #   active.sh -l | --list           show the registry + which targets exist
 #   active.sh -n | --dry-run        print what would open, launch nothing
-#   active.sh drydock smart-qr      only the named projects (any flag still applies)
+#   active.sh drydock forever-pin      only the named projects (any flag still applies)
 #   active.sh -h | --help
 #
 # Env:
@@ -39,7 +39,7 @@ PROJECTS=(
   "tbs|ventures/track-2-transportbrain/engineering/codebase/tbs.backend-services/tbs.backend-services.slnx|ventures/track-2-transportbrain/engineering/codebase/tbs.frontend-services"
   "drydock|wow-two-platform/wow-two-platform.drydock/engineering/codebase/drydock.backend-services/Drydock.slnx|wow-two-platform/wow-two-platform.drydock/engineering/codebase/drydock.frontend-services"
   "secrets-vault|wow-two-platform/wow-two-platform.secrets-vault/engineering/codebase/secrets-vault.backend-services/Wow-Two-Platform.Secrets-Vault.sln|wow-two-platform/wow-two-platform.secrets-vault/engineering/codebase/secrets-vault.frontend-services"
-  "smart-qr|ventures/smart-qr-poc/engineering/codebase/smartqr.backend-services/smartqr.backend-services.slnx|ventures/smart-qr-poc/engineering/codebase/smartqr.frontend-services"
+  "forever-pin|ventures/smart-qr-poc/engineering/codebase/smartqr.backend-services/smartqr.backend-services.slnx|ventures/smart-qr-poc/engineering/codebase/smartqr.frontend-services"
   "trademark-watcher|ventures/trademark-watcher-poc/platform/src/backend/Trademark.Watcher.sln|-"
   "acquisition-explorer|-|ventures/acquisition-explorer-poc/platform/acquisition-explorer-frontend"
   "transcript-forge|ventures/10x-ventures-transcript-forge/engineering/codebase/transcript-forge.backend-services/transcript-forge.backend-services.slnx|ventures/10x-ventures-transcript-forge/engineering/codebase/transcript-forge.frontend-services"

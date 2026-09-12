@@ -1,10 +1,9 @@
 # Eyebrow
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > The tiny uppercase kicker over a block — the lightest label in the group.
 > What a display is → [display](../../constructs/visual/display.md).
-> Its full surface → `Eyebrow.vue`.
 
 ## Reach for it when
 
@@ -26,5 +25,4 @@
 
 ## Values
 
-- should leave `level` at `3` — it is an outline level, not a size step
 - should leave `tone` at `muted`; the kicker never competes with the block

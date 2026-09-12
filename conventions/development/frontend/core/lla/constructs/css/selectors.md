@@ -1,15 +1,12 @@
 # Selectors
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > Every selector form, the few a Tailwind-only codebase still writes, and the ones that start a specificity war.
 > Purpose — a selector reaches a box the markup cannot name; every other reach belongs in the class attribute.
 > Use case — reach here before writing a rule in a stylesheet, or a bracket selector inside a class.
 
 ## The selectors
-
-Both stylesheets select only four things: `html` / `body`, `.dark`, `.prose` and its descendants, and `*` under
-`prefers-reduced-motion`.
 
 | Selector | Means | Verdict |
 |---|---|---|
@@ -48,8 +45,8 @@ Both stylesheets select only four things: `html` / `body`, `.dark`, `.prose` and
   breaks on a refactor with no compile error anywhere.
 - **an element selector outside the reset and `.prose`** — reach for a utility; `button { … }` reaches every
   button in the app including the library's, and it cannot be overridden from the markup.
-- **`!important`** — reach for a more specific utility or `cn()` ordering; `tailwind-merge` cannot resolve an
-  important declaration, so it wins over every later override including a consumer's.
+- **`!important`** — use the normal cascade or a variant; a class merger does not rewrite stylesheet declarations.
+  Important utilities use separate merge groups ([Tailwind](../tailwind/tailwind.md)).
 - **a pseudo-class in a stylesheet** — reach for `hover:` / `focus-visible:` / `disabled:`; a state defined away from
   the markup leaves the class string looking complete while the box behaves otherwise.
 

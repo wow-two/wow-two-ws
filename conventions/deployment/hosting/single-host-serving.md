@@ -1,6 +1,6 @@
 # Single-Host Serving
 
-*Last updated: 2026-06-21*
+*Last updated: 2026-09-10*
 
 > **What** — a single-service product app ships as ONE deployable: the backend serves the built SPA from its `wwwroot`; the frontend has no host of its own.
 > **Purpose** — one image, one origin → no CORS, no second deploy, and the API always serves the SPA build it shipped with.
@@ -26,50 +26,72 @@ build: {
 }
 ```
 
-- `emptyOutDir: true` — vite content-hashes asset filenames; clear stale bundles each build so `wwwroot` only holds the current set.
+- must use `emptyOutDir: true` only when that output folder contains generated SPA files exclusively.
 - the relative `outDir` mirrors the SPA→`wwwroot` deploy path in `repo-structure.md` §10 — keep both in sync on any folder rename.
 
 ---
 
 ## Backend serving
 
-- wire in the host pipeline (full pipeline → `backend/architecture/host-configuration.md`), in this **normative order**:
+- wire in the host pipeline (full pipeline → [host configuration](../../development/backend/dotnet/shapes/service/platform/startup/host-configuration.md)), in this **normative order**:
 
 ```csharp
 app.UseDefaultFiles();      // / → /index.html
 app.UseStaticFiles();       // serve wwwroot assets
-// unknown /api/* stays a JSON 404 — MUST precede the SPA fallback
+// Reserve unknown /api/* for a JSON error, not an SPA document.
 app.MapFallback("/api/{**slug}", () => Results.Problem(statusCode: StatusCodes.Status404NotFound, title: "Not Found"));
-app.MapFallbackToFile("index.html");   // every other path → SPA shell (client-side routing)
+app.MapFallbackToFile("index.html").AllowAnonymous();   // public SPA shell
 ```
 
-- order matters: static files → `/api/*` 404 fallback → SPA file fallback. Swap the two fallbacks and an unknown `/api/*` returns `index.html` (200) instead of a 404.
-- the SPA shell is public — keep `UseStaticFiles` + the fallbacks reachable by anonymous requests (ahead of any default-deny gate).
+- must reserve `/api/*` for API responses and verify unknown API routes return JSON errors, not the SPA document.
+- must keep the SPA shell and its static assets public; API authorization remains the backend's responsibility.
 
 ---
 
 ## Build chain — `BuildSpa` target
 
-- add to the API `.csproj` so `dotnet build` / `dotnet publish` always bakes the latest SPA:
+- must set `SpaRoot` to the frontend package directory, resolved from the API project's actual location.
+- must configure Vite to write only generated SPA files into the API's `wwwroot/`.
+- must run the frontend build before MSBuild gathers static/publish content, including on a clean checkout.
+- must refresh the content item list after generating files that did not exist at project evaluation.
+- must install with the frozen lockfile on each build invocation; an existing `node_modules` is not a freshness check.
+- must keep Node and the pinned package-manager version available on the build host.
 
 ```xml
 <PropertyGroup>
-  <SpaRoot>$(MSBuildProjectDirectory)\..\..\{slug}.frontend-services\</SpaRoot>
+  <!-- Resolve this path against the actual API project location. -->
+  <SpaRoot>$(MSBuildProjectDirectory)/../../{slug}.frontend-services/</SpaRoot>
 </PropertyGroup>
-<ItemGroup>
-  <SpaInputs Include="$(SpaRoot)src\**\*;$(SpaRoot)index.html;$(SpaRoot)package.json;$(SpaRoot)vite.config.ts" />
-</ItemGroup>
-<Target Name="BuildSpa" BeforeTargets="Build"
-        Inputs="@(SpaInputs)" Outputs="$(MSBuildProjectDirectory)\wwwroot\index.html">
-  <Exec Command="pnpm install --frozen-lockfile" WorkingDirectory="$(SpaRoot)" Condition="!Exists('$(SpaRoot)node_modules')" />
+<Target Name="BuildSpa"
+        BeforeTargets="PrepareForBuild;ResolveProjectStaticWebAssets"
+        Condition="'$(BuildSpa)' != 'false' and '$(DesignTimeBuild)' != 'true' and '$(NoBuild)' != 'true'">
+  <Error Condition="!Exists('$(SpaRoot)package.json')"
+         Text="SpaRoot must point to the frontend package directory." />
+  <Exec Command="pnpm install --frozen-lockfile" WorkingDirectory="$(SpaRoot)" />
   <Exec Command="pnpm build" WorkingDirectory="$(SpaRoot)" />
+  <ItemGroup>
+    <Content Remove="@(Content)"
+             Condition="$([System.String]::Copy('%(Content.Identity)').Replace('\', '/').StartsWith('wwwroot/'))" />
+    <Content Include="wwwroot/**/*"
+             CopyToOutputDirectory="PreserveNewest"
+             CopyToPublishDirectory="PreserveNewest" />
+  </ItemGroup>
 </Target>
 ```
 
-- **incremental** — `Inputs`/`Outputs` skip the target unless a SPA source is newer than `wwwroot/index.html`, so it's ~free on backend-only rebuilds; `vite` always rewrites `index.html`, a valid sentinel.
-- **`pnpm` must be on PATH** of the build host (local + CI-on-host).
-- **Docker** — the .NET SDK build stage has no node: build the SPA in a separate node stage and `COPY` it into `wwwroot`, **or** disable the target in-image (gate the `Target` `Condition` on a `-p:BuildSpa=false` property). Never run `pnpm` inside the .NET SDK image.
-- `wwwroot/` is a build artifact → **gitignore it**.
+- must run this target unconditionally by default; it has no timestamp-only `Inputs`/`Outputs` shortcut.
+- may add a build cache only with a content fingerprint over the complete input set and tool versions.
+- must include file paths and contents in that fingerprint, so deletions and renames invalidate the cache.
+- must include source, public assets, lockfile, manifests, workspace/patch files, configuration and relevant env values.
+- must verify all declared outputs still exist before using a cached build.
+- must not store secret environment values in a readable cache manifest.
+- must publish into a clean staging directory so removed assets cannot remain from a previous publication.
+- must use `publish --no-build` only for an already verified matching build; it intentionally does not regenerate the SPA.
+- must serialize builds that share `wwwroot/`; concurrent builds must use isolated output directories.
+- must use `-p:BuildSpa=false` only when another build stage supplies the verified SPA output.
+- must build the SPA in a Node-capable container stage and copy its output into the final host artifact.
+- must keep generated `wwwroot/` out of Git.
+
 
 ---
 
@@ -87,6 +109,6 @@ server: { proxy: { "/api": { target: "https://localhost:{evenPort}", changeOrigi
 
 ## CORS posture
 
-- single-host ⇒ same-origin in dev (proxy) **and** prod (`wwwroot`) ⇒ **no CORS** — do not wire `UseCors`.
-- split deploy (SPA on its own origin) ⇒ the SDK credentialed policy `AddCredentialedCorsPolicy(origins)` (cookie auth needs `AllowCredentials` + explicit origins; the non-credentialed `AddDefaultCorsPolicy` won't carry the auth cookie).
+- must omit CORS for a same-origin app/API deployment; cookie writes still follow the backend CSRF policy.
+- must use explicit allowed origins and credential support for cross-origin cookie auth; never combine credentials with a wildcard origin.
 - image packaging + deploy unit → `repo-structure.md` §8.

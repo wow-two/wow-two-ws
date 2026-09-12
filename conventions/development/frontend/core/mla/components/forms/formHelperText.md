@@ -1,14 +1,12 @@
 # FormHelperText
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > The hint line under a control — the node the control's `aria-describedby` points at.
 > What a display is → [display](../../constructs/visual/display.md).
-> Its full surface → `FormHelperText.spec.md`.
 
 ## Reach for it when
 
-- must reach for it only outside a [Field](field.md) — the wrapper mounts its own from `helper`
 - must carry what the reader needs before typing — a format, a limit, a source
 - must not hand-roll a hint paragraph; only this node registers as the described-by target
 - must not restate a rule the error will repeat — inside a [Field](field.md) the error replaces it
@@ -28,5 +26,4 @@
 
 ## Values
 
-- must not set `id` unless detaching it — the control then stops describing itself by it
 - should keep it to one line; a page reader announces the whole node after the name

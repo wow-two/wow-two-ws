@@ -1,6 +1,6 @@
 # Observability
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > What the app records locally, and where a record lands — level, bound context, redaction, and the sink seam.
 > Purpose — a logger is called from error paths, so a failure raised out of one masks the error it was recording.
@@ -17,8 +17,7 @@
 - must serialize an error once, since a bare error stringifies to an empty object.
 - must let a child logger bind a context, children nesting and the nearer scope winning a key conflict.
 - must build a record carrying level, message, timestamp, context and the serialized error.
-- must register nothing automatically, so a logger with no sinks is a no-op
-  ([conventions](../../../../../../conventions.md) § *Product principles*).
+- must inherit opt-in registration from [domain lifetime](../domains.md#lifetime).
 - must keep this seam local; a product event and a user-visible notice are separate capabilities, not sinks.
 
 ---
@@ -47,3 +46,10 @@
 - [analytics](../analytics/analytics.md) — product events, consent-gated and vendor-bound
 - [feedback](../feedback/feedback.md) — the user-visible half of reporting a failure
 - [data](../data/state-and-data.md) — the error type a record most often carries
+
+---
+
+## Payloads
+
+- must follow [security](../security/security.md#data) for free-text redaction and personal data.
+- must bound serialized depth, size and retained records so hostile payloads cannot exhaust the logger.

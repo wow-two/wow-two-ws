@@ -1,15 +1,13 @@
 # PdfViewer
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > A PDF read in place — the browser's own viewer, framed with page and zoom controls.
 > What a display is → [display](../../constructs/visual/display.md).
-> Its full surface → `PdfViewer.spec.md`.
 
 ## Reach for it when
 
 - must let a reader read a document without leaving the page
-- must expect first-generation scope — no per-page render, no thumbnails, no search
 - should pass `pageCount` when it is known; it enables `n / total` and clamps paging
 
 ---
@@ -26,6 +24,5 @@
 
 ## Values
 
-- should leave `defaultPage` at `1`, `defaultZoom` at `100`, `height` at `70vh`
-- must replace `title` — the default reads `PDF document` and names nothing
-- should leave `canDownload` on unless the document must not leave the page
+- must offer a usable open/download fallback when the embedded document cannot be rendered.
+- must not treat hiding a download control as access protection.

@@ -1,6 +1,6 @@
 # Settings
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > The record a configuration section binds into — one typed shape per section.
 > Purpose — configuration read as strings fails at the point of use; bound as a record it fails at boot.
@@ -17,8 +17,7 @@
   Application layer reads cannot follow one across that boundary.
 
 ### File
-- must give it its own file, named for the type →
-  [one type, one file](../../mla.md).
+- file rules → [one type, one file](../../mla.md).
 
 ---
 
@@ -38,9 +37,9 @@
 ```
 
 ### Construct
-- must declare a `sealed record` → [data](data.md) § *Declaration*.
+- declaration baseline → [data](data.md) § *Shared rules*.
 - must declare `{ get; init; }` — the binder writes once, at startup.
-- must carry defaults as the pair's shared rule states → [constructs](../constructs.md) § *`Settings` vs `Options`*.
+- defaults → [constructs](../constructs.md) § *`Settings` vs `Options`*.
 - must not rely on `required` alone to fail a boot — the binder leaves a `required` member `null` instead of
   throwing, so only validation catches an absent value.
 

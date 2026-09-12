@@ -1,20 +1,18 @@
 # Sql
 
-*Last updated: 2026-08-17*
+*Last updated: 2026-09-10*
 
-> Reaching the database through hand-written, ordered SQL scripts — apply, roll back, the tooling.
-> Purpose — a schema change is a reviewable artifact; the script that ran records what shipped.
-> Use case — writing a migration, choosing a dialect idiom, or shipping the migrator as a CLI.
+> Ordered SQL scripts and their migration hosts.
 
-## What lives here
+## Files
 
-- [bespoke migrations](bespoke-migrations.md) — the migrator's components, layout, drift and orphans
-- [migration dialects](migration-dialects.md) — writing Apply and Rollback SQL, quoting, `@no-transaction`
-- [migration tooling](migration-tooling.md) — the `dotnet tool` CLI, exit codes, destructive-op guard
+- [bespoke migrations](bespoke-migrations.md) — layout, lifecycle, integrity and registration.
+- [migration dialects](migration-dialects.md) — dialect-correct Apply and Rollback SQL.
+- [migration tooling](migration-tooling.md) — CLI composition, exit codes and target guards.
 
 ---
 
 ## Boundary
 
-- must pair every Apply with a Rollback, or state in the script why none exists.
-- must never edit a script that has already run — a correction is a new migration.
+- must follow the selected runner's file contract, including any required rollback file.
+- must preserve applied scripts under the [migration lifecycle](../migrations.md#lifecycle).

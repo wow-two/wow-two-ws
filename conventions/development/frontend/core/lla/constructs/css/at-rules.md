@@ -1,14 +1,12 @@
 # At-rules
 
-*Last updated: 2026-08-23*
+*Last updated: 2026-09-10*
 
 > Every CSS at-rule, which of them a Tailwind-only codebase still writes, and the ones a utility replaces.
 > Purpose — most at-rules have a variant that does the same job in the markup, where the class can be seen.
 > Use case — reach here before adding a block to a stylesheet, and whenever a rule needs a condition.
 
 ## The at-rules
-
-Six at-rules appear across both stylesheets: `@import`, `@theme`, `@custom-variant`, `@source`, `@keyframes`, `@media`.
 
 | At-rule | Means | Verdict |
 |---|---|---|

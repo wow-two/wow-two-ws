@@ -1,10 +1,9 @@
 # CountBadge
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > The numeric pill — inbox and notification counts, capped at a maximum.
 > What a display is → [display](../../constructs/visual/display.md).
-> Its full surface → `CountBadge.spec.md`.
 
 ## Reach for it when
 
@@ -28,4 +27,3 @@
 
 - should leave `max` at `99` — past it the pill reads `99+`
 - should leave `canHideZero` on; turn it off only when a `0` must stay visible
-- should leave `variant` at `danger` for unread counts, and re-tone the rest

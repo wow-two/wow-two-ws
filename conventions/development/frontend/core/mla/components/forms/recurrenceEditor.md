@@ -1,10 +1,9 @@
 # RecurrenceEditor
 
-*Last updated: 2026-08-20*
+*Last updated: 2026-09-10*
 
 > The repeat rule an end user builds — frequency, interval, and an end, with the next occurrences listed back.
 > What a control is → [control](../../constructs/visual/control.md).
-> Its full surface → `RecurrenceEditor.spec.md`.
 
 ## Reach for it when
 
@@ -27,10 +26,5 @@
 
 ## Values
 
-- must speak `RecurrenceRule` — `freq` and `interval` are always carried
 - should narrow the rule with `byDay` or `byMonthDay`, and end it with `count` or `until`
-- must expect `FREQ=WEEKLY` at `interval` `1` when uncontrolled
-- must anchor `from` on a `Temporal.PlainDate`; it defaults to today
 - should leave `previewCount` at `5` — enough to check the rule, short enough to scan
-- must set `name` for a plain form post; the hidden input carries the `RRULE:` string
-- must not pass `weekStart` — the spec lists it, the code has no such prop

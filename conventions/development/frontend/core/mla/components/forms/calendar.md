@@ -1,10 +1,9 @@
 # Calendar
 
-*Last updated: 2026-08-20*
+*Last updated: 2026-09-10*
 
 > The inline month grid that picks one date — no trigger, no popover, always on the page.
 > What a control is → [control](../../constructs/visual/control.md).
-> Its full surface → `Calendar.vue`.
 
 ## Reach for it when
 
@@ -27,8 +26,6 @@
 
 ## Values
 
-- must speak `Temporal.PlainDate`; `null` is the cleared selection
-- must expect the view to open on `defaultMonth`, else the selection, else today
+- must derive week order and displayed day names from the active locale or an explicit caller override.
+
 - should bound the grid with `min` and `max` before reaching for a predicate
-- must keep `isDisabled` a per-day predicate returning a boolean, never a flag
-- must expect the grid to render 42 cells — six weeks, Sunday-first

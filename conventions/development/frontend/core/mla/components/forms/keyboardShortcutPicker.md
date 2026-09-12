@@ -1,10 +1,9 @@
 # KeyboardShortcutPicker
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > Record a chord — the reader presses the combination and the control captures it as normalized keys.
 > What a control is → [control](../../constructs/visual/control.md).
-> Its full surface → `KeyboardShortcutPicker.spec.md`.
 
 ## Reach for it when
 
@@ -26,6 +25,4 @@
 
 ## Values
 
-- must render the chord back with `Kbd`; the picker only shows it while set
-- must reject a chord that collides with a browser or OS binding — nothing is checked here
-- should keep `Click to record` and `Press keys…`; they name the two states plainly
+- must check reserved chords for supported platforms and allow canceling capture through the keyboard.

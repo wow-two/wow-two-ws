@@ -1,58 +1,64 @@
 # Library
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
-> A package another frontend installs and imports — `@wow-two-beta/ui`, `@wow-two-beta/ui-vue`, a repo-local
-> `@{brand}/*`. Take [core](../../core/core.md) whole; infer nothing from the silence here.
-> Purpose — a package has no layers, no places and no composition root, so an app's tree rules say nothing here.
-> Use case — laying out a package's source, or naming a module a consumer imports.
+> Source layout for a package consumed by another frontend.
 
 ## Layout
 
-The **package groups by kind**; a product slices by domain ([app](../app/app.md) § *Vectors*). The kinds
-themselves, and which suffix routes to which, are [visual kinds](../../core/mla/constructs/visual/visual.md).
+- must inherit [core](../../core/core.md); this shape owns placement, packaging and verification.
+- must group visual components by [kind](../../core/mla/constructs/visual/visual.md) under `presentation/`.
+- must give each root component a camelCase folder, PascalCase main file and `index.ts` barrel.
+- must keep variants beside source; stories/tests follow [SDK structure](../../../repo/structure/sdk-structure.md#tests).
+- must not flatten a component beside sibling component folders.
+- must place capability modules beside `presentation/`, named by capability nouns.
+- must keep `foundation/` independent of presentation and higher-level capability modules.
+- must keep presentation router-free; callers adapt links and route state.
+- must lint those dependency boundaries and reject cycles between capability modules.
 
-- must give every component its own folder — `camelCase` folder, `PascalCase` main file, an `index.ts` barrel,
-  a co-located `*.stories.tsx` and a `*.variants.ts` where one is needed.
-- must not flatten a component file beside sibling folders.
-- must read every kind's group folder (`presentation/actions/` · `presentation/forms/`) as **package layout** —
-  the package groups by kind because it ships no domains.
-- must place a **capability module** — `auth/` · `query/` · `flags/` · `router/` · `foundation/` — at the
-  package root, beside `presentation/`, never inside it. A capability ships seams and providers, not kinds.
-- must name that module with a **capability noun** — what the module *is*, so its folder names the thing a
-  consumer imports.
-- must not name one for the activity it performs — a verb noun says what the code does, and every later
-  capability sharing that verb then has the same claim on the folder.
-- must keep a `foundation/` primitive importing nothing from `presentation/` or a capability module; the
-  boundary is linted, and it runs one way.
-- must keep the *presentation* components router-free — a router ships as its own subpath
-  ([routing](../app/routing/routing.md) § *Home*).
+---
 
-```txt
-✅ clipboard/ · http/ · storage/ · auth/ · query/ · flags/ · router/ · foundation/
-❌ validation/ · format/ · sync/      (an activity — the capability being validated or formatted is unnamed)
+## Capability roles
+
+| Folder | Holds |
+|---|---|
+| `models/` | the capability's data shapes |
+| `enums/` | closed value sets |
+| `constants/` | fixed values |
+| `extensions/` | extension objects |
+| `hooks/` | framework composables |
+| `providers/` | context providers and their contexts |
+
+- must keep the seam, factory and barrel flat at the capability root.
+- must open a role-group only when it holds two files; a singleton role file stays flat.
+- must keep the semantic role clear even when its singleton file is flat.
+- must not nest a second capability; compose capabilities through their seams.
+- must place implementation-specific adapters in `adapters/{provider}/`, distinct from capability roles.
+- must expose the adapter through its declared public subpath; source folders do not dictate export names.
+- must keep vendor imports inside the adapter; the contract entry never reaches it transitively.
+
+```text
+selection/
+  Selection.ts
+  SelectionModel.ts          singleton model
+  UseSelection.ts            singleton hook
+  index.ts
+
+forms/
+  FormEngine.ts
+  models/                    two or more model files
+  hooks/                     two or more hooks
+  adapters/
+    house/
+    tanstack/
 ```
 
 ---
 
-## Open
+## Package boundary
 
-- **delivery** — unwritten. The `exports` subpath map, `sideEffects`, the peer-dependency set, the published
-  `dist` and the version bump have no doc yet; today they are read off the shipped packages.
-- **architecture** — unwritten beyond the layout above.
-- **testing** — unwritten.
-
----
-
-## Formatting
-
-- must set Prettier `printWidth: 120` in the package, so the width trigger is automatic and the
-  3-attribute floor stays a review gate ([JSX attributes](../../core/mla/constructs/constructs.md)).
-
----
-
-## Neighbours
-
-- [shapes](../shapes.md) — the test that put these rules here rather than in `core/`
-- [app](../app/app.md) — the other shape, and the trigger that extracts a surface into a library
-- [boundaries](../app/architecture/boundaries.md) — when an app's surface becomes a package's
+- must follow [delivery](delivery/delivery.md) for exports, optional peers, CSS and publishing.
+- must follow [compatibility](platform/compatibility.md) for runtime and SSR claims.
+- must follow [testing](testing/testing.md) for behavior and packed-consumer gates.
+- must keep application state/composition roots outside the package; factories accept caller-owned instances.
+- must keep formatting configuration consistent with the shared notation owner.

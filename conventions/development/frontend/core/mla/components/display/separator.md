@@ -1,10 +1,9 @@
 # Separator
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > The hairline divider — horizontal by default, vertical inside a row.
 > What a display is → [display](../../constructs/visual/display.md).
-> Its full surface → `Separator.spec.md`.
 
 ## Reach for it when
 
@@ -26,4 +25,3 @@
 ## Values
 
 - should leave `orientation` at `horizontal` and `isDecorative` at `true`
-- must set `isDecorative="false"` only when the split itself carries meaning

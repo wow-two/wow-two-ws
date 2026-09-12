@@ -1,31 +1,37 @@
 # Clean Architecture
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
-> The six layers a backend service splits into, and the direction its references run.
-> Use case — every backend service; a throwaway spike deviates under § *Deviation*.
+> Project boundaries, dependency direction and component placement in a Clean backend service.
 
 ## Layers
 
-| Layer | Project | Reaches |
+| Layer | Project | Role |
 |---|---|---|
-| Domain | `{Brand}.Domain` | the model itself — nothing outbound |
-| Application | `{Brand}.Application` | the use cases, and the interfaces the outer layers implement |
-| Infrastructure | `{Brand}.Infrastructure` | implementations of Application interfaces |
-| Persistence | `{Brand}.Persistence` | data access |
-| Api | `{Brand}.Api` | the HTTP surface, and the host that wires every other layer |
-| Testing | `{Brand}.Tests.{Type}` | every tier, in its own `tests/` solution folder → [testing](testing.md) |
+| Domain | `{Brand}.Domain` | domain values and model |
+| Application | `{Brand}.Application` | application contracts |
+| Infrastructure | `{Brand}.Infrastructure` | application behavior implementations |
+| Persistence | `{Brand}.Persistence` | row access implementations |
+| Api | `{Brand}.Api` | executable HTTP host and composition |
+| Testing | `{Brand}.Tests.{Type}` | [test tiers](testing.md) |
 
-- must give each layer its own class-library project, so the dependency rule is compiler-enforced
-- must declare an interface in Application and its implementation in Infrastructure
-- must not list the components a layer holds here — each domain states what it declares, per layer
-- must leave the folders inside a layer to [domain structuring](domain-structuring.md)
+- must make Domain, Application, Infrastructure and Persistence separate class-library projects.
+- must make Api an executable host.
+- must declare application interfaces in Application; place row access implementations in Persistence.
+- must place other application implementations in Infrastructure.
+- must use [solution organization](../architecture.md#solution-organization) for virtual grouping.
 
 ---
 
 ## Dependency direction
 
-An arrow reads *depends on*.
+- must keep Domain independent of the service's Application, Infrastructure, Persistence and Api projects.
+- may reference shared domain/value contracts from Domain when they introduce no service implementation dependency.
+- must not use an SDK package reference to put HTTP or persistence behavior into Domain.
+- must allow Application to reference Domain.
+- must allow Infrastructure and Persistence to reference Application and Domain, not each other.
+- must compose Infrastructure and Persistence in Api.
+- must apply [host configuration](../../platform/startup/host-configuration.md) for DI and startup ownership.
 
 ```mermaid
 flowchart LR
@@ -37,27 +43,32 @@ flowchart LR
   Persistence --> Application
   Persistence --> Domain
   Application --> Domain
-  Tests --> Api
 ```
-
-- must keep Domain free of every outbound reference
-- must reference Domain from Application, Infrastructure and Persistence only
-- must register DI in Api — the one layer that sees both Infrastructure and Persistence
 
 ---
 
-## Host
+## Placement
 
-- must keep `Program.cs` at three statement groups — build + `builder.Configure()` → build + `app.Configure()` → `app.Run()`
-- must declare `Configure(builder)` and `Configure(app)` on the partial `HostConfiguration` class
-- must put every DI registration in `Api/Configurations/HostConfiguration.Extensions.cs` as extension methods
-- must bind configuration in Api alone → [host configuration](../../platform/startup/host-configuration.md)
+- must place domain entities, enums, constants, extensions and value objects in Domain.
+- must place application commands, queries, events and models in Application.
+- must keep application `Services/` and `Repositories/` contract-only.
+- must place command, query and event handlers in Infrastructure.
+- must group foundation behavior under `FoundationServices/`, flows under `ProcessingServices/` or `OrchestrationServices/`.
+- may compose peer foundation services without promoting the caller to a flow.
+- must place brokers, adapters, provider integrations, factories and registries with their implementation domain.
+- must place a settings/options declaration with the implementation that reads it; binding remains host-owned.
+- must place row repositories, data contexts, EF configurations and migrations in Persistence.
+- must place controllers, requests and DTO models under their domain in Api.
+- must place `BackgroundServices/` in the project owning the work.
+- must keep `Models/` contents distinct: application models in Application, HTTP DTOs in Api.
+- must derive folder names from the declaration owner; this section selects the project, not a second naming vocabulary.
+- must allow a service-free component such as an enum in any project that needs to declare it.
+- must group these folders by [domain](domain-structuring.md), not in one project-wide role bucket.
 
 ---
 
 ## Deviation
 
-- may inline the layers as folders in one project for a throwaway spike — ≲2 KLOC, no extraction, no second consumer
-- must not default to layers-as-folders for a service that ships, grows, or feeds the SDK
-- must skip the split in an SDK package — this doc governs a service, and a library is not one
-- must give a CLI tool Application and Domain only, adding Persistence when it reads or writes files
+- may inline the project boundaries as folders for a throwaway spike: about 2 KLOC, no extraction or second consumer.
+- must not use that exception for a service that ships, grows or feeds the SDK.
+- must apply the [SDK](../../../sdk/sdk.md) or [CLI](../../../cli/cli.md) shape when building those deliverables.

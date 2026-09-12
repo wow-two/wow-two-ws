@@ -1,10 +1,9 @@
 # Stepper
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > A flow walked stage by stage — the step strip and the panel it swaps are one component.
-> What a control is → [control](../../constructs/visual/control.md): it owns the active step.
-> Its full surface → `Stepper.spec.md`.
+> Kind → [display](../../constructs/visual/display.md); the active step is presentation state.
 
 ## Reach for it when
 
@@ -26,7 +25,4 @@
 
 ## Values
 
-- must set `defaultValue` to the first step's `value` — an unset step renders no panel
 - should leave `orientation` at `horizontal`; `vertical` once the labels stop fitting a row
-- must give every `StepperStep` and `StepperPanel` the same `value` — it is the pairing key
-- must set `isDisabled` on a step the reader may not skip to; nothing is gated by default

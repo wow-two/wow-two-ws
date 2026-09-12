@@ -1,10 +1,9 @@
 # MultiSelect
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > Zero-to-many behind a trigger — the picks come back as removable tags inside the box.
 > What a control is → [control](../../constructs/visual/control.md).
-> Its full surface → `MultiSelect.spec.md`.
 
 ## Reach for it when
 
@@ -28,7 +27,3 @@
 ## Values
 
 - should leave `placement` at `bottom` — the panel drops under the trigger
-- must cap the trigger with `maxVisibleTags` where picks run long, or the row grows
-- must bind `open` or `isOpen`, never both — `open` wins on collision
-- must give each item a `value` and a `label`; the tags read labels off the registry
-- must pass `getOptionLabel` when the options are fetched, not declared as items

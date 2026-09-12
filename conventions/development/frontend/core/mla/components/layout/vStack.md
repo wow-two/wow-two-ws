@@ -1,10 +1,9 @@
 # VStack
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > The column preset — [Stack](stack.md)'s own default, named for symmetry with [HStack](hStack.md).
 > What a layout is → [layout](../../constructs/visual/layout.md).
-> Its full surface → `VStack.spec.md`.
 
 ## Reach for it when
 
@@ -19,9 +18,3 @@
 |---|---|
 | [Stack](stack.md) | no [HStack](hStack.md) is in sight — the column is its default already |
 | [HStack](hStack.md) | the axis is the row |
-
----
-
-## Values
-
-- must not pass `direction` — the preset types it away

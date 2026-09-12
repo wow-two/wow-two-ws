@@ -1,14 +1,12 @@
 # Flow
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > The two elements that carry no meaning, and the framework wrappers that emit none at all.
 > Purpose — a meaningless box is the right default for layout, and the wrong one for anything a user operates.
 > Use case — reach here before wrapping markup, and whenever a `div` is about to grow a `role` or a click handler.
 
 ## The elements
-
-`div` and `span` are the two most-written tags in both trees; every row below them is a shape they degrade into.
 
 | Element | Means | Verdict |
 |---|---|---|

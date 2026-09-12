@@ -1,9 +1,9 @@
 # Indicator
 
-*Last updated: 2026-08-23*
+*Last updated: 2026-09-10*
 
 > A small passive mark that reflects live state it does not control — presence, trend, activity, status.
-> Purpose — a mark that only reads state stays free of props for tone, copy, and dismissal it will never use.
+> Purpose — a mark that only reads state stays free of command and dismissal behavior.
 > Use case — an online dot beside an avatar, a trend arrow on a metric, a typing bubble in a thread.
 
 ## Gate
@@ -43,22 +43,15 @@
 
 ### Construct
 
-- must render its state through a token vocabulary — an enum-backed `tone`, never a caller-supplied colour.
+- must render semantic state through tokens; identity or content colors may come from a caller-supplied value.
 - must expose the state as a `data-*` attribute so a consumer can style around it.
 - must keep any animation decorative and pause it under reduced motion.
 
 ### Component name
 
 - must end `*Indicator` — a passive mark of live outside state.
-- must admit `*Bar` for a magnitude strip, `*Status` for its chip form, and `*Spinner` for an
-  indeterminate ring ([visual kinds](visual.md) § *Shape words*).
-
-```vue
-<script setup lang="ts">
-/** Renders a colored dot and label for a system status. */
-defineOptions({ name: 'StatusIndicator' });
-</script>
-```
+- must admit `*Bar` for magnitude, `*Status` · `*Badge` · `*Tag` for chips, `*Glyph` for a mark,
+  and `*Spinner` for an indeterminate ring ([visual kinds](visual.md) § *Shape words*).
 
 ---
 
@@ -68,30 +61,23 @@ defineOptions({ name: 'StatusIndicator' });
 
 #### [The](../../../lla/notation/documentation/documentation.md)
 
-- must take the state as a `tone` or an enum member, never as a boolean pair like `isUp` / `isDown`.
+- must model mutually exclusive states as a closed vocabulary; numeric progress uses a numeric value.
 - must take label and description as optional scalars with same-named slots.
 - must take a `hasPulse`-style flag only for a live-refresh hint, and default it off.
 
 ### Slots
 
-- must expose `label` and `description` so a caller can supply rich content in place of the scalar.
+- must support an accessible label; expose rich label content only where the mark renders it.
 
 ### Emits
 
 - must declare no emits — a passive mark reports nothing back.
 
-```vue
-<script setup lang="ts">
-defineProps<{ tone?: StatusTone; label?: string; hasPulse?: boolean }>();   // ✅
-defineEmits<{ (e: 'click'): void }>();                                      // ❌ passive means passive
-</script>
-```
-
 ---
 
 ## Composition
 
-- must be mounted inside a [display](display.md), a [nav](nav.md), or a [feedback](feedback.md) surface.
+- may be embedded wherever a passive status mark is needed, including a control or action label.
 - must compose nothing but text and an icon — an indicator is a leaf.
 - must not mount an [overlay](overlay.md); a mark that explains itself on hover gets a `Tooltip` from its parent.
 
@@ -108,4 +94,4 @@ defineEmits<{ (e: 'click'): void }>();                                      // �
 - [feedback](feedback.md) — the kind that reports an operation, with copy and dismissal
 - [display](display.md) — the surfaces an indicator is embedded in
 - [enums](../../../lla/components/enums.md) — the member-per-state modelling a tone prop uses
-- [visual kinds](visual.md) — every other kind, and the composition ladder
+- [visual kinds](visual.md) — every other kind, and the composition contract

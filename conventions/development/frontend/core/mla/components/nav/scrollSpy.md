@@ -1,10 +1,9 @@
 # ScrollSpy
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > The headless watcher reporting which section is currently in view.
 > What a nav component is → [nav](../../constructs/visual/nav.md).
-> Its full surface → `ScrollSpy.spec.md`.
 
 ## Reach for it when
 
@@ -25,6 +24,4 @@
 
 ## Values
 
-- must give every observed section a DOM `id` — the watcher resolves ids, not elements
-- must set `root` when the sections scroll inside an element rather than the viewport
 - should keep the default `0px 0px -60% 0px` margin — it biases active to the top

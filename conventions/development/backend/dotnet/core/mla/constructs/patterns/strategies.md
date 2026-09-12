@@ -1,6 +1,6 @@
 # Strategies
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > One interface with interchangeable implementations, the one in force chosen at composition rather than at the call.
 > Purpose — keep a swappable decision out of a `switch` that every caller would have to repeat.
@@ -9,7 +9,7 @@
 ## Shape
 
 - must declare a narrow interface naming the decision, carrying the role the decision serves —
-  `IOutboxClaimRepository` (`src/Messaging/Reliability/Ef/OutboxDispatcher.cs`), implemented by the
+  `IOutboxClaimRepository` (`src/Messaging/Reliability/Ef/IOutboxClaimRepository.cs`), implemented by the
   skip-locked and the unlocked-read variants.
 - must name each implementation for **how** it decides, never for the caller that happens to use it.
 - must bind exactly one implementation per host, in `HostConfiguration.Extensions.cs` — composition picks, not runtime.
@@ -19,10 +19,12 @@
 
 ```csharp
 // ✅ the interface names the decision, the host picks the implementation
-public interface IOutboxClaimStrategy
+public interface IOutboxClaimRepository
 {
     Task<IReadOnlyList<OutboxMessageEntity>> ClaimPendingAsync(
-        DbContext context, int batchSize, CancellationToken cancellationToken);
+        DbContext context,
+        int batchSize,
+        CancellationToken cancellationToken);
 }
 ```
 

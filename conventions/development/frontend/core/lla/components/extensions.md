@@ -1,6 +1,6 @@
 # Extensions
 
-*Last updated: 2026-08-24*
+*Last updated: 2026-09-10*
 
 > Static helper functions grouped by the domain noun they operate on, declared as a `const` object.
 > Purpose — a loose helper has no home, so it is rewritten in every file that needs it.
@@ -38,11 +38,11 @@ export const PersonExtensions = {
 
 ## Rules
 
-- **`as const`** — prevents mutation, signals static intent.
+- **`as const`** — preserves literal types and readonly members at compile time, not runtime freezing.
 - **No `class` in this role** — a `const` object has no constructor and cannot be instantiated, which is
   the whole point of an extension. Where a `class` is allowed instead →
   [typescript](../constructs/typescript/typescript.md) § *Absence*.
-- **No `namespace`** — not tree-shakeable, breaks under `isolatedModules`.
+- **No runtime `namespace`** — use the module/object house form; compiler limits live in [TypeScript](../constructs/typescript/typescript.md).
 - **Noun = the domain, not the action** — `PersonExtensions`, not `InitialsExtensions`.
 - **One file per noun** — all person helpers together, all date helpers together.
 - **Extract regex / magic values** as named fields inside the object; casing is
@@ -60,9 +60,8 @@ and the internal field each have a row there.
 
 ## Location
 
-- layer and slice → [architecture](../../../shapes/app/architecture/architecture.md), beside the type it extends.
-- a cross-app one ships from the repo's shared package
-  ([boundaries](../../../shapes/app/architecture/boundaries.md) § *Packaging*).
+- source placement → [app architecture](../../../shapes/app/architecture/architecture.md) or
+  [library](../../../shapes/library/library.md).
 
 ---
 

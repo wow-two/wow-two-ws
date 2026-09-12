@@ -1,6 +1,6 @@
 # Field
 
-*Last updated: 2026-08-23*
+*Last updated: 2026-09-10*
 
 > A [control](control.md) plus the copy that names it — label, helper, error, and the required and invalid state.
 > Purpose — one wrapper owns the label wiring and the error slot, so no control has to grow its own.
@@ -8,15 +8,11 @@
 
 ## Gate
 
-- must **name a control** — a component with no control inside it is a [display](display.md).
-- must own the label, the helper, and the error; a component that owns only the value is a [control](control.md).
-- must wire the label to the control by id, so clicking the label focuses it.
-- must wrap exactly one value; several values under one label is a form ([forms](../../domains/forms/forms.md)).
-
-```txt
-✅ Field · LabeledInput · CheckboxField · RadioField · SwitchField
-❌ Fieldset               (it groups fields under a legend — a layout for a form)
-```
+- must name one semantic value and own its external label, helper and error presentation.
+- must use a label association for one labelable element; use a named group for composite values.
+- must distinguish generic field chrome from a fused `{Control}Field` that includes its control.
+- must keep a collection of independently validated fields in a fieldset or form, not one label target.
+- must let helper and error associations describe the relevant control without duplicating announcements.
 
 ---
 
@@ -29,7 +25,7 @@
 
 ```txt
 ✅ presentation/forms/field/{Field.vue, Field.spec.md, index.ts}
-❌ presentation/forms/textField/TextField.vue     (the SDK ships Field + TextInput, not a fusion of both)
+❌ presentation/forms/field/Field.vue owns a second model beside its slotted TextInput
 ```
 
 ---
@@ -45,23 +41,16 @@
 ### Construct
 
 - must provide the form-control context — `id`, `isInvalid`, `isDisabled`, `isReadOnly`, `isRequired`.
-- must let the control read that context rather than passing the same flags down as props.
+- must publish inherited flags and accessible associations through the shared control context.
 - must render the error in place of the helper, never both at once.
 
 ### Component name
 
 - must end `*Field` — the generic wrapper included; `{Control}Field` names a fused pair.
-- must end a submittable form `*Form`; it composes fields ([forms](../../domains/forms/forms.md)).
+- must apply the [forms contract](../../domains/forms/forms.md) to a `*Form`; a form is not generic field chrome.
 - must admit `*Card` for a bordered choice and `*Text` for form copy — all shape words ([visual kinds](visual.md) §
   *Shape words*).
 - must not prefix `Form*` — the wrapper is a field whether or not a form is around it.
-
-```vue
-<script setup lang="ts">
-/** Renders a label, control, helper, and error as one field. */
-defineOptions({ name: 'Field' });
-</script>
-```
 
 ---
 
@@ -73,7 +62,7 @@ defineOptions({ name: 'Field' });
 
 - must take `label`, `helper`, and `error` as scalar props, each with a same-named slot for rich content.
 - must take `isRequired`, `isDisabled`, and `isReadOnly`, and publish each to the control through context.
-- must not take the value — the control it wraps owns that.
+- must keep generic chrome value-free; a fused field forwards its control's model contract without a second state owner.
 
 ### Slots
 
@@ -81,28 +70,18 @@ defineOptions({ name: 'Field' });
 
 ### Emits
 
-- must declare no emits — the control emits the value, and the field never intercepts it.
-
-```vue
-<script setup lang="ts">
-defineProps<{ label?: string; helper?: string; error?: string; isRequired?: boolean }>();   // ✅
-defineProps<{ modelValue?: string }>();                                                     // ❌ not its value
-</script>
-```
+- must keep generic chrome free of value emits; a fused field forwards its control's value changes unchanged.
 
 ---
 
 ## Composition
 
-- must wrap exactly one [control](control.md) in its default slot.
-- must be composed by a form, which supplies the error from validation ([forms](../../domains/forms/forms.md)).
-- must compose [display](display.md) and [feedback](feedback.md) in its copy slots — a tooltip, a character count.
-- must not mount a [panel](panel.md), a [view](view.md), or another field.
-
-```txt
-✅ AppForm → Field → SelectInput      ·      Field → label slot → Tooltip
-❌ Field → Field                 (two labels for one value)
-```
+- must wrap one semantic control or named composite value in the generic field's default slot.
+- must not nest generic field providers for the same value; a fused field reuses existing context or installs it when standalone.
+- must omit a duplicate visible label when outer chrome supplies only help/error for a fused field.
+- must compose help, errors and optional explanations under the shared [composition contract](visual.md#composition-order).
+- must register the focus target and described-by nodes with the owning control context.
+- must preserve caller IDs and use generated IDs only when the caller supplied none.
 
 ---
 
@@ -112,4 +91,4 @@ defineProps<{ modelValue?: string }>();                                         
 - [control](control.md) — the widget a field names
 - [forms](../../domains/forms/forms.md) — submit, validation, and where a field's error comes from
 - [primitive](primitive.md) — the form-control context that carries id and state to the control
-- [visual kinds](visual.md) — every other kind, and the composition ladder
+- [visual kinds](visual.md) — every other kind, and the composition contract

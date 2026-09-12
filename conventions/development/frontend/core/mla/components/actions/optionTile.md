@@ -1,10 +1,9 @@
 # OptionTile
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > An icon-only square tile for a preset grid — fill types, module shapes, gradient presets.
-> What an action is → [action](../../constructs/visual/action.md).
-> Its full surface → `OptionTile.vue`.
+> Kind → [control](../../constructs/visual/control.md).
 
 ## Reach for it when
 
@@ -21,10 +20,3 @@
 | [ToggleButton](toggleButton.md) | the option carries a visible word label |
 | [ToggleButtonGroup](toggleButtonGroup.md) | the strip itself should own the selected value |
 | [Button](button.md) | picking the option runs a command instead of leaving a selection |
-
----
-
-## Values
-
-- must set `label` — the icon-only tile has no other accessible name
-- should keep `size="sm"` and `tone="primary"`, the shipped defaults

@@ -1,10 +1,9 @@
 # ColorSwatch
 
-*Last updated: 2026-08-20*
+*Last updated: 2026-09-10*
 
 > The colour chip — one square or circle over a checkerboard, so partial alpha reads as partial.
 > A [display](../../constructs/visual/display.md), not a control, though the SDK ships it in `forms/`.
-> Its full surface → `ColorSwatch.spec.md`.
 
 ## Reach for it when
 
@@ -27,7 +26,4 @@
 
 ## Values
 
-- should leave `size` at `md`, `shape` at `square`, `color` at `#000000`
-- must attach a click listener to get a `<button>` — without one it renders a `<div>`
-- must pass `color` any CSS colour string, not only a hex
 - should set `isSelected` from the palette's selection, never from hover

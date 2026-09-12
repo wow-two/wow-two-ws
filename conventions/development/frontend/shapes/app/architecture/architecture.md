@@ -1,6 +1,6 @@
 # Architecture
 
-*Last updated: 2026-08-20*
+*Last updated: 2026-09-10*
 
 > The slice tree a TypeScript app is built on — five Clean-Arch layers at `src/`, each sliced by domain.
 > Purpose — one inward dependency direction, so a layer reads without its callers.
@@ -9,28 +9,55 @@
 
 ## Layers [REQUIRED]
 
-Dependency runs inward: `presentation → application → domain`, `integration → domain`.
-`bootstrap` wires all.
+Dependencies: `presentation → application → domain`, `application → integration → domain`.
+`bootstrap` composes all; application imports only the same-domain endpoint or a shared integration contract.
 
 | Layer | Holds | Backend peer |
 |---|---|---|
-| `bootstrap/` | the composition root — `App.tsx` · `main.tsx` · providers · `routes.tsx` · layouts | Host |
+| `bootstrap/` | the composition root — app entry, providers, routes and layouts | Host |
 | `presentation/` | components and pages; renders, never fetches | Presentation |
 | `application/` | orchestration hooks, view-model mappers, submit orchestration, client state | Application |
 | `domain/` | types, enums, extensions, pure ops (`build` · `parse` · `validate`); depends on nothing | Domain |
-| `integration/` | HTTP client, endpoint fns, interceptors, auth; returns wire DTOs, no React | Infrastructure |
+| `integration/` | clients, endpoints, wire codecs and DTOs; no component runtime | Infrastructure |
 
-- must not import sideways — share via `common/` or lift a layer; `common/` and `bootstrap/` are exempt.
+- must not import another domain slice directly; lift genuinely shared contracts into that layer's `common/`.
+- must keep `common/` independent of concrete domain slices; `bootstrap/` may compose all slices.
 - must read these five as a **product's** tree; an SDK package groups by kind and hangs capability modules off
   its root ([visual kinds](../../../core/mla/constructs/visual/visual.md) § *Placement*).
-- should lint the direction (ESLint `no-restricted-paths`) — unlinted layering rots.
+- must lint the declared layer and slice boundaries; test an illegal edge in the rule configuration.
+
+---
+
+## The folders a domain holds [REQUIRED]
+
+A role-group hangs off a **subject**, never off a bare layer: an extension extends something, a model models
+something, and the parent folder names what. The path is always `{layer}/{domain}/{role-group}/`, matching the
+backend's `Api/{Domain}/Controllers/`
+([architecture](../../../../backend/dotnet/shapes/service/architecture/architecture.md)
+§ *Where a folder is created*).
+
+| Layer | Role-groups a domain may open there | Backend peer's set |
+|---|---|---|
+| `domain/` | `models/` · `enums/` · `constants/` · `extensions/` · `builders/` · `parsers/` · `validators/` | `Entities/` `Enums/` `Constants/` `Extensions/` |
+| `application/` | `hooks/` · `mappers/` · `models/` · `stores/` · `constants/` | `UseCases/` `Models/` `Constants/` |
+| `integration/` | `clients/` · `endpoints/` · `interceptors/` · `models/` (holds `Dto`) | the foundation services |
+| `presentation/` | the seven visual groups · `pages/` · `hooks/` · `extensions/` | `Controllers/` `Requests/` `Models/` |
+| `bootstrap/` | entry files flat; named composition groups when needed; no domain slices | Host |
+
+- must open a role-group under a domain or a sub-domain, never directly under a layer — `presentation/codes/
+  extensions/`, never `presentation/extensions/`, because the second names nothing the extension extends.
+- must read a repeated folder name by its layer — `models/` holds a `*Model` in `application/` and a `*Dto` in
+  `integration/`, and the two never mix. This is the backend's rule, unchanged.
+- must open a role-group only once it holds two files; one file stays flat and is its own group.
+- must not invent a role-group outside its layer's set — a file fitting none of them belongs to another layer.
+- must put a role-group serving two or more domains in that layer's `common/` slice (§ *Domains*).
 
 ---
 
 ## Domains
 
-- must slice every layer by domain — `codes` · `identity` · `billing` · `marketing`.
-- must give each layer a `common/` slice for anything two or more domains use.
+- must slice `domain/`, `application/`, `integration/` and `presentation/` by domain; bootstrap is exempt.
+- must give each sliced layer a `common/` slice when two or more domains share its contract.
 - must repeat a domain in every layer it touches — `presentation/codes/` · `domain/codes/`.
 
 ---
@@ -46,7 +73,7 @@ Dependency runs inward: `presentation → application → domain`, `integration 
 - must not treat a role-group as a sub-domain.
 - must put in domain-`common/` whatever belongs to no sub-domain — shared components, composition role-groups.
 - must place a routed page in the `pages/` role-group of the domain that owns it — `codes/pages/`.
-- must place it in domain-`common/pages/` only when no domain owns it — a 404, a dashboard spanning several.
+- must place a page in `presentation/common/pages/` when no domain owns it, such as a cross-domain dashboard.
 
 ---
 
@@ -55,8 +82,8 @@ Dependency runs inward: `presentation → application → domain`, `integration 
 - must name files, folders and slice barrels per [naming](../../../core/lla/notation/naming/naming.md).
 - must suffix a component by its [kind](../../../core/mla/constructs/visual/visual.md), a seam by a
   [headless role](../../../core/mla/constructs/behavior/headless-suffixes.md).
-- must name a hook per [hooks](../../../core/mla/constructs/behavior/hooks.md) § *Naming*; a data
-  `use{Entity}` returns a [result](../../../core/mla/constructs/data/result.md), never a bespoke state bag.
+- must name a hook per [hooks](../../../core/mla/constructs/behavior/hooks.md); live query state follows
+  [data](../../../core/mla/domains/data/state-and-data.md#state), separately from operation outcomes.
 - must export `{domain}Api` from `integration/{domain}`, its fns `{verb}{Noun}`.
 - must name an extension object `{Noun}Extensions` (`as const`); constant casing is
   [naming](../../../core/lla/notation/naming/naming.md)'s.
@@ -76,32 +103,28 @@ A product may keep a component flat; a package never may
 
 ## Routing and responsive surfaces
 
-A place is a URL, and a route renders the same place at every breakpoint.
-
-- must give a place one route and a `*Page` — deep-linkable, refreshable, shareable.
-- must give an action a routeless `*Modal` — ephemeral, so no URL and no cross-size mismatch.
-- must not render one place as a modal on desktop and a page on mobile — that breaks copy-paste, refresh, back.
-- must resolve a direct hit, refresh or new tab on a place-route to a standalone page; a desktop
-  modal-over-context is allowed only through intercepting routes that keep that fallback.
-- must put responsiveness in the component, not the route — a `*Modal` presents as `Modal` or `BottomSheet`.
+- must take places, route parameters, app-shell names and navigation behavior from [routing](../routing/routing.md).
+- must put responsive presentation in components while preserving the route's place identity.
 
 ---
 
 ## Slice tree
 
-```
+```text
 src/
-  bootstrap/     App.tsx · main.tsx · index.css · AppLayout · routes.tsx · providers
-  integration/   client.ts · interceptors.ts · auth.ts · common/ · codes/ identity/ billing/
-  domain/        common/ · identity/ billing/
-                 codes/ core/    (module · finder · preview · rule types + pure ops)
-                        content/ (url · wifi · vcard = { def, Content, build, parse }) · registry.ts
-  application/   common/ · identity/ (useAuth) · billing/
-                 codes/  (useCodes · useCodeBuilder · toCodeRow mapper)
-  presentation/  common/ · identity/ billing/ marketing/
-                 codes/ core/     design/ (FillControls) · shape/ (ShapeControls) · preview/ (QrPreview)
-                        content/  components/ (UrlForm · WifiForm) · ContentTypeForm
-                        common/pages/   (CreateCodePage · CodesListPage)
+  bootstrap/     main.ts · AppRoot.vue · AppLayout.vue · index.css
+    router/      routes.ts · route parameter adapters
+  integration/
+    common/      shared client/transport contracts
+    codes/       endpoint functions · wire codecs · models/
+  domain/
+    codes/       enums/ · models/ · extensions/
+  application/
+    codes/       hooks/ · mappers/ · models/
+  presentation/
+    common/      pages/ (cross-domain routes)
+    codes/       pages/ (CreateCodePage · CodesListPage)
+      design/    controls and their internal subparts
 ```
 
 ---

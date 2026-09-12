@@ -1,6 +1,6 @@
 # Language constructs
 
-*Last updated: 2026-08-16*
+*Last updated: 2026-09-10*
 
 > Every C# construct we may declare, what each one is for, and the constructs banned outright.
 > Purpose — settle the *form* once, so no role doc has to re-argue `record` vs `class`.
@@ -8,7 +8,7 @@
 
 ## The constructs
 
-Exhaustive through C# 13 / .NET 10. A form we have never written is still listed, with a verdict.
+- must apply this catalogue to C# 14 / .NET 10; language availability does not override a house ban.
 
 - must read `use` as the default form for its job, and `use with care` as allowed but argued in review.
 - must treat `banned` as never declared — the replacement sits in § *Banned constructs*.
@@ -49,7 +49,7 @@ Exhaustive through C# 13 / .NET 10. A form we have never written is still listed
 | `const` field | a compile-time value inlined at every use | data | `use` |
 | `readonly` field | a field assignable only during construction | data | `use` |
 | `static readonly` field | a shared field fixed after type init | data | `use` |
-| `volatile` field | a field read and written without reordering | data | `use with care` |
+| `volatile` field | reads with acquire semantics, writes with release semantics | data | `use with care` |
 | `ref` field | a field holding a reference, `ref struct` only | data | `use with care` |
 | `fixed` buffer | an inline array inside an `unsafe` struct | data | `banned` |
 | property | a named accessor pair over a value | data | `use` |
@@ -74,6 +74,9 @@ Exhaustive through C# 13 / .NET 10. A form we have never written is still listed
 | explicit interface implementation | a member reachable only through the interface | behavior | `use with care` |
 | extension method (`this` parameter) | a static method called as an instance one | behavior | `use` |
 | `extension` block | extension members grouped by one receiver | behavior | `use with care` |
+| partial constructor | a constructor split across declarations | behavior | `use with care` |
+| partial event | an event split across declarations | behavior | `banned` |
+| compound assignment operator | an instance operator implementing `+=`, `-=`, etc. | behavior | `use with care` |
 | partial method | a signature whose body may live in another file | behavior | `use with care` |
 | partial property · indexer | a property split the same way | data | `use with care` |
 | `abstract` member | a member a derived type must implement | either | `use with care` |
@@ -87,31 +90,49 @@ Exhaustive through C# 13 / .NET 10. A form we have never written is still listed
 | access modifiers | who may reach the declaration | — | `use` |
 | `unsafe` member · pointer type | a member permitted to use pointers | — | `banned` |
 
-- must declare a data carrier as a `sealed record` with body properties, never positional (§ *Data components*).
-- must declare behavior as a `sealed class` — value equality would be wrong on a type whose identity is what it does.
-- must give a `static class` a role that carries no instance state; which roles those are is MLA's to name.
-- must have a measured allocation reason before any `struct` form — the default is a reference type.
+- must give a static type no instance state.
+- must have a measured allocation reason before any `struct` form.
 - must prefer `Func<>` / `Action<>` over a named `delegate` unless the name earns itself.
-- must put one `enum` per file; the role and its mapping rules are MLA.
-- must let the role pick an `interface` doc starter ([summary](../notation/documentation/summary.md)).
-- must clear the six gates in [style](../notation/style/style.md) § *The body* before an expression-bodied member.
+- declaration defaults → § *Data components* · § *Behavior components*.
+- expression bodies → [style](../notation/style/style.md) § *The body*.
 
 ---
 
 ## Banned constructs
 
-A ban here is about the **construct**, whatever role holds it. A ban that depends on the role lives with that role in
-[`mla/constructs/`](../../mla/constructs/constructs.md).
+- must not declare `event`, including partial events; use an explicit dispatch contract.
+- must not declare a positional record for a data carrier; use body properties.
+- must not use `dynamic`; use generics or a declared interface.
+- static imports → [naming](../notation/naming/naming.md) § *`using static` is banned*.
 
-- **`event`** — reach for an `IEvent` on the mediator bus. Four failures, and a service host hits every one:
-  - the handler cannot be awaited — it returns `void`, so its exceptions surface unobserved.
-  - the lapsed listener — the publisher holds a strong reference, so a subscriber that stays is never collected.
-  - the null-invocation race — the last subscriber detaches between check and call, and the call throws.
-  - one throwing handler aborts the rest — the first exception stops every later subscriber.
-  - an `IEnumerable<IObserver>` set injected by hand is the same shape and folds the same way.
-- **positional records for data carriers** — reach for body properties; the accessor pair is the component's.
-- **`dynamic`** — reach for generics or polymorphism; the compiler stops checking and the failure moves to runtime.
-- **`using static`** — reach for the type name at the call site ([naming](../notation/naming/naming.md) § *Banned*).
+---
+
+## Files
+
+- must give an independently declared type its own file, named for the type.
+- must name a generic-only type by its base name, without arity or type parameters.
+- must keep a generic type and its same-named non-generic companion in that file.
+- must keep a closed union's nested cases in the root type's file.
+- must split unrelated traits or sibling types representing different concepts.
+- must keep other nested types with their enclosing declaration unless a permitted partial split places them elsewhere.
+
+---
+
+## Type documentation
+
+- must start an interface summary with **Defines**; the role supplies the capability or marker subject.
+
+---
+
+## Member documentation
+
+- must start a readable property with **Gets**, a read/write property with **Gets or sets**, and a setter with **Sets**.
+- must treat `{ get; init; }` as **Gets**; initialization does not expose a later write.
+- must start a fixed-value field with **Holds**, and a field whose tracked value changes with **Keeps**.
+- must omit a summary on an injected collaborator field; its contract supplies the documentation.
+- must name a state field's invariant and a value field's authority when the declaration leaves either unclear.
+- must start a `Lazy<T>` field with **Holds** and name the cost deferred until its first read.
+- referent selection → [documentation](../notation/documentation/documentation.md) § *Name the referent*.
 
 ---
 
@@ -121,28 +142,16 @@ A construct carrying **data** answers what a value *is*. The role fixes the star
 
 ### Location
 
-#### Folder
-- must sit in the folder its component doc names.
-  - [components](../../mla/components/components.md) states the folder.
-  - [domain structuring](../../../shapes/service/architecture/clean/domain-structuring.md) states which layer it may appear in.
-
-#### File
-- must give the type its own file, named for the type: `Channel.cs`, `IEntity.cs`, `ChannelGetAllQuery.cs`.
-- must name a generic-only type by its base name — `Repository.cs` for `Repository<T>`.
-- may share one file with its non-generic sibling when both sit at the same abstraction level and read as one concept
-  with a default-type overload. The non-generic name wins: `IEntity.cs`.
-- must keep a `Result`'s nested `Success` / `Failure` in its file — they are inner types.
-- must split two unrelated traits, or two siblings whose shapes differ.
-- must give a nested type its own file unless the rule above places it.
+- file naming → § *Files*.
 
 ### Type doc
 
 #### [Summary](../notation/documentation/summary.md)
 - must start with **Represents** for a concrete carrier — `record` · `record struct` · `struct`.
-- must start with **Defines** for the interface over one.
+- interface starter → § *Type documentation*.
 
 #### [Typeparams](../notation/documentation/typeparams.md)
-- must document a domain-meaningful parameter, and skip a conventional one.
+- type-parameter admission → [type params](../notation/documentation/typeparams.md) § *Scope*.
 
 ### Type name
 - must name the thing carried, never the carrier — `Channel`, not `ChannelData`.
@@ -150,20 +159,7 @@ A construct carrying **data** answers what a value *is*. The role fixes the star
 ### Member docs
 
 #### [Summary](../notation/documentation/summary.md)
-- must start a property with **Gets**, **Gets or sets** or **Sets**, matching its accessors.
-- must start a field holding a fixed value with **Holds** — `const`, `static readonly`, `readonly`.
-- must start a field keeping changing state with **Keeps** — the verb says the value moves.
-- must name the referent unless the value is the type's own ([referents](../notation/documentation/documentation.md)).
-
-```csharp
-// ✅ accessor and mutability visible from the first word
-/// <summary>Gets the kebab-case slug.</summary>
-/// <summary>Holds the compiled pattern an e-mail address must match.</summary>
-/// <summary>Keeps the live executions keyed by run id.</summary>
-
-// ❌ Holds on a field whose value moves, so the doc goes stale on the first write
-/// <summary>Holds the live executions keyed by run id.</summary>
-```
+- member starters → § *Member documentation*.
 
 ### Members
 - must be body properties, never positional parameters.
@@ -174,7 +170,7 @@ A construct carrying **data** answers what a value *is*. The role fixes the star
 
 ### Constructs
 - must use `sealed record` for anything whose identity is its values.
-- must use `record struct` or `readonly record struct` only for a measured allocation reason.
+- value-type eligibility → § *The constructs*.
 - may carry behaviour that reads its own values; a flow means it stopped being data.
 
 ---
@@ -185,42 +181,28 @@ A construct carrying **behavior** answers what a type *does*. It has no value id
 
 ### Location
 
-#### Folder
-- must sit in the folder its component doc names.
-  - [components](../../mla/components/components.md) states the folder.
-  - [domain structuring](../../../shapes/service/architecture/clean/domain-structuring.md) states which layer it may appear in.
-
-#### File
-- must give the type its own file, named for the type: `CodesController.cs`, `StripeBillingBroker.cs`.
-- must name a generic-only type by its base name — `Repository.cs` for `Repository<T>`.
-- may share one file with its non-generic sibling when both sit at the same abstraction level and read as one concept
-  with a default-type overload. The non-generic name wins: `IEntity.cs`.
-- must split two unrelated traits, or two siblings whose shapes differ.
-- must give a nested type its own file unless the rule above places it.
+- file naming → § *Files*.
 
 ### Type doc
 
 #### [Summary](../notation/documentation/summary.md)
 - must start with the role's own verb — `Provides` · `Maps` · `Binds` · `Validates`.
-- must start with **Defines** for the interface over one.
+- interface starter → § *Type documentation*.
 
 #### [Remarks](../notation/documentation/remarks.md)
-- must carry a directive, a spec reference, or a constraint the signature hides.
+- remarks admission and content → [remarks](../notation/documentation/remarks.md).
 
 ### Type name
-- must carry the role suffix from the keep-list ([constructs](../../mla/constructs/constructs.md)).
+- must name the operation the type performs; a role-specific vocabulary is declared by that role.
 
 ### Member docs
 
 #### [Summary](../notation/documentation/summary.md)
-- must start each method with its own verb — `Adds` · `Gets` · `Creates` · `Sends` · `Maps` · `Builds`.
-- must start a property with **Gets**, **Gets or sets** or **Sets**, matching its accessors.
-- must start a collaborator field with nothing — an injected field carries no doc.
-- must start a `Lazy<T>` field with **Holds** — the value is written once, so it does not move.
-- must name the deferral on a `Lazy<T>` field — the first read pays a cost the signature hides.
+- must start a method summary with the operation's verb.
+- property and field starters → § *Member documentation*.
 
 #### [Params](../notation/documentation/params.md)
-- must carry a `<param>` for every parameter of a documented method.
+- parameter documentation → [params](../notation/documentation/params.md).
 
 #### [Returns](../notation/documentation/returns.md)
 
@@ -242,7 +224,7 @@ private readonly Lazy<RouteTable> routes;
 
 ### Members
 - must take collaborators through the constructor, never a service locator.
-- must hold no mutable state unless the role is a `Tracker`.
+- must hold no mutable operational state unless the role explicitly owns a stateful lifecycle.
 - must reach for `Lazy<T>` only when the value is expensive and some paths never read it —
   a scoped or singleton lifetime already defers construction to the first resolve.
 - must separate member groups with `#region` / `#endregion` once the type passes 60 lines — an IDE folds a
@@ -251,7 +233,7 @@ private readonly Lazy<RouteTable> routes;
 
 ### Constructs
 - must use `sealed class` — a `record` would claim value equality the type does not have.
-- must use `static class` only for a `Constants` or `Extensions` role.
+- may use `static class` when the role explicitly grants a state-free static form.
 - must not use `struct` — a behaviour type copied by value is a bug waiting for a caller.
 
 ---

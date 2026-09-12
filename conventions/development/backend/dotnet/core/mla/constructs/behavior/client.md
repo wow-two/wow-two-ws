@@ -1,6 +1,6 @@
 # Clients
 
-*Last updated: 2026-08-18*
+*Last updated: 2026-09-10*
 
 > The call surface of one external provider, expressed in that provider's own model.
 > Purpose — a client adds nothing of ours, so swapping the provider changes the seam above it, never the callers.
@@ -12,8 +12,7 @@
 - must sit in an `Integrations/{Provider}/` folder, one folder per provider.
 
 ### File
-- must give it its own file, named for the type →
-  [one type, one file](../../mla.md).
+- file rules → [one type, one file](../../mla.md).
 
 ---
 
@@ -32,9 +31,8 @@
 ```
 
 ### Construct
-- must declare a `sealed class` taking its transport through a primary constructor.
-- must use a block body `{ }` from the start — a call gains a header, a guard, a log line later
-  ([style](../../../lla/notation/style/style.md) § *The body*).
+- declaration and injection → [behavior](behavior.md) § *Shared rules*.
+- must declare the provider transport as a collaborator.
 
 ```csharp
 // ✅
@@ -47,6 +45,6 @@ public sealed class TelegramClient { private readonly HttpClient http = new(); }
 - must suffix with `Client`, prefixed by the provider — `TelegramClient`, `LocationApiClient`.
 - must qualify with the domain when one provider needs several — `GoogleMapsClient`, `GooglePlacesClient`.
 - must name a Refit interface `I{Provider}Api` — `IBillingApi`.
-- must return a `Result` — a provider call fails, and the caller reads that from the type.
+- failure modes and carrier selection → [results](../../components/result.md).
 
 Registration, resilience and cross-cutting handlers → [http integrations](../../domains/integrations/http/http.md).

@@ -1,10 +1,9 @@
 # DateInput
 
-*Last updated: 2026-08-20*
+*Last updated: 2026-09-10*
 
 > The typed date — a `YYYY-MM-DD` text input with a [Calendar](calendar.md) on its trailing button.
 > What a control is → [control](../../constructs/visual/control.md).
-> Its full surface → `DateInput.spec.md`.
 
 ## Reach for it when
 
@@ -27,9 +26,6 @@
 
 ## Values
 
-- must speak `Temporal.PlainDate`; `null` is the cleared state
-- should leave `placeholder` at `YYYY-MM-DD` — it names the accepted format
-- must leave `native` off by default; the browser panel cannot carry the theme
-- should set `native` only where the platform picker is the point — a mobile-first form
+- must use a date-only value for calendar dates; a timezone conversion must not move the selected day.
+
 - should bound with `min` and `max`, both forwarded to the calendar
-- must take the value as Temporal — the spec still types it as `Date`

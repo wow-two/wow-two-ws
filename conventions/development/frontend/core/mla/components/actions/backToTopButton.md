@@ -1,10 +1,9 @@
 # BackToTopButton
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > The scroll-to-top affordance for a long page or a scoped scroll region.
-> What an action is → [action](../../constructs/visual/action.md).
-> Its full surface → `BackToTopButton.spec.md`.
+> Kind → [action](../../constructs/visual/action.md).
 
 ## Reach for it when
 
@@ -25,6 +24,4 @@
 
 ## Values
 
-- must keep `threshold` at `400` px unless the first fold is taller
-- must set `aria-label` where the default `Back to top` is wrong for the locale
 - should keep the `bottom-right` anchor; move it only when it collides with a [Fab](fab.md)

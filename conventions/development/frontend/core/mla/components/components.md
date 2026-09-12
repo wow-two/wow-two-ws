@@ -1,6 +1,6 @@
 # Components
 
-*Last updated: 2026-08-23*
+*Last updated: 2026-09-10*
 
 > Which thing to reach for, and with what values — the application register over the roles `constructs/` defines
 > and the surfaces the SDK specs.
@@ -43,23 +43,21 @@ the third bullet: TypeScript supplies all three, so they are
 
 ## Adding a doc here [REQUIRED]
 
-The three sections, the doc-field rules and the template are [mla](../mla.md) § *Writing a doc in this scope* —
-they govern `constructs/` equally, so they are stated once above both.
-
-- must give each role **one file**, named for the role in the plural.
-- must name the group folder for the shipping group, never for a kind — the mapping is many-to-one and
-  [visual kinds](../constructs/visual/visual.md) § *Kinds* owns it in its `Lives in` column.
-- must file a kind that lives in two groups under each of them — `state` under `display/` and `feedback/`,
-  `panel` under `display/` and `layout/` — and a kind that ships outside `presentation/` under neither.
-- must index only the folders in this file's group table, never the components — each group's own lead does that.
+- must use `Reach for it when`, `Instead of`, and optional `Values` sections for a component selection entry.
+- must name a component entry for the component, using the existing lower-camel-case filename.
+- must keep group leads plural and use them to index selection entries.
+- must keep discovery grouping distinct from semantic kind; the kind contract determines an SDK migration target.
+- must keep one canonical entry per selection subject; link it from other groups rather than duplicating its rules.
+- must resolve public names and concrete surface details against the selected package's code-adjacent specification.
 
 ---
 
 ## Reaching for one
 
-- should reach for a `@wow-two-beta/ui` component before hand-rolling one; a missing one is built locally,
-  then extracted once it is generic ([boundaries](../../../shapes/app/architecture/boundaries.md)).
-- must not duplicate a pure layout wrapper across products; an atom carrying logic is never product-local.
+- must use the selected framework's SDK surface: `@wow-two-beta/ui-vue` for Vue.
+- must apply the [extraction boundary](../../../shapes/app/architecture/boundaries.md) to reusable work.
+- must fix a missing or incorrect SDK API through its sweep instead of preserving a product workaround.
+- must keep component API details and compatibility aliases in the selected package's specifications.
 
 ---
 
@@ -68,17 +66,17 @@ they govern `constructs/` equally, so they are stated once above both.
 One folder per construct folder — the visual groups, plus `behavior/` and `data/`. Each folder's lead indexes
 its own members; this table indexes the folders, never the members.
 
-| Group | Components | Construct |
-|---|---|---|
-| [behavior](behavior/behavior.md) | seams and hooks | [behavior](../constructs/behavior/behavior.md) |
-| [data](data/data.md) | carriers and shapes | [data](../constructs/data/data.md) |
-| [actions](actions/actions.md) | 15 | [action](../constructs/visual/action.md) |
-| [display](display/display.md) | 73 | [display](../constructs/visual/display.md) |
-| [feedback](feedback/feedback.md) | 27 | [feedback](../constructs/visual/feedback.md) |
-| [forms](forms/forms.md) | 74 | [control](../constructs/visual/control.md) · [field](../constructs/visual/field.md) |
-| [layout](layout/layout.md) | 24 | [layout](../constructs/visual/layout.md) |
-| [nav](nav/nav.md) | 11 | [nav](../constructs/visual/nav.md) |
-| [overlays](overlays/overlays.md) | 8 | [overlay](../constructs/visual/overlay.md) |
+| Group | Construct |
+|---|---|
+| [behavior](behavior/behavior.md) | [behavior](../constructs/behavior/behavior.md) |
+| [data](data/data.md) | [data](../constructs/data/data.md) |
+| [actions](actions/actions.md) | [action](../constructs/visual/action.md) |
+| [display](display/display.md) | [display](../constructs/visual/display.md) |
+| [feedback](feedback/feedback.md) | [feedback](../constructs/visual/feedback.md) |
+| [forms](forms/forms.md) | [control](../constructs/visual/control.md) · [field](../constructs/visual/field.md) |
+| [layout](layout/layout.md) | [layout](../constructs/visual/layout.md) |
+| [nav](nav/nav.md) | [nav](../constructs/visual/nav.md) |
+| [overlays](overlays/overlays.md) | [overlay](../constructs/visual/overlay.md) |
 
 ---
 

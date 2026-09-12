@@ -1,10 +1,9 @@
 # AnimatedNumber
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > A number that tweens whenever it changes — a live figure, not an entrance.
 > What a display is → [display](../../constructs/visual/display.md).
-> Its full surface → `AnimatedNumber.spec.md`.
 
 ## Reach for it when
 
@@ -27,5 +26,4 @@
 ## Values
 
 - should leave `duration` at `500` ms — it repeats on every update
-- must set `format`; the default rounds to whole numbers
 - should leave `as` at `span` so the figure stays inline

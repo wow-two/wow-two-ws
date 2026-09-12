@@ -1,10 +1,10 @@
 # Core
 
-*Last updated: 2026-08-23*
+*Last updated: 2026-09-10*
 
 > What holds in every frontend deliverable we build — the language forms, the roles we declare, the things
 > complete on their own, and the capabilities a codebase reaches for.
-> Purpose — a rule that does not change when the deliverable changes belongs here, once.
+> Purpose — rules whose subjects exist independently of a deliverable belong here, once.
 > Use case — naming a component, writing a doc block, picking a kind, or reaching for a capability.
 
 ## The three scopes
@@ -15,10 +15,8 @@
 | [mla](mla/mla.md) | one app | the roles we declare, the things complete alone, the capabilities |
 | [hla](hla/hla.md) | between our own frontends | empty by design until a second frontend exists |
 
-- must place a rule here when it holds whatever is being built — a product app or a component library.
-- must place it under [shapes](../shapes/shapes.md) when it changes with the deliverable.
-- must not let a shape's vocabulary leak in — `core/` never names a layer, a route, a bundler or a package
-  manifest.
+- must route by [the shape test](../shapes/shapes.md#the-test): whether the rule's subject survives without the shape.
+- must link to shape-owned placement and build rules instead of declaring them in `core/`.
 
 ---
 
@@ -34,7 +32,7 @@ published → [shapes](../shapes/shapes.md), never `core/`.
 **The test between `mla/` and `hla/`:** do we own both ends? A third-party widget is adapted in `mla/`, never
 contracted in `hla/`.
 **The three levels, and where each lands.** A form the platform ships is [lla constructs](lla/constructs/constructs.md).
-Everything we declare lands in `mla/`: a **kind** that needs something else present → `mla/constructs/`
+Our declared roles land in `mla/`: a **kind** that needs something else present → `mla/constructs/`
 (`Page`, `Overlay`, `Model`); a **thing complete alone** → `lla/components/` when the language supplies the form
 (`Constants`, `Enums`, `Extensions`), `mla/components/` when we coined it. A ban follows its rule — construct bans
 in `lla/`, kind bans with the kind.

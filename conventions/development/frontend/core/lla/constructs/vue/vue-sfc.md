@@ -1,6 +1,6 @@
 # Vue SFC
 
-*Last updated: 2026-08-20*
+*Last updated: 2026-09-10*
 
 > Block layout, in-file order, shared DOM vocabulary, and JSDoc verbs for a Vue Single-File Component.
 > Use case — writing or reviewing any `.vue` file, above all in `@wow-two-beta/ui-vue`.
@@ -27,11 +27,7 @@
 
 ## Imports
 
-- must import across a **published library's** `src/` with relative paths — an alias in the emitted `.d.ts`
-  will not resolve; app code takes the `@/` alias ([imports](../../notation/style/imports.md)).
-- must use the `@src/*` alias in `tests/` only.
-- must ignore the IDE's "import can be shortened" hint inside a library's `src/`.
-- group order and intra-group sort → [imports](../../notation/style/imports.md).
+- source form, group order, aliases and declaration safety → [imports](../../notation/style/imports.md).
 
 ---
 
@@ -43,8 +39,7 @@
 - must doc a `watch` by the effect it causes (`Emits …` · `Syncs …` · `Resets …`), never `Watches …`.
 - must doc a function with a third-person verb — `Copies …` · `Resolves …`.
 - must mark a non-exported type, constant, or helper `@internal`.
-- must keep a doc a **one-liner**; a non-JSDoc `/* */` comment is one line stating a role, with no exception.
-- the multi-line exception, § *Scope*, and the verb table →
+- doc length, the multi-line exception, § *Scope*, and the verb table →
   [documentation](../../notation/documentation/documentation.md).
 
 ---
@@ -66,9 +61,9 @@
 | The `onX` prop for an event | `HandlerProp<E>` | `HandlerProp<typeof DomEvent.Error>` |
 | Element tag | `ElementTag` | `ElementTag.Div` |
 
-- must take every DOM literal from `foundation/utils`, adding a missing one there rather than declaring it locally.
+- must take script-level DOM vocabulary from the SDK's shared constants; add missing members at that owner.
 - constant casing → [naming](../../notation/naming/naming.md) § *Quick reference*.
-- must not extract a DOM attribute **name** used once in a template — markup is not code.
+- must not extract a template-only DOM attribute name; repeated script/type vocabulary uses the shared constants.
 
 ---
 
@@ -101,20 +96,21 @@ type ReplacedButtonProp = keyof Pick<ButtonProps, HandlerProp<typeof DomEvent.Er
 
 ## Gates
 
-Run all four; `check:sfc` is the one with no substitute.
+Run the package's mapped commands; type checking alone does not validate the SFC compiler's runtime props extraction.
 
 | Gate | Catches |
 |---|---|
-| `pnpm format` | code width, quote style, trailing commas |
+| `pnpm format:check` | code width, quote style, trailing commas |
 | `pnpm lint` | comment width, boundaries, unused code |
 | `pnpm typecheck` | types **and** `check:sfc` — a heritage the SFC compiler cannot resolve |
 | `pnpm test` | behaviour, SSR safety, mount smoke |
 
-- no gate reads what a comment *says*; only review catches a rule-restating doc.
+- must include the SFC compiler check in typecheck or a separate required check.
+- semantic docs and behavioral/accessibility coverage → [library testing](../../../../shapes/library/testing/testing.md).
 
 ---
 
 ## Reference
 
-`CopyButton.vue` in the Vue beta SDK — every rule above holds in it, at zero warnings across all four gates.
+`CopyButton.vue` in the Vue beta SDK is a worked reference, not proof of current package-wide conformance.
 Path: `wow-two-sdk-beta.ui/engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/actions/copyButton/`.

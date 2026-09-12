@@ -1,10 +1,9 @@
 # Surface
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > The bare recipe wrapper — fill, border, radius and shadow, with no structure of its own.
 > What a layout is → [layout](../../constructs/visual/layout.md).
-> Its full surface → `Surface.vue`; no spec ships.
 
 ## Reach for it when
 
@@ -22,11 +21,3 @@
 | `Card` | the content splits into header, body and footer |
 | [Box](box.md) | no fill, border or shadow is wanted |
 | [Section](section.md) | the recipe is a full-bleed band behind a centred column |
-
----
-
-## Values
-
-- must pass `padding` — it defaults to `none`, so the surface hugs its children
-- must leave `variant` at `surface`, `tone` at `neutral`, `radius` at `md`
-- should leave `elevation` unset — each variant already carries its own shadow

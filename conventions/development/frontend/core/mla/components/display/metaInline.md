@@ -1,10 +1,9 @@
 # MetaInline
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > The meta row — chips on the left, actions pushed right.
 > What a display is → [display](../../constructs/visual/display.md).
-> Its full surface → `MetaInline.vue`.
 
 ## Reach for it when
 
@@ -20,9 +19,3 @@
 | [InfoRow](infoRow.md) | the row is one label and its value, not a set of chips |
 | [DescriptionList](descriptionList.md) | the pairs are many and want a `<dl>` |
 | `Toolbar` | the row is commands sharing one tab stop |
-
----
-
-## Values
-
-- should leave `gap` at `2`; `1` only in an already dense row

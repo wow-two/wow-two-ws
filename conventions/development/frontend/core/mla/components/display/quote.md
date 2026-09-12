@@ -1,10 +1,9 @@
 # Quote
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > The block quote — copy taken from somewhere else, set off by a rule.
 > What a display is → [display](../../constructs/visual/display.md).
-> Its full surface → `Quote.spec.md`.
 
 ## Reach for it when
 

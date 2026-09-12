@@ -1,48 +1,54 @@
-# Swappable Modules
+# Swappable modules
 
-*Last updated: 2026-07-11*
+*Last updated: 2026-09-10*
 
-> Governs any SDK module that wraps a third-party engine or could ever need one (forms, query, router, dnd, storage, analytics, …) — frontend and
-> backend alike. Purpose — vendor freedom: apps code against a house contract once; engines swap via a one-line pin, proven by a shared conformance
-> suite. Reference implementation: `@wow-two-beta/ui` `/forms-engine` (contract + `house` + `tanstack`, one 34-case suite).
+> House contracts and interchangeable engine adapters across the SDKs.
 
 ## Contract
 
-- must define a house contract first — the types apps import (`AppForm`, `FormEngine`-style interface); adapters implement it, never leak vendor types
-- must keep the contract at the 90% surface derived from real product usage — grow it only from evidence, never from a vendor's feature list
-- must expose the native engine instance as a typed escape hatch (`form.engine`); per-consumer coupling is allowed, contract-level coupling is not
-- should promote an escape-hatch pattern into the contract once 2+ consumers reach for the same native feature
-- must not fold engine variants into option flags — behavior variants are sibling hooks / factories (`useAppMutation` vs `useOptimisticMutation`)
+- must define the house contract around a capability, independently of any vendor's feature list.
+- must complete that capability under [vector completeness](dev-cycle.md#vector-completeness--build-the-whole-vector-not-the-ask).
+- must use product evidence to shape semantics, not as a consumer-count gate on known missing capabilities.
+- must keep vendor types out of the shared contract.
+- may expose a typed native-engine escape hatch at the selected adapter boundary.
+- must keep escape-hatch coupling local to its consumer; shared components depend on the house contract.
+- must inventory repeated escape-hatch use as a possible contract gap during the completion pass.
+- must not represent alternative engines as flags on one factory; each adapter owns its entry.
 
 ---
 
 ## Adapters
 
-- must ship each engine as its own subpath (`/forms-engine/tanstack`, `/forms-engine/house`) with an identical entry signature
-- must carry vendor deps as optional peers (`peerDependenciesMeta`) on the adapter subpath only — importing the contract or a sibling adapter must not
-  pull the vendor (verify in `dist` chunks)
-- must own semantic alignment inside the adapter (overlay state, timing shims) — the contract's semantics win; vendor drift never reaches the app
-- should ship two adapters from day one (lib + `house` micro-engine, or two libs) — the second adapter is what keeps the contract honest
-- may cap a `house` micro-engine with a documented feature ceiling; it is a hedge, not a competitor
+- must give each engine its own entry with the same house-facing signature and semantics.
+- must isolate vendor runtime dependencies so importing the contract does not load a vendor.
+- must follow frontend [delivery](frontend/shapes/library/delivery/delivery.md#dependencies) for optional peer metadata.
+- must adapt engine timing, merge, reset and errors to the house contract.
+- should establish swap freedom with two conforming implementations, including a house engine when appropriate.
+- may defer additional adapters under the exception in [vector completeness](dev-cycle.md#vector-completeness--build-the-whole-vector-not-the-ask).
+- may declare an adapter capability ceiling; it must reject unsupported requests explicitly rather than misbehave.
+- must not use an adapter ceiling to omit a known capability from the SDK's completion inventory.
 
 ---
 
 ## Conformance
 
-- must maintain one engine-agnostic behavioral suite (`describe{X}EngineConformance(name, factory)`) pinning timing, merge, reset, error semantics
-- must run the full suite against every adapter; a new adapter ships only when it passes unmodified
-- must not fork the suite per adapter — an adapter needing suite edits means the contract or the adapter is wrong
+- must maintain one engine-independent behavioral suite over the shared contract.
+- must run the suite unchanged against each adapter for its advertised capabilities.
+- must declare optional capability cases centrally and verify unsupported outcomes for adapters lacking them.
+- must not fork expected behavior per engine; a mismatch is a contract or adapter defect.
+- must add framework integration tests where framework lifecycle changes the observable contract.
 
 ---
 
 ## App usage
 
-- must pin the engine in one app-local re-export (`src/form.ts` → the adapter subpath); app code imports only that file and the contract types
-- must not import vendor packages directly in app code — the escape hatch is reached through the pinned adapter's typed `engine`
+- must pin an engine once at the app's composition root, through an app-owned re-export or registration.
+- must let app code depend on that pin and the contract types, never a vendor package directly.
+- must keep source placement in the owning app/library shape; this contract does not prescribe a source path.
 
 ---
 
 ## Retrofit
 
-- must sweep pre-convention modules toward this shape when touched (contract extraction first, adapters second); track the sweep as an iteration in the
-  owning repo's planning doc
+- must migrate a touched module through contract extraction, adapter alignment and consumer adoption.
+- must track remaining capability gaps in its vector-completion plan, not wait for another consumer request.

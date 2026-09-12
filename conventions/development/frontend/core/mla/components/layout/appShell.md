@@ -1,10 +1,9 @@
 # AppShell
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > The app frame — header, sidebar, main, aside and footer laid out as one grid.
 > What a layout is → [layout](../../constructs/visual/layout.md).
-> Its full surface → `AppShell.spec.md`.
 
 ## Reach for it when
 
@@ -23,12 +22,3 @@
 | [TwoColumn](twoColumn.md) | the frame is an aside and a main column, nothing more |
 | `Drawer` | the panel is an overlay, not a region of the frame |
 | [Section](section.md) | the page is bands of content rather than an app frame |
-
----
-
-## Values
-
-- must pass `sidebarWidth` and `asideWidth` as CSS lengths, not Tailwind classes
-- must leave them at `240px` and `280px`, and the breakpoints at `lg` and `xl`
-- must not name the regions `AppShell.Header` — the spec is React-era; they ship flat
-- should bind one of `sidebarOpen` or `isSidebarOpen` — the second wins when both are set

@@ -1,16 +1,12 @@
 # TypeScript
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > Every TypeScript construct we may declare, what each one is for, and the constructs banned outright.
 > Purpose — settle the *form* once, so no role doc has to re-argue `interface` vs `type`.
 > Use case — reach here before declaring a type, and whenever a construct is unfamiliar in this codebase.
 
 ## The constructs
-
-Exhaustive through TypeScript 5.9. A form we have never written is still listed, with a verdict.
-
-- `Data or behavior` names the role the form is fit to carry; `—` means it carries neither.
 
 | Construct | Declares | Data or behavior | Verdict |
 |---|---|---|---|
@@ -21,7 +17,7 @@ Exhaustive through TypeScript 5.9. A form we have never written is still listed,
 | intersection `A & B` · branded alias | one shape combining several, or a nominal primitive | data | `use with care` |
 | literal type | one value standing as a type | data | `use` |
 | template-literal type | a string type composed from parts | data | `use with care` |
-| `const` object + `as const` | a frozen value set — the value source | data | `use` |
+| `const` object + `as const` | a compile-time readonly literal value source | data | `use` |
 | `(typeof X)[keyof typeof X]` | the union of a const object's values | data | `use` |
 | `enum` · `const enum` | TS's nominal enum, and its inlined form | data | `banned` |
 | `class` | a constructible type carrying instance state | behavior | `use with care` |
@@ -57,6 +53,8 @@ Exhaustive through TypeScript 5.9. A form we have never written is still listed,
 | decorator `@x` | a declaration wrapped where it is defined | behavior | `banned` |
 
 - must declare an object shape as an `interface`, and reserve `type` for a union or a derivation.
+- must expose collection inputs as readonly views; use `Array<T>` for an owned mutable working collection.
+- must not treat a readonly type as runtime or deep immutability; aliases may still mutate the underlying value.
 
 ### Absence
 
@@ -87,15 +85,15 @@ in [`mla/constructs/`](../../../mla/constructs/constructs.md).
 
 - **`enum` · `const enum`** — reach for a `const` object ([enums](../../components/enums.md)); the member is
   nominal, so the wire string it equals will not assign to it, and a mapper appears at every read boundary.
-  `const enum` also inlines its members, which `isolatedModules` cannot do one file at a time.
+  ambient `const enum` references also conflict with `isolatedModules`.
 - **bare string-literal union** — reach for a `const` object ([enums](../../components/enums.md) § *Use*); a
   union declares no value, so each site spells the literal and a rename misses every one.
-- **`namespace`** — reach for a module and its barrel ([extensions](../../components/extensions.md)); it is not
-  tree-shakeable and `isolatedModules` rejects it. A type-only `declare namespace` emits nothing, and is the exception.
+- **runtime `namespace`** — use a module and barrel under the house rule; `isolatedModules` rejects namespaces
+  in non-module scripts, not every namespace. Type-only `declare namespace` is permitted for external contracts.
 - **`any`** — reach for `unknown` and narrow it; checking stops at the annotation, and every error inside that value
   moves to runtime.
-- **`T[]` · `readonly T[]`** — reach for `ReadonlyArray<T>`; the bracket form breaks the `IReadOnlyList<T>` pairing
-  and hands a prop the mutators it must not expose ([type mapping](../../../mla/domains/api/type-mapping.md)).
+- **`T[]` · `readonly T[]`** — use `Array<T>` or `ReadonlyArray<T>` under the spelling rule;
+  `readonly T[]` already blocks mutators, just as `ReadonlyArray<T>` does.
 - **`abstract class` · `abstract` member** — reach for an `interface` and a function; an inheritance ladder has no
   unit of composition here, where a component composes and a hook closes over its own state.
 - **decorator `@x`** — reach for an explicit wrapper call; a decorator moves behavior off the call site and pins the

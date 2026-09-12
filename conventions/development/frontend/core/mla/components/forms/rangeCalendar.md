@@ -1,10 +1,9 @@
 # RangeCalendar
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > The inline month grid that picks two ends, previewing the span under the pointer between them.
 > What a control is → [control](../../constructs/visual/control.md).
-> Its full surface → `RangeCalendar.spec.md`.
 
 ## Reach for it when
 
@@ -27,8 +26,6 @@
 
 ## Values
 
-- must speak `DateRange` — `{ start, end }`, both `Temporal.PlainDate`
-- must expect `null` until both ends land; the half-built range stays internal
+- must distinguish a provisional range from the committed two-ended value.
+
 - should bound the grid with `min` and `max` before reaching for a predicate
-- must keep `isDisabled` a per-day predicate returning a boolean, never a flag
-- must take the ends as Temporal — the spec still types them as `Date`

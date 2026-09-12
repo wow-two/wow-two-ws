@@ -1,20 +1,10 @@
 # SegmentedControl
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
-> Deprecated — a thin alias forwarding to `ToggleButtonGroup variant="segmented"`.
-> What an action is → [action](../../constructs/visual/action.md).
-> Its full surface → `SegmentedControl.spec.md`.
+> A segmented selection uses [ToggleButtonGroup](toggleButtonGroup.md).
 
 ## Reach for it when
 
-- must not reach for it in new code — deprecated, and a later beta removes it
-- should leave it in place only where it already ships, until the call site moves
-
----
-
-## Instead of
-
-| Reach for | When |
-|---|---|
-| `ToggleButtonGroup variant="segmented"` | always — the connected pill row this alias forwards to |
+- must follow the toggle-group guidance for a compact exclusive choice.
+- must use the selected package's documented public export; compatibility aliases are not a separate design choice.

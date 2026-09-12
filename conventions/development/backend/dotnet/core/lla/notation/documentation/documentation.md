@@ -1,6 +1,6 @@
 # Documentation
 
-*Last updated: 2026-08-15*
+*Last updated: 2026-09-10*
 
 > XML-doc index — the cross-cutting format and the per-block table; each block's rules live in `documentation/`.
 
@@ -29,8 +29,7 @@
 Each XML doc block has its own rules — start here:
 
 - `<summary>` → [summary](summary.md) — **canonical**: starters, falsifiability test, tone, properties, constants
-- `<remarks>` → [remarks](remarks.md) — never required; a directive, a spec reference, or genuine complexity,
-  held to the same three gates
+- `<remarks>` → [remarks](remarks.md) — optional by default, required only for explicit consumer-contract cases
 - `<param>` → [params](params.md) — compact noun-phrase per parameter
 - `<typeparam>` → [type params](typeparams.md) — skipped for a conventional name, carried for a domain-meaningful
 - `<returns>` → [returns](returns.md) — required unless the return is `void` / `Task` / `ValueTask`
@@ -173,12 +172,12 @@ Restates the member name, so it costs a line and pays nothing.
 public required string Slug { get; set; }
 
 // ✅ the starter stays; the predicate carries the entity and the shape
-/// <summary>Gets or sets the kebab-case slug of the channel.</summary>
+/// <summary>Gets or sets the kebab-case slug.</summary>
 ```
 
 The defect is the empty predicate, never the starter — a property summary keeps its `Gets` / `Gets or sets`
 ([summary](summary.md) § *Properties on entities + DTOs*).
-Say what the name cannot — the parent entity, units, range, what null means.
+Say what the name cannot — units, range, what null means; name a related owner under § *Name the referent*.
 Not who sets it, when, or how.
 
 ### Mandated comment *(Clean Code)*

@@ -1,6 +1,6 @@
 # Layout
 
-*Last updated: 2026-08-23*
+*Last updated: 2026-09-10*
 
 > An arrangement of whatever it is given — it places children and owns no content of its own.
 > Purpose — spacing, stacking, and framing become named components instead of ad-hoc utility strings.
@@ -8,15 +8,11 @@
 
 ## Gate
 
-- must render **only its children** — a component with copy, an icon, or data of its own is a [display](display.md).
-- must stay meaningful with any children at all; a layout that only works with one child type is that child's parent.
-- must decide position and spacing only — colour, tone, and state belong to what it wraps.
-- must stay in flow; a component that floats out of flow is an [overlay](overlay.md).
-
-```txt
-✅ BoxLayout · StackLayout · GridLayout · TwoColumnLayout · AppShell · SurfaceLayout · FrameLayout
-❌ SectionHeader           (it renders a title and actions — that is a display)
-```
+- must arrange caller-supplied content and may own its surrounding fill, border, radius and elevation.
+- must leave domain records, fetching and product commands to the caller.
+- may own arrangement behavior such as resizing, scrolling and region collapse.
+- must apply the field contract when a wrapper also owns control labeling or validation associations.
+- must distinguish an in-box absolute anchor from a floating surface with focus and dismissal behavior.
 
 ---
 
@@ -49,17 +45,9 @@
 
 ### Component name
 
-- must end `*Layout` for chrome around a router outlet, `*Shell` for the app frame — one `*Shell` per app.
-- must admit `*Bar` · `*Group` · `*Area` · `*Section` · `*Grid` · `*Row` · `*Cell` — all shape words ([visual
+- must end `*Layout` for arrangement or chrome, `*Shell` for the app frame.
+- must admit `*Bar` · `*Group` · `*Area` · `*Section` · `*Grid` · `*Row` · `*Cell` · `*Timeline` — all shape words ([visual
   kinds](visual.md) § *Shape words*).
-
-```vue
-<script setup lang="ts">
-/** Renders a flex container with gap and alignment variants. */
-defineOptions({ name: 'Stack', inheritAttrs: false });
-defineProps<{ as?: ElementType }>();
-</script>
-```
 
 ---
 
@@ -69,7 +57,7 @@ defineProps<{ as?: ElementType }>();
 
 #### [The](../../../lla/notation/documentation/documentation.md)
 
-- must take arrangement props only — direction, gap, align, width, ratio, breakpoint.
+- must take arrangement and chrome props; a behaviorful layout may take its documented interaction handlers.
 - must not take a data prop; a list of items to place is the caller's `v-for`, not the layout's job.
 
 ### Slots
@@ -79,27 +67,17 @@ defineProps<{ as?: ElementType }>();
 
 ### Emits
 
-- must emit only when a region is collapsible, and then only the open state.
-
-```vue
-<script setup lang="ts">
-defineSlots<{ header(): unknown; sidebar(): unknown; default(): unknown }>();   // ✅
-defineProps<{ items: ReadonlyArray<NavEntry> }>();                              // ❌ data is not arrangement
-</script>
-```
+- must report layout interaction changes, such as region openness, resized proportions or a refresh request.
 
 ---
 
 ## Composition
 
-- must be mounted by a [page](page.md) or another layout, and compose every other visual kind inside.
-- must not reach into a child to style it — the child owns its own appearance.
-- must not branch on route or auth; a conditional region is a [state](state.md) or a guard the page owns.
-
-```txt
-✅ CreateCodePage → AppShell → TwoColumnLayout → StackLayout → FillControls
-❌ AppShell → useAuth()          (a layout reading session state)
-```
+- must follow the shared [composition contract](visual.md#composition-order).
+- may constrain child roles in an explicit compound, such as resizable panels.
+- must style owned chrome and arrangement without rewriting a child's semantic state.
+- must let the page or an explicit guard decide auth/route-dependent regions.
+- must allow the caller to avoid nested `main` landmarks when layouts compose.
 
 ---
 
@@ -109,4 +87,4 @@ defineProps<{ items: ReadonlyArray<NavEntry> }>();                              
 - [page](page.md) — the routed owner that picks the frame
 - [panel](panel.md) — the kind for a region a composite owns rather than one a caller fills
 - [styling](../../../../shapes/app/platform/styling.md) — tokens, `cn()`, and the variant files a layout uses
-- [visual kinds](visual.md) — every other kind, and the composition ladder
+- [visual kinds](visual.md) — every other kind, and the composition contract

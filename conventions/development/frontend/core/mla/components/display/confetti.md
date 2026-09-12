@@ -1,10 +1,9 @@
 # Confetti
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > A one-shot celebration burst, fired by hand or on mount.
 > What a display is → [display](../../constructs/visual/display.md).
-> Its full surface → `Confetti.spec.md`.
 
 ## Reach for it when
 
@@ -27,4 +26,3 @@
 
 - should leave `particleCount` at `60`, `lifetime` at `3000` ms
 - should leave `gravity` at `1200`, `spread` at `60`, `velocity` at `500`
-- must expect no burst under reduced motion — it is a deliberate no-op

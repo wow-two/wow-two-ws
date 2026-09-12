@@ -1,8 +1,8 @@
 # Results
 
-*Last updated: 2026-08-20*
+*Last updated: 2026-09-10*
 
-> The carrier every fallible operation returns — a typed success or a typed failure, never both, never a throw.
+> The carrier every fallible operation returns — a typed success or a typed failure, never both, with expected failures represented explicitly.
 > Purpose — a caller branches on the type instead of wrapping the call, so one missed `try` cannot take a tree down.
 > Use case — a browser seam, an API call, a validator, a mapper, a client factory.
 
@@ -22,10 +22,11 @@ type Result<TSuccess = void, TFailure = AppError> =
 | `Result<T, TFailure>` | a `T` | a closed type the caller switches on |
 
 - must return a `Result` from any operation whose failure a caller may branch on.
-- must return a `Result` from a validator and from a mapper — an invalid format, a missing field or a shape
-  that does not match is a failure the caller reads, never a throw that reaches the render tree.
+- must return a `Result` from a house operation whose expected validation or mapping failure is actionable.
+- must preserve third-party validator protocols such as Standard Schema and adapt them at the house boundary.
+- may return a plain value from a total mapper that cannot fail.
 - which failure type to reach for is application ([data](../../components/data/data.md)).
-- must not throw from an operation that returns a `Result` — the two together give a caller nothing single to read.
+- must encode expected failures in the result; programmer errors remain exceptional.
 - must let a programmer error throw — a failed invariant is a bug, and a `Result` would ask a caller to handle it.
 
 ---
@@ -46,7 +47,7 @@ interface AppError {
 - must author an error through a catalog — SDK `AppErrorFactory.{Kind}(…)`, app `CodeErrors.*`.
 - must not build an `AppError` literal at a call site.
 - must not carry an HTTP status — `AppErrorType` is transport-agnostic and the status maps at the edge.
-- must write `message` for the reader who sees it, since a toast renders it unedited.
+- must expose only a safe reader-facing message; localize it at the owning boundary and never render raw exception or server detail unedited.
 
 ---
 
@@ -61,6 +62,8 @@ export const ClipboardFailureCode = {
   InsecureContext: 'InsecureContext',
 } as const;
 
+type ClipboardFailureCode = (typeof ClipboardFailureCode)[keyof typeof ClipboardFailureCode];
+
 interface ClipboardFailure {
   readonly code: ClipboardFailureCode;
   readonly message: string;
@@ -69,7 +72,7 @@ interface ClipboardFailure {
 
 - must name a failure `{Noun}Failure`, and its vocabulary `{Noun}FailureCode`.
 - must keep the failure type closed, so the caller's `switch` is checked.
-- must not extend `AppError` to add cases — extension does not let a caller switch exhaustively.
+- must declare a closed discriminated failure vocabulary when exhaustive case handling is needed.
 - must use `AppError` where the caller only reports the failure or maps it to a status.
 
 ---
@@ -87,8 +90,10 @@ interface ClipboardFailure {
 | `unwrapOr(result, fallback)` | reads the success, or the fallback |
 | `fromThrowing(fn, toFailure)` | wraps a throwing third party at the seam |
 
-- must narrow through `isOk` / `isFail`, never by reading `.value` behind a truthiness check.
-- must wrap a throwing dependency once, at the seam, with `fromThrowing` — never at each call site.
+- must narrow through `ok` or a typed `isOk` / `isFail` helper before reading the matching branch.
+- must not infer success from the truthiness of the payload; zero, false and empty string can be successful values.
+- must translate expected third-party failures at the seam; asynchronous adapters must also catch promise rejection.
+- must preserve programmer errors and the capability's cancellation policy during that translation.
 - must not add a member that hides a branch; `unwrapOr` is the only reader that drops a failure silently.
 
 ---

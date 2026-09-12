@@ -1,6 +1,6 @@
 # Conventions — Development
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > The **development** domain: how we structure repos and write code. Lookup table, not auto-loaded.
 > Each area has its own `{area}-conventions.md` index.
@@ -19,26 +19,27 @@
 
 Versioning moved to the sibling **planning** domain → [`../planning/`](../planning/planning-conventions.md).
 
-## The layers of a thing [REQUIRED]
+<a id="the-layers-of-a-thing-required"></a>
 
-Every thing we write about sits at up to three layers, and the layers are **of one thing** — not three
-buckets holding different things. Backend and frontend both answer to this; an area index may add a layer
-name of its own, never a fourth layer.
+## Documentation chain [REQUIRED]
 
-| Layer | Is | Present when |
+Each thing has a documentation chain: the platform form, our definition, and its application.
+These describe the same thing; they do not replace the `lla` / `mla` / `hla` scopes.
+
+| Authority | Is | Present when |
 |---|---|---|
 | 1 · baseline | what the language or framework already ships — `const`, `BackgroundService`, `TimeProvider`, `useState` | the platform defines the form we build on |
 | 2 · construct | **what the thing is** — our definition of a role nothing official defines, its declaration and where it lives | always; no other source defines it |
 | 3 · application | **every condition for applying it** — options, attributes, variations, what the SDK ships for it | the thing has conditions worth writing down |
 
-- must keep layer 2 to the definition — a construct doc says what a thing *is*, never how it behaves in a
+- must keep the construct to the definition — a construct doc says what a thing *is*, never how it behaves in a
   given situation.
-- must put every variation at layer 3 — one-to-many versus many-to-many is an application of `Entity`,
+- must put every variation in the application — one-to-many versus many-to-many is an application of `Entity`,
   never part of what an entity is.
-- must let a thing carry two docs when it has both layers — `constructs/{name}.md` defines it and
+- must let a thing carry two docs when it has both definition and application — `constructs/{name}.md` defines it and
   `components/{name}.md` applies it, the second linking the first.
-- must let layer 1 be absent — `Broker` and a `Constants` class are roles we coined, so they start at 2.
-- must let layer 3 be absent — a role with no conditions of its own stops at 2.
+- must let the platform form be absent — a role we coined starts at its definition.
+- must let the application be absent when a role has no conditions worth adding to its definition.
 
 ### Both scopes carry both roles
 
@@ -59,7 +60,7 @@ ruled, the role decides whether the doc defines it or applies it.
 
 ### Whose thing earns a doc
 
-A convention doc rules **our** code. Layer 1 is the platform we build on — C# and .NET on the backend,
+A convention doc rules **our** code. The baseline is the platform we build on — C# and .NET on the backend,
 the browser and the framework on the frontend — plus our own SDK. Everything else is a dependency we
 happen to use today.
 
@@ -76,18 +77,20 @@ happen to use today.
 
 ---
 
-### Where layer 3 lives
+<a id="where-layer-3-lives"></a>
 
-Layer 3 splits by **self-sufficiency**, not by subject matter — the same job, two homes.
+### Application ownership
 
-| The thing | Layer 3 lives in | Because |
+The application splits by **self-sufficiency** — the same register, two possible owners.
+
+| The thing | Application owner | Because |
 |---|---|---|
 | stands alone with no service, domain or collaborator present | `components/` | its conditions are complete on their own — a `Constants` class and its `Description` attributes |
 | needs collaborators to mean anything | `domains/` | its conditions are the domain's — an `Entity` needs a repository, a schema and relations |
 
 - must not file a thing under `components/` to give it a home — a thing needing a collaborator has its
-  layer 3 in the domain that supplies one.
-- must not split layer 3 across both — one home per thing, chosen by the test above.
+  application in the domain that supplies one.
+- must not split the application across both — one home per thing, chosen by the test above.
 
 ---
 

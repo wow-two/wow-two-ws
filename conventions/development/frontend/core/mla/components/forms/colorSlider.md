@@ -1,10 +1,9 @@
 # ColorSlider
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > The single-channel track — hue, saturation, value or alpha, drawn as its own gradient.
 > What a control is → [control](../../constructs/visual/control.md).
-> Its full surface → `ColorSlider.spec.md`.
 
 ## Reach for it when
 
@@ -22,13 +21,3 @@
 | [ColorWheel](colorWheel.md) | hue reads better as a ring than a strip |
 | [ColorArea](colorArea.md) | saturation and value move together |
 | [Slider](slider.md) | the number is not a colour channel and needs no gradient |
-
----
-
-## Values
-
-- must set `channel` — it defaults to `hue`, which is rarely the one meant
-- must pass `color` for the saturation, value and alpha tracks; hue ignores it
-- must read the range off the channel — hue `0`–`360`, every other one `0`–`1`
-- should leave `step` unset — it resolves to `1` for hue and `0.01` elsewhere
-- must expect `0` when uncontrolled — a bare alpha track opens fully transparent

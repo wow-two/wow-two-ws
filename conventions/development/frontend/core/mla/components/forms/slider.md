@@ -1,10 +1,9 @@
 # Slider
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > A value swept along a track — the native range input, where the position carries the meaning.
 > What a control is → [control](../../constructs/visual/control.md).
-> Its full surface → `Slider.spec.md`.
 
 ## Reach for it when
 
@@ -27,7 +26,4 @@
 
 ## Values
 
-- should leave `min` `0` and `max` `100` — the percentage range the default assumes
-- must pass `step` as a native attribute; it falls through to the range input
-- should leave `size` at `md`; the sizes only set the track's thickness
-- must show the value beside it — the track alone gives the reader no number
+- should use the medium visual size while preserving an adequate interaction target.

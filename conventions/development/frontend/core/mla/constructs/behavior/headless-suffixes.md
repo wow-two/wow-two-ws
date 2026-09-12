@@ -1,9 +1,9 @@
 # Headless Suffixes
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > The keep-list of suffixes that name a **seam** — a role a component consumes and never renders.
-> Purpose — the frontend suffix table names only what renders, so every seam in the SDK is currently unnamed.
+> Purpose — a behavioral contract and its implementation share a role that remains meaningful without rendering.
 > Use case — declaring an interface, its default implementation, or the options a call takes.
 
 ## Rules [REQUIRED]
@@ -14,7 +14,7 @@
 - must not declare a seam under `presentation/` — a folder there holds a renderable component and its parts.
 - must name a seam for the role, not for its first implementation — the implementation prefixes the role.
 
-```ts
+```txt
 // ✅ the role names the contract; each implementation prefixes it
 export interface LogSink { write(entry: LogEntry): void }
 export class MemoryLogSink implements LogSink { … }
@@ -59,7 +59,7 @@ export interface RetryOptions { shouldRetry(attempt: number): boolean }
 `*Provider` is the one suffix on both keep-lists, and the two roles never live in the same file.
 
 - must declare the **seam** as a `.ts` interface in its capability module — `AnalyticsProvider` · `FlagProvider`.
-- must declare the **component** as a `.vue` file whose template is `<slot />` ([provider](../visual/provider.md)).
+- must declare the **component** through its framework's provider form ([provider](../visual/provider.md)).
 - must not let one file be both — a component installs a seam, it is not the seam.
 
 ```txt

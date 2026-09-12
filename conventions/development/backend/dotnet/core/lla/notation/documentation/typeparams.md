@@ -10,11 +10,12 @@ A `<typeparam>` says what may be substituted and the role it plays here. A conve
 so documenting it restates the name — the Redundant comment anti-pattern
 ([documentation](documentation.md) § *Comment anti-patterns*).
 
-- must skip a **conventional** parameter — `T` · `TKey` · `TValue` · `TResult` · `TRequest` · `TResponse`.
+- must skip `<typeparam>` when every parameter is conventional — `T`, `TKey`, `TValue`, `TResult`, `TRequest`, `TResponse`.
 - must document a **domain-meaningful** parameter — `TAggregate`, `TUserId`: name its role in this type.
 - must not restate the `where` clause — the signature carries it, and a copy goes stale when it moves.
 - must document **every** parameter once any one is documented ([params](params.md) § *Every parameter, every time*).
   - a partial set leaves a reader unable to tell an omission from a decision.
+- must include a conventional parameter in that complete set when a domain-meaningful sibling needs documentation.
 
 ```csharp
 // ✅ the role it plays, not the constraint

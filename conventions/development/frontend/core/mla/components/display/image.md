@@ -1,10 +1,9 @@
 # Image
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > A picture with a fallback for when it fails to load.
 > What a display is → [display](../../constructs/visual/display.md).
-> Its full surface → `Image.spec.md`.
 
 ## Reach for it when
 
@@ -26,5 +25,4 @@
 
 ## Values
 
-- must set `alt`; an omitted one is coerced to empty, claiming decoration
-- must let the component own `onError`; a caller's handler is chained, never replaced
+- must provide meaningful alternative text for informative content and an empty alternative for decoration.

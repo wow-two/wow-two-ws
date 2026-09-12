@@ -1,6 +1,6 @@
 # Models
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > The application's own representation of a thing — what a service or handler hands back, inside a `Result`.
 > Purpose — a wire shape reaching inward makes a response change ripple into services; the model stops it.
@@ -12,8 +12,7 @@
 - must sit in a `Models/` folder under the domain that produces it.
 
 ### File
-- must give it its own file, named for the type →
-  [one type, one file](../../mla.md).
+- file rules → [one type, one file](../../mla.md).
 
 ---
 
@@ -22,7 +21,8 @@
 ### Type doc
 
 #### [Summary](../../../lla/notation/documentation/summary.md)
-- must start with **Represents**, and name the thing it stands for.
+- type summary baseline → [data](data.md) § *Shared rules*.
+- must name the thing it stands for.
 - must not name the transport, the endpoint, or the client that eventually reads it.
 
 ```csharp
@@ -33,7 +33,7 @@
 ```
 
 ### Construct
-- must declare a `sealed record` → [data](data.md) § *Declaration*.
+- declaration baseline → [data](data.md) § *Shared rules*.
 - must declare `{ get; init; }` — a model is built at the point it is returned.
 - must carry entities, value objects, primitives or other models — never a [dto](dto.md).
 

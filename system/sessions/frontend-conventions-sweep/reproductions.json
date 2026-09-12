@@ -1,0 +1,12 @@
+{
+  "merge": {
+    "p-[1rem] p-4": "p-4",
+    "gap-[0.5rem] gap-2": "gap-2",
+    "p-3! p-4! p-5": "p-4! p-5",
+    "!p-3 !p-4": "!p-4"
+  },
+  "constAssertionEmitted": "export const Config = { x: 1 };\n",
+  "runtimeFrozen": false,
+  "runtimeValue": 2
+}
+

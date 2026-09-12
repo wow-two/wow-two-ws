@@ -1,97 +1,52 @@
-# DbUp
+# DbUp migrations
 
-*Last updated: 2026-08-18*
+*Last updated: 2026-09-10*
 
-> Forward-only embedded-`.sql` migrations applied on host boot via DbUp — journaled, no rollback, no checksum.
-> Purpose — a battle-tested journal table for additive schemas, without the bespoke checksum/drift/rollback engine.
-> Use case — reach for it when every change is additive, or for legacy standalone `.sql` sets;
-> otherwise use `AddDatabaseBespokeMigrations` (`migrations.md`).
+> Forward-only embedded SQL with DbUp's journal and an explicit provider choice.
 
-## When to pick
+## Selection
 
-- simple forward-only schema: every change is additive, you never roll back in place.
-- legacy / existing script sets already authored as standalone `.sql` files.
-- you want a battle-tested journal table, not the bespoke `migration_history` + checksum-drift engine.
-- multi-provider out of the box (Postgres / SqlServer / MySql) with one switch.
-- **not** for checksum drift detection, rollback symmetry, advisory-lock coordination, dev on-disk live-edit.
-  - that is `AddDatabaseBespokeMigrations` (`migrations.md`); DbUp is the lighter, dumber choice.
+- may select DbUp for an existing forward-only script set or an additive schema with no in-place rollback.
+- must select another runner when checksum drift detection or paired rollback is required.
+- must follow shared [lifecycle and coordination](../migrations.md).
+- must not treat journaled repeat execution as protection against simultaneous applicants.
 
 ---
 
-## Register
+## Registration
 
-- one call wires options + the background service —
-  `AddDbUpRunner(this IServiceCollection, string connectionString, Action<DbUpOptions>?)`:
+- must pass the connection string explicitly to `AddDbUpRunner(connectionString, configure)`.
+- must choose the provider through `UsePostgres()`, `UseSqlServer()` or `UseMySql()` on the configured options.
+- must specify the scripts assembly and a resource-prefix filter when the assembly contains unrelated SQL.
+- must not mutate registered options after composition.
 
 ```csharp
-services.AddDbUpRunner(cfg.GetConnectionString("Default")!, o =>
+services.AddDbUpRunner(connectionString, options =>
 {
-    o.UpgradeEngineFactory = DbUpProviderFactory.Postgres;
-    o.ScriptsAssembly = typeof(SomePersistenceMarker).Assembly;   // defaults to entry assembly
-    o.ScriptsNamespacePrefix = "App.Migrations.Scripts.";          // optional filter
+    options.UsePostgres();
+    options.ScriptsAssembly = typeof(SomePersistenceMarker).Assembly;
+    options.ScriptsNamespacePrefix = "App.Migrations.Scripts.";
 });
 ```
 
-- the connection string is a parameter because `DbUpOptions.ConnectionString` is `required` →
-  [options](../../../../constructs/data/options.md) § *Declaration*.
-- `AddDbUpRunner` builds the options, applies the delegate, and registers the instance.
-  - plus `AddHostedService<DbUpBackgroundService>()`.
+- current registration → [DbUp registration source](../../../../../../../../../../workbench/wow-two-sdk-beta/wow-two-sdk.backend.beta/engineering/codebase/wow-two-back-beta-sdk/src/Data/Migrations/DbUp/DbUpServiceCollectionExtensions.cs).
+- provider selectors → [DbUp extensions](../../../../../../../../../../workbench/wow-two-sdk-beta/wow-two-sdk.backend.beta/engineering/codebase/wow-two-back-beta-sdk/src/Data/Migrations/DbUp/Extensions/DbUpExtensions.cs).
 
 ---
 
-## Apply on boot
+## Execution
 
-- `DbUpBackgroundService` (an `IHostedService`) runs in `StartAsync`.
-  - pending scripts apply as the host starts, before requests.
-- `DbUpOptions.Enabled == false` → logs `"DbUp runner is disabled — skipping"`, no-ops. Default `true`.
-- resolves the scripts assembly (`ScriptsAssembly ?? Assembly.GetEntryAssembly()`); throws if neither resolves.
-- calls `WithScriptsEmbeddedInAssembly`, then `.LogToConsole().Build()`.
-  - with the `ScriptsNamespacePrefix` filter when set, unfiltered otherwise.
-- `upgrader.PerformUpgrade()` — on `!result.Successful` logs `result.ErrorScript?.Name`.
-  - it then throws `InvalidOperationException` — fail-fast, boot aborts on a bad script.
-- on success logs the applied `result.Scripts.Count()`.
-- `StopAsync` is a no-op.
+- must abort host startup when a development boot migration fails.
+- must run production migration application as an explicit deployment action.
+- must not register the enabled startup runner on a production application host that should never mutate schema at boot.
+- must verify runner options against the [options source](../../../../../../../../../../workbench/wow-two-sdk-beta/wow-two-sdk.backend.beta/engineering/codebase/wow-two-back-beta-sdk/src/Data/Migrations/DbUp/DbUpOptions.cs).
 
 ---
 
-## Options
+## Scripts
 
-`DbUpOptions` is a sealed `record` — set via the `init` properties inside the `configure` delegate:
-
-- `Enabled` — gate the runner (default `true`).
-- `ConnectionString` — target DB; required, blank throws at `StartAsync`.
-- `UpgradeEngineFactory` — `Func<string, UpgradeEngineBuilder>` selecting the provider.
-  - required; null throws at `StartAsync`.
-- `ScriptsAssembly` — assembly to scan for embedded `.sql`; null → entry assembly.
-- `ScriptsNamespacePrefix` — optional embedded-resource name-prefix filter (e.g. `"App.Migrations.Scripts."`).
-
----
-
-## Provider selection
-
-- `UpgradeEngineFactory` picks the engine; use the `DbUpProviderFactory` shortcuts:
-
-| `DbUpProviderFactory` | Engine |
-|---|---|
-| `Postgres` | `DeployChanges.To.PostgresqlDatabase(cs)` |
-| `SqlServer` | `DeployChanges.To.SqlDatabase(cs)` |
-| `MySql` | `DeployChanges.To.MySqlDatabase(cs)` |
-
-- Sqlite is intentionally omitted — the dbup-sqlite engine takes a connection object, not a string.
-  - set `UpgradeEngineFactory` yourself:
-    `cs => DeployChanges.To.SQLiteDatabase(new SharedConnection(new SQLiteConnection(cs)))`.
-
----
-
-## Scripts & journal
-
-- migrations are embedded `.sql` resources in the scripts assembly.
-  - mark each `<EmbeddedResource>` in the product `.csproj`.
-- **Forward-only** — DbUp runs each script once, in name order; there is **no rollback**.
-  - to undo, ship a new forward script.
-- DbUp records applied scripts in its own journal table (`SchemaVersions` by default).
-  - a journaled script is skipped, which makes boot idempotent across hosts/restarts.
-- must name scripts so lexical order = apply order — zero-padded `0001_*.sql`.
-  - a script's name is its journal identity; **never rename an applied script**, it re-runs.
-- edits to an already-applied script are **not** detected — no checksum, DbUp trusts the journal.
-  - need drift detection? use `AddDatabaseBespokeMigrations` instead (`migrations.md`).
+- must embed scripts as assembly resources.
+- must name scripts so lexical order equals apply order, using zero-padded ordinals.
+- must not rename an applied script; its name is its journal identity.
+- must undo a change through a new forward script.
+- must not expect DbUp's journal to detect changed contents in a previously applied script.

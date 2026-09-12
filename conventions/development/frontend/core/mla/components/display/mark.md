@@ -1,10 +1,9 @@
 # Mark
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > The highlighted run inside other copy — a semantic `<mark>`.
 > What a display is → [display](../../constructs/visual/display.md).
-> Its full surface → `Mark.spec.md`.
 
 ## Reach for it when
 

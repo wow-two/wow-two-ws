@@ -1,6 +1,6 @@
 # Builders
 
-*Last updated: 2026-08-18*
+*Last updated: 2026-09-10*
 
 > A type that accumulates one value across calls and ends in `Build()`.
 > Purpose — a value with many optional parts stays readable when it is assembled rather than parameterised.
@@ -12,8 +12,7 @@
 - must sit beside the type it builds, in the same folder.
 
 ### File
-- must give it its own file, named for the type →
-  [one type, one file](../../mla.md).
+- file rules → [one type, one file](../../mla.md).
 
 ---
 
@@ -33,7 +32,9 @@
 ```
 
 ### Construct
-- must declare a `sealed class` — a builder mutates as it accumulates.
+- construct → [behavior](behavior.md) § *Shared rules*.
+- may hold mutable construction state until `Build()` closes the value, overriding
+  [language constructs](../../../lla/constructs/constructs.md) § *Behavior components*.
 - must return the built type from `Build()`, never a partially-assembled shape.
 
 ### Type name

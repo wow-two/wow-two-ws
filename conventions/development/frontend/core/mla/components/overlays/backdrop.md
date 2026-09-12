@@ -1,10 +1,9 @@
 # Backdrop
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > The bare scrim — for a custom surface that has no overlay of its own.
 > What an overlay is → [overlay](../../constructs/visual/overlay.md).
-> Its full surface → `Backdrop.spec.md`.
 
 ## Reach for it when
 
@@ -26,4 +25,3 @@
 ## Values
 
 - should leave `pointerEvents` at `auto`; `none` only for a dim that stays decorative
-- must set `isInline` only when the scrim stays inside its stacking context — it portals to the body otherwise

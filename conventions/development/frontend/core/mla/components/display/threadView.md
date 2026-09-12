@@ -1,10 +1,9 @@
 # ThreadView
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > The thread side-panel chrome — parent message, reply count, replies, composer.
-> What a display is → [display](../../constructs/visual/display.md).
-> Its full surface → `ThreadView.vue`.
+> Kind → [view](../../constructs/visual/view.md).
 
 ## Reach for it when
 
@@ -25,6 +24,4 @@
 
 ## Values
 
-- should leave `title` at `Thread`, and set `subtitle` to where the thread lives
-- must pass `replyCount: null` to drop the separator row entirely
 - should leave `hasCloseButton` on — a side panel the reader cannot close is a trap

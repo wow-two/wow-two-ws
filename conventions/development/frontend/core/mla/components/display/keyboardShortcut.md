@@ -1,10 +1,9 @@
 # KeyboardShortcut
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > A key sequence — [Kbd](kbd.md) caps with connectors between them.
 > What a display is → [display](../../constructs/visual/display.md).
-> Its full surface → `KeyboardShortcut.spec.md`.
 
 ## Reach for it when
 
@@ -25,4 +24,3 @@
 ## Values
 
 - should leave `separator` at `+` for a chord; pass `' '` for keys pressed in turn
-- must spell modifiers per platform — the component prints the strings given

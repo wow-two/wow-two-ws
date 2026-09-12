@@ -1,10 +1,9 @@
 # Table
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > The table primitives — the caller writes the rows and cells by hand.
 > What a display is → [display](../../constructs/visual/display.md).
-> Its full surface → `Table.spec.md`.
 
 ## Reach for it when
 
@@ -29,5 +28,3 @@
 
 - should leave `density` at `cozy` and `radius` at `md`
 - should leave `isStriped` and `isHoverable` off unless the rows are hard to track
-- must set `isBare` only when an outer surface already owns the scroll wrapper
-- must class the wrapper via `containerClassName`; `class` lands on the `<table>`

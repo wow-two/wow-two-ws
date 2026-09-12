@@ -1,6 +1,6 @@
 # Feedback
 
-*Last updated: 2026-08-22*
+*Last updated: 2026-09-10*
 
 > Which report to reach for, and with what values — the application register over the SDK's `feedback/` group.
 > Use case — picking between two reports that both work, or fixing the value one carries here.

@@ -1,15 +1,12 @@
 # Forms
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > Every form element and the control attributes that make one usable, plus the shapes that lose the label.
 > Purpose — the native control carries validation, autofill and the label association; a rebuilt one carries none.
 > Use case — reach here before writing an input, and whenever a control needs a label, a group or an error.
 
 ## The elements
-
-Exhaustive for HTML form content. State, validation and submission live with
-[forms](../../../mla/domains/forms/forms.md).
 
 | Element | Means | Verdict |
 |---|---|---|

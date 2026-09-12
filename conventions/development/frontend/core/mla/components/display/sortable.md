@@ -1,10 +1,9 @@
 # Sortable
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > Drag-to-reorder — headless, handle-initiated, and it never owns the array.
 > What a display is → [display](../../constructs/visual/display.md).
-> Its full surface → `Sortable.vue`.
 
 ## Reach for it when
 
@@ -26,5 +25,5 @@
 
 ## Values
 
-- must render a `SortableHandle` in every row — a row without one never drags
-- must clamp the emitted indices before splicing; they arrive raw
+- must provide keyboard and single-pointer move commands with the same result as dragging.
+- must identify moved items stably and reject stale reorder requests rather than blindly applying indices.

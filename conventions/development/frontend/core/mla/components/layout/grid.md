@@ -1,10 +1,9 @@
 # Grid
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > The two-axis container — equal tracks and one gap, optionally per breakpoint.
 > What a layout is → [layout](../../constructs/visual/layout.md).
-> Its full surface → `Grid.spec.md`.
 
 ## Reach for it when
 
@@ -27,7 +26,4 @@
 
 ## Values
 
-- must leave `columns` at `2` and `gap` at `4` for the ordinary case
-- must pick `columns` from `1`–`6`, `8`, `12` — no other track count ships
-- must pass a `{ base, sm, md, lg, xl }` map for a per-breakpoint value
 - should set an explicit `gridTemplateColumns` style for non-uniform tracks

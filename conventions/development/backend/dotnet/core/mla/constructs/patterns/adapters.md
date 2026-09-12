@@ -1,6 +1,6 @@
 # Adapters
 
-*Last updated: 2026-08-16*
+*Last updated: 2026-09-10*
 
 > A type that implements our contract by delegating to a foreign one we do not own.
 > Purpose — keep a third-party type out of every consumer, so swapping the library edits one file.
@@ -8,16 +8,9 @@
 
 ## Shape
 
-- must suffix the type with `Adapter` and prefix it with the **foreign** side —
-  `FluentValidationAdapter<T> : IValidator<T>` (`src/Foundation/Validation/`), `HybridCacheRepository : ICacheRepository`
-  (`src/Caching/Hybrid/`), `FeatureManagerAdapter : IFeatureFlags` (`src/FeatureFlags/Core/`).
-- must implement one of our interfaces and add nothing to it — an adapter translates, it does not decide.
+- declaration, naming and summary → [adapter](../behavior/adapter.md).
 - must keep the foreign type inside the adapter: no consumer references it, and the `.csproj` reference stays local.
-- must be `sealed`, and take the foreign collaborator through the constructor.
-- must start the `<summary>` with **Adapts**, and name both contracts
-  ([summary](../../../lla/notation/documentation/summary.md)).
-- must translate the foreign failure into our model — an exception becomes an `AppError`
-  ([result](../data/result.md)).
+- foreign failure translation and throw/return bridges → [results](../../components/result.md).
 
 ```csharp
 // ✅ our contract out, the library's type in, nothing added

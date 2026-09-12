@@ -1,6 +1,6 @@
 # Constructs
 
-*Last updated: 2026-08-22*
+*Last updated: 2026-09-10*
 
 > What each role a frontend declares **is** — the role, the suffix it takes, the shape of its contract.
 > Purpose — the definition register; which one to reach for and with what values is
@@ -11,9 +11,10 @@
 
 | Folder | Covers | Lead |
 |---|---|---|
-| `visual/` | the 16 kinds that render, what each composes with, where it lives | [visual](visual/visual.md) |
+| `visual/` | the kinds that render, what each composes with, where it lives | [visual](visual/visual.md) |
 | `behavior/` | the seams a component consumes, and the `use*` state it owns | [behavior](behavior/behavior.md) |
 | `data/` | the model and carrier types a slice declares | [data](data/data.md) |
+| `compound/` | a root and its owned subpart exports | [compound](compound/compound.md) |
 
 A doc saying which thing to reach for, or what value a parameter should carry, is a
 [component](../components/components.md) instead.
@@ -43,7 +44,7 @@ A name is built from three independent slots. Each answers a different question,
 | Slot | Says | Values |
 |---|---|---|
 | **domain** | what capability or subject it belongs to | a domain folder's name |
-| **kind** | what it does | the sixteen visual kinds |
+| **kind** | what it does | the visual kinds |
 | **shape** | what form it wears | the shape words |
 
 - must fill the kind slot in every name; the domain and shape slots are optional.
@@ -54,8 +55,7 @@ A name is built from three independent slots. Each answers a different question,
 - must read the kind slot off [visual kinds](visual/visual.md) § *Kinds*, never invent a synonym for one.
 - must let a shape word close the name in the kind's place only where that kind admits the word
   ([visual kinds](visual/visual.md) § *Shape words*).
-- must not coin a fourth slot — a word fitting none of the three is the component's subject, and it belongs to
-  the domain folder's name rather than to the component's.
+- may qualify the subject with its mode or purpose when needed to distinguish siblings, such as `CodesListPage`.
 
 ```txt
 ✅ AuthProvider · NotificationToast · CodesListPage       (domain + kind)
@@ -63,7 +63,8 @@ A name is built from three independent slots. Each answers a different question,
 ❌ CodesListContainer                                     (Container names no kind)
 ```
 
-- must end every component name with the suffix its kind fixes; the kind's doc states which
+- must apply compound-part, primitive and trailing-modifier exceptions before matching the root's kind suffix
+  ([compound](compound/compound.md)); the kind's doc states which
   ([visual kinds](visual/visual.md) § *Suffix routing*).
 - must read the suffix as the thing the component **is**, never as the thing it decorates — it trails, never leads.
 - must suffix every component, however well known the bare word is — `Select` alone does not say whether it is
@@ -72,8 +73,8 @@ A name is built from three independent slots. Each answers a different question,
   ([enums](../../lla/components/enums.md)).
 - a [primitive](visual/primitive.md) needs none either — each is a single behaviour, not one role with many
   components, so the behaviour's own word is the whole name (`Slot` · `Portal` · `Presence`).
-- must give a primitive the family suffix where it does join one — `ColorModeProvider` and
-  `FormControlContext` are providers first, and a primitive second.
+- must give a rendering primitive its family suffix where it joins one, such as `ColorModeProvider`.
+- must reserve `*Context` for the context contract/key; the rendering component that installs it ends `*Provider`.
 - must not reach for a synonym of a listed suffix — a `*Container`, a `*Dialog`, a `*Selector` names nothing new.
 - must name a seam from the [headless suffixes](behavior/headless-suffixes.md) instead; no component suffix fits one.
 - must coin a suffix only through the gate below (§ *Adding a new suffix*).
@@ -89,15 +90,15 @@ A name is built from three independent slots. Each answers a different question,
 
 ### Modifiers
 
-- must suffix `*Compact` for a condensed variant of a component that already exists.
-- must suffix `*Simple` for the free-children counterpart of a slotted root — `AlertSimple` · `ToastSimple`.
+- must apply `*Compact` after the complete root name for a condensed variant; match the kind before that modifier.
+- must apply `*Simple` after the complete root name for its free-children counterpart — `AlertSimple` · `ToastSimple`.
 - must prefix `App*` for app-frame singletons only
   ([naming](../../lla/notation/naming/naming.md) § *App-shell baselines*).
 - compound subpart naming and export → [compound](compound/compound.md).
 
 ```txt
 ✅ AlertSimple · BannerSimple · AccordionItem · MenuItem · AppShell · AppErrorBoundary
-❌ SimpleAlert · CompactNavItem · ItemMenu     (a modifier trails; the role word ends the name)
+❌ SimpleAlert · CompactNavItem · ItemMenu     (the modifier follows the complete root name)
 ```
 
 ---
@@ -108,11 +109,11 @@ Whether a component takes a folder of its own is the deliverable's answer: a pac
 ([library](../../../shapes/library/library.md) § *Layout*), a product may keep flat files grouped by concern
 ([architecture](../../../shapes/app/architecture/architecture.md) § *Component files*).
 
-- must keep sub-components internal either way — a non-exported sibling or a nested fn; only the barrel's
-  re-exports are public.
+- must keep implementation-only sub-components internal; deliberately public compound parts follow
+  [compound exports](compound/compound.md#the-export).
 - applies to every rendering kind, not to hooks or lib files.
-- must order the component file: imports → types → constants → pure helpers → component fn → sub-components
-  (only when small and tightly coupled). Import order: [style](../../lla/notation/style/style.md).
+- must take component-file order from its framework: [Vue SFC](../../lla/constructs/vue/vue-sfc.md) or
+  [React](../../lla/constructs/react/react.md). Import order: [style](../../lla/notation/style/style.md).
 
 ---
 
@@ -154,7 +155,7 @@ interface FillControlsProps {
   ([styling](../../../shapes/app/platform/styling.md)).
 - must put a multi-variant class map in a co-located `*.variants.ts` / `*Styles.ts` built with
   `tailwind-variants` — never inline a large conditional class string.
-- must duplicate a pure DRY or layout wrapper inline; an atom carrying logic is never product-local.
+- must apply the [extraction boundary](../../../shapes/app/architecture/boundaries.md) to reusable wrappers and behavior.
 
 ---
 
@@ -182,9 +183,7 @@ freely — a bar, a card, a group, an area is a shape any kind can take, so it r
   Two honest hits means it is a shape word.
 - must read a shape word as trailing, not routing — `ProgressBar` and `Toolbar` are both correct, and neither
   indicator nor action owns `*Bar`.
-- must let the tree settle a dispute — a shape word already ships across kinds, a relation word never does.
-  `*Group` spans four component folders, `*Card` three, `*Bar` · `*Area` · `*Overlay` · `*Text` two each;
-  every relation word holds exactly one.
+- must test intended behavior rather than infer meaning from a current shipping folder or legacy name.
 
 ```txt
 ✅ ProgressBar (indicator) · UndoBar (feedback) · Toolbar (action)   (one shape, three kinds)
@@ -211,7 +210,7 @@ Answer in order; the first **yes** picks the suffix, and coining requires four `
 
 ## Neighbours
 
-- [visual](visual/visual.md) — the 16 kinds that render, and what each composes with
+- [visual](visual/visual.md) — the kinds that render, and what each composes with
 - [vue SFC](../../lla/constructs/vue/vue-sfc.md) — the Vue counterpart: blocks, macro order, emit and slot verbs
 - [props](../../lla/notation/naming/props.md) — the prop-name vocabulary these shapes are spelled in
 - [enums](../../lla/components/enums.md) — modelling a value as an enum member rather than parallel `is*` booleans

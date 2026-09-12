@@ -1,10 +1,9 @@
 # InputAddon
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > The joined prefix and suffix around one input — `https://`, `.com`, `kg`.
 > What a layout is → [layout](../../constructs/visual/layout.md).
-> Its full surface → `InputAddon.vue`.
 
 ## Reach for it when
 
@@ -28,6 +27,4 @@
 
 ## Values
 
-- must wrap exactly one control — the focus ring is drawn around the whole group
-- must not read an addon as a name; it labels nothing ([Label](label.md) does)
 - should keep the copy to a token or two — the segment does not wrap

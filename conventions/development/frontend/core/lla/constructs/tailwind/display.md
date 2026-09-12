@@ -1,15 +1,12 @@
 # Display
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > Every display utility, what each does to the box tree, and the ones that hide content from only half the audience.
 > Purpose — `display` is the one property that changes what an element *is* to layout and to a screen reader.
 > Use case — reach here before hiding, showing or re-boxing an element.
 
 ## The utilities
-
-`hidden` leads the group, ahead of `inline-block`, `block` and `inline`; `flex` and `grid` are counted with their own
-groups.
 
 | Utility | Applies | Verdict |
 |---|---|---|

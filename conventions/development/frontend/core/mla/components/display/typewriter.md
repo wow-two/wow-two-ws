@@ -1,10 +1,9 @@
 # Typewriter
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > Copy typed out character by character, optionally cycling through phrases.
 > What a display is → [display](../../constructs/visual/display.md).
-> Its full surface → `Typewriter.spec.md`.
 
 ## Reach for it when
 
@@ -26,7 +25,8 @@
 
 ## Values
 
+- must provide a persistent pause/stop control for applicable repeating automatic copy.
+- must expose readable static content under reduced motion.
+
 - should leave `typeSpeed` at `60` ms and `deleteSpeed` at `40` ms
 - should leave `pauseBetween` at `1500` ms — the phrase has to be readable
-- must leave `canLoop` unset to inherit it: one phrase types once, many cycle
-- should leave `cursorChar` at `│` and `hasCursor` on

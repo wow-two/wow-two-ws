@@ -1,10 +1,9 @@
 # InfoRow
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > One label-value row, with the value pushed to the far edge.
 > What a display is → [display](../../constructs/visual/display.md).
-> Its full surface → `InfoRow.spec.md`.
 
 ## Reach for it when
 
@@ -27,4 +26,3 @@
 ## Values
 
 - should leave `layout` at `inline`; `stacked` when the value wraps
-- must fill either the prop or the same-named slot for each half, never both

@@ -1,10 +1,9 @@
 # List
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > The bulleted, numbered, or checked list — `<ul>` or `<ol>`, with markers as a prop.
 > What a display is → [display](../../constructs/visual/display.md).
-> Its full surface → `List.spec.md`.
 
 ## Reach for it when
 
@@ -29,4 +28,3 @@
 ## Values
 
 - should leave `marker` at `none` and `spacing` at `normal`
-- must set `marker="check"` for a feature list — `ListItem` draws the check itself

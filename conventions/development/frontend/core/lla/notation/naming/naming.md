@@ -1,6 +1,6 @@
 # Naming
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > How a frontend file, folder, export and constant is spelled — casing, role suffixes, and the banned names.
 > Purpose — one universal rule per axis, so a name is derivable rather than remembered.
@@ -57,17 +57,7 @@ A non-component file co-located in a folder takes a descriptive PascalCase name 
 
 ## App-shell baselines — `App*`
 
-The framework singletons every app has one of — they extract to `@wow-two-beta/app`, so the names are contracts.
-
-| Component | Role | Home |
-|---|---|---|
-| `AppRoot` | router root — `<ScrollRestoration>` + title sync + `<Outlet>` | `bootstrap/router/` |
-| `AppLayout` | the visible shell — SDK `AppShell` + sidebar/header + `<Outlet>` | `bootstrap/` |
-| `AppErrorBoundary` | root route `errorElement` | `bootstrap/router/` |
-
-- must prefix only the singleton frame pieces `App*`, never every routing file.
-- must leave a router-rendered page on a plain page name (`NotFound`, the `*Page` places) and a utility
-  descriptive (`DocumentTitle`, `createAppRouter`) — see [routing](../../../../shapes/app/routing/routing.md).
+- app singleton names and their source placement → [routing](../../../../shapes/app/routing/routing.md).
 
 ---
 

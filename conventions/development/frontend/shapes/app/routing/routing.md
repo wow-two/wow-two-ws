@@ -1,86 +1,48 @@
 # Routing
 
-*Last updated: 2026-08-23*
+*Last updated: 2026-09-10*
 
-> How a wow-two React app defines routes — a declarative `RouteConfig` passed to the SDK-owned
-> `createAppRouter` wrapper. Apps author routes; the wrapper owns the react-router machinery.
-> Purpose — one routing model across every app, with cross-cutting behavior added in one place; pairs with
-> [routing and responsive surfaces](../architecture/architecture.md).
-> Use case — adding a place, guarding one, or deciding what the router wrapper owns rather than a page.
+> Framework-neutral places, route ownership and navigation behavior.
 
 ## Ownership
 
-- must route with **`createAppRouter(routes)`** over `react-router-dom` v7 (data router) — never call
-  `createBrowserRouter` / `<BrowserRouter>` / `<Routes>` directly.
-- must add cross-cutting behavior in the wrapper, the single extension point — it injects
-  `<ScrollRestoration>`, a root `errorElement` and the `*` → `NotFound`, and every app inherits them.
-- must not keep view state in the URL hash — the data router owns real paths (permalinks depend on it).
+- must declare places in an app-owned route model and construct the router at `bootstrap/`.
+- must use the SDK router adapter for shared behavior; generic wrappers follow [extraction](../architecture/boundaries.md#sdk-extraction).
+- must keep router imports out of SDK presentation components under [library layout](../../library/library.md#layout).
+- must keep framework/router syntax in its provider leaf: [Vue](vue/vue.md).
+- must assign route-to-page parameter decoding to an app bootstrap adapter; pages receive typed values/callbacks.
+- must validate path/search parameters before a page treats them as domain data.
+- must keep sharable navigation state in paths/search; reserve fragments for document targets.
 
 ---
 
-## Home
+## Places
 
-- must author the wrapper **app-local in `bootstrap/router/`**, package-shaped — framework-only imports
-  (`react` / `react-router-dom`, no `@/…`) — until a 2nd consumer.
-- must combine it into the front SDK **`@wow-two-beta/ui`** (a `/router` subpath, a 1-line import swap) once a
-  2nd consumer lands.
-- must keep the SDK's *presentation* components router-free ([library](../../library/library.md)).
-
----
-
-## The model — `AppRoute`
-
-- must author routes as a `RouteConfig` (`ReadonlyArray<AppRoute>`):
-  `{ path · index · element | lazy · layout · redirect · handle · children · errorElement · id }`.
-- must code-split every **place** via `lazy: () => import('@/presentation/…/XPage')` — it accepts a `default`
-  or a named `Component` export.
-- must nest shared chrome via a **layout route** — `layout:` a `*Layout` in `bootstrap/` composing the SDK
-  `AppShell` + `<Outlet>`.
-- must attach per-route metadata via `handle: { crumb, title }`, read through `useMatches()`.
-- must express a plain redirect as `redirect: '/path'`.
+- must give a navigable place a URL and a page that works on direct hit, refresh and a new tab.
+- must code-split place components and provide a loading/error outcome for failed chunk loads.
+- must compose shared chrome through layout routes.
+- must give an action a routeless overlay unless it represents a persistent place.
+- may intercept a place as an overlay during in-app navigation when direct navigation still produces its page.
+- must keep responsive presentation in the component; viewport size does not change the place's identity.
+- must declare not-found, forbidden, unresolved-session and route-error behavior.
+- must await an unsettled session in guards and follow [auth](../../../core/mla/domains/auth/auth.md).
 
 ---
 
-## Places and actions
+## Navigation
 
-- must read the doctrine at [architecture](../architecture/architecture.md) § *Routing and responsive surfaces*
-  — which surface a place takes, which an action takes, and where responsiveness is decided.
-
----
-
-## Composition
-
-- must compose the shell in an app-owned `*Layout` (the layout route): the SDK `AppShell`
-  (`@wow-two-beta/ui/presentation/layout`) with `<Outlet>` in `AppShell.Content`.
-- must wire nav via **`<NavItem asChild><Link/></NavItem>`** — the SDK `NavItem` chrome forwarding to a router
-  `<Link>`, active state from `useMatch`; reusable as `AppNavLink`.
-- must not import a router in an SDK component — the app owns navigation.
-- should keep `presentation/` pages router-agnostic — `bootstrap/` + the `*Layout` own `<Outlet>` /
-  `<Link>` / `useParams`; a page takes value + callback props.
+- must set the document title from the deepest matched route metadata with an app fallback.
+- must apply deliberate focus and scroll behavior after navigation; restore history scroll without stealing ongoing interaction.
+- must focus the new page heading or main region on user navigation when the current focus no longer describes the page.
+- must announce route changes through one accessible mechanism, avoiding duplicate title/live-region announcements.
+- must preserve modified-click, new-tab and native link semantics.
+- must validate redirects through [security](../../../core/mla/domains/security/security.md#session).
+- must let a dirty form block navigation through the router's declared blocker seam.
 
 ---
 
-## Wrapper-provided (shipped)
+## Bootstrap names
 
-- **`document.title` sync** — `createAppRouter(routes, { titleSuffix })` mounts a `DocumentTitle` in `AppRoot`;
-  every navigation sets `document.title` to the deepest matched `handle.title`, falling back to the suffix
-  alone when a route sets no `title` (e.g. `:id` detail routes).
-- **route params** resolve via `useParams()` in the `*Page` — the wrapper adds no param plumbing.
-- **baseline component names** — `AppRoot` · `AppLayout` · `AppErrorBoundary` · bare `NotFound` /
-  `DocumentTitle` ([naming](../../../core/lla/notation/naming/naming.md) § *App-shell baselines*).
-
----
-
-## Capability matrix
-
-- must read what ships today in the SDK repo's `engineering/planning/capability-ledger.md`
-  — a surface register lives beside its code, never in a convention.
-
----
-
-## Neighbours
-
-- [app](../app.md) — the shape this vector belongs to
-- [architecture](../architecture/architecture.md) § *Routing and responsive surfaces* — places, actions, breakpoints
-- [nav](../../../core/mla/constructs/visual/nav.md) — the kind a route is reached through
-- [domains](../../../core/mla/domains/domains.md) — the capabilities a guard and a loader reach for
+- must place `AppRoot`, `AppLayout` and `AppErrorBoundary` in `bootstrap/` when those roles exist.
+- must keep route declarations and parameter adapters in `bootstrap/router/` when the group needs multiple files.
+- must use the owning visual kind's suffix for pages and overlays; a not-found place is a page.

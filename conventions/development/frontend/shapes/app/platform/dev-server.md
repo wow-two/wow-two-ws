@@ -21,7 +21,7 @@ The client calls relative URLs and never configures a base URL
 ([state and data](../../../core/mla/domains/data/state-and-data.md) § *API client*); the proxy is what makes that
 true in dev.
 
-- must proxy `/api` to the backend's **HTTPS (even) port** with `secure: false` — the .NET dev cert is
+- must proxy `/api` to the backend's **HTTPS (even) port** with `secure: false` for loopback development — the .NET dev cert is
   self-signed — never to the HTTP port.
 - must set `base: '/'` so assets resolve root-relative, matching the `wwwroot` host in production.
 
@@ -29,10 +29,10 @@ true in dev.
 // vite.config.ts — dev proxy to the backend's HTTPS (even) port
 export default defineConfig({
   base: '/',                                   // root-relative assets
-  plugins: [react(), tailwindcss()],
+  plugins: [vue(), tailwindcss()],
   server: {
     // secure:false → accept the .NET dev self-signed cert
-    proxy: { '/api': { target: 'https://localhost:8210', changeOrigin: true, secure: false } },
+    proxy: { '/api': { target: 'https://localhost:8210', changeOrigin: false, secure: false } },
   },
 });
 ```
@@ -41,7 +41,7 @@ export default defineConfig({
 
 ## Previewing
 
-- must drive an agent preview through that `*-http` config, screenshot at desktop width, then stop it — the
+- must drive an agent preview through that `*-http` config, verify the affected viewport and keyboard states, then stop it — the
   human reviews in their own browser. Mocks and design render inline instead, with no server.
 - must run the backend and its database before previewing an app route behind the auth gate.
 

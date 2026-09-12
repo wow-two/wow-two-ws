@@ -1,6 +1,6 @@
 # Development cycle
 
-*Last updated: 2026-06-18*
+*Last updated: 2026-09-12*
 
 > Two cycles per active app — implement a version in-app, then extract its stable blocks to the SDK + conventions and adopt across the active apps.
 > Purpose — mature the apps and the shared SDK in parallel: ship fast in one product, harden once, propagate everywhere — never in isolation.
@@ -67,6 +67,18 @@ re-pins and moves on.
 - must not soften a fix into an overload, a flag, or a parallel type to spare a consumer a re-pin.
 - must name the break in the commit message, so a consumer knows what to change.
 - the exception is a shape that is **right** and merely inconvenient; churn for its own sake is not a fix.
+
+---
+
+## Representation choices
+
+- must rank representations that preserve the domain ahead of narrower implementation-driven limits.
+- must treat restricted ranges, precision or capacity as the last option in every design decision.
+- must account for future values exceeding the limit and the cost of enforcing it across every boundary.
+- must prefer a wider type, lossless codec or reusable SDK capability over scattered constraint workarounds.
+- must document rejected alternatives and centralized overflow handling when a restricted representation is unavoidable.
+- must distinguish genuine domain rules from limits introduced by a chosen implementation.
+- must retain explicit resource budgets for untrusted input; exhaustion must fail rather than corrupt values.
 
 ---
 

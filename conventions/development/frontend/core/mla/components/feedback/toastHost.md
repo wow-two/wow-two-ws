@@ -1,15 +1,14 @@
 # ToastHost
 
-*Last updated: 2026-08-22*
+*Last updated: 2026-09-10*
 
 > The one toast viewport — a store, a portal, a stack, and a timer per card.
 > What a host is → [host](../../constructs/visual/host.md).
-> Its full surface → `ToastHost.spec.md`.
 
 ## Reach for it when
 
-- must be mounted once per app, at the root, for toasts fired anywhere
-- must be the surface every `toastHost.toast()` and `useToastHost()` call lands on
+- must mount one renderer per bus scope; application-wide notices use the application root.
+- must publish through the matching scope's documented publisher so notices cannot leak between applications or SSR requests.
 - should reach for [FeedbackToastHost](feedbackToastHost.md) for bus-published notices
 
 ---
@@ -27,11 +26,6 @@
 
 ## Values
 
-- must not mount a second one — every toast would render twice
-- must pass `duration: Infinity` for a toast the reader has to dismiss
-- must set `key` on a repeatable toast — a re-fire then updates in place
-- should leave `defaultDuration` at `5000` ms and `max` at `5`
+- must follow the [host scope](../../constructs/visual/host.md#gate) and the bus's delivery contract.
+
 - should leave `position` at `bottom-right` and `gap` at `8` px
-- should leave `canPauseOnHover` on — a paused timer resumes with its remainder
-- should reach for `toastHost.promise` for a request — it settles its own loading toast
-- should pass `onDismiss` when the toast owns cleanup — it skips on a dedup update

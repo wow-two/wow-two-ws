@@ -1,10 +1,9 @@
 # RadiusGlyph
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > The concentric mark — a filled disc scaled inside a track, showing one extent.
 > What a display is → [display](../../constructs/visual/display.md).
-> Its full surface → `RadiusGlyph.vue`.
 
 ## Reach for it when
 
@@ -18,7 +17,7 @@
 | Reach for | When |
 |---|---|
 | [FrameGlyph](frameGlyph.md) | the mark previews a frame-and-pupil shape |
-| `Progress` | the fraction is a task's progress rather than a geometric extent |
+| `ProgressBar` | the fraction is task progress rather than geometric extent |
 | [Sparkline](sparkline.md) | the value is one point in a series |
 
 ---

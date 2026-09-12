@@ -1,10 +1,9 @@
 # Tour
 
-*Last updated: 2026-08-22*
+*Last updated: 2026-09-10*
 
 > The guided walk — a mask cut around one target per step, with a tooltip beside it.
 > What an overlay is → [overlay](../../constructs/visual/overlay.md).
-> Its full surface → `Tour.spec.md`.
 
 ## Reach for it when
 
@@ -26,8 +25,4 @@
 
 ## Values
 
-- must give every step a `target` — a CSS selector, or a template ref to the element
-- must leave `isOpen` unset for uncontrolled use — passing it pins the tour
-- must handle `@skip` — it fires on Escape as well as on the Skip button
-- should set each step's `placement` — it falls back to `bottom` and never flips
 - should leave `padding` at `8` px, so the cutout clears the target's focus ring

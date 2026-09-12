@@ -1,15 +1,12 @@
 # Box
 
-*Last updated: 2026-08-17*
+*Last updated: 2026-09-10*
 
 > The box-model utilities — sizing mode, ratio, media fit, float, isolation, column breaks — and the legacy ones.
 > Purpose — these change how a box is measured and how content fits inside it, before any other utility applies.
 > Use case — reach here when media has to fill a shape, or a box measures differently than expected.
 
 ## The utilities
-
-The thinnest group in either tree: `aspect-square` on avatars and `object-cover` on one image. The rest is unwritten,
-and still gets a verdict.
 
 | Utility | Applies | Verdict |
 |---|---|---|

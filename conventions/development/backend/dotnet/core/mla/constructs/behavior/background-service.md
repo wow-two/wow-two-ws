@@ -1,6 +1,6 @@
 # Background services
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > A type the host starts and stops, doing its work off the request path.
 > Purpose — give boot work and long-running loops a lifetime the host owns rather than a request's.
@@ -13,8 +13,7 @@
   request-path `Services/`.
 
 ### File
-- must give it its own file, named for the type →
-  [one type, one file](../../mla.md).
+- file rules → [one type, one file](../../mla.md).
 
 ---
 
@@ -68,14 +67,11 @@ protected override async Task ExecuteAsync(CancellationToken stoppingToken)
 ```
 
 ### Members
-- must derive from `BackgroundService` and override `ExecuteAsync` for a long-running loop.
-- must implement `IHostedService` and do the work in `StartAsync` for a one-shot boot task.
-- must pass the stopping token to every await, so shutdown stays prompt.
-- must resolve a scoped collaborator from `IServiceScopeFactory` per run — the host holds this
-  type as a singleton.
-- must use a block body `{ }` from the start — a run loop gains a guard, a scope, and a log line
-  ([style](../../../lla/notation/style/style.md) § *The body*).
-- must order the members `ExecuteAsync` or `StartAsync` first, then the private steps it calls.
+- loop and one-shot shape, cancellation, scope ownership and failure policy →
+  [host configuration](../../../../shapes/service/platform/startup/host-configuration.md#background-work).
+- must use a block body for lifecycle methods →
+  [style](../../../lla/notation/style/style.md) § *The body*.
+- must order lifecycle entry points before the private steps they call.
 
 ---
 

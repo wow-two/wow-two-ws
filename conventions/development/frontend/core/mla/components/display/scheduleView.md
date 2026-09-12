@@ -1,10 +1,9 @@
 # ScheduleView
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > One day across many resources — rooms, staff, or machines against the hours.
-> What a display is → [display](../../constructs/visual/display.md).
-> Its full surface → `ScheduleView.spec.md`.
+> Kind → [view](../../constructs/visual/view.md).
 
 ## Reach for it when
 
@@ -27,4 +26,3 @@
 
 - should leave `hourRange` at `[8, 20]` and widen it only where the day really runs longer
 - should leave `slotMinutes` at `30`; a finer grid costs width per resource
-- must anchor `date` as a zoned instant — its zone decides which day is rendered

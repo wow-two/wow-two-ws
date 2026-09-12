@@ -1,10 +1,9 @@
 # AnnotationMarker
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > The marked run that opens a thread — inline highlight, or a bare numbered pin.
 > What a display is → [display](../../constructs/visual/display.md).
-> Its full surface → `AnnotationMarker.vue`.
 
 ## Reach for it when
 
@@ -27,5 +26,3 @@
 ## Values
 
 - should leave `tone` at `comment`; `isResolved` overrides the tone on its own
-- must set `isActive` on the marker whose thread is open, so the two stay in step
-- must omit the default slot for a standalone pin; an empty one is a pin

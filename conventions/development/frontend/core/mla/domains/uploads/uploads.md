@@ -1,6 +1,6 @@
 # Uploads
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > Admission, scheduling and progress for a queue of files, over a transport seam the consumer implements.
 > Purpose — the queue owns scheduling; how a byte reaches a server stays a decision the consumer makes.
@@ -48,3 +48,12 @@
 - [data](../data/state-and-data.md) — the retry primitives and error coercion shared with requests
 - [feedback](../feedback/feedback.md) — where a finished or failed upload is reported to the user
 - [field](../../constructs/visual/field.md) — the control kind a queue is bound to
+
+---
+
+## Ownership
+
+- must follow [security](../security/security.md#data) for server admission and retry authority.
+- must treat unknown total progress as indeterminate; a ratio exists only when a meaningful total is known.
+- must release file references, object URLs and transport resources on removal/disposal.
+- must follow [domain lifetime](../domains.md#lifetime) for cancellation and late completions.

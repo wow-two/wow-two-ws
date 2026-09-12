@@ -13,7 +13,7 @@
 | [architecture](architecture/architecture.md) | how the source is arranged, and where its outer edge runs | written |
 | [platform](platform/platform.md) | how it is styled, served and previewed | written |
 | [routing](routing/routing.md) | how a place becomes a URL, and what owns the router | written |
-| delivery | how the app is built and hosted | unwritten |
+| [delivery](delivery/delivery.md) | build inputs, hosting, caching and verification | written |
 
 - must take every naming, kind, notation and domain rule from [core](../../core/core.md) unchanged.
 - must answer **where a folder is created** here — a kind doc names `overlays/`, this shape says the layer and

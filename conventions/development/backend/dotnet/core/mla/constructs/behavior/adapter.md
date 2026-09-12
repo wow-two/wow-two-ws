@@ -1,6 +1,6 @@
 # Adapters
 
-*Last updated: 2026-08-18*
+*Last updated: 2026-09-10*
 
 > A third-party type fitted to an interface we declared, in-process.
 > Purpose — keep a library's shape out of our call sites, so swapping it stays a registration change.
@@ -12,8 +12,7 @@
 - must sit in an `Adapters/` folder beside the interface it satisfies.
 
 ### File
-- must give it its own file, named for the type →
-  [one type, one file](../../mla.md).
+- file rules → [one type, one file](../../mla.md).
 
 ---
 
@@ -32,7 +31,8 @@
 ```
 
 ### Construct
-- must declare a `sealed class` implementing the interface it adapts to.
+- declaration and injection → [behavior](behavior.md) § *Shared rules*.
+- must implement the interface it adapts to.
 
 ### Type name
 - must suffix with `Adapter`, prefixed by the library — `FluentValidationAdapter<T>`.
@@ -41,7 +41,7 @@
 
 ```csharp
 // ✅
-public sealed class HybridCacheRepository : ICacheBroker
+public sealed class FluentValidationAdapter<T> : IValidator<T>
 // ❌ our own type needs no adapter; that is a `Mapper` or a `Service`
 public sealed class CodeDtoAdapter
 ```

@@ -1,14 +1,12 @@
 # Spacing
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > Every padding, margin and gap utility, and the spellings that make a component's spacing its neighbour's problem.
 > Purpose — one scale for every gap in the codebase, so rhythm is a property of the system rather than of each file.
 > Use case — reach here before separating two boxes, or padding one.
 
 ## The utilities
-
-`gap-2`, `gap-1`, `gap-3` and `px-2` lead the group; margins appear mostly as `mt-*` inside authored stacks.
 
 | Utility | Applies | Verdict |
 |---|---|---|
@@ -41,8 +39,8 @@
   into every context, and each consumer that wants it flush has to fight a margin `tailwind-merge` cannot see.
 - **a margin between flex or grid children** — reach for `gap-*`; a margin survives a `flex-wrap` line break as a
   leading edge gap, and `flex-col-reverse` moves it to the wrong side of the item.
-- **an arbitrary value duplicating a scale step** — reach for the step; `gap-[0.5rem]` and `gap-2` compile to the same
-  CSS through different class names, so `tailwind-merge` cannot see them as a conflict and both survive.
+- **an arbitrary value duplicating a scale step** — use the scale spelling so theme changes reach it;
+  `tailwind-merge` can resolve these conflicts, but cannot make the literal follow the token.
 - **padding standing in for a gap** — reach for `gap-*`; only one of the two boxes carries it, so removing that box
   removes the space and the remaining sibling shifts.
 

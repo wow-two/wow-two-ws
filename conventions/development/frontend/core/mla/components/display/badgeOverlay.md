@@ -1,10 +1,9 @@
 # BadgeOverlay
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > The corner mount — it pins any badge onto any child.
 > What a display is → [display](../../constructs/visual/display.md).
-> Its full surface → `BadgeOverlay.spec.md`.
 
 ## Reach for it when
 
@@ -26,4 +25,3 @@
 ## Values
 
 - should leave `position` at `top-right`, the house corner
-- must set `isHidden` at zero rather than branching the badge out of the tree

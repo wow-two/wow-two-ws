@@ -1,6 +1,6 @@
 # Constants
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > A class that owns a value's authority — the one place a literal is named.
 > Purpose — a literal repeated across files has no owner, so a change to it is a search rather than an edit.
@@ -12,8 +12,7 @@
 - must sit in a `Constants/` folder under the domain whose values it names, never a shared `Common/` bucket.
 
 ### File
-- must give it its own file, named for the type →
-  [one type, one file](../../mla.md).
+- file rules → [one type, one file](../../mla.md).
 
 ---
 

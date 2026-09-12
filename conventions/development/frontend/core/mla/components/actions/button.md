@@ -1,10 +1,9 @@
 # Button
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > The default trigger — every command with no more specific button in this folder.
 > What an action is → [action](../../constructs/visual/action.md).
-> Its full surface → `Button.spec.md`.
 
 ## Reach for it when
 
@@ -29,10 +28,8 @@
 
 ## Values
 
-- must leave `type` at `button` — only a real form submit sets `submit`
-- must supply `aria-label` on an icon-only button — the SDK warns, never generates
-- must supply `loadingText` when the label changes while loading — none ships
-- must keep `longPressDelay` inside `200`–`300000` ms, or it falls back to `500`
+- must use a real submit action only for submitting its owning form.
+- must block duplicate in-flight commands through the operation state; debouncing alone does not prevent duplicate writes.
+
 - should set `isLoading` for an in-flight click, `isSkeleton` for an unloaded label
-- should reach for `debounceMs` as a double-click guard, before a state flag
 - should size a touch target `sm` or larger — `xs` meets the 24×24 floor exactly

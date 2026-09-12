@@ -1,10 +1,9 @@
 # Combobox
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > Type to narrow, then pick one — the picker for an option set too large to enumerate.
 > What a control is → [control](../../constructs/visual/control.md).
-> Its full surface → `Combobox.spec.md`.
 
 ## Reach for it when
 
@@ -30,6 +29,3 @@
 
 - should leave `fillInputOnSelect` on — the input then reads back the chosen option
 - should leave `ComboboxContent` at `placement` `bottom` and `offset` `6`
-- must bind `open` or `isOpen`, never both — `open` wins on collision
-- must not pass `defaultOpen` beside a bound `open`; it is the uncontrolled seed
-- must give every `ComboboxItem` a `value`; `label` falls back to it

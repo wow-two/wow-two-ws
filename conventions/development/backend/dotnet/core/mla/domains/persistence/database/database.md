@@ -1,6 +1,6 @@
 # Database
 
-*Last updated: 2026-08-18*
+*Last updated: 2026-09-10*
 
 > The engine the schema lives in — its types, its enum forms, its column conventions.
 > Purpose — an engine fact travels with the engine, so swapping one does not rewrite the model.
@@ -13,4 +13,4 @@
 | Postgres | [postgres](postgres/postgres.md) |
 
 - must keep a mapping API out of here — how EF or Dapper reaches a column is [access](../access/access.md).
-- must treat the applied SQL as canonical; an engine doc states what the engine offers, never what a model implies.
+- must inherit [schema ownership](../persistence.md#contract); engine facts do not choose the migration strategy.

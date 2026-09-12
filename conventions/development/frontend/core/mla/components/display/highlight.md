@@ -1,10 +1,9 @@
 # Highlight
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > Query-driven highlighting — every match inside a string, wrapped for you.
 > What a display is → [display](../../constructs/visual/display.md).
-> Its full surface → `Highlight.spec.md`.
 
 ## Reach for it when
 
@@ -20,10 +19,3 @@
 |---|---|
 | [Mark](mark.md) | the run to tint is already isolated in the markup |
 | [Snippet](snippet.md) | the string is code the reader will copy |
-
----
-
-## Values
-
-- must set `isWholeWord` when a short query would otherwise match inside words
-- should leave matching case-insensitive; it has no case-sensitive mode

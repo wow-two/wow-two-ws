@@ -1,31 +1,25 @@
 # Mla
 
-*Last updated: 2026-08-16*
+*Last updated: 2026-09-10*
 
-> Every rule whose reach is **one service** — what it declares, where those declarations sit, how it starts, and
-> what it consumes.
-> Use case — a rule that needs a service around it to mean anything, and stops at that service's boundary.
+> Role definitions and application rules within one codebase, shared by services, libraries, SDKs and CLIs.
 
-## The five buckets
+## The three buckets
 
 | Bucket | Answers | Lead |
 |---|---|---|
 | [constructs](constructs/constructs.md) | what role am I declaring | the suffix keep-list and the coining gate |
 | [components](components/components.md) | what is complete on its own | the self-sufficiency gate |
-| [architecture](../../shapes/service/architecture/architecture.md) | where does it live | one folder per pattern, plus solution grouping |
-| [platform](../../shapes/service/platform/platform.md) | how does the service build, start and answer | the boot floor |
 | [domains](domains/domains.md) | which technology or use case | one folder per capability |
+
+- must route architecture, build and host composition to [shapes](../../shapes/shapes.md).
 
 ---
 
 ## One type, one file [REQUIRED]
 
-Holds for every construct, component and domain type below. A doc states it again only to record a
-**deviation**, never to repeat it.
-
-- must keep a generic and its non-generic companion together — `Result.cs` holds `Result` and `Result<T>`,
-  because they are one contract in two arities.
-- must not split a type across files to shorten one — a file too long to read is a type doing too much.
+- must follow [files](../lla/constructs/constructs.md#files) for symbol placement and companions.
+- must state only a scoped deviation here or in the role's owner.
 
 ### Partial types
 
@@ -57,6 +51,6 @@ Holds for a construct doc and a component doc alike; each family lead states onl
 
 ## The boundary
 
-- must reach no further than one service — a rule spanning services we both own is [hla](../hla/hla.md).
-- must adapt a third party here, never contract with it in `hla/` — we own neither end of that wire.
+- must route a contract requiring both owned services to comply to [hla](../hla/hla.md).
+- must adapt a third party here — we own only our end of that wire.
 - must sink a rule to [lla](../lla/notation/notation.md) when it holds for any symbol, whatever kind it is.

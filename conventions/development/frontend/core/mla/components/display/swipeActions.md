@@ -1,10 +1,9 @@
 # SwipeActions
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > Drag a row aside to reveal its actions — the phone row gesture.
 > What a display is → [display](../../constructs/visual/display.md).
-> Its full surface → `SwipeActions.spec.md`.
 
 ## Reach for it when
 
@@ -21,11 +20,3 @@
 | [Sortable](sortable.md) | the drag reorders the row instead of revealing actions |
 | `ContextMenu` | a long-press or right-click should open the commands |
 | `ActionSheet` | the phone should get a list of actions as a sheet |
-
----
-
-## Values
-
-- should leave `threshold` at `60` px and `actionWidth` at `72` px
-- must set `actionWidth` to the real button width; the snap uses it
-- must set `isDisabled` while the row is busy, so a half-open row cannot strand

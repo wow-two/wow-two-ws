@@ -1,9 +1,8 @@
 # Lla
 
-*Last updated: 2026-08-18*
+*Last updated: 2026-09-10*
 
-> Every rule whose reach is **one symbol** — the form it is declared in, the roles that need nothing around
-> them, and how it is written down.
+> Language forms and notation at the scope of one symbol, independent of our application roles.
 > Use case — a rule that holds whatever kind of type the symbol belongs to, and needs no service to mean anything.
 
 ## The three buckets
@@ -18,6 +17,6 @@
 
 ## The boundary
 
-- must hold for **any** symbol — a rule naming a kind of type is [mla](../mla/mla.md).
-- must sink a rule here from `mla/` once it survives with no service, domain or collaborator present.
+- must place platform forms and their notation here; our role definitions belong in [mla](../mla/mla.md).
+- must move a rule here when it applies without any of our roles being present.
 - must let a higher layer override a rule here, stated in that layer's own file, never by editing this one.

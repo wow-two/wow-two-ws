@@ -1,10 +1,9 @@
 # Accordion
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > The disclosure group — several panels, one open set, arrow keys between them.
 > What a display is → [display](../../constructs/visual/display.md).
-> Its full surface → `Accordion.spec.md`.
 
 ## Reach for it when
 
@@ -28,5 +27,3 @@
 ## Values
 
 - should leave `type` at `single` — `multiple` only when panels are compared
-- must leave `isCollapsible` off unless closing the last open panel is meaningful
-- must set `isDisabled` on the group, not per item, when the whole group is inert

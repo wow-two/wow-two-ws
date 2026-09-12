@@ -1,6 +1,6 @@
 # Storage
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > The synchronous client-side persistence seam every hook, store and draft writes through.
 > Purpose — a tree swaps its backing store without a single caller changing, and a failure is never a throw.
@@ -27,7 +27,7 @@
 |---|---|---|
 | local-storage | guarded `localStorage` reads and writes | production — the default persistent broker |
 | memory | an in-process map behind the same seam | tests, fixtures, or a deliberate no-op |
-| zustand | a persist-storage shape over any broker | a store persists itself and needs a broker underneath |
+| vendor adapter | a store-specific persist interface | the consumer needs that store integration |
 
 - must keep the vendor-shaped adapter on its own subpath, so the base seam stays vendor-name-free.
 
@@ -48,3 +48,11 @@
 - [data](../data/state-and-data.md) — server state, which is cached rather than persisted here
 - [architecture](../../../../shapes/app/architecture/architecture.md) — the layer a broker is wired in
 - [swappable modules](../../../../../swappable-modules.md) — how a vendor adapter stays an optional subpath
+
+---
+
+## Boundaries
+
+- must follow [security](../security/security.md#data) for sensitive fields and session cleanup.
+- must validate decoded persisted values against their versioned schema, not only parse valid JSON.
+- must distinguish in-memory storage from a no-op broker; a no-op never retains a write.

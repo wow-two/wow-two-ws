@@ -1,10 +1,9 @@
 # NavigationMenu
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > The top-level strip whose entries can drop a rich panel — the mega-menu shape.
 > What a nav component is → [nav](../../constructs/visual/nav.md).
-> Its full surface → `NavigationMenu.spec.md`.
 
 ## Reach for it when
 
@@ -26,6 +25,4 @@
 
 ## Values
 
-- must give every trigger entry a stable `value` — the strip opens by that id
-- must render a panel-less entry as `NavigationMenuLink` — it joins the roving tab stop
 - should replace the default `Main navigation` label when a second nav shares the page

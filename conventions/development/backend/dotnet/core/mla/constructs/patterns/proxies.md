@@ -1,6 +1,6 @@
 # Proxies
 
-*Last updated: 2026-08-16*
+*Last updated: 2026-09-10*
 
 > A stand-in that carries an interface's calls to a real implementation living somewhere else.
 > Purpose — let a caller depend on a plain interface while the transport, the generation or the hook stays invisible.
@@ -9,12 +9,11 @@
 ## Shape
 
 - must take a proxy from a source that generates it — Refit for an HTTP API (`AddRefitApiClient<TApi>`,
-  `src/Http/Refit/`), EF Core for a save-time interceptor (`AuditInterceptor`, `src/Data/EntityFrameworkCore/Audit/`).
+  `src/Http/Refit/`).
 - must declare the interface the proxy implements as ours, and keep it free of the generator's attributes where the
   generator allows it.
 - must not hand-write a runtime proxy — no `DispatchProxy`, no IL emit, no dynamic-proxy package.
-- must keep an interception hook single-purpose: one interceptor stamps audit fields, another applies soft delete
-  (`SoftDeleteInterceptor`), never one doing both.
+- EF save interception → [EF mapping](../../domains/persistence/access/ef/ef-mapping.md); it is a callback, not a proxy.
 
 ```csharp
 // ✅ the interface is the contract, Refit generates the implementation
@@ -33,7 +32,6 @@ builder.Services.AddRefitApiClient<IBillingApi>("https://billing.internal");
 
 - must reach for a generated proxy for a typed HTTP client — it is the default over a hand-written one
   ([client](../behavior/client.md)).
-- must reach for an EF interceptor when the behavior must fire for every save, whoever calls it.
 - may reach for a lazy proxy only where the framework supplies it and the cost is measured.
 
 ---
@@ -43,7 +41,6 @@ builder.Services.AddRefitApiClient<IBillingApi>("https://billing.internal");
 - must not use a proxy to hide a network call from the caller — an interface that can time out says so in its shape
   (`Async`, `CancellationToken`).
 - must not enable EF lazy-loading proxies — an N+1 that fires from a property read is invisible at the call site.
-- must not put business rules in an interceptor; an interceptor stamps and filters, a handler decides.
 - must not proxy what a decorator already covers — a hand-written wrapper is readable, a generated one is not
   ([decorators](decorators.md)).
 

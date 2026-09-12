@@ -1,10 +1,9 @@
 # AudioPlayer
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > Audio with the app's own transport — play, scrub, volume, speed.
 > What a display is → [display](../../constructs/visual/display.md).
-> Its full surface → `AudioPlayer.spec.md`.
 
 ## Reach for it when
 
@@ -26,6 +25,4 @@
 
 ## Values
 
-- should leave `defaultVolume` at `1` and `defaultPlaybackRate` at `1`
-- must leave `autoPlay` unset unless the page exists to play — browsers reject it anyway
 - should set `isCompact` where the player sits inside a row rather than owning a block

@@ -1,6 +1,6 @@
 # Icons
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > The icon component contract an app satisfies, and the wrapper that gives every glyph its accessibility posture.
 > Purpose — one wrapper decides decorative versus semantic, so no call site hand-wires the hidden state.
@@ -9,7 +9,7 @@
 ## The contract
 
 - must accept any component whose props satisfy the adapter shape — a numeric size plus SVG attributes.
-- must type the size as a number alone; props are contravariant, and a wider type rejects every real icon.
+- must use a numeric adapter size; adapt a vendor with a different prop contract at its boundary.
 - must express a CSS-unit size on the class, never on the size prop.
 - must render decorative by default — with no label the glyph is hidden from assistive technology.
 - must flip to an image role exactly when a label is passed.
@@ -24,17 +24,14 @@
 
 | Provider | Implements | Reach for it when |
 |---|---|---|
-| `lucide-vue-next` | icon components already typed with a numeric size | the shipped default set |
+| SVG component adapter | the declared numeric-size and SVG attribute contract | an app-selected icon set |
 | a custom component | the adapter shape, hand-written over an SVG | a brand mark, or a glyph the set lacks |
 | the spinner | a fixed spinning glyph sized by class | a busy indicator, which is not an app-chosen icon |
 
 ---
 
-```txt
-✅ <Icon :icon="Check" :size="16" />             decorative, hidden from assistive tech
-✅ <Icon :icon="Check" aria-label="Done" />      semantic, given the image role
-❌ <Icon :icon="Check" size="1em" />             a CSS unit belongs on the class
-```
+- must verify an unlabeled glyph is hidden and an explicitly labeled glyph is exposed as an image.
+- must reject a CSS-unit string at the numeric size boundary; express CSS sizing through a class.
 
 ---
 
@@ -44,3 +41,11 @@
 - [display](../../constructs/visual/display.md) — the kind a glyph belongs to
 - [visual kinds](../../constructs/visual/visual.md) — the controls that take an icon prop
 - [styling](../../../../shapes/app/platform/styling.md) — where a class-driven size is decided
+
+---
+
+## Framework binding
+
+- must adapt framework-specific component types at the provider boundary.
+- must preserve accessible names and hidden state when forwarding attributes.
+- must not let a decorative default hide an explicitly named semantic glyph.

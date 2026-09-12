@@ -1,6 +1,6 @@
 # Flags
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > Feature-flag evaluation — boolean, string, number and JSON-object reads against one source seam.
 > Purpose — every evaluation is total, so a gated element never renders an error state or a loading flicker.
@@ -48,3 +48,11 @@
 - [provider](../../constructs/visual/provider.md) — the kind that installs the client for a subtree
 - [analytics](../analytics/analytics.md) — where a variant is reported as an exposure
 - [config](../config/config.md) — build-time settings, which do not vary per user
+
+---
+
+## Scope
+
+- must follow [domain lifetime](../domains.md#lifetime) when context/providers change.
+- must invalidate a stale remote-context response before it can update a newer identity.
+- must treat flag evaluation as presentation policy, never backend authorization.

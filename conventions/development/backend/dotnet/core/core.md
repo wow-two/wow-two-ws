@@ -1,6 +1,6 @@
 # Core
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > What holds in every .NET deliverable we build — the language, the roles we define, the things complete on
 > their own, and the capabilities a codebase reaches for.
@@ -12,12 +12,12 @@
 | Scope | Answers | Lead |
 |---|---|---|
 | [lla](lla/lla.md) | one symbol | the C# form, and how that form is written end to end |
-| [mla](mla/mla.md) | one service | the roles we define, the things complete alone, the capabilities |
-| [hla](hla/) | between our own services | empty by design until a second service exists |
+| [mla](mla/mla.md) | one codebase | roles, self-contained components, capabilities |
+| [hla](hla/hla.md) | between our own services | contracts requiring both ends to comply |
 
 - must place a rule here when it holds whatever is being built — a service, a library, the SDK, a CLI.
 - must place it under [shapes](../shapes/shapes.md) when it changes with the deliverable.
-- must not let a shape's vocabulary leak in — `core/` never names a project, a layer, or a host.
+- must leave project placement, build and host composition to the owning shape.
 
 ---
 
@@ -30,10 +30,10 @@ Where a folder is **created in the project tree**, how a service builds, starts 
 [shapes](../shapes/shapes.md), never `core/`.
 
 **The test between `mla/` and `hla/`:** do we own both ends? A third party is adapted in `mla/`, never contracted in `hla/`.
-**The three levels, and where each lands.** A C# construct is [constructs](lla/constructs/constructs.md). Everything we
-define lands in `mla/`: a **role** that needs something else present → `mla/constructs/` (`Entity`, `Controller`, `Broker`);
-a **thing complete alone** → `mla/components/` (`Constants`, `Enums`, `Settings`). A ban follows its rule — construct bans
-in `lla/`, role bans with the role.
+**Definition and application.** The C# form is in [constructs](lla/constructs/constructs.md).
+Our role's definition is in `mla/constructs/`, including roles that stand alone.
+Its application is in `mla/components/` when self-contained, or `mla/domains/` when it needs collaborators.
+A ban stays with the obligation it qualifies.
 
 **The test between baseline and a domain:** would the rule survive if the feature were deleted? Yes → baseline. No → the domain that owns it.
 
@@ -45,18 +45,13 @@ in `lla/`, role bans with the role.
 Every rule that holds for **any** symbol, whatever kind it is: its name, its doc blocks, its member bodies, its file layout,
 and the language constructs banned outright. A rule naming a *kind* of type is not `lla/`; a rule naming a technology is not `lla/`.
 
-### `mla/` — one service
-Five buckets. `constructs/` = the roles we define, one file per suffix. `components/` = the things complete on their own.
-`architecture/` = where it lives, one folder per pattern, testing among the layers. `platform/` = how the service builds,
-starts and answers. `domains/` = a concrete technology or use case, one folder each.
+### `mla/` — one codebase
 
-- **A component has one home layer.** A kind is declared, stored and documented in one layer even when used from others.
-  A `Validator` reading `Options` composes with another component that has its own home; it does not straddle. `Service` is
-  the one exception — as the fallback suffix it lands in Application or Infrastructure per instance.
-- **A third party is a member of the domain that consumes it**, never its own axis. If the app cannot run without it, it is
-  infrastructure, whoever wrote it.
-- **The SDK boundary.** *How to use* and *what to use* from our own SDK is a convention and lives here; the SDK's internals
-  live in the SDK's own docs.
+- must place role definitions in `constructs/`, self-contained application rules in `components/`,
+  and capability-specific application rules in `domains/`.
+- must file a third-party integration under the domain that consumes it.
+- must keep SDK usage obligations here and instance API surfaces beside the SDK source.
+- must leave architectural placement to [shapes](../shapes/shapes.md).
 
 ### `hla/` — between our own services
 Named ahead of its contents on purpose: without it, the first gateway or gRPC rule lands in `shapes/service/platform/` and becomes a

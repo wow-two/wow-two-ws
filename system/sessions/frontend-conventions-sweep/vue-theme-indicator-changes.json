@@ -1,0 +1,5177 @@
+{
+  "scope": "Separate amendment after foreground contrast checkpoint: required neutral control boundaries and focus indicators. Brand fills, backgrounds, decorative border and prior foreground corrections preserved.",
+  "themeCount": 183,
+  "contrastPairsPerMode": 119,
+  "contrastPassingThemes": 183,
+  "themeIndicatorChanges": [
+    {
+      "theme": "smart-qr",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "#c7cad9",
+      "after": "oklch(59.1% 0.0210 276.9)"
+    },
+    {
+      "theme": "smart-qr",
+      "mode": "light",
+      "token": "input",
+      "before": "#e4e6f0",
+      "after": "oklch(59.0% 0.0137 277.1)"
+    },
+    {
+      "theme": "smart-qr",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "#3a3a40",
+      "after": "oklch(51.6% 0.0103 285.9)"
+    },
+    {
+      "theme": "smart-qr",
+      "mode": "dark",
+      "token": "input",
+      "before": "#2a2a2e",
+      "after": "oklch(51.6% 0.0072 285.9)"
+    },
+    {
+      "theme": "wow",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(88.1% 0.0216 250.0)",
+      "after": "oklch(62.8% 0.0216 250.0)"
+    },
+    {
+      "theme": "wow",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(88.1% 0.0216 250.0)",
+      "after": "oklch(62.8% 0.0216 250.0)"
+    },
+    {
+      "theme": "wow",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.0% 0.0216 250.0)",
+      "after": "oklch(52.0% 0.0216 250.0)"
+    },
+    {
+      "theme": "wow",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.0% 0.0216 250.0)",
+      "after": "oklch(52.0% 0.0216 250.0)"
+    },
+    {
+      "theme": "midnight",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(91.5% 0.0216 250.0)",
+      "after": "oklch(63.9% 0.0216 250.0)"
+    },
+    {
+      "theme": "midnight",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(91.5% 0.0216 250.0)",
+      "after": "oklch(63.9% 0.0216 250.0)"
+    },
+    {
+      "theme": "midnight",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.6% 0.0216 250.0)",
+      "after": "oklch(53.6% 0.0216 250.0)"
+    },
+    {
+      "theme": "midnight",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.6% 0.0216 250.0)",
+      "after": "oklch(53.6% 0.0216 250.0)"
+    },
+    {
+      "theme": "slate",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(88.1% 0.0216 250.0)",
+      "after": "oklch(62.8% 0.0216 250.0)"
+    },
+    {
+      "theme": "slate",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(88.1% 0.0216 250.0)",
+      "after": "oklch(62.8% 0.0216 250.0)"
+    },
+    {
+      "theme": "slate",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.0% 0.0216 250.0)",
+      "after": "oklch(52.0% 0.0216 250.0)"
+    },
+    {
+      "theme": "slate",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.0% 0.0216 250.0)",
+      "after": "oklch(52.0% 0.0216 250.0)"
+    },
+    {
+      "theme": "ocean",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(88.1% 0.0216 250.0)",
+      "after": "oklch(62.8% 0.0216 250.0)"
+    },
+    {
+      "theme": "ocean",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(88.1% 0.0216 250.0)",
+      "after": "oklch(62.8% 0.0216 250.0)"
+    },
+    {
+      "theme": "ocean",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.0% 0.0216 250.0)",
+      "after": "oklch(52.0% 0.0216 250.0)"
+    },
+    {
+      "theme": "ocean",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.0% 0.0216 250.0)",
+      "after": "oklch(52.0% 0.0216 250.0)"
+    },
+    {
+      "theme": "forest",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(91.5% 0.0216 70.0)",
+      "after": "oklch(64.0% 0.0216 70.0)"
+    },
+    {
+      "theme": "forest",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(91.5% 0.0216 70.0)",
+      "after": "oklch(64.0% 0.0216 70.0)"
+    },
+    {
+      "theme": "forest",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.6% 0.0216 70.0)",
+      "after": "oklch(53.7% 0.0216 70.0)"
+    },
+    {
+      "theme": "forest",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.6% 0.0216 70.0)",
+      "after": "oklch(53.7% 0.0216 70.0)"
+    },
+    {
+      "theme": "emerald",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(88.1% 0.0216 250.0)",
+      "after": "oklch(62.8% 0.0216 250.0)"
+    },
+    {
+      "theme": "emerald",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(88.1% 0.0216 250.0)",
+      "after": "oklch(62.8% 0.0216 250.0)"
+    },
+    {
+      "theme": "emerald",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.0% 0.0216 250.0)",
+      "after": "oklch(52.0% 0.0216 250.0)"
+    },
+    {
+      "theme": "emerald",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.0% 0.0216 250.0)",
+      "after": "oklch(52.0% 0.0216 250.0)"
+    },
+    {
+      "theme": "sunset",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(88.1% 0.0216 70.0)",
+      "after": "oklch(62.9% 0.0216 70.0)"
+    },
+    {
+      "theme": "sunset",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(88.1% 0.0216 70.0)",
+      "after": "oklch(62.9% 0.0216 70.0)"
+    },
+    {
+      "theme": "sunset",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.0% 0.0216 70.0)",
+      "after": "oklch(52.0% 0.0216 70.0)"
+    },
+    {
+      "theme": "sunset",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.0% 0.0216 70.0)",
+      "after": "oklch(52.0% 0.0216 70.0)"
+    },
+    {
+      "theme": "amber",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(91.5% 0.0216 70.0)",
+      "after": "oklch(64.0% 0.0216 70.0)"
+    },
+    {
+      "theme": "amber",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(91.5% 0.0216 70.0)",
+      "after": "oklch(64.0% 0.0216 70.0)"
+    },
+    {
+      "theme": "amber",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.6% 0.0216 70.0)",
+      "after": "oklch(53.7% 0.0216 70.0)"
+    },
+    {
+      "theme": "amber",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.6% 0.0216 70.0)",
+      "after": "oklch(53.7% 0.0216 70.0)"
+    },
+    {
+      "theme": "rose",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(91.5% 0.0216 70.0)",
+      "after": "oklch(64.0% 0.0216 70.0)"
+    },
+    {
+      "theme": "rose",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(91.5% 0.0216 70.0)",
+      "after": "oklch(64.0% 0.0216 70.0)"
+    },
+    {
+      "theme": "rose",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.6% 0.0216 70.0)",
+      "after": "oklch(53.7% 0.0216 70.0)"
+    },
+    {
+      "theme": "rose",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.6% 0.0216 70.0)",
+      "after": "oklch(53.7% 0.0216 70.0)"
+    },
+    {
+      "theme": "crimson",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(88.1% 0.0054 270.0)",
+      "after": "oklch(62.8% 0.0054 270.0)"
+    },
+    {
+      "theme": "crimson",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(88.1% 0.0054 270.0)",
+      "after": "oklch(62.8% 0.0054 270.0)"
+    },
+    {
+      "theme": "crimson",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.0% 0.0054 270.0)",
+      "after": "oklch(52.0% 0.0054 270.0)"
+    },
+    {
+      "theme": "crimson",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.0% 0.0054 270.0)",
+      "after": "oklch(52.0% 0.0054 270.0)"
+    },
+    {
+      "theme": "plum",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(88.1% 0.0216 250.0)",
+      "after": "oklch(62.8% 0.0216 250.0)"
+    },
+    {
+      "theme": "plum",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(88.1% 0.0216 250.0)",
+      "after": "oklch(62.8% 0.0216 250.0)"
+    },
+    {
+      "theme": "plum",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.0% 0.0216 250.0)",
+      "after": "oklch(52.0% 0.0216 250.0)"
+    },
+    {
+      "theme": "plum",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.0% 0.0216 250.0)",
+      "after": "oklch(52.0% 0.0216 250.0)"
+    },
+    {
+      "theme": "grape",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(91.5% 0.0216 250.0)",
+      "after": "oklch(63.9% 0.0216 250.0)"
+    },
+    {
+      "theme": "grape",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(91.5% 0.0216 250.0)",
+      "after": "oklch(63.9% 0.0216 250.0)"
+    },
+    {
+      "theme": "grape",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.6% 0.0216 250.0)",
+      "after": "oklch(53.6% 0.0216 250.0)"
+    },
+    {
+      "theme": "grape",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.6% 0.0216 250.0)",
+      "after": "oklch(53.6% 0.0216 250.0)"
+    },
+    {
+      "theme": "lavender",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(91.5% 0.0216 250.0)",
+      "after": "oklch(63.9% 0.0216 250.0)"
+    },
+    {
+      "theme": "lavender",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(91.5% 0.0216 250.0)",
+      "after": "oklch(63.9% 0.0216 250.0)"
+    },
+    {
+      "theme": "lavender",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.6% 0.0216 250.0)",
+      "after": "oklch(53.6% 0.0216 250.0)"
+    },
+    {
+      "theme": "lavender",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.6% 0.0216 250.0)",
+      "after": "oklch(53.6% 0.0216 250.0)"
+    },
+    {
+      "theme": "teal",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(88.1% 0.0054 270.0)",
+      "after": "oklch(62.8% 0.0054 270.0)"
+    },
+    {
+      "theme": "teal",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(88.1% 0.0054 270.0)",
+      "after": "oklch(62.8% 0.0054 270.0)"
+    },
+    {
+      "theme": "teal",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.0% 0.0054 270.0)",
+      "after": "oklch(52.0% 0.0054 270.0)"
+    },
+    {
+      "theme": "teal",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.0% 0.0054 270.0)",
+      "after": "oklch(52.0% 0.0054 270.0)"
+    },
+    {
+      "theme": "cyan",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(88.1% 0.0216 250.0)",
+      "after": "oklch(62.8% 0.0216 250.0)"
+    },
+    {
+      "theme": "cyan",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(88.1% 0.0216 250.0)",
+      "after": "oklch(62.8% 0.0216 250.0)"
+    },
+    {
+      "theme": "cyan",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.0% 0.0216 250.0)",
+      "after": "oklch(52.0% 0.0216 250.0)"
+    },
+    {
+      "theme": "cyan",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.0% 0.0216 250.0)",
+      "after": "oklch(52.0% 0.0216 250.0)"
+    },
+    {
+      "theme": "mint",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(91.5% 0.0054 270.0)",
+      "after": "oklch(64.0% 0.0054 270.0)"
+    },
+    {
+      "theme": "mint",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(91.5% 0.0054 270.0)",
+      "after": "oklch(64.0% 0.0054 270.0)"
+    },
+    {
+      "theme": "mint",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.6% 0.0054 270.0)",
+      "after": "oklch(53.7% 0.0054 270.0)"
+    },
+    {
+      "theme": "mint",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.6% 0.0054 270.0)",
+      "after": "oklch(53.7% 0.0054 270.0)"
+    },
+    {
+      "theme": "nord",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(91.5% 0.0216 250.0)",
+      "after": "oklch(63.9% 0.0216 250.0)"
+    },
+    {
+      "theme": "nord",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(91.5% 0.0216 250.0)",
+      "after": "oklch(63.9% 0.0216 250.0)"
+    },
+    {
+      "theme": "nord",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.6% 0.0216 250.0)",
+      "after": "oklch(53.6% 0.0216 250.0)"
+    },
+    {
+      "theme": "nord",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.6% 0.0216 250.0)",
+      "after": "oklch(53.6% 0.0216 250.0)"
+    },
+    {
+      "theme": "solarized",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(91.5% 0.0216 70.0)",
+      "after": "oklch(64.0% 0.0216 70.0)"
+    },
+    {
+      "theme": "solarized",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(91.5% 0.0216 70.0)",
+      "after": "oklch(64.0% 0.0216 70.0)"
+    },
+    {
+      "theme": "solarized",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.6% 0.0216 70.0)",
+      "after": "oklch(53.7% 0.0216 70.0)"
+    },
+    {
+      "theme": "solarized",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.6% 0.0216 70.0)",
+      "after": "oklch(53.7% 0.0216 70.0)"
+    },
+    {
+      "theme": "dracula",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(88.1% 0.0216 250.0)",
+      "after": "oklch(62.8% 0.0216 250.0)"
+    },
+    {
+      "theme": "dracula",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(88.1% 0.0216 250.0)",
+      "after": "oklch(62.8% 0.0216 250.0)"
+    },
+    {
+      "theme": "dracula",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.0% 0.0216 250.0)",
+      "after": "oklch(52.0% 0.0216 250.0)"
+    },
+    {
+      "theme": "dracula",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.0% 0.0216 250.0)",
+      "after": "oklch(52.0% 0.0216 250.0)"
+    },
+    {
+      "theme": "gruvbox",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(91.5% 0.0216 70.0)",
+      "after": "oklch(64.0% 0.0216 70.0)"
+    },
+    {
+      "theme": "gruvbox",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(91.5% 0.0216 70.0)",
+      "after": "oklch(64.0% 0.0216 70.0)"
+    },
+    {
+      "theme": "gruvbox",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.6% 0.0216 70.0)",
+      "after": "oklch(53.7% 0.0216 70.0)"
+    },
+    {
+      "theme": "gruvbox",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.6% 0.0216 70.0)",
+      "after": "oklch(53.7% 0.0216 70.0)"
+    },
+    {
+      "theme": "monokai",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(88.1% 0.0054 270.0)",
+      "after": "oklch(62.8% 0.0054 270.0)"
+    },
+    {
+      "theme": "monokai",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(88.1% 0.0054 270.0)",
+      "after": "oklch(62.8% 0.0054 270.0)"
+    },
+    {
+      "theme": "monokai",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.0% 0.0054 270.0)",
+      "after": "oklch(52.0% 0.0054 270.0)"
+    },
+    {
+      "theme": "monokai",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.0% 0.0054 270.0)",
+      "after": "oklch(52.0% 0.0054 270.0)"
+    },
+    {
+      "theme": "mono",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(88.1% 0.0054 270.0)",
+      "after": "oklch(62.8% 0.0054 270.0)"
+    },
+    {
+      "theme": "mono",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(88.1% 0.0054 270.0)",
+      "after": "oklch(62.8% 0.0054 270.0)"
+    },
+    {
+      "theme": "mono",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.0% 0.0054 270.0)",
+      "after": "oklch(52.0% 0.0054 270.0)"
+    },
+    {
+      "theme": "mono",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.0% 0.0054 270.0)",
+      "after": "oklch(52.0% 0.0054 270.0)"
+    },
+    {
+      "theme": "graphite",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(88.1% 0.0216 250.0)",
+      "after": "oklch(62.8% 0.0216 250.0)"
+    },
+    {
+      "theme": "graphite",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(88.1% 0.0216 250.0)",
+      "after": "oklch(62.8% 0.0216 250.0)"
+    },
+    {
+      "theme": "graphite",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.0% 0.0216 250.0)",
+      "after": "oklch(52.0% 0.0216 250.0)"
+    },
+    {
+      "theme": "graphite",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.0% 0.0216 250.0)",
+      "after": "oklch(52.0% 0.0216 250.0)"
+    },
+    {
+      "theme": "sand",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(91.5% 0.0216 70.0)",
+      "after": "oklch(64.0% 0.0216 70.0)"
+    },
+    {
+      "theme": "sand",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(91.5% 0.0216 70.0)",
+      "after": "oklch(64.0% 0.0216 70.0)"
+    },
+    {
+      "theme": "sand",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.6% 0.0216 70.0)",
+      "after": "oklch(53.7% 0.0216 70.0)"
+    },
+    {
+      "theme": "sand",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.6% 0.0216 70.0)",
+      "after": "oklch(53.7% 0.0216 70.0)"
+    },
+    {
+      "theme": "catppuccin-latte",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(91.5% 0.0216 70.0)",
+      "after": "oklch(64.0% 0.0216 70.0)"
+    },
+    {
+      "theme": "catppuccin-latte",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(91.5% 0.0216 70.0)",
+      "after": "oklch(64.0% 0.0216 70.0)"
+    },
+    {
+      "theme": "catppuccin-latte",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.6% 0.0216 70.0)",
+      "after": "oklch(53.7% 0.0216 70.0)"
+    },
+    {
+      "theme": "catppuccin-latte",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.6% 0.0216 70.0)",
+      "after": "oklch(53.7% 0.0216 70.0)"
+    },
+    {
+      "theme": "catppuccin-frappe",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(91.5% 0.0216 250.0)",
+      "after": "oklch(63.9% 0.0216 250.0)"
+    },
+    {
+      "theme": "catppuccin-frappe",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(91.5% 0.0216 250.0)",
+      "after": "oklch(63.9% 0.0216 250.0)"
+    },
+    {
+      "theme": "catppuccin-frappe",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.6% 0.0216 250.0)",
+      "after": "oklch(53.6% 0.0216 250.0)"
+    },
+    {
+      "theme": "catppuccin-frappe",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.6% 0.0216 250.0)",
+      "after": "oklch(53.6% 0.0216 250.0)"
+    },
+    {
+      "theme": "catppuccin-macchiato",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(91.5% 0.0216 250.0)",
+      "after": "oklch(63.9% 0.0216 250.0)"
+    },
+    {
+      "theme": "catppuccin-macchiato",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(91.5% 0.0216 250.0)",
+      "after": "oklch(63.9% 0.0216 250.0)"
+    },
+    {
+      "theme": "catppuccin-macchiato",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.6% 0.0216 250.0)",
+      "after": "oklch(53.6% 0.0216 250.0)"
+    },
+    {
+      "theme": "catppuccin-macchiato",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.6% 0.0216 250.0)",
+      "after": "oklch(53.6% 0.0216 250.0)"
+    },
+    {
+      "theme": "catppuccin-mocha",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(91.5% 0.0216 250.0)",
+      "after": "oklch(63.9% 0.0216 250.0)"
+    },
+    {
+      "theme": "catppuccin-mocha",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(91.5% 0.0216 250.0)",
+      "after": "oklch(63.9% 0.0216 250.0)"
+    },
+    {
+      "theme": "catppuccin-mocha",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.6% 0.0216 250.0)",
+      "after": "oklch(53.6% 0.0216 250.0)"
+    },
+    {
+      "theme": "catppuccin-mocha",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.6% 0.0216 250.0)",
+      "after": "oklch(53.6% 0.0216 250.0)"
+    },
+    {
+      "theme": "tokyo-night",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(91.5% 0.0216 250.0)",
+      "after": "oklch(63.9% 0.0216 250.0)"
+    },
+    {
+      "theme": "tokyo-night",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(91.5% 0.0216 250.0)",
+      "after": "oklch(63.9% 0.0216 250.0)"
+    },
+    {
+      "theme": "tokyo-night",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.6% 0.0216 250.0)",
+      "after": "oklch(53.6% 0.0216 250.0)"
+    },
+    {
+      "theme": "tokyo-night",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.6% 0.0216 250.0)",
+      "after": "oklch(53.6% 0.0216 250.0)"
+    },
+    {
+      "theme": "tokyo-night-storm",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(91.5% 0.0216 250.0)",
+      "after": "oklch(63.9% 0.0216 250.0)"
+    },
+    {
+      "theme": "tokyo-night-storm",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(91.5% 0.0216 250.0)",
+      "after": "oklch(63.9% 0.0216 250.0)"
+    },
+    {
+      "theme": "tokyo-night-storm",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.6% 0.0216 250.0)",
+      "after": "oklch(53.6% 0.0216 250.0)"
+    },
+    {
+      "theme": "tokyo-night-storm",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.6% 0.0216 250.0)",
+      "after": "oklch(53.6% 0.0216 250.0)"
+    },
+    {
+      "theme": "tokyo-night-light",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(88.1% 0.0216 250.0)",
+      "after": "oklch(62.8% 0.0216 250.0)"
+    },
+    {
+      "theme": "tokyo-night-light",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(88.1% 0.0216 250.0)",
+      "after": "oklch(62.8% 0.0216 250.0)"
+    },
+    {
+      "theme": "tokyo-night-light",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.0% 0.0216 250.0)",
+      "after": "oklch(52.0% 0.0216 250.0)"
+    },
+    {
+      "theme": "tokyo-night-light",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.0% 0.0216 250.0)",
+      "after": "oklch(52.0% 0.0216 250.0)"
+    },
+    {
+      "theme": "rose-pine",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(91.5% 0.0216 250.0)",
+      "after": "oklch(63.9% 0.0216 250.0)"
+    },
+    {
+      "theme": "rose-pine",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(91.5% 0.0216 250.0)",
+      "after": "oklch(63.9% 0.0216 250.0)"
+    },
+    {
+      "theme": "rose-pine",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.6% 0.0216 250.0)",
+      "after": "oklch(53.6% 0.0216 250.0)"
+    },
+    {
+      "theme": "rose-pine",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.6% 0.0216 250.0)",
+      "after": "oklch(53.6% 0.0216 250.0)"
+    },
+    {
+      "theme": "rose-pine-moon",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(91.5% 0.0216 250.0)",
+      "after": "oklch(63.9% 0.0216 250.0)"
+    },
+    {
+      "theme": "rose-pine-moon",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(91.5% 0.0216 250.0)",
+      "after": "oklch(63.9% 0.0216 250.0)"
+    },
+    {
+      "theme": "rose-pine-moon",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.6% 0.0216 250.0)",
+      "after": "oklch(53.6% 0.0216 250.0)"
+    },
+    {
+      "theme": "rose-pine-moon",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.6% 0.0216 250.0)",
+      "after": "oklch(53.6% 0.0216 250.0)"
+    },
+    {
+      "theme": "rose-pine-dawn",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(91.5% 0.0216 70.0)",
+      "after": "oklch(64.0% 0.0216 70.0)"
+    },
+    {
+      "theme": "rose-pine-dawn",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(91.5% 0.0216 70.0)",
+      "after": "oklch(64.0% 0.0216 70.0)"
+    },
+    {
+      "theme": "rose-pine-dawn",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.6% 0.0216 70.0)",
+      "after": "oklch(53.7% 0.0216 70.0)"
+    },
+    {
+      "theme": "rose-pine-dawn",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.6% 0.0216 70.0)",
+      "after": "oklch(53.7% 0.0216 70.0)"
+    },
+    {
+      "theme": "one-dark",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(88.1% 0.0216 250.0)",
+      "after": "oklch(62.8% 0.0216 250.0)"
+    },
+    {
+      "theme": "one-dark",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(88.1% 0.0216 250.0)",
+      "after": "oklch(62.8% 0.0216 250.0)"
+    },
+    {
+      "theme": "one-dark",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.0% 0.0216 250.0)",
+      "after": "oklch(52.0% 0.0216 250.0)"
+    },
+    {
+      "theme": "one-dark",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.0% 0.0216 250.0)",
+      "after": "oklch(52.0% 0.0216 250.0)"
+    },
+    {
+      "theme": "one-light",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(88.1% 0.0054 270.0)",
+      "after": "oklch(62.8% 0.0054 270.0)"
+    },
+    {
+      "theme": "one-light",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(88.1% 0.0054 270.0)",
+      "after": "oklch(62.8% 0.0054 270.0)"
+    },
+    {
+      "theme": "one-light",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.0% 0.0054 270.0)",
+      "after": "oklch(52.0% 0.0054 270.0)"
+    },
+    {
+      "theme": "one-light",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.0% 0.0054 270.0)",
+      "after": "oklch(52.0% 0.0054 270.0)"
+    },
+    {
+      "theme": "ayu-dark",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(88.1% 0.0216 70.0)",
+      "after": "oklch(62.9% 0.0216 70.0)"
+    },
+    {
+      "theme": "ayu-dark",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(88.1% 0.0216 70.0)",
+      "after": "oklch(62.9% 0.0216 70.0)"
+    },
+    {
+      "theme": "ayu-dark",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.0% 0.0216 70.0)",
+      "after": "oklch(52.0% 0.0216 70.0)"
+    },
+    {
+      "theme": "ayu-dark",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.0% 0.0216 70.0)",
+      "after": "oklch(52.0% 0.0216 70.0)"
+    },
+    {
+      "theme": "ayu-mirage",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(91.5% 0.0216 250.0)",
+      "after": "oklch(63.9% 0.0216 250.0)"
+    },
+    {
+      "theme": "ayu-mirage",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(91.5% 0.0216 250.0)",
+      "after": "oklch(63.9% 0.0216 250.0)"
+    },
+    {
+      "theme": "ayu-mirage",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.6% 0.0216 250.0)",
+      "after": "oklch(53.6% 0.0216 250.0)"
+    },
+    {
+      "theme": "ayu-mirage",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.6% 0.0216 250.0)",
+      "after": "oklch(53.6% 0.0216 250.0)"
+    },
+    {
+      "theme": "ayu-light",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(88.1% 0.0216 70.0)",
+      "after": "oklch(62.9% 0.0216 70.0)"
+    },
+    {
+      "theme": "ayu-light",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(88.1% 0.0216 70.0)",
+      "after": "oklch(62.9% 0.0216 70.0)"
+    },
+    {
+      "theme": "ayu-light",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.0% 0.0216 70.0)",
+      "after": "oklch(52.0% 0.0216 70.0)"
+    },
+    {
+      "theme": "ayu-light",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.0% 0.0216 70.0)",
+      "after": "oklch(52.0% 0.0216 70.0)"
+    },
+    {
+      "theme": "everforest",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(91.5% 0.0216 70.0)",
+      "after": "oklch(64.0% 0.0216 70.0)"
+    },
+    {
+      "theme": "everforest",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(91.5% 0.0216 70.0)",
+      "after": "oklch(64.0% 0.0216 70.0)"
+    },
+    {
+      "theme": "everforest",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.6% 0.0216 70.0)",
+      "after": "oklch(53.7% 0.0216 70.0)"
+    },
+    {
+      "theme": "everforest",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.6% 0.0216 70.0)",
+      "after": "oklch(53.7% 0.0216 70.0)"
+    },
+    {
+      "theme": "everforest-light",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(91.5% 0.0216 70.0)",
+      "after": "oklch(64.0% 0.0216 70.0)"
+    },
+    {
+      "theme": "everforest-light",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(91.5% 0.0216 70.0)",
+      "after": "oklch(64.0% 0.0216 70.0)"
+    },
+    {
+      "theme": "everforest-light",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.6% 0.0216 70.0)",
+      "after": "oklch(53.7% 0.0216 70.0)"
+    },
+    {
+      "theme": "everforest-light",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.6% 0.0216 70.0)",
+      "after": "oklch(53.7% 0.0216 70.0)"
+    },
+    {
+      "theme": "kanagawa",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(91.5% 0.0216 70.0)",
+      "after": "oklch(64.0% 0.0216 70.0)"
+    },
+    {
+      "theme": "kanagawa",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(91.5% 0.0216 70.0)",
+      "after": "oklch(64.0% 0.0216 70.0)"
+    },
+    {
+      "theme": "kanagawa",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.6% 0.0216 70.0)",
+      "after": "oklch(53.7% 0.0216 70.0)"
+    },
+    {
+      "theme": "kanagawa",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.6% 0.0216 70.0)",
+      "after": "oklch(53.7% 0.0216 70.0)"
+    },
+    {
+      "theme": "kanagawa-lotus",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(91.5% 0.0216 70.0)",
+      "after": "oklch(64.0% 0.0216 70.0)"
+    },
+    {
+      "theme": "kanagawa-lotus",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(91.5% 0.0216 70.0)",
+      "after": "oklch(64.0% 0.0216 70.0)"
+    },
+    {
+      "theme": "kanagawa-lotus",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.6% 0.0216 70.0)",
+      "after": "oklch(53.7% 0.0216 70.0)"
+    },
+    {
+      "theme": "kanagawa-lotus",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.6% 0.0216 70.0)",
+      "after": "oklch(53.7% 0.0216 70.0)"
+    },
+    {
+      "theme": "night-owl",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(91.5% 0.0216 250.0)",
+      "after": "oklch(63.9% 0.0216 250.0)"
+    },
+    {
+      "theme": "night-owl",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(91.5% 0.0216 250.0)",
+      "after": "oklch(63.9% 0.0216 250.0)"
+    },
+    {
+      "theme": "night-owl",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.6% 0.0216 250.0)",
+      "after": "oklch(53.6% 0.0216 250.0)"
+    },
+    {
+      "theme": "night-owl",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.6% 0.0216 250.0)",
+      "after": "oklch(53.6% 0.0216 250.0)"
+    },
+    {
+      "theme": "light-owl",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(88.1% 0.0216 250.0)",
+      "after": "oklch(62.8% 0.0216 250.0)"
+    },
+    {
+      "theme": "light-owl",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(88.1% 0.0216 250.0)",
+      "after": "oklch(62.8% 0.0216 250.0)"
+    },
+    {
+      "theme": "light-owl",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.0% 0.0216 250.0)",
+      "after": "oklch(52.0% 0.0216 250.0)"
+    },
+    {
+      "theme": "light-owl",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.0% 0.0216 250.0)",
+      "after": "oklch(52.0% 0.0216 250.0)"
+    },
+    {
+      "theme": "synthwave",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(88.1% 0.0216 250.0)",
+      "after": "oklch(62.8% 0.0216 250.0)"
+    },
+    {
+      "theme": "synthwave",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(88.1% 0.0216 250.0)",
+      "after": "oklch(62.8% 0.0216 250.0)"
+    },
+    {
+      "theme": "synthwave",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.0% 0.0216 250.0)",
+      "after": "oklch(52.0% 0.0216 250.0)"
+    },
+    {
+      "theme": "synthwave",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.0% 0.0216 250.0)",
+      "after": "oklch(52.0% 0.0216 250.0)"
+    },
+    {
+      "theme": "outrun",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(88.1% 0.0216 250.0)",
+      "after": "oklch(62.8% 0.0216 250.0)"
+    },
+    {
+      "theme": "outrun",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(88.1% 0.0216 250.0)",
+      "after": "oklch(62.8% 0.0216 250.0)"
+    },
+    {
+      "theme": "outrun",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.0% 0.0216 250.0)",
+      "after": "oklch(52.0% 0.0216 250.0)"
+    },
+    {
+      "theme": "outrun",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.0% 0.0216 250.0)",
+      "after": "oklch(52.0% 0.0216 250.0)"
+    },
+    {
+      "theme": "material",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(88.1% 0.0054 270.0)",
+      "after": "oklch(62.8% 0.0054 270.0)"
+    },
+    {
+      "theme": "material",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(88.1% 0.0054 270.0)",
+      "after": "oklch(62.8% 0.0054 270.0)"
+    },
+    {
+      "theme": "material",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.0% 0.0054 270.0)",
+      "after": "oklch(52.0% 0.0054 270.0)"
+    },
+    {
+      "theme": "material",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.0% 0.0054 270.0)",
+      "after": "oklch(52.0% 0.0054 270.0)"
+    },
+    {
+      "theme": "material-ocean",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(91.5% 0.0216 250.0)",
+      "after": "oklch(63.9% 0.0216 250.0)"
+    },
+    {
+      "theme": "material-ocean",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(91.5% 0.0216 250.0)",
+      "after": "oklch(63.9% 0.0216 250.0)"
+    },
+    {
+      "theme": "material-ocean",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.6% 0.0216 250.0)",
+      "after": "oklch(53.6% 0.0216 250.0)"
+    },
+    {
+      "theme": "material-ocean",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.6% 0.0216 250.0)",
+      "after": "oklch(53.6% 0.0216 250.0)"
+    },
+    {
+      "theme": "palenight",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(91.5% 0.0216 250.0)",
+      "after": "oklch(63.9% 0.0216 250.0)"
+    },
+    {
+      "theme": "palenight",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(91.5% 0.0216 250.0)",
+      "after": "oklch(63.9% 0.0216 250.0)"
+    },
+    {
+      "theme": "palenight",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.6% 0.0216 250.0)",
+      "after": "oklch(53.6% 0.0216 250.0)"
+    },
+    {
+      "theme": "palenight",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.6% 0.0216 250.0)",
+      "after": "oklch(53.6% 0.0216 250.0)"
+    },
+    {
+      "theme": "oceanic-next",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(91.5% 0.0216 250.0)",
+      "after": "oklch(63.9% 0.0216 250.0)"
+    },
+    {
+      "theme": "oceanic-next",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(91.5% 0.0216 250.0)",
+      "after": "oklch(63.9% 0.0216 250.0)"
+    },
+    {
+      "theme": "oceanic-next",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.6% 0.0216 250.0)",
+      "after": "oklch(53.6% 0.0216 250.0)"
+    },
+    {
+      "theme": "oceanic-next",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.6% 0.0216 250.0)",
+      "after": "oklch(53.6% 0.0216 250.0)"
+    },
+    {
+      "theme": "horizon",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(91.5% 0.0216 70.0)",
+      "after": "oklch(64.0% 0.0216 70.0)"
+    },
+    {
+      "theme": "horizon",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(91.5% 0.0216 70.0)",
+      "after": "oklch(64.0% 0.0216 70.0)"
+    },
+    {
+      "theme": "horizon",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.6% 0.0216 70.0)",
+      "after": "oklch(53.7% 0.0216 70.0)"
+    },
+    {
+      "theme": "horizon",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.6% 0.0216 70.0)",
+      "after": "oklch(53.7% 0.0216 70.0)"
+    },
+    {
+      "theme": "github-dark",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(88.1% 0.0216 250.0)",
+      "after": "oklch(62.8% 0.0216 250.0)"
+    },
+    {
+      "theme": "github-dark",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(88.1% 0.0216 250.0)",
+      "after": "oklch(62.8% 0.0216 250.0)"
+    },
+    {
+      "theme": "github-dark",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.0% 0.0216 250.0)",
+      "after": "oklch(52.0% 0.0216 250.0)"
+    },
+    {
+      "theme": "github-dark",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.0% 0.0216 250.0)",
+      "after": "oklch(52.0% 0.0216 250.0)"
+    },
+    {
+      "theme": "github-light",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(88.1% 0.0054 270.0)",
+      "after": "oklch(62.8% 0.0054 270.0)"
+    },
+    {
+      "theme": "github-light",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(88.1% 0.0054 270.0)",
+      "after": "oklch(62.8% 0.0054 270.0)"
+    },
+    {
+      "theme": "github-light",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.0% 0.0054 270.0)",
+      "after": "oklch(52.0% 0.0054 270.0)"
+    },
+    {
+      "theme": "github-light",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.0% 0.0054 270.0)",
+      "after": "oklch(52.0% 0.0054 270.0)"
+    },
+    {
+      "theme": "github-dimmed",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(91.5% 0.0216 250.0)",
+      "after": "oklch(63.9% 0.0216 250.0)"
+    },
+    {
+      "theme": "github-dimmed",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(91.5% 0.0216 250.0)",
+      "after": "oklch(63.9% 0.0216 250.0)"
+    },
+    {
+      "theme": "github-dimmed",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.6% 0.0216 250.0)",
+      "after": "oklch(53.6% 0.0216 250.0)"
+    },
+    {
+      "theme": "github-dimmed",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.6% 0.0216 250.0)",
+      "after": "oklch(53.6% 0.0216 250.0)"
+    },
+    {
+      "theme": "cobalt2",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(88.1% 0.0216 250.0)",
+      "after": "oklch(62.8% 0.0216 250.0)"
+    },
+    {
+      "theme": "cobalt2",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(88.1% 0.0216 250.0)",
+      "after": "oklch(62.8% 0.0216 250.0)"
+    },
+    {
+      "theme": "cobalt2",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.0% 0.0216 250.0)",
+      "after": "oklch(52.0% 0.0216 250.0)"
+    },
+    {
+      "theme": "cobalt2",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.0% 0.0216 250.0)",
+      "after": "oklch(52.0% 0.0216 250.0)"
+    },
+    {
+      "theme": "panda",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(88.1% 0.0054 270.0)",
+      "after": "oklch(62.8% 0.0054 270.0)"
+    },
+    {
+      "theme": "panda",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(88.1% 0.0054 270.0)",
+      "after": "oklch(62.8% 0.0054 270.0)"
+    },
+    {
+      "theme": "panda",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.0% 0.0054 270.0)",
+      "after": "oklch(52.0% 0.0054 270.0)"
+    },
+    {
+      "theme": "panda",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.0% 0.0054 270.0)",
+      "after": "oklch(52.0% 0.0054 270.0)"
+    },
+    {
+      "theme": "monokai-pro",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(88.1% 0.0216 70.0)",
+      "after": "oklch(62.9% 0.0216 70.0)"
+    },
+    {
+      "theme": "monokai-pro",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(88.1% 0.0216 70.0)",
+      "after": "oklch(62.9% 0.0216 70.0)"
+    },
+    {
+      "theme": "monokai-pro",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.0% 0.0216 70.0)",
+      "after": "oklch(52.0% 0.0216 70.0)"
+    },
+    {
+      "theme": "monokai-pro",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.0% 0.0216 70.0)",
+      "after": "oklch(52.0% 0.0216 70.0)"
+    },
+    {
+      "theme": "solarized-dark",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(91.5% 0.0216 250.0)",
+      "after": "oklch(63.9% 0.0216 250.0)"
+    },
+    {
+      "theme": "solarized-dark",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(91.5% 0.0216 250.0)",
+      "after": "oklch(63.9% 0.0216 250.0)"
+    },
+    {
+      "theme": "solarized-dark",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.6% 0.0216 250.0)",
+      "after": "oklch(53.6% 0.0216 250.0)"
+    },
+    {
+      "theme": "solarized-dark",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.6% 0.0216 250.0)",
+      "after": "oklch(53.6% 0.0216 250.0)"
+    },
+    {
+      "theme": "gruvbox-light",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(91.5% 0.0216 70.0)",
+      "after": "oklch(64.0% 0.0216 70.0)"
+    },
+    {
+      "theme": "gruvbox-light",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(91.5% 0.0216 70.0)",
+      "after": "oklch(64.0% 0.0216 70.0)"
+    },
+    {
+      "theme": "gruvbox-light",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.6% 0.0216 70.0)",
+      "after": "oklch(53.7% 0.0216 70.0)"
+    },
+    {
+      "theme": "gruvbox-light",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.6% 0.0216 70.0)",
+      "after": "oklch(53.7% 0.0216 70.0)"
+    },
+    {
+      "theme": "gruvbox-material",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(91.5% 0.0216 70.0)",
+      "after": "oklch(64.0% 0.0216 70.0)"
+    },
+    {
+      "theme": "gruvbox-material",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(91.5% 0.0216 70.0)",
+      "after": "oklch(64.0% 0.0216 70.0)"
+    },
+    {
+      "theme": "gruvbox-material",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.6% 0.0216 70.0)",
+      "after": "oklch(53.7% 0.0216 70.0)"
+    },
+    {
+      "theme": "gruvbox-material",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.6% 0.0216 70.0)",
+      "after": "oklch(53.7% 0.0216 70.0)"
+    },
+    {
+      "theme": "nord-light",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(91.5% 0.0216 250.0)",
+      "after": "oklch(63.9% 0.0216 250.0)"
+    },
+    {
+      "theme": "nord-light",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(91.5% 0.0216 250.0)",
+      "after": "oklch(63.9% 0.0216 250.0)"
+    },
+    {
+      "theme": "nord-light",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.6% 0.0216 250.0)",
+      "after": "oklch(53.6% 0.0216 250.0)"
+    },
+    {
+      "theme": "nord-light",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.6% 0.0216 250.0)",
+      "after": "oklch(53.6% 0.0216 250.0)"
+    },
+    {
+      "theme": "aurora",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(91.5% 0.0216 250.0)",
+      "after": "oklch(63.9% 0.0216 250.0)"
+    },
+    {
+      "theme": "aurora",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(91.5% 0.0216 250.0)",
+      "after": "oklch(63.9% 0.0216 250.0)"
+    },
+    {
+      "theme": "aurora",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.6% 0.0216 250.0)",
+      "after": "oklch(53.6% 0.0216 250.0)"
+    },
+    {
+      "theme": "aurora",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.6% 0.0216 250.0)",
+      "after": "oklch(53.6% 0.0216 250.0)"
+    },
+    {
+      "theme": "dracula-pro",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(88.1% 0.0216 250.0)",
+      "after": "oklch(62.8% 0.0216 250.0)"
+    },
+    {
+      "theme": "dracula-pro",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(88.1% 0.0216 250.0)",
+      "after": "oklch(62.8% 0.0216 250.0)"
+    },
+    {
+      "theme": "dracula-pro",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.0% 0.0216 250.0)",
+      "after": "oklch(52.0% 0.0216 250.0)"
+    },
+    {
+      "theme": "dracula-pro",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.0% 0.0216 250.0)",
+      "after": "oklch(52.0% 0.0216 250.0)"
+    },
+    {
+      "theme": "shades-of-purple",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(88.1% 0.0216 250.0)",
+      "after": "oklch(62.8% 0.0216 250.0)"
+    },
+    {
+      "theme": "shades-of-purple",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(88.1% 0.0216 250.0)",
+      "after": "oklch(62.8% 0.0216 250.0)"
+    },
+    {
+      "theme": "shades-of-purple",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.0% 0.0216 250.0)",
+      "after": "oklch(52.0% 0.0216 250.0)"
+    },
+    {
+      "theme": "shades-of-purple",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.0% 0.0216 250.0)",
+      "after": "oklch(52.0% 0.0216 250.0)"
+    },
+    {
+      "theme": "winter-is-coming",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(88.1% 0.0216 250.0)",
+      "after": "oklch(62.8% 0.0216 250.0)"
+    },
+    {
+      "theme": "winter-is-coming",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(88.1% 0.0216 250.0)",
+      "after": "oklch(62.8% 0.0216 250.0)"
+    },
+    {
+      "theme": "winter-is-coming",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.0% 0.0216 250.0)",
+      "after": "oklch(52.0% 0.0216 250.0)"
+    },
+    {
+      "theme": "winter-is-coming",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.0% 0.0216 250.0)",
+      "after": "oklch(52.0% 0.0216 250.0)"
+    },
+    {
+      "theme": "cyberpunk",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(88.1% 0.0216 250.0)",
+      "after": "oklch(62.8% 0.0216 250.0)"
+    },
+    {
+      "theme": "cyberpunk",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(88.1% 0.0216 250.0)",
+      "after": "oklch(62.8% 0.0216 250.0)"
+    },
+    {
+      "theme": "cyberpunk",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.0% 0.0216 250.0)",
+      "after": "oklch(52.0% 0.0216 250.0)"
+    },
+    {
+      "theme": "cyberpunk",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.0% 0.0216 250.0)",
+      "after": "oklch(52.0% 0.0216 250.0)"
+    },
+    {
+      "theme": "spacegray",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(91.5% 0.0216 250.0)",
+      "after": "oklch(63.9% 0.0216 250.0)"
+    },
+    {
+      "theme": "spacegray",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(91.5% 0.0216 250.0)",
+      "after": "oklch(63.9% 0.0216 250.0)"
+    },
+    {
+      "theme": "spacegray",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.6% 0.0216 250.0)",
+      "after": "oklch(53.6% 0.0216 250.0)"
+    },
+    {
+      "theme": "spacegray",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.6% 0.0216 250.0)",
+      "after": "oklch(53.6% 0.0216 250.0)"
+    },
+    {
+      "theme": "github-copilot",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(88.1% 0.0054 270.0)",
+      "after": "oklch(62.8% 0.0054 270.0)"
+    },
+    {
+      "theme": "github-copilot",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(88.1% 0.0054 270.0)",
+      "after": "oklch(62.8% 0.0054 270.0)"
+    },
+    {
+      "theme": "github-copilot",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.0% 0.0054 270.0)",
+      "after": "oklch(52.0% 0.0054 270.0)"
+    },
+    {
+      "theme": "github-copilot",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.0% 0.0054 270.0)",
+      "after": "oklch(52.0% 0.0054 270.0)"
+    },
+    {
+      "theme": "vercel",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(88.1% 0.0054 270.0)",
+      "after": "oklch(62.8% 0.0054 270.0)"
+    },
+    {
+      "theme": "vercel",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(88.1% 0.0054 270.0)",
+      "after": "oklch(62.8% 0.0054 270.0)"
+    },
+    {
+      "theme": "vercel",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.0% 0.0054 270.0)",
+      "after": "oklch(52.0% 0.0054 270.0)"
+    },
+    {
+      "theme": "vercel",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.0% 0.0054 270.0)",
+      "after": "oklch(52.0% 0.0054 270.0)"
+    },
+    {
+      "theme": "stripe",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(88.1% 0.0216 250.0)",
+      "after": "oklch(62.8% 0.0216 250.0)"
+    },
+    {
+      "theme": "stripe",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(88.1% 0.0216 250.0)",
+      "after": "oklch(62.8% 0.0216 250.0)"
+    },
+    {
+      "theme": "stripe",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.0% 0.0216 250.0)",
+      "after": "oklch(52.0% 0.0216 250.0)"
+    },
+    {
+      "theme": "stripe",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.0% 0.0216 250.0)",
+      "after": "oklch(52.0% 0.0216 250.0)"
+    },
+    {
+      "theme": "spotify",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(88.1% 0.0054 270.0)",
+      "after": "oklch(62.8% 0.0054 270.0)"
+    },
+    {
+      "theme": "spotify",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(88.1% 0.0054 270.0)",
+      "after": "oklch(62.8% 0.0054 270.0)"
+    },
+    {
+      "theme": "spotify",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.0% 0.0054 270.0)",
+      "after": "oklch(52.0% 0.0054 270.0)"
+    },
+    {
+      "theme": "spotify",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.0% 0.0054 270.0)",
+      "after": "oklch(52.0% 0.0054 270.0)"
+    },
+    {
+      "theme": "firewatch",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(91.5% 0.0216 250.0)",
+      "after": "oklch(63.9% 0.0216 250.0)"
+    },
+    {
+      "theme": "firewatch",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(91.5% 0.0216 250.0)",
+      "after": "oklch(63.9% 0.0216 250.0)"
+    },
+    {
+      "theme": "firewatch",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.6% 0.0216 250.0)",
+      "after": "oklch(53.6% 0.0216 250.0)"
+    },
+    {
+      "theme": "firewatch",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.6% 0.0216 250.0)",
+      "after": "oklch(53.6% 0.0216 250.0)"
+    },
+    {
+      "theme": "andromeda",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(88.1% 0.0216 250.0)",
+      "after": "oklch(62.8% 0.0216 250.0)"
+    },
+    {
+      "theme": "andromeda",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(88.1% 0.0216 250.0)",
+      "after": "oklch(62.8% 0.0216 250.0)"
+    },
+    {
+      "theme": "andromeda",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.0% 0.0216 250.0)",
+      "after": "oklch(52.0% 0.0216 250.0)"
+    },
+    {
+      "theme": "andromeda",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.0% 0.0216 250.0)",
+      "after": "oklch(52.0% 0.0216 250.0)"
+    },
+    {
+      "theme": "bluloco-light",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(88.1% 0.0054 270.0)",
+      "after": "oklch(62.8% 0.0054 270.0)"
+    },
+    {
+      "theme": "bluloco-light",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(88.1% 0.0054 270.0)",
+      "after": "oklch(62.8% 0.0054 270.0)"
+    },
+    {
+      "theme": "bluloco-light",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.0% 0.0054 270.0)",
+      "after": "oklch(52.0% 0.0054 270.0)"
+    },
+    {
+      "theme": "bluloco-light",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.0% 0.0054 270.0)",
+      "after": "oklch(52.0% 0.0054 270.0)"
+    },
+    {
+      "theme": "noctis",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(91.5% 0.0216 250.0)",
+      "after": "oklch(63.9% 0.0216 250.0)"
+    },
+    {
+      "theme": "noctis",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(91.5% 0.0216 250.0)",
+      "after": "oklch(63.9% 0.0216 250.0)"
+    },
+    {
+      "theme": "noctis",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.6% 0.0216 250.0)",
+      "after": "oklch(53.6% 0.0216 250.0)"
+    },
+    {
+      "theme": "noctis",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.6% 0.0216 250.0)",
+      "after": "oklch(53.6% 0.0216 250.0)"
+    },
+    {
+      "theme": "min-dark",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(88.1% 0.0054 270.0)",
+      "after": "oklch(62.8% 0.0054 270.0)"
+    },
+    {
+      "theme": "min-dark",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(88.1% 0.0054 270.0)",
+      "after": "oklch(62.8% 0.0054 270.0)"
+    },
+    {
+      "theme": "min-dark",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.0% 0.0054 270.0)",
+      "after": "oklch(52.0% 0.0054 270.0)"
+    },
+    {
+      "theme": "min-dark",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.0% 0.0054 270.0)",
+      "after": "oklch(52.0% 0.0054 270.0)"
+    },
+    {
+      "theme": "poimandres",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(91.5% 0.0216 250.0)",
+      "after": "oklch(63.9% 0.0216 250.0)"
+    },
+    {
+      "theme": "poimandres",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(91.5% 0.0216 250.0)",
+      "after": "oklch(63.9% 0.0216 250.0)"
+    },
+    {
+      "theme": "poimandres",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.6% 0.0216 250.0)",
+      "after": "oklch(53.6% 0.0216 250.0)"
+    },
+    {
+      "theme": "poimandres",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.6% 0.0216 250.0)",
+      "after": "oklch(53.6% 0.0216 250.0)"
+    },
+    {
+      "theme": "flexoki",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(91.5% 0.0216 70.0)",
+      "after": "oklch(64.0% 0.0216 70.0)"
+    },
+    {
+      "theme": "flexoki",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(91.5% 0.0216 70.0)",
+      "after": "oklch(64.0% 0.0216 70.0)"
+    },
+    {
+      "theme": "flexoki",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.6% 0.0216 70.0)",
+      "after": "oklch(53.7% 0.0216 70.0)"
+    },
+    {
+      "theme": "flexoki",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.6% 0.0216 70.0)",
+      "after": "oklch(53.7% 0.0216 70.0)"
+    },
+    {
+      "theme": "zenburn",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(91.5% 0.0216 70.0)",
+      "after": "oklch(64.0% 0.0216 70.0)"
+    },
+    {
+      "theme": "zenburn",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(91.5% 0.0216 70.0)",
+      "after": "oklch(64.0% 0.0216 70.0)"
+    },
+    {
+      "theme": "zenburn",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.6% 0.0216 70.0)",
+      "after": "oklch(53.7% 0.0216 70.0)"
+    },
+    {
+      "theme": "zenburn",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.6% 0.0216 70.0)",
+      "after": "oklch(53.7% 0.0216 70.0)"
+    },
+    {
+      "theme": "oxocarbon",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(88.1% 0.0054 270.0)",
+      "after": "oklch(62.8% 0.0054 270.0)"
+    },
+    {
+      "theme": "oxocarbon",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(88.1% 0.0054 270.0)",
+      "after": "oklch(62.8% 0.0054 270.0)"
+    },
+    {
+      "theme": "oxocarbon",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.0% 0.0054 270.0)",
+      "after": "oklch(52.0% 0.0054 270.0)"
+    },
+    {
+      "theme": "oxocarbon",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.0% 0.0054 270.0)",
+      "after": "oklch(52.0% 0.0054 270.0)"
+    },
+    {
+      "theme": "iceberg",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(91.5% 0.0216 250.0)",
+      "after": "oklch(63.9% 0.0216 250.0)"
+    },
+    {
+      "theme": "iceberg",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(91.5% 0.0216 250.0)",
+      "after": "oklch(63.9% 0.0216 250.0)"
+    },
+    {
+      "theme": "iceberg",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.6% 0.0216 250.0)",
+      "after": "oklch(53.6% 0.0216 250.0)"
+    },
+    {
+      "theme": "iceberg",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.6% 0.0216 250.0)",
+      "after": "oklch(53.6% 0.0216 250.0)"
+    },
+    {
+      "theme": "apprentice",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(91.5% 0.0216 70.0)",
+      "after": "oklch(64.0% 0.0216 70.0)"
+    },
+    {
+      "theme": "apprentice",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(91.5% 0.0216 70.0)",
+      "after": "oklch(64.0% 0.0216 70.0)"
+    },
+    {
+      "theme": "apprentice",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.6% 0.0216 70.0)",
+      "after": "oklch(53.7% 0.0216 70.0)"
+    },
+    {
+      "theme": "apprentice",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.6% 0.0216 70.0)",
+      "after": "oklch(53.7% 0.0216 70.0)"
+    },
+    {
+      "theme": "tomorrow-night",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(88.1% 0.0054 270.0)",
+      "after": "oklch(62.8% 0.0054 270.0)"
+    },
+    {
+      "theme": "tomorrow-night",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(88.1% 0.0054 270.0)",
+      "after": "oklch(62.8% 0.0054 270.0)"
+    },
+    {
+      "theme": "tomorrow-night",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.0% 0.0054 270.0)",
+      "after": "oklch(52.0% 0.0054 270.0)"
+    },
+    {
+      "theme": "tomorrow-night",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.0% 0.0054 270.0)",
+      "after": "oklch(52.0% 0.0054 270.0)"
+    },
+    {
+      "theme": "embark",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(91.5% 0.0216 250.0)",
+      "after": "oklch(63.9% 0.0216 250.0)"
+    },
+    {
+      "theme": "embark",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(91.5% 0.0216 250.0)",
+      "after": "oklch(63.9% 0.0216 250.0)"
+    },
+    {
+      "theme": "embark",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.6% 0.0216 250.0)",
+      "after": "oklch(53.6% 0.0216 250.0)"
+    },
+    {
+      "theme": "embark",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.6% 0.0216 250.0)",
+      "after": "oklch(53.6% 0.0216 250.0)"
+    },
+    {
+      "theme": "moonlight",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(91.5% 0.0216 250.0)",
+      "after": "oklch(63.9% 0.0216 250.0)"
+    },
+    {
+      "theme": "moonlight",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(91.5% 0.0216 250.0)",
+      "after": "oklch(63.9% 0.0216 250.0)"
+    },
+    {
+      "theme": "moonlight",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.6% 0.0216 250.0)",
+      "after": "oklch(53.6% 0.0216 250.0)"
+    },
+    {
+      "theme": "moonlight",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.6% 0.0216 250.0)",
+      "after": "oklch(53.6% 0.0216 250.0)"
+    },
+    {
+      "theme": "bearded",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(88.1% 0.0216 250.0)",
+      "after": "oklch(62.8% 0.0216 250.0)"
+    },
+    {
+      "theme": "bearded",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(88.1% 0.0216 250.0)",
+      "after": "oklch(62.8% 0.0216 250.0)"
+    },
+    {
+      "theme": "bearded",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.0% 0.0216 250.0)",
+      "after": "oklch(52.0% 0.0216 250.0)"
+    },
+    {
+      "theme": "bearded",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.0% 0.0216 250.0)",
+      "after": "oklch(52.0% 0.0216 250.0)"
+    },
+    {
+      "theme": "city-lights",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(91.5% 0.0216 250.0)",
+      "after": "oklch(63.9% 0.0216 250.0)"
+    },
+    {
+      "theme": "city-lights",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(91.5% 0.0216 250.0)",
+      "after": "oklch(63.9% 0.0216 250.0)"
+    },
+    {
+      "theme": "city-lights",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.6% 0.0216 250.0)",
+      "after": "oklch(53.6% 0.0216 250.0)"
+    },
+    {
+      "theme": "city-lights",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.6% 0.0216 250.0)",
+      "after": "oklch(53.6% 0.0216 250.0)"
+    },
+    {
+      "theme": "snazzy",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(88.1% 0.0216 250.0)",
+      "after": "oklch(62.8% 0.0216 250.0)"
+    },
+    {
+      "theme": "snazzy",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(88.1% 0.0216 250.0)",
+      "after": "oklch(62.8% 0.0216 250.0)"
+    },
+    {
+      "theme": "snazzy",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.0% 0.0216 250.0)",
+      "after": "oklch(52.0% 0.0216 250.0)"
+    },
+    {
+      "theme": "snazzy",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.0% 0.0216 250.0)",
+      "after": "oklch(52.0% 0.0216 250.0)"
+    },
+    {
+      "theme": "tomorrow-light",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(88.1% 0.0054 270.0)",
+      "after": "oklch(62.8% 0.0054 270.0)"
+    },
+    {
+      "theme": "tomorrow-light",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(88.1% 0.0054 270.0)",
+      "after": "oklch(62.8% 0.0054 270.0)"
+    },
+    {
+      "theme": "tomorrow-light",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.0% 0.0054 270.0)",
+      "after": "oklch(52.0% 0.0054 270.0)"
+    },
+    {
+      "theme": "tomorrow-light",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.0% 0.0054 270.0)",
+      "after": "oklch(52.0% 0.0054 270.0)"
+    },
+    {
+      "theme": "paper-color",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(88.1% 0.0054 270.0)",
+      "after": "oklch(62.8% 0.0054 270.0)"
+    },
+    {
+      "theme": "paper-color",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(88.1% 0.0054 270.0)",
+      "after": "oklch(62.8% 0.0054 270.0)"
+    },
+    {
+      "theme": "paper-color",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.0% 0.0054 270.0)",
+      "after": "oklch(52.0% 0.0054 270.0)"
+    },
+    {
+      "theme": "paper-color",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.0% 0.0054 270.0)",
+      "after": "oklch(52.0% 0.0054 270.0)"
+    },
+    {
+      "theme": "quietlight",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(91.5% 0.0216 70.0)",
+      "after": "oklch(64.0% 0.0216 70.0)"
+    },
+    {
+      "theme": "quietlight",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(91.5% 0.0216 70.0)",
+      "after": "oklch(64.0% 0.0216 70.0)"
+    },
+    {
+      "theme": "quietlight",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.6% 0.0216 70.0)",
+      "after": "oklch(53.7% 0.0216 70.0)"
+    },
+    {
+      "theme": "quietlight",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.6% 0.0216 70.0)",
+      "after": "oklch(53.7% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-0-xc",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(88.1% 0.0216 250.0)",
+      "after": "oklch(62.8% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-0-xc",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(88.1% 0.0216 250.0)",
+      "after": "oklch(62.8% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-0-xc",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.0% 0.0216 250.0)",
+      "after": "oklch(52.0% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-0-xc",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.0% 0.0216 250.0)",
+      "after": "oklch(52.0% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-0-xw",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(91.5% 0.0216 70.0)",
+      "after": "oklch(64.0% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-0-xw",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(91.5% 0.0216 70.0)",
+      "after": "oklch(64.0% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-0-xw",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.6% 0.0216 70.0)",
+      "after": "oklch(53.7% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-0-xw",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.6% 0.0216 70.0)",
+      "after": "oklch(53.7% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-0-ac",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(88.1% 0.0216 250.0)",
+      "after": "oklch(62.8% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-0-ac",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(88.1% 0.0216 250.0)",
+      "after": "oklch(62.8% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-0-ac",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.0% 0.0216 250.0)",
+      "after": "oklch(52.0% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-0-ac",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.0% 0.0216 250.0)",
+      "after": "oklch(52.0% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-0-aw",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(91.5% 0.0216 70.0)",
+      "after": "oklch(64.0% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-0-aw",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(91.5% 0.0216 70.0)",
+      "after": "oklch(64.0% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-0-aw",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.6% 0.0216 70.0)",
+      "after": "oklch(53.7% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-0-aw",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.6% 0.0216 70.0)",
+      "after": "oklch(53.7% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-0-tc",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(88.1% 0.0216 250.0)",
+      "after": "oklch(62.8% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-0-tc",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(88.1% 0.0216 250.0)",
+      "after": "oklch(62.8% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-0-tc",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.0% 0.0216 250.0)",
+      "after": "oklch(52.0% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-0-tc",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.0% 0.0216 250.0)",
+      "after": "oklch(52.0% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-0-tw",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(91.5% 0.0216 70.0)",
+      "after": "oklch(64.0% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-0-tw",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(91.5% 0.0216 70.0)",
+      "after": "oklch(64.0% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-0-tw",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.6% 0.0216 70.0)",
+      "after": "oklch(53.7% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-0-tw",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.6% 0.0216 70.0)",
+      "after": "oklch(53.7% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-24-xc",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(88.1% 0.0216 250.0)",
+      "after": "oklch(62.8% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-24-xc",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(88.1% 0.0216 250.0)",
+      "after": "oklch(62.8% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-24-xc",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.0% 0.0216 250.0)",
+      "after": "oklch(52.0% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-24-xc",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.0% 0.0216 250.0)",
+      "after": "oklch(52.0% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-24-xw",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(91.5% 0.0216 70.0)",
+      "after": "oklch(64.0% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-24-xw",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(91.5% 0.0216 70.0)",
+      "after": "oklch(64.0% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-24-xw",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.6% 0.0216 70.0)",
+      "after": "oklch(53.7% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-24-xw",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.6% 0.0216 70.0)",
+      "after": "oklch(53.7% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-24-ac",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(88.1% 0.0216 250.0)",
+      "after": "oklch(62.8% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-24-ac",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(88.1% 0.0216 250.0)",
+      "after": "oklch(62.8% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-24-ac",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.0% 0.0216 250.0)",
+      "after": "oklch(52.0% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-24-ac",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.0% 0.0216 250.0)",
+      "after": "oklch(52.0% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-24-aw",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(91.5% 0.0216 70.0)",
+      "after": "oklch(64.0% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-24-aw",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(91.5% 0.0216 70.0)",
+      "after": "oklch(64.0% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-24-aw",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.6% 0.0216 70.0)",
+      "after": "oklch(53.7% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-24-aw",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.6% 0.0216 70.0)",
+      "after": "oklch(53.7% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-24-tc",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(88.1% 0.0216 250.0)",
+      "after": "oklch(62.8% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-24-tc",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(88.1% 0.0216 250.0)",
+      "after": "oklch(62.8% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-24-tc",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.0% 0.0216 250.0)",
+      "after": "oklch(52.0% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-24-tc",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.0% 0.0216 250.0)",
+      "after": "oklch(52.0% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-24-tw",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(91.5% 0.0216 70.0)",
+      "after": "oklch(64.0% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-24-tw",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(91.5% 0.0216 70.0)",
+      "after": "oklch(64.0% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-24-tw",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.6% 0.0216 70.0)",
+      "after": "oklch(53.7% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-24-tw",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.6% 0.0216 70.0)",
+      "after": "oklch(53.7% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-48-xc",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(88.1% 0.0216 250.0)",
+      "after": "oklch(62.8% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-48-xc",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(88.1% 0.0216 250.0)",
+      "after": "oklch(62.8% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-48-xc",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.0% 0.0216 250.0)",
+      "after": "oklch(52.0% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-48-xc",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.0% 0.0216 250.0)",
+      "after": "oklch(52.0% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-48-xw",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(91.5% 0.0216 70.0)",
+      "after": "oklch(64.0% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-48-xw",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(91.5% 0.0216 70.0)",
+      "after": "oklch(64.0% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-48-xw",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.6% 0.0216 70.0)",
+      "after": "oklch(53.7% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-48-xw",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.6% 0.0216 70.0)",
+      "after": "oklch(53.7% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-48-ac",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(88.1% 0.0216 250.0)",
+      "after": "oklch(62.8% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-48-ac",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(88.1% 0.0216 250.0)",
+      "after": "oklch(62.8% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-48-ac",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.0% 0.0216 250.0)",
+      "after": "oklch(52.0% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-48-ac",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.0% 0.0216 250.0)",
+      "after": "oklch(52.0% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-48-aw",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(91.5% 0.0216 70.0)",
+      "after": "oklch(64.0% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-48-aw",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(91.5% 0.0216 70.0)",
+      "after": "oklch(64.0% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-48-aw",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.6% 0.0216 70.0)",
+      "after": "oklch(53.7% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-48-aw",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.6% 0.0216 70.0)",
+      "after": "oklch(53.7% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-48-tc",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(88.1% 0.0216 250.0)",
+      "after": "oklch(62.8% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-48-tc",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(88.1% 0.0216 250.0)",
+      "after": "oklch(62.8% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-48-tc",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.0% 0.0216 250.0)",
+      "after": "oklch(52.0% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-48-tc",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.0% 0.0216 250.0)",
+      "after": "oklch(52.0% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-48-tw",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(91.5% 0.0216 70.0)",
+      "after": "oklch(64.0% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-48-tw",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(91.5% 0.0216 70.0)",
+      "after": "oklch(64.0% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-48-tw",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.6% 0.0216 70.0)",
+      "after": "oklch(53.7% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-48-tw",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.6% 0.0216 70.0)",
+      "after": "oklch(53.7% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-72-xc",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(88.1% 0.0216 250.0)",
+      "after": "oklch(62.8% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-72-xc",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(88.1% 0.0216 250.0)",
+      "after": "oklch(62.8% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-72-xc",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.0% 0.0216 250.0)",
+      "after": "oklch(52.0% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-72-xc",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.0% 0.0216 250.0)",
+      "after": "oklch(52.0% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-72-xw",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(91.5% 0.0216 70.0)",
+      "after": "oklch(64.0% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-72-xw",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(91.5% 0.0216 70.0)",
+      "after": "oklch(64.0% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-72-xw",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.6% 0.0216 70.0)",
+      "after": "oklch(53.7% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-72-xw",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.6% 0.0216 70.0)",
+      "after": "oklch(53.7% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-72-ac",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(88.1% 0.0216 250.0)",
+      "after": "oklch(62.8% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-72-ac",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(88.1% 0.0216 250.0)",
+      "after": "oklch(62.8% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-72-ac",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.0% 0.0216 250.0)",
+      "after": "oklch(52.0% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-72-ac",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.0% 0.0216 250.0)",
+      "after": "oklch(52.0% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-72-aw",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(91.5% 0.0216 70.0)",
+      "after": "oklch(64.0% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-72-aw",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(91.5% 0.0216 70.0)",
+      "after": "oklch(64.0% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-72-aw",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.6% 0.0216 70.0)",
+      "after": "oklch(53.7% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-72-aw",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.6% 0.0216 70.0)",
+      "after": "oklch(53.7% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-72-tc",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(88.1% 0.0216 250.0)",
+      "after": "oklch(62.8% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-72-tc",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(88.1% 0.0216 250.0)",
+      "after": "oklch(62.8% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-72-tc",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.0% 0.0216 250.0)",
+      "after": "oklch(52.0% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-72-tc",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.0% 0.0216 250.0)",
+      "after": "oklch(52.0% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-72-tw",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(91.5% 0.0216 70.0)",
+      "after": "oklch(64.0% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-72-tw",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(91.5% 0.0216 70.0)",
+      "after": "oklch(64.0% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-72-tw",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.6% 0.0216 70.0)",
+      "after": "oklch(53.7% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-72-tw",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.6% 0.0216 70.0)",
+      "after": "oklch(53.7% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-96-xc",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(88.1% 0.0216 250.0)",
+      "after": "oklch(62.8% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-96-xc",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(88.1% 0.0216 250.0)",
+      "after": "oklch(62.8% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-96-xc",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.0% 0.0216 250.0)",
+      "after": "oklch(52.0% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-96-xc",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.0% 0.0216 250.0)",
+      "after": "oklch(52.0% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-96-xw",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(91.5% 0.0216 70.0)",
+      "after": "oklch(64.0% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-96-xw",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(91.5% 0.0216 70.0)",
+      "after": "oklch(64.0% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-96-xw",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.6% 0.0216 70.0)",
+      "after": "oklch(53.7% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-96-xw",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.6% 0.0216 70.0)",
+      "after": "oklch(53.7% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-96-ac",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(88.1% 0.0216 250.0)",
+      "after": "oklch(62.8% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-96-ac",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(88.1% 0.0216 250.0)",
+      "after": "oklch(62.8% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-96-ac",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.0% 0.0216 250.0)",
+      "after": "oklch(52.0% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-96-ac",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.0% 0.0216 250.0)",
+      "after": "oklch(52.0% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-96-aw",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(91.5% 0.0216 70.0)",
+      "after": "oklch(64.0% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-96-aw",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(91.5% 0.0216 70.0)",
+      "after": "oklch(64.0% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-96-aw",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.6% 0.0216 70.0)",
+      "after": "oklch(53.7% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-96-aw",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.6% 0.0216 70.0)",
+      "after": "oklch(53.7% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-96-tc",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(88.1% 0.0216 250.0)",
+      "after": "oklch(62.8% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-96-tc",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(88.1% 0.0216 250.0)",
+      "after": "oklch(62.8% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-96-tc",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.0% 0.0216 250.0)",
+      "after": "oklch(52.0% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-96-tc",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.0% 0.0216 250.0)",
+      "after": "oklch(52.0% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-96-tw",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(91.5% 0.0216 70.0)",
+      "after": "oklch(64.0% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-96-tw",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(91.5% 0.0216 70.0)",
+      "after": "oklch(64.0% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-96-tw",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.6% 0.0216 70.0)",
+      "after": "oklch(53.7% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-96-tw",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.6% 0.0216 70.0)",
+      "after": "oklch(53.7% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-120-xc",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(88.1% 0.0216 250.0)",
+      "after": "oklch(62.8% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-120-xc",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(88.1% 0.0216 250.0)",
+      "after": "oklch(62.8% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-120-xc",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.0% 0.0216 250.0)",
+      "after": "oklch(52.0% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-120-xc",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.0% 0.0216 250.0)",
+      "after": "oklch(52.0% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-120-xw",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(91.5% 0.0216 70.0)",
+      "after": "oklch(64.0% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-120-xw",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(91.5% 0.0216 70.0)",
+      "after": "oklch(64.0% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-120-xw",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.6% 0.0216 70.0)",
+      "after": "oklch(53.7% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-120-xw",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.6% 0.0216 70.0)",
+      "after": "oklch(53.7% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-120-ac",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(88.1% 0.0216 250.0)",
+      "after": "oklch(62.8% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-120-ac",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(88.1% 0.0216 250.0)",
+      "after": "oklch(62.8% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-120-ac",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.0% 0.0216 250.0)",
+      "after": "oklch(52.0% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-120-ac",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.0% 0.0216 250.0)",
+      "after": "oklch(52.0% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-120-aw",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(91.5% 0.0216 70.0)",
+      "after": "oklch(64.0% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-120-aw",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(91.5% 0.0216 70.0)",
+      "after": "oklch(64.0% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-120-aw",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.6% 0.0216 70.0)",
+      "after": "oklch(53.7% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-120-aw",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.6% 0.0216 70.0)",
+      "after": "oklch(53.7% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-120-tc",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(88.1% 0.0216 250.0)",
+      "after": "oklch(62.8% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-120-tc",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(88.1% 0.0216 250.0)",
+      "after": "oklch(62.8% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-120-tc",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.0% 0.0216 250.0)",
+      "after": "oklch(52.0% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-120-tc",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.0% 0.0216 250.0)",
+      "after": "oklch(52.0% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-120-tw",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(91.5% 0.0216 70.0)",
+      "after": "oklch(64.0% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-120-tw",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(91.5% 0.0216 70.0)",
+      "after": "oklch(64.0% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-120-tw",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.6% 0.0216 70.0)",
+      "after": "oklch(53.7% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-120-tw",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.6% 0.0216 70.0)",
+      "after": "oklch(53.7% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-144-xc",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(88.1% 0.0216 250.0)",
+      "after": "oklch(62.8% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-144-xc",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(88.1% 0.0216 250.0)",
+      "after": "oklch(62.8% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-144-xc",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.0% 0.0216 250.0)",
+      "after": "oklch(52.0% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-144-xc",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.0% 0.0216 250.0)",
+      "after": "oklch(52.0% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-144-xw",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(91.5% 0.0216 70.0)",
+      "after": "oklch(64.0% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-144-xw",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(91.5% 0.0216 70.0)",
+      "after": "oklch(64.0% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-144-xw",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.6% 0.0216 70.0)",
+      "after": "oklch(53.7% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-144-xw",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.6% 0.0216 70.0)",
+      "after": "oklch(53.7% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-144-ac",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(88.1% 0.0216 250.0)",
+      "after": "oklch(62.8% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-144-ac",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(88.1% 0.0216 250.0)",
+      "after": "oklch(62.8% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-144-ac",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.0% 0.0216 250.0)",
+      "after": "oklch(52.0% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-144-ac",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.0% 0.0216 250.0)",
+      "after": "oklch(52.0% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-144-aw",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(91.5% 0.0216 70.0)",
+      "after": "oklch(64.0% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-144-aw",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(91.5% 0.0216 70.0)",
+      "after": "oklch(64.0% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-144-aw",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.6% 0.0216 70.0)",
+      "after": "oklch(53.7% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-144-aw",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.6% 0.0216 70.0)",
+      "after": "oklch(53.7% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-144-tc",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(88.1% 0.0216 250.0)",
+      "after": "oklch(62.8% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-144-tc",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(88.1% 0.0216 250.0)",
+      "after": "oklch(62.8% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-144-tc",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.0% 0.0216 250.0)",
+      "after": "oklch(52.0% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-144-tc",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.0% 0.0216 250.0)",
+      "after": "oklch(52.0% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-144-tw",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(91.5% 0.0216 70.0)",
+      "after": "oklch(64.0% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-144-tw",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(91.5% 0.0216 70.0)",
+      "after": "oklch(64.0% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-144-tw",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.6% 0.0216 70.0)",
+      "after": "oklch(53.7% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-144-tw",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.6% 0.0216 70.0)",
+      "after": "oklch(53.7% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-168-xc",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(88.1% 0.0216 250.0)",
+      "after": "oklch(62.8% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-168-xc",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(88.1% 0.0216 250.0)",
+      "after": "oklch(62.8% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-168-xc",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.0% 0.0216 250.0)",
+      "after": "oklch(52.0% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-168-xc",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.0% 0.0216 250.0)",
+      "after": "oklch(52.0% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-168-xw",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(91.5% 0.0216 70.0)",
+      "after": "oklch(64.0% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-168-xw",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(91.5% 0.0216 70.0)",
+      "after": "oklch(64.0% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-168-xw",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.6% 0.0216 70.0)",
+      "after": "oklch(53.7% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-168-xw",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.6% 0.0216 70.0)",
+      "after": "oklch(53.7% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-168-ac",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(88.1% 0.0216 250.0)",
+      "after": "oklch(62.8% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-168-ac",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(88.1% 0.0216 250.0)",
+      "after": "oklch(62.8% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-168-ac",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.0% 0.0216 250.0)",
+      "after": "oklch(52.0% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-168-ac",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.0% 0.0216 250.0)",
+      "after": "oklch(52.0% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-168-aw",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(91.5% 0.0216 70.0)",
+      "after": "oklch(64.0% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-168-aw",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(91.5% 0.0216 70.0)",
+      "after": "oklch(64.0% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-168-aw",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.6% 0.0216 70.0)",
+      "after": "oklch(53.7% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-168-aw",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.6% 0.0216 70.0)",
+      "after": "oklch(53.7% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-168-tc",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(88.1% 0.0216 250.0)",
+      "after": "oklch(62.8% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-168-tc",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(88.1% 0.0216 250.0)",
+      "after": "oklch(62.8% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-168-tc",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.0% 0.0216 250.0)",
+      "after": "oklch(52.0% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-168-tc",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.0% 0.0216 250.0)",
+      "after": "oklch(52.0% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-168-tw",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(91.5% 0.0216 70.0)",
+      "after": "oklch(64.0% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-168-tw",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(91.5% 0.0216 70.0)",
+      "after": "oklch(64.0% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-168-tw",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.6% 0.0216 70.0)",
+      "after": "oklch(53.7% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-168-tw",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.6% 0.0216 70.0)",
+      "after": "oklch(53.7% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-192-xc",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(88.1% 0.0216 250.0)",
+      "after": "oklch(62.8% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-192-xc",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(88.1% 0.0216 250.0)",
+      "after": "oklch(62.8% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-192-xc",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.0% 0.0216 250.0)",
+      "after": "oklch(52.0% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-192-xc",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.0% 0.0216 250.0)",
+      "after": "oklch(52.0% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-192-xw",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(91.5% 0.0216 70.0)",
+      "after": "oklch(64.0% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-192-xw",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(91.5% 0.0216 70.0)",
+      "after": "oklch(64.0% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-192-xw",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.6% 0.0216 70.0)",
+      "after": "oklch(53.7% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-192-xw",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.6% 0.0216 70.0)",
+      "after": "oklch(53.7% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-192-ac",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(88.1% 0.0216 250.0)",
+      "after": "oklch(62.8% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-192-ac",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(88.1% 0.0216 250.0)",
+      "after": "oklch(62.8% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-192-ac",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.0% 0.0216 250.0)",
+      "after": "oklch(52.0% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-192-ac",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.0% 0.0216 250.0)",
+      "after": "oklch(52.0% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-192-aw",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(91.5% 0.0216 70.0)",
+      "after": "oklch(64.0% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-192-aw",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(91.5% 0.0216 70.0)",
+      "after": "oklch(64.0% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-192-aw",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.6% 0.0216 70.0)",
+      "after": "oklch(53.7% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-192-aw",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.6% 0.0216 70.0)",
+      "after": "oklch(53.7% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-192-tc",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(88.1% 0.0216 250.0)",
+      "after": "oklch(62.8% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-192-tc",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(88.1% 0.0216 250.0)",
+      "after": "oklch(62.8% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-192-tc",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.0% 0.0216 250.0)",
+      "after": "oklch(52.0% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-192-tc",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.0% 0.0216 250.0)",
+      "after": "oklch(52.0% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-192-tw",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(91.5% 0.0216 70.0)",
+      "after": "oklch(64.0% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-192-tw",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(91.5% 0.0216 70.0)",
+      "after": "oklch(64.0% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-192-tw",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.6% 0.0216 70.0)",
+      "after": "oklch(53.7% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-192-tw",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.6% 0.0216 70.0)",
+      "after": "oklch(53.7% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-216-xc",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(88.1% 0.0216 250.0)",
+      "after": "oklch(62.8% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-216-xc",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(88.1% 0.0216 250.0)",
+      "after": "oklch(62.8% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-216-xc",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.0% 0.0216 250.0)",
+      "after": "oklch(52.0% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-216-xc",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.0% 0.0216 250.0)",
+      "after": "oklch(52.0% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-216-xw",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(91.5% 0.0216 70.0)",
+      "after": "oklch(64.0% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-216-xw",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(91.5% 0.0216 70.0)",
+      "after": "oklch(64.0% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-216-xw",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.6% 0.0216 70.0)",
+      "after": "oklch(53.7% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-216-xw",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.6% 0.0216 70.0)",
+      "after": "oklch(53.7% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-216-ac",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(88.1% 0.0216 250.0)",
+      "after": "oklch(62.8% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-216-ac",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(88.1% 0.0216 250.0)",
+      "after": "oklch(62.8% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-216-ac",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.0% 0.0216 250.0)",
+      "after": "oklch(52.0% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-216-ac",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.0% 0.0216 250.0)",
+      "after": "oklch(52.0% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-216-aw",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(91.5% 0.0216 70.0)",
+      "after": "oklch(64.0% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-216-aw",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(91.5% 0.0216 70.0)",
+      "after": "oklch(64.0% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-216-aw",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.6% 0.0216 70.0)",
+      "after": "oklch(53.7% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-216-aw",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.6% 0.0216 70.0)",
+      "after": "oklch(53.7% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-216-tc",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(88.1% 0.0216 250.0)",
+      "after": "oklch(62.8% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-216-tc",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(88.1% 0.0216 250.0)",
+      "after": "oklch(62.8% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-216-tc",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.0% 0.0216 250.0)",
+      "after": "oklch(52.0% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-216-tc",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.0% 0.0216 250.0)",
+      "after": "oklch(52.0% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-216-tw",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(91.5% 0.0216 70.0)",
+      "after": "oklch(64.0% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-216-tw",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(91.5% 0.0216 70.0)",
+      "after": "oklch(64.0% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-216-tw",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.6% 0.0216 70.0)",
+      "after": "oklch(53.7% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-216-tw",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.6% 0.0216 70.0)",
+      "after": "oklch(53.7% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-240-xc",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(88.1% 0.0216 250.0)",
+      "after": "oklch(62.8% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-240-xc",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(88.1% 0.0216 250.0)",
+      "after": "oklch(62.8% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-240-xc",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.0% 0.0216 250.0)",
+      "after": "oklch(52.0% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-240-xc",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.0% 0.0216 250.0)",
+      "after": "oklch(52.0% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-240-xw",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(91.5% 0.0216 70.0)",
+      "after": "oklch(64.0% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-240-xw",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(91.5% 0.0216 70.0)",
+      "after": "oklch(64.0% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-240-xw",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.6% 0.0216 70.0)",
+      "after": "oklch(53.7% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-240-xw",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.6% 0.0216 70.0)",
+      "after": "oklch(53.7% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-240-ac",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(88.1% 0.0216 250.0)",
+      "after": "oklch(62.8% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-240-ac",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(88.1% 0.0216 250.0)",
+      "after": "oklch(62.8% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-240-ac",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.0% 0.0216 250.0)",
+      "after": "oklch(52.0% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-240-ac",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.0% 0.0216 250.0)",
+      "after": "oklch(52.0% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-240-aw",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(91.5% 0.0216 70.0)",
+      "after": "oklch(64.0% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-240-aw",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(91.5% 0.0216 70.0)",
+      "after": "oklch(64.0% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-240-aw",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.6% 0.0216 70.0)",
+      "after": "oklch(53.7% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-240-aw",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.6% 0.0216 70.0)",
+      "after": "oklch(53.7% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-240-tc",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(88.1% 0.0216 250.0)",
+      "after": "oklch(62.8% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-240-tc",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(88.1% 0.0216 250.0)",
+      "after": "oklch(62.8% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-240-tc",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.0% 0.0216 250.0)",
+      "after": "oklch(52.0% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-240-tc",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.0% 0.0216 250.0)",
+      "after": "oklch(52.0% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-240-tw",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(91.5% 0.0216 70.0)",
+      "after": "oklch(64.0% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-240-tw",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(91.5% 0.0216 70.0)",
+      "after": "oklch(64.0% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-240-tw",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.6% 0.0216 70.0)",
+      "after": "oklch(53.7% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-240-tw",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.6% 0.0216 70.0)",
+      "after": "oklch(53.7% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-264-xc",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(88.1% 0.0216 250.0)",
+      "after": "oklch(62.8% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-264-xc",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(88.1% 0.0216 250.0)",
+      "after": "oklch(62.8% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-264-xc",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.0% 0.0216 250.0)",
+      "after": "oklch(52.0% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-264-xc",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.0% 0.0216 250.0)",
+      "after": "oklch(52.0% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-264-xw",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(91.5% 0.0216 70.0)",
+      "after": "oklch(64.0% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-264-xw",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(91.5% 0.0216 70.0)",
+      "after": "oklch(64.0% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-264-xw",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.6% 0.0216 70.0)",
+      "after": "oklch(53.7% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-264-xw",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.6% 0.0216 70.0)",
+      "after": "oklch(53.7% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-264-ac",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(88.1% 0.0216 250.0)",
+      "after": "oklch(62.8% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-264-ac",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(88.1% 0.0216 250.0)",
+      "after": "oklch(62.8% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-264-ac",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.0% 0.0216 250.0)",
+      "after": "oklch(52.0% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-264-ac",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.0% 0.0216 250.0)",
+      "after": "oklch(52.0% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-264-aw",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(91.5% 0.0216 70.0)",
+      "after": "oklch(64.0% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-264-aw",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(91.5% 0.0216 70.0)",
+      "after": "oklch(64.0% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-264-aw",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.6% 0.0216 70.0)",
+      "after": "oklch(53.7% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-264-aw",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.6% 0.0216 70.0)",
+      "after": "oklch(53.7% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-264-tc",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(88.1% 0.0216 250.0)",
+      "after": "oklch(62.8% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-264-tc",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(88.1% 0.0216 250.0)",
+      "after": "oklch(62.8% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-264-tc",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.0% 0.0216 250.0)",
+      "after": "oklch(52.0% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-264-tc",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.0% 0.0216 250.0)",
+      "after": "oklch(52.0% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-264-tw",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(91.5% 0.0216 70.0)",
+      "after": "oklch(64.0% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-264-tw",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(91.5% 0.0216 70.0)",
+      "after": "oklch(64.0% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-264-tw",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.6% 0.0216 70.0)",
+      "after": "oklch(53.7% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-264-tw",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.6% 0.0216 70.0)",
+      "after": "oklch(53.7% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-288-xc",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(88.1% 0.0216 250.0)",
+      "after": "oklch(62.8% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-288-xc",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(88.1% 0.0216 250.0)",
+      "after": "oklch(62.8% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-288-xc",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.0% 0.0216 250.0)",
+      "after": "oklch(52.0% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-288-xc",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.0% 0.0216 250.0)",
+      "after": "oklch(52.0% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-288-xw",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(91.5% 0.0216 70.0)",
+      "after": "oklch(64.0% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-288-xw",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(91.5% 0.0216 70.0)",
+      "after": "oklch(64.0% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-288-xw",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.6% 0.0216 70.0)",
+      "after": "oklch(53.7% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-288-xw",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.6% 0.0216 70.0)",
+      "after": "oklch(53.7% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-288-ac",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(88.1% 0.0216 250.0)",
+      "after": "oklch(62.8% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-288-ac",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(88.1% 0.0216 250.0)",
+      "after": "oklch(62.8% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-288-ac",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.0% 0.0216 250.0)",
+      "after": "oklch(52.0% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-288-ac",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.0% 0.0216 250.0)",
+      "after": "oklch(52.0% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-288-aw",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(91.5% 0.0216 70.0)",
+      "after": "oklch(64.0% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-288-aw",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(91.5% 0.0216 70.0)",
+      "after": "oklch(64.0% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-288-aw",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.6% 0.0216 70.0)",
+      "after": "oklch(53.7% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-288-aw",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.6% 0.0216 70.0)",
+      "after": "oklch(53.7% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-288-tc",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(88.1% 0.0216 250.0)",
+      "after": "oklch(62.8% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-288-tc",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(88.1% 0.0216 250.0)",
+      "after": "oklch(62.8% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-288-tc",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.0% 0.0216 250.0)",
+      "after": "oklch(52.0% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-288-tc",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.0% 0.0216 250.0)",
+      "after": "oklch(52.0% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-288-tw",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(91.5% 0.0216 70.0)",
+      "after": "oklch(64.0% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-288-tw",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(91.5% 0.0216 70.0)",
+      "after": "oklch(64.0% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-288-tw",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.6% 0.0216 70.0)",
+      "after": "oklch(53.7% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-288-tw",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.6% 0.0216 70.0)",
+      "after": "oklch(53.7% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-312-xc",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(88.1% 0.0216 250.0)",
+      "after": "oklch(62.8% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-312-xc",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(88.1% 0.0216 250.0)",
+      "after": "oklch(62.8% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-312-xc",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.0% 0.0216 250.0)",
+      "after": "oklch(52.0% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-312-xc",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.0% 0.0216 250.0)",
+      "after": "oklch(52.0% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-312-xw",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(91.5% 0.0216 70.0)",
+      "after": "oklch(64.0% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-312-xw",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(91.5% 0.0216 70.0)",
+      "after": "oklch(64.0% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-312-xw",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.6% 0.0216 70.0)",
+      "after": "oklch(53.7% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-312-xw",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.6% 0.0216 70.0)",
+      "after": "oklch(53.7% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-312-ac",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(88.1% 0.0216 250.0)",
+      "after": "oklch(62.8% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-312-ac",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(88.1% 0.0216 250.0)",
+      "after": "oklch(62.8% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-312-ac",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.0% 0.0216 250.0)",
+      "after": "oklch(52.0% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-312-ac",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.0% 0.0216 250.0)",
+      "after": "oklch(52.0% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-312-aw",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(91.5% 0.0216 70.0)",
+      "after": "oklch(64.0% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-312-aw",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(91.5% 0.0216 70.0)",
+      "after": "oklch(64.0% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-312-aw",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.6% 0.0216 70.0)",
+      "after": "oklch(53.7% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-312-aw",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.6% 0.0216 70.0)",
+      "after": "oklch(53.7% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-312-tc",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(88.1% 0.0216 250.0)",
+      "after": "oklch(62.8% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-312-tc",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(88.1% 0.0216 250.0)",
+      "after": "oklch(62.8% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-312-tc",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.0% 0.0216 250.0)",
+      "after": "oklch(52.0% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-312-tc",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.0% 0.0216 250.0)",
+      "after": "oklch(52.0% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-312-tw",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(91.5% 0.0216 70.0)",
+      "after": "oklch(64.0% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-312-tw",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(91.5% 0.0216 70.0)",
+      "after": "oklch(64.0% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-312-tw",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.6% 0.0216 70.0)",
+      "after": "oklch(53.7% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-312-tw",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.6% 0.0216 70.0)",
+      "after": "oklch(53.7% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-336-xc",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(88.1% 0.0216 250.0)",
+      "after": "oklch(62.8% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-336-xc",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(88.1% 0.0216 250.0)",
+      "after": "oklch(62.8% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-336-xc",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.0% 0.0216 250.0)",
+      "after": "oklch(52.0% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-336-xc",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.0% 0.0216 250.0)",
+      "after": "oklch(52.0% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-336-xw",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(91.5% 0.0216 70.0)",
+      "after": "oklch(64.0% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-336-xw",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(91.5% 0.0216 70.0)",
+      "after": "oklch(64.0% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-336-xw",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.6% 0.0216 70.0)",
+      "after": "oklch(53.7% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-336-xw",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.6% 0.0216 70.0)",
+      "after": "oklch(53.7% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-336-ac",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(88.1% 0.0216 250.0)",
+      "after": "oklch(62.8% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-336-ac",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(88.1% 0.0216 250.0)",
+      "after": "oklch(62.8% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-336-ac",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.0% 0.0216 250.0)",
+      "after": "oklch(52.0% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-336-ac",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.0% 0.0216 250.0)",
+      "after": "oklch(52.0% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-336-aw",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(91.5% 0.0216 70.0)",
+      "after": "oklch(64.0% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-336-aw",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(91.5% 0.0216 70.0)",
+      "after": "oklch(64.0% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-336-aw",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.6% 0.0216 70.0)",
+      "after": "oklch(53.7% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-336-aw",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.6% 0.0216 70.0)",
+      "after": "oklch(53.7% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-336-tc",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(88.1% 0.0216 250.0)",
+      "after": "oklch(62.8% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-336-tc",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(88.1% 0.0216 250.0)",
+      "after": "oklch(62.8% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-336-tc",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.0% 0.0216 250.0)",
+      "after": "oklch(52.0% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-336-tc",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.0% 0.0216 250.0)",
+      "after": "oklch(52.0% 0.0216 250.0)"
+    },
+    {
+      "theme": "spectrum-336-tw",
+      "mode": "light",
+      "token": "border-strong",
+      "before": "oklch(91.5% 0.0216 70.0)",
+      "after": "oklch(64.0% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-336-tw",
+      "mode": "light",
+      "token": "input",
+      "before": "oklch(91.5% 0.0216 70.0)",
+      "after": "oklch(64.0% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-336-tw",
+      "mode": "dark",
+      "token": "border-strong",
+      "before": "oklch(33.6% 0.0216 70.0)",
+      "after": "oklch(53.7% 0.0216 70.0)"
+    },
+    {
+      "theme": "spectrum-336-tw",
+      "mode": "dark",
+      "token": "input",
+      "before": "oklch(33.6% 0.0216 70.0)",
+      "after": "oklch(53.7% 0.0216 70.0)"
+    }
+  ],
+  "defaultCssIndicatorChanges": {
+    "light": {
+      "border-strong": {
+        "before": "#d4d4d8",
+        "after": "oklch(64.3% 0.0055 286.3)"
+      },
+      "input": {
+        "before": "#d4d4d8",
+        "after": "oklch(64.3% 0.0055 286.3)"
+      }
+    },
+    "dark": {
+      "border-strong": {
+        "before": "#3f3f46",
+        "after": "oklch(50.6% 0.0119 285.8)"
+      },
+      "input": {
+        "before": "#3f3f46",
+        "after": "oklch(50.6% 0.0119 285.8)"
+      }
+    }
+  },
+  "smartQrIndicatorChanges": {
+    "light": {
+      "border-strong": {
+        "before": "#c7cad9",
+        "after": "oklch(59.1% 0.0210 276.9)"
+      },
+      "input": {
+        "before": "#e4e6f0",
+        "after": "oklch(59.0% 0.0137 277.1)"
+      }
+    },
+    "dark": {
+      "border-strong": {
+        "before": "#3a3a40",
+        "after": "oklch(51.6% 0.0103 285.9)"
+      },
+      "input": {
+        "before": "#2a2a2e",
+        "after": "oklch(51.6% 0.0072 285.9)"
+      }
+    }
+  },
+  "unexpectedChanges": []
+}

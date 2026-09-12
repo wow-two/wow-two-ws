@@ -1,6 +1,6 @@
 # Feedback
 
-*Last updated: 2026-08-23*
+*Last updated: 2026-09-10*
 
 > A report of what the system just did or is doing — the outcome of an action, not the content of a page.
 > Purpose — outcome reporting is one kind, so severity, dismissal, and live-region wiring are decided once.
@@ -11,7 +11,7 @@
 - must report **system state**, not domain content — content the user asked for is a [display](display.md).
 - must be readable by a page reader without focus moving to it — a live region, not a silent swap.
 - must stand in for nothing; a component that replaces missing content is a [state](state.md).
-- must carry its own copy; a bare mark with no text is an [indicator](indicator.md).
+- must report an operation or condition; a compact passive state mark is an [indicator](indicator.md), with or without a label.
 - the ✅ list names **kinds**, never the folder's residents — a state or an indicator may live in
   `presentation/feedback/` when its case sends it there ([state](state.md) § *Location*).
 
@@ -48,22 +48,16 @@
 
 ### Construct
 
-- must set the ARIA live semantics the severity earns — `status` for progress, `alert` for an error.
+- must use polite status updates by default and an alert only for information that warrants interruption.
+- must keep the announcement owner stable; component mounting alone is not a reliable status announcement.
 - must ship a slotted root and an atomic `*Simple` counterpart where callers need free children.
-- must subscribe a viewport to a store or bus rather than take its items as props.
+- must delegate queue subscription, timers and portal ownership to the [host](host.md) or an explicit custom viewport.
 
 ### Component name
 
 - must end an inline note `*Callout`, a transient one `*Toast`, a section note `*Alert`.
 - must admit `*Banner` for a full-width strip and `*Bar` for a persistent one — `UndoBar` — all shape words ([visual
   kinds](visual.md) § *Shape words*).
-
-```vue
-<script setup lang="ts">
-/** Renders a transient toast card with an icon, title, description, and actions. */
-defineOptions({ name: 'Toast' });
-</script>
-```
 
 ---
 
@@ -73,7 +67,7 @@ defineOptions({ name: 'Toast' });
 
 #### [The](../../../lla/notation/documentation/documentation.md)
 
-- must take `tone` from the shared severity vocabulary, never a free string.
+- must type semantic severity through the shared vocabulary; each component spec names its exact prop.
 - must take the copy as scalar props with same-named slots, so a caller can enrich either half.
 - must take a `duration` only where the component dismisses itself.
 
@@ -85,29 +79,17 @@ defineOptions({ name: 'Toast' });
 
 #### [Fires when](../../../lla/notation/documentation/documentation.md)
 
-- must emit `dismiss` for every close path, so the caller can drop the item from its queue.
-
-```vue
-<script setup lang="ts">
-defineProps<{ tone?: StatusTone; title?: string; duration?: number }>();   // ✅
-defineEmits<{ (e: 'dismiss'): void }>();                                   // ✅
-defineProps<{ color?: string }>();                                         // ❌ severity is a vocabulary
-</script>
-```
+- must report accepted dismissal through one documented event; the queue owner removes the item.
 
 ---
 
 ## Composition
 
-- must be mounted by a [layout](layout.md) region, a [page](page.md), or a [field](field.md).
-- must compose [action](action.md) and [indicator](indicator.md) in its slots — retry, undo, a spinner.
-- must portal a transient surface to the app root, so a toast survives its trigger unmounting.
-- must not mount a [view](view.md), a [panel](panel.md), or a [control](control.md).
-
-```txt
-✅ AppShell → ToastHost → Toast → Button      ·      Field → FormErrorMessage
-❌ Toast → TextInput                        (asking for input inside a report)
-```
+- must follow the shared [composition contract](visual.md#composition-order).
+- may accept caller-owned actions and free-form content; embedded controls keep their own names and form lifecycle.
+- must keep the transient card visual; its viewport owns timers, portal placement and queue removal.
+- must avoid announcing the same message from both the card and its host.
+- must let persistent actionable feedback remain reachable until the relevant action can be completed.
 
 ---
 
@@ -117,4 +99,4 @@ defineProps<{ color?: string }>();                                         // �
 - [indicator](indicator.md) — the kind for a passive mark with no copy of its own
 - [state](state.md) — the kind that stands in for content instead of reporting on it
 - [state and data](../../domains/data/state-and-data.md) — the bus and store a viewport subscribes to
-- [visual kinds](visual.md) — every other kind, and the composition ladder
+- [visual kinds](visual.md) — every other kind, and the composition contract

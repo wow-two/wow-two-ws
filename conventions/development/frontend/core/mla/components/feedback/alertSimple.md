@@ -1,10 +1,9 @@
 # AlertSimple
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > The alert's tinted container and nothing else — for a body the structured slots cannot shape.
 > What a feedback component is → [feedback](../../constructs/visual/feedback.md).
-> Its full surface → `AlertSimple.spec.md`.
 
 ## Reach for it when
 
@@ -21,11 +20,3 @@
 | [Alert](alert.md) | icon, title, description and actions are the layout wanted |
 | [Callout](callout.md) | the note is quieter — a left rule, no fill |
 | [ToastSimple](toastSimple.md) | the same free-form body is transient and elevated |
-
----
-
-## Values
-
-- must set `severity`; unset falls to `info`, and `neutral` is non-semantic
-- should pass `role="alert"` for an interrupting failure; `status` yields to it
-- must not bind a close handler — the atom ships none, only [Alert](alert.md) does

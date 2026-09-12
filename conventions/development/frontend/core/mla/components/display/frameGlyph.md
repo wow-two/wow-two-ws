@@ -1,10 +1,9 @@
 # FrameGlyph
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > The viewfinder mark — an outer frame with an inner pupil, or the pupil alone.
 > What a display is → [display](../../constructs/visual/display.md).
-> Its full surface → `FrameGlyph.vue`.
 
 ## Reach for it when
 
@@ -27,5 +26,3 @@
 ## Values
 
 - should leave `size` at `20` px, the preset-grid step
-- must set `frameRx` and `pupilRoundness` from the values being previewed, not by eye
-- must set `isDot` to render the enlarged pupil alone, without its frame

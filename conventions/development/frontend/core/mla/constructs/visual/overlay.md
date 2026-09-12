@@ -1,6 +1,6 @@
 # Overlay
 
-*Last updated: 2026-08-23*
+*Last updated: 2026-09-10*
 
 > A surface that leaves the document flow and paints above the page until it is dismissed.
 > Purpose — an action gets its own surface without taking a URL, so it never forks by breakpoint.
@@ -8,15 +8,13 @@
 
 ## Gate
 
-- must **leave the flow** — a surface that pushes siblings around is a [layout](layout.md) or a [panel](panel.md).
-- must be dismissable — Escape, a scrim click, or an explicit action; a permanent layer is not an overlay.
-- must carry no route ([routing](../../../../shapes/app/routing/routing.md)); a bookmarkable place is a [page](page.md).
-- must own focus while it is open — trap it, restore it on close.
-
-```txt
-✅ Modal · AlertModal · Drawer · BottomSheet · ActionSheet · Popover · HoverCard · LoadingOverlay
-❌ Sidebar                  (it shares the flow with the content — a layout region)
-```
+- must render a floating surface with a documented open/close lifecycle.
+- must distinguish modal interaction, nonmodal interaction and descriptive hover/focus content.
+- must trap focus and make background content unavailable only while modal.
+- must leave focus on the trigger for a tooltip or descriptive hover card.
+- must let keyboard users leave a nonmodal surface without trapping them in its controls.
+- must preserve route identity for bookmarkable places; geometry alone does not determine navigation.
+- must offer a keyboard-reachable dismissal or completion path.
 
 ---
 
@@ -55,13 +53,6 @@
   layer painted over one child — all shape words ([visual kinds](visual.md) § *Shape words*).
 - must not prefix `Overlay*`; the word says what the thing is, so it trails.
 
-```vue
-<script setup lang="ts">
-/** Renders a bottom-anchored sheet with a drag handle and snap points. */
-defineOptions({ name: 'BottomSheet' });
-</script>
-```
-
 ---
 
 ## Content
@@ -70,7 +61,8 @@ defineOptions({ name: 'BottomSheet' });
 
 #### [The](../../../lla/notation/documentation/documentation.md)
 
-- must model openness as `open` with an `update:open` emit, and support an uncontrolled default.
+- must apply the [controlled-state contract](../../../lla/notation/naming/props.md#controlled-state) to openness;
+  model spellings belong to the framework adapter.
 - must accept a dismissal opt-out per channel rather than one blanket flag — Escape and scrim differ.
 
 ### Slots
@@ -81,29 +73,21 @@ defineOptions({ name: 'BottomSheet' });
 
 #### [Fires when](../../../lla/notation/documentation/documentation.md)
 
-- must emit `update:open` for every close path, including Escape and the scrim.
-
-```vue
-<script setup lang="ts">
-defineProps<{ open?: boolean; defaultOpen?: boolean }>();          // ✅ controlled + uncontrolled
-defineEmits<{ (e: 'update:open', open: boolean): void }>();        // ✅
-defineProps<{ isVisible: boolean }>();                             // ❌ not the model contract
-</script>
-```
+- must report every accepted close through the open-state contract, including Escape and outside interaction.
+- must let a dirty-flow owner veto dismissal without changing the surface into an alert dialog.
 
 ---
 
 ## Composition
 
-- must be opened by an [action](action.md), and never mount the component that opened it.
-- must compose [field](field.md), [control](control.md), and [display](display.md) inside its body.
-- must present the same place identically at every breakpoint — swap Modal ↔ BottomSheet, never route.
-- must not stack a second blocking overlay; a nested flow belongs in the same surface.
-
-```txt
-✅ Button → AlertModal → Field → Button           (confirm inside one surface)
-❌ Modal → Modal                                  (a second blocking layer over the first)
-```
+- must follow the shared [composition contract](visual.md#composition-order).
+- must give dialogs an accessible name and connect an optional description.
+- must keep a tooltip descriptive and connect it with `aria-describedby`; it does not replace the trigger's name.
+- must restore focus to a valid trigger or a meaningful continuation when the trigger no longer exists.
+- must coordinate nested floating surfaces: the topmost eligible layer handles Escape and outside interaction.
+- must default a nested blocking flow to the existing modal surface rather than stacking another modal.
+- must preserve the same task and data when adapting its geometry across breakpoints.
+- must allow hover/focus content to remain reachable while the pointer crosses to it.
 
 ---
 
@@ -113,4 +97,4 @@ defineProps<{ isVisible: boolean }>();                             // ❌ not th
 - [action](action.md) — the trigger that opens an overlay
 - [primitive](primitive.md) — the portal, focus-scope, and dismiss behaviour an overlay builds on
 - [routing](../../../../shapes/app/routing/routing.md) — why an action stays routeless and a place does not
-- [visual kinds](visual.md) — every other kind, and the composition ladder
+- [visual kinds](visual.md) — every other kind, and the composition contract

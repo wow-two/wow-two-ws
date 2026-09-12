@@ -1,6 +1,6 @@
 # Extensions
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > The static-logic tier over a domain's types.
 > Purpose — keep dependency-free behaviour off the type it extends, without inventing a service for it.
@@ -20,13 +20,11 @@ What it is, how it is declared and what it is called → [extensions](../constru
 
 ### Type doc
 
-#### [Summary](../../lla/notation/documentation/summary.md)
-- must start with **Extends**, then `<see cref>` the target, then `for {purpose}`.
-- must name the purpose category, never the methods it holds.
+- must inherit [extension type documentation](../constructs/behavior/extensions.md#type-doc).
 
 ```csharp
 // ✅
-/// <summary>Extends <see cref="WifiContentValueObject"/> for payload encoding.</summary>
+/// <summary>Extends the codes domain for payload encoding.</summary>
 // ❌ names the additions, which change with every method
 /// <summary>Extends <see cref="WifiContentValueObject"/> with Encode and Parse.</summary>
 ```
@@ -39,7 +37,7 @@ What it is, how it is declared and what it is called → [extensions](../constru
 
 #### [Summary](../../lla/notation/documentation/summary.md)
 - must start the `<summary>` with the method's own verb — `Adds`, `Maps`, `Encodes`.
-- must carry a `<param>` for every parameter, the receiver included.
+- parameter coverage → [parameter documentation](../../lla/notation/documentation/params.md).
 
 ```csharp
 // ✅
@@ -57,9 +55,7 @@ What it is, how it is declared and what it is called → [extensions](../constru
 - may be `async` when the receiver's own work is asynchronous, returning `Task<T>` or `ValueTask<T>`.
 - may use `=>` for a member that returns or delegates — extensions take no collaborators to accumulate
   ([style](../../lla/notation/style/style.md) § *The body*).
-- must avoid a `Result` where it can — a `bool` from `TryX`, or an early return, says the same thing cheaper.
-- must return a `Result` when neither fits, rather than throwing.
-- may throw only from a method whose name says so — `XOrThrow`, `DoXAndThrow`.
+- must follow the [result failure policy](result.md#failure), including guards and declared throwing pairs.
 - must produce its result from the receiver and its arguments alone — joining two collaborators makes it a `Service`.
 - must declare a constant here while this class is its only caller — a second caller moves it to `Constants`.
 - must order constants first, then methods.
@@ -84,7 +80,7 @@ A family class owns the family's format constants too, keeping wire spellings ou
 ## Registration naming
 
 For a library that ships `IServiceCollection` / host extensions (the SDK pattern).
-§ *No brand / product prefix* applies in full — the *package* carries the brand, the *method* the meaning.
+Registration methods name their capability; the package carries the brand.
 
 - **extension class** — on `IServiceCollection`, name `<Area>ServiceCollectionExtensions` (Microsoft's pattern)
   - on any other type, `<Target>Extensions` or `<Area><Target>Extensions` — `TimeProviderExtensions`,

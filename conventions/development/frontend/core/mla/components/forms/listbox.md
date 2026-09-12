@@ -1,10 +1,9 @@
 # Listbox
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > The selection list itself — always open, keyboard-navigable, single or multiple.
 > What a control is → [control](../../constructs/visual/control.md).
-> Its full surface → `Listbox.spec.md`.
 
 ## Reach for it when
 
@@ -28,7 +27,4 @@
 
 ## Values
 
-- must set `isMultiple` for an array value — the default single mode returns one item
 - should leave `indicator` unset: `check` when single, `checkbox` when multiple
-- must pass `isEqual` when the value is an object; identity is the default comparison
-- must bind `value` or `modelValue`, never both — `value` wins on collision

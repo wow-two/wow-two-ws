@@ -1,6 +1,6 @@
 # Behavior components
 
-*Last updated: 2026-08-23*
+*Last updated: 2026-09-10*
 
 > Which seam or hook to reach for, and with what values.
 > What each role **is** → [behavior constructs](../../constructs/behavior/behavior.md).
@@ -8,9 +8,9 @@
 
 ## Return shape
 
-- **Object return** for multiple values that cannot fail: `{ value, setValue, reset }`.
-- **Tuple return** only for a simple state pair: `[value, setValue]`.
-- a hook that can fail returns a [result](../data/data.md) instead, and the shape question does not arise.
+- must choose an object for named lifecycle state and operations.
+- may choose a tuple for a simple state/setter pair whose position is unambiguous.
+- must apply [hook outcomes and lifecycle](../../constructs/behavior/hooks.md#return-shape) to fallible work.
 
 ---
 

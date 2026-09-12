@@ -1,14 +1,12 @@
 # Interactive
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > The elements a user operates, what each one does for free, and the ones we build ourselves instead.
 > Purpose — `<button>` and `<a>` arrive with focus, keyboard activation and a role; a substitute rebuilds all three.
 > Use case — reach here before wiring any click, and whenever a control must decide between navigating and acting.
 
 ## The elements
-
-Exhaustive for HTML's interactive content. Overlays are built on `role="dialog"`, not `<dialog>` — see the ban.
 
 | Element | Means | Verdict |
 |---|---|---|
@@ -52,8 +50,21 @@ Exhaustive for HTML's interactive content. Overlays are built on `role="dialog"`
   than the form's `defaultValues`, so the model and the inputs disagree ([forms](../../../mla/domains/forms/forms.md)).
 - **`tabindex` above `0`** — reach for `0` and fix the DOM order; a positive value jumps ahead of every natural stop
   on the page, so the tab order stops matching what the user sees.
-- **`<dialog>` as the overlay primitive** — reach for the SDK overlay; `<dialog>` cannot defer its unmount for an exit
-  animation, which `Presence` exists to do, and its backdrop is not reachable by our tokens.
+- **`<dialog>` as an uncoordinated overlay primitive** — use the SDK overlay under the house stack policy;
+  native dialogs support styled `::backdrop` and discrete exit transitions within their browser support limits.
+
+---
+
+## Interaction
+
+- must suppress activation for `aria-disabled` controls in every event path; ARIA alone does not disable behavior.
+- must contain focus and make background content inert only for a modal surface, not an ordinary popover.
+- must restore focus on dismissal to the connected trigger or a documented logical successor when it is gone.
+- must provide a keyboard route for every action, including a non-drag alternative to drag/reorder.
+- must ignore submit/selection shortcuts while `KeyboardEvent.isComposing` is true.
+- must end pointer gestures on `pointerup`, `pointercancel`, lost capture and owner disposal.
+- must keep a disabled or hidden surface from retaining active global listeners or a focus trap.
+- visual/assistive verification → [accessibility](../tailwind/accessibility.md#verification).
 
 ```vue
 <!-- ✅ navigation is a link, the action is a button, and both say what they are -->

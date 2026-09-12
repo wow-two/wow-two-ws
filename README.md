@@ -1,5 +1,7 @@
 # wow-two-ws
 
+> *Code is cheap, show me your library.*
+
 The workspace orchestrator for the [WoW 2.0](https://github.com/wow-two) ecosystem. This repo manages, clones, and organizes all repos across multiple GitHub orgs into a single local workspace. It tracks only workspace-level config — scripts, docs, Claude setup. All managed repos are independent git repos living inside `workbench/`, which is gitignored as a whole.
 
 ## How git works

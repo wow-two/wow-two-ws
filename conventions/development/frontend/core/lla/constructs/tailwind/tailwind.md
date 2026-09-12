@@ -1,6 +1,6 @@
 # Tailwind v4
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > Every Tailwind utility group, the verdict on each, and the authoring at-rules that extend the framework.
 > Purpose — Tailwind is the only styling layer here, so a group's verdict *is* the styling rule for that property.
@@ -8,31 +8,29 @@
 
 ## The groups
 
-Counted across the Vue SDK and `smart-qr`.
-
-| Group | In use | Verdict | Doc |
-|---|---|---|---|
-| color | 1657 | `use` — semantic tokens only | [color](color.md) |
-| border | 1318 | `use` | [border](border.md) |
-| flexbox | 1205 | `use` — the default layout tool | [flexbox](flexbox.md) |
-| sizing | 729 | `use` | [sizing](sizing.md) |
-| typography | 721 | `use` | [typography](typography.md) |
-| position | 644 | `use` | [position](position.md) |
-| spacing | 622 | `use` | [spacing](spacing.md) |
-| display | 588 | `use` | [display](display.md) |
-| transitions | 266 | `use` — via motion tokens | [transitions](transitions.md) |
-| effects | 168 | `use` | [effects](effects.md) |
-| transforms | 140 | `use` | [transforms](transforms.md) |
-| interactivity | 132 | `use` | [interactivity](interactivity.md) |
-| overflow | 79 | `use` | [overflow](overflow.md) |
-| grid | 79 | `use` — two-dimensional layout only | [grid](grid.md) |
-| z-index | 35 | `use` — semantic tiers only | [z-index](z-index.md) |
-| filters | 26 | `use with care` | [filters](filters.md) |
-| accessibility | 7 | `use` | [accessibility](accessibility.md) |
-| box | 4 | `use` | [box](box.md) |
-| tables | 3 | `use` | [tables](tables.md) |
-| variants | 1300+ | `use` | [variants](variants.md) |
-| authoring | 5 | see the doc | [authoring](authoring.md) |
+| Group | Verdict | Doc |
+| --- | --- | --- |
+| color | `use` — semantic tokens only | [color](color.md) |
+| border | `use` | [border](border.md) |
+| flexbox | `use` — the default layout tool | [flexbox](flexbox.md) |
+| sizing | `use` | [sizing](sizing.md) |
+| typography | `use` | [typography](typography.md) |
+| position | `use` | [position](position.md) |
+| spacing | `use` | [spacing](spacing.md) |
+| display | `use` | [display](display.md) |
+| transitions | `use` — via motion tokens | [transitions](transitions.md) |
+| effects | `use` | [effects](effects.md) |
+| transforms | `use` | [transforms](transforms.md) |
+| interactivity | `use` | [interactivity](interactivity.md) |
+| overflow | `use` | [overflow](overflow.md) |
+| grid | `use` — two-dimensional layout only | [grid](grid.md) |
+| z-index | `use` — semantic tiers only | [z-index](z-index.md) |
+| filters | `use with care` | [filters](filters.md) |
+| accessibility | `use` | [accessibility](accessibility.md) |
+| box | `use` | [box](box.md) |
+| tables | `use` | [tables](tables.md) |
+| variants | `use` | [variants](variants.md) |
+| authoring | see the doc | [authoring](authoring.md) |
 
 ---
 
@@ -47,21 +45,21 @@ Counted across the Vue SDK and `smart-qr`.
 
 ## Banned
 
-- **the `!` important modifier**, in the v3 prefix (`!px-0`) or the v4 suffix (`px-0!`) spelling — reach for `cn()`
-  ordering or a variant. `tailwind-merge` cannot resolve an important class, so it beats every later override; the v3
-  prefix form is not a valid v4 utility at all, so it emits nothing.
+- **the `!` important modifier** — use `cn()` ordering or a variant. The house ban covers both `!px-0` and `px-0!`;
+  v4 accepts the prefix for compatibility. Important and ordinary utilities remain separate merge groups.
 - **`@apply`** — reach for a `tailwind-variants` recipe or a component. It moves classes out of the markup, where
   `tailwind-merge` can no longer see them, so the box stops being overridable.
-- **a template-literal class string carrying a condition** — reach for `cn()`; concatenation appends both sides of a
-  conflict and the later one wins by source order rather than by specificity.
+- **a template-literal class string carrying a condition** — use `cn()`; class-attribute order does not decide
+  the CSS cascade when conflicting utilities remain.
 - **a raw palette class** (`bg-slate-900`, `text-zinc-500`) — reach for the semantic token ([color](color.md)).
 
 ---
 
-## Open
+## Class merging
 
-- `SpeedDialTrigger.vue:68` carries `!bottom-auto` and four siblings in the v3 prefix spelling; verify they emit nothing
-  under v4.1 and replace them with a positional variant.
+- must test a custom class family against the installed `tailwind-merge` version before promising overrides.
+- must verify generated CSS separately from merge output; accepting a class string does not prove CSS emission.
+- custom utilities → [authoring](authoring.md).
 
 ---
 

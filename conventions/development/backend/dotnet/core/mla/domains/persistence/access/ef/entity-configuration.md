@@ -1,18 +1,13 @@
 # Entity configurations
 
-*Last updated: 2026-08-16*
+*Last updated: 2026-09-10*
 
-> The EF Core mapping for one entity, declared away from the entity itself.
-> Purpose — keep the ORM out of the Domain assembly, so an entity stays a plain record.
-> Use case — reach here when a persisted type needs a table, a column type, a conversion or a relation.
+> An EF mapping type for one entity; schema authority comes from the selected migration strategy.
 
 ## Location
 
-### Folder
-- must sit in a `Configurations/` folder in the Persistence layer.
-
-### File
-- may share one file with a sibling configuration when the two entities are tightly coupled.
+- must use a `Configurations/` folder in the project selected by the deliverable's architecture.
+- must give each configuration its own type-named file → [one type, one file](../../../../mla.md).
 
 ---
 
@@ -20,58 +15,36 @@
 
 ### Type doc
 
-#### [Summary](../../../../../lla/notation/documentation/summary.md)
-- must start with **Configures**.
-- must name the entity it maps and the table that entity lands in.
+- must start the summary with `Configures`, naming the entity and its storage mapping.
 
 ```csharp
-// ✅ the entity and its table
 /// <summary>Configures the listing entity and its listings table.</summary>
-
-// ❌ Represents belongs to the entity, and the table is left a guess
-/// <summary>Represents the listing mapping.</summary>
 ```
 
 ### Type name
-- must declare `{Entity}Configuration : IEntityTypeConfiguration<{Entity}>`.
+
+- must name the type `{Entity}Configuration` and implement `IEntityTypeConfiguration<{Entity}>`.
 
 ---
 
 ## Content
 
-### Member docs
-
-#### [Summary](../../../../../lla/notation/documentation/summary.md)
-- must carry `<inheritdoc />` on `Configure` — `IEntityTypeConfiguration<T>` already documents it.
-
-#### [Remarks](../../../../../lla/notation/documentation/remarks.md)
-- may carry `<remarks>` for a mapping the builder calls do not show — a JSON comparer, a
-  provider column type, a storage casing the naming convention supplies.
+- must declare `Configure` as the only public member.
+- must inherit the method documentation from `IEntityTypeConfiguration<T>`.
+- may add remarks for runtime mapping facts the builder calls do not show.
+- must use a block body.
+- must apply [EF mapping rules](ef-mapping.md) for the chosen schema strategy.
+- must order configuration as table/key, column types, conversions, relationships.
+- must put each fluent call on a new line.
 
 ```csharp
-// ✅ the contract carries the summary, the remark carries what the calls hide
 /// <inheritdoc />
-/// <remarks>Columns resolve through the snake_case naming convention.</remarks>
 public void Configure(EntityTypeBuilder<ListingEntity> builder)
+{
+    builder
+        .ToTable(ListingEntity.TableName);
 
-// ❌ a re-described summary duplicates the interface and drifts from it
-/// <summary>Configures the listing entity.</summary>
-public void Configure(EntityTypeBuilder<ListingEntity> builder)
+    builder
+        .HasKey(entity => entity.Id);
+}
 ```
-
-### Members
-- must declare `Configure` as the type's only public member.
-- must use a block body `{ }` from the start — the builder chain gains a call with every mapping added
-  ([style](../../../../../lla/notation/style/style.md) § *The body*).
-- must configure what changes runtime behaviour — the table, the key, column types, conversions,
-  relations ([ef mapping](ef-mapping.md) § *EF Core entity type configurations*).
-- must leave the schema itself to the migration, which owns every DDL-only concern.
-- must order the calls table and key, column types, conversions, then relationships.
-
----
-
-## Neighbours
-
-- [entity.md](../../../../constructs/data/entity.md) — the record this maps
-- [database](../../database/database.md) — type mappings, conventions, interceptor wiring
-- [constructs](../../../../constructs/constructs.md) — the `Configuration` row

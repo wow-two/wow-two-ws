@@ -1,6 +1,6 @@
 # Patterns
 
-*Last updated: 2026-08-16*
+*Last updated: 2026-09-10*
 
 > Every design pattern a backend service meets, the form we write for it, and the doc or rule that governs it.
 > Purpose — give a pattern one home, so its shape, naming and docs are settled once instead of per use.
@@ -35,8 +35,7 @@ A pattern earns its own file only when **we write the type**. Everything else is
 - must carry `Shape` · `Use` · `Limits` · `Components`, in that order, after the description blockquote.
 - must show one short C# fence in `Shape` — the form we write, not the book's UML.
 - must name in `Components` every component the pattern touches, and stop there; the component's own rules stay there.
-- must add the template's `Location` · `Declaration` · `Content` when the pattern also names a keep-listed
-  suffix — [factories](factories.md) is that case, and today the only one.
+- must use the role template instead when the file owns a keep-listed role, as [factories](factories.md) does.
 - must name the file for the pattern: plural when it names a type kind (`decorators.md`), singular when it names a
   policy or a flow (`outbox.md`).
 - must follow the authoring rules in [conventions](../../../../../../../conventions.md) § *Authoring a convention* for
@@ -103,10 +102,10 @@ Every pattern with a `use` or `owned` verdict names types, and each of those typ
 | [Factory Method](factories.md) | a `Factory` per dispatch axis, resolved from the container | `use` |
 | [Builder](builders.md) | a fluent `{Thing}Builder` closing on `Build()` | `use` |
 | [Singleton](singleton.md) | a container lifetime, never a static `Instance` | `use` |
-| [Prototype](prototype.md) | `record` `with`, never `ICloneable` or `MemberwiseClone` | `use` |
+| [Prototype](prototype.md) | `record` `with` for shallow variants; FastCloner for isolated data graphs; never `ICloneable` or direct `MemberwiseClone` | `use` |
 | Abstract Factory | one `Factory` per axis, a `Registry` for the family | `folded` |
 | Object Pool | one fresh connection per operation; the data source pools | `owned` |
-| Lazy Initialization | `Lazy<T>` for one expensive field | `open` |
+| Lazy Initialization | `Lazy<T>` for one expensive field | `owned` |
 
 ---
 
@@ -158,7 +157,7 @@ Every pattern with a `use` or `owned` verdict names types, and each of those typ
 | Options | → [options](../data/options.md) · [settings](../data/settings.md) | `owned` |
 | Result / Either | `Result<T>` and `AppResult<TSuccess>` closed unions | `owned` |
 | Dependency Injection | constructor injection, wired once at the root | `owned` |
-| Idempotency | `IIdempotent` plus the `IdempotencyBehavior<,>` step | `owned` |
+| Idempotency | `IIdempotent` plus the `DeduplicatingInterceptor<,>` step | `owned` |
 | Publish / Subscribe | an event on the bus, 0..N handlers | `owned` |
 | Claim Check | the payload stored out of band, a pointer on the message | `owned` |
 | MVC | a thin controller dispatching to a handler | `owned` |
@@ -172,23 +171,54 @@ Every pattern with a `use` or `owned` verdict names types, and each of those typ
 
 The pattern is real and in use; another doc is its authority, and this row only routes you there.
 
-| Pattern | Ruled by | Reach for |
-|---|---|---|
-| Repository | `dapper.md` § *No query abstraction* | hand-written SQL, or `DapperRepository<,>` |
-| Object Pool | `dapper.md` § *Connections* | `CreateOpenAsync` per operation |
-| Iterator | `statements.md:39` | `yield return`, `IAsyncEnumerable<T>` |
-| Command | `application-request.md` § *Type name* | `{Domain}{Action}Command` and its `Handler` |
-| CQRS | `mediator.md` § *Common* | a `Query` or `Command`, one handler each |
-| Mediator | `mediator.md` § *Registration & usage* | `ISender.SendAsync`, never concrete `Mediator` |
-| Publish / Subscribe | `mediator.md` § *Events* | `IPublisher.PublishAsync`, 0..N handlers |
-| Idempotency | `mediator.md` § *Pipeline behaviors* | `IIdempotent` + `IdempotencyBehavior<,>` |
-| Registry | `registry.md` § *Members* | a `Registry` that throws on an unbound key |
-| Mapper | `mapper.md` § *Members* | a total `Mapper`, handed every input |
-| Options | [options](../data/options.md) | the construct owns both suffixes and their shapes |
-| Result / Either | `results.md` § *Rules* | `AppResult<TSuccess>` collapsed with `.Match` |
-| Dependency Injection | `constructs.md:243` | constructor injection |
-| Claim Check | `outbox.md` § *Limits* | store the payload, stage the pointer |
-| MVC | `api.md` § *Action content* | a controller that dispatches and maps |
+- Repository
+  - ruled by: `dapper.md` § *No query abstraction*
+  - reach for: hand-written SQL, or `DapperRepository<,>`
+- Object Pool
+  - ruled by: `dapper.md` § *Connections*
+  - reach for: `CreateOpenAsync` per operation
+- Iterator
+  - ruled by: `statements.md:39`
+  - reach for: `yield return`, `IAsyncEnumerable<T>`
+- Command
+  - ruled by: `application-request.md` § *Type name*
+  - reach for: `{Domain}{Action}Command` and its `Handler`
+- CQRS
+  - ruled by: `mediator.md` § *Common*
+  - reach for: a `Query` or `Command`, one handler each
+- Mediator
+  - ruled by: `mediator.md` § *Registration & usage*
+  - reach for: `ISender.SendAsync`, never concrete `Mediator`
+- Publish / Subscribe
+  - ruled by: `mediator.md` § *Events*
+  - reach for: `IPublisher.PublishAsync`, 0..N handlers
+- Idempotency
+  - ruled by: `mediator.md` § *Pipeline behaviors*
+  - reach for: `IIdempotent` + `DeduplicatingInterceptor<,>`
+- Registry
+  - ruled by: `registry.md` § *Members*
+  - reach for: a `Registry` that throws on an unbound key
+- Mapper
+  - ruled by: `mapper.md` § *Members*
+  - reach for: a total `Mapper`, handed every input
+- Options
+  - ruled by: [options](../data/options.md)
+  - reach for: the construct owns both suffixes and their shapes
+- Result / Either
+  - ruled by: `results.md` § *Rules*
+  - reach for: `AppResult<TSuccess>` collapsed with `.Match`
+- Dependency Injection
+  - ruled by: [constructs](../../../lla/constructs/constructs.md#behavior-components)
+  - reach for: constructor injection
+- Lazy Initialization
+  - ruled by: [constructs](../../../lla/constructs/constructs.md#behavior-components)
+  - reach for: deferred expensive value
+- Claim Check
+  - ruled by: `outbox.md` § *Limits*
+  - reach for: store the payload, stage the pointer
+- MVC
+  - ruled by: `api.md` § *Action content*
+  - reach for: a controller that dispatches and maps
 
 ---
 
@@ -207,16 +237,26 @@ The pattern names a role an existing name already owns. Don't introduce the patt
 
 ## Banned patterns
 
-Never declared. The rule that kills each one is written elsewhere; this table names it and the replacement.
+- must preserve the house bans below; the alternatives do not establish a general language limitation.
 
-| Pattern | Killing rule | Reach for |
-|---|---|---|
-| Composite | `mla/constructs/constructs.md` § *Folds* — `Node` → `PipelineStep` | `Pipeline` with ordered steps |
-| Flyweight | `constructs.md:94` — allocation must be measured first | a plain reference type |
-| Visitor | `results.md` § *Carriers* — `.Match` is the consume path | a `switch` over the closed union |
-| Specification | `dapper.md` § *No query abstraction* | SQL that filters, composed in the query |
-| Service Locator | `constructs.md:243` | constructor injection ([service locator](service-locator.md)) |
-| Event Sourcing | `persistence.md` § *Contract* | the row as state; an event carries the fact |
+- Composite
+  - policy: house ban
+  - reach for: `Pipeline` with ordered steps
+- Flyweight
+  - policy: house ban
+  - reach for: a plain reference type
+- Visitor
+  - policy: house ban
+  - reach for: a `switch` over the closed union
+- Specification
+  - policy: `dapper.md` § *No query abstraction*
+  - reach for: SQL that filters, composed in the query
+- Service Locator
+  - policy: [service locator](service-locator.md)
+  - reach for: constructor injection ([service locator](service-locator.md))
+- Event Sourcing
+  - policy: `persistence.md` § *Contract*
+  - reach for: the row as state; an event carries the fact
 
 ---
 
@@ -224,6 +264,3 @@ Never declared. The rule that kills each one is written elsewhere; this table na
 
 - **Memento** — no written rule anywhere in `lla/` or `mla/`, and no instance in the tree. Decide the verdict when
   an undo or draft-restore surface is first specified, not before.
-- **Lazy Initialization** — `Lazy<T>` is a BCL type we instantiate, not a construct we declare, so
-  [constructs](../../../lla/constructs/constructs.md) does not reach it. The verdict is this folder's to take:
-  decide it against the container's own lifetimes, which already defer construction.

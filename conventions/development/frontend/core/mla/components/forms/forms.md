@@ -1,9 +1,8 @@
 # Forms
 
-*Last updated: 2026-08-20*
+*Last updated: 2026-09-10*
 
 > Which control or field to reach for, and with what values — the application register over the SDK's `forms/` group.
-> Purpose — seventy-four components ship here, most of them controls; this folder says which one a case wants.
 > Use case — picking between two inputs that both work, or fixing the value one carries here.
 > What a control is → [control](../../constructs/visual/control.md).
 > What a field is → [field](../../constructs/visual/field.md).
@@ -15,7 +14,7 @@
 
 | Component | Construct | Reach for it when |
 |---|---|---|
-| [AddressForm](addressForm.md) | form | a form posts a whole postal address as one value |
+| [AddressForm](addressForm.md) | control | a form posts a whole postal address as one value |
 | [Calendar](calendar.md) | control | a date is picked from a month grid held inline |
 | [CharacterCount](characterCount.md) | feedback | a limited field shows how much room is left |
 | [ChatComposer](chatComposer.md) | control | a message is typed and sent from one row |
@@ -57,7 +56,6 @@
 | [KeyboardShortcutPicker](keyboardShortcutPicker.md) | control | a key chord is captured by pressing it |
 | [Knob](knob.md) | control | a value is dialled by rotation |
 | [Label](label.md) | display | a control stands without a [Field](field.md) around it |
-| [LabeledInput](labeledInput.md) | field | never — the deprecated ancestor of [Field](field.md) |
 | [Legend](legend.md) | display | a [Fieldset](fieldset.md) needs the name of its group |
 | [Listbox](listbox.md) | control | rows are selected in place, with type-to-select |
 | [MarkdownEditor](markdownEditor.md) | control | markdown is written beside a live preview |
@@ -78,7 +76,7 @@
 | [SearchInput](searchInput.md) | control | the value is a query, with a leading icon and a clear |
 | [Select](select.md) | control | one option is chosen from a closed list |
 | [Slider](slider.md) | control | a number is dragged along a track |
-| [Stepper](stepper.md) | control | it owns the active step and swaps the panel behind it |
+| [Stepper](stepper.md) | display | it owns the active step and swaps the panel behind it |
 | [Switch](switch.md) | control | a toggle holds a boolean, labelled from elsewhere |
 | [SwitchField](switchField.md) | field | a toggle applies at once and needs its label |
 | [TagsInput](tagsInput.md) | control | free-form tags are typed and committed as chips |

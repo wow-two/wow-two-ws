@@ -1,10 +1,9 @@
 # DateTimeInput
 
-*Last updated: 2026-08-20*
+*Last updated: 2026-09-10*
 
 > The one control that captures a day and a time together, as a single wall-clock value.
 > What a control is → [control](../../constructs/visual/control.md).
-> Its full surface → `DateTimeInput.vue`.
 
 ## Reach for it when
 
@@ -27,8 +26,4 @@
 
 ## Values
 
-- must speak `Temporal.PlainDateTime` — wall clock, carrying no zone
-- must resolve the zone outside this control where a real instant is stored
-- should leave `minuteStep` at `5` and `placeholder` at `YYYY-MM-DD HH:MM`
-- must leave `native` off by default; the browser panel cannot carry the theme
-- must set `name` for a plain form post; the hidden input carries the ISO value
+- must distinguish a wall-clock value from a zoned instant; resolve the intended zone at the owning boundary.

@@ -1,68 +1,39 @@
 # Mappers
 
-*Last updated: 2026-08-24*
+*Last updated: 2026-09-10*
 
-> The type that turns one shape into another and does nothing else.
-> Purpose — a translation lives outside both shapes, so neither side learns about the other.
-> Use case — an entity becoming a DTO, a token becoming a type, a case style becoming another.
+> Applying the [mapper construct](../constructs/behavior/mapper.md) to pure transformations.
 
-> Defined at [mappers — the construct](../constructs/behavior/mapper.md); this doc carries every condition for using one.
+## Location
 
-## Reaching for one
-
-- must reach here when the data arrives as an argument and the output is a function of it — pure, no
-  injection, no I/O, nothing stored.
-- must reach for a [`Service`](../constructs/behavior/service.md) instead once the transform needs an
-  injected collaborator, and for a [`Broker`](../constructs/behavior/broker.md) once it needs I/O.
-- must reach for a [`Factory`](../constructs/patterns/factories.md) instead when the output type is the
-  point and the arguments are ingredients that were never one shape.
-- must not reach here for a rule that decides *whether* to do something — a predicate over policy is a
-  `Policy`, not a translation.
+- must use the construct's [location](../constructs/behavior/mapper.md#location).
 
 ---
 
-## Static or instance
+## Declaration
 
-Both gates in [constructs](../constructs/constructs.md) § *Static or instance* apply.
-
-- must declare a `static class` only when the transform is arrangement and exactly one variant exists —
-  a case style, a topic name, a header table.
-- must declare an instance type when the transform is a real algorithm, or when the operation names a
-  family a caller could pick from, so the choice is made at registration.
-- must not read purity as a licence for `static` — a pure type with two variants still goes instance.
+- must use the construct's [declaration](../constructs/behavior/mapper.md#declaration).
+- must apply the [static-or-instance gates](../constructs/constructs.md#static-or-instance).
 
 ---
 
-## Members
+## Content
 
-- must take everything it needs as arguments, so the same inputs always give the same output.
-- must name the method for the target, not the source — `ToSnakeCase`, `ToDto`, `ToTypeToken`.
-- must return a new instance and leave every argument untouched.
-- must not overload on the source type alone; a second source shape is a second method with its own name.
-- must not hold a field that outlives a call — no cache, no counter, no last-value.
-
----
-
-## Failure
-
-- must return a [`Result`](result.md) when the input can be unmappable and the caller can act on it — an
-  unparseable token, a payload that will not decode.
-- must throw an argument guard for a programmer error, such as a null argument.
-- must not return a default or a null to signal an unmappable input; that hides the failure at every call site.
+- must choose a mapper when output depends only on arguments, with no I/O or injected collaborator.
+- must choose a service when orchestration needs collaborators, or a broker when it reaches an external system.
+- must choose a factory when constructing the output type is the purpose and inputs are separate ingredients.
+- must choose a policy for a decision governing whether another operation should run.
+- must name a method for its target — `ToSnakeCase`, `ToDto`, `ToTypeToken`.
+- must leave its arguments unchanged.
+- must not overload solely on the source shape when that hides a different mapping contract.
+- must not retain a cache, counter or last value between calls.
+- must apply the [result failure policy](result.md#failure) to unmappable inputs and argument guards.
+- must treat a failure result as an explicit output; totality does not mean every input succeeds.
 
 ---
 
 ## Registration
 
-- must register an instance mapper against its contract in the owning domain's `Add*` extension.
-- must not register a `static class` — it has no seam and needs none.
-- must not resolve a mapper from the container inside another mapper; a mapper that needs a collaborator
-  is a `Service`.
-
----
-
-## Neighbours
-
-- [mappers — the construct](../constructs/behavior/mapper.md) — what it is and how it is declared
-- [constructs](../constructs/constructs.md) § *`Factory` vs `Mapper`* — which end the caller cares about
-- [result](result.md) — what an unmappable input hands back
+- must register an instance mapper against its contract in the owning domain's registration.
+- must not register a static mapper.
+- must not resolve collaborators through the container inside a mapper.

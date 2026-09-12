@@ -1,14 +1,12 @@
 # Sizing
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > Every width, height and constraint utility, and the sizes that break a mobile viewport or a flex row.
 > Purpose — a size is where a layout stops being fluid, so each fixed one has to earn itself.
 > Use case — reach here before pinning a dimension, and whenever something must fill or must not grow.
 
 ## The utilities
-
-`w-full`, `h-4` / `w-4` and `size-*` lead the group; `min-w-0` appears wherever a flex child has to truncate.
 
 | Utility | Applies | Verdict |
 |---|---|---|

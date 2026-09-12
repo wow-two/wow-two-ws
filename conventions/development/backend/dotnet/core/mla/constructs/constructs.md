@@ -1,6 +1,6 @@
 # Constructs
 
-*Last updated: 2026-08-18*
+*Last updated: 2026-09-10*
 
 > The canonical suffix→role vocabulary for backend types — one name per role,
 > the suffix declaring the responsibility.
@@ -13,7 +13,7 @@
 - must rename to the canonical when the name you reached for appears in § *Folds*.
 - must run § *Adding a new suffix* when no existing suffix fits.
 - must leave *how* a role behaves to the cited authority — this doc is the vocabulary.
-- framework-named types (`Middleware` · `Filter`, and an `Interceptor` deriving from a framework base such as
+- framework-named types and contracts (`Middleware`, `Filter`, `TimeProvider`, `IClock`, and an `Interceptor` deriving from a base such as
   `SaveChangesInterceptor`) are exempt; the framework owns the name.
 
 ---
@@ -34,48 +34,133 @@ A rename that builds and passes is done — the compiler and the tests are the w
 One suffix per role. Where another doc owns the role, that doc is the **authority** and this row is the index.
 Split by what the type is for — [data](data/data.md) holds, [behavior](behavior/behavior.md) does.
 
-| Suffix | Role | Authority |
-|---|---|---|
-| `Service` | business logic, orchestration, compute — the default role | [service](behavior/service.md) |
-| `BackgroundService` | work the host runs off the request path, for as long as it lives | [background service](behavior/background-service.md) |
-| `Client` | one external provider's call surface, out-of-proc | [client](behavior/client.md) |
-| `Broker` | the app-side seam over an external dependency | [broker](behavior/broker.md) |
-| `Repository` | any seam reaching data — rows, documents, blobs, keys, files | § *`Repository`* |
-| `Factory` | runtime instance creation, per key or per request | [factories](patterns/factories.md) |
-| `Registry` | key → type or capability bindings, registered at composition | [registry](behavior/registry.md) |
-| `Tracker` | live status many producers push into, persisted nowhere | — |
-| `Extensions` | static logic over a domain — no injection, no state | [extensions](behavior/extensions.md) |
-| `Handler` | the receiver of one dispatched message | [handler](behavior/handler.md) |
-| `Command` · `Query` · `Event` | a dispatched use case — write, read, fan-out | [application request](data/application-request.md) |
-| `Validator` | input validation for one request | [validator](behavior/validator.md) |
-| `Controller` | the HTTP delivery surface — a thin dispatcher | [controller](behavior/controller.md) |
-| `ApiRequest` | the API edge body one controller action binds | [api request](data/api-request.md) |
-| `ApiResponse` | the success envelope a client reads `.data` from | [api messages](../domains/api/api-messages.md) |
-| `Dto` | a projection onto the wire — data, never behavior | [dto](data/dto.md) |
-| `Entity` | a table-mapped row, owning its identity | [entity](data/entity.md) |
-| `ValueObject` | values stored inside a row; identity is the values | [value object](data/value-object.md) |
-| `Result` | the carrier — a typed success or an `AppError` | [result](data/result.md) |
-| `Model` | the application's own shape of a thing, inside the carrier | [model](data/model.md) |
-| `Adapter` | a third-party type fitted to an interface we declared | [adapter](behavior/adapter.md) |
-| `Builder` | stepwise construction, ending in `Build()` | [builder](behavior/builder.md) |
-| `Policy` | decides whether, when, or how often another operation runs | [policy](behavior/policy.md) |
-| `Settings` | a config section bound through `IOptions<T>` | [settings](data/settings.md) |
-| `Options` | behavior knobs passed in code, bound from nothing | [options](data/options.md) |
-| `DbContext` | the EF unit of work | [database](../domains/persistence/database/database.md) |
-| `Configuration` | an EF `IEntityTypeConfiguration<T>` | [entity configuration](../domains/persistence/access/ef/entity-configuration.md) |
-| `Constants` | a holder of `const` and `static readonly` values | [constants](data/constants.md) |
-| `Mapper` | any deterministic in→out transform, owning no data | [mapper](behavior/mapper.md) |
-| `Pipeline` · `PipelineStep` | an ordered multi-step flow, and one step of it | [pipelines](patterns/pipelines.md) |
-| `Interceptor` | a step a message passes through on its way to its handler | [interceptor](behavior/interceptor.md) |
-| `Middleware` · `Filter` | a framework hook — exempt from the gate, because the framework owns the name | — |
-| `Cipher` · `Hasher` · `Issuer` · `Authenticator` | one cryptographic or auth operation | — |
-| `Renderer` | turns a model into a representation of it — text, markup, an image | — |
-| `Generator` | derives a value from its inputs — an id, a code, a matrix | — |
-| `Rasterizer` | vector → pixels | — |
-| `Spec` | a declarative input shape a renderer consumes — not a wire `Dto` | — |
-| `Json` | one type's persisted JSON seam — `Options`, `Serialize`, `Deserialize` | [json](behavior/json.md) |
+- `Service`
+  - role: business logic, orchestration, compute — the default role
+  - authority: [service](behavior/service.md)
+- `BackgroundService`
+  - role: work the host runs off the request path, for as long as it lives
+  - authority: [background service](behavior/background-service.md)
+- `Client`
+  - role: one external provider's call surface, out-of-proc
+  - authority: [client](behavior/client.md)
+- `Broker`
+  - role: the app-side seam over an external dependency
+  - authority: [broker](behavior/broker.md)
+- `Repository`
+  - role: any seam reaching data — rows, documents, blobs, keys, files
+  - authority: § *`Repository`*
+- `Factory`
+  - role: runtime instance creation, per key or per request
+  - authority: [factories](patterns/factories.md)
+- `Registry`
+  - role: key → type or capability bindings, registered at composition
+  - authority: [registry](behavior/registry.md)
+- `Tracker`
+  - role: live status many producers push into, persisted nowhere
+  - authority: [tracker](behavior/tracker.md)
+- `Extensions`
+  - role: static logic over a domain — no injection, no state
+  - authority: [extensions](behavior/extensions.md)
+- `Handler`
+  - role: the receiver of one dispatched message
+  - authority: [handler](behavior/handler.md)
+- `Command` · `Query` · `Event`
+  - role: a dispatched use case — write, read, fan-out
+  - authority: [application request](data/application-request.md)
+- `Validator`
+  - role: input validation for one request
+  - authority: [validator](behavior/validator.md)
+- `Controller`
+  - role: the HTTP delivery surface — a thin dispatcher
+  - authority: [controller](behavior/controller.md)
+- `ApiRequest`
+  - role: the API edge body one controller action binds
+  - authority: [api request](data/api-request.md)
+- `ApiResponse`
+  - role: the success envelope a client reads `.data` from
+  - authority: [api messages](../domains/api/api-messages.md)
+- `Dto`
+  - role: a projection onto the wire — data, never behavior
+  - authority: [dto](data/dto.md)
+- `Entity`
+  - role: a table-mapped row, owning its identity
+  - authority: [entity](data/entity.md)
+- `ValueObject`
+  - role: values stored inside a row; identity is the values
+  - authority: [value object](data/value-object.md)
+- `Result`
+  - role: the carrier — a typed success or an `AppError`
+  - authority: [result](data/result.md)
+- `Model`
+  - role: the application's own shape of a thing, inside the carrier
+  - authority: [model](data/model.md)
+- `Adapter`
+  - role: a third-party type fitted to an interface we declared
+  - authority: [adapter](behavior/adapter.md)
+- `Builder`
+  - role: stepwise construction, ending in `Build()`
+  - authority: [builder](behavior/builder.md)
+- `Policy`
+  - role: decides whether, when, or how often another operation runs
+  - authority: [policy](behavior/policy.md)
+- `Settings`
+  - role: a config section bound through `IOptions<T>`
+  - authority: [settings](data/settings.md)
+- `Options`
+  - role: behavior knobs passed in code, bound from nothing
+  - authority: [options](data/options.md)
+- `DbContext`
+  - role: the EF unit of work
+  - authority: [database](../domains/persistence/database/database.md)
+- `Configuration`
+  - role: an EF `IEntityTypeConfiguration<T>`
+  - authority: [entity configuration](../domains/persistence/access/ef/entity-configuration.md)
+- `Constants`
+  - role: a holder of `const` and `static readonly` values
+  - authority: [constants](data/constants.md)
+- `Mapper`
+  - role: any deterministic in→out transform, owning no data
+  - authority: [mapper](behavior/mapper.md)
+- `Pipeline` · `PipelineStep`
+  - role: an ordered multi-step flow, and one step of it
+  - authority: [pipelines](patterns/pipelines.md)
+- `Interceptor`
+  - role: a step a message passes through on its way to its handler
+  - authority: [interceptor](behavior/interceptor.md)
+- `Middleware` · `Filter`
+  - role: a framework hook — exempt from the gate, because the framework owns the name
+- `Cipher`
+  - role: encryption and decryption
+  - authority: [cipher](behavior/cipher.md)
+- `Hasher`
+  - role: input to digest
+  - authority: [hasher](behavior/hasher.md)
+- `Issuer`
+  - role: an issued authentication artifact
+  - authority: [issuer](behavior/issuer.md)
+- `Authenticator`
+  - role: evidence to authenticated identity
+  - authority: [authenticator](behavior/authenticator.md)
+- `Renderer`
+  - role: turns a model into a representation of it — text, markup, an image
+  - authority: [renderer](behavior/renderer.md)
+- `Generator`
+  - role: derives a value from its inputs — an id, a code, a matrix
+  - authority: [generator](behavior/generator.md)
+- `Rasterizer`
+  - role: vector → pixels
+  - authority: [rasterizer](behavior/rasterizer.md)
+- `Spec`
+  - role: a declarative input shape consumed by behavior
+  - authority: [spec](data/spec.md)
+- `Capabilities`
+  - role: supported operations, a kind of model
+  - authority: [capabilities](data/capabilities.md)
+- `Json`
+  - role: one type's persisted JSON seam — `Options`, `Serialize`, `Deserialize`
+  - authority: [json](behavior/json.md)
 
-**Scope.** Every suffix here names a type inside a .NET service.
+**Scope.** Every suffix here names a type in an owned backend codebase: service, library, SDK or CLI.
 A browser-side type is a wire projection of one, so it carries none of them.
 What the frontend calls its own types is [the frontend's](../../../../../frontend/frontend-conventions.md).
 
@@ -149,7 +234,7 @@ Both reach an external system. The line is whose vocabulary the type exposes.
   seam would cross the wire in our vocabulary and be a `Broker`.
 - both may implement one capability contract — `ICacheRepository` names the capability, and the adapter or the
   broker behind it is an implementation detail the caller never sees.
-- the test: would the surface change if the provider were swapped? no → `Client`; yes → `Broker`.
+- must test whether a provider swap changes the surface: yes → `Client`; no → `Broker`.
 - either may exist alone; a `Broker` may sit over a `Client`, a vendor SDK, or a raw `HttpClient`.
 
 ---
@@ -166,9 +251,9 @@ Both carry their defaults the same way, and the origin only changes what enforce
   never runs is worse than an absent one, because it runs.
 - must not ban defaults to keep configuration honest — `required` is what marks a value the caller owns,
   and a full `appsettings.json` of unchanged values hides the few lines that matter.
-- `Options` enforces `required` at compile time — `new T()` will not build → [options](data/options.md).
-- `Settings` enforces it in validation — the configuration binder leaves a `required` member `null`
-  rather than throwing → [settings](data/settings.md).
+- must validate required members when reflection constructs the value — the binder and `Activator` bypass `required`.
+- must let object initializers enforce `required` at compile time when the caller writes `new T { … }`.
+- registration and validation → [options](../components/options.md) · [settings](../components/settings.md).
 
 ---
 
@@ -177,31 +262,67 @@ Both carry their defaults the same way, and the origin only changes what enforce
 Each left-hand suffix names a role an existing suffix already owns.
 Rename to the canonical; never introduce the synonym.
 
-| Synonym | Canonical | Why |
-|---|---|---|
-| `Store` | `Repository` | both are rows in, rows out against a backing store |
-| `Gateway` | `Broker` | a gateway to an external system is the app-side seam |
-| `Provider` | `Service` | every service provides something; the word adds nothing |
-| `Node` | `PipelineStep` | a node means nothing outside the pipeline it steps through |
-| `Encryptor` | `Cipher` | `Cipher` is the established crypto-primitive suffix |
-| `Mapping` · `Profile` | `Mapper` | the type maps; `Profile` is AutoMapper's base type, not a role |
-| `Normalizer` | `Mapper` | `T → T` is a transform; idempotence is a property, not a role |
-| `Map` | `Mapper` | the type is a function, and `Map` reads as data |
-| `Resolver` | `Mapper` · `Broker` · `Service` | pure → `Mapper`; out-of-process → `Broker`; injected collaborators → `Service` |
-| `Emitter` | `Renderer` | emitting a representation of a model is rendering it |
-| `Source` | `Generator` · `Broker` | derives a value → `Generator`; reads one from an external store → `Broker`, the seam a provider swap stops at |
-| `Observer` | `Handler` · `BackgroundService` · `Service` | the word names a position and a permission, never a verb — a bound receiver is a `Handler`, a timer poller a `BackgroundService`, and a notified hook whose work is its own verb is a `Service` named for that work |
-| `Scheduler` | `BackgroundService` · `Service` | runs itself on a timer → `BackgroundService`, because a poller schedules nothing; takes a request to deliver later → `Service`, which is a capability a caller reaches for |
-| `HostedService` | `BackgroundService` | both are host-run work; the name should say how it executes, not that it is hosted |
-| `Keeper` | `Service` | a synonym for a stateful service |
-| `Behavior` | `Interceptor` | the word names a category, not a job — a pipeline step intercepts |
-| `Filter` · `Observer` | `Interceptor` | both sit in the chain; what each does goes in the middle word, `FilteringInterceptor` · `ObservingInterceptor` |
+- `Store`
+  - canonical: `Repository`
+  - why: both are rows in, rows out against a backing store
+- `Gateway`
+  - canonical: `Broker`
+  - why: a gateway to an external system is the app-side seam
+- `Provider`
+  - canonical: `Service`
+  - why: every service provides something; the word adds nothing
+- `Node`
+  - canonical: `PipelineStep`
+  - why: a node means nothing outside the pipeline it steps through
+- `Encryptor`
+  - canonical: `Cipher`
+  - why: `Cipher` is the established crypto-primitive suffix
+- `Mapping` · `Profile`
+  - canonical: `Mapper` · `Spec`
+  - why: the type maps → `Mapper`; a `Profile` that only declares a mapping's inputs → `Spec`. `Profile` is AutoMapper's
+    base type, not a role
+- `Normalizer`
+  - canonical: `Mapper`
+  - why: `T → T` is a transform; idempotence is a property, not a role
+- `Map`
+  - canonical: `Mapper`
+  - why: the type is a function, and `Map` reads as data
+- `Resolver`
+  - canonical: `Mapper` · `Broker` · `Service`
+  - why: pure → `Mapper`; out-of-process → `Broker`; injected collaborators → `Service`
+- `Emitter`
+  - canonical: `Renderer`
+  - why: emitting a representation of a model is rendering it
+- `Source`
+  - canonical: `Generator` · `Broker`
+  - why: derives a value → `Generator`; reads one from an external store → `Broker`, the seam a provider swap stops at
+- `Observer`
+  - canonical: `Handler` · `BackgroundService` · `Service`
+  - why: the word names a position and a permission, never a verb — a bound receiver is a `Handler`, a timer poller a
+    `BackgroundService`, and a notified hook whose work is its own verb is a `Service` named for that work
+- `Scheduler`
+  - canonical: `BackgroundService` · `Service`
+  - why: runs itself on a timer → `BackgroundService`, because a poller schedules nothing; takes a request to deliver
+    later → `Service`, which is a capability a caller reaches for
+- `HostedService`
+  - canonical: `BackgroundService`
+  - why: both are host-run work; the name should say how it executes, not that it is hosted
+- `Keeper`
+  - canonical: `Service`
+  - why: a synonym for a stateful service
+- `Behavior`
+  - canonical: `Interceptor`
+  - why: the word names a category, not a job — a pipeline step intercepts
+- `Filter` · `Observer`
+  - canonical: `Interceptor`
+  - why: both sit in the chain; what each does goes in the middle word, `FilteringInterceptor` · `ObservingInterceptor`
 
 - must keep a **third-party** name as it ships — a fold governs only names we choose.
 - must fold a name in our own SDK like any other — the SDK is ours, so a convention change reaches it as a
   row in that repo's sweep file, never as an exemption.
-- must name a pure `static class` as one of three — `Constants` for values, `Extensions` for logic over a domain,
-  `Mapper` for a transform. There is no fourth static form, and a bare noun (`GeohashEncoder`, `QuietZoneConstants`) is none of them.
+- must name a pure `static class` by its role — `Constants`, `Extensions` or `Mapper`.
+- may use the `Factory`, non-generic companion and `Json` forms declared below and in their role docs.
+- must not leave a static transform named `GeohashEncoder`; its role is `Mapper`.
 
 ### `Factory` vs `Mapper`
 
@@ -235,8 +356,7 @@ companion is a language idiom, not a role.
 
 - must file a `static readonly` object built once at type load under `Constants` — being configured does
   not make it behavior, and `JsonOptionsConstants` owns those options the way a literal is owned.
-- must split a type that holds values **and** runs an operation — the values go to `Constants`, the
-  operation takes its own role.
+- must split values from operations unless the role explicitly owns both, as the [Json seam](behavior/json.md) does.
 
 ---
 
@@ -244,10 +364,12 @@ companion is a language idiom, not a role.
 
 Two independent gates, and a `static class` needs **both**.
 
-| Gate | Passes when | Fails when |
-|---|---|---|
-| **Simple** | the logic is arrangement — combining strings, ordering fields, a format's layout | it is a real algorithm — hashing, compression, key derivation, cipher work |
-| **Single** | exactly one variant of the operation exists | the operation names a family a caller could pick from |
+- **Simple**
+  - passes when: the logic is arrangement — combining strings, ordering fields, a format's layout
+  - fails when: it is a real algorithm — hashing, compression, key derivation, cipher work
+- **Single**
+  - passes when: exactly one variant of the operation exists
+  - fails when: the operation names a family a caller could pick from
 
 - must declare a `static class` only when both gates pass — base32 encoding, snake-casing, a geohash.
 - must declare an instance type when either gate fails, so the choice is made at registration.
@@ -265,7 +387,6 @@ Worked examples:
 - must not count a `static readonly` options field as state — a value built once at type load is a constant.
 - a single-variant operation that grows a second implementation becomes a service then, and the rename is
   the record that it grew one.
-- must keep `Source` where it names a content origin read from, not a value derived — `IMigrationSource`.
 
 ---
 
@@ -276,7 +397,7 @@ Each names *nothing* — it describes "a class that does stuff". The gate points
 | Banned | Why | Reach for |
 |---|---|---|
 | `Manager` | "manages" = unspecified work | `Service` · `Registry` · `Tracker` |
-| `Helper` | a dumping ground for orphan statics | `Extensions`, or fold into its owner |
+| `Helper` · `Common` | an unspecified role | `Extensions`, or fold into its owner |
 | `Util` · `Utils` | `Helper`, vaguer | `Extensions` |
 | `Accessor` | "accesses" = reads — say what | `Repository` · `Client` · `Service` |
 | `Engine` | an important-sounding `Service` | `Service`, or `Pipeline` for a flow |

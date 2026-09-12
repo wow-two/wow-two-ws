@@ -1,6 +1,6 @@
 # Handlers
 
-*Last updated: 2026-08-18*
+*Last updated: 2026-09-10*
 
 > The single receiver bound to one dispatched message.
 > Purpose — the use case lives in one type, reachable without its caller knowing it.
@@ -13,8 +13,7 @@
   beside the matching `Commands/` · `Queries/` · `Events/` folder.
 
 ### File
-- must give it its own file, named for the type →
-  [one type, one file](../../mla.md).
+- file rules → [one type, one file](../../mla.md).
 
 ---
 
@@ -24,7 +23,7 @@
 
 #### [Summary](../../../lla/notation/documentation/summary.md)
 - must start with **Handles**, and `<see cref>` the message it takes.
-- must start the handler interface with **Defines**.
+- interface starter → [language constructs](../../../lla/constructs/constructs.md#type-documentation).
 
 ```csharp
 // ✅ names the message it is bound to
@@ -34,13 +33,11 @@
 ```
 
 ### Construct
-- must declare a `sealed class` — a handler has no value identity.
-- must take collaborators through the constructor; an input belongs on the message →
-  [constructs](../../../lla/constructs/constructs.md) § *Behavior components*.
+- declaration and injection → [behavior](behavior.md) § *Shared rules*.
+- must put the dispatched input on the message.
 
 ### Type name
 - must suffix with `Handler` and name it for its message — `ChannelGetAllQueryHandler`.
-- must return `AppResult<T>` carrying a [model](../data/model.md), never a `Dto`.
 
 ```csharp
 // ✅
@@ -48,3 +45,10 @@ public sealed class ChannelGetAllQueryHandler(IChannelRepository repository)
 // ❌ named for the work, so its message is unfindable
 public sealed class ChannelReader
 ```
+
+---
+
+## Content
+
+- response contract → [service results](../../../../shapes/service/platform/responses/results.md).
+- application payloads → [models](../data/model.md).

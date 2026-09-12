@@ -1,81 +1,57 @@
-# State & data
+# State and data
 
-*Last updated: 2026-08-24*
+*Last updated: 2026-09-10*
 
-> How the app reaches its API, where shared state is allowed to live, and how a mutation reconciles.
-> Purpose — a cache written from the input rather than the response shows state the server never confirmed.
-> Use case — wiring a query or a mutation, or deciding whether a value belongs in the cache at all.
+> Request outcomes, server caches and local state across frontend frameworks.
 
-## API client — same-origin `/api`
+## Transport
 
-- must call the API with relative URLs (`/api/...`) — the SPA is served from the .NET host's `wwwroot` in
-  production, so there is no base-URL config and no CORS.
-- must keep the same origin true in dev through the app's proxy, never a base-URL branch — the proxy target,
-  its certificate and its port are [dev server](../../../../shapes/app/platform/dev-server.md) § *The `/api` proxy*.
-
----
-
-## Client shape
-
-A thin `fetch` wrapper in `src/api/`:
-
-- **`client.ts`** — `request<T>()` helper + an `api` object of typed methods (`getStatus`, `listServers`, …);
-  each method documents its route: `/** GET /api/servers — all registered servers. */`.
-- **`types.ts`** — request/response DTOs + `ProblemDetails` (RFC 7807).
-- must return a `Result<T>` from every method — a non-2xx and a network failure (status `0`) both come back
-  as a failure the caller branches on, never as a throw ([result](../../constructs/data/result.md)).
-- must map the failure to an `AppError`, carrying the status and the parsed `ProblemDetails` in `metadata`.
-- must handle `204` / empty bodies (return `undefined as T`), and set `Accept: application/json` and
-  `Content-Type` only when there is a body.
-- consumes the backend `ApiResponse<T>` success envelope
-  ([api messages](../../../../../backend/dotnet/core/mla/domains/api/api-messages.md)) and its `Problem()` error shape
-  ([problem details](../../../../../backend/dotnet/shapes/service/platform/responses/problem-details.md)).
-
-```ts
-/** Maps a non-2xx or transport failure to the app's failure type. */
-function toAppError(status: number, problem: ProblemDetails | null): AppError;
-
-const result = await api.listServers();                  // Result<ReadonlyArray<ServerDto>>
-if (isFail(result)) return renderFailure(result.failure);
-```
+- must wire app origins and proxies through [app delivery](../../../../shapes/app/delivery/delivery.md).
+- must keep endpoint clients and wire DTOs in the app's `integration/{domain}/` slice.
+- must document the method and route at each endpoint function.
+- must validate and decode a payload through [type mapping](../api/type-mapping.md).
+- must return a [Result](../../constructs/data/result.md) for expected request failures.
+- must type a no-content endpoint as `Result<void>`; never cast an empty response into arbitrary `T`.
+- must handle malformed JSON, unexpected content types and invalid success payloads as protocol failures.
+- must distinguish cancellation, timeout, transport failure and an HTTP failure.
+- must pass the caller's cancellation signal to the transport; suppress cancellation notices.
+- must set JSON content headers only for JSON bodies; let the browser set multipart boundaries for `FormData`.
+- must retain HTTP status and response headers at the integration edge, outside transport-free failure fields.
+- must map display-safe failures through the app error catalog, never display an untrusted server body verbatim.
+- must consume the backend [success envelope](../../../../../backend/dotnet/core/mla/domains/api/api-messages.md).
+- must parse RFC 9457 [ProblemDetails](../../../../../backend/dotnet/shapes/service/platform/responses/problem-details.md).
+- must preserve unknown error codes as data without treating them as a known discriminant.
 
 ---
 
-## State management
+## State
 
-| Concern | Choice |
-|---|---|
-| Local UI state | `useState` / `useReducer` |
-| Shared app state | **React Context + hooks** — no Redux/Zustand |
-| **Server-state** | **TanStack Query** behind a `use{Resource}` hook returning a `Result`; not for UI state |
-| Persistence | `localStorage`, namespaced key `{brand}:{app}:{feature}` |
-| View routing | the `createAppRouter` data router ([routing](../../../../shapes/app/routing/routing.md)) |
-
-- **server-state vs UI-state** — Query holds only cached copies of what the server owns (lists, entities, their
-  loading/error, pagination, poll). Everything else stays `useState` / Context: form inputs and drafts,
-  toggles, open-closed, selection, theme, and client-process state (a batch runner's jobs/ticker). The test:
-  *would it survive a reload by re-fetching from the server?* → Query; else local.
-- must fetch inside hooks, not components ([hooks](../../constructs/behavior/hooks.md)); abort on unmount with
-  `AbortController`.
-- must map DTO → domain model at the hook boundary ([models](../../constructs/data/models.md)); never leak a
-  raw DTO into the view tree.
+- must keep server-owned cached values in the query capability; editing and local UI state stay outside it.
+- must define a query key from every variable that selects the response, including tenant/session scope.
+- must expose live query state separately from a completed operation's `Result`.
+- must fetch through orchestration hooks; presentation consumes their state and actions.
+- must map a DTO at integration when the app needs a different representation; a straight read may keep its DTO.
+- must dispose session-scoped caches on logout or identity change; late responses cannot repopulate them.
+- must persist local state only through [storage](../storage/storage.md).
+- must keep framework/engine bindings in provider leaves, including [Vue queries](vue/vue.md).
 
 ---
 
-## Mutations — passive only (no optimistic updates)
+## Mutations
 
-- must reflect **only the backend-confirmed result** — never pre-write the cache from the mutation input, and
-  never roll back.
-- must reconcile the cache on **success** from the server's returned value (`invalidateQueries`, or
-  `setQueryData` with the response); the UI updates to confirmed state.
-- must leave the cache untouched on **failure** — the UI already shows the correct prior state — and surface
-  the returned `AppError`.
-- the SDK `useAppMutation` wrapper has **no `onMutate` seam**, so an optimistic update is not expressible; a
-  mutation never auto-retries.
+- must reflect only backend-confirmed state; do not pre-write cache entries from mutation input.
+- must reconcile success through the returned value or invalidate the affected query keys.
+- must leave confirmed cache values intact on failure and expose the failure to the caller.
+- must keep mutation retries off by default; retry only an operation with a declared idempotency contract.
+- must distinguish a transport cancellation from proof the server did not commit a mutation.
+- must retain the latest value for [autosave](../forms/submission.md), rather than equate deduplication with saving it.
 
 ---
 
-## Query layer
+## Error adaptation
 
-- must read what ships today in the SDK repo's `engineering/planning/capability-ledger.md`
-  — a surface register lives beside its code, never in a convention.
+- must translate a failed public `Result` into a vendor rejection inside a query adapter when the engine requires it.
+- must translate that rejection back into the public failure/lifecycle state at the adapter boundary.
+- must keep vendor errors and result containers out of the app contract.
+- must prevent duplicate notices when both a form and a global query error subscriber handle the same failure.
+- must test retry, cancellation and cache behavior against each adapter, not only resolved values.

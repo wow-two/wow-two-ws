@@ -1,10 +1,9 @@
 # DropdownMenu
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > The button-triggered menu — the shape to reach for by default.
 > What a nav component is → [nav](../../constructs/visual/nav.md).
-> Its full surface → `DropdownMenu.spec.md`.
 
 ## Reach for it when
 
@@ -28,5 +27,4 @@
 
 ## Values
 
-- must pass `as-child` on the trigger to reuse a `Button`; the bare one is plain
 - should keep the default `bottom-start` placement and `6` px offset

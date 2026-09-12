@@ -1,10 +1,9 @@
 # PercentInput
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > A rate — a [NumberInput](numberInput.md) with a trailing `%` pinned inside the box.
 > What a control is → [control](../../constructs/visual/control.md).
-> Its full surface → `PercentInput.spec.md`.
 
 ## Reach for it when
 
@@ -27,6 +26,4 @@
 
 ## Values
 
-- must divide by `100` before storing a fraction — nothing converts the value here
-- must set `min` `0` and `max` `100` where the rate cannot exceed the whole
 - should set `step` to `0.1` or finer where whole points are too coarse

@@ -1,9 +1,8 @@
 # Display
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > Which display to reach for, and with what values — the application register over the SDK's `display/` group.
-> Purpose — the largest group ships seventy-three renders; this folder says which one a case wants.
 > Use case — picking between two renders that both work, or fixing the value one carries here.
 > What a display is → [display](../../constructs/visual/display.md).
 

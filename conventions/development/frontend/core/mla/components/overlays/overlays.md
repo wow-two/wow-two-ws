@@ -1,6 +1,6 @@
 # Overlays
 
-*Last updated: 2026-08-22*
+*Last updated: 2026-09-10*
 
 > Which overlay to reach for, and with what values — the application register over the SDK's `overlays/` group.
 > Use case — picking between two surfaces that both work, or fixing the value one carries here.

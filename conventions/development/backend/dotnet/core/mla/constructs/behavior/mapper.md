@@ -1,6 +1,6 @@
 # Mappers
 
-*Last updated: 2026-08-16*
+*Last updated: 2026-09-10*
 
 > A type that transforms what it is handed, with no store and no set of its own.
 > Purpose — keep a translation out of the types on either side of it, so neither knows the other.
@@ -12,8 +12,7 @@
 - must sit in a `Mappers/` folder under the domain that owns the target shape.
 
 ### File
-- must give it its own file, named for the type →
-  [one type, one file](../../mla.md).
+- file rules → [one type, one file](../../mla.md).
 
 ---
 
@@ -34,8 +33,6 @@
 
 ### Type name
 - must suffix with `Mapper`.
-- must return a `Result` when the transform has a failure mode, and the value bare when it cannot fail by
-  construction → [results](../../../../shapes/service/platform/responses/results.md) § *What returns a `Result`*.
 
 ---
 
@@ -49,6 +46,9 @@
 #### [Returns](../../../lla/notation/documentation/returns.md)
 - must name the produced shape.
 
+#### [Params](../../../lla/notation/documentation/params.md)
+- must apply the parameter rules to the mapping inputs.
+
 ```csharp
 // ✅
 /// <summary>Maps the create request to its application command.</summary>
@@ -58,16 +58,19 @@
 
 ### Members
 - must take every input as an argument — a mapper owns no state to read from.
-- must stay total: every input shape produces an output, or the type is a `Validator`.
+- must produce a success value or an explicit failure for every supported input.
+- failure modes, bare values and `TryX` pairs → [results](../../components/result.md).
 - may use `=>` for a member that returns or delegates — growth means the type stopped being a `Mapper`
   ([style](../../../lla/notation/style/style.md) § *The body*).
 
 ```csharp
 // ✅ every input reaches an output
-public CodeCreateCommand Map(CreateCodeApiRequest request) =>
-    new() { Name = request.Name, Content = request.Content };
+public CodeCreateCommand Map(CreateCodeApiRequest request)
+{
+    return new() { Name = request.Name, Content = request.Content };
+}
 
-// ❌ rejects an input, so it is validating, not mapping
+// ❌ hides the mapping failure in an undocumented null
 public CodeCreateCommand? Map(CreateCodeApiRequest request) =>
     request.Name is null ? null : new() { Name = request.Name };
 ```

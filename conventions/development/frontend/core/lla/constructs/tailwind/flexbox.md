@@ -1,14 +1,12 @@
 # Flexbox
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > Every flex container and item utility, and the spellings that make a row stop shrinking or stop wrapping.
 > Purpose — flex is the default layout tool here; a one-dimensional row or column needs nothing else.
 > Use case — reach here before laying anything out, and whenever a flex child overflows its parent.
 
 ## The utilities
-
-`flex`, `items-center`, `inline-flex` and `flex-col` lead the group; `shrink-0` and `min-w-0` are the overflow pair.
 
 | Utility | Applies | Verdict |
 |---|---|---|

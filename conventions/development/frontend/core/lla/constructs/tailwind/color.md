@@ -1,14 +1,12 @@
 # Color
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > Every colour utility family, the token layer each must consume, and the spellings that cannot flip for dark mode.
 > Purpose — a semantic token is one name resolving to two values, which is the whole of our dark-mode support.
 > Use case — reach here before writing any class that names a colour.
 
 ## The utilities
-
-The largest group in both trees. `text-muted-foreground`, `text-foreground`, `border-border` and `bg-muted` lead it.
 
 | Utility | Applies | Verdict |
 |---|---|---|
@@ -43,9 +41,8 @@ The largest group in both trees. `text-muted-foreground`, `text-foreground`, `bo
 
 ## Banned
 
-- **a stock palette class** — reach for the semantic token; `bg-slate-900` does not re-point under `.dark`, so the
-  component is legible in one theme and unreadable in the other. `Avatar.vue` still carries a stock-palette swatch
-  ladder — the one instance left in either tree.
+- **a stock palette class on themed chrome** — use the semantic token; literal color content such as a swatch
+  follows its component contract rather than the surrounding surface theme.
 - **`bg-white` · `text-black` on a themed surface** — reach for `bg-background` / `text-foreground`; both are fixed
   values, so the surface stops tracking the theme while everything around it moves.
 - **an arbitrary colour** — reach for a token in `@theme`; the literal is invisible to a theme audit, and an app

@@ -1,10 +1,9 @@
 # HStack
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > The row preset — [Stack](stack.md) with `direction="row"` fixed at the import.
 > What a layout is → [layout](../../constructs/visual/layout.md).
-> Its full surface → `HStack.spec.md`.
 
 ## Reach for it when
 
@@ -26,5 +25,4 @@
 
 ## Values
 
-- must not pass `direction` — the preset types it away
 - should carry the inherited `gap` default of `4` unless the row is tighter

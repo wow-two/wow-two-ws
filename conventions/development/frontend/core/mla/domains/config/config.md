@@ -1,6 +1,6 @@
 # Config
 
-*Last updated: 2026-08-17*
+*Last updated: 2026-09-10*
 
 > A typed, fail-fast read of application configuration — one declared schema resolved into one frozen object.
 > Purpose — a misconfigured deploy reports every problem at startup, not one boot-crash at a time.
@@ -48,3 +48,11 @@
 - [validation](../validation/validation.md) — the seam a boundary parse shares with a form
 - [storage](../storage/storage.md) — the seam that degrades silently where this one fails loud
 - [flags](../flags/flags.md) — per-user variation, which configuration deliberately has none of
+
+---
+
+## Trust
+
+- must follow [security](../security/security.md#trust); every browser source is public.
+- must use the secret marker only to redact diagnostics, never to promise confidentiality in the browser.
+- must reject a malformed supplied value rather than fall through to a lower-priority valid value.

@@ -1,6 +1,6 @@
 # Nav
 
-*Last updated: 2026-08-23*
+*Last updated: 2026-09-10*
 
 > A component whose whole job is moving the user somewhere — another place, another section, another command.
 > Purpose — wayfinding is one kind, so a link row, a menu, and a palette share one contract and one a11y story.
@@ -8,15 +8,13 @@
 
 ## Gate
 
-- must **move the user** — a component that changes a value is a [control](control.md), not a nav.
-- must render its destinations as links when they are places, so middle-click and copy-link work.
-- must expose a roving tab stop over its items ([primitive](primitive.md)); a list of separate tab stops is not a nav.
-- must not own the destination list's source; a caller supplies the items.
-
-```txt
-✅ NavItem · Breadcrumb · Pagination · Menu · DropdownMenu · ContextMenu · CommandPalette · TableOfContents
-❌ SegmentedControl        (it picks a value, not a destination — a control)
-```
+- must offer destinations or commands without owning an editable domain value.
+- must use links for places so normal tabbing, middle-click, copy-link and browser navigation survive.
+- must use buttons for commands.
+- must derive keyboard behavior from the semantic pattern, not from the `nav/` folder.
+- must keep ordinary breadcrumb, sidebar and outline links in the normal tab order.
+- must use roving focus or active-descendant behavior only for a composite pattern that requires it.
+- must receive destination data or an explicit source from the caller.
 
 ---
 
@@ -44,7 +42,8 @@
 
 ### Construct
 
-- must build item navigation on `RovingFocusGroup` and dismissal on `DismissableLayer`.
+- must reuse the appropriate keyboard primitive for menus and composite widgets.
+- must reuse dismissal behavior only when the navigation opens a dismissable surface.
 - must render an `<a>` for a place and a `<button>` for a command, and expose `asChild` for the router link.
 
 ### Component name
@@ -53,14 +52,6 @@
 - must end `*Item` for one row of one; an item is a compound subpart
   ([architecture](../../../../shapes/app/architecture/architecture.md)).
 - must name the shape, not the page it appears on — `Breadcrumb`, never `HeaderBreadcrumb`.
-
-```vue
-<script setup lang="ts">
-/** Renders a sidebar navigation row with an icon, a label, and a trailing slot. */
-defineOptions({ name: 'NavItem', inheritAttrs: false });
-defineProps<{ asChild?: boolean; isActive?: boolean }>();
-</script>
-```
 
 ---
 
@@ -83,26 +74,15 @@ defineProps<{ asChild?: boolean; isActive?: boolean }>();
 
 - must emit the chosen destination and let the caller navigate — a nav never calls the router.
 
-```vue
-<script setup lang="ts">
-defineProps<{ isActive?: boolean }>();                       // ✅ position comes in as a prop
-defineEmits<{ (e: 'select', href: string): void }>();        // ✅ the caller navigates
-const route = useRoute();                                    // ❌ a nav reading the router itself
-</script>
-```
-
 ---
 
 ## Composition
 
-- must be mounted by a [layout](layout.md) region or an [overlay](overlay.md) — a menu portals, a sidebar does not.
-- must compose [display](display.md) and [indicator](indicator.md) inside an item — a count badge, a status dot.
-- must not mount a [page](page.md), a [view](view.md), or a [field](field.md).
-
-```txt
-✅ AppShell → sidebar slot → NavItem → CountBadge
-❌ NavItem → SettingsView        (navigating to a body by mounting it)
-```
+- must follow the shared [composition contract](visual.md#composition-order).
+- must preserve the underlying link's native navigation when reporting a selection.
+- must provide a visible keyboard-reachable alternative to a context-only command menu.
+- must name navigation landmarks and expose the current place through the applicable ARIA state.
+- must keep rich menu panels distinct from menu-item roles; arbitrary controls do not become menu items.
 
 ---
 
@@ -112,4 +92,4 @@ const route = useRoute();                                    // ❌ a nav readin
 - [action](action.md) — the kind for a trigger that runs a command instead of moving
 - [overlay](overlay.md) — the surface a menu or palette floats in
 - [routing](../../../../shapes/app/routing/routing.md) — the route table a nav's destinations point at
-- [visual kinds](visual.md) — every other kind, and the composition ladder
+- [visual kinds](visual.md) — every other kind, and the composition contract

@@ -1,10 +1,9 @@
 # SectionHeader
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > The section's whole header — title, description, and an actions row in one.
 > What a display is → [display](../../constructs/visual/display.md).
-> Its full surface → `SectionHeader.spec.md`.
 
 ## Reach for it when
 
@@ -22,11 +21,3 @@
 | [Eyebrow](eyebrow.md) | the label is a tiny uppercase kicker rather than a header |
 | [MetaInline](metaInline.md) | the row carries meta chips, not a title |
 | [Card](card.md) | the header belongs to a bordered box and its own body |
-
----
-
-## Values
-
-- should leave `level` at `2` and `size` at `lg` for a section inside a page
-- must lower `level` for a nested section — the size stays independent
-- should leave `isBordered` on; drop it only when a surface already draws the rule

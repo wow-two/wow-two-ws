@@ -1,6 +1,6 @@
 # Options
 
-*Last updated: 2026-08-20*
+*Last updated: 2026-09-10*
 
 > The class a caller fills in code to steer a component's behavior; it binds to no configuration section.
 > Purpose — an `Add*` extension ships working defaults, so the caller overrides only what differs.
@@ -16,8 +16,7 @@
   a service declares few `Options` of its own, because a service *is* the host and reads a section instead.
 
 ### File
-- must give it its own file, named for the type →
-  [one type, one file](../../mla.md).
+- file rules → [one type, one file](../../mla.md).
 
 ---
 
@@ -37,13 +36,11 @@
 ```
 
 ### Construct
-- must declare a `sealed record` — two option bags holding the same values are the same configuration, and
-  `with` gives a caller a modified copy without touching the original.
+- declaration baseline → [data](data.md) § *Shared rules*.
 - must declare `{ get; set; }` — the `Action<T>` idiom assigns each member in turn, and a record carries
   settable members without losing `with` or its value equality.
-- must carry defaults as the pair's shared rule states → [constructs](../constructs.md) § *`Settings` vs `Options`*.
-- must pair a `required` member with a `.Validate()` clause — the registration builds the type through
-  `Activator.CreateInstance`, which bypasses the compile-time guard → [options](../../components/options.md).
+- defaults → [constructs](../constructs.md) § *`Settings` vs `Options`*.
+- required-member enforcement → [constructs](../constructs.md) § *`Settings` vs `Options`*.
 
 ### Type name
 - must suffix with `Options` — `SqlNamingOptions`, `DbUpOptions`.
@@ -65,8 +62,8 @@ the suffix, and the suffix decides the rest:
 | A must-supply member | `required`, taken as an `Add*` parameter | `required`, named in the section |
 | `required` enforced by | validation — `Activator` bypasses it | validation — the binder bypasses it |
 
-- must rename the type when a knob moves from code to configuration — the mutability and the defaults both
-  invert, so the suffix change is what tells a reader the shape changed.
+- must rename the type when its values move between caller code and configuration binding.
+- must take its new accessor shape from the destination role; shared default rules still apply.
 
 ---
 

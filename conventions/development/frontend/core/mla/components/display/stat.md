@@ -1,10 +1,9 @@
 # Stat
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > The KPI tile — a label, a big value, an optional trend and helper line.
 > What a display is → [display](../../constructs/visual/display.md).
-> Its full surface → `Stat.spec.md`.
 
 ## Reach for it when
 
@@ -28,4 +27,3 @@
 ## Values
 
 - should leave `size` at `md`
-- must keep every tile in one grid at the same `size`, or the row reads ragged

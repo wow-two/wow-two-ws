@@ -1,16 +1,14 @@
 # ReactionBar
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > The row of reaction chips, with an add button on the end.
 > What a display is → [display](../../constructs/visual/display.md).
-> Its full surface → `ReactionBar.vue`.
 
 ## Reach for it when
 
 - must hang reactions off a message, a comment, or a post
 - must handle `@react` with the chip's key and `@add` to open a picker
-- should wire `@add` to `ReactionPicker`; the bar opens nothing itself
 
 ---
 

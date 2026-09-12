@@ -1,6 +1,6 @@
 # Statements
 
-*Last updated: 2026-08-18*
+*Last updated: 2026-09-10*
 
 > Every C# expression and statement form, and which of them we may write.
 > Purpose — settle the body-level vocabulary once, so no component doc has to rule on `stackalloc` or `unsafe`.
@@ -15,124 +15,342 @@ sit in this folder — the split is only declaration versus effect.
 
 ## The forms
 
-Exhaustive through C# 13 / .NET 10. A form we have never written is still listed, with a verdict.
+- must apply this catalogue to C# 14 / .NET 10; declaration forms use the construct catalogue.
 
 - must read the verdict column as [constructs](constructs.md) § *The constructs* defines it.
 - must treat `banned` as never written — `What it does` carries the replacement.
 - a declaration form (`operator checked`, `partial`, a local function) is ruled on in [constructs](constructs.md).
 
-| Form | What it does | Verdict |
-|---|---|---|
-| `if` · `else` | branches on a boolean | `use` |
-| `switch` statement | picks one of many sections | `use` |
-| `switch` expression | yields the matching arm's value | `use` |
-| `when` guard | conditions a `switch` arm or `case` | `use` |
-| ternary `?:` | yields one of two values | `use` |
-| `foreach` | walks a sequence, no index | `use` |
-| `for` | loops with a body-read index | `use` |
-| `while` | loops while a condition holds | `use` |
-| `do` · `while` | tests after the body | `use with care` |
-| `await foreach` | walks an `IAsyncEnumerable<T>` | `use` |
-| `return` | ends the member, value optional | `use` |
-| `break` | ends the loop or `switch` section | `use` |
-| `continue` | starts the next iteration | `use` |
-| `yield return` | emits one iterator element | `use with care` |
-| `yield break` | ends an iterator | `use with care` |
-| `goto` · `goto case` · `goto default` | jumps to a label invisible when scanning down | `banned` |
-| label `name:` | names a target only `goto` reaches | `banned` |
-| `try` · `catch` · `finally` | handles a failure the caller cannot prevent | `use` |
-| `catch` filter `when` | selects a `catch` without unwinding the stack | `use` |
-| `throw` statement | raises an exception | `use` |
-| `throw` expression | raises inline, in `??` or a `switch` arm | `use` |
-| rethrow `throw;` | re-raises, stack intact | `use` |
-| `using` statement | disposes at the nested block's end | `use with care` |
-| `using` declaration | disposes at the enclosing scope's end | `use` |
-| `await using` | disposes an `IAsyncDisposable` | `use` |
-| `lock` on a private gate | serializes a region on a `private readonly` object | `use with care` |
-| `lock` on `this` or a public field | takes a lock a caller can also take, so a caller can deadlock | `banned` |
-| `lock` on a `System.Threading.Lock` | the .NET 9 lock object, compiler-checked | `use with care` |
-| `unsafe` block · pointer types | drops verification for raw memory; use `Span<T>` / `Memory<T>` | `banned` |
-| `fixed` | pins storage so a pointer stays valid; needs `unsafe`, itself banned | `banned` |
-| `stackalloc` | allocates on the stack; the budget is invisible at the call site | `banned` |
-| `checked` · `unchecked`, block or expression | toggles overflow checking; hides the arithmetic decision | `banned` |
-| `await` | suspends until the operation completes | `use` |
-| `async` lambda | inline async callback | `use with care` |
-| `is` operator | tests a value against a pattern | `use` |
-| declaration pattern `is T t` | tests the type, binds the narrowed value | `use` |
-| type pattern `is T` | tests the type without binding | `use` |
-| constant pattern | tests against a literal or a `const` | `use` |
-| null pattern `is null` · `is not null` | tests for null, bypassing an `==` overload | `use` |
-| relational pattern `<` `>` `<=` `>=` | tests against a constant bound | `use` |
-| logical pattern `and` · `or` · `not` | combines patterns | `use` |
-| property pattern `{ Prop: … }` | tests the matched value's members | `use` |
-| positional pattern `(a, b)` | tests through `Deconstruct` or tuple elements | `use with care` |
-| `var` pattern | binds without testing, for a `when` guard | `use with care` |
-| discard pattern `_` | matches anything and binds nothing | `use` |
-| list pattern `[a, b]` | tests a collection's elements and length | `use with care` |
-| slice pattern `..` | matches a list pattern's remainder | `use with care` |
-| parenthesized pattern | groups patterns against precedence | `use` |
-| `as` operator | converts, yielding `null` when it cannot | `use with care` |
-| cast `(T)x` | converts, throwing when it cannot | `use with care` |
-| LINQ method syntax | composes a query as chained calls | `use` |
-| LINQ query syntax `from … select` | the same query as clauses — `let` · `join` · `group` | `use with care` |
-| lambda `=>` | inline function value | `use` |
-| `static` lambda | a lambda that cannot capture | `use with care` |
-| lambda with explicit return type or defaults | pins the signature inference would pick | `use with care` |
-| anonymous method `delegate { }` | the pre-lambda form | `use with care` |
-| method group conversion | passes a method by name, not a lambda | `use` |
-| `new` expression | creates a named type's instance | `use` |
-| target-typed `new()` | creates the instance the target type already names | `use` |
-| object initializer `{ P = v }` | sets members after construction | `use` |
-| collection initializer `{ a, b }` | fills a collection after construction | `use with care` |
-| collection expression `[a, b]` | builds a collection literal, target-typed | `use` |
-| spread `..e` | inlines a sequence into a collection expression | `use` |
-| `with` expression | copies a record, overriding named members | `use` |
-| index `^n` · range `a..b` | addresses from the end, or slices | `use` |
-| `+` `-` `*` `/` `%` | arithmetic; each overloadable | `use with care` |
-| unary `+` `-` `!` `~` | sign, logical negation, bitwise complement; overloadable | `use with care` |
-| `++` `--` | increment and decrement; overloadable | `use with care` |
-| `true` · `false` operators | let a value stand as a condition | `use with care` |
-| `&` `\|` `^` | bitwise and logical combination; overloadable | `use with care` |
-| `<<` `>>` `>>>` | shifts, `>>>` included; overloadable | `use with care` |
-| `==` · `!=` | equality; overloadable only as a pair | `use with care` |
-| `<` `>` `<=` `>=` | comparison; overloadable only in pairs | `use with care` |
-| `&&` · `\|\|` | short-circuits; not overloadable, derived from `&` `\|` `true` `false` | `use` |
-| `=` assignment | stores a value; never overloadable | `use` |
-| compound assignment `+=` `-=` … | applies the operator, then assigns | `use` |
-| `??` | yields the right side when the left is null | `use` |
-| `??=` | assigns only when the target is null | `use` |
-| `?.` · `?[]` | access that stops at null | `use` |
-| `!` null-forgiving | asserts non-null to the compiler, unchecked at runtime | `use with care` |
-| tuple literal `(a, b)` | groups values without declaring a type | `use with care` |
-| deconstruction `var (a, b) = x` | splits one value into named locals | `use` |
-| discard `_` | drops an unneeded value | `use` |
-| `nameof` | yields a symbol's name, compiler-checked | `use` |
-| `typeof` | yields a named type's `Type` | `use` |
-| `sizeof` | yields a value type's size in bytes | `use with care` |
-| `default` · `default(T)` | yields the type's zero value | `use` |
-| `dynamic` | defers binding to runtime; use generics or an interface | `banned` |
-| interpolated string `$"…"` | composes text from embedded expressions | `use` |
-| raw string literal `"""` | holds text verbatim, quotes and backslashes | `use` |
-| interpolated raw string `$$"""` | raw text with `{{…}}` holes | `use` |
-| verbatim string `@"…"` | escapes nothing except a doubled `""` | `use with care` |
-| UTF-8 literal `"…"u8` | a `ReadOnlySpan<byte>` of UTF-8 bytes | `use with care` |
-| `ref` local · `ref` assignment | aliases storage instead of copying | `use with care` |
-| `out` argument · `out var` | returns a second value | `use with care` |
-| `in` argument | passes a value type by readonly reference | `use with care` |
-| `ref readonly` parameter | the same, modifier required at the call | `use with care` |
-| `scoped` | bounds a reference to the current method | `use with care` |
-| `params` argument | passes a variable argument count | `use` |
-| local variable declaration | names a value inside a body | `use` |
-| `var` | infers the local's type; spell the type when it is unobvious | `use` |
-| local `const` | a compile-time value scoped to the body | `use` |
-| block `{ }` | groups statements and scopes their locals | `use` |
-| expression statement | evaluates an expression for its effect | `use` |
-| empty statement `;` | does nothing | `use with care` |
-| `this` · `base` access | reaches the current or base instance | `use` |
+- `if` · `else`
+  - what it does: branches on a boolean
+  - verdict: `use`
+- `switch` statement
+  - what it does: picks one of many sections
+  - verdict: `use`
+- `switch` expression
+  - what it does: yields the matching arm's value
+  - verdict: `use`
+- `when` guard
+  - what it does: conditions a `switch` arm or `case`
+  - verdict: `use`
+- ternary `?:`
+  - what it does: yields one of two values
+  - verdict: `use`
+- `foreach`
+  - what it does: walks a sequence, no index
+  - verdict: `use`
+- `for`
+  - what it does: loops with a body-read index
+  - verdict: `use`
+- `while`
+  - what it does: loops while a condition holds
+  - verdict: `use`
+- `do` · `while`
+  - what it does: tests after the body
+  - verdict: `use with care`
+- `await foreach`
+  - what it does: walks an `IAsyncEnumerable<T>`
+  - verdict: `use`
+- `return`
+  - what it does: ends the member, value optional
+  - verdict: `use`
+- `break`
+  - what it does: ends the loop or `switch` section
+  - verdict: `use`
+- `continue`
+  - what it does: starts the next iteration
+  - verdict: `use`
+- `yield return`
+  - what it does: emits one iterator element
+  - verdict: `use with care`
+- `yield break`
+  - what it does: ends an iterator
+  - verdict: `use with care`
+- `goto` · `goto case` · `goto default`
+  - what it does: jumps to a label invisible when scanning down
+  - verdict: `banned`
+- label `name:`
+  - what it does: names a target only `goto` reaches
+  - verdict: `banned`
+- `try` · `catch` · `finally`
+  - what it does: handles a failure the caller cannot prevent
+  - verdict: `use`
+- `catch` filter `when`
+  - what it does: selects a `catch` without unwinding the stack
+  - verdict: `use`
+- `throw` statement
+  - what it does: raises an exception
+  - verdict: `use`
+- `throw` expression
+  - what it does: raises inline, in `??` or a `switch` arm
+  - verdict: `use`
+- rethrow `throw;`
+  - what it does: re-raises, stack intact
+  - verdict: `use`
+- `using` statement
+  - what it does: disposes at the nested block's end
+  - verdict: `use with care`
+- `using` declaration
+  - what it does: disposes at the enclosing scope's end
+  - verdict: `use`
+- `await using`
+  - what it does: disposes an `IAsyncDisposable`
+  - verdict: `use`
+- `lock` on a private gate
+  - what it does: serializes a region on a `private readonly` object
+  - verdict: `use with care`
+- `lock` on `this` or a public field
+  - what it does: takes a lock a caller can also take, so a caller can deadlock
+  - verdict: `banned`
+- `lock` on a `System.Threading.Lock`
+  - what it does: the .NET 9 lock object, compiler-checked
+  - verdict: `use with care`
+- `unsafe` block · pointer types
+  - what it does: drops verification for raw memory; use `Span<T>` / `Memory<T>`
+  - verdict: `banned`
+- `fixed`
+  - what it does: pins storage so a pointer stays valid; needs `unsafe`, itself banned
+  - verdict: `banned`
+- `stackalloc`
+  - what it does: allocates on the stack; the budget is invisible at the call site
+  - verdict: `banned`
+- `checked` · `unchecked`, block or expression
+  - what it does: toggles overflow checking; hides the arithmetic decision
+  - verdict: `banned`
+- `await`
+  - what it does: suspends until the operation completes
+  - verdict: `use`
+- `async` lambda
+  - what it does: inline async callback
+  - verdict: `use with care`
+- `is` operator
+  - what it does: tests a value against a pattern
+  - verdict: `use`
+- declaration pattern `is T t`
+  - what it does: tests the type, binds the narrowed value
+  - verdict: `use`
+- type pattern `is T`
+  - what it does: tests the type without binding
+  - verdict: `use`
+- constant pattern
+  - what it does: tests against a literal or a `const`
+  - verdict: `use`
+- null pattern `is null` · `is not null`
+  - what it does: tests for null, bypassing an `==` overload
+  - verdict: `use`
+- relational pattern `<` `>` `<=` `>=`
+  - what it does: tests against a constant bound
+  - verdict: `use`
+- logical pattern `and` · `or` · `not`
+  - what it does: combines patterns
+  - verdict: `use`
+- property pattern `{ Prop: … }`
+  - what it does: tests the matched value's members
+  - verdict: `use`
+- positional pattern `(a, b)`
+  - what it does: tests through `Deconstruct` or tuple elements
+  - verdict: `use with care`
+- `var` pattern
+  - what it does: binds without testing, for a `when` guard
+  - verdict: `use with care`
+- discard pattern `_`
+  - what it does: matches anything and binds nothing
+  - verdict: `use`
+- list pattern `[a, b]`
+  - what it does: tests a collection's elements and length
+  - verdict: `use with care`
+- slice pattern `..`
+  - what it does: matches a list pattern's remainder
+  - verdict: `use with care`
+- parenthesized pattern
+  - what it does: groups patterns against precedence
+  - verdict: `use`
+- `as` operator
+  - what it does: converts, yielding `null` when it cannot
+  - verdict: `use with care`
+- cast `(T)x`
+  - what it does: converts, throwing when it cannot
+  - verdict: `use with care`
+- LINQ method syntax
+  - what it does: composes a query as chained calls
+  - verdict: `use`
+- LINQ query syntax `from … select`
+  - what it does: the same query as clauses — `let` · `join` · `group`
+  - verdict: `use with care`
+- lambda `=>`
+  - what it does: inline function value
+  - verdict: `use`
+- `static` lambda
+  - what it does: a lambda that cannot capture
+  - verdict: `use with care`
+- lambda with inferred parameter modifiers
+  - what it does: uses `ref`, `out`, `in` or `scoped` without parameter types
+  - verdict: `use with care`
+- implicit span conversion
+  - what it does: converts compatible arrays or spans without an explicit cast
+  - verdict: `use with care`
+- lambda with explicit return type or defaults
+  - what it does: pins the signature inference would pick
+  - verdict: `use with care`
+- anonymous method `delegate { }`
+  - what it does: the pre-lambda form
+  - verdict: `use with care`
+- method group conversion
+  - what it does: passes a method by name, not a lambda
+  - verdict: `use`
+- `new` expression
+  - what it does: creates a named type's instance
+  - verdict: `use`
+- target-typed `new()`
+  - what it does: creates the instance the target type already names
+  - verdict: `use`
+- object initializer `{ P = v }`
+  - what it does: sets members after construction
+  - verdict: `use`
+- collection initializer `{ a, b }`
+  - what it does: fills a collection after construction
+  - verdict: `use with care`
+- collection expression `[a, b]`
+  - what it does: builds a collection literal, target-typed
+  - verdict: `use`
+- spread `..e`
+  - what it does: inlines a sequence into a collection expression
+  - verdict: `use`
+- `with` expression
+  - what it does: copies a record, overriding named members
+  - verdict: `use`
+- index `^n` · range `a..b`
+  - what it does: addresses from the end, or slices
+  - verdict: `use`
+- `+` `-` `*` `/` `%`
+  - what it does: arithmetic; each overloadable
+  - verdict: `use with care`
+- unary `+` `-` `!` `~`
+  - what it does: sign, logical negation, bitwise complement; overloadable
+  - verdict: `use with care`
+- `++` `--`
+  - what it does: increment and decrement; overloadable
+  - verdict: `use with care`
+- `true` · `false` operators
+  - what it does: let a value stand as a condition
+  - verdict: `use with care`
+- `&` `\|` `^`
+  - what it does: bitwise and logical combination; overloadable
+  - verdict: `use with care`
+- `<<` `>>` `>>>`
+  - what it does: shifts, `>>>` included; overloadable
+  - verdict: `use with care`
+- `==` · `!=`
+  - what it does: equality; overloadable only as a pair
+  - verdict: `use with care`
+- `<` `>` `<=` `>=`
+  - what it does: comparison; overloadable only in pairs
+  - verdict: `use with care`
+- `&&` · `\|\|`
+  - what it does: short-circuits; not overloadable, derived from `&` `\|` `true` `false`
+  - verdict: `use`
+- `=` assignment
+  - what it does: stores a value; never overloadable
+  - verdict: `use`
+- compound assignment `+=` `-=` …
+  - what it does: applies the operator, then assigns
+  - verdict: `use`
+- `??`
+  - what it does: yields the right side when the left is null
+  - verdict: `use`
+- null-conditional assignment
+  - what it does: assigns only when the receiver is non-null
+  - verdict: `use`
+- `??=`
+  - what it does: assigns only when the target is null
+  - verdict: `use`
+- `?.` · `?[]`
+  - what it does: access that stops at null
+  - verdict: `use`
+- `!` null-forgiving
+  - what it does: asserts non-null to the compiler, unchecked at runtime
+  - verdict: `use with care`
+- tuple literal `(a, b)`
+  - what it does: groups values without declaring a type
+  - verdict: `use with care`
+- deconstruction `var (a, b) = x`
+  - what it does: splits one value into named locals
+  - verdict: `use`
+- discard `_`
+  - what it does: drops an unneeded value
+  - verdict: `use`
+- `nameof`
+  - what it does: yields a symbol's name, including an unbound generic type
+  - verdict: `use`
+- `typeof`
+  - what it does: yields a named type's `Type`
+  - verdict: `use`
+- `sizeof`
+  - what it does: yields a value type's size in bytes
+  - verdict: `use with care`
+- `default` · `default(T)`
+  - what it does: yields the type's zero value
+  - verdict: `use`
+- `dynamic`
+  - what it does: defers binding to runtime; use generics or an interface
+  - verdict: `banned`
+- interpolated string `$"…"`
+  - what it does: composes text from embedded expressions
+  - verdict: `use`
+- raw string literal `"""`
+  - what it does: holds text verbatim, quotes and backslashes
+  - verdict: `use`
+- interpolated raw string `$$"""`
+  - what it does: raw text with `{{…}}` holes
+  - verdict: `use`
+- verbatim string `@"…"`
+  - what it does: escapes nothing except a doubled `""`
+  - verdict: `use with care`
+- UTF-8 literal `"…"u8`
+  - what it does: a `ReadOnlySpan<byte>` of UTF-8 bytes
+  - verdict: `use with care`
+- `ref` local · `ref` assignment
+  - what it does: aliases storage instead of copying
+  - verdict: `use with care`
+- `out` argument · `out var`
+  - what it does: returns a second value
+  - verdict: `use with care`
+- `in` argument
+  - what it does: passes a value type by readonly reference
+  - verdict: `use with care`
+- `ref readonly` parameter
+  - what it does: prefers `in` or `ref` at the call; omission warns
+  - verdict: `use with care`
+- `scoped`
+  - what it does: bounds a reference to the current method
+  - verdict: `use with care`
+- `params` argument
+  - what it does: passes a variable argument count
+  - verdict: `use`
+- local variable declaration
+  - what it does: names a value inside a body
+  - verdict: `use`
+- `var`
+  - what it does: infers the local's type; spell the type when it is unobvious
+  - verdict: `use`
+- local `const`
+  - what it does: a compile-time value scoped to the body
+  - verdict: `use`
+- block `{ }`
+  - what it does: groups statements and scopes their locals
+  - verdict: `use`
+- expression statement
+  - what it does: evaluates an expression for its effect
+  - verdict: `use`
+- empty statement `;`
+  - what it does: does nothing
+  - verdict: `use with care`
+- `this` · `base` access
+  - what it does: reaches the current or base instance
+  - verdict: `use`
 
 - must `await` every asynchronous call, without exception.
-- must use `var` when the initializer names the type, and write the type when it does not
-  ([style](../notation/style/style.md) § *The body*).
+- local type spelling → [style](../notation/style/style.md) § *The body*.
 - must promote a structural interpolated string to a `const` — interpolation is for a message.
 - must gate `lock` behind a `private readonly` object, never `this` and never a public field.
 

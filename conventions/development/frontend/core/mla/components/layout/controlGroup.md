@@ -1,10 +1,9 @@
 # ControlGroup
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > The labelled control row — a muted label bound to the control beside or above it.
-> What a layout is → [layout](../../constructs/visual/layout.md).
-> Its surface → `ControlGroup.vue`; no spec ships.
+> Kind → [field](../../constructs/visual/field.md).
 
 ## Reach for it when
 
@@ -26,7 +25,4 @@
 
 ## Values
 
-- must leave `orientation` at `horizontal`; `vertical` only for a wide control
-- must leave `divided` on for a stacked list — the rule already skips the last row
 - should pass `labelWidth` to align labels down a stack — a CSS length, `"6rem"`
-- should reach for the `label` slot for richer content; it overrides the prop's text

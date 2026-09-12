@@ -1,6 +1,6 @@
 # Style
 
-*Last updated: 2026-08-16*
+*Last updated: 2026-09-10*
 
 > What the text inside a file looks like — its order, its wrapping, its width.
 > Purpose — remove every per-file judgment call about layout so a diff shows meaning, not formatting.
@@ -11,7 +11,7 @@
 What a file declares before any type appears.
 
 ### Namespaces
-Required everywhere. Block namespaces are not used.
+- namespace form → [constructs](../../constructs/constructs.md) § *The constructs*.
 
 ```csharp
 // ✅ Correct
@@ -23,8 +23,7 @@ public interface IEntity { Guid Id { get; } }
 ### Imports
 - `System.*` → `Microsoft.*` → third-party → project namespaces — IDE auto-sort handles it; never hand-order
 - No unused `using` statements (analyzer enforces)
-- **`using static` is banned** — it strips the owning class off the call site.
-  - call through the class, or make it a real extension ([naming](../naming/naming.md) § *`using static` is banned*).
+- static imports → [naming](../naming/naming.md) § *`using static` is banned*.
 
 Neither a construct nor a statement — a directive declares no type and runs nothing; it changes what a file can see.
 
@@ -33,16 +32,27 @@ Neither a construct nor a statement — a directive declares no type and runs no
 | `using {namespace}` | use | ordered per § *The file's frame* |
 | `global using` | use with care | one file per project owns them; scattered, it is invisible at the call site |
 | `using {alias} = {type}` | use with care | only to disambiguate two types with the same name in one file |
-| `using static` | banned | write the type name at the call site — the call loses its subject otherwise |
+| `using static` | → [naming](../naming/naming.md) | static-import policy |
 | `extern alias` | banned | two assemblies exporting one type is a packaging fault, fixed upstream |
 
-| Directive | Verdict | Rule |
-|---|---|---|
-| `#nullable` | use | only to enable; a per-file disable hides a real warning |
-| `#if` · `#elif` · `#else` · `#endif` | use with care | a build-configuration branch, never a feature switch |
-| `#region` · `#endregion` | use | grouping members past 60 lines → [constructs](../../constructs/constructs.md) § *Behavior components* |
-| `#pragma warning` | use with care | must name the warning and carry a `//` saying why |
-| `#line` · `#error` · `#warning` | use with care | generator output and build-time assertions only |
+- `#nullable`
+  - verdict: use
+  - rule: only to enable; a per-file disable hides a real warning
+- `#if` · `#elif` · `#else` · `#endif`
+  - verdict: use with care
+  - rule: a build-configuration branch, never a feature switch
+- `#region` · `#endregion`
+  - verdict: use
+  - rule: grouping members past 60 lines → [constructs](../../constructs/constructs.md) § *Behavior components*
+- `#pragma warning`
+  - verdict: use with care
+  - rule: must name the warning and carry a `//` saying why
+- `#line` · `#error` · `#warning`
+  - verdict: use with care
+  - rule: generator output and build-time assertions only
+- `#!`, `#:sdk`, `#:property`, `#:package`, `#:project`
+  - verdict: use with care
+  - rule: file-based apps only
 
 ---
 

@@ -1,6 +1,6 @@
 # Singleton
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > One instance per process, owned by the container rather than by the type.
 > Purpose — keep the single-instance decision at the composition root, where it can be changed and tested.
@@ -12,8 +12,7 @@
   ([host configuration](../../../../shapes/service/platform/startup/host-configuration.md)).
 - must not declare a static `Instance` property, a private constructor, or a `Lazy<T>` self-holder.
 - must be thread-safe when registered singleton — a singleton is entered concurrently by every request.
-- must keep a `static` class for stateless logic only — `Constants` and `Extensions`
-  ([components](../../components/components.md)).
+- static eligibility and forms → [constructs](../constructs.md) § *Static or instance*.
 
 ```csharp
 // ✅ the container owns the lifetime
@@ -39,8 +38,9 @@ public sealed class QrMatrixGenerator
 ## Limits
 
 - must not register singleton anything holding a `DbContext`, a request identity, or a tenant — those are scoped.
-- must not capture a scoped service in a singleton constructor; take `IServiceScopeFactory` instead
-  ([service locator](service-locator.md) § *Limits*).
+- must not capture a scoped service in a singleton constructor.
+- may create and dispose a scope per operation when the singleton owns that operation's lifetime.
+- must keep every scoped value inside the operation that resolved it → [service locator](service-locator.md).
 - must not use the lifetime as a cache — a cache is a named collaborator with an eviction policy.
 - must not reach a singleton through a static accessor once registered; inject its interface.
 

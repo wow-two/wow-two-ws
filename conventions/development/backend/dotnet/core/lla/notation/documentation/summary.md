@@ -1,6 +1,6 @@
 # Summary
 
-*Last updated: 2026-08-18*
+*Last updated: 2026-09-10*
 
 > The `<summary>` block — the mandated first word per type-kind, plus tone. The canonical summary reference.
 
@@ -36,10 +36,7 @@ The first word of every `<summary>` is fixed by what the thing is.
 - must not spill member-level detail into the type summary — the members carry it.
 - must drop filler — `the SDK convention`, `with a custom X type`.
   - the signature already shows the type parameter.
-- an **indexer** takes the property starter its accessors name, and states **what the key selects**.
-  - ✅ `Gets the routing rule at the given order.`
-  - ❌ `Gets the rule.`
-  - the key is a value, so it also carries a `<param>` ([params](params.md)).
+- indexer summary content → [indexers](../../components/indexers.md).
 
 ---
 
@@ -78,9 +75,9 @@ Companion rule: **a summary states the referent (what the thing *is*), never an 
 
 ## Properties on entities + DTOs
 
-- must start with `Gets` or `Gets or sets`.
+- accessor starters → [language constructs](../../constructs/constructs.md) § *Member documentation*.
 - must state what the property holds, even when the name shows it.
-- **`{ get; init; }` takes `Gets`** — the setter closes after construction, so a consumer only ever gets.
+- must apply the accessor starter to the consumer-visible accessors; initialization is not a later write.
 - applies to every C# model kind, value objects included.
   - must not carry the frontend's bare noun phrase across — `The network name.` is the TypeScript style.
   - C# has properties, and the accessor is what the starter names.
@@ -105,16 +102,7 @@ Companion rule: **a summary states the referent (what the thing *is*), never an 
 
 ## Fields
 
-`const` · `static readonly` · `readonly` take **`Holds`**; a field whose state changes takes **`Keeps`**.
-The **role it plays** decides whether a field earns a summary, never the access modifier:
-
-- **a value** — a `const`, a compiled `Regex`, a timeout, a format string, a table name.
-  - the summary names the authority fixing the choice ([constants](../../../mla/components/constants.md)).
-- **state the type mutates** — a cache, an accumulator, a live-execution map.
-  - the summary names what it holds, and the invariant keeping it correct.
-- **an injected collaborator** — `private readonly IClock _clock`, an `ILogger<T>`, a repository.
-  - **no summary** — its contract carries the doc.
-  - restating the contract on the field is a Redundant comment.
-
-The test: **does the declaration leave a "why this?" unanswered?**
-A value and a state field do; a collaborator's type name is the whole answer.
+- field starters and collaborator exclusions →
+  [language constructs](../../constructs/constructs.md) § *Member documentation*.
+- value summaries must state the authority that fixes the choice →
+  [constants](../../../mla/components/constants.md).

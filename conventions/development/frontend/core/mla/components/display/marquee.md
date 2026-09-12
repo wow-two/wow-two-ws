@@ -1,10 +1,9 @@
 # Marquee
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > A strip that scrolls itself, forever — logos, ticker text, a wall of proof.
 > What a display is → [display](../../constructs/visual/display.md).
-> Its full surface → `Marquee.spec.md`.
 
 ## Reach for it when
 
@@ -26,6 +25,8 @@
 
 ## Values
 
+- must provide a persistent, keyboard-operable pause/stop control when automatic motion requires one.
+- must honor reduced motion independently of hover pause.
+
 - should leave `speed` at `30` s per traversal and `gap` at `48` px
-- should leave `canPauseOnHover` on, so a reader can stop the band to read it
 - should leave `direction` at `left`

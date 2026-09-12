@@ -1,10 +1,9 @@
 # Select
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > One value from an enumerable set — a trigger that opens a floating listbox, no typing required.
 > What a control is → [control](../../constructs/visual/control.md).
-> Its full surface → `Select.spec.md`.
 
 ## Reach for it when
 
@@ -29,11 +28,3 @@
 ## Values
 
 - should leave `placement` at `bottom` — the panel drops under the trigger
-- must set `isClearable` where the empty selection is legal; it ships off
-- must set `isSearchable` on `SelectContent` once the list outgrows a screen — it ships off
-- must set `matchWidth` where the trigger's width is the design; the panel sizes to content
-- must pass `keyEquals` when the key is an object; identity is the default comparison
-- must bind `open` or `isOpen`, never both — `open` wins on collision
-
-> `Select.spec.md` still calls multi-pick "a future `MultiSelect`"; it shipped —
-> see [MultiSelect](multiSelect.md).

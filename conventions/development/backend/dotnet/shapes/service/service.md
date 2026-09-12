@@ -3,7 +3,7 @@
 *Last updated: 2026-08-19*
 
 > A hosted .NET process that answers requests, runs background work, or both.
-> Purpose — the one shape we ship today, and the only one whose vectors are written out.
+> Purpose — service-specific architecture, platform and deployment rules.
 > Use case — building or changing an API, a worker host, or a service's project tree.
 
 ## Vectors

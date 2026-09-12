@@ -1,10 +1,9 @@
 # Section
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > The full-bleed band — a tinted or padded strip with a centred column inside it.
 > What a layout is → [layout](../../constructs/visual/layout.md).
-> Its full surface → `Section.spec.md`.
 
 ## Reach for it when
 
@@ -27,7 +26,4 @@
 
 ## Values
 
-- must leave `py` at `md` and `containerSize` at `lg`
-- must not nest a [Container](container.md) inside it — it mounts one already
-- must pass `bleed` for edge-to-edge content; the inner container drops then
 - should leave `tone` unset for a transparent band — a tone applies the `subtle` fill

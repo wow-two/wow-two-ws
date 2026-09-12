@@ -1,10 +1,9 @@
 # Skeleton
 
-*Last updated: 2026-08-23*
+*Last updated: 2026-09-10*
 
 > The placeholder block — the shape of content that has not arrived yet.
 > What a state is → [state](../../constructs/visual/state.md).
-> Its full surface → `Skeleton.spec.md`.
 
 ## Reach for it when
 
@@ -26,6 +25,4 @@
 
 ## Values
 
-- must size it through `class` — `w-32 h-4` for a line, a box for a block
-- must set `shape` to `text` for a line, `circle` for an avatar; `rect` is default
-- must not rely on it to announce — it is `aria-hidden`, so pair a live region with it
+- must route the loading announcement through the owning region; repeated skeleton shapes remain decorative.

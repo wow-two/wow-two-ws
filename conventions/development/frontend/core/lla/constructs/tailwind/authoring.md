@@ -1,15 +1,12 @@
 # Authoring
 
-*Last updated: 2026-08-23*
+*Last updated: 2026-09-10*
 
 > The at-rules Tailwind adds to CSS for extending itself, and the ones that reopen the configuration it replaced.
 > Purpose — these five are the whole seam between our theme and the framework, so what goes through them is the API.
 > Use case — reach here when adding a token, a variant, a scanned path or a utility of our own.
 
 ## The at-rules
-
-Five in use across both stylesheets: `@import`, `@theme`, `@source`, `@custom-variant`, `@keyframes`. No JS config
-exists in either repo.
 
 | At-rule | Declares | Verdict |
 |---|---|---|
@@ -20,7 +17,7 @@ exists in either repo.
 | `@source` | an extra path the class scanner must read | `use` |
 | `@source not` | a path excluded from scanning | `use with care` |
 | `@custom-variant` | a named variant — this is where `dark` is defined | `use` |
-| `@utility` | a first-class utility `tailwind-merge` can resolve | `use with care` |
+| `@utility` | a generated utility; merging needs a separate contract | `use with care` |
 | `@variant` | an existing variant applied inside a CSS rule | `use with care` |
 | `@keyframes` + an `--animate-*` token | an animation body and its handle | `use` |
 | `@reference` | the theme pulled into a separate stylesheet for `@apply` | `banned` |
@@ -28,16 +25,14 @@ exists in either repo.
 | `@config` | a v3 JavaScript config file | `banned` |
 | `@plugin` | a JavaScript plugin registered from CSS | `banned` |
 | `tailwind.config.js` | the v3 configuration surface | `banned` |
-| a `@theme` block outside `bootstrap/` | tokens declared beside a component | `banned` |
+| a component-local `@theme` block | duplicated global token ownership | `banned` |
 
 - must add a token to `@theme` rather than a utility, whenever the new thing is a value
   ([custom properties](../css/custom-properties.md)).
-- must reach for `@utility` only when a genuine new property shorthand is needed, never to bundle existing
-  utilities — `tailwind-merge` resolves a real utility and cannot resolve an `@apply` bundle, so a bundle
-  earns no class at all.
+- must reserve `@utility` for a new property shorthand, not a bundle of existing utilities.
+- must configure and test the merger's class groups for an overridable custom utility; `@utility` does not do this.
 - must define a variant with `@custom-variant` when it is used in more than one component.
-- must keep every authoring block in a `bootstrap/` stylesheet
-  ([architecture](../../../../shapes/app/architecture/architecture.md)).
+- stylesheet placement → [CSS](../css/css.md) § *The four jobs*.
 
 ---
 
@@ -49,10 +44,7 @@ exists in either repo.
   adopting the ban above along with a second place tokens are resolved.
 - **`@config` · `@plugin` · `tailwind.config.js`** — reach for `@theme` and `@utility`; the v3 seam splits the token
   source across CSS and JavaScript, and the two are merged by the build rather than by anything a reader can see.
-- **a `@theme` block outside `bootstrap/`** — reach for the bootstrap stylesheet
-  ([architecture](../../../../shapes/app/architecture/architecture.md)); tokens beside a component are
-  order-dependent,
-  so which definition wins depends on import order rather than on intent.
+- **a component-local `@theme` block** — use the deliverable's stylesheet entry, linked from [CSS](../css/css.md).
 
 ```css
 /* ✅ the whole seam: framework, library tokens, scan path, variant, overrides */

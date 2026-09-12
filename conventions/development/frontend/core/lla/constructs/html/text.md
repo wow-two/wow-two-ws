@@ -1,14 +1,12 @@
 # Text
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > Every text-level element we may write, what each one means to a screen reader, and the ones banned outright.
 > Purpose — a text element states *why* a run reads differently; a utility only states *how* it looks.
 > Use case — reach here before emphasising, quoting or marking up a run inside a paragraph.
 
 ## The elements
-
-Exhaustive for text-level semantics in the HTML Living Standard. A tag we have never written still gets a verdict.
 
 | Element | Means | Verdict |
 |---|---|---|

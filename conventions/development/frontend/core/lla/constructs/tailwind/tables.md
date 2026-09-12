@@ -1,14 +1,12 @@
 # Tables
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > The table-specific utilities — layout algorithm, border model, caption side — and the ones that dissolve the grid.
 > Purpose — a table's layout algorithm decides whether columns follow content or stay put while the body scrolls.
 > Use case — reach here when a table's columns jump on load, or a header has to stay put.
 
 ## The utilities
-
-Three uses across both trees — `border-collapse` twice and `caption-bottom` once. Every other row is unwritten here.
 
 | Utility | Applies | Verdict |
 |---|---|---|

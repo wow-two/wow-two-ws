@@ -1,6 +1,6 @@
 # JSX
 
-*Last updated: 2026-08-24*
+*Last updated: 2026-09-10*
 
 > Grouping, keying, spreading and conditional rendering in JSX, plus the element API underneath it.
 > Purpose — every one of these compiles to a `jsx()` call, so an idiom's cost is a render decision, not a style one.
@@ -8,22 +8,20 @@
 
 ## The constructs
 
-`SDK` counts `@wow-two-beta/ui`; `App` counts `smart-qr`.
-
-| Construct | Is | SDK | App | Verdict |
-|---|---|---|---|---|
-| fragment `<>…</>` | children grouped with no element around them | 20 | 22 | `use` |
-| `<Fragment key>` | the same group, when the group itself needs a key | 4 | 1 | `use` |
-| `key` | the identity React diffs a list child on | 105 | 29 | `use` |
-| JSX spread `{...props}` | every remaining prop forwarded at once | 355 | 0 | `use` |
-| `&&` in JSX | render-if, written as a short-circuit | 260 | 49 | `use` |
-| ternary in JSX | render-one-of-two | 181 | 12 | `use` |
-| `dangerouslySetInnerHTML` | an element's `innerHTML` set from a string | 1 | 1 | `use with care` |
-| `createElement` | an element built without JSX | 9 | 0 | `use with care` |
-| `cloneElement` | an element re-emitted with added props | 12 | 0 | `use with care` |
-| `Children.map` · `Children.toArray` | the legacy walk over an opaque `children` | 19 | 0 | `use with care` |
-| `isValidElement` | the guard that a `children` entry is an element | 17 | 0 | `use with care` |
-| `startTransition` · `flushSync` | the imperative scheduling escapes | 0 | 0 | `use with care` |
+| Construct | Is | Verdict |
+| --- | --- | --- |
+| fragment `<>…</>` | children grouped with no element around them | `use` |
+| `<Fragment key>` | the same group, when the group itself needs a key | `use` |
+| `key` | the identity React diffs a list child on | `use` |
+| JSX spread `{...props}` | every remaining prop forwarded at once | `use` |
+| `&&` in JSX | render-if, written as a short-circuit | `use` |
+| ternary in JSX | render-one-of-two | `use` |
+| `dangerouslySetInnerHTML` | an element's `innerHTML` set from a string | `use with care` |
+| `createElement` | an element built without JSX | `use with care` |
+| `cloneElement` | an element re-emitted with added props | `use with care` |
+| `Children.map` · `Children.toArray` | the legacy walk over an opaque `children` | `use with care` |
+| `isValidElement` | the guard that a `children` entry is an element | `use with care` |
+| `startTransition` · `flushSync` | the imperative scheduling escapes | `use with care` |
 
 - must spread the rest props last, after the props the component sets itself, so a consumer can override
   ([constructs](../../../mla/constructs/constructs.md) § *JSX attributes*).

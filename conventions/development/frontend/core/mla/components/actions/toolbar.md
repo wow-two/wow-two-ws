@@ -1,10 +1,9 @@
 # Toolbar
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > A strip of commands sharing one tab stop, arrow keys moving between them.
 > What an action is → [action](../../constructs/visual/action.md).
-> Its full surface → `Toolbar.spec.md`.
 
 ## Reach for it when
 
@@ -28,6 +27,4 @@
 
 ## Values
 
-- must set `aria-label` — it is the strip's own name
-- must set `orientation="vertical"` for a column — it drives the arrow-key axis
 - should split item groups with the separator, which flips axis with the toolbar

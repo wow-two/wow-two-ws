@@ -1,6 +1,6 @@
 # Nav
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > Which nav component to reach for, and with what values — the application register over the nav kind.
 > What a nav component is → [nav](../../constructs/visual/nav.md).

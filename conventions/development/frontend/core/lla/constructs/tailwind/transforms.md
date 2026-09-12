@@ -1,14 +1,12 @@
 # Transforms
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > Every transform utility, the containing block each one creates, and the moves that should have been layout.
 > Purpose — a transform moves paint without moving layout, which is what makes it cheap and what makes it surprising.
 > Use case — reach here before nudging, centring, flipping or scaling a box.
 
 ## The utilities
-
-`-translate-y-1/2` and `-translate-x-1/2` lead the group, as the second half of the absolute-centring pair.
 
 | Utility | Applies | Verdict |
 |---|---|---|
@@ -29,8 +27,8 @@
 | `rotate-*` on a control's hit area | a target the pointer no longer matches | `use with care` |
 
 - must reach for `translate-*` and `scale-*` for motion, and layout utilities for layout.
-- must pair a transform with a transition or an animation — a transform with no motion is a layout bug
-  ([transitions](transitions.md)).
+- must apply [motion rules](transitions.md) when a transform changes over time.
+- may use static transforms for centering, mirroring or a fixed orientation without adding motion.
 - must keep a transform off any ancestor of a `fixed` child.
 - must set `origin-*` whenever a rotation or scale should pivot anywhere but the centre.
 - must size text with the type scale, never with `scale-*` ([typography](typography.md)).
@@ -44,8 +42,7 @@
   every `fixed` child inside pins to it and scrolls away with the page.
 - **`scale-*` on text** — reach for a `text-*` step ([typography](typography.md)); scaling resamples the rasterised
   glyphs, so the text blurs and its size stops matching any other text on the screen.
-- **`translate-*` doing layout** — reach for `gap-*`, `p-*` or a grid track; a translated box still occupies its old
-  space, so the neighbour it appears to sit beside is actually overlapping it.
+- **translation replacing flow spacing** — use `gap-*`, `p-*` or a grid track; static positioned centering is allowed.
 
 ```vue
 <!-- ✅ the centring pair, and a slide that is actually animated -->

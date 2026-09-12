@@ -1,6 +1,6 @@
 # Factories
 
-*Last updated: 2026-08-16*
+*Last updated: 2026-09-10*
 
 > A type that builds instances the container cannot resolve on its own.
 > Purpose — keep per-key or per-request construction out of the consumer, which would otherwise know every variant.
@@ -12,8 +12,7 @@
 - must sit in a `Factories/` folder under the domain whose types it builds.
 
 ### File
-- must give it its own file, named for the type →
-  [one type, one file](../../mla.md).
+- file rules → [one type, one file](../../mla.md).
 
 ---
 

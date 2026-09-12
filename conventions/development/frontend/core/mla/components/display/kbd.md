@@ -1,10 +1,9 @@
 # Kbd
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > One key cap — the glyph a reader presses.
 > What a display is → [display](../../constructs/visual/display.md).
-> Its full surface → `Kbd.spec.md`.
 
 ## Reach for it when
 

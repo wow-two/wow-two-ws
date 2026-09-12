@@ -1,10 +1,9 @@
 # Spinner
 
-*Last updated: 2026-08-22*
+*Last updated: 2026-09-10*
 
 > The bare indeterminate mark — a spinning ring and a visually hidden label.
 > What an indicator is → [indicator](../../constructs/visual/indicator.md).
-> Its full surface → `Spinner.spec.md`.
 
 ## Reach for it when
 
@@ -27,7 +26,5 @@
 
 ## Values
 
-- must set `label` where the copy has to name the operation; it defaults to `Loading`
 - should set `tone` to `current` in a tinted surface — the ring inherits the text
 - should leave `size` at `md` and `tone` at `default`
-- should pass `class` knowing it lands on the ring itself, never on a wrapper

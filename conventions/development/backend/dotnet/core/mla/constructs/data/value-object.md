@@ -1,6 +1,6 @@
 # Value objects
 
-*Last updated: 2026-08-18*
+*Last updated: 2026-09-10*
 
 > A type whose identity is its values, stored inside an entity's row instead of owning one.
 > Purpose — the suffix is what separates a type that owns a row from one that rides inside one.
@@ -12,8 +12,7 @@
 - must sit in a `Models/` folder under the domain whose entity stores it.
 
 ### File
-- must give it its own file, named for the type →
-  [one type, one file](../../mla.md).
+- file rules → [one type, one file](../../mla.md).
 
 ---
 
@@ -22,7 +21,7 @@
 ### Type doc
 
 #### [Summary](../../../lla/notation/documentation/summary.md)
-- must start with **Represents**.
+- type summary baseline → [data](data.md) § *Shared rules*.
 - must name what the values mean together, never how they are stored.
 
 ```csharp
@@ -33,8 +32,7 @@
 ```
 
 ### Construct
-- must declare a `sealed record` — identity is the values, so value equality is the correct claim →
-  [constructs](../../../lla/constructs/constructs.md) § *Data components*.
+- declaration baseline → [data](data.md) § *Shared rules*.
 - must declare `{ get; init; }` — a value object is written once, whole.
 - must declare no key — a type carrying its own identity is an [entity](entity.md).
 

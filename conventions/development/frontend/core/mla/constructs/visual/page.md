@@ -1,6 +1,6 @@
 # Page
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > The component the router mounts for one URL, owning the whole viewport under the app frame.
 > Purpose — one component per URL carries the data fetch, the layout choice, and the sub-domain wiring.
@@ -8,16 +8,11 @@
 
 ## Gate
 
-- must be reachable by **URL** — the address is the identity, so it survives a refresh and a paste into a new tab.
-- must be a [view](view.md) or a [panel](panel.md) instead when only another component ever mounts it.
-- must own the whole viewport under the app frame, deciding the [layout](layout.md) it renders inside.
-- must compose two or more sub-domains — a single-subject body is a [view](view.md).
-- must be the only place a route's data fetch starts; a child receives the result as props.
-
-```txt
-✅ CreateCodePage · CodesListPage · LoginPage · PricingPage · BlogPostPage
-❌ ContentTabPage          (a tab body has no URL, so it is a panel)
-```
+- must own a routed place, including a single-subject page.
+- must preserve its route identity on refresh and direct navigation.
+- must coordinate the page frame and application hooks needed by that place.
+- may delegate a lazy region's data hook to a named feature owner; generic visual components receive data.
+- must use a view or panel for a body that has no route ownership of its own.
 
 ---
 
@@ -25,7 +20,7 @@
 
 ### Group
 
-- must live in the domain's `common/` slice — a page composes sub-domains, so it belongs to none.
+- must take page placement from the owning app's [architecture](../../../../shapes/app/architecture/architecture.md).
 - must sit in a `pages/` role-group — `presentation/{domain}/common/pages/`.
 - must not ship from the SDK — the SDK ships the frame and the parts, the product ships the place.
 
@@ -54,13 +49,6 @@
 - must end `*Page` — a routed viewport owner takes no other suffix, whatever it composes.
 - must name the place in the stem — `CodesList`, not `CodesPagePage`.
 
-```vue
-<script setup lang="ts">
-/** Renders the code builder page. */
-defineOptions({ name: 'CreateCodePage' });
-</script>
-```
-
 ---
 
 ## Content
@@ -69,8 +57,8 @@ defineOptions({ name: 'CreateCodePage' });
 
 #### [The](../../../lla/notation/documentation/documentation.md)
 
-- must declare no props — nothing mounts a page but the router, so there is no caller to pass any.
-- must read route params and search state through the router hooks
+- must take route inputs through the app router contract, including declared route props where that adapter supplies them.
+- must validate route params and search state at the route boundary
   ([routing](../../../../shapes/app/routing/routing.md)).
 
 ### Slots
@@ -81,18 +69,11 @@ defineOptions({ name: 'CreateCodePage' });
 
 - must declare no emits — a page has no parent to hear them; navigation is the outward move.
 
-```vue
-<script setup lang="ts">
-const { codeId } = useTypedSearchParams(CodeRouteSchema);   // ✅ params come from the router
-const props = defineProps<{ codeId: string }>();            // ❌ no caller exists to pass this
-</script>
-```
-
 ---
 
 ## Composition
 
-- must compose a [layout](layout.md), then [views](view.md) and [panels](panel.md) — never a bare grid of controls.
+- must compose the parts the place needs; a small page needs no artificial view or sub-domain.
 - must open an [overlay](overlay.md) for an action, and route to a sibling page for a place.
 - must call `application/` hooks for data, never `integration/`
   ([architecture](../../../../shapes/app/architecture/architecture.md)).
@@ -109,4 +90,4 @@ const props = defineProps<{ codeId: string }>();            // ❌ no caller exi
 - [view](view.md) — the swappable bodies a page mounts
 - [layout](layout.md) — the frame a page renders inside
 - [routing](../../../../shapes/app/routing/routing.md) — the route table, params, and code-splitting
-- [visual kinds](visual.md) — every other kind, and the composition ladder
+- [visual kinds](visual.md) — every other kind, and the composition contract

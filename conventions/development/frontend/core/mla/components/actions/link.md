@@ -1,10 +1,9 @@
 # Link
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > Inline text that goes somewhere — the one member of this folder that moves rather than runs.
-> What an action is → [action](../../constructs/visual/action.md).
-> Its full surface → `Link.spec.md`.
+> Kind → [nav](../../constructs/visual/nav.md).
 
 ## Reach for it when
 
@@ -22,10 +21,3 @@
 | `Button asChild` | the destination has to carry a button's weight — a CTA |
 | `ToolbarLink` | the destination sits inside a [Toolbar](toolbar.md)'s roving strip |
 | `NavItem` | the destination is a row in a sidebar or nav structure → [nav](../../constructs/visual/nav.md) |
-
----
-
-## Values
-
-- must set `variant="inherit"` where the link takes the surrounding text colour
-- must reach for `asChild` for a routing library's own link — no `as` prop ships

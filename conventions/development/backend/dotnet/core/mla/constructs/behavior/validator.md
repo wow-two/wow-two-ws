@@ -1,6 +1,6 @@
 # Validators
 
-*Last updated: 2026-08-18*
+*Last updated: 2026-09-10*
 
 > The type that decides whether one caller-supplied shape is well-formed.
 > Purpose — a named type per validated concept, so a rule has one home and a caller has one thing to run.
@@ -13,8 +13,7 @@
 - must sit in a `Validators/` folder under the subdomain whose type it checks.
 
 ### File
-- must give it its own file, named for the type →
-  [one type, one file](../../mla.md).
+- file rules → [one type, one file](../../mla.md).
 
 ---
 
@@ -34,20 +33,15 @@
 ```
 
 ### Construct
-- must declare a `public sealed class` deriving `AbstractValidator<T>`, with no SDK base class.
-- may take collaborators — a rule needing a lookup is still a rule, and a service must never receive an
-  input it has to reject.
-- must live in `Infrastructure`, message validators and domain validators alike, because either may inject
-  → [architecture](../../../../shapes/service/architecture/architecture.md).
-- must treat a uniqueness check as advisory — the row can change before the write lands, so the constraint
-  at the write is the arbiter and the rule is the early return.
+- declaration and injection → [behavior](behavior.md) § *Shared rules*.
+- must be `public` and derive from `AbstractValidator<T>`, with no SDK base class.
+- input phases, lookup boundaries and placement → [validation](../../domains/validation/validation.md).
 
 ### Type name
 - must suffix with `Validator`, named for the **concept** — `WifiContentValidator`.
 - must carry the full type name only when a concept has several models across layers.
-- must return `Result<ValidationOutcome>` — the outcome carries the rule failures.
-- must reserve the failure arm for a broken run, never for a rule that did not pass.
-  - `ProductCreateRequestValidator`
+- consumption and the `Validate` / `ValidateAndThrow` bridge →
+  [validation](../../domains/validation/validation.md) § *Consume*.
 - must not inherit a model's role suffix; renaming `ProductEntity` must not force a validator rename.
 
 ```csharp

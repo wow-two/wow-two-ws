@@ -1,10 +1,9 @@
 # Snippet
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > Code with its own copy button — the copyable form of a code block.
 > What a display is → [display](../../constructs/visual/display.md).
-> Its full surface → `Snippet.spec.md`.
 
 ## Reach for it when
 
@@ -25,4 +24,3 @@
 ## Values
 
 - should leave `variant` at `inline` for a one-liner; `block` for many lines
-- must keep the copy text identical to what is shown — the prop feeds both

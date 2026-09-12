@@ -1,10 +1,9 @@
 # CountUp
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > A number that counts up once — on mount, or when it scrolls into view.
 > What a display is → [display](../../constructs/visual/display.md).
-> Its full surface → `CountUp.spec.md`.
 
 ## Reach for it when
 
@@ -27,5 +26,4 @@
 ## Values
 
 - should leave `from` at `0` and `duration` at `1500` ms
-- must set `format` for anything but a bare integer — currency, units, separators
 - should leave `as` at `span`

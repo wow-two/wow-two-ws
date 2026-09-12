@@ -2,6 +2,9 @@
 
 *Last updated: 2026-04-26 12:00 PM*
 
+> Research update (2026-09-10): [current market and iPhone build analysis](ai-photo-director-market-analysis.md)
+> supersedes the competitive assessment and launch recommendation below. The remaining concept is an April snapshot.
+
 > Browse a library of trending/iconic photo poses (Follow-Me, candid selfie, jump shot, etc.). Pick one → AR mask overlays the target silhouette on camera → AI coaches you in real time until your pose, framing, and angle match.
 
 ## Problem
@@ -30,7 +33,8 @@ Three layers stacked:
 | ProCam / Halide | Pro camera UX | No pose layer |
 | Lensa, Remini | AI photo gen/edit | Post-capture, not in-the-moment |
 
-**True white space:** trend-curated library + real-time bidirectional coaching (subject AND photographer) + auto-capture. No single app does all three.
+**Historical hypothesis, superseded:** live subject/photographer coaching plus auto-capture was assumed to be white space.
+Current products advertise this combination; see the September analysis for verified overlap and remaining hypotheses.
 
 ## Core User Flow
 

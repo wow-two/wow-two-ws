@@ -1,6 +1,21 @@
 # backend-beta-build context
 
-*Last updated: 2026-06-10*
+*Last updated: 2026-09-12*
+
+## Active convention sweep
+
+- Full backend convention audit: [conventions-audit.md](conventions-audit.md), covering all 135 docs.
+- Mechanical convention repairs complete: 19 of `BC01`–`BC25` closed; six partial. Workspace task `con-t-003` owns completion.
+- Evidence: [conventions-resolution.md](conventions-resolution.md). P01 reopened 2026-09-12: class decision withdrawn; entity record baseline restored. Seven of eight design points remain. P02 resolved: external validation by default, constructor data checks exceptional. Existing `N100`/`N101` suffix cases remain separate case-by-case work.
+- WoW2 owns its conventions; external prescriptions are inputs, not authority. Saved in [convention philosophy](../../../conventions/philosophy/philosophy.md).
+- P01 evidence: [entity records](entity-record-analysis.md), ten BCL checks and twenty EF/SQLite checks. Records work for normal tracking and detached updates; default navigation equality/hash risks reproduced. Decide the intended `with` update contract; no SDK source changed.
+- Order: settle conventions → finish SDK sweep → verify and publish the new SDK version.
+- SDK tracker: 104 rows, 72 historically complete, 6 refuted, 26 open. `C14`–`C26` remain; `N114` waits on reopened P01, with no class conversion authorized. `N60` remains open against its static factory. Repeated `N94`–`N98` IDs require subject-qualified references.
+- Deep copying: FastCloner selected and saved in the prototype convention; [library analysis](deep-copy-analysis.md) separates this confirmed choice from C26's outstanding exact-package verification/integration. The NuGet network tool request remains pending, not a library-choice approval. DeepCloner 0.10.4 reproduced cloned reference-hash and record-with-list hash-key lookup failures. No SDK implementation is claimed.
+- Developer owns the SDK; no production consumers; breaking changes permitted.
+- No fresh SDK build/test/pack run in this audit. The older implementation snapshots below remain historical.
+
+---
 
 ## Quick state
 
@@ -130,7 +145,7 @@ Class names also descriptive: `JsonOptionsPresets`, `DomainError`, `IdentifierGu
 
 Stable identifiers neutral: cookie `.app.auth`, policy `"default"`. `ActivitySource`/`Meter` keep `WoW.Two.<Area>` (intentional brand for cross-service trace filtering).
 
-Full convention: [`docs/conventions/naming.md`](../../../conventions/development/backend/dotnet/lla/notation/naming/naming.md).
+Full convention: [naming](../../../conventions/development/backend/dotnet/core/lla/notation/naming/naming.md).
 
 ## Locked decisions (do not re-litigate)
 

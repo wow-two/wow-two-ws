@@ -1,6 +1,6 @@
 # State
 
-*Last updated: 2026-08-23*
+*Last updated: 2026-09-10*
 
 > A whole-region stand-in rendered **instead of** content — because there is none, it is still loading, or it failed.
 > Purpose — the three non-happy paths get one kind, so every region answers empty, loading, and failed the same way.
@@ -8,15 +8,11 @@
 
 ## Gate
 
-- must **replace** the content of a region, not sit beside it — a companion mark is an [indicator](indicator.md).
-- must fill the region it stands in for, so the layout does not jump when the content arrives.
-- must offer the way out — a retry, a create action, a cleared filter — or say plainly that there is none.
-- must not report a completed operation; that is [feedback](feedback.md).
-
-```txt
-✅ EmptyState · LoadingState · AppErrorBoundary · Skeleton
-❌ Spinner                 (a mark inside a busy control — feedback, not a region stand-in)
-```
+- must replace unavailable content or mask an existing region during a blocking operation.
+- must distinguish a shape-only skeleton from a copy-bearing loading, empty or failure surface.
+- must preserve the region's layout where its final dimensions are known.
+- must offer a recovery action when one exists, without inventing one for a passive skeleton.
+- must use feedback for the completed outcome of an operation.
 
 ---
 
@@ -44,8 +40,9 @@
 
 ### Construct
 
-- must render one centred block sized by a `size` prop, so it fits a card and a full page alike.
-- must expose an accessible live region for the loading case, and a heading for the empty case.
+- must let the caller size the state to the region; skeleton geometry follows the replaced content.
+- must route loading updates through the owning live region; shape-only skeletons stay decorative.
+- must give an empty or failed region meaningful copy at the document's appropriate heading level.
 - must catch and render, not swallow, in a boundary — the error goes to the logger seam as well.
 
 ### Component name
@@ -55,13 +52,6 @@
 - must admit `*Overlay` for a stand-in painted over the region it covers — all shape words ([visual
   kinds](visual.md) § *Shape words*).
 
-```vue
-<script setup lang="ts">
-/** Renders the no-results stand-in for an empty region. */
-defineOptions({ name: 'EmptyState' });
-</script>
-```
-
 ---
 
 ## Content
@@ -70,38 +60,27 @@ defineOptions({ name: 'EmptyState' });
 
 #### [The](../../../lla/notation/documentation/documentation.md)
 
-- must take `title` as a required scalar, and `description` as an optional one, each with a same-named slot.
-- must take `size` from the shared size vocabulary, so the same component fits any region.
+- must support accessible copy for a report surface; a skeleton does not need title or action props.
+- must keep a busy mask from disabling its own recovery or cancel action.
 - must not take the data it stands in for — the caller has already decided there is none.
 
 ### Slots
 
-- must expose `icon`, `title`, `description`, and `actions`.
+- must expose replaceable copy and recovery content where the state renders them.
 
 ### Emits
 
 - must declare no emits — the way out is an [action](action.md) the caller puts in the `actions` slot.
 
-```vue
-<script setup lang="ts">
-defineProps<{ title: string | number; description?: string | number; size?: Size }>();  // ✅
-defineProps<{ items: ReadonlyArray<unknown> }>();                                       // ❌ it has none
-</script>
-```
-
 ---
 
 ## Composition
 
-- must be mounted by the [page](page.md), [view](view.md), or [panel](panel.md) that owns the region.
-- must compose [display](display.md) and [action](action.md) in its slots — an icon, a heading, a create button.
-- must not be mounted by the [display](display.md) it replaces; the owner chooses between them.
-- must not mount a [control](control.md) — there is nothing yet to edit.
-
-```txt
-✅ CodesListPage → EmptyState → Button("Create a code")
-❌ DataTable → EmptyState        (the table deciding it has nothing to show)
-```
+- must follow the shared [composition contract](visual.md#composition-order).
+- must let the owner choose loading, content, empty and failure at the scope it owns.
+- may let a collection render its own empty row while the page owns route-level failure.
+- must use actions for recovery; a skeleton does not intercept input or announce every repeated shape.
+- must prevent interaction with a masked busy region through keyboard as well as pointer input.
 
 ---
 
@@ -112,4 +91,4 @@ defineProps<{ items: ReadonlyArray<unknown> }>();                               
 - [feedback](feedback.md) — the kind that reports an operation instead of standing in for content
 - [display](display.md) — the content a state stands in for
 - [page](page.md) — the owner that picks between content and stand-in
-- [visual kinds](visual.md) — every other kind, and the composition ladder
+- [visual kinds](visual.md) — every other kind, and the composition contract

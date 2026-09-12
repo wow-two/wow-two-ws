@@ -1,10 +1,9 @@
 # Spacer
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > The flexible empty box — one flex child that pushes its siblings apart.
 > What a layout is → [layout](../../constructs/visual/layout.md).
-> Its full surface → `Spacer.spec.md`.
 
 ## Reach for it when
 
@@ -25,6 +24,4 @@
 
 ## Values
 
-- must leave `size` unset for the push — it falls back to `flex-1` then
-- must pass `axis` only alongside a `size`; it names the axis the length applies to
 - should keep `axis` at `horizontal`, its default, on a row

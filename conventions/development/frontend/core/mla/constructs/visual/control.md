@@ -1,21 +1,23 @@
 # Control
 
-*Last updated: 2026-08-23*
+*Last updated: 2026-09-10*
 
-> A widget that owns exactly one value and hands every change back to its caller.
-> Purpose — one model contract across 70-odd inputs, so a form binds any of them the same way.
+> A widget editing one semantic value, which may contain several coordinated parts.
+> Purpose — a shared value contract lets a form bind simple and composite controls consistently.
 > Use case — text, numbers, dates, colours, files, code, or anything a user edits.
 
 ## Gate
 
-- must **own one value** — a component that fires a command and reads nothing back is an [action](action.md).
-- must be fully controlled: it renders the value it is given and never keeps a private copy of the truth.
-- must carry no label, helper, or error of its own — those belong to the [field](field.md) that wraps it.
-- must not submit; a component with a submit is a form ([forms](../../domains/forms/forms.md)).
+- must edit a semantic value: text, a selection, a range or a structured value.
+- must classify selection by what callers use it for, not by whether today's prop is named `modelValue`.
+- must follow [controlled state](../../../lla/notation/naming/props.md#controlled-state) for ownership and resets.
+- must leave external label, helper and error composition to a [field](field.md).
+- may include internal sub-control labels when one structured value needs several independently named inputs.
+- may compose a send or commit action; a control does not own the enclosing form's validation/submission lifecycle.
 
 ```txt
-✅ TextInput · NumberInput · SelectInput · ComboboxInput · SliderInput · ColorPicker · JsonEditor
-❌ AddressForm             (it owns several values and a submit — a form)
+✅ DateTimeInput edits a wall clock; a color area edits coordinated channels
+❌ A tab root classified as a form control only because it tracks the active tab
 ```
 
 ---
@@ -29,7 +31,7 @@
 
 ```txt
 ✅ presentation/forms/currencyInput/{CurrencyInput.vue, CurrencyInput.spec.md, index.ts}
-❌ presentation/display/slider/Slider.vue      (a display never emits a value)
+❌ presentation/display/slider/Slider.vue      (its primary contract edits a committed value)
 ```
 
 ---
@@ -44,23 +46,17 @@
 
 ### Construct
 
-- must read the form-control context for `id`, invalid, disabled, and required.
-- must render one focusable element that carries the label's `htmlFor` target ([primitive](primitive.md)).
+- must read the form-control context when present; standalone controls use their own IDs, names and state props.
+- must register a focus target for focus-on-error; a composite may have several focusable children.
+- must name a native input with its label target and a composite with group semantics and named child controls.
 
 ### Component name
 
-- must end `*Input` for a raw typeable control, `*Picker` for a selector that opens its own panel.
+- must end `*Input` for direct value entry, `*Picker` for choosing a value from presented alternatives.
 - must end `*Editor` for an editing surface over one format — `JsonEditor` · `MarkdownEditor`.
 - must end `*Controls` for a control set that submits nothing of its own.
 - must admit `*Group` for a homogeneous set of one control — `RadioGroup` · `CheckboxGroup` — and `*Area` for a
   free-drag surface — all shape words ([visual kinds](visual.md) § *Shape words*).
-
-```vue
-<script setup lang="ts">
-/** Renders a numeric input with a leading currency symbol. */
-defineOptions({ name: 'CurrencyInput', inheritAttrs: false });
-</script>
-```
 
 ---
 
@@ -70,8 +66,11 @@ defineOptions({ name: 'CurrencyInput', inheritAttrs: false });
 
 #### [The](../../../lla/notation/documentation/documentation.md)
 
-- must name the value prop `modelValue`, typed to the value's own type, never to `string` for convenience.
-- must carry `isDisabled`, `isReadOnly`, `isInvalid`, and `isRequired`, each defaulting to the context.
+- must type the committed value to its semantic shape; framework spelling belongs to
+  [Vue macros](../../../lla/constructs/vue/macros.md) or [React](../../../lla/constructs/react/react.md).
+- must inherit invalid, disabled, read-only and required state unless an explicit override is supplied.
+- must distinguish whole-control disabled state from an item/day availability predicate.
+- must preserve native attribute spellings and flag precedence from [props](../../../lla/notation/naming/props.md).
 - must keep the component generic over `T` when it takes an option list.
 
 ### Slots
@@ -82,30 +81,33 @@ defineOptions({ name: 'CurrencyInput', inheritAttrs: false });
 
 #### [Fires when](../../../lla/notation/documentation/documentation.md)
 
-- must emit `update:modelValue` with the parsed value, never with the raw DOM event.
-- must emit `update:modelValue` on every committed change, and nothing else on a keystroke it rejects.
-
-```vue
-<script setup lang="ts">
-defineProps<{ modelValue?: number; isInvalid?: boolean }>();                     // ✅
-defineEmits<{ (e: 'update:modelValue', value: number | undefined): void }>();    // ✅ parsed
-defineEmits<{ (e: 'change', event: Event): void }>();                            // ❌ raw event
-</script>
-```
+- must report committed values through the framework model contract, not raw DOM events.
+- must distinguish draft changes from committed changes; a rejected draft must not replace the committed value.
+- must state whether commit occurs during input, on blur, or through an explicit action in the component spec.
 
 ---
 
 ## Composition
 
-- must be wrapped by a [field](field.md) whenever it needs a label — the control never grows one.
-- must compose [action](action.md) and [indicator](indicator.md) in its decoration slots — a clear button, a meter.
-- must open its panel as an [overlay](overlay.md) rather than pushing siblings out of the way.
-- must not mount a [view](view.md), a [panel](panel.md), or another control's field wrapper.
+- must follow the shared [composition contract](visual.md#composition-order).
+- may build a composite from other controls, actions, indicators and mode views.
+- must give an inline picker an in-flow body; use an [overlay](overlay.md) only for its floating presentation.
+- must keep each internal control's name and focus behavior valid under the enclosing value editor.
+- must leave the enclosing form lifecycle to the [forms domain](../../domains/forms/forms.md).
 
-```txt
-✅ Field → CurrencyInput → InputAddon    ·    ColorPicker → Popover → ColorArea
-❌ CurrencyInput → Label                 (the label belongs to the field)
-```
+---
+
+## Input behavior
+
+- must preserve incomplete draft text where parsing before commit would block valid typing.
+- must process IME composition without submitting, tokenizing or rejecting an unfinished composition.
+- must handle paste, selection replacement, caret movement and autofill through the same value contract.
+- must clear draft errors on the relevant new edit and discard stale asynchronous validation results.
+- must preserve pending edits when a save is in flight; submission races belong to the forms domain.
+- must provide an advertised keyboard exit when an editor intercepts `Tab`.
+- must provide a keyboard and single-pointer alternative for drag-only value changes.
+- must test controlled/uncontrolled, null clear, external update, reset and disabled/read-only behavior.
+- must test grouped labels, focus-on-error, composition, paste and locale changes for bespoke controls.
 
 ---
 
@@ -115,4 +117,4 @@ defineEmits<{ (e: 'change', event: Event): void }>();                           
 - [field](field.md) — the labelled wrapper that gives a control its name, helper, and error
 - [action](action.md) — the kind for a trigger that owns no value
 - [forms](../../domains/forms/forms.md) — submit, validation, and how a control binds to a form
-- [visual kinds](visual.md) — every other kind, and the composition ladder
+- [visual kinds](visual.md) — every other kind, and the composition contract

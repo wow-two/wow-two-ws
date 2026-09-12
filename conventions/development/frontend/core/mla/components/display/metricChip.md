@@ -1,10 +1,9 @@
 # MetricChip
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > Icon, mini-label and value in one inline chip — the unit of a stat strip.
 > What a display is → [display](../../constructs/visual/display.md).
-> Its full surface → `MetricChip.vue`.
 
 ## Reach for it when
 

@@ -18,4 +18,4 @@
 
 - must keep a rule that is true before any feature exists here.
 - a feature-shaped rule belongs to its domain.
-- must bind configuration in this layer alone — no other layer reads `IConfiguration`.
+- must apply [host-owned configuration](host-configuration.md#configuration-source).

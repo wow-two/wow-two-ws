@@ -1,4 +1,4 @@
-*Last updated: 2026-08-21*
+*Last updated: 2026-08-24*
 
 # Tasks
 
@@ -20,7 +20,6 @@ Categories: `sdk` · `plt` · `app` · `ven` · `con` · `ws`
 | `ven-t-002` | Advance `TNIS` per `follow-up-roadmap.md` | `-` | `high` | `wip` | `ventures.tnis` | ~6h15m `08-12`, brainstorms `08-13`. Roadmap holds the breakdown |
 | `ven-t-003` | Name the active Micro-SaaS candidate | `-` | normal | `todo` | `-` | One block `08-12`. `10x-ws` tracks a matching task to give Micro SaaS a section there |
 | `ven-t-004` | Finish the Mintrans demo solution and share it | `2026-08-23` | `high` | `todo` | `ventures.tnis-mintrans` | Added `2026-08-17`. The deliverable sent to Mintrans — distinct from the venture (`ventures.tnis`) and from the hackathon demo, which lives in Yandex org. Gates `ven-t-005` |
-| `ven-t-008` | Send the Mintrans project requirements | `-` | `high` | `done` | `ventures.tnis-mintrans` | ✅ `2026-08-19` — prepared 9:00 AM + 3:00 PM, sent 3:30 PM. Precedes the demo (`ven-t-004`) |
 | `ven-t-005` | Complete the Mintrans integration | `2026-09-06` | `high` | `todo` | `ventures.tnis-mintrans` | Added `2026-08-17`. Breakdown belongs in the repo’s `engineering/planning/`, not here |
 | `ven-t-006` | Advance forever-pin per its `engineering/planning/` | `-` | `high` | `wip` | `smart-qr-poc` | Added `2026-08-17`. 10h across `08-15`–`08-16`, the heaviest venture thread this month |
 | `ven-t-007` | Rename smart-qr → forever-pin in code and package names | `-` | normal | `todo` | `smart-qr-poc` | Docs + `active.sh` key renamed `2026-08-17`; repo dirs stay `smart-qr-poc` / `smart-qr-promo` for now. Left: `smartqr.*` project names, `SmartQrPromo` / `SmartQrHero` Remotion ids, the `-poc` suffix. Domain `foreverpin.com` |
@@ -31,8 +30,9 @@ Categories: `sdk` · `plt` · `app` · `ven` · `con` · `ws`
 
 | Task ID | Task | Deadline | Priority | Status | Repo | Notes |
 |---|---|---|---|---|---|---|
-| `con-t-001` | Close the presentation-layer convention | `-` | `high` | `wip` | `-` | `request-models.md` + `response-models.md` + the doc-format pattern |
+| `con-t-001` | Close the presentation-layer convention | `-` | `high` | `wip` | `-` | Current owners: backend `core/mla/domains/api/` and `shapes/service/platform/responses/`; closure in audit `BC04` and `BC07` |
 | `con-t-002` | Land the Dto-vs-`Response` naming cleanup | `-` | normal | `todo` | `-` | Convention states it; renaming is per-app work |
+| `con-t-003` | Complete the backend convention sweep before the SDK release | `-` | `high` | `wip` | `wow-two-ws` | Mechanical repairs complete; 19/25 grouped convention tasks closed. [Audit and remaining decisions](../sessions/backend-beta-build/conventions-audit.md); [repair evidence](../sessions/backend-beta-build/conventions-resolution.md). SDK consequences added as C14–C25; settle decisions before SDK implementation/release |
 
 ---
 
@@ -62,8 +62,8 @@ Not started, ordered, top = next. Pulling one promotes it above and mints its ID
 
 | Item | Type | Notes |
 |---|---|---|
-| Domain-first example rename in `controllers.md` | issue | examples are verb-first; `mediator.md` mandates domain-first |
-| Adopt the doc-format pattern across all convention docs | check | keyword · ✅/❌ · sparing `MUST` / `SHOULD` |
+| Reconcile controller and message examples | issue | Backend audit `BC07` and `BC13`; current construct owner is `controller.md`, not the removed `controllers.md` |
+| Apply the current convention authoring rules | check | Backend audit `BC20`; directive rules and single ownership per `conventions/conventions.md` |
 
 ---
 
@@ -82,6 +82,8 @@ Not tasks — where a promoted capability gets broken down.
 
 ## Done
 
-Completions land here, then get pruned once a version doc or git carries them.
+Completions land here, ID preserved so day-log references keep resolving. Pruned once a version doc or git carries them.
 
-- (none yet)
+| Task ID | Task | Outcome |
+|---|---|---|
+| `ven-t-008` | Send the Mintrans project requirements | ✅ `2026-08-19` — prepared 9:00 AM + 3:00 PM, sent 3:30 PM. Precedes `ven-t-004` |

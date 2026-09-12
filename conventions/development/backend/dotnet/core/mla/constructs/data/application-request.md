@@ -1,6 +1,6 @@
 # Application requests
 
-*Last updated: 2026-08-18*
+*Last updated: 2026-09-10*
 
 > The in-process message a caller dispatches — a `Query`, a `Command` or an `Event`.
 > Purpose — a caller names the work it wants without naming who does it.
@@ -12,8 +12,7 @@
 - must sit in a `Queries/`, `Commands/` or `Events/` folder under the domain that owns the use case.
 
 ### File
-- must give it its own file, named for the type →
-  [one type, one file](../../mla.md).
+- file rules → [one type, one file](../../mla.md).
 
 ---
 
@@ -22,8 +21,9 @@
 ### Type doc
 
 #### [Summary](../../../lla/notation/documentation/summary.md)
-- must start a concrete message with **Represents**, and name the action it asks for.
-- must start a marker interface with **Defines**.
+- type summary baseline → [data](data.md) § *Shared rules*.
+- must name the action the concrete message asks for.
+- marker-interface documentation → [language constructs](../../../lla/constructs/constructs.md#type-documentation).
 
 #### [Type params](../../../lla/notation/documentation/typeparams.md)
 - must carry a `<typeparam>` for the result a marker is generic over.
@@ -37,7 +37,7 @@
 ```
 
 ### Construct
-- must declare a `sealed record` — a message is its inputs.
+- declaration baseline → [data](data.md) § *Shared rules*.
 - must not reference an [api request](api-request.md) — the dependency points one way.
 - must declare `{ get; init; }` — a message is built once and never written again.
 - member shape (`required`, non-nullable) →

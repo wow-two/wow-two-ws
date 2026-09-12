@@ -1,6 +1,6 @@
 # Layout
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > Which layout to reach for, and with what values — the application register over the SDK's `layout/` group.
 > Use case — picking between two arrangements that both work, or fixing the value one carries here.

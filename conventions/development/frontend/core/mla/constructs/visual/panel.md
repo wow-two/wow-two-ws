@@ -1,6 +1,6 @@
 # Panel
 
-*Last updated: 2026-08-23*
+*Last updated: 2026-09-10*
 
 > One pane of a composite that owns it — the composite positions it and decides when it shows.
 > Purpose — a compound root keeps its regions as named parts instead of arbitrary children.
@@ -58,14 +58,6 @@
 - must be `{Root}Panel` — the root's name leads, so the pairing is readable.
 - may take the pane's own shape word instead where the root has one — `*Tab` · `*Section`.
 
-```vue
-<script setup lang="ts">
-/** Renders the panel for one tab. */
-defineOptions({ name: 'TabsPanel', inheritAttrs: false });
-const context = useTabsContext();
-</script>
-```
-
 ---
 
 ## Content
@@ -85,26 +77,16 @@ const context = useTabsContext();
 
 - must declare no emits — the root owns the state, so a change is reported through the root's model.
 
-```vue
-<script setup lang="ts">
-defineProps<{ value: string }>();                         // ✅ pairs with the TabsTab of that value
-defineSlots<{ default(): unknown }>();                    // ✅
-defineProps<{ value: string; isActive: boolean }>();      // ❌ the context already knows what is active
-</script>
-```
-
 ---
 
 ## Composition
 
-- must compose [display](display.md), [control](control.md), and [view](view.md) components inside its slot.
-- must let the root mount or unmount it — an inactive panel is not rendered hidden.
-- must not mount its own root, another panel of the same root, or a [page](page.md).
-
-```txt
-✅ Tabs → TabsList → TabsTab   +   Tabs → TabsPanel → ContentView
-❌ TabsPanel → Tabs             (a subpart re-entering its own root)
-```
+- must follow the shared [composition contract](visual.md#composition-order).
+- may contain a view, form or other caller-supplied content.
+- must let the root choose lazy mount, keep-alive or unmount behavior explicitly.
+- must keep inactive panels unavailable to interaction and accessibility navigation.
+- must preserve in-progress drafts when the chosen mount policy requires them to survive.
+- must not instantiate its own root recursively.
 
 ---
 
@@ -115,4 +97,4 @@ defineProps<{ value: string; isActive: boolean }>();      // ❌ the context alr
 - [view](view.md) — the sibling kind for a body that swaps rather than one a root positions
 - [layout](layout.md) — the kind for arrangement that carries no identity of its own
 - [compound](../compound/compound.md) — the compound root and subpart export rules
-- [visual kinds](visual.md) — every other kind, and the composition ladder
+- [visual kinds](visual.md) — every other kind, and the composition contract

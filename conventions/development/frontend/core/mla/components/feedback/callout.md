@@ -1,10 +1,9 @@
 # Callout
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > The quiet aside — a coloured left rule and no fill, for a note that lives inside prose.
 > What a feedback component is → [feedback](../../constructs/visual/feedback.md).
-> Its full surface → `Callout.spec.md`.
 
 ## Reach for it when
 
@@ -26,6 +25,4 @@
 
 ## Values
 
-- must carry the body in the default slot — only `icon` and `title` take props
 - should leave `severity` at its `info` default; `neutral` renders a plain border rule
-- must not bind a close handler — the callout ships none and stays with the content

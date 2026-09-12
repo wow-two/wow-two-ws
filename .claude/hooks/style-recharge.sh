@@ -33,11 +33,22 @@ pulse=.claude/hooks/style-pulse.md
 
 if [ "$N" -gt 0 ] && [ $((n % N)) -eq 0 ] && [ -f "$full" ]; then
   printf 'STYLE RECHARGE (turn %s -- full ruleset, re-read and apply):\n' "$n"
+  cat /Users/max/.codex/conventions/response-style.md
   cat "$full"
 elif [ -f "$pulse" ]; then
   cat "$pulse"
 else
   printf 'STYLE HOOK BROKEN: no "%s" under "%s" -- style enforcement OFF this turn.\n' "$pulse" "$PWD"
+fi
+
+# Chat markers land LAST, so their rule text outranks the pulse/ruleset they override.
+# Tail-called from here and never wired as a second settings.json entry: matching hooks
+# run in parallel with nondeterministic order, and that order is load-bearing.
+# The `||` guard plus the child's own `exit 0` keep a broken marker hook from ever
+# propagating a non-zero status -- exit 2 here would block AND erase the prompt.
+markers=.claude/hooks/expand-markers.sh
+if [ -f "$markers" ]; then
+  printf '%s' "$input" | bash "$markers" || printf 'MARKER HOOK BROKEN: "%s" failed -- chat markers OFF this turn.\n' "$markers"
 fi
 
 exit 0

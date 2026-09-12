@@ -3,7 +3,7 @@
 *Last updated: 2026-08-22*
 
 > The notice bus app code publishes on, and the surface that renders a notice.
-> Purpose — a publisher is rarely inside a component, so the hub is module state rather than an injected value.
+> Purpose — an explicit hub instance serves publishers both inside and outside the component tree.
 > Use case — reporting an outcome from anywhere, or turning every failed request into a notice.
 
 ## The contract
@@ -14,11 +14,11 @@
 - must stay fire-and-forget with no replay — a notice published before a subscriber mounts is dropped.
 - must never let a throwing subscriber reach the publisher; a listener failure routes to the error handler.
 - must publish safely with nothing subscribed, so a publisher never guards the call.
-- must subscribe nothing automatically ([conventions](../../../../../../conventions.md) § *Product principles*).
+- must inherit registration and hub ownership from [domain lifetime](../domains.md#lifetime).
 - must return an unsubscribe from a subscription, and drop it when the owning scope disposes.
 - must render no UI from the bus — the surface is a separate adapter, and the boundary runs one way.
 - must keep a bridge to a request seam on this side, so that seam never depends on the bus.
-- must mount exactly one rendering adapter per app; two subscribers render every notice twice.
+- must mount one rendering adapter per hub and destination; duplicate destinations repeat the same notice.
 
 ---
 
@@ -46,3 +46,12 @@
 - [data](../data/state-and-data.md) — the error the query bridge coerces into a notice
 - [feedback components](../../constructs/visual/feedback.md) — the kind that renders a notice
 - [observability](../observability/observability.md) — the local record of the same failure
+
+---
+
+## Announcements
+
+- must use a polite status region for routine outcomes; reserve alerts for urgent interruption.
+- must announce without moving focus and provide an accessible name for every notice action.
+- must keep actionable information available long enough to operate; persistent critical notices require dismissal.
+- must avoid duplicate announcement when a form or another surface already reports the same failure.

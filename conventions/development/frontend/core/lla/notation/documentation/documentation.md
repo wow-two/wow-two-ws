@@ -1,6 +1,6 @@
 # Documentation
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > What a JSDoc block says and how long it may run — every public export takes one.
 > Purpose — a fixed starter vocabulary, so every type's doc opens the same way.
@@ -86,11 +86,12 @@ A doc says *what* a value is, never *whose* — the referent appears only when i
 
 ## Scope
 
-A doc says **what the entity is**, and — when the name does not carry it — **what it is for**. Nothing else.
+A doc identifies the entity and states caller obligations that its signature cannot express.
 
 - must run [the falsifiability test](falsifiability.md) on every doc written or touched.
 - must not say why this shape rather than another; pattern choice is a convention's job, not an entity's.
 - must not restate a rule from `conventions/` at a use site — the copy drifts the moment the rule changes.
+- must retain entity-specific lifetime, ownership, cancellation and failure obligations even when a convention informs them.
 - must not point at the convention either (`// see vue-sfc.md § …`) — a reader looks it up once.
 - may keep a one-clause because when it changes what the reader does (`// second pass — the ref is unset`).
 - **The test:** a line reading identically on every entity following the rule belongs in the rule, not here.

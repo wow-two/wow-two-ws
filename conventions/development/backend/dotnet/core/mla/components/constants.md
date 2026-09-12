@@ -1,6 +1,6 @@
 # Constants
 
-*Last updated: 2026-08-18*
+*Last updated: 2026-09-10*
 
 > A static class holding values the codebase names once.
 > Purpose — one home for a value's authority, so a literal never has to be explained twice.
@@ -20,15 +20,13 @@ What it is, how it is declared and what it is called → [constants](../construc
 
 ### Type doc
 
-#### [Summary](../../lla/notation/documentation/summary.md)
-- must start with **Contains**.
-- must name the set the values belong to.
+- must inherit [constant type documentation](../constructs/data/constants.md#type-doc).
 
 ```csharp
 // ✅
-/// <summary>Contains the canonical kebab-case slugs for every channel.</summary>
+/// <summary>Holds the canonical kebab-case slugs for every channel.</summary>
 // ❌ names no set
-/// <summary>Contains constants.</summary>
+/// <summary>Holds constants.</summary>
 ```
 
 ---
@@ -55,10 +53,9 @@ public const string OpenNetwork = "nopass";
 ```
 
 ### Members
-- must use `const` for a compile-time value, `static readonly` for anything else.
-- must assign a literal, or an expression built from literals declared above it.
-- may use `=>` for a member that returns or delegates — a constants class holds values, not logic that grows
-  ([style](../../lla/notation/style/style.md) § *The body*).
+- must use the [constant declaration](../constructs/data/constants.md#construct).
+- must assign a fixed value, or build a fixed shared object once; no mutable per-call state.
+- must not put a behavior method in a constants holder.
 - must order from the primitive value to the composed one, or in the order the flow consumes them.
 - must separate every constant from the next with one blank line.
 - must split a group into its own file once the class passes 60 lines — regions hide length, files state it.
@@ -71,8 +68,6 @@ public const string PayloadShape = Scheme + "T:{0};S:{1};P:{2};;";
 // ❌ reaches out for its value, so the class no longer holds the authority
 public static readonly string PayloadShape = WifiFormats.BuildShape();
 ```
-
----
 
 ---
 

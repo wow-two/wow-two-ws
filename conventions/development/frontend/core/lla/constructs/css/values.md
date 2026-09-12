@@ -1,14 +1,12 @@
 # Values
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > Every value form a declaration may hold — functions, colours, units — and the ones with no token behind them.
 > Purpose — a value is where a hard-coded number enters the codebase, and where the theme stops applying.
 > Use case — reach here before typing a number or a colour into CSS or into an arbitrary utility value.
 
 ## The values
-
-Both stylesheets hold exactly one gradient pair, one `color-mix()`, four `cubic-bezier()` easings and hex tokens.
 
 | Value | Means | Verdict |
 |---|---|---|
@@ -47,13 +45,12 @@ Both stylesheets hold exactly one gradient pair, one `color-mix()`, four `cubic-
 
 - **a hex or named colour inside a component** — reach for the semantic token ([color](../tailwind/color.md)); a
   literal cannot re-point under `.dark`, so the component renders correctly in exactly one theme.
-- **an arbitrary value duplicating a scale step** — reach for the step; `p-[1rem]` and `p-4` produce identical CSS
-  through different classes, which `tailwind-merge` cannot recognise as a conflict, so both survive an override.
+- **an arbitrary value duplicating a scale step** — use the scale spelling; a literal does not follow a changed
+  token even when the merger correctly resolves its utility group.
 - **a raw duration or easing in a utility** — reach for the motion tokens
   ([transitions](../tailwind/transitions.md)); a hand-typed `300ms` drifts from the scale and is not covered by the
   reduced-motion safety net's token-based reasoning.
-- **`!important`** — reach for a more specific utility or `cn()` ordering; an important declaration beats every later
-  override, and `tailwind-merge` cannot resolve it away.
+- **`!important`** — follow [selectors](selectors.md) § *The selectors*.
 
 ```css
 /* ✅ tokens all the way down — the blend and the easing both flip with the theme */

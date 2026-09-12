@@ -1,32 +1,13 @@
 # Git
 
-*Last updated: 2026-08-13*
+*Last updated: 2026-09-12 05:23 PM*
 
 > Commit-message format **and** the agent⇄human commit protocol, for every repo under `wow-two-ws/`.
 > Purpose — a uniform, scannable history whose subject reads as *what changed* (past tense); and one unambiguous rule for who publishes (the human, always).
 
-## Message
+## Shared defaults
 
-- must write the subject as `{type}: {past-tense verb} {what}` — e.g. `feat: added billing checkout endpoints`, `chore: refactored the codes repository`, `fix: corrected the redirect device match`.
-- must use a **past-tense** verb (`added` · `refactored` · `fixed` · `removed` · `renamed` · `updated` · `moved`) — not imperative (`add` / `refactor`).
-- must name the concrete thing changed — precise + brief; lowercase except identifiers; no trailing period.
-- must not be vague (`fix: fixed a bug`) or a run-on (`feat: added X and Y and also Z …`) — one named, cohesive change.
-- must keep the subject **50–70 characters**, type prefix included — GitKraken truncates past 70, and the subject is what the developer reads in the graph.
-- must ship the **subject alone, never a body** — a change that will not fit one 70-character line is two commits, not a paragraph.
-
----
-
-## Type
-
-- `feat` - a new capability · `fix` - a bug · `refactor` - a behavior-preserving change · `chore` - tooling / deps / moves / config · `docs` · `test` · `perf`.
-- must pick the type by the change's intent, not the files it happens to touch.
-
----
-
-## Scope
-
-- must scope one commit to one cohesive change (one lane / concern) — split unrelated work into separate commits.
-- must not add a body — a subject that cannot carry the change means the commit is too big; split it.
+Message format, type vocabulary, cohesive scope and staging approval: [personal Git conventions](/Users/max/.codex/conventions/git.md).
 
 ---
 
@@ -72,7 +53,7 @@ Repairing a binary already in pushed history:
 - **lane check** — `commit`, `pull` and `stash push` stop once, naming the files, when the tree carries modified / staged paths this session never wrote. That is probably a parallel chat's in-flight work. Ask the developer *is another lane working right now?*; if none is, the dirt is completed-but-uncommitted work and the retry goes through. The hook knows "this session wrote it" from the ledger `.claude/hooks/track-touch.py` keeps.
 - must not unstage — `git restore --staged` is blocked outright and `git reset <path>` runs only in a rapid-building session. Stage precisely; hand an over-staged index to the developer.
 - must not stage unprompted — finishing work is not the cue. Report the changed paths and stop; the human asks when they want an index.
-- must treat "push it" as the cue to **prepare** (stage + draft the message), **not** authorization to run the command; "commit this" authorizes the commit once the staged set has been reported.
+- must treat "push it" as a cue to propose the file set and message; it authorizes neither staging nor publishing; "commit this" authorizes the commit once the staged set has been reported.
 - parallel-lane rules (assume-intentional · no-revert · stage only your own files): [../../../agentic-workflow/agentic-workflow.md](../../../agentic-workflow/agentic-workflow.md).
 
 ---
@@ -81,14 +62,14 @@ Repairing a binary already in pushed history:
 
 Per commit, in this order:
 
-1. agent **carves the index** — `git add <explicit paths>`. A stray staged path is *reported*, not unstaged: `git restore --staged` is hook-blocked.
+1. with explicit user approval for the repository and intended file set, agent **carves the index** — `git add <explicit paths>`. A stray staged path is *reported*, not unstaged: `git restore --staged` is hook-blocked.
 2. agent prints the **staged path list** + the commit message (`{type}: {past-tense} {what}`).
 3. agent commits when the developer asks; the human reviews and pushes — `git push` is never the agent's.
-4. repeat from 1 until the tree is clean.
+4. each additional batch requires its own explicit staging approval.
 
 - **carve** = shape the index so the staged set is exactly one lane's cohesive change, nothing else.
 - read the result with `git status --short` — staged column commits, unstaged column stays behind.
-- may `git add -A` / `-u` / `.` — a pathless add is permitted and safe on its own: it copies into the index and is trivially reversible, changing no working-tree content. The risk is the **commit** that follows, which would claim another lane's work as this lane's — and that is what the lane check above stops, by name, before the commit lands.
+- may `git add -A` / `-u` / `.` — a pathless add requires explicit approval for its entire resolved file set: it copies into the index and is trivially reversible, changing no working-tree content. The risk is the **commit** that follows, which would claim another lane's work as this lane's — and that is what the lane check above stops, by name, before the commit lands.
 - must print the staged paths, not only the message — a shared index makes the message alone unprovable.
 - must re-check `git status` right before printing — a concurrent lane can stage between add and report.
 - must not try to unstage another lane's path — `git restore --staged` is hook-blocked precisely because it de-carves someone else's prepared commit.

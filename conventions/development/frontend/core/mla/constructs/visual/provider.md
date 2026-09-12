@@ -1,6 +1,6 @@
 # Provider
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > A component that installs one capability for its subtree and renders nothing but its slot.
 > Purpose — a capability crosses the tree without prop drilling, and the wiring lives in one named file.
@@ -8,7 +8,7 @@
 
 ## Gate
 
-- must render **only `<slot />`** — a wrapper that adds markup is a [layout](layout.md).
+- must render its children without adding visual markup; Vue uses the default slot.
 - must supply exactly one capability; two capabilities are two providers, composed by the caller.
 - must be installable at any depth, so a subtree can override what an ancestor provided.
 - must not be the capability — the seam it installs is a `.ts` contract
@@ -49,23 +49,17 @@
 
 ### Construct
 
-- must `provide()` one key, and expose a `use{Capability}()` composable as the only way to read it.
-- must make that composable fail loudly when no provider is above it.
-- must read a swappable seam live on each call, so replacing it takes effect without a remount.
+- must supply its capability through the framework context seam and expose one accessor.
+- must declare whether the capability requires a provider or supplies an isolated documented fallback.
+- must fail clearly for a missing required provider; optional providers use their capability's fallback contract.
+- must declare whether the installed seam is immutable or replaceable.
+- must read a replaceable seam live and dispose the previous subscription when it is replaced.
+- must isolate mutable fallback state per application or SSR request, never in a process-global singleton.
 
 ### Component name
 
 - must end `*Provider`, and name the context it supplies `*Context` — one capability, one pair.
 - must name the capability, never the implementation — `AuthProvider`, not `CookieAuthProvider`.
-
-```vue
-<script setup lang="ts">
-/** Renders its children with an auth session available to the subtree. */
-defineOptions({ name: 'AuthProvider' });
-</script>
-
-<template><slot /></template>
-```
 
 ---
 
@@ -76,7 +70,7 @@ defineOptions({ name: 'AuthProvider' });
 #### [The](../../../lla/notation/documentation/documentation.md)
 
 - must take the seam it installs as a prop — the strategy, the client, the flag source.
-- must take the initial value as a separate prop, so a test or an SSR pass can seed it.
+- may accept an initial value when the capability needs a seed; its scope and serialization belong to that capability.
 
 ### Slots
 
@@ -87,14 +81,6 @@ defineOptions({ name: 'AuthProvider' });
 #### [Fires when](../../../lla/notation/documentation/documentation.md)
 
 - must emit only capability lifecycle events a host must react to — a session expiring, a client reconnecting.
-
-```vue
-<script setup lang="ts">
-defineProps<{ strategy: AuthStrategy; bridge?: AuthBridge }>();   // ✅ the seam comes in
-defineSlots<{ default(): unknown }>();                            // ✅
-defineProps<{ class?: string }>();                                // ❌ nothing is rendered to style
-</script>
-```
 
 ---
 
@@ -116,4 +102,4 @@ defineProps<{ class?: string }>();                                // ❌ nothing
 - [headless suffixes](../behavior/headless-suffixes.md) — the `.ts` seam vocabulary a provider installs
 - [primitive](primitive.md) — the rendering-level providers that ship in `foundation/primitives/`
 - [hooks](../behavior/hooks.md) — the `use{Capability}()` composable a provider is read through
-- [visual kinds](visual.md) — every other kind, and the composition ladder
+- [visual kinds](visual.md) — every other kind, and the composition contract

@@ -1,6 +1,6 @@
 # Template method
 
-*Last updated: 2026-08-16*
+*Last updated: 2026-09-10*
 
 > An abstract base that fixes the order of a flow and leaves named hooks for the parts that vary.
 > Purpose — keep an order that must not vary out of every subclass, where each one could get it wrong.
@@ -8,21 +8,27 @@
 
 ## Shape
 
-- must make the base `abstract` and the fixed flow non-virtual; only the hooks are `virtual` or `abstract`.
+- must make an owned template base `abstract` and its fixed entry non-virtual; only hooks vary.
+- must preserve an inherited framework entry contract when it requires an override.
 - must suffix a hook with `Core` when it sits inside a member the framework already defines —
   `ConfigureConventionsCore` under EF's `ConfigureConventions` (`src/Data/EntityFrameworkCore/AppDbContextBase.cs`).
 - must give a `virtual` hook a no-op default and an `abstract` hook none — the modifier states whether the step
   is optional.
-- must state the contract the subclass owes in `<remarks>` on the base — *call `base.OnModelCreating` first*.
+- must document any inherited framework base-call obligation in `<remarks>` on the override.
+- must make an owned template call its hooks itself, without an ordering obligation on subclasses.
 - must suffix the base `Base` only when it is a test or scaffold base — a shipped base is named for what it is.
 
 ```csharp
-// ✅ the flow is fixed, the hook is named and optional
-public abstract class EventSagaStep : IEventSagaStep
+// Framework entry from AppDbContextBase; Core is the extension hook.
+protected override void ConfigureConventions(ModelConfigurationBuilder configurationBuilder)
 {
-    public abstract ValueTask<EventSagaStepOutcome> ExecuteAsync(EventSagaContext context, CancellationToken ct);
+    ArgumentNullException.ThrowIfNull(configurationBuilder);
+    ConfigureConventionsCore(configurationBuilder);
+    base.ConfigureConventions(configurationBuilder);
+}
 
-    public virtual ValueTask CompensateAsync(EventSagaContext context, CancellationToken ct) => ValueTask.CompletedTask;
+protected virtual void ConfigureConventionsCore(ModelConfigurationBuilder configurationBuilder)
+{
 }
 ```
 
@@ -43,7 +49,7 @@ public abstract class EventSagaStep : IEventSagaStep
 - must prefer composition when the varying part could be injected — a `Strategy` beats a subclass, and it is testable
   alone ([strategies](strategies.md)).
 - must not go past one level of inheritance; a three-deep chain hides which override runs.
-- must not leave a hook that a subclass **must** call at a particular point — make the base call it instead.
+- must not add a subclass base-call obligation to an owned template; inherited framework obligations remain explicit.
 - must not use a template method to share utility code — that is an `Extensions` class
   ([components](../../components/components.md)).
 

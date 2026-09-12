@@ -1,10 +1,9 @@
 # InlineSpinner
 
-*Last updated: 2026-08-23*
+*Last updated: 2026-09-10*
 
 > Spinner plus label on one line — the busy mark that drops into a row or a sentence.
 > What an indicator is → [indicator](../../constructs/visual/indicator.md).
-> Its full surface → `InlineSpinner.spec.md`.
 
 ## Reach for it when
 
@@ -27,5 +26,4 @@
 
 ## Values
 
-- must override the default slot to change the copy — it falls back to `Loading…`
 - should leave `size` at `sm` and `tone` at `default`; both are tuned to body text

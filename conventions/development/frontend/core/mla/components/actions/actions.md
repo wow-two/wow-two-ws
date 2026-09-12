@@ -1,9 +1,8 @@
 # Actions
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > Which trigger to reach for, and with what values — the application register over the SDK's action group.
-> Purpose — fifteen triggers ship; this folder says which one a case wants, and what value it carries here.
 > Use case — choosing between two buttons that would both work, or fixing a value one of them takes.
 > What an action is → [action](../../constructs/visual/action.md).
 
@@ -21,7 +20,7 @@
 | [Link](link.md) | the trigger moves to a destination rather than running a command |
 | [OptionTile](optionTile.md) | the option reads as a glyph or swatch in a preset grid |
 | [OptionTileGroup](optionTileGroup.md) | a tile grid needs a name and a group-wide disabled state |
-| [SegmentedControl](segmentedControl.md) | never — a deprecated alias for [ToggleButtonGroup](toggleButtonGroup.md) |
+| [SegmentedControl](segmentedControl.md) | redirects selection guidance to [ToggleButtonGroup](toggleButtonGroup.md) |
 | [SpeedDial](speedDial.md) | one floating anchor offers several commands |
 | [ToggleButton](toggleButton.md) | the pressed state persists as a mode |
 | [ToggleButtonGroup](toggleButtonGroup.md) | a strip of toggles owns one selection |

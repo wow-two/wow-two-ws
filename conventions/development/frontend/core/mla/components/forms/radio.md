@@ -1,10 +1,9 @@
 # Radio
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > One dot of a mutually exclusive set — it means nothing outside the group that names it.
 > What a control is → [control](../../constructs/visual/control.md).
-> Its full surface → `Radio.spec.md`.
 
 ## Reach for it when
 
@@ -20,7 +19,7 @@
 |---|---|
 | [Checkbox](checkbox.md) | each option is independent and several may hold |
 | [ChoiceCard](choiceCard.md) | the option needs a description or an icon to be picked |
-| `SegmentedControl` | the options are short and belong in one strip |
+| `ToggleButtonGroup` | the options are short and belong in one strip |
 | [Select](select.md) | the set is long enough that laying it out costs the screen |
 
 ---
@@ -28,6 +27,3 @@
 ## Values
 
 - should leave `size` at `md`; `lg` for a standalone dot with a thumb target
-- must bind `checked` or `modelValue`, never both — `checked` wins on collision
-- must leave `disabled` and `required` unset to inherit the group's context
-- must not mount a lone radio — one dot the reader cannot unset is a trap

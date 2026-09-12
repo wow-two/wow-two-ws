@@ -1,6 +1,6 @@
 # Domains
 
-*Last updated: 2026-08-16*
+*Last updated: 2026-09-10*
 
 > One folder per capability a service consumes — the contract it guarantees, and each provider that implements it.
 > Purpose — an entity is not tied to a provider, an `IEntityTypeConfiguration<T>` is; the split keeps them apart.
@@ -30,7 +30,8 @@
 | [api](api/api.md) | the HTTP surface — request, envelope, edge mapping | MVC controllers, minimal API |
 | [identity](identity/identity.md) | claims, the account model, authorization | `jwt/`, cookie, OAuth |
 | [integrations](integrations/integrations.md) | the client/broker seam and the transport guarantee | `http/`, vendor SDKs |
-| [validation](validation/validation.md) | phases, layer independence, rule codes, HTTP mapping | FluentValidation |
+| [validation](validation/validation.md) | phases, field failures, layer independence | `fluentvalidation/` |
+| [observability](observability/observability.md) | logs, tracing, metrics and diagnostic channels | SDK observability |
 
 ---
 
@@ -40,4 +41,5 @@ Named so a design in progress has somewhere to land; no folder until a rule need
 
 - `caching` — the cache seam, key building, eviction · `memory` · `redis` · `hybrid`
 - `blob` — the store seam, naming and lifetimes · `filesystem` · `s3` · `azure`
-- `observability` — what we log, trace and measure · `serilog` · `otel`
+- must create a recognized domain's rules when a concrete requirement needs a shared contract;
+  recognition alone does not request feature implementation.

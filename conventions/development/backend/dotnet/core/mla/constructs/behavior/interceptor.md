@@ -1,6 +1,6 @@
 # Interceptors
 
-*Last updated: 2026-08-25*
+*Last updated: 2026-09-10*
 
 > A step a message passes through on its way to its handler.
 > Purpose — one word for every position in a chain, so a reader stops guessing what `Behavior` meant.
@@ -24,7 +24,7 @@ whatever does?
 - must sit in an `Interceptors/` folder under the domain whose chain it joins.
 
 ### File
-- must give it its own file, named for the type → [one type, one file](../../mla.md).
+- file rules → [one type, one file](../../mla.md).
 
 ---
 
@@ -37,7 +37,7 @@ whatever does?
 - must take that word from the step's job, never from the chain it sits in — a step named for its phase
   says where it runs, which the registration already says.
 - may carry a phase or transport word further left when two chains hold the same job —
-  `ClaimCheckRehydrateConsumeInterceptor`. The suffix stays last, the job stays beside it.
+  `{Concern}{Phase}{Job}Interceptor`; the job stays beside the suffix.
 - must not stack a second role word — a step is one thing.
 
 ### Contract
@@ -50,7 +50,8 @@ whatever does?
 
 ## Content
 
-- must receive the next step and decide whether to call it — that is what makes it a chain rather than a list.
+- must give a controlling interceptor the continuation it may call or short-circuit.
+- must give an observing interceptor observation hooks only, without a continuation or settlement capability.
 - must not settle, complete or answer the message itself; that is the handler's, and doing both leaves the
   message settled twice.
 - must state its ordering requirement in `<remarks>` when it has one, because registration order is the only

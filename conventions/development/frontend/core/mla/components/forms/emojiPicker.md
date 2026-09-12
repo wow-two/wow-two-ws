@@ -1,10 +1,9 @@
 # EmojiPicker
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > The whole emoji catalogue — search, recents, and a category nav over every bundled glyph.
 > What a control is → [control](../../constructs/visual/control.md).
-> Its full surface → `EmojiPicker.spec.md`.
 
 ## Reach for it when
 
@@ -27,9 +26,6 @@
 
 ## Values
 
-- must supply `storage` — it is required, and the picker persists nothing on its own
-- should pass `localStorageStorageBroker` to keep recents, `memoryStorageBroker()` to drop
-- must speak an `EmojiCatalogEntry`, never a bare glyph — read `entry.glyph` on arrival
 - should leave `size` at `md`, `tileShape` at `rounded`, `rowsCount` at `6`
 - should leave `categoryNavVariant` at `strip`; the labelled pills need more width
 - should leave the popover variant's `placement` at `bottom` — the house anchor

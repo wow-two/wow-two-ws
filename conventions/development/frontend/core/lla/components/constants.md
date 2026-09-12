@@ -1,6 +1,6 @@
 # Constants
 
-*Last updated: 2026-08-24*
+*Last updated: 2026-09-10*
 
 > A single fixed value, or an unrelated group of them, declared once and read everywhere.
 > Purpose — a literal repeated across files drifts, and nothing names what the value means.
@@ -17,7 +17,8 @@
 
 - must name a module-level constant **PascalCase** — `PresetIconSize`, `DefaultGradientEnd` — never `UPPER_SNAKE`
   ([naming](../notation/naming/naming.md)). Existing `UPPER_SNAKE` migrates gradually.
-- must freeze an object / array / tuple constant with `as const`.
+- must apply `as const` to literal object, array and tuple constants for compile-time readonly inference.
+- must not claim `as const` freezes runtime values; use runtime freezing only where the API promises it.
 - must co-locate constants with the module that owns them (`design/gradient.ts`); reserve a dedicated `Constants.ts`
   for a slice-wide set.
 - prefer a named factory over an inlined literal for a repeated shape — `makeDefaultGradient(fg)`, not a hand-built

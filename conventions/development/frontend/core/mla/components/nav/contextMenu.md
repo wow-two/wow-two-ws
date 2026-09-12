@@ -1,10 +1,9 @@
 # ContextMenu
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > The right-click menu over a region, opened where the pointer is.
 > What a nav component is → [nav](../../constructs/visual/nav.md).
-> Its full surface → `ContextMenu.spec.md`.
 
 ## Reach for it when
 
@@ -26,5 +25,3 @@
 ## Values
 
 - should keep the default `2` px offset — it hangs off a point, not a control
-- must not tune the touch long-press — the `600` ms delay is fixed
-- must not expect focus back on the trigger — it returns to the pre-gesture element

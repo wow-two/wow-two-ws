@@ -1,6 +1,6 @@
 # Enums
 
-*Last updated: 2026-08-16*
+*Last updated: 2026-09-10*
 
 > A closed set of named options, declared once and referred to everywhere.
 > Purpose — replace a magic value with a name the compiler checks, before any store or service exists.
@@ -21,15 +21,15 @@ What it is, how it is declared and what it is called → [enums](../constructs/d
 ### Type doc
 
 #### [Summary](../../lla/notation/documentation/summary.md)
-- must start with **Defines**.
+- must inherit [enum type documentation](../constructs/data/enums.md#type-doc).
 - must name the question the enum answers, never its answers.
 - must survive a new member — a summary that lists values goes false the moment an eleventh arrives.
 
 ```csharp
 // ✅ the axis
-/// <summary>Defines the execution status of a pipeline run.</summary>
+/// <summary>Refers to the execution status of a pipeline run.</summary>
 // ❌ an inventory, false on the next member
-/// <summary>Defines Pending, Running, Completed and Failed.</summary>
+/// <summary>Refers to Pending, Running, Completed and Failed.</summary>
 ```
 
 ---

@@ -1,15 +1,14 @@
 # NotificationCenter
 
-*Last updated: 2026-08-23*
+*Last updated: 2026-09-10*
 
 > The panel of notices already delivered — a header, a scrolling list, an optional footer.
-> What a panel is → [panel](../../constructs/visual/panel.md).
-> Its full surface → `NotificationCenter.vue`.
+> Kind → [display](../../constructs/visual/display.md).
 
 ## Reach for it when
 
 - must let the reader browse past notices rather than catch them as they pass
-- must hold `NotificationItem` rows — the panel derives its empty state from them
+- must show past notices with a meaningful empty state when none exist
 - should sit inside a `Popover` or a `Drawer` hung off the shell's bell
 
 ---
@@ -26,8 +25,5 @@
 
 ## Values
 
-- must leave `count` unset rather than pass `0` — a zero still renders the badge
-- must bind a row's `@select` to make it interactive; an unbound row stays inert
 - should override the `emptyState` slot only where its default copy is wrong
-- should leave `title` at `Notifications`
 - should mark a row `isUnread` rather than sort it — the row carries its own emphasis

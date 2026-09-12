@@ -1,6 +1,6 @@
 # Boundaries
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > The app's outer edge — what stays inside it, what extracts to a package, and how the repo is shaped.
 > Purpose — in-app reuse and SDK reuse run on opposite triggers, and mixing them strands generic code.
@@ -40,17 +40,17 @@ Two shapes, by app count, both under `engineering/codebase/{slug}.frontend-servi
 - must shape a **multi-app repo** as a pnpm workspace — `packages/{common,ui,domain}` (`@{brand}/*`) plus
   lowercase app folders, each with the same layered `src/`.
 - must keep `@{brand}/ui` dumb (no data, context or storage), `@{brand}/common` for shared hooks, utils and
-  identity, `@{brand}/domain` for pure types and enums with no React.
+  identity, `@{brand}/domain` for pure types and enums with no component runtime.
 - must extract to a repo-local package only once two apps in that repo need it.
 - must keep only **product-specific** components in a repo's `@{brand}/ui` — a generic one goes upstream to
   `@wow-two-beta/ui` immediately.
 
 ---
 
-## Open
+## Application ports
 
-- **application ports** — `application` may one day declare a port interface that `integration` implements,
-  for test doubles. Logged, not adopted.
+- may declare an application-owned port when substituting infrastructure is needed; bootstrap supplies its implementation.
+- must otherwise use the same-domain endpoint edge defined by [architecture](architecture.md#layers-required).
 
 ---
 

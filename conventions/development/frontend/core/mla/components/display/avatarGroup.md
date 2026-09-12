@@ -1,10 +1,9 @@
 # AvatarGroup
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > Stacked avatars with a `+N more` tail.
 > What a display is → [display](../../constructs/visual/display.md).
-> Its full surface → `AvatarGroup.spec.md`.
 
 ## Reach for it when
 
@@ -27,5 +26,3 @@
 ## Values
 
 - should leave `size` at `md` and `overlap` at `-ml-2`
-- must set `max` when the set is unbounded; without it every child renders
-- must not set a child's own `size` — the group overwrites it on clone

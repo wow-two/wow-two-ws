@@ -1,78 +1,69 @@
 # Messaging
 
-*Last updated: 2026-08-16*
+*Last updated: 2026-09-10*
 
-> How work is dispatched to the type that does it, in-process and across process boundaries.
-> Purpose — a caller names the work, never the worker, so the two move independently.
-> Use case — sending a command, publishing an event, or adding a transport.
+> Dispatching a message to its handlers without binding the message to its transport.
 
 ## Contract
 
-- must dispatch through an abstraction, never a concrete dispatcher type.
-- must bind exactly one handler to a command and to a query, and 0..N to an event.
-- must carry every input on the message; a collaborator arrives through the handler's constructor.
-- the message and handler shapes are components → [application request](../../constructs/data/application-request.md)
+- must bind exactly one handler to a command or query and zero or more handlers to an event.
+- must carry every input on the message; collaborators arrive through the handler's constructor.
+- must dispatch through an abstraction, not a concrete dispatcher.
+- must keep transport choice out of the message.
+- message and handler definitions → [application request](../../constructs/data/application-request.md)
   and [handler](../../constructs/behavior/handler.md).
-
----
-
-## Naming
-
-- must read `{Domain}{Action}{Kind}`, domain-first and singular — `CodeGetByIdQuery`, `ChannelGetAllQuery`.
-- must be noun-first, because an application message is searched by domain rather than by action.
-- must suffix the handler with `Handler` and name it for its message — `CodeGetByIdQueryHandler`.
-- must suffix a returned payload with `Result` — `ChannelGetAllResult`.
-- baseline declaration rules → [application request](../../constructs/data/application-request.md).
 
 ---
 
 ## Members
 
-- must carry every input the handler reads as a property on the message.
-- must take each collaborator through the handler's constructor — a repository is not an input.
-- must order the message's properties as they arrive: route id, then body, then caller context.
-- must return `AppResult<TSuccess>` from every handler → [result](../../constructs/data/result.md).
-- must use a block body `{ }` in a handler from the start — a use case gains steps
-  ([style](../../../lla/notation/style/style.md) § *The body*).
+- must order application inputs as route id, body, caller context.
+- must keep caller-context acquisition at the [edge](../api/api-context-building.md).
+- must use [service result carriers](../../../../shapes/service/platform/responses/results.md)
+  for mediator query/command handlers serving a controller.
+- must name a returned application shape through the [model construct](../../constructs/data/model.md).
+- must not make notification handlers return request/response carriers.
 
 ```csharp
-// ✅ inputs on the message, collaborators on the handler
-public sealed record CodeGetByIdQuery : IQuery<AppResult<CodeDto>>
+public sealed record CodeGetByIdQuery : IQuery<AppResult<CodeModel>>
 {
     /// <summary>Gets the identifier of the code to load.</summary>
     public required Guid Id { get; init; }
-}
-// ❌ a collaborator as an input, which makes the message un-serializable
-public sealed record CodeGetByIdQuery
-{
-    public required ICodeRepository Repository { get; init; }
 }
 ```
 
 ---
 
-## Member docs
+## Dispatch
 
-- must start each message property with **Gets** — the members are `init`-only.
-- must carry a `<param>` for every parameter of `HandleAsync`, the cancellation token included.
-- must start the handler's summary with **Handles**, and `<see cref>` the message it takes.
+- must use `ISender` for a request and `IPublisher` for an event when using the [mediator](mediator/mediator.md).
+- must not let a handler send another message under the domain's current default;
+  shared orchestration belongs in a service.
 
 ---
 
-## Dispatch
+## Delivery
 
-- must bind exactly one handler to a query and to a command; an event takes 0..N.
-- must send through `ISender`, and publish an event through `IPublisher` → [mediator](mediator/mediator.md).
-- must not let a handler send another message — a use case that needs a second one is composing, not dispatching.
+- must treat transport delivery as at-least-once, never claim transport-level exactly-once execution.
+- must preserve logical message identity across redelivery.
+- must make retried effects idempotent or commit the deduplication mark atomically with the effect.
+- must use an outbox when publication must commit with a state change.
+- must not classify host-shutdown cancellation as a failed handler delivery.
+- must bound retries and route exhausted failures through the configured dead-letter policy.
+- must apply backpressure rather than buffer unbounded pending work in the process.
+- transport contract → [messaging standard](../../../../../../../../workbench/wow-two-sdk-beta/wow-two-sdk.backend.beta/engineering/codebase/wow-two-back-beta-sdk/src/Messaging/Messaging.standard.md).
 
 ---
 
 ## Providers
 
-| Provider | Carries | Docs |
-|---|---|---|
-| in-process mediator | a request to its one handler, inside the same process | [mediator](mediator/mediator.md) |
-| event bus | an event to its subscribers, in-process or over a transport | — |
-| outbox | an event staged in the transaction, dispatched after commit | [outbox](../../constructs/patterns/outbox.md) |
+- [mediator](mediator/mediator.md) — in-process request/response and notifications.
+- event bus — transport-specific event delivery; no provider convention is declared here yet.
+- [outbox](../../constructs/patterns/outbox.md) — stage in the state transaction and dispatch after commit.
 
-- must keep transport choice out of the message — a message that names its transport cannot be re-routed.
+---
+
+## Open
+
+- nested request dispatch: the mediator's former handler-subrequest example conflicts with the domain default.
+  An explicit exception or removal of that default remains a design decision.

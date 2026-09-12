@@ -1,10 +1,9 @@
 # Tree
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > The nested tree — one selected leaf, many expanded branches.
 > What a display is → [display](../../constructs/visual/display.md).
-> Its full surface → `Tree.spec.md`.
 
 ## Reach for it when
 
@@ -22,10 +21,3 @@
 | [List](list.md) | the entries do not nest |
 | `TableOfContents` | the tree is a document outline that tracks the scroll |
 | `NavItem` | the nodes are app destinations rather than data |
-
----
-
-## Values
-
-- must control `selectedValue` and `expanded` together, or leave both uncontrolled
-- must seed a deep tree through `defaultExpanded`, landing on the right branch

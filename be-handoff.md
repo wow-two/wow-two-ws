@@ -1,76 +1,98 @@
 # Handoff — backend SDK conventions sweep
 
-*Last updated: 2026-08-21*
+> Current continuation: [conventions sweep and remaining decisions](system/sessions/backend-beta-build/conventions-audit.md).
+> Resolve the conventions before resuming SDK implementation. The historical status below is not the current baseline.
 
-> **Read once, act, delete.** Where the backend SDK sweep stands, what was settled, and the exact next move.
-> Purpose — one session took the sweep from "the file is lost" to a green tree with a settled taxonomy.
-> Use case — pick up `be-convention-sweep.md` and keep going without re-deriving any of it.
+*Last updated: 2026-08-25*
 
-## State
+> Historical handoff, retained for the settled decisions and the reasoning behind disputed names.
+> Active work and counts belong to the linked audit and the SDK's `be-convention-sweep.md`.
 
-`wow-two-sdk.backend.beta` — **328 tests passing, 0 failing**, build green, every options registration on one
-recipe. The solution carries all 14 projects under `/Libraries/` and `/Tests/`; test runs execute as
-`Development`, so the container validates on build and the IDE and terminal agree.
+## Historical state — 2026-08-25
+
+`wow-two-sdk.backend.beta` — **332 tests passing, 0 failing**, build green, 978 source files.
 
 | Suite | Passing |
 |---|---|
 | `Data` · `Foundation` · `Identity` | 20 · 94 · 2 |
-| `Mediator` · `Messaging` | 68 · 96 |
-| `Migrations` · `Web` | 14 · 34 |
+| `Mediator` · `Messaging` | 68 · 96 (+1 skipped) |
+| `Migrations` · `Web` | 14 · 38 |
 
-The sweep file is `wow-two-sdk.backend.beta/be-convention-sweep.md` — 88 rows, **32 open**. Rows carrying ✅
-are shipped; the rest are the queue.
+Committed and pushed through `1efbab3` (SDK) and `770f49e` (`wow-two-ws`). The SDK tree carries **10
+uncommitted files** and `wow-two-ws` **13** — the work below the commit line is this session's tail
+(the options seam, `C8`, the sweep file) plus another lane's frontend edits in `wow-two-ws`. Stage the
+backend lane only; the `fe-*` docs and `conventions/development/frontend/` belong to another chat.
 
----
-
-## Settled this session
-
-Three docs hold it. Nothing below needs re-deciding.
-
-- **`ideas/constructs-taxonomy-analysis.md`** — 34 logged iterations with what changed and why. Carries
-  `operation · step · flow`, invertibility, the three service layers, the one location rule, and the
-  product's four-project shape.
-- **`conventions/development/backend/dotnet/core/mla/constructs/constructs.md`** — the keep-list plus the
-  discriminators written this session: `Factory` vs `Mapper`, `static readonly` is a value, static-or-instance
-  by two gates, role and shape, and the single `Repository` role.
-- **`.../constructs/patterns/patterns.md`** — every pattern mapped to a role and a folder, 24 rows.
-
-Decisions worth not relitigating:
-
-- **`Repository` is the only store role.** Ownership, contract shape and composition were each tried and each
-  read an implementation fact; a role carrying one renames when the engine swaps, which breaks the
-  host-configuration swap the modular SDK is built on. The engine lives in the prefix.
-- **`Result` is decided by failure mode, not role.** An operation with a failure mode wraps; one that cannot
-  fail by construction returns bare. Config-at-boot and programmer errors stay exceptions, because the
-  framework's own seams only catch what is thrown.
-- **Options register one way** — `AddOptions<T>()` then project the record in the same `Add*`, so consumers
-  take `T` and never `IOptions<T>`.
-- **Foundation vocabulary is 12 role folders** and a pattern never gets a folder of its own.
+Sweep file: `wow-two-sdk.backend.beta/be-convention-sweep.md` — **6 rows open**, 58 shipped, 4 refuted.
+The 31 product rows moved to `smart-qr-poc/smartqr-be-update.md` on 2026-08-25; this file measures the SDK.
 
 ---
 
-## Next action
+## Historical remainder — 2026-08-25
 
-`N81` — **12 domain throws become `Result`**, one type at a time. Guards and the 9 config/programmer throws
-(`N82`) are excluded and stay as they are.
+### Three rows that are notes, not work
 
-```
-Service 11 · Repository 6 · Mapper 1 · Adapter 1 · Validator 1 · Serializer 1   (21 total, 9 excluded)
-ClaimCheckPayloadRepository 6 · MigrationRunnerService 5 · DbUpBackgroundService 4
-```
+Each records a settled fact and needs only its ✅ and a one-line landed narrative.
 
-Each conversion changes a contract and every caller, so they land one type at a time with the suite green
-between them.
+- `N10` — the rename became moot: `ValidationResult` no longer exists.
+- `N57` — `AzureServiceBusOptions.ConnectionString` keeps its placeholder, because the type stays on
+  `AddOptions<T>()` for a `PostConfigure` chain that cannot construct a `required` member.
+- `N93` — the `Scheduler` fold row was split (`BackgroundService` for a timer, `Service` for a caller)
+  and the code already landed on it.
+
+### Two rows that are real work
+
+- **`N24`** — ship a JSON serializer holding its options in a type-keyed dictionary, so products stop
+  declaring their own. `N25` re-tests the `Json` keep-list row once it lands, since that suffix's only
+  claim was pinning options.
+- **`R8`** — add `Result<TSuccess, TFailure>`. A caller cannot branch exhaustively on `AppError` today.
+  Rides with the deferred status-enum idea below.
+
+### Four disputed names
+
+`N34` landed 19 of 29. The battery still reports these, and each carries a live counter-argument from the
+challenge round — do not apply the first verdict without re-reading the dispute.
+
+| Type | Verdict | Counter |
+|---|---|---|
+| `IMasterKeyProvider` + `EnvironmentMasterKeyProvider` | `Repository` | `Service` — it fails five of `repository.md`'s own checks |
+| `ClaimProviderProfile` | `Options` | `Spec` — it is positional and init-only, which `options.md` forbids |
+| `UserAccountManager` | `Service` | `Repository` — the how-stored knowledge does not sit behind `IUserRepository` |
+| `IAuditCurrentUserAccessor` | `Service` | `ICurrentUserService`, moved to `Data/Abstractions/` — `Identity/CurrentUser/ICurrentUser.cs` already holds this role under a second name |
+
+`DatabaseProvider` is an enum and the fold does not reach it; a counter argues the noun should be
+`DatabaseEngine` anyway. That one is a naming call, not a fold.
 
 ---
 
-## The rest of the queue
+## Decisions not to relitigate
 
-- `N77` — smart-qr's solution folders are lowercase; the rule is now PascalCase.
-- `N38` — 28 `// ── Section ──` banners become `#region`; the divider rule was replaced.
-- `D3` · `D6` · `D7` — 143 `<para>` in 45 files, 119 `<remarks>` over the 5-line cap, 12 files using `<list>`.
-- `N52` — 18 files carry `<example>`, which the notation rules ban.
-- 26 product rows (`N1`-`N37`, `R6`, `C1`-`C7`) target smart-qr and belong to that repo's lane.
+- **`Interceptor` and `Handler` are the whole vocabulary.** A `Handler` is the type the message was
+  addressed to; an `Interceptor` is any step it passes through first, whatever that step does. The job
+  goes in the middle word — `ValidatingInterceptor`, `IConsumeObservingInterceptor`. `Behavior`, `Filter`
+  and `Observer` all fold there; a framework-owned name stays exempt.
+- **`Observer` was refuted as a keep-list role**, 3 of 3 refuters. It names a position and a permission,
+  never a verb, so § *Adding a new suffix* returns `Service` at its own gate.
+- **A consumer never gates an SDK fix** — `dev-cycle.md` § of that name. Breaking a consumer is not a
+  reason to keep a shape the conventions reject.
+- **No decision log in code.** `inline.md` § *Exclusions* bans refactor narration, rationale essays, and
+  defending a rejected shape — including the positively-restated form (`// X, not Y`).
+- **A lone implementation takes the bare role name** (`constructs.md:132`), so every `Default…` prefix
+  went.
+- **The mediator returns a `Result` by default.** `AddMediator` registers `ExceptionMappingInterceptor`
+  first, so it is outermost by construction; `AddMediator(o => o.ExceptionToResult = false)` opts out.
+  Ten paths still throw legitimately, all pre-pipeline or the throw-return bridge.
+
+---
+
+## Deferred, with a reason
+
+- **A status enum keyed to HTTP.** `AppErrorType` keys the mapping today. The idea is to replace it with
+  our own status vocabulary. Deferred deliberately; `results.md:75` was scoped rather than dropped.
+- **Elastic pipeline steps** — `wow-two-sdk.backend.beta/engineering/planning/messaging/elastic-pipeline-steps.md`.
+  A pipeline whose steps switch between a direct call and a queue so one slow step scales alone. Idea only,
+  with its costs written down: the flow turns asynchronous, so a step may flip only if it is idempotent,
+  order-free and serializable — which no contract can declare yet.
 
 ---
 
@@ -78,17 +100,24 @@ between them.
 
 In `10x-ws/system/planning/pln-tasks.md`, Career section:
 
-- `car-t-012` — ProblemDetails creation behind an interface; the mapping will branch per error kind.
-- `car-t-013` — one registration mechanism for `Options` and `Settings`, validation first.
-- `car-t-011` — diagnostics construct doc, which `MessagingMeterConstants` no longer waits on.
+- `car-t-014` — a startup failure log channel, for a failure before the pipeline exists (DI resolution,
+  options binding, third-party probes). Rides with `car-t-008` and `car-t-013`.
+- `car-t-013` — one registration mechanism for `Options` and `Settings`. **Largely delivered** this
+  session as `AddValidatedOptions` / `AddValidatedSettings`; re-read before treating it as open.
+- `car-t-012` — ProblemDetails creation behind an interface.
+- `car-t-011` — the diagnostics construct doc.
 
 ---
 
 ## Working agreements
 
-- **Refine in the chat, store settled points in the doc.** Iteration in a file is slower and hides the
-  reasoning; a doc is where a decision lands afterwards.
-- **Agents stage and commit; the developer publishes.** `git push` never, and the guard hook blocks worktree
-  destruction and every `gh` write.
-- The tree is dirty with this session's work across `wow-two-ws` and `wow-two-sdk.backend.beta`. Nothing is
-  committed yet.
+- **Proceed without asking** when the next step needs no decision. Batching, ordering and mechanical
+  follow-through are not forks. Reserve the chat for a real one.
+- **Refine in the chat, store settled points in the doc.**
+- **Agents stage and commit; the developer publishes.** `git push` never.
+- **Three repos, three commits** — `wow-two-ws`, `wow-two-sdk.backend.beta`, and any product repo each
+  commit from inside their own tree. `workbench/` is gitignored by `wow-two-ws`.
+- **Verify by measurement, not by reading.** Every row here was closed against a re-run of
+  `engineering/planning/sweep.sh` plus `dotnet build` and `dotnet test`, never against a claim.
+- **Agent passes cost content.** Three doc-rewrite passes converged 206 → 48 → 33 findings, and the third
+  dropped caller-facing facts to satisfy the cap. Stop the loop when the fix rate inverts and finish by hand.

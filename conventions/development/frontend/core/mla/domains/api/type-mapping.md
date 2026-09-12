@@ -1,82 +1,65 @@
 # Type mapping
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-12*
 
-> The one .NET ↔ JSON wire ↔ TS scalar contract every layer obeys — models, forms, API client, enums.
-> Purpose — one authority for which TS type represents a .NET type, so dates and enums wire once, globally.
+> The declared wire scalars and their validated frontend representations.
 
-## Scalar contract
+## Wire
 
-| .NET (CLR) | wire (JSON) | TS | Notes |
-|---|---|---|---|
-| `Guid` | `string` | `string` | ids are plain strings |
-| `string` | `string` | `string` | |
-| `bool` | `bool` | `boolean` | |
-| `int` / `long` / `decimal` | `number` | `number` | no `bigint`, no decimal-as-string |
-| `enum` | camelCase `string` | const-type ([enums](../../../lla/components/enums.md)) | wire value **is** the value |
-| `DateTimeOffset` / `DateTime` | ISO-8601 `string` | `Temporal.Instant` | see Dates |
-| `DateOnly` | `yyyy-MM-dd` | `Temporal.PlainDate` | date-only, no time/zone |
-| `TimeOnly` | `HH:mm:ss` | `Temporal.PlainTime` | time-only |
-| `TimeSpan` | ISO-8601 duration | `Temporal.Duration` | |
-| `IReadOnlyList<T>` | array | `ReadonlyArray<T>` | typed generic, never `T[]` — see Collections |
-| `IReadOnlyDictionary<K,V>` | object | `ReadonlyMap<K,V>` | |
-| `T?` (nullable) | key omitted when null | `field?: T` | never emit `null`; `?` alone models "absent" |
+- must take emitted JSON from the [backend contract](../../../../../backend/dotnet/shapes/service/platform/responses/serialization.md).
+- must describe wire fields with JSON types in a `*Dto` or `*ApiRequest`; a static type does not validate input.
+- must validate unknown input at integration before exposing a typed value.
 
----
-
-## Dates — Temporal, wired globally
-
-- must map dates with **Temporal** (`@js-temporal/polyfill` until native) — it covers every .NET date type 1:1.
-
-| .NET | Temporal | Why |
+| Wire value | DTO representation | Decoded value when needed |
 |---|---|---|
-| `DateTimeOffset` / `DateTime` (a timestamp) | `Temporal.Instant` | the absolute instant is canonical |
-| `DateOnly` | `Temporal.PlainDate` | no time, no zone |
-| `TimeOnly` | `Temporal.PlainTime` | no date, no zone |
-| `TimeSpan` | `Temporal.Duration` | |
-| naive `DateTime` (no offset, rare) | `Temporal.PlainDateTime` | only for a zoneless datetime |
+| identifier or text | `string` | `string` |
+| boolean | `boolean` | `boolean` |
+| exact JSON number | lossless numeric value from original token | exact integer/decimal type |
+| approximate numeric quantity | `number` under the declared precision contract | `number` |
+| string-keyed object | `Readonly<Record<string, T>>` | explicit `ReadonlyMap<string, T>` conversion |
+| array | `ReadonlyArray<T>` | validated element collection |
+| timestamp string with offset | `string` | `Temporal.Instant` |
+| date-only string | `string` | `Temporal.PlainDate` |
+| time-only string, including fractional seconds | `string` | `Temporal.PlainTime` |
+| declared zoneless date-time string | `string` | `Temporal.PlainDateTime` |
+| declared duration string | `string` | `Temporal.Duration` through its declared codec |
 
-- must type date fields as the `Temporal.*` type on **both** the model and any `*Dto` — never a raw `string`.
-- must format at the view (`instant.toZonedDateTimeISO(tz)` / `Intl`); never store a formatted string on a model.
-
----
-
-## Wiring — one reviver, no per-model code
-
-- must convert dates at the **HTTP client boundary** ([state and data](../data/state-and-data.md)), globally,
-  never in a per-type mapper.
-- **inbound** — the client parses with a reviver: `JSON.parse(text, temporalReviver)`. It matches a **strict**
-  ISO pattern per string and returns the right `Temporal.*` — `…T…Z`/offset → `Instant`;
-  `^\d{4}-\d{2}-\d{2}$` → `PlainDate`; `^\d{2}:\d{2}(:\d{2})?$` → `PlainTime`; `^P…` → `Duration`.
-  A non-matching string passes through unchanged.
-- **outbound** — no code: every `Temporal.*` has a `toJSON()` returning its ISO string, so
-  `JSON.stringify(body)` serializes dates automatically.
-- must keep the pattern strict — require the `T`/`Z` or an exact date/time/duration shape — so a normal string
-  is never mis-converted; exclude a known-ISO-but-keep-as-string field by key.
-- must house the reviver in `integration/` (the client), or the shared FE package once it exists — it is the
-  app's single date seam.
-- must not map a date per field or per `*Dto` — a mapper only reshapes ([models](../../constructs/data/models.md)).
+- must apply [representation choices](../../../../../dev-cycle.md#representation-choices) to numeric contracts.
+- must accept an integer as `number` only within `Number.isSafeInteger` limits when that representation is justified.
+- must establish the endpoint's precision contract for decimals; `number` is not an exact decimal type.
+- must parse exact numeric tokens before native JSON parsing can convert them to binary64.
+- must not claim lossless `long` or `decimal` support through native `JSON.parse` or `Response.json`.
+- must pair lossless JSON decoding with lossless request encoding.
+- must use explicit exact-type arithmetic; native operators and `Math` do not dispatch to a custom numeric type.
+- must state rounding and precision for division or other operations without a finite exact decimal result.
+- must coordinate an exact-number wire change with the backend; a frontend cast cannot recover lost precision.
+- must reject an unsupported numeric contract before relying on arithmetic or identity comparisons.
+- must preserve external enum values; house enum values follow the backend contract.
+- must define an unknown-value policy when decoding a closed enum: reject or model an explicit unknown case.
 
 ---
 
-## Enums
+## Codecs
 
-- wire value = the const-object's camelCase value = the TS enum value → **identity**, no mapping.
-- must serialize camelCase on the backend (`JsonStringEnumConverter(JsonNamingPolicy.CamelCase)`); full
-  pattern: [enums](../../../lla/components/enums.md).
+- must select a codec from the declared field or endpoint schema, never from a string's appearance.
+- must decode date strings at integration; keep date-shaped text unchanged.
+- must encode requests through the matching endpoint codec.
+- must preserve fractional seconds and define accepted precision in round-trip fixtures.
+- must declare the duration wire format; CLR `TimeSpan` default formatting is not ISO duration formatting.
+- must convert a declared constant-format `TimeSpan` explicitly; do not silently assume an ISO converter exists.
+- must reject calendar years/months when converting a `Temporal.Duration` into fixed elapsed `TimeSpan` units.
+- must serialize a `Map` explicitly as the declared object/entry wire shape; plain `JSON.stringify` is insufficient.
+- must keep field conversion in the codec and shape conversion in the mapper, without duplicated parsing.
+- must format at the view using an explicit locale/timezone; never store display text as a timestamp.
+- must follow [runtime compatibility](../../../../shapes/library/platform/compatibility.md) for Temporal support.
 
 ---
 
-## Collections
+## Absence
 
-- must use typed generics — `ReadonlyArray<T>` (read models / DTOs / props), `Array<T>` (mutable local
-  builders), `ReadonlySet` / `ReadonlyMap` for unique / keyed.
-- must not use bracket `T[]` / `readonly T[]`.
-
----
-
-## Nullability
-
-- required → `field: T` · optional → `field?: T`.
-- must not emit `null` on the wire — the backend omits the key, and `?` alone models absence
-  ([typescript](../../../lla/constructs/typescript/typescript.md) § *Absence*).
+- must distinguish an omitted property, explicit `null`, an empty value and a missing collection entry.
+- must type an omitted property `field?: T`; use `T | null` only where the endpoint accepts or emits null.
+- must not infer that omitted null object properties remove null array elements or dictionary values.
+- must declare a write's clear operation explicitly; omission means unchanged only when the endpoint says so.
+- must verify create/update/clear and collection-null fixtures against the backend.
+- must take collection syntax from [TypeScript](../../../lla/constructs/typescript/typescript.md).

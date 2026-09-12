@@ -1,6 +1,6 @@
 # Data components
 
-*Last updated: 2026-08-20*
+*Last updated: 2026-09-10*
 
 > Which carrier or shape to reach for, and with what values.
 > What each one **is** → [data constructs](../../constructs/data/data.md).

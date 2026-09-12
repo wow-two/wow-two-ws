@@ -1,10 +1,9 @@
 # ModuleGlyphs
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > Four fixed-geometry marks for a module-shape picker — dots, bars, cells.
 > What a display is → [display](../../constructs/visual/display.md).
-> Their surfaces → `DotsGlyph.vue` · `VerticalBarsGlyph.vue` · `HorizontalBarsGlyph.vue` · `CellsGlyph.vue`.
 
 ## Reach for it when
 
@@ -27,4 +26,3 @@
 ## Values
 
 - should leave `size` at `20` px across the set, so the grid stays even
-- must set `cornerRx` on `CellsGlyph`; the other three take no shape dial

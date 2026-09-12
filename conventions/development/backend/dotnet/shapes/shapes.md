@@ -12,7 +12,7 @@
 |---|---|---|
 | [service](service/service.md) | a hosted process answering requests — an API, a worker, or both | written |
 | [library](library/library.md) | a package consumed inside one product, never published alone | shell |
-| [sdk](sdk/sdk.md) | a package published for every product and for outside consumers | shell |
+| [sdk](sdk/sdk.md) | a reusable package family consumed by products | written |
 | [cli](cli/cli.md) | a command-line tool | shell |
 
 ### The test
@@ -25,7 +25,7 @@ Not *does the rule change between deliverables* — a rule can be fixed forever 
 | middleware order — auth before authorization, static files first | none; only a host has a pipeline | shape |
 | a registration method names a subject, never a layer | none; only a host has `Add*` seams | shape |
 | a `Repository` is named `{Noun}Repository` | a library ships repositories too | core |
-| `Directory.Build.props` centralises package versions | none; `core/` rules the logic, not how it packs | shape |
+| `Directory.Packages.props` centralises package versions | none; `core/` rules the logic, not how it packs | shape |
 
 - must file a rule by that test, not by whether it is stable.
 - must not read a constant rule as a core rule — middleware order never changes and still has no meaning in

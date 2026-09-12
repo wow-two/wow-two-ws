@@ -1,10 +1,9 @@
 # OptionTileGroup
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > The labelled fieldset wrapping a row or grid of [OptionTile](optionTile.md)s.
-> What an action is → [action](../../constructs/visual/action.md).
-> Its full surface → `OptionTileGroup.vue`.
+> Kind → [field](../../constructs/visual/field.md).
 
 ## Reach for it when
 
@@ -26,5 +25,4 @@
 
 ## Values
 
-- must set `label` — it is the group's only accessible name
 - should keep `align` at `start` and `wrap` off, the defaults for a single tile row

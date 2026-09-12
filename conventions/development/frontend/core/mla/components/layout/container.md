@@ -1,10 +1,9 @@
 # Container
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > The centred column — a max width and a horizontal padding around page content.
 > What a layout is → [layout](../../constructs/visual/layout.md).
-> Its full surface → `Container.spec.md`.
 
 ## Reach for it when
 
@@ -26,5 +25,4 @@
 
 ## Values
 
-- must leave `size` at `lg` unless the content genuinely reads wider
 - should reach for `size="full"` when the cap goes but the padding stays

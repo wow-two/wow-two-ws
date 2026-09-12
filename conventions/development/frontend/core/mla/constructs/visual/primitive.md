@@ -1,6 +1,6 @@
 # Primitive
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > Behaviour and accessibility with no look of its own — the layer every visual kind is built on.
 > Purpose — focus, portalling, dismissal, and roving navigation are solved once, not once per overlay.
@@ -10,7 +10,7 @@
 
 - must carry **no visual styling** beyond the layout it needs to work.
 - must be reusable by two or more unrelated kinds, or it belongs to the one component that needs it.
-- must merge into its child through `asChild` rather than force a wrapper element into the DOM.
+- must avoid unnecessary wrapper elements; expose child composition when the behavior needs one target element.
 - must not know a domain — a primitive that names a subject is a [display](display.md) or a [control](control.md).
 
 ```txt
@@ -55,14 +55,6 @@
 - must take no suffix; the behaviour's own word is the whole name — `Slot` · `Portal` · `Presence`.
 - must be a [provider](provider.md) instead when what it supplies is a rendering capability for a subtree.
 
-```vue
-<script setup lang="ts">
-/** Traps and restores focus within its subtree. */
-defineOptions({ name: 'FocusScope' });
-defineProps<{ loop?: boolean; trapped?: boolean; asChild?: boolean }>();
-</script>
-```
-
 ---
 
 ## Content
@@ -71,8 +63,9 @@ defineProps<{ loop?: boolean; trapped?: boolean; asChild?: boolean }>();
 
 #### [The](../../../lla/notation/documentation/documentation.md)
 
-- must default every behaviour flag to **off**, so composing a primitive changes nothing until asked.
-- must expose an escape hatch on each automatic behaviour — a cancellable event, not a boolean kill switch.
+- must require explicit installation of behavior; mounting a named primitive is itself an opt-in.
+- must default optional side effects off and preserve required semantics of the explicitly requested behavior.
+- must expose cancellable events for per-interaction vetoes and explicit options for persistent behavior policy.
 
 ### Slots
 
@@ -83,14 +76,6 @@ defineProps<{ loop?: boolean; trapped?: boolean; asChild?: boolean }>();
 #### [Fires when](../../../lla/notation/documentation/documentation.md)
 
 - must emit a cancellable `CustomEvent` for a behaviour the consumer may need to pre-empt.
-
-```vue
-<script setup lang="ts">
-defineProps<{ trapped?: boolean }>();                                     // ✅ default off
-defineProps<{ onMountAutoFocus?: (e: CustomEvent) => void }>();           // ✅ preventable
-defineProps<{ disableAutoFocus?: boolean }>();                            // ❌ a kill switch, not a hook
-</script>
-```
 
 ---
 
@@ -112,4 +97,4 @@ defineProps<{ disableAutoFocus?: boolean }>();                            // ❌
 - [overlay](overlay.md) — the kind that composes the most primitives
 - [provider](provider.md) — the primitives that install a rendering capability rather than wrap one
 - [architecture](../../../../shapes/app/architecture/architecture.md) — the boundary it may not import across
-- [visual kinds](visual.md) — every other kind, and the composition ladder
+- [visual kinds](visual.md) — every other kind, and the composition contract

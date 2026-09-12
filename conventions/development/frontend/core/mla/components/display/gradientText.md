@@ -1,10 +1,9 @@
 # GradientText
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > Decorative gradient-filled words — a marketing display line, not an outline entry.
 > What a display is → [display](../../constructs/visual/display.md).
-> Its full surface → `GradientText.spec.md`.
 
 ## Reach for it when
 
@@ -28,5 +27,3 @@
 
 - should leave `from` at `var(--color-primary)` and `to` at the accent fallback
 - should leave `direction` at `r`; a diagonal sweep needs a stated reason
-- must set `via` only when the two-stop ramp reads flat
-- should leave `isAnimated` off outside a hero — the pan runs a 4s loop

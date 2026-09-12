@@ -1,10 +1,9 @@
 # Timeline
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > The vertical rail — events in order, joined by a connector line.
 > What a display is → [display](../../constructs/visual/display.md).
-> Its full surface → `Timeline.spec.md`.
 
 ## Reach for it when
 

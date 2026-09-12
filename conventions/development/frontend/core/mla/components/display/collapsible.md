@@ -1,10 +1,9 @@
 # Collapsible
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > One region that opens and closes, with its trigger wired to it.
 > What a display is → [display](../../constructs/visual/display.md).
-> Its full surface → `Collapsible.spec.md`.
 
 ## Reach for it when
 
@@ -27,4 +26,3 @@
 ## Values
 
 - should leave `defaultOpen` off; open on mount only when the body is the point
-- must bind either `open` or `isOpen`, never both — `open` wins when they collide

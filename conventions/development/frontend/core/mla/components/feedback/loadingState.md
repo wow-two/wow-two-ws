@@ -1,10 +1,9 @@
 # LoadingState
 
-*Last updated: 2026-08-23*
+*Last updated: 2026-09-10*
 
 > The centred busy report for a whole section — spinner, title and description, stacked.
 > What a state is → [state](../../constructs/visual/state.md).
-> Its full surface → `LoadingState.spec.md`.
 
 ## Reach for it when
 
@@ -22,10 +21,3 @@
 | [Skeleton](skeleton.md) | the incoming shape is known and worth drawing |
 | [LoadingOverlay](loadingOverlay.md) | content is already on screen and only needs blocking |
 | `EmptyState` | the fetch finished and returned nothing |
-
----
-
-## Values
-
-- must set `description` where the wait is long enough to need explaining
-- should leave `title` at `Loading…` and `size` at `lg`

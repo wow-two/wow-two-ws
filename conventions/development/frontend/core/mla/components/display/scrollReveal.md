@@ -1,10 +1,9 @@
 # ScrollReveal
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > Content that fades or slides in as it enters the viewport.
 > What a display is → [display](../../constructs/visual/display.md).
-> Its full surface → `ScrollReveal.spec.md`.
 
 ## Reach for it when
 
@@ -27,5 +26,3 @@
 ## Values
 
 - should leave `effect` at `fade`, `duration` at `600` ms, `delay` at `0`
-- should leave `threshold` at `0.1` — a taller block would otherwise never trip it
-- should leave `isOnce` on; re-hiding on scroll-back makes a page feel unstable

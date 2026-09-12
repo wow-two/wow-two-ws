@@ -1,15 +1,13 @@
 # TextAreaInput
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
-> Multi-line plain text — the box resizes vertically by hand, never on its own.
+> Multi-line plain text, with an appropriate manual or automatic sizing contract.
 > What a control is → [control](../../constructs/visual/control.md).
-> Its full surface → `TextAreaInput.spec.md`.
 
 ## Reach for it when
 
 - must collect text that runs past one line — a note, a description, a reason
-- must accept there is no autosize; the reader drags the handle
 - should pair it with [CharacterCount](characterCount.md) wherever a cap is enforced
 
 ---
@@ -29,4 +27,3 @@
 
 - should leave `rows` at `3`; raise it where the expected answer is a paragraph
 - should leave `size` at `md`, `border` at `sm`, `ring` at `md` — the input house set
-- must leave `state` unset; the surrounding field's invalid flag drives it

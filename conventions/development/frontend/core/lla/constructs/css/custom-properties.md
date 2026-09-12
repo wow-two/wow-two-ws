@@ -1,6 +1,6 @@
 # Custom properties
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > Every kind of `--*` declaration, where each is allowed to live, and the ones that leave a value with two owners.
 > Purpose — a custom property is the only value in the codebase both CSS and a utility class can read.
@@ -8,7 +8,7 @@
 
 ## The declarations
 
-Every token in both trees is declared in `@theme` and re-pointed in `.dark`; nothing else declares a property globally.
+- token declaration ownership → [CSS](css.md) § *The four jobs*.
 
 | Declaration | Means | Verdict |
 |---|---|---|
@@ -29,8 +29,7 @@ Every token in both trees is declared in `@theme` and re-pointed in `.dark`; not
 | a token named for its value (`--color-blue-600`) | a name that lies once the theme changes | `banned` |
 | `@property` | a typed, animatable custom property | `use with care` |
 
-- must declare every token in the `@theme` block of a `bootstrap/` stylesheet, never beside a component
-  ([architecture](../../../../shapes/app/architecture/architecture.md)).
+- must declare utility-generating theme tokens in `@theme`; stylesheet placement belongs to [CSS](css.md).
 - must name a token for its role — `--color-primary`, `--color-muted-foreground` — never for the colour it holds.
 - must re-point only the semantic layer in `.dark`, leaving the raw scales fixed.
 - must consume a token through the utility Tailwind generates from it, not through `var()` in a `style` attribute.

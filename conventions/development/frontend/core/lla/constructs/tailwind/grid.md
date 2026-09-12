@@ -1,14 +1,12 @@
 # Grid
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > Every grid container and placement utility, and the grids that should have been a flex row.
 > Purpose — grid is for two-dimensional layout; reaching for it one-dimensionally costs a track definition per change.
 > Use case — reach here when rows and columns both matter, and whenever a column count must follow the viewport.
 
 ## The utilities
-
-`grid` appears wherever both axes are laid out; `grid-cols-12`, `grid-cols-2`, `grid-cols-7` are the columns in use.
 
 | Utility | Applies | Verdict |
 |---|---|---|
@@ -24,14 +22,16 @@
 | `grid-flow-row` · `grid-flow-col` · `grid-flow-dense` | how items fill the tracks | `use with care` |
 | `place-items-center` · `place-content-*` · `place-self-*` | both axes aligned in one utility | `use` |
 | `gap-*` on a grid | the space between tracks ([spacing](spacing.md)) | `use` |
-| `subgrid` | tracks inherited from the parent grid | `use with care` |
-| `grid` with one column | a container doing what `flex-col` already does | `banned` |
+| `grid-cols-subgrid` · `grid-rows-subgrid` | tracks inherited from the parent | `use with care` |
+| `grid` with one column | responsive or track-aligned layout | `use with care` |
 | `grid-flow-dense` on interactive items | a visual order the tab order does not follow | `banned` |
-| a fixed `grid-cols-*` with no responsive variant | a column count a phone cannot fit | `banned` |
+| a fixed `grid-cols-*` that cannot fit its supported viewport | overflowing layout | `banned` |
 | a margin between grid children | spacing that a re-flow relocates | `banned` |
 
-- must reach for `grid` only when both axes are laid out, and `flex` otherwise ([flexbox](flexbox.md)).
-- must give every fixed column count a responsive variant down to one column ([variants](variants.md)).
+- must default to `flex` for a simple one-axis stack ([flexbox](flexbox.md)).
+- may use a one-column grid for responsive collapse, shared tracks or deliberate cell overlap.
+- must collapse a card layout when its tracks no longer fit ([variants](variants.md)).
+- must preserve semantic columns, such as seven calendar weekdays; provide a fitting or scrollable presentation.
 - must space tracks with `gap-*`, never margins on the items.
 - must reach for `place-items-center` to centre in both axes, over a `flex` plus two alignment utilities.
 - must keep `grid-flow-dense` and explicit placement off interactive items — neither moves the tab order.
@@ -41,12 +41,9 @@
 
 ## Banned
 
-- **a single-column `grid`** — reach for `flex flex-col`; the grid adds an implicit track definition that a later
-  reader has to check, for behaviour a flex column already gives.
 - **`grid-flow-dense` on interactive items** — reach for the natural order; dense packing reorders items visually
   while the tab order follows the DOM, so keyboard focus jumps around the screen.
-- **a fixed `grid-cols-*` with no responsive variant** — reach for `grid-cols-1 sm:grid-cols-3`; a fixed count forces
-  every track below its content width on a phone, and the row overflows the viewport.
+- **an overflowing fixed card grid** — use a responsive column count; semantic grids follow the exception above.
 - **a margin between grid children** — reach for `gap-*`; margins do not collapse across grid tracks, so the space
   doubles where two items meet and stays single at the edges.
 

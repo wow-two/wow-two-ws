@@ -1,10 +1,9 @@
 # Fab
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > The one floating command a screen pins over its own content.
 > What an action is → [action](../../constructs/visual/action.md).
-> Its full surface → `Fab.spec.md`.
 
 ## Reach for it when
 
@@ -26,7 +25,4 @@
 
 ## Values
 
-- must supply `aria-label` — the Fab is icon-only, so it carries no other name
-- must keep `variant` at `primary` unless the command is destructive
-- should keep `position="bottom-right"`, the shipped anchor
 - should keep `size="md"` (3.5rem); `sm` (2.5rem) and `lg` (4rem) are the exceptions

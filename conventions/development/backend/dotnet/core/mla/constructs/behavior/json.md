@@ -1,6 +1,6 @@
 # Json
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > One type's storage seam — the options its stored bytes are written with, and the pair that reads and writes them.
 > Purpose — stored bytes outlive the code that wrote them, so their options must be pinned per type, not shared with the wire.
@@ -12,8 +12,7 @@
 - must sit beside the type it persists, in that type's own folder.
 
 ### File
-- must give it its own file, named for the type →
-  [one type, one file](../../mla.md).
+- file rules → [one type, one file](../../mla.md).
 
 ---
 

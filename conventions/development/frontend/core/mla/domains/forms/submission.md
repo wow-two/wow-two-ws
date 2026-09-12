@@ -1,94 +1,63 @@
 # Submission
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
-> What happens between a submit and a rendered error — the submit path, server-error mapping, validation timing
-> and how a form is tested. Authoring the form itself: [forms](forms.md).
+> Validation, request races and the visible outcome of a form submission.
 
-## Submit [REQUIRED]
+## Manual submit
 
-- must let `onSubmit` be the only failure path — `onSubmit: (values) => mutation.mutateAsync(values)` on `/query`,
-  else a direct client call; must not `try/catch` in the page, the pipeline owns failures.
-- must surface the submit failure as a failed `Result` from `foundation/http`
-  ([result](../../constructs/data/result.md)) — the default `mapSubmitError` reads the `AppError` it carries,
-  so an app on a hand-rolled client silently maps nothing.
-- must render the unmapped remainder — `submitError: AppError | null` — as a form-level `Alert` through
-  `form.Subscribe`.
-- must read progress from `isSubmitting`, never a hand-rolled `saving` flag.
-- must re-trim in `onSubmit` when a schema `.trim()` or transform shapes the DTO — the engine validates only,
-  and `onSubmit` receives the raw values.
-- must not hand-roll a re-entry guard — the submit path is single-flight, so a double-click, Enter-spam or a
-  `submitOn: 'change'` burst coalesces onto the in-flight run.
-- may branch on the verdict — `await form.handleSubmit()` returns `Promise<boolean>`, and `isSubmitSuccessful`
-  is the same fact as a slice.
-- may clear a dismissible banner with `form.clearSubmitError()`.
-- may apply an out-of-pipeline server result with `setFieldErrors(errors)`, replacing the server-error overlay.
+- must validate a value snapshot and submit its parsed output through one pipeline.
+- must return the request's failed `Result` through that pipeline; pages do not duplicate error catching/mapping.
+- must coalesce repeated manual submits for the same snapshot into one in-flight operation.
+- must expose pending, succeeded and failed state separately from editable values.
+- must suppress stale completion UI when the form resets, disposes or changes session.
+- must keep a failed request's values editable; a failure does not reset the dirty baseline.
+- must advance the saved baseline to the confirmed submitted snapshot, preserving any newer edits.
+- must treat cancellation as a distinct outcome; it does not prove the server rolled back.
 
 ---
 
 ## Server errors
 
-- ProblemDetails field errors land on fields automatically — the default `mapSubmitError` reads `fieldErrors` in
-  both .NET shapes (the ModelState dict and the wow-two `[{ property, message }]` array).
-- `defaultMapFieldPath` rewrites the paths — `Rules[0].Destination` → `rules[0].destination`.
+- must consume the backend's `errors: [{ property, code, message }]` extension.
+- must also accept framework validation `errors: { field: [message] }` through a named decoder.
+- must map wire property paths into declared field paths, including nested rows.
+- must retain unmapped/global errors as a form-level summary instead of silently discarding them.
+- must apply field errors only to fields whose submitted value still matches the current value.
+- must keep messages display-safe and preserve codes for localization.
+- must focus the first invalid enabled field on a user submit; use the summary when no field can receive focus.
+- must announce errors once; coordinate summary and field live regions to avoid duplicate speech.
+- must not move focus during background validation or autosave.
 
 ---
 
-## Auto-submit
+## Timing
 
-- may set `submitOn: 'change' | 'blur' | 'manual'` (default `'manual'`) — it routes through the SAME path as
-  `handleSubmit`, so validation, `submitInvalid`, error mapping, verdict and the concurrent guard all apply.
-- should pair `'change'` with `submitDebounceMs` (trailing, coalescing a burst) for settings and live-save, and
-  use `'blur'` for save-on-blur.
-- must expect only user-origin writes to auto-submit — `reset()`, `reset(data)` and prefill never do.
-- may submit past client errors with `submitInvalid: true` (default `false`) — errors still render but stay
-  advisory, the **backend is the source of truth**, and the verdict then reflects `onSubmit`.
-
----
-
-## Validation timing
-
-- must keep the default `validateOn: 'submit'` — the first attempt validates everything, after which touched
-  fields re-validate on change.
-- may override per form — `'change'` when the field is the product (live parse or preview), `'blur'` when errors
-  must surface earlier.
-- must treat touched as blur or submit attempt — errors never surface on the first keystroke, and a server
-  message clears on the next change to its field.
-- must gate an unsaved-changes guard on `isDirty` (baseline-compared), paired with `useNavigationBlocker`.
-- must derive live UI through a selector — `form.Subscribe` / `form.useFormState(selector)` re-render on the
-  selected slice only; pass `isEqual` to a selector returning a fresh object, or it re-renders every change.
-- must write a derived or cross-field value with `form.setValue(path, value)`, not the `.engine` escape hatch.
-- may validate without submitting — `await form.validate()` runs the schema, displays errors, marks fields
-  touched and returns client validity WITHOUT calling `onSubmit`; the clean wizard-step gate.
-- may seed initial validity with `validateOnMount: true` (default `false`) — fields stay untouched, so the pass
-  shows validity without asserting the user interacted.
+- must default to validation on submit, with touched fields revalidated after an attempted submit.
+- may choose blur/change validation when immediate feedback is part of the interaction.
+- must discard an asynchronous validator's result when its value generation is stale.
+- must validate a wizard's current step against that step's schema or field subset.
+- must validate the whole output on final submit, including cross-step constraints.
+- must distinguish draft-save validation from final-submit validation explicitly.
+- must not bypass a transformation by submitting invalid input as if it were parsed output.
 
 ---
 
-## Escape hatch
+## Autosave
 
-- `form.engine` is the native engine instance, typed by the adapter import — for the tenth of cases past the
-  contract (typed deep paths, per-field async validators, listeners).
-- may couple one form to the pinned adapter through it, visible at the import site; must not pass `engine` into
-  a shared component or hook.
-- must promote the pattern into the facade once two or more forms reach for the same native feature
-  ([swappable modules](../../../../../swappable-modules.md)), never copy-paste it.
-- must flip the app's pin to `/forms-engine/tanstack` when a form outgrows the house engine's ceiling — it has
-  no typed deep paths, per-field async validators or listener graphs.
-
----
-
-## Testing
-
-- must exercise forms in interaction `play()` stories driven through the house engine — it is zero-dependency,
-  so the Storybook surface never needs the `@tanstack/react-form` peer.
-- must not re-test a form per engine — `describeFormEngineConformance` pins identical semantics per adapter.
-- must assert through the rendered chrome (`FormErrorMessage` text, a disabled or loading submit), never engine
-  internals.
+- must debounce user-origin changes when configured; reset/prefill never trigger a save.
+- must queue the latest dirty snapshot while a save is in flight.
+- must run one trailing save when that snapshot differs from the confirmed saved snapshot.
+- must coalesce intermediate snapshots, not silently discard the last edit.
+- must keep a failed latest snapshot dirty and expose retry without an automatic retry loop.
+- must cancel timers and invalidate display callbacks on disposal; cancellation follows the transport contract.
+- must guard navigation on unsaved state, including a pending trailing snapshot.
 
 ---
 
-## Neighbours
+## Verification
 
-- [forms](forms.md) — the form contract this path runs on
-- [state and data](../data/state-and-data.md) — the mutation and cache invalidation a submit drives
+- must cover transforms, current-step/final validation, duplicate submit and edits during autosave.
+- must cover reset/disposal during async work, reordered rows and stale field errors.
+- must assert rendered errors and focus in interaction tests; engine conformance verifies shared timing semantics.
+- must run form interactions with the pinned framework adapter, even when a house engine is used for fixtures.

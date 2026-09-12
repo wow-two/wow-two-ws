@@ -1,10 +1,9 @@
 # ColorInput
 
-*Last updated: 2026-08-20*
+*Last updated: 2026-09-10*
 
 > The hex text input — typed, with a live swatch adornment, and no panel behind it.
 > What a control is → [control](../../constructs/visual/control.md).
-> Its full surface → `ColorInput.spec.md`.
 
 ## Reach for it when
 
@@ -27,9 +26,5 @@
 
 ## Values
 
-- must expect the commit on blur or `Enter` — the draft is free-form until then
-- must expect an unparseable draft to revert to the last committed hex
-- must expect an emptied input to commit `null`, the cleared state
 - should accept `#RGB`, `#RGBA`, `#RRGGBB`, `#RRGGBBAA`, with or without the `#`
-- must expect the committed value normalised to `#RRGGBB`, or `#RRGGBBAA` under `hasAlpha`
 - should leave `swatchShape` at `square` and `hasAlpha` off

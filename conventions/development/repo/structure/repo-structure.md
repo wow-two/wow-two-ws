@@ -101,6 +101,9 @@ business/                          ← the venture layer — model · positionin
   `deployment/deployment.md`, `product/product.md`, `engineering/engineering.md` — **never** a generic
   `README.md`. The lead doc orients: what's here, why, pointers.
 - Additional docs sit beside the lead with meaningful names (`planning/` → `planning.md` + `backlog.md` + `rules.md`).
+- Functional package metadata is exempt: NuGet's declared `PackageReadmeFile`, and the npm package
+  `README.md` beside `package.json` required by [SDK structure](sdk-structure.md). These files ship in
+  the package; they do not replace a folder's lead doc.
 
 ---
 

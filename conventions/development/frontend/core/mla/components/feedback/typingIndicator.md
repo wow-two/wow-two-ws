@@ -1,10 +1,9 @@
 # TypingIndicator
 
-*Last updated: 2026-08-23*
+*Last updated: 2026-09-10*
 
 > Three bouncing dots — someone is composing, right now.
 > What an indicator is → [indicator](../../constructs/visual/indicator.md).
-> Its full surface → `TypingIndicator.vue`.
 
 ## Reach for it when
 
@@ -26,6 +25,4 @@
 
 ## Values
 
-- must set `who` to name the typist — the label falls back to `Typing`
 - should set `isSubtle` in a dense thread, so the dots recede between bounces
-- should leave `size` at `md` and `tone` at `muted` — only `sm`–`lg` size a dot

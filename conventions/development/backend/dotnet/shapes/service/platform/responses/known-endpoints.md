@@ -1,6 +1,6 @@
 # Controller known endpoints
 
-*Last updated: 2026-08-18*
+*Last updated: 2026-09-10*
 
 > Identity and system endpoints whose controller, route, action and path are fixed across every app —
 > `api/identity/*`, `api/system/status`.
@@ -50,13 +50,8 @@
 
 ---
 
-## Migration
+## Changes
 
-- must rename `AuthController` → `IdentityController`, and `api/auth` or `api/admin/session` → `api/identity`.
-- must rename `Login` → `SignIn` and `Logout` → `SignOut`; `me` stays `Me`.
-- must grep the whole backend, not only the controller — `CallbackPath`, `returnUrl`, cookie paths,
-  reverse-proxy and path-prefix auth rules may hard-code the old path.
-- must update every reference.
-- must flag a load-bearing path-prefix policy — everything under `api/admin` being `[Authorize]` —
-  before moving a route out of that prefix.
-- must update the frontend caller's paths in the same pass.
+- must update backend route configuration and frontend callers together when a fixed route changes.
+- must preserve callback, cookie and proxy routing behavior at the new path.
+- must preserve authorization explicitly when moving an endpoint out of a protected path prefix.

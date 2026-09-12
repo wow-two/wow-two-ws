@@ -1,10 +1,9 @@
 # ScrollArea
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > The scrolling region — one box overflows while the page around it stays put.
 > What a layout is → [layout](../../constructs/visual/layout.md).
-> Its full surface → `ScrollArea.spec.md`.
 
 ## Reach for it when
 
@@ -21,11 +20,3 @@
 | [AppShell](appShell.md) | the scrolling region is the shell's own content area |
 | [Box](box.md) | the overflow classes are written directly |
 | [PullToRefresh](pullToRefresh.md) | the scrolling region also refreshes on a drag |
-
----
-
-## Values
-
-- must leave `axis` at `vertical` — it hides the cross axis outright
-- must reach for `both` rather than nesting two areas for two axes
-- must not wait for the custom-scrollbar organism the spec names — none ships

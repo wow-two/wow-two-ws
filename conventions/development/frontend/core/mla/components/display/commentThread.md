@@ -1,10 +1,9 @@
 # CommentThread
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > Nested comments — a `tree` of `Comment` rows, each collapsing its own replies.
 > What a display is → [display](../../constructs/visual/display.md).
-> Its full surface → `CommentThread.vue`.
 
 ## Reach for it when
 
@@ -21,9 +20,3 @@
 | [MessageList](messageList.md) | the messages are a flat stream in time order |
 | [ThreadView](threadView.md) | the panel is one thread with a composer, replies flat |
 | [Tree](tree.md) | the nodes are data rather than comments |
-
----
-
-## Values
-
-- must keep the nesting shallow; each level indents behind its own collapse rail

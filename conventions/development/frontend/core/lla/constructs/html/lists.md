@@ -1,14 +1,12 @@
 # Lists
 
-*Last updated: 2026-08-17*
+*Last updated: 2026-09-10*
 
 > The three list families, what each announces, and the shapes that lose the count.
 > Purpose — a list element tells a screen reader how many items are coming; a stack of `div`s tells it nothing.
 > Use case — reach here whenever markup repeats a sibling, and before styling a list's markers away.
 
 ## The elements
-
-Exhaustive for HTML list content. `ul` · `li` carry the bulk of both trees; `dl` appears only in definition rows.
 
 | Element | Means | Verdict |
 |---|---|---|

@@ -1,10 +1,9 @@
 # TextInput
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > The default single-line box — every string value no typed sibling in this folder claims.
 > What a control is → [control](../../constructs/visual/control.md).
-> Its full surface → `TextInput.spec.md`.
 
 ## Reach for it when
 
@@ -30,6 +29,3 @@
 ## Values
 
 - should leave `size` at `md`, `border` at `sm`, `ring` at `md` — the input house set
-- must leave `state` unset; the surrounding field's invalid flag drives it
-- must bind `value` or `modelValue`, never both — `value` wins on collision
-- must leave `disabled`, `required` and `readOnly` unset to inherit the field's context

@@ -1,10 +1,9 @@
 # ActionSheet
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > The iOS-style action list — a bottom sheet of stacked rows closed by a separated Cancel.
 > What an overlay is → [overlay](../../constructs/visual/overlay.md).
-> Its full surface → `ActionSheet.spec.md`.
 
 ## Reach for it when
 
@@ -27,6 +26,4 @@
 
 ## Values
 
-- must mark the destructive row `isDestructive` — it is the only red row
-- must not close the sheet from a `select` handler — the row closes it after firing
 - should pass `title` / `description` as strings, taking the slots only for rich content

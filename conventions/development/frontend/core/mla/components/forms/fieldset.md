@@ -1,10 +1,9 @@
 # Fieldset
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > The native `<fieldset>` — several fields grouped under one [Legend](legend.md).
 > What a layout is → [layout](../../constructs/visual/layout.md).
-> Its full surface → `Fieldset.spec.md`.
 
 ## Reach for it when
 
@@ -23,10 +22,3 @@
 | [RadioGroup](radioGroup.md) | the group is a mutex set and owns the selected value |
 | [CheckboxGroup](checkboxGroup.md) | the group owns a set of selected keys |
 | `Stack` | the grouping is spacing only and names nothing |
-
----
-
-## Values
-
-- must set `disabled`, `name` and `form` as native attributes — every one falls through
-- must not expect a border or padding; the SDK strips both to zero

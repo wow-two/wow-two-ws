@@ -1,10 +1,9 @@
 # TableOfContents
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > The in-page outline, with the section currently in view highlighted.
 > What a nav component is → [nav](../../constructs/visual/nav.md).
-> Its full surface → `TableOfContents.spec.md`.
 
 ## Reach for it when
 
@@ -26,7 +25,4 @@
 
 ## Values
 
-- must give every heading an `id` — one without is dropped from the outline
 - should pass `source` over a hand-kept `items` list, so the outline cannot drift
-- should keep the default `h2, h3` selector — each level indents one depth step
-- must not set `active-id` unless overriding the derived value; `null` clears it

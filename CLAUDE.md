@@ -2,27 +2,13 @@
 
 Full-stack .NET + React developer ecosystem. `wow-two-ws` is a meta-repo (workspace config only); managed repos are independent gits under `workbench/` (gitignored as a whole).
 
-## Lazy loading
+## Instruction sources
 
-- Don't pre-read or scan at startup — open a file only when the task needs it; read the minimum.
-- `.claude/repo-registry.md` and `conventions/conventions.md` are lookup tables, not reading lists.
-- `.claude/rules/` is an **auto-load directory** — every `.md` in it enters context each session, so a lookup table never goes there; indexes live one level up in `.claude/`.
+General response and collaboration conventions: `.claude/rules/response-style.md` imports the personal shared source. Required instruction files load at startup; indexes and domain content remain on demand.
 
 ## Response style
 
-> Highest-priority style rule: **`.claude/rules/response-style.md`** (auto-loaded). Super-compact default — density over length. Runtime-enforced via `.claude/settings.json` hook.
-
-Most-violated cuts (enforce hard; full list lives in that file):
-
-- **Open a substantive reply with a `### Plan` block** — 4–6 bullets, statuses from the `Status set` (`✅ 🔄 ⬜ ✗`). Revise it each turn, never restate it at the end.
-- **No self-narration — pre OR post-action.** Pre: "Let me check…", "I'll search…". Post: "Searched the registry:", "Checked the doc:". Both shapes cut — just give the result.
-- **Compact format for analyses / lookups** — `from X:` + bullets over prose.
-- **No scaffolding openers / closing recap.** "Looked through…", "So to summarize…" → delete.
-- **Imperatives over first-person.** "I'll bump the version" → `Directory.Packages.props:12 → 2.0.0`.
-- **Multiple items** (comments / findings / options) → one `###` header each + `---` between groups.
-- **Stream analysis, never dump it.** ≤3 points + ≤1 fork per turn; a `### Queue` block under the plan carries `{remaining} / {total} from {pool}`, a countdown that never renders a pool at `0`. Planned iterations never queue — their track doc is the queue.
-
-A reply violating any of these is a style miss regardless of correctness.
+Shared source and workspace overrides: `.claude/rules/response-style.md`; reinforced by local hooks.
 
 ## Conventions
 
@@ -55,7 +41,7 @@ docs/ (strategy, playbooks) · system/sessions/ · ideas/ · scripts/ · workben
 - Each repo's own `CLAUDE.md` overrides this root. Conventional commits (`feat`/`fix`/`docs`/`refactor`).
 - Passive language — describe where things are; never instruct to pre-read.
 - **Git:** agents stage and commit; agents **never** `git push` — the developer publishes. The same hook (`.claude/hooks/guard-git.py`) blocks worktree destruction (`reset --hard`, `restore`, `checkout -- <path>`, `clean`) and every `gh` write, gates history rewrites (`merge` / `rebase` / `cherry-pick` / `revert` / `commit --amend` / soft `reset`) behind a rapid-building marker the developer writes, and stops `commit` / `pull` / `stash push` once when the tree holds files this session never wrote — answer its lane question, then re-run. Protocol: `conventions/development/repo/version-control/git.md`.
-- **No `README.md` below a repo root.** Only a repo's top-level `README.md` is allowed; every other folder's lead doc is `{folder}.md` (e.g. `Data/Migrations/migrations.md`, not `.../README.md`). See `conventions/development/repo/structure/repo-structure.md` §3. **Exception:** a packable project's NuGet `PackageReadmeFile` README (e.g. `src/README.md` next to the `.csproj`) is a functional package file, not a folder doc — leave it.
+- **No `README.md` below a repo root.** Folder lead docs use `{folder}.md` (e.g. `Data/Migrations/migrations.md`). See `conventions/development/repo/structure/repo-structure.md` §3. **Exception:** declared NuGet `PackageReadmeFile` and npm `README.md` beside `package.json` are functional package metadata; preserve them as required by SDK structure.
 - **Skills** (`.claude/skills/`): `open-active` (open the working set in Rider/WebStorm) · `create-repo` (scaffold a conformant repo).
 - **Live state / roadmap:** `workbench/wow-two/wow-two.refinement`.
 

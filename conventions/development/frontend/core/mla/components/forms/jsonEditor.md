@@ -1,10 +1,9 @@
 # JsonEditor
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > JSON as a value, not as text — a collapsible tree and a raw text mode over one parsed object.
 > What a control is → [control](../../constructs/visual/control.md).
-> Its full surface → `JsonEditor.spec.md`.
 
 ## Reach for it when
 
@@ -29,5 +28,3 @@
 
 - should leave `defaultMode` at `tree` — text mode is the escape hatch, not the entry
 - should leave `indent` at `2`; it only shapes the serialized text mode
-- must raise `minHeight` past `14rem` for a deep document, not for a flat one
-- must handle the parse failure — a bad text mode never commits a value

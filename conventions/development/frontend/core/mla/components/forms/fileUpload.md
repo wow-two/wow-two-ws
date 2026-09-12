@@ -1,10 +1,9 @@
 # FileUpload
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > The dropzone — a whole surface that takes a drag, falls back to a click, and flags what it rejects.
 > What a control is → [control](../../constructs/visual/control.md).
-> Its full surface → `FileUpload.spec.md`.
 
 ## Reach for it when
 
@@ -25,8 +24,6 @@
 
 ## Values
 
-- must set `maxSize` in bytes — nothing is capped by default
-- must set `accept` as a MIME or extension list; an open zone takes anything
-- must set `maxFiles` whenever `multiple` is on, or the count rule never fires
-- must render the picked-file list yourself — this one emits `File[]` and shows none
+- must validate uploads on the server; client filters only provide earlier feedback.
+
 - should rewrite the `Drop files here, or click to browse` label to name the file kind

@@ -1,10 +1,9 @@
 # Stack
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > The default container — children on one axis, with a gap the parent owns.
 > What a layout is → [layout](../../constructs/visual/layout.md).
-> Its full surface → `Stack.spec.md`.
 
 ## Reach for it when
 
@@ -28,7 +27,4 @@
 
 ## Values
 
-- must leave `direction` at `column` and `gap` at `4` for the ordinary case
-- must pick `gap` from `0`–`6`, `8`, `10`, `12` — no other step ships
-- must not margin a child → [spacing](../../../lla/constructs/tailwind/spacing.md)
 - should leave `align`, `justify` and `wrap` unset — the variant defaults none of them

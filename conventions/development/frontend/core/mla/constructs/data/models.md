@@ -1,6 +1,6 @@
 # Models
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > How to declare a data type, in the order you build one. Scalars and dates →
 > [type mapping](../../domains/api/type-mapping.md); enums → [enums](../../../lla/components/enums.md); the API
@@ -26,12 +26,12 @@ The suffix follows whoever owns the shape, never whether a mapping exists.
 
 | Kind | Name | Layer |
 |---|---|---|
-| read shape | `{Noun}Dto` | `domain` |
+| read shape | `{Noun}Dto` | `integration` |
 | app representation of a backend entity | `{Noun}Model` | `domain` |
 | service-computed shape, no wire counterpart | `{Noun}Model` | `domain` · `application` |
 | write contract | `{Noun}{Verb}ApiRequest` | `integration` |
 | nested write sub-shape | `{Noun}Dto` | `integration` |
-| list row | `{Noun}RowDto` | `domain` |
+| list row | `{Noun}RowDto` | `integration` |
 | list query | `{Noun}QueryDto` | `integration` |
 | content variant | `{Noun}Content` | `domain` |
 | descriptor · catalog | `{Noun}Descriptor` · `{noun}Catalog` | `domain` |
@@ -39,8 +39,8 @@ The suffix follows whoever owns the shape, never whether a mapping exists.
 
 - must name the role in the prefix; only a wire **write** payload breaks the pattern, as an `*ApiRequest`.
 - must leave an enum name bare — the suffix is what separates a `BuilderStyleDto` from it.
-- **form model** — none separate by default; the create/update form binds `{Noun}CreateUpdateApiRequest`
-  directly. Add a thin form type only once editing needs props the wire does not carry.
+- must distinguish editable input, parsed schema output and submitted request when their shapes differ
+  ([forms](../../domains/forms/forms.md)); a direct request binding is valid only when the shapes match.
 - **write contract** — noun-first, verb = the CRUD action (`Create` · `Update` · `SetActive`). A shared
   create+update body is `{Noun}CreateUpdateApiRequest`; split it only once the bodies diverge.
 - **descriptor + catalog** — a variant-set's lookup table, not a wire shape, so no `*Dto`. `{Noun}Descriptor`
@@ -50,7 +50,7 @@ The suffix follows whoever owns the shape, never whether a mapping exists.
 - must pair `*Options` with the one call or module it configures, and name it for that — `ApiClientOptions`.
 - must send an `*ApiRequest` on a write, never a read shape — a read carries server-owned fields
   (`id` · `slug` · `scanCount`) a write must not.
-- must return the `*Dto` directly on a read; `*Response` is reserved for a genuine wrapper (paging).
+- must return the DTO on an unchanged read, or its app-owned model when mapped; reserve `*Response` for a real envelope.
 
 ---
 
@@ -71,11 +71,6 @@ The suffix follows whoever owns the shape, never whether a mapping exists.
 - must open a type doc with **`Represents`**, one line; **`Defines`** only for an abstraction, contract or
   enum ([documentation](../../../lla/notation/documentation/documentation.md)).
 
-```typescript
-/** Represents an issued invoice and its lifecycle status. */
-export interface InvoiceModel {
-```
-
 ---
 
 ## 5. Members
@@ -91,11 +86,13 @@ Per member, in order: **doc → type**.
 - must group a large model with `// ── Section ──` bands; no `@example`, no mechanism notes.
 
 ```typescript
+/** Represents an issued invoice and its lifecycle status. */
+export interface InvoiceModel {
   /** The invoice's unique id. */
   id: string;
 
-  /** When the invoice was issued. */
-  issuedAt: Temporal.Instant;
+  /** The invoice reference shown to its recipient. */
+  reference: string;
 }
 ```
 
@@ -106,7 +103,9 @@ Per member, in order: **doc → type**.
 - must reshape `*Dto` → `*Model` in one `mapInvoice(dto)` at the integration boundary
   ([state and data](../../domains/data/state-and-data.md)).
 - must not leak a `*Dto` past `integration/` once a `*Model` exists for it.
-- must not write a mapper for a straight read — dates and enums wire globally.
+- must keep a straight read as its DTO when its validated wire representation already fits the caller.
+- must decode declared fields at integration when richer values are needed; never infer dates from arbitrary strings.
+- must validate untrusted input at runtime; a static DTO annotation does not validate a payload.
 - must return a [result](result.md) from a mapper that can fail on a shape it did not expect.
 
 ---
@@ -115,7 +114,7 @@ Per member, in order: **doc → type**.
 
 - must model a variant set (e.g. content types) as a discriminated union on a `type` field.
 - must dispatch through a `Record<{Id}, {Noun}Descriptor>` catalog — a missing variant is a compile error.
-- must carry static versus dynamic as a `mode` field on the descriptor, gated by one switch in the page.
+- may model a meaningful static/dynamic distinction in the descriptor; do not require it for unrelated variant sets.
 
 ---
 

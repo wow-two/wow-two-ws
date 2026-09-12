@@ -1,6 +1,6 @@
 # Naming
 
-*Last updated: 2026-08-15*
+*Last updated: 2026-09-10*
 
 > Cross-cutting naming for backend types, members, and extension methods — the symbol name,
 > never its file, namespace, or project.
@@ -50,17 +50,3 @@
 ## Banned
 
 - **Hungarian notation** — `m_`, `s_`, a leading `_` on anything but a private field.
-- **`Helper` · `Util` · `Utils` · `Common` · `Manager` suffixes** — banned outright, public or internal
-  - they name the absence of a role, and an internal type needs a role as much as a public one
-  - [components](../../../mla/constructs/constructs.md) § *Banned*
-- **`using static`** — see § *`using static` is banned* above.
-
----
-
-## Specific naming lives by area
-
-- which **suffix** names which **role** (one per role, `Store`→`Repository`, banned junk-drawer, new-suffix gate)
-  → [constructs](../../../mla/constructs/constructs.md)
-- service / client / factory → [services](../../../mla/constructs/behavior/service.md)
-- query / command / handler → [mediator](../../../mla/domains/messaging/mediator/mediator.md)
-- entity / settings / DTO → [constructs](../../constructs/constructs.md)

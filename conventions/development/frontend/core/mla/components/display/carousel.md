@@ -1,10 +1,9 @@
 # Carousel
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > A slide track the reader steps through — the root owns the index.
 > What a display is → [display](../../constructs/visual/display.md).
-> Its full surface → `Carousel.spec.md`.
 
 ## Reach for it when
 
@@ -26,6 +25,7 @@
 
 ## Values
 
+- must provide a persistent rotation control when slides advance automatically.
+- must stop automatic rotation on user interaction and honor reduced motion.
+
 - should leave `defaultIndex` at `0` and `canLoop` off
-- must set `autoPlay` in ms only for decorative strips — it is off by default
-- must set `slidesCount` when the slides are virtualised; the count cannot be derived

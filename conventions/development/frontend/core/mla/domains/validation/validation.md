@@ -1,47 +1,28 @@
 # Validation
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
-> The Standard Schema seam every layer may reach, and the dependency-free validators built on it.
-> Purpose — a boundary check below the forms layer needs a vocabulary that pulls in no schema library.
-> Use case — parsing config or a URL param, checking a payload, or giving a rule one voice on both sides.
+> Standard Schema at validation boundaries, with house failures outside that protocol.
 
-## The contract
+## Contract
 
-- must make every validator a Standard Schema — the spec property is on the object itself.
-- must be accepted unchanged wherever a schema is taken, so one object serves a boot parse and a form.
-- must return either the parsed value or every issue with its path, never the first issue alone.
-- must not throw; the one assert helper throws only because the caller asked it to.
-- must sit at the bottom of the layer graph, so a config parser or a payload check can import it.
-- must speak one shared rule-code vocabulary, whichever side reported the issue.
-- must render a code through the message catalogue, so a rule reads the same on both sides.
-- must leave the issue-to-field plumbing in the forms layer — it is not duplicated here.
-- must keep a schema library an optional consumer peer, never a dependency of the seam.
-- must not pull a library's runtime into a package that ships zero runtime dependencies.
+- must accept Standard Schema without changing its `~standard.validate` input/output protocol.
+- must preserve parsed output and every returned issue, including nested paths.
+- must support a synchronous result or a promise; async completion follows the caller's value generation.
+- must retain Standard Schema's `{ value } | { issues }` shape at that boundary.
+- must adapt to a house `Result` only outside the schema protocol when a caller needs that carrier.
+- must normalize an unexpected validator throw/rejection at the boundary; an explicit assertion helper may throw.
+- must keep issue-to-field binding in [forms](../forms/forms.md).
+- must preserve provider issue messages/paths and map house rule codes through the message catalog.
+- must not invent a shared code when the provider supplies none; use a declared fallback category.
+- must keep schema dependencies optional and isolated under [library delivery](../../../../shapes/library/delivery/delivery.md).
 
 ---
 
 ## Providers
 
-| Provider | Implements | Reach for it when |
-|---|---|---|
-| built-in | primitives, composites and formats, zero dependencies | boundary checks inside a dependency-free package |
-| zod | the spec, from the library | a large, evolving domain schema — the default form pin |
-| valibot | the spec, from the library | a size-first swap, decided per form |
-
----
-
-```txt
-✅ object({ email: email(), name: string() })   a Standard Schema, usable as a form schema
-✅ useAppForm({ schema: ProductSchema })        zod or valibot, invisible to the SDK
-❌ if (!raw.email.includes('@')) throw          a hand-rolled check at the boundary
-```
-
----
-
-## Neighbours
-
-- [domains](../domains.md) — the shape every domain follows
-- [forms](../forms/forms.md) — the consumer that maps issues onto fields
-- [config](../config/config.md) — the boundary parse this seam exists to serve
-- [swappable modules](../../../../../swappable-modules.md) — how a schema library stays an optional peer
+- must let built-in and third-party Standard Schema implementations use the same contract.
+- must keep library-specific transforms, imports and adapter rules in provider leaves.
+- must define input/output types separately when parsing transforms a value.
+- must run conformance for synchronous/asynchronous success, nested errors, rejection and transformed output.
+- must parse external data at its boundary; a TypeScript assertion is not validation.

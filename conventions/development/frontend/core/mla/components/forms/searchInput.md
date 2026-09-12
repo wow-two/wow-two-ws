@@ -1,10 +1,9 @@
 # SearchInput
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
-> A query box — `type="search"`, a leading magnifier, and a clear button that ships on.
+> A query box — `type="search"`, a leading magnifier, and a clear action.
 > What a control is → [control](../../constructs/visual/control.md).
-> Its full surface → `SearchInput.spec.md`.
 
 ## Reach for it when
 
@@ -28,8 +27,3 @@
 
 - should leave `isClearable` on — a query the reader cannot clear is a dead end
 - should leave `size` at `md`, `border` at `sm`, `ring` at `md` — the input house set
-- must debounce in the caller; the control emits on every keystroke
-- must leave `state` unset; the surrounding field's invalid flag drives it
-
-> `SearchInput.spec.md` names the prop `clearable` and a callback `onClear`; the Vue component
-> ships `isClearable` and emits `clear`. The spec is React-era — take the code.

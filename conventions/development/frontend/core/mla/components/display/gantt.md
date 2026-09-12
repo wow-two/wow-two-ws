@@ -1,15 +1,13 @@
 # Gantt
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > Tasks as bars on a date axis, with dependency arrows.
 > What a display is → [display](../../constructs/visual/display.md).
-> Its full surface → `Gantt.spec.md`.
 
 ## Reach for it when
 
 - must compare spans across a plan — what runs when, and what waits on what
-- must expect first-generation scope — no drag-move, no drag-resize, no critical path
 - should pass `from` and `to` when the window should be fixed rather than derived
 
 ---
@@ -28,4 +26,3 @@
 
 - should leave `cellWidth` at `40`, `rowHeight` at `36`, `labelWidth` at `200` px
 - should leave `hasWeekends` on so the reader can count working days
-- must widen `labelWidth` when task names truncate; nothing wraps

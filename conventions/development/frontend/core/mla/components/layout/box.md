@@ -1,10 +1,9 @@
 # Box
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > The lowest primitive — one element and one class, arranging nothing of its own.
 > What a layout is → [layout](../../constructs/visual/layout.md).
-> Its full surface → `Box.spec.md`.
 
 ## Reach for it when
 
@@ -22,10 +21,3 @@
 | [Stack](stack.md) | the axis and the gap between children are the point |
 | [Frame](frame.md) | the shell carries a border, a padding and a radius |
 | [Surface](surface.md) | the shell carries the fill, border and shadow recipe |
-
----
-
-## Values
-
-- must leave `as` at `div` unless the semantic tag is the reason for the swap
-- must space children with `gap-*` → [spacing](../../../lla/constructs/tailwind/spacing.md)

@@ -1,10 +1,9 @@
 # MarkdownEditor
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > Markdown with a live preview — a syntax toolbar over the selection and a rendered pane beside it.
 > What a control is → [control](../../constructs/visual/control.md).
-> Its full surface → `MarkdownEditor.spec.md`.
 
 ## Reach for it when
 
@@ -27,6 +26,7 @@
 
 ## Values
 
+- must apply the HTML sanitization and URL policy when replacing a rendered preview.
+
 - should leave `defaultView` at `split`; drop to `edit` where the pane is too narrow
 - should leave `minHeight` at `18rem` — the split panes need the height to be useful
-- must sanitize yourself only when you replace the preview: the built-in render escapes raw HTML

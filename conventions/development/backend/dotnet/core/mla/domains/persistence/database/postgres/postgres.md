@@ -1,141 +1,72 @@
 # Postgres
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
-> What the Postgres engine fixes — its types, its enum forms, and the column conventions a schema follows.
-> Purpose — the applied SQL owns the schema, so engine facts belong to the engine, not to whatever maps over it.
-> Use case — choosing a column type, adding an enum, or naming a table.
+> PostgreSQL column and stored-value conventions; access APIs belong to their provider.
 
-Before writing code that touches database tables — models, migrations, queries:
+## Schema
 
-1. Read the repo's canonical schema — `{Repo}.Persistence/Migrations/NNN-name/Apply.sql` for Sql-strategy products,
-   the owned `CREATE TABLE` truth. Folder layout, ordinals, apply/rollback pairing →
-   [bespoke-migrations.md](../../migrations/sql/bespoke-migrations.md).
-2. Read the data dictionary if one exists — field reference, allowed values, who sets each column.
-3. Cross-check the DB ↔ C# mapping doc if one exists — column ↔ property mapping, known pitfalls.
-
-- must never assume a column name or type — verify against the `Apply.sql` files first.
-- applies to C# models, SQL migrations, Dapper queries, EF Core configurations, filter logic.
+- must verify names and types against the [schema owner](../../persistence.md#contract) before editing models or queries.
+- must read the data dictionary and mapping reference when the repository maintains them.
+- must make a column `NOT NULL` unless the domain value is genuinely optional.
+- must supply values explicitly rather than adding defaults that hide missing inputs.
+- may use defaults for timestamps or trigger-created rows when the database owns those values.
+- must not add a redundant database UUID default when the application owns key generation.
+- key shape → [entity identity](../../entities/entity-contracts.md#identity).
 
 ---
 
-## Column constraints
+## Types
 
-- must declare every new column `NOT NULL` without `DEFAULT`, unless the default has a valid reason.
-
-Valid reasons for `DEFAULT`:
-
-- primary keys — `DEFAULT gen_random_uuid()`, but see *Primary keys* below.
-- timestamps — `DEFAULT NOW()`, unless the value must come from code (precision, exact calculated time).
-- trigger-created rows.
-
-- must set everything else — booleans, enums, arrays, strings — explicitly from code.
-  - a default masks a missing value and turns into a silent bug as pipelines evolve.
+- must store `Guid` as `uuid`.
+- must store instants as `timestamptz`, using UTC values supported by Npgsql.
+- must store calendar dates as `date` and model them as `DateOnly`.
+- must prefer `text`; use `varchar(n)` only for a meaningful storage limit.
+- must store booleans as `boolean` and binary values as `bytea`.
+- must use a native enum array for a list of native enum values.
+- must use `text[]` for a list of unconstrained strings.
+- must verify the provider supports the chosen element type before using another array shape.
 
 ---
 
-## Primary keys
+## Numeric units
 
-- must not add `DEFAULT gen_random_uuid()` on an ID column — EF Core generates client-side via `Guid.NewGuid()`,
-  so the DB default never fires.
-- must take the key shape from the entity contract, never restate it here —
-  [entity contracts](../../entities/entity-contracts.md) § *Identity*.
-
----
-
-## Type mappings (Postgres / Npgsql)
-
-| C# | Postgres | Notes |
-|---|---|---|
-| `Guid` | `uuid` | EF Core generates client-side |
-| `DateTime` / `DateTimeOffset` | `timestamptz` | Always `timestamptz`, never `timestamp` |
-| `DateOnly` | `date` | Dapper handler in raw SQL — [data-access.md](../../../../constructs/behavior/repository.md) |
-| `string` | `text` / `varchar(n)` | Prefer `text`; `varchar(n)` only when a hard limit is meaningful |
-| `bool` | `boolean` | |
-| `List<TEnum>` | `tenant_type[]` | Use the PG enum array type, not `TEXT[]` |
-| `List<string>` | `TEXT[]` | Free-form: AI output, URLs, tags, unstructured text |
-| `byte[]` | `bytea` | |
-| `List<T>` | array type | EF Core handles native Npgsql array mapping for single-table columns |
+- must store bounded quantities as integers in a documented unit under the current integer-storage policy.
+- must select integer width from the full allowed range, not from sample values.
+- must state currency and scale for monetary amounts; whole currency is valid only when fractional units are excluded.
+- must use checked conversion and an explicit rounding rule when converting into the stored unit.
+- must not assume a fixed-width integer covers an arbitrary precision or unbounded range.
+- must not introduce `NUMERIC` / `DECIMAL` under the current default without an explicit scoped convention decision.
 
 ---
 
-## Numeric type conventions
+## Enums
 
-Avoid `NUMERIC` / `DECIMAL` — store values as integers in the smallest meaningful unit.
-
-| Data kind | DB type | C# | Unit | Example |
-|---|---|---|---|---|
-| Percentages / confidence | `SMALLINT` + `CHECK (0..100)` | `short` | 0–100 whole percent | `85` = 85% |
-| Money (large amounts) | `BIGINT` | `long` | Whole amount, original currency | `3840000000` = 3.84B UZS |
-| Money (micro / API costs) | `INTEGER` | `int` | Micro-USD (×1,000,000) | `123` = $0.000123 |
-| Area | `INTEGER` | `int` | Square centimeters (cm²) | `750000` = 75.00 m² |
-| Height / length | `SMALLINT` | `short` | Centimeters | `280` = 2.80 m |
-| Counts / ordinals | `SMALLINT` | `short` | Natural unit | `3` = 3 rooms |
-
-- must not use `NUMERIC` / `DECIMAL` anywhere — integer storage in the right unit covers every case.
-- consequence: no `.HasPrecision()` needed in EF Core configs.
-
----
-
-## Enum column mapping
-
-> **Standard:** native PostgreSQL enum types.
-> Text columns are the fallback for non-PG providers only — SqlServer / Sqlite, see *Text-column fallback*.
-
-### Postgres (native enum types) — default
-
-- **Storage** — PostgreSQL custom enum types (`CREATE TYPE listing_type AS ENUM (...)`).
-- **C# ↔ PG case mapping** — PascalCase C# values map to snake_case PG labels.
-  - `ApartmentRent` ↔ `'apartment_rent'`.
-- **Registration** — **one bulk call**, never per-enum, never per-property `.HasConversion()`.
-  - call `MapEnums(CaseStyle.Snake, namespaceFilter, assemblies)` (`NpgsqlEnumMappingExtensions`).
-  - place it inside the `configure` delegate of `AddNpgsqlDataSource` (`PostgresServiceCollectionExtensions`).
-- Npgsql requires enum mappings at the data-source (driver) level.
-  - `MapEnums` runs on the builder before `Build()` and scans the given assemblies.
-  - it registers every public non-nested enum that passes `namespaceFilter`.
+- must use native PostgreSQL enums under the current PostgreSQL default.
+- must use snake_case labels for PascalCase CLR members.
+- must use styled text for providers without native enum types, except a documented existing-schema compatibility mapping.
+- must keep type names and label translation identical in every access path.
+- must register driver mappings before building the data source.
+- must also register mappings on the EF provider when EF consumes an external data source.
+- must not infer EF mapping from driver registration alone.
+- may use `MapEnums` for driver-level discovery; its `assemblies` argument follows `pgTypeName`.
 
 ```csharp
-// Registration — once at startup
-services.AddNpgsqlDataSource(builder =>
-    builder.MapEnums(
-        CaseStyle.Snake,
-        ns => ns.StartsWith("Drydock.Domain"),
-        typeof(ChannelType).Assembly));
+services.AddNpgsqlDataSource(dataSource => dataSource.MapEnums(
+    CaseStyle.Snake,
+    ns => ns.StartsWith("Drydock.Domain", StringComparison.Ordinal),
+    assemblies: typeof(ChannelType).Assembly));
 ```
 
-**Why bulk, why a translator:**
-
-- `MapEnums` derives the PG type name from the enum type name via `CaseMapper.ToCase(name, style)`.
-- it routes both type and member names through one `CaseStyleNameTranslator(style)` (an `INpgsqlNameTranslator`).
-- driver-level label mapping and any string-based mapping therefore agree *by construction* — they can't drift.
-- no listing each enum twice (`MapEnum<T>` on both `NpgsqlDataSourceBuilder` and `UseNpgsql`).
-- **Per-enum PG type override** — pass the optional `pgTypeName` delegate to `MapEnums` (`Func<Type, string?>`).
-  - return `null` to keep the styled default.
-
----
-
-### Text-column fallback (SqlServer / Sqlite)
-
-- must store the enum as a **case-styled string** when the provider has no native enum types.
-  - go through the SDK converters, which keep it reversible.
-- must never hand-roll `nameof(...).ToSnakeCase()` + `Enum.Parse` — that pair is lossy on multi-word members.
-  - the SDK builds its reverse map from the enum's own members.
-- **EF Core** — `EnumPropertyBuilderExtensions.HasEnumStringConversion<TEnum>()` (defaults `CaseStyle.Snake`):
+- must configure EF with the corresponding `MapEnum` call and the same translator:
 
 ```csharp
-builder.Property(e => e.Status).HasEnumStringConversion();        // snake_case text column
+builder.UseNpgsqlConventional(dataSource, npgsql => npgsql.MapEnum<ChannelType>(
+    "channel_type",
+    nameTranslator: new CaseStyleNameTranslator(CaseStyle.Snake)));
 ```
 
-- applies `EnumCaseMapper<TEnum>`, a `ValueConverter<TEnum, string>`.
-- reads are case-insensitive on the label; writes emit the configured style.
-- **Dapper** — `DapperServiceCollectionExtensions.AddEnumTypeHandler<TEnum>()` (defaults `CaseStyle.Snake`):
-
-```csharp
-services.AddEnumTypeHandler<OrderStatus>();                       // registers EnumTypeHandler<OrderStatus>
-```
-
-- both paths round-trip through `EnumNameMapper<TEnum>` — `ToLabel` / `Parse` / `TryParse`.
-  - it is the single source of truth for label ↔ member, cached per `(enum, style)`.
-
-> **Forward note:** a future text-enum-default mode — text standard, native PG opt-in — lands with the SQLite track.
-> Until then native PG enums are the standard, and text columns the non-PG fallback only.
+- EF/driver requirements → [Npgsql enum mapping](https://www.npgsql.org/efcore/mapping/enum.html).
+- current driver helper → [enum mapping source](../../../../../../../../../../workbench/wow-two-sdk-beta/wow-two-sdk.backend.beta/engineering/codebase/wow-two-back-beta-sdk/src/Data/EntityFrameworkCore/Postgres/NpgsqlEnumMappingExtensions.cs).
+- string-backed mapping APIs → [Dapper enums](../../access/dapper/dapper.md#enums).
+- SQL enum evolution → [migration dialects](../../migrations/sql/migration-dialects.md#native-enum-changes).

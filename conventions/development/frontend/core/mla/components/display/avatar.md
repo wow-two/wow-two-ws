@@ -1,10 +1,9 @@
 # Avatar
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > A person or entity as an image, falling back to initials.
 > What a display is → [display](../../constructs/visual/display.md).
-> Its full surface → `Avatar.spec.md`.
 
 ## Reach for it when
 
@@ -27,6 +26,3 @@
 ## Values
 
 - should leave `size` at `md`, `shape` at `circle`, `bgStyle` at `solid`, `ring` at `none`
-- must set `canAutoColor` to derive the fallback colour from the name hash
-- must leave `tone` at `neutral` for auto-colour to apply — an explicit tone wins
-- should set `isLoading` while the identity is still resolving, not while the image loads

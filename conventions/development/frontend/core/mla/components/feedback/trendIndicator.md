@@ -1,10 +1,9 @@
 # TrendIndicator
 
-*Last updated: 2026-08-23*
+*Last updated: 2026-09-10*
 
 > A signed delta with an arrow — whether a metric moved the right way.
 > What an indicator is → [indicator](../../constructs/visual/indicator.md).
-> Its full surface → `TrendIndicator.spec.md`.
 
 ## Reach for it when
 
@@ -26,7 +25,5 @@
 
 ## Values
 
-- must set `isInverse` wherever a rise is bad — error rate, churn, latency
-- must pass `format` when the delta is not a percentage; the default renders `+N%`
 - should set `label` to name the comparison window — "vs last week"
 - should leave `size` at `sm`; it is tuned to sit beside body copy

@@ -1,93 +1,31 @@
 # Results
 
-*Last updated: 2026-08-16*
+*Last updated: 2026-09-10*
 
-> The one outcome contract every handler and endpoint returns — a typed success, or an `AppError`.
-> Purpose — a failure crosses a boundary as a value, so no layer guesses whether an exception means "expected".
-> Use case — returning from a handler, collapsing at the edge, or bridging a throw into a return.
-
-The carrier's declaration is a [component](../../../../core/mla/constructs/data/result.md); below is the service-wide contract.
-
----
+> The outcome boundary between service handlers and HTTP controllers.
 
 ## Carriers
 
-| Carrier | Use | Shape |
-|---|---|---|
-| `Result` / `Result<T>` | everywhere (domain / service / foundation / infra) | `Success` \| `Failure(AppError)` — lightweight, no context |
-| `AppResult<TSuccess>` | mediator handlers ↔ controllers | `Success(TSuccess Data, ctx?)` \| `Failure(AppError Error, ctx?)` |
-
-- both are **closed DUs** — private ctor + sealed nested cases.
-- `where T : notnull` / `where TSuccess : notnull` → non-null, side-owned; no `bool IsSuccess; T?`, no null-checks.
-- must collapse with `.Match(onSuccess, onFailure)` — the mandated consume path.
-- an inner `Result<T>` (service) maps up into an `AppResult<TSuccess>` in the handler.
-- may use `=>` for a member that returns or delegates — a carrier holds a success or an error, not logic that grows
-  ([style](../../../../core/lla/notation/style/style.md) § *The body*).
-
-
-## What returns a `Result`
-
-Failure is expected, not exceptional — that is why the carrier exists rather than an exception at every seam.
-
-- must return a `Result` from any operation with a **failure mode**, whatever its role — a `Mapper` that
-  interprets its input, a `Validator`, a `Repository`, a `Broker`, a flow service.
-- must return the value bare only when the operation **cannot fail by construction** — no parse, no lookup,
-  no external contract, and every input in range produces an output. `"Order".ToSnakeCase()` is one.
-- must not read the role as the answer — `Mapper` is not exempt and `Extensions` is not exempt; the
-  question is whether a failure mode exists, and a role never settles that.
-- must not throw where a `Result` would do — an exception is for a programmer error or a dead process
-  → [exceptions](../../../../core/mla/constructs/behavior/service.md).
-- a chained extension returning `Result<T>` is the cost of a real failure mode, not a reason to hide one.
-
----
-
-## `AppError`
-
-`AppError(AppErrorType Type, string Message, IReadOnlyDictionary<string,object?>? Metadata = null) { ErrorOrigin? Origin }`
-— open `record`, subclassed by `ValidationError` and `AppAggregateError`.
-
-- **must** author errors via a catalog — SDK `AppErrorFactory.{Kind}(...)`, app `OrderErrors.*`.
-- **must not** `new AppError { … }` at a call site.
-- **must not** put an HTTP status on the error — `AppErrorType` is transport-agnostic.
-- status maps at the edge ([problem-details.md](problem-details.md)).
-- `Type` (name) is the wire `code`.
-- `Origin` is log-only, never serialized.
-- `Metadata` carries message args + reserved header keys.
-
----
-
-## Rules
-
-| | Rule |
-|---|---|
-| must | every `IQueryHandler` / `ICommandHandler` returns `AppResult<TSuccess>`; controllers `.Match` it |
-| must | failures travel as `AppError` or a subtype — never a bare string, exception, or per-op flag across a boundary |
-| must not | `Ok(dto)` / `return dto` / `return Unit` from a handler; `DomainError` / `FailureCategory` / `I{App}Failure` / `ISuccessResult` / `IFailureResult` (all removed) |
-| may | attach `Success.Context` / `Failure.Context` (`IAppSuccessContext` / `IAppFailureContext`) for cross-cutting metadata |
+- must choose shared carriers through [result application](../../../../core/mla/components/result.md).
+- must return `AppResult<TSuccess>` from application `IQueryHandler` and `ICommandHandler` implementations.
+- must map an inner `Result<T>` into `AppResult<TSuccess>` in the handler.
+- must map each typed failure to a catalog `AppError` at that handler boundary.
+- must collapse the controller's `AppResult` with `.Match(onSuccess, onFailure)`.
+- must translate failure arms through [problem details](problem-details.md).
+- must not return HTTP results, DTOs or bare `Unit` from an application handler.
+- may attach `IAppSuccessContext` or `IAppFailureContext` for cross-cutting response metadata.
 
 ---
 
 ## Throw and return bridge
 
-A failure is expressible either way over the **same** `AppError` — `error.Throw()` · `result.ValueOrThrow()` ·
-`result.ThrowIfFailure()` · `(() => op()).Attempt()` (catch → `Result`).
-
-The mediator **never throws** for `AppResult` requests — `ExceptionToResultBehavior` converts a throw to a
-`Failure` ([problem-details.md](problem-details.md)).
-
----
-
----
-
-## Typed failure
-
-`AppError` is the default failure, and it carries a type plus metadata. A caller that must branch on **distinct
-failure cases** needs the case in the type, not in a string.
-
-- must use `AppError` when the caller only reports the failure or maps it to a status.
-- must reach for a typed failure when the caller branches on which failure happened.
-- must not subclass `AppError` to add cases — a subclass does not let a caller `switch` exhaustively.
-- must keep the failure type closed, so the `switch` is checked.
-
-`Result<TSuccess, TFailure>` does not exist in the SDK today. Until it does, a caller needing exhaustive branching
-carries the case on the success side, and the gap is tracked in the SDK's `be-convention-sweep.md`.
+- must apply the shared [failure policy](../../../../core/mla/components/result.md) to expected failures and guards.
+- must install `ExceptionMappingInterceptor` through the SDK mediator registration when conversion is enabled.
+- must keep the converter outermost around the request interceptors it protects.
+- must limit the conversion guarantee to supported exceptions entering a result-capable request pipeline.
+- must not promise conversion for failures during handler resolution or pipeline construction.
+- must not promise conversion when the caller disabled the interceptor or the response has no failure arm.
+- must preserve programmer/process-error exclusions; a `NullReferenceException` is not an expected failure.
+- must distinguish caller cancellation from timeout using the request token.
+- must preserve the original cause when a framework boundary requires converting a failure back to an exception.
+- must route exceptions outside the mediator through the HTTP [exception handlers](problem-details.md#pipeline).

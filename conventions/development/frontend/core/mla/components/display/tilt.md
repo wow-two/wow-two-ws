@@ -1,10 +1,9 @@
 # Tilt
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > A card that leans towards the cursor — a hover flourish, nothing more.
 > What a display is → [display](../../constructs/visual/display.md).
-> Its full surface → `Tilt.spec.md`.
 
 ## Reach for it when
 
@@ -28,4 +27,3 @@
 
 - should leave `maxAngle` at `12`° and `perspective` at `800`
 - should leave `scale` at `1`; a growing card fights its neighbours in a grid
-- must not set `hasGlare` on a card carrying text — the sweep cuts legibility

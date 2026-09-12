@@ -1,14 +1,16 @@
 # Remarks
 
-*Last updated: 2026-08-18*
+*Last updated: 2026-09-10*
 
 > The `<remarks>` block — the detail a one-sentence `<summary>` cannot carry.
-> Never required, held to the same three gates as a `<summary>`.
+> Optional by default; required only for the explicit consumer-contract cases below.
 
-## Never required [REQUIRED]
+<a id="never-required-required"></a>
 
-`<remarks>` is **optional on every type-kind** — no component mandates one.
-A type earns one by carrying what a summary cannot.
+## Admission
+
+- must omit `<remarks>` by default; the explicit contract cases below may require one.
+- must not require one merely because of the type's role.
 
 - must not add one because the component-kind seems to warrant it.
   - a `Service` or `Repository` with a sufficient summary carries none.
@@ -32,9 +34,9 @@ A type earns one by carrying what a summary cannot.
 
 ### Computed members
 
-- must carry it on a property or field whose evaluation calls a method or reaches I/O.
-  - the access reads as free.
-- must omit it on a pure expression over the type's own fields — `FullName => $"{First} {Last}"`.
+- must carry it on a computed property whose read invokes nontrivial work or I/O.
+- must not treat a field initializer as read-time evaluation; reading a stored value runs no initializer again.
+- must omit it on a pure expression over the type's own fields.
 
 ---
 
@@ -119,11 +121,9 @@ A `<remarks>` earns extra lines the way a `<summary>` does: it clears
 - must cut any step the caller cannot act on — state what a consumer must know, never the itinerary.
 
 ```csharp
-// ✅ 5 lines, tags included — bullets, one claim each, the "Seed flow:" preamble cut at gate 1
-/// <summary>Provides channel and pipeline seeding on application startup.</summary>
+/// <summary>Provides an in-memory event-saga itinerary.</summary>
 /// <remarks>
-///   - reads channels from the seed file
-///   - upserts channels and their sources
-///   - inserts missing pipeline rows with code defaults
+/// - use a persisted state machine when execution must survive a crash
+/// - declare every destination with SendsTo before building the itinerary
 /// </remarks>
 ```

@@ -1,6 +1,6 @@
 # Conventions — wow-two
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-12*
 
 > **The single index to every convention.** When a task touches *how we build* — code, repo structure,
 > naming, versioning — search HERE first, then open only the file(s) you need. Lookup table,
@@ -11,6 +11,12 @@
 1. Find what the task touches below.
 2. Open that ONE file (leaf files live in the area sub-folders).
 3. A repo-level rule (`workbench/{repo}/CLAUDE.md` or `.claude/rules/`) **overrides** a convention for that repo.
+
+---
+
+## Convention philosophy
+
+- rule authority and tradeoff evaluation → [convention philosophy](philosophy/philosophy.md).
 
 ---
 
@@ -149,21 +155,24 @@ Cross-area: **[swappable-modules.md](development/swappable-modules.md)** — eng
 | SDK / library repo shape · `engineering/` + npm package under `engineering/codebase/{slug}/` · `src/` source-only + `tests/{unit,stories}` · config repoint · dist-only publish | [development/repo/structure/sdk-structure.md](development/repo/structure/sdk-structure.md) |
 | Commit-message format (`{type}: {past-tense verb} {subject}`, 50–70 chars, subject only · one cohesive change) **+ commit protocol** — agent stages + commits; the human pushes, and history ops need a rapid-building marker (hook-enforced) **+ large files** — LFS vs gitignore, and repairing a binary already in pushed history | [development/repo/version-control/git.md](development/repo/version-control/git.md) |
 
-### backend/ — .NET conventions (cut by scope) · [the dotnet index](development/backend/dotnet/dotnet-conventions.md)
+### backend/ — .NET conventions · [the dotnet index](development/backend/dotnet/dotnet-conventions.md)
 
-Backend rules live under the stack that owns them (`backend/dotnet/`), and each stack is cut by **how far a rule reaches**.
+Backend rules live under `backend/dotnet/`: `core/` by scope, `shapes/` by deliverable.
 
-| Scope | Reaches | Docs |
-|---|---|---|
-| `lla/` | one symbol | `constructs/` · `components/` (service-free roles) · `notation/` (naming · documentation · style) |
-| `mla/components/` | a kind of type you declare | `components` · `data/` · `behavior/` · `patterns/` |
-| `mla/architecture/` | where a type lives | `architecture` · `clean/` (`clean` · `domain-structuring` · `testing` · `test-databases`) |
-| `mla/platform/` | how the service builds, starts and answers | `build/` · `host-configuration` · `startup-defaults` · `launch-profiles` · `time` · `serialization` · `problem-details` · `api-context-building` · `known-endpoints` |
-| `mla/domains/` | a concrete technology or use case | `identity/` · `messaging/` · `persistence/` (+ `migrations/`) |
-| `hla/` | between our own services | gateway · gRPC contracts · cross-service events · quotas — **empty by design** |
+| Folder | Owns |
+|---|---|
+| `core/lla/` | platform forms, symbol naming, documentation and style |
+| `core/mla/constructs/` | our role definitions and suffix vocabulary |
+| `core/mla/components/` | application rules for self-contained components |
+| `core/mla/domains/` | application rules needing a capability or provider |
+| `core/hla/` | contracts requiring both owned services to comply |
+| `shapes/service/` | service architecture, host composition and delivery |
+| `shapes/sdk/` | SDK build, package verification and release obligations |
+| `shapes/library/` · `shapes/cli/` | contained-library and CLI shape rules when defined |
 
-**Routing.** Kind of type → `mla/components/{kind}.md` · any symbol → `lla/` · where it lives → `mla/architecture/` ·
-build and start → `mla/platform/` · a technology or use case → `mla/domains/{domain}/` · both ends ours → `hla/`.
+**Routing.** Role definition → `core/mla/constructs/` · symbol → `core/lla/` ·
+component application → `core/mla/components/` or its owning domain ·
+project placement, build and startup → the deliverable under `shapes/`.
 
 ### frontend/ — frontend conventions (cut twice) · [the frontend index](development/frontend/frontend-conventions.md)
 

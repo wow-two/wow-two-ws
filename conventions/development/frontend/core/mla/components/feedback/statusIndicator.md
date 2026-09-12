@@ -1,15 +1,14 @@
 # StatusIndicator
 
-*Last updated: 2026-08-23*
+*Last updated: 2026-09-10*
 
 > A tone dot with a line of copy — a service's health, at a glance.
 > What an indicator is → [indicator](../../constructs/visual/indicator.md).
-> Its full surface → `StatusIndicator.spec.md`.
 
 ## Reach for it when
 
 - must report a system's state in words — "All systems normal", "Degraded"
-- must carry that copy itself; a bare mark with no text is an indicator, not this
+- should show the state as a compact labeled indicator rather than a full report
 - should sit on a status page, a header strip, or a settings row
 
 ---
@@ -26,7 +25,4 @@
 
 ## Values
 
-- must set `label` or its slot — neither ships a default
-- must set `tone` from the status vocabulary; it defaults to `success`
 - should set `description` for the freshness line — "Updated 2m ago"
-- should set `hasPulse` only for a live feed; the ring animates on every render

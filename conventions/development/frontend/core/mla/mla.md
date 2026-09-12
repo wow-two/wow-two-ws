@@ -1,6 +1,6 @@
 # MLA — one app
 
-*Last updated: 2026-08-23*
+*Last updated: 2026-09-10*
 
 > Mid-level architecture: every rule that needs an app around it to mean anything.
 > Purpose — keep app-shaped decisions out of `lla/`, where they would read as language rules.
@@ -41,81 +41,41 @@ TypeScript or a framework defines, which is why they land at this level however 
 
 ## Writing a doc in this scope [REQUIRED]
 
-Every doc under `constructs/` and `components/` takes the same three `##` sections; a doc with nothing to say in
-one omits it, never renames it. A `domains/` doc takes its shape from [domains](domains/domains.md) § *The shape*
-instead, and a `lla/components/` doc from
-[conventions](../../../../conventions.md) § *Authoring a convention*.
-
-| Section | Sub-headings | States |
-|---|---|---|
-| Location | Group · Folder · File | the group a thing joins, the folder that wraps it, the file's name |
-| Declaration | Type doc · Type name | the type's doc fields, and the type's own name |
-| Content | Member docs · Members | each member's doc fields, and the members themselves |
-
-- must give each kind or role **one file**, named for it — plural in `components/`, singular in `constructs/`.
-- must state only the folder **name**, never the tree above it ([shapes](../../shapes/shapes.md)).
-- may override any [`lla/notation/`](../lla/notation/notation.md) rule, stating the override in its own file.
-- must give each doc field its own `####` sub-heading, linked to the doc that owns that field.
-- must not sub-head a field the thing does not declare.
-- must write each rule as what the code **must have** — a banned shape goes in the ❌ example, not a rule.
-- must close every doc sub-heading and `Members` with one ✅ / ❌ pair; the ❌ must fail a rule stated above.
-- must state a constraint as its own rule only when no positive rule already excludes it.
-- must state a member **order** rule in `Members` — a reader cannot predict an order the doc never fixes.
+- must name one kind or role per file, using its singular name in both `constructs/` and `components/`.
+- must give definition docs role-specific sections for classification, declaration, behavior and lifecycle as needed.
+- must give application docs `Reach for it when`, `Instead of`, and `Values`; omit an empty section.
+- must keep per-instance props, defaults and slots in the code-adjacent spec, not the application convention.
+- must state only the folder name here; source-tree placement belongs to [shapes](../../shapes/shapes.md).
+- must link inherited notation rules once per section and state only the role's extension or override.
+- must give a doc field a subheading only when the role adds a field-specific rule.
+- must place one focused example last in a doc-comment section, not one pair after every inherited field.
+- must ensure a rejected example violates the rule illustrated by that section.
+- must specify member order only where the role requires one beyond [notation](../lla/notation/notation.md).
+- domains use [their own shape](domains/domains.md); all docs inherit
+  [convention authoring](../../../../conventions.md#authoring-a-convention).
 
 ````markdown
-# {Thing}
+# {Kind}
 
-*Last updated: 2026-08-19*
+*Last updated: YYYY-MM-DD*
 
-> {One line saying what it is.}
-> Purpose — {what having it buys}.
-> Use case — {when to reach for it}.
+> {Selection boundary for this kind.}
 
-## Location
+## Reach for it when
 
-### Folder
-- {rule}
+- must use this kind when {responsibility}.
 
-### File
-- {rule}
+---
 
-## Declaration
+## Instead of
 
-### Type doc
+- must use {linked sibling kind} when {different responsibility}.
 
-#### [Format](../lla/notation/documentation/documentation.md)
-- must {rule}
+---
 
-```typescript
-// ✅
-{good}
-// ❌ {why it fails}
-{bad}
-```
+## Values
 
-### Type name
-- must {rule}
-
-## Content
-
-### Member docs
-
-#### [Format](../lla/notation/documentation/documentation.md)
-- must {rule}
-
-### Members
-- must {rule}
-
-```typescript
-// ✅
-{good}
-// ❌ {why it fails}
-{bad}
-```
-
-## Neighbours
-
-- {link} — {what it owns}
+- must choose {value} when {condition}; instance defaults live in the component spec.
 ````
 
 ---

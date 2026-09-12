@@ -1,8 +1,8 @@
 # Imports
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
-> How to order and write `import` statements in a `.ts` / `.tsx` file — group order, intra-group sort, and
+> How to order and write `import` statements in `.ts`, `.tsx` and Vue script blocks — group order, sort, and
 > the `type`-import form.
 > Purpose — one deterministic layout, so any file's head reads the same and diffs stay minimal.
 
@@ -17,13 +17,13 @@
 | # | Group | Matches | Example specifier |
 |---|---|---|---|
 | 1 | Side-effect | bare `import "…"`, no bindings | `"@fontsource-variable/geist"` · `"./index.css"` |
-| 2 | Third-party | any bare specifier not `@wow-two-beta/*` | `react` · `react-router-dom` · `lucide-react` |
-| 3 | SDK | `@wow-two-beta/ui/*` subpaths | `@wow-two-beta/ui/presentation/actions` |
-| 4 | `@/` alias | app-internal absolute (`@/domain` · `@/integration` · `@/presentation`) | `@/domain/codes/core` |
+| 2 | Third-party | bare specifiers outside the SDK namespace | `react` · `vue` · `lucide-react` |
+| 3 | SDK | `@wow-two-beta/*` roots and subpaths | `@wow-two-beta/ui-vue/presentation/actions` |
+| 4 | `@/` alias | app-internal absolute imports | `@/domain/codes/core` |
 | 5 | Relative | `../` then `./` | `./gradient` |
 
 - must separate every non-empty group with exactly one blank line, and never blank-line within a group.
-- must drop an empty group with no leftover blank line — adjacent groups touch.
+- must omit empty groups without leaving additional separators.
 - must split group 4 in a multi-package repo — sibling `@{brand}/*` packages sort **before** the `@/` app
   alias, being more distant than app code.
 
@@ -50,9 +50,9 @@ import { AppLayout } from "./AppLayout";
 - must sort every group **alphabetically by module specifier** (the string after `from`), case-insensitive.
 - side-effect (group 1): must keep global-effect imports (fonts, polyfills) **before** local `./*.css` — load
   order is semantic here, the one group where it overrides the sort.
-- third-party (group 2): must place `react` and `react-dom` first, then the rest alphabetically.
-- `@/` alias (group 4): must sort by **layer** first — `domain` → `integration` → `presentation`, mirroring
-  the [layer model](../../../../shapes/app/architecture/architecture.md) — then alphabetically by full path.
+- third-party (group 2): must place `react`, `react-dom` and `vue` first when present, then sort the rest.
+- `@/` alias (group 4): must follow the [app layer order](../../../../shapes/app/architecture/architecture.md),
+  then sort alphabetically by full path.
 - relative (group 5): must place `../` before `./`, deeper before shallower, alphabetical at equal depth.
 - **tie-break**: a `type`-only statement sorts after a value statement from the same module; otherwise the
   raw specifier string decides.
@@ -77,11 +77,11 @@ import type { Gradient } from "@/domain/codes/core";      // ❌ split — fold 
 
 ## 4. Rules
 
-- must import React bindings per [style](style.md) § *React types — import named, never the UMD namespace*.
+- React bindings → [JSX](../../constructs/react/jsx.md) § *React types — import named, never the UMD namespace*.
 - must import the SDK through its published subpath (`@wow-two-beta/ui/presentation/forms`), never a deep
   path into the package's `src` or `dist`.
-- must reach app-internal code through the `@/` alias, never a climbing relative — a relative path is for
-  same-slice siblings only (`./gradient`).
+- app aliases and source placement → [app architecture](../../../../shapes/app/architecture/architecture.md).
+- library source aliases and declaration safety → [delivery](../../../../shapes/library/delivery/delivery.md).
 - must alias a name collision at the import, prefixing the SDK side (`Section as UiSection`), so the local
   symbol keeps the bare name.
 - must keep all imports in the file head — a lazy `import()` for code-splitting is the sole exception.

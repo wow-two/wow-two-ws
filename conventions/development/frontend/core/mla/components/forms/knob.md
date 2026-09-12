@@ -1,16 +1,14 @@
 # Knob
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > A rotary dial — drag to sweep a continuous parameter through an arc.
 > What a control is → [control](../../constructs/visual/control.md).
-> Its full surface → `Knob.spec.md`.
 
 ## Reach for it when
 
 - must set a fine continuous parameter where a rotation reads as the gesture — gain, mix, blur
 - must accept the SDK's `0`–`1` unit range unless the domain says otherwise
-- should reach for it only in a dense panel of parameters; one dial alone is a slider
 
 ---
 
@@ -28,5 +26,4 @@
 
 - should leave `min` `0`, `max` `1`, `step` `0.01`, `largeStep` `0.1` — the unit-range set
 - should leave `arcDegrees` at `270`; a full `360` hides where the range ends
-- must set `format` whenever the value is not a unit fraction — it defaults to 2 decimals
 - should leave `size` at `64` px and `isValueShown` on — the number is the only readback

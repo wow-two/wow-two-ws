@@ -1,10 +1,9 @@
 # Banner
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > The app-wide strip — one note pinned across the top, above everything routed below it.
 > What a feedback component is → [feedback](../../constructs/visual/feedback.md).
-> Its full surface → `Banner.spec.md`.
 
 ## Reach for it when
 
@@ -27,7 +26,4 @@
 
 ## Values
 
-- must bind `@close` to get a close button — an unbound handler renders none
-- must set `severity`; unset falls through to `info`
 - should keep the copy to one line — `description` sits beside the title, not under it
-- should leave `closeLabel` at `Dismiss`

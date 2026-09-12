@@ -1,10 +1,9 @@
 # DisclosureButton
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > The header that expands and collapses a region, chevron included.
 > What an action is → [action](../../constructs/visual/action.md).
-> Its full surface → `DisclosureButton.spec.md`.
 
 ## Reach for it when
 
@@ -25,5 +24,4 @@
 
 ## Values
 
-- must keep `chevronSide` at `right`, the end of a full-width header
 - should set `defaultOpen` on a section that must start expanded; it starts closed

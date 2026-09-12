@@ -1,0 +1,294 @@
+# Backend conventions audit
+
+*Last updated: 2026-09-12*
+
+> Full-tree review of the backend conventions, with additions to the existing sweep.
+> Convention decisions precede SDK changes; SDK verification precedes the new release.
+
+## Status
+
+- [x] Inventory the backend tree: 135 Markdown files, 11,105 lines.
+- [x] Recover the existing sweep and distinguish it from stale handoffs.
+- [x] Consolidate the full convention audit into 25 grouped sweep tasks.
+- [x] Apply the self-resolvable convention repairs and record SDK consequences.
+- [ ] Settle the remaining convention decisions and run final acceptance.
+- [ ] Complete the SDK sweep in its independent repository.
+- [ ] Verify and publish the new SDK version.
+
+This audit uses the current working trees, including existing uncommitted changes. Prior claims of
+332 passing tests, 978 source files, or a green build are historical, not current verification.
+The SDK belongs to the developer and has no production consumers. Breaking changes are permitted;
+compatibility shims are not a prerequisite for correcting its design.
+
+The mechanical repair pass is complete. Nineteen of the 25 grouped convention tasks are closed at the
+convention level; six retain policy decisions or final acceptance. Runtime implementation and release
+verification remain SDK work. The original evidence reports below preserve the pre-repair findings;
+[repair evidence](conventions-resolution.md) records the changes and checks.
+
+---
+
+## Scope and evidence
+
+The backend tree is entirely under `conventions/development/backend/dotnet/`. The audit covers every file:
+
+| Area | Files | Review |
+|---|---:|---|
+| Root index and core scope leads | 5 | Routing, ownership, scope definitions |
+| Language, notation, constructs and patterns | 64 | Definitions, contracts, examples, duplication |
+| Components and domains | 39 | Application rules, technology rules, SDK references |
+| Deliverable shapes | 27 | Architecture, testing, build, startup, responses, release coverage |
+| Total | 135 | Full documentation read plus static reference checks |
+
+The directory inventory and Markdown-link scan found no missing local path targets and no files beside
+subfolders contrary to the folder-lead rule. Two heading links in `host-configuration.md` target
+`#async-startup`, while the heading generates `#async-startup-required`.
+
+This is documentation analysis, not a fresh SDK correctness certification. Examples have been inspected;
+the entire example corpus has not been compiled. SDK symbols are checked where cited by findings, not
+claimed exhaustively verified across the whole SDK. New runtime defects require implementation evidence
+and focused regression tests during the SDK pass.
+
+---
+
+## Existing work
+
+The active SDK tracker is [Backend convention sweep](../../../workbench/wow-two-sdk-beta/wow-two-sdk.backend.beta/be-convention-sweep.md).
+Its pre-audit row markers contained **90 rows: 73 marked completed, 6 refuted, 11 open**, versus the
+header's 89/10 and the older [handoff](../../../be-handoff.md)'s six-open snapshot. Source verification
+reopened `N60`: `AppErrorProblemDetailsFactory.cs:10` is still static. The post-audit count was
+**90 rows: 72 marked completed, 6 refuted, 12 open**. The repair pass added `C14`–`C25`, bringing the
+tracker to 102 rows. Earlier P01 added N114; the deep-copy request added C26: the current tracker has **104 rows: 72 marked completed,
+6 refuted, 26 open**. Other completion markers record prior work;
+this audit does not convert them into new verification results.
+
+| Existing row | Remaining subject | Treatment |
+|---|---|---|
+| `N25` | Reassess the one-type `Json` role after `N24` | Preserve the naming decision |
+| `N26` | Bare static types | Preserve; remeasure against current source |
+| `N94` | Current-user seam and interceptor lifetimes | Resolve lifetime safety before the rename |
+| `N100` | Disputed suffixes, case by case | Preserve the explicit case-by-case decision |
+| `N101` | New role vocabulary | Resolve definitions before applying names |
+| `N102` | `CryptoCore` to the cipher role | Preserve; distinguish SDK work from product adoption |
+| `N103` | Closed registries versus legitimate lookup misses | Classify the contract before changing failure behavior |
+| `N104` | Expected failures in request and migration seams | Preserve; remeasure the remaining sites |
+| `N108` | Summary starters | Fix convention conflicts before repeating the SDK pass |
+| `N110` | Inline comment cleanup | Preserve caller-facing and ordering facts |
+| `N111` | Options registration paths | Settle one coherent registration recipe first |
+| `N60` | Replaceable ProblemDetails creation | Reopened: current source still has a static factory |
+
+Other recovered work remains part of the sweep:
+
+- `con-t-001`: presentation conventions; reconcile its obsolete request/response-model pointers.
+- `con-t-002`: DTO versus response naming; keep product adoption separate from convention ownership.
+- `car-t-008`, `car-t-011`, `car-t-014`: logging/tracing, diagnostics, and persistent startup-failure reporting.
+- `car-t-009`, `car-t-010`, `car-t-012`: result/exception boundaries, nullability/fixture ownership, and
+  replaceable ProblemDetails creation. Reconcile against completed SDK rows rather than repeating work.
+- `car-t-013` is mentioned in the handoff as largely delivered; its current open row was not found in
+  the parent task file. Preserve the reference without inventing an open task or a completion.
+
+The parent task source is `10x-ws/system/planning/pln-tasks.md`; it was read, not edited.
+The handoff's research paths for logging, exceptions and nullability are absent from the current `ideas/`
+inventory. Logging research was recovered from `0236daf:ideas/logging-analysis.md`; relevant claims were
+rechecked against current SDK source. The old research is not a live file or proof of current implementation.
+
+The old component handoff is also stale: `result.md`, `value-object.md`, and `mapper.md` already exist.
+Ten component leaf docs plus their lead are present. Counts against the frontend do not establish missing
+backend components: the backend application register can live in `domains/`.
+
+---
+
+## Sweep additions
+
+This is the convention task source linked by `con-t-003` and the SDK sweep. The 25 items consolidate
+overlapping evidence; they are not 25 newly discovered SDK defects. Existing IDs below are extended,
+not duplicated. Checking an audit item requires its closure evidence, not merely editing its prose.
+
+Evidence keys: `B` refers to the baseline findings below; `D` refers to the numbered findings in
+[components and domains](conventions-audit-domains.md); `L` refers to
+[language and roles](conventions-audit-language.md); `S` refers to
+[deliverable shapes](conventions-audit-shapes.md). Each evidence group includes source locations and closure checks.
+
+### Ownership and contracts
+
+- [x] `BC01` Repair routing, ownership, and the worked architecture trees. Evidence: `B01`, `L17`, `S10-S11`; scope Clean-specific placement to Clean.
+- [x] `BC02` Reconcile tracker counts, completed-row evidence, and stale handoff/task pointers. Evidence: `B02`, `L27`; preserve every existing SDK row.
+- [ ] `BC03` Settle the role tests, static forms, and suffix vocabulary case by case. Evidence: `L1-L2`, `L18`, `D6`; extends `N25`, `N26`, `N100`, `N101`.
+- [ ] `BC04` Unify result carriers, payload naming, expected failures, and message dispatch rules. Evidence: `L3-L4`, `D4`, `D6`, `S04-S05`; reconcile `N69`, `R7`, `R8`, `C11` without reinstating removed result types.
+- [x] `BC05` Reconcile validator purity, return types, validation phases, and deferred sequencing. Evidence: `L5`, `D19`; preserve explicit async/ruleset deferrals.
+- [x] `BC06` Define one options/settings registration and required-member recipe. Evidence: `L6`, `D1`; extends `N111` and rechecks convention closure for `N47`, `N74`, `N106`.
+- [ ] `BC07` Reconcile API request naming, nested DTOs, model reuse, and edge-mapping placement. Evidence: `L7`, `D2-D3`; extends `con-t-001` and `con-t-002`.
+- [x] `BC08` Define intercepting versus observing contracts without restoring settlement authority. Evidence: `L9`, `L25`; preserve `C8` and the settled `Interceptor` vocabulary.
+- [ ] `BC09` Make entity/value-object construction and equality guarantees enforceable. Evidence: `L21`, `D7`, `D10`; P01 reopened on 2026-09-12 for concrete record/class tradeoffs, P02 resolved to external validation, P03 pending.
+
+### Persistence and runtime behavior
+
+- [x] `BC10` Correct EF/PostgreSQL enum registration and scope schema rules by migration strategy. Evidence: `D8-D10`; verify both driver and EF mapping with the current signatures.
+- [x] `BC11` Correct SQL enum transactions, interrupted index recovery, and SQLite enum evolution. Evidence: `D12-D13`, `D16`; include failure/retry cases in the resulting SDK work.
+- [x] `BC12` Specify migration coordination and rollback guarantees per provider. Evidence: `D14`; separate sequential idempotency from concurrent execution safety.
+- [x] `BC13` Repair stale SDK references and executable examples after settled renames. Evidence: `L8`, `L10-L11`, `D5`, `D11`, `D15`, `D18`; extend the convention closure of completed rename rows.
+- [x] `BC14` Reconcile test tiers, naming, build-property selection, and test documentation layout. Evidence: `S01-S03`; validate matching `.Tests.{Type}` project names and each tier's database policy.
+- [x] `BC15` Specify deterministic clocks and isolated multi-host test configuration. Evidence: `D18`; preserve the currently real `IClock` divergence until its implementation is fixed.
+- [x] `BC16` Align the JSON contract with installed converters and serializer options. Evidence: `S06-S07`; verify enum numeric inputs, dictionary keys, null omission, and duration representation.
+- [x] `BC17` Align startup/defaults and middleware prescriptions with actual host behavior. Evidence: `S08`, `S12-S13`; repair the two async-startup anchors and verify option defaults without broadening opt-ins.
+- [x] `BC18` Align JWT configuration and key/metadata guarantees with implementation. Evidence: `D17`; distinguish a missing safeguard from a deliberately configurable policy.
+- [x] `BC19` Scope mutable state and DI lifetime rules for builders, registries, and background work. Evidence: `L12`, `L23`; extends `N94` and `N103` without converting legitimate misses into wiring faults.
+
+### Language, documentation, and completion
+
+- [ ] `BC20` Reconcile XML documentation obligations and remove duplicate rule ownership. Evidence: `L13-L16`, `D20`, `S09`, `S16`; retain caller-facing facts while resolving conflicting field/remarks/type-parameter rules.
+- [x] `BC21` Correct the C#/.NET catalogue and its language facts. Evidence: `L19-L20`; distinguish deliberately unsupported features from missing catalogue verdicts.
+- [x] `BC22` Reconcile pattern verdicts and examples with their actual applicability. Evidence: `L22`, `L24-L26`; keep justified house policy explicit instead of presenting it as a language limitation.
+- [x] `BC23` Close observability, diagnostics, and persistent startup-failure conventions. Evidence: `B03`; carries `car-t-008`, `car-t-011`, `car-t-014`, with no duplicate task IDs.
+- [x] `BC24` Complete the SDK architecture/testing/delivery and reproducible-build rules. Evidence: `B03`, `S14-S15`; preserve developer-owned beta compatibility policy.
+- [ ] `BC25` Record capability coverage dispositions and perform the final convention acceptance pass. Evidence: `B03`; name deferral triggers, check all file/section references, and link every settled source consequence to the SDK sweep.
+
+`BC03` retains a real developer decision: the existing `N100`/`N101` disputes cannot be closed by a blanket
+rename. The convention's coining gate requires a confirmed role before implementation. `BC09` retains
+entity and value-object decisions; the earlier class confirmation was withdrawn and P01 reopened. Mechanical
+repairs elsewhere do not need renewed permission. `BC20` must settle whether an omitted doc-field section
+inherits its parent or forbids that field; `BC22` preserves house pattern bans unless their owner revises them.
+
+---
+
+## Repair resolution — 2026-09-10
+
+A checked `BC` item means its convention repair is complete, with source consequences linked to the SDK
+tracker. It does not certify runtime behavior. A partial item retains the completed repair plus a concrete
+unanswered choice. [Detailed repair evidence](conventions-resolution.md) maps every original finding.
+
+| Task | Disposition | Closure or remainder |
+|---|---|---|
+| BC01 | closed | Scope/shape routing, documentation chain and worked architecture trees use their actual owners. |
+| BC02 | closed | Counts derive from markers; duplicated historical IDs are qualified by subject; handoffs and planning pointers distinguish history from current work. |
+| BC03 | partial | Role tests/static exceptions repaired; ten accepted role baselines added. Json and existing N100/N101 case-by-case vocabulary decisions remain. |
+| BC04 | partial | Shared carriers, typed failures, bare-value cases and boundary bridges reconciled. Nested dispatch remains P06. |
+| BC05 | closed | Validator contract/purity and field-vs-operation failures reconciled; provider owner added. Existing phase-order/design debt stays explicit in C21. |
+| BC06 | closed | Direct rule-free options, validated options/settings and composed PostConfigure cases agree; N111 owns SDK application. |
+| BC07 | partial | Body naming, DTO sub-blocks, direct-binding conditions and edge mapping agree. Mapping-file exception remains P05. |
+| BC08 | closed | Observing contracts have neither continuation nor settlement power; controlling contracts retain continuation. |
+| BC09 | partial | P01 reopened; record baseline restored. N114 awaits the entity-copy workflow. P02 resolved to external validation with exceptional constructor checks; P03 equality pending. |
+| BC10 | closed | Driver and EF enum mapping signatures corrected; schema authority scoped by migration strategy. C19 owns runtime evidence. |
+| BC11 | closed | PostgreSQL enum commit boundary, concurrent-index validity recovery and SQLite constraint evolution corrected. C19 owns runtime evidence. |
+| BC12 | closed | Journals distinguished from execution locks; rollback limits explicit per provider. C19 owns coordination/retry checks. |
+| BC13 | closed | Audited removed APIs replaced with current symbols/source owners; illustrative snippets are not claimed exhaustively compiled. |
+| BC14 | closed | Tier, file and build-selection rules reconciled; seven MSBuild selector cases pass. Test prose choice is retained under BC20/P07. |
+| BC15 | closed | Two-clock determinism and process-global configuration hazards explicit. C18 owns isolated SDK host fixtures. |
+| BC16 | closed | Full JSON preset named; strict string-enum and ISO-duration requirements preserved. C14 owns missing conversion and round-trip evidence. |
+| BC17 | closed | Startup/default values, async anchors, alias-only recipe and middleware dependency constraints corrected. Config recipe compiled and exercised; C15 owns bundle ordering. |
+| BC18 | closed | JWT trust obligations distinguished from current helper enforcement. C20 owns source corrections. |
+| BC19 | closed | Role-owned mutable lifecycle and per-operation scope exceptions explicit. N94 (current user) and N103 retain source work. |
+| BC20 | partial | Documentation owners/defaults/examples repaired. XML field admission and test body documentation remain P04/P07. |
+| BC21 | closed | C# 14/.NET 10 feature catalogue and language facts corrected; house restrictions remain explicit. |
+| BC22 | closed | Pattern applicability/examples corrected; intentional bans retained as house policy without false technical proofs. |
+| BC23 | closed | Observability, Serilog and OpenTelemetry owners written; existing logging/startup tasks map to C22/C23. |
+| BC24 | closed | SDK architecture/build/testing/delivery defined; actual release metadata remains repository-owned. C16/C17 own implementation and evidence. |
+| BC25 | partial | Capability coverage and named deferral triggers recorded; link/anchor checks pass. Final acceptance awaits the remaining decisions. |
+
+### Verification boundary
+
+- Checked all 154 backend documents plus affected indexes/reports/trackers: 163 files, 1,028 local Markdown
+  links, zero missing targets and zero unmatched heading fragments. Inline authoring examples are excluded.
+- Whitespace checks pass for the changed backend convention tree and owned tracker/report files.
+- Seven actual MSBuild evaluations cover product test tiers, SDK test suffixes and shipped testing libraries.
+- The alias-only environment recipe compiles and runs in an isolated .NET 10 host: prefixed/unprefixed
+  unexpected inputs disappear, explicit aliases win, absent aliases preserve fallback, bootstrap identity survives.
+- Representative SDK APIs were inspected against current declarations. SQL/EF/JWT and other runtime closure
+  belongs to the SDK rows; no SDK solution build, test run, pack or publication occurred here.
+- Capability coverage includes cancellation, disposal, authorization, tenant scope, messaging delivery and
+  outbound replay safety. Caching/blob, alternative architectures and other shells have activation triggers;
+  they are not silently added to this conformance release.
+
+---
+
+## Points
+
+Seven of eight design decisions remain in this convention-repair pool; P02 was resolved on 2026-09-12. Discuss one at a time; check an item only
+after its answer is applied and verified. Existing suffix cases in N100/N101 retain their own source
+inventory and are handled case by case after the shared design rules; they are not silently closed or
+collapsed into a blanket rename.
+
+- [ ] **P01 — Entity representation (BC09).** Reopened 2026-09-12: the developer withdrew the class decision and requested concrete sealed-record costs and benefits under WoW2's own philosophy. Record declaration/example restored; N114 no longer authorizes a class conversion. [Concrete analysis](entity-record-analysis.md) records ten BCL checks and twenty EF/SQLite checks: normal record tracking and detached copy updates work; default navigation equality and mutable hashes need care. Define the intended `with` update workflow. External recommendations are inputs, not a deciding authority.
+- [x] **P02 — Value-object construction (BC09).** Resolved 2026-09-12: start with external validation through an extension method or dedicated validator (currently FluentValidation), since rules can grow. Constructor data checks are exceptional and documented. Record/init candidates, including copies and deserialized values, are checked at their accepting boundary; no always-valid-construction or get-only default. Domain validation and value-object application rules updated; SDK integration extends C21.
+- [ ] **P03 — Value-object equality (BC09).** Permit explicit structural equality/identity-excluded members, or constrain members to types whose default equality already matches the value's meaning? This follows P02.
+- [ ] **P04 — XML field admission (BC20).** Do omitted Type doc/Member docs sections inherit lower-level fields, with explicit local restrictions, or must each role enumerate every allowed field? Recommended: inheritance plus explicit overrides; existing omission-as-ban rule remains until decided.
+- [ ] **P05 — API mapping files (BC07).** Keep request and mapping class together as a named exception, or apply separate type files/domain extension grouping? Recommended: the existing separate-file default, unless co-location is an intended local override.
+- [ ] **P06 — Nested handler dispatch (BC04).** Keep the domain's prohibition and extract shared flow services, or permit a defined handler-to-handler dispatch exception? The prohibition remains the current default.
+- [ ] **P07 — Test body documentation (BC20).** Require AAA markers and/or a gist beyond the test name, or use them only where the body needs explanation? This is the pre-existing testing choice; test XML-doc exemptions are separate.
+- [ ] **P08 — Per-type Json seam (BC03 / N25).** Does the static per-type Json role still earn its exception after shared persisted-JSON presets/registries exist, or should its responsibilities move to those owners? Keep the current seam until this existing decision is settled.
+
+Explicitly deferred validation features and unadopted capability shells remain at their documented triggers.
+They are neither erased nor presented as immediate permission questions. N100/N101 vocabulary cases still
+require the existing developer coining decision before their individual renames.
+
+---
+
+## Baseline findings
+
+### B01 — Repair the routing vocabulary and indexes
+
+The physical `core/` plus `shapes/` recut is implemented, but several descriptions still describe the old tree:
+
+- `conventions/conventions.md:159-166` sends role declarations to `mla/components/` and architecture/build
+  to nonexistent `mla/architecture/` and `mla/platform/` locations.
+- `core/core.md:20` excludes host/project placement from core, but `:48-55` still defines five buckets
+  including architecture and platform, and names Application/Infrastructure placement.
+- `core/mla/mla.md:9-17` presents architecture/platform as its buckets while linking into `shapes/`.
+- `conventions/conventions.md:106` reserves “layer” for `lla`/`mla`/`hla`; `development-conventions.md:24-41`
+  and `dotnet-conventions.md:33-48` use it for baseline/definition/application as well.
+
+Consequence: the next convention can be filed in the wrong owner even when every Markdown path resolves.
+Use the existing physical recut and the root's scope/register distinction as the repair baseline.
+Closure: every routing example resolves to the same owner; shape placement rules remain in shapes;
+scope and register no longer share the word “layer.” No new directory taxonomy is required.
+
+### B02 — Reconcile status and handoff evidence
+
+Before the audit corrections, `be-convention-sweep.md:11` and `be-handoff.md:24` reported different stale counts. The tracker also
+says `N26` was deleted at `:16` even though its open row exists at `:71`, and retains product-lane counts
+after moving product rows away. Workspace task pointers still name old convention files.
+
+Consequence: continuing from a handoff can repeat completed work or skip a live row.
+Closure: derive counts from row markers; keep the current audit linked from both entry points; reconcile
+stale narrative and planning pointers without deleting another lane's work or renumbering old tasks.
+
+Applied during this audit: corrected the SDK count, reopened `N60` against source, added the convention
+prerequisite link to the SDK sweep, and registered `con-t-003` in the workspace board. Historical narrative
+and the remaining completed-row evidence still need the `BC02` pass.
+
+### B03 — Turn missing coverage into explicit scope decisions
+
+`domains/domains.md:37-43` recognizes caching, blob storage and observability without rule owners yet.
+Observability is already a raised task; it must not be added as a second independent task. SDK, library,
+CLI, topology, delivery and alternative-architecture pages explicitly declare themselves shells.
+
+Consequence: a shell is visible scope debt, not an implemented convention and not automatic permission
+to select the alternative. Completing this audit does not mean implementing every SDK capability.
+
+Closure for this sweep:
+
+- Complete the SDK's architecture/testing/delivery rules needed to verify and release this SDK.
+- Close the already-raised observability and startup-failure decisions.
+- Inventory async/cancellation, resource ownership, authentication/authorization, tenant isolation,
+  messaging delivery, and outbound resilience at their existing owners; add concrete missing rules,
+  rather than a second generic checklist.
+- Keep other shells deferred with a named adoption trigger; re-open one when this SDK work needs it.
+- Keep deliberately planned capabilities, such as caching, outside this convention-conformance release
+  unless the developer explicitly expands its feature scope.
+
+---
+
+## Execution order
+
+1. Reconcile the convention owners and the existing task evidence.
+2. Resolve incompatible rules and the outstanding role decisions.
+3. Repair examples, SDK symbol references, and missing convention coverage.
+4. Re-run the convention consistency checks and review each closure condition.
+5. Resume the existing SDK rows; add source-level consequences of newly settled rules.
+6. Run the sweep battery, focused regression tests, solution build/tests and package checks against
+   the final SDK working tree. Record the exact commands and results.
+7. Inspect the repository's actual versioning/publishing workflow, select its next valid version,
+   publish the authorized release, and verify the published package. Do not infer a version from
+   the conflicting .NET 9/.NET 10 and `0.0.y`/`10.0.x-beta` historical descriptions.
+
+The SDK pass remains in `workbench/wow-two-sdk-beta/wow-two-sdk.backend.beta`, an independent Git repository.
+No consumer migration is a gate for this developer-owned SDK correction.

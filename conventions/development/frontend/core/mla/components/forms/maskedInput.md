@@ -1,10 +1,9 @@
 # MaskedInput
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > A fixed shape typed into — the mask inserts the literals and rejects the wrong character class.
 > What a control is → [control](../../constructs/visual/control.md).
-> Its full surface → `MaskedInput.spec.md`.
 
 ## Reach for it when
 
@@ -27,7 +26,4 @@
 
 ## Values
 
-- must set `mask` — it is required, and a missing one renders an unmasked box
-- must build the mask from `#` digit, `A` letter, `*` alphanumeric; anything else is a literal
 - should keep masks short — `###-###-####`, `##/##/####`, `AAA-####`
-- must not mask a value the server stores unformatted; strip the literals before submit

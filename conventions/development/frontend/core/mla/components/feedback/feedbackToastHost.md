@@ -1,10 +1,9 @@
 # FeedbackToastHost
 
-*Last updated: 2026-08-22*
+*Last updated: 2026-09-10*
 
 > The bus-to-viewport adapter — mounts the toast viewport and subscribes it to `notify()`.
 > What a host is → [host](../../constructs/visual/host.md).
-> Its full surface → `FeedbackToastHost.vue`.
 
 ## Reach for it when
 
@@ -25,7 +24,4 @@
 
 ## Values
 
-- must not mount it beside a [ToastHost](toastHost.md) — every toast would render twice
-- must mount it above anything that publishes; notices raised before mount are dropped
-- should leave `bus` unset — it binds the `feedbackBus` that `notify()` publishes on
-- should pass any [ToastHost](toastHost.md) value straight through — they all forward
+- must follow the [host scope](../../constructs/visual/host.md#gate) and the bus's delivery contract.

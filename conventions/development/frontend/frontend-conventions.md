@@ -1,6 +1,6 @@
 # Conventions — Development — Frontend
 
-*Last updated: 2026-08-24*
+*Last updated: 2026-09-10*
 
 > Conventions for every frontend under `wow-two-ws/`. Lookup table — open a file when the task
 > touches it; do not pre-read. The tree splits twice, and the cuts are orthogonal.
@@ -13,9 +13,7 @@
 | scope | how far a rule reaches — one symbol, one app, between frontends | [core/](core/core.md) |
 | shape | what is being built — a product app, a component library | [shapes/](shapes/shapes.md) |
 
-- must place a rule in `core/` when it holds whatever the deliverable is.
-- must place it under `shapes/` when it loses its subject once that deliverable is absent — a layer, a route,
-  a bundler target, a package manifest ([shapes](shapes/shapes.md) § *The test*).
+- rule ownership → [the shape test](shapes/shapes.md#the-test), based on the subject rather than different wording.
 - must name only the **folder** in a construct or component doc — `overlays/`, `pages/` — and leave which tree
   holds it to the shape.
 
@@ -113,7 +111,7 @@ The lead is [lla](core/lla/lla.md) — the three buckets and the boundary.
 
 ### `core/mla/` — one app
 
-The lead is [mla](core/mla/mla.md) — the three buckets, the SDK boundary, and the doc template both registers take.
+The lead is [mla](core/mla/mla.md) — the three buckets, SDK boundary and the shape of each register's documents.
 
 | File | What it covers |
 |---|---|
@@ -161,15 +159,18 @@ The lead is [app](shapes/app/app.md) — its vectors and their status.
 
 ### `shapes/library/` — a package another frontend imports
 
-[library](shapes/library/library.md) — the kind-grouped layout and capability modules; delivery unwritten.
+[library](shapes/library/library.md) — kind-grouped layout and capability modules.
+
+- [delivery](shapes/library/delivery/delivery.md) — exports, declarations, CSS, peers and release verification.
+- [compatibility](shapes/library/platform/compatibility.md) — runtimes, browser features, SSR and polyfills.
+- [testing](shapes/library/testing/testing.md) — unit, DOM, browser and packed-consumer evidence.
 
 ---
 
-## Open
+## Verification and platform owners
 
-| Gap | Why |
-|---|---|
-| **Testing** | No convention at any layer; the backend has `shapes/service/architecture/clean/testing.md` |
-| **Accessibility** | No consumer-side keyboard / ARIA / focus baseline; the SDK ships the primitives only |
-| **Static assets** | Image, font and public-folder handling unspecified; icons ship, assets do not |
-| **Library delivery** | `exports`, `sideEffects`, peer deps and versioning are read off the packages, not written |
+- interaction semantics → [HTML interaction](core/lla/constructs/html/interactive.md#interaction).
+- visual and assistive checks → [accessibility](core/lla/constructs/tailwind/accessibility.md#verification).
+- app assets → [assets](shapes/app/platform/assets.md).
+- app artifacts and build inputs → [delivery](shapes/app/delivery/delivery.md).
+- each sweep row must name its representative check; a lint pass alone does not prove behavioral conformance.

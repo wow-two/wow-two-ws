@@ -1,10 +1,9 @@
 # Menu
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > The raw floating menu — the caller owns the anchor and the open state.
 > What a nav component is → [nav](../../constructs/visual/nav.md).
-> Its full surface → `Menu.spec.md`.
 
 ## Reach for it when
 
@@ -27,5 +26,4 @@
 
 ## Values
 
-- must own the open state — there is no uncontrolled form
 - should keep the default `bottom-start` placement and `6` px offset

@@ -1,6 +1,6 @@
 # Policies
 
-*Last updated: 2026-08-18*
+*Last updated: 2026-09-10*
 
 > A type that decides whether, when, or how often another operation runs, never running it.
 > Purpose — the decision is the swappable part, so it is named apart from the work it governs.
@@ -12,8 +12,7 @@
 - must sit in a `Policies/` folder beside the operation it governs.
 
 ### File
-- must give it its own file, named for the type →
-  [one type, one file](../../mla.md).
+- file rules → [one type, one file](../../mla.md).
 
 ---
 
@@ -33,7 +32,8 @@
 ```
 
 ### Construct
-- must declare a `sealed class` behind an interface — a policy is chosen at composition.
+- declaration and injection → [behavior](behavior.md) § *Shared rules*.
+- must expose the decision through an interface.
 
 ### Type name
 - must suffix with `Policy` — `RetryPolicy`, `MessageHeaderPropagationPolicy`.

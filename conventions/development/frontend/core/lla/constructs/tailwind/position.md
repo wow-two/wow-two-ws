@@ -1,14 +1,12 @@
 # Position
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > Every positioning utility, the containing block each depends on, and the ones that escape the layout entirely.
 > Purpose — a positioned box leaves the flow, so it stops reserving space and stops being clipped predictably.
 > Use case — reach here before pulling a box out of the flow, and whenever an overlay lands in the wrong place.
 
 ## The utilities
-
-`absolute`, `relative` and `inset-0` lead the group; the `-translate-*` centring pair rides with `top-1/2` / `left-1/2`.
 
 | Utility | Applies | Verdict |
 |---|---|---|

@@ -1,14 +1,12 @@
 # Tables
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > Every table element, the header wiring that makes a cell readable, and the shapes that lose the grid.
 > Purpose — a table announces a cell's row and column headers; a grid of `div`s announces the cell's text alone.
 > Use case — reach here when data has rows and shared columns, and whenever a table needs to scroll or sort.
 
 ## The elements
-
-Exhaustive for HTML table content. Three components own every `<table>` here: `Table`, `DataTable`, `DataGrid`.
 
 | Element | Means | Verdict |
 |---|---|---|

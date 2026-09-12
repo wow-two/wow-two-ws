@@ -20,5 +20,5 @@
 
 - must hold a rule that is true before any feature exists.
 - a feature-shaped rule belongs to its [domain](../../../core/mla/domains/domains.md).
-- must bind configuration here and nowhere else; no other layer reads `IConfiguration`.
+- must apply [host-owned configuration](startup/host-configuration.md#configuration-source).
 - must keep a technology choice out — how we talk to a broker or a database is that domain's.

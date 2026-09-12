@@ -1,10 +1,9 @@
 # SwitchField
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > A switch and its label in one clickable `<label>` — the settings row that takes effect on the flip.
 > What a field is → [field](../../constructs/visual/field.md).
-> Its full surface → `SwitchField.vue`.
 
 ## Reach for it when
 
@@ -21,11 +20,3 @@
 | [Switch](switch.md) | a surrounding [Field](field.md) supplies the label |
 | [CheckboxField](checkboxField.md) | the value is posted with a form rather than applied at once |
 | `ToggleButton` | the press is a toolbar mode, not a stored setting |
-
----
-
-## Values
-
-- must set `side` to `left` or `right` — the type takes all four, `top` and `bottom` render as `left`
-- must style the wrapper through `wrapperClassName` — a plain `class` lands on the switch
-- should carry the secondary line in `description`, never in a sibling paragraph

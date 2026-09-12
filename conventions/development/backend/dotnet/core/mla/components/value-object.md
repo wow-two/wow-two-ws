@@ -1,64 +1,62 @@
 # Value objects
 
-*Last updated: 2026-08-24*
+*Last updated: 2026-09-12*
 
-> The type an entity stores whole, identified by its values rather than by a key.
-> Purpose — a concept with rules of its own stops being loose columns on the entity that holds it.
-> Use case — an amount, an address, a routing rule; anything meaningless apart from its values.
+> Applying the [value-object construct](../constructs/data/value-object.md) to values with their own invariants.
 
-> Defined at [value objects — the construct](../constructs/data/value-object.md); this doc carries every condition for using one.
+## Location
 
-## Reaching for one
-
-- must reach here when two instances carrying equal values are the same thing — no key distinguishes them.
-- must reach for an [entity](../constructs/data/entity.md) instead when the thing has a lifetime: it is
-  created, changed and referred to by identity across time.
-- must reach for a [DTO](../constructs/data/dto.md) instead when the shape exists to cross a boundary and
-  carries no rule of its own.
-- must not introduce one for a single primitive with no rule — a `string Name` stays a `string`.
+- must use the construct's [location](../constructs/data/value-object.md#location).
 
 ---
 
-## What it owns
+## Declaration
 
-- must own every rule that makes its values valid together, so an invalid instance cannot be constructed.
-- must validate in the factory or the constructor, never in the entity that stores it.
-- must expose behaviour over its own values — a money type adds and compares, it is not read apart and
-  recombined by callers.
-- must not reach a store, a clock or any injected collaborator; its whole contract is its values.
+- must use the construct's [declaration](../constructs/data/value-object.md#declaration).
 
 ---
 
-## Members
+## Content
 
-- must be immutable — `init` accessors, no setter, no mutating method.
-- must return a new instance from any operation that changes a value, never mutate in place.
-- must carry a `<summary>` on each member stating what the value means, plus its unit where one exists.
-- must state the allowed range or set when a value is bounded, so the constructor's guard has a stated reason.
-- must not carry a member the entity owns instead — a timestamp of when the row changed belongs to the row.
+- must choose a value object when equal identifying values mean the same thing.
+- must choose an entity when identity persists while values change.
+- must choose a DTO when the shape only carries data across a boundary.
+- must not wrap one primitive with no additional rule.
+- must keep validation of its values with its concept, normally in an external extension method or validator; the storing entity must not reimplement those rules.
+- must expose operations over its own values without reaching a store, clock or injected collaborator.
+- must leave existing instances unchanged when producing a changed value.
+- must document each member's meaning, unit and permitted range.
+- must keep row timestamps, keys, concurrency and audit stamps on the owning entity.
+
+---
+
+## Invariants
+
+- must follow [validation placement](../domains/validation/validation.md#placement): construction, copying and deserialization produce candidates validated at the accepting boundary.
+- must reserve constructor data checks for the documented exceptional contracts defined there.
+- must not claim a constructor guard protects an independently assignable `init` member.
+- must not claim `init` makes referenced collections deeply immutable.
+- must retain the record/init declaration; external validation does not require get-only members or a constructor-only creation API.
 
 ---
 
 ## Equality
 
-- must let the `record` compiler-generated equality stand, which compares every member.
-- must exclude a member from equality only when it genuinely does not identify the value, and say why in
-  one line on the member.
-- must not implement `Equals` or `GetHashCode` by hand on a `record`.
+- must use compiler-generated equality where each identifying member already has the required equality semantics.
+- must not assume an array or list compares by contents under record equality.
+- must not claim a member is excluded from equality when its backing field still participates.
+- must retain the existing no-handwritten-equality default pending the exception decision below.
 
 ---
 
 ## Persistence
 
-- must be stored inside the owning entity's row, as owned columns or a serialized column, never as its own
-  table → [ef-mapping](../domains/persistence/access/ef/ef-mapping.md).
-- must not carry a key, a row version, or an audit stamp — those belong to the entity that owns it.
-- must be replaced wholesale when it changes, so the owning entity assigns a new instance.
+- must store the value inside its owning row as columns or a serialized column.
+- must replace the stored value wholesale when it changes.
+- EF mapping → [runtime mapping](../domains/persistence/access/ef/ef-mapping.md).
 
 ---
 
-## Neighbours
+## Open
 
-- [value objects — the construct](../constructs/data/value-object.md) — what it is and how it is declared
-- [entity](../constructs/data/entity.md) — the type that owns a row and stores this one inside it
-- [ef-mapping](../domains/persistence/access/ef/ef-mapping.md) — how an owned type reaches columns
+- equality: choose how structural collections and identity-excluded members fit the no-custom-equality default.

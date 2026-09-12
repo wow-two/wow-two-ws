@@ -1,10 +1,9 @@
 # Sparkline
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > The inline trend — a shape with no axes, no scales and no legend.
 > What a display is → [display](../../constructs/visual/display.md).
-> Its full surface → `Sparkline.spec.md`.
 
 ## Reach for it when
 
@@ -27,6 +26,4 @@
 
 ## Values
 
-- should leave `variant` at `line`, `width` at `120`, `height` at `32`, `tone` at `brand`
-- must set `min` and `max` to compare two sparklines; each scales to itself
-- must replace `ariaLabel`; the default reads `Trend` and says nothing
+- must provide a meaningful text alternative for its trend; use the same scale when comparing series.

@@ -1,16 +1,13 @@
 # CodeEditor
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
-> Source entry with a line-number gutter and Tab handling — plain by design, no highlighting.
+> Source entry with a line-number gutter and explicit keyboard indentation behavior.
 > What a control is → [control](../../constructs/visual/control.md).
-> Its full surface → `CodeEditor.spec.md`.
 
 ## Reach for it when
 
 - must collect source the reader edits — a snippet, a config, a template
-- must accept it is first-generation: a styled textarea, no highlighting or completion
-- should pass `language` as the declared format; nothing renders from it yet
 
 ---
 
@@ -27,6 +24,6 @@
 
 ## Values
 
-- should leave `tabSize` at `2` — the house indent for every language shipped
-- must set `isTabIndented` only where Tab must indent; it costs the keyboard exit
+- must follow the [editor keyboard contract](../../constructs/visual/control.md#input-behavior) when Tab indents.
+
 - should raise `minHeight` past `12rem` only for a whole file, not a snippet

@@ -1,6 +1,6 @@
 # Props
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > The prop-name vocabulary every component reads by — boolean prefixes, handlers, render props, the controlled
 > triad, and the two carve-outs. Prop **shape** (`readonly`, `interface`, and which access each framework
@@ -34,22 +34,22 @@
 
 ---
 
-## The controlled triad
+## Controlled state
 
-A value a parent may own ships as a fixed trio that reads as a unit, and the controlled member keeps the **bare
-root** so the three names line up.
-
-| Prop | Role |
-|---|---|
-| `x` (bare root) | **controlled** value — the parent owns state |
-| `defaultX` | **uncontrolled** seed — initial value, the component owns state after |
-| `onXChange` | change handler — fires with the next value |
-
-- must reach for one of the three canonical triads — `{ open, defaultOpen, onOpenChange }` ·
-  `{ value, defaultValue, onValueChange }` · `{ checked, defaultChecked, onCheckedChange }`.
-- must use one of `x` / `defaultX` per usage, never both.
-- must reserve the bare root for the triad — a standalone boolean with no `default*` / `on*Change` partner
-  still takes `is*`.
+- must select controlled mode when the model prop is not `undefined` at mount; omission selects uncontrolled mode.
+- must keep that mode for the instance lifetime; changing mode requires a remount, not a silent fallback.
+- must treat `null` as an explicit value only where the model contract permits clearing; it never selects mode.
+- must accept either the model prop or its `default*` seed, never both for the same state axis.
+- must read the seed once; later seed changes must not overwrite user edits.
+- must render controlled state from the current prop; user intent requests a change without changing ownership.
+- must update local state in uncontrolled mode and publish the same proposed-value notification.
+- must send the proposed value as the model notification payload, not a DOM event; document any extra metadata.
+- must not notify a user change merely because an external prop changes.
+- must route reset through the state owner: controlled resets update the prop; uncontrolled resets restore the seed.
+- must document read-only controlled usage or require a change listener for an editable surface.
+- must reserve bare model roots for state axes; standalone custom flags still take `is*`, `has*`, `can*` or `show*`.
+- framework spelling → [React](../../constructs/react/components.md#controlled-props) or
+  [Vue](../../constructs/vue/macros.md#controlled-props).
 
 ---
 
@@ -59,8 +59,7 @@ root** so the three names line up.
   every `aria-*` / `data-*` keep their exact HTML spelling, because they hit the element verbatim.
 - must still take `is*` on a state flag the component owns and publishes — `isDisabled`, not `disabled`.
 - must rename only a prop the component itself introduces, never one it forwards.
-- must keep `asChild` as spelled — the Radix-style idiom is a recognized cross-library term, and `isChild`
-  would obscure it. It is the single un-prefixed boolean carve-out.
+- must keep the recognized `asChild` idiom as spelled; native attributes and model roots have the exceptions above.
 
 | Do | Avoid |
 |---|---|
@@ -73,15 +72,19 @@ root** so the three names line up.
 ```typescript
 /** Defines props for the dismissible info banner. */
 interface InfoBannerProps {
-  readonly open: boolean;                            // controlled triad → bare root, NOT isOpen
-  readonly defaultOpen?: boolean;                    // uncontrolled seed (root or default, never both)
-  readonly onOpenChange: (open: boolean) => void;    // triad handler → on*Change
-  readonly isDisabled: boolean;                      // standalone boolean → is*
-  readonly hasIcon: boolean;                         // standalone boolean → has*
-  readonly renderAction?: () => ReactNode;           // render-prop → render*
-  readonly "aria-label"?: string;                    // native a11y attr — NOT renamed
-  readonly asChild?: boolean;                        // the single idiom carve-out
+  readonly open?: boolean;
+  readonly defaultOpen?: boolean;
+  readonly onOpenChange?: (open: boolean) => void;
+  readonly isDisabled?: boolean;
+  readonly hasIcon?: boolean;
+  readonly "aria-label"?: string;
+  readonly asChild?: boolean;
 }
+
+const controlled: InfoBannerProps = { open: true, onOpenChange: (open) => console.log(open) };
+const uncontrolled: InfoBannerProps = { defaultOpen: true };
+// Invalid by contract: { open: true, defaultOpen: false }.
+// An interface alone does not enforce this pair exclusion; validate it in the component's contract tests.
 ```
 
 ---

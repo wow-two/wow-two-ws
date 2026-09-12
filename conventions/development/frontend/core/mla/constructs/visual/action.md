@@ -1,6 +1,6 @@
 # Action
 
-*Last updated: 2026-08-23*
+*Last updated: 2026-09-10*
 
 > A trigger that runs a command and carries no value of its own.
 > Purpose — separating "do this" from "set this" keeps a control's model contract out of every button.
@@ -8,15 +8,10 @@
 
 ## Gate
 
-- must **carry no value** — a component whose output is read back is a [control](control.md).
-- must be operable by keyboard as a button, with a real `<button>` unless `asChild` swaps it.
-- must not navigate to a place — a destination trigger is a [nav](nav.md).
-- must stay indifferent to what the command does; the caller owns the effect.
-
-```txt
-✅ Button · CopyButton · FabButton · SpeedDialButton · Toolbar · DisclosureButton · ToggleButton
-❌ Switch                   (its on/off state is the value — a control)
-```
+- must trigger a command; the caller owns its product effect.
+- must use a real button for a command and preserve keyboard behavior when composition replaces the element.
+- must use [nav](nav.md) for a destination and [control](control.md) for an editable selected value.
+- may keep transient interaction feedback such as copied or expanded state without becoming the value owner.
 
 ---
 
@@ -24,7 +19,7 @@
 
 ### Group
 
-- must live in `presentation/actions/` in the SDK, grouped strips included — `ButtonGroup`, `SegmentedControl`.
+- must use the `actions/` group for command triggers and command strips; editable selection groups are controls.
 - must live with its owner when it exists only inside one component — a compound `Root.Trigger`.
 
 ```txt
@@ -55,13 +50,6 @@
   kinds](visual.md) § *Shape words*).
 - must name the affordance — `CopyButton`, never `CopyToClipboardHandlerButton`.
 
-```vue
-<script setup lang="ts">
-/** Renders a clipboard-copy button with a copied-state swap. */
-defineOptions({ name: 'CopyButton', inheritAttrs: false });
-</script>
-```
-
 ---
 
 ## Content
@@ -84,26 +72,14 @@ defineOptions({ name: 'CopyButton', inheritAttrs: false });
 - must let the native `click` through rather than re-emitting it under another name.
 - must emit the outcome when the action owns one — `copied`, `expanded`.
 
-```vue
-<script setup lang="ts">
-defineProps<{ isDisabled?: boolean; isLoading?: boolean; loadingText?: string }>();   // ✅
-defineSlots<{ leading(): unknown; default(): unknown; trailing(): unknown }>();       // ✅
-defineEmits<{ (e: 'press'): void }>();                                                // ❌ click already exists
-</script>
-```
-
 ---
 
 ## Composition
 
-- must be mounted by any kind — an action is a leaf, so nothing forbids it a home.
-- must compose only [display](display.md) and [indicator](indicator.md) inside its slots.
-- must open an [overlay](overlay.md) by flipping the overlay's model, never by mounting it as a child.
-
-```txt
-✅ SectionHeading → Button → Spinner       (a busy action swaps its leading slot)
-❌ Button → Modal                          (the trigger owning the surface it opens)
-```
+- must follow the shared [composition contract](visual.md#composition-order).
+- must keep a button's label content free of nested interactive controls.
+- may compose buttons inside a command strip without making the strip itself a button.
+- must coordinate an opened overlay as a sibling or compound surface, not a descendant of the native button.
 
 ---
 
@@ -113,4 +89,4 @@ defineEmits<{ (e: 'press'): void }>();                                          
 - [control](control.md) — the kind for a widget that owns a value
 - [nav](nav.md) — the kind for a trigger that moves rather than runs
 - [overlay](overlay.md) — the surface an action opens
-- [visual kinds](visual.md) — every other kind, and the composition ladder
+- [visual kinds](visual.md) — every other kind, and the composition contract

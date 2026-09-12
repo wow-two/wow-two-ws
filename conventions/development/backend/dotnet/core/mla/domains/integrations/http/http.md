@@ -1,64 +1,47 @@
 # Http
 
-*Last updated: 2026-08-16*
+*Last updated: 2026-09-10*
 
-> How an outbound HTTP call is registered, made resilient, and layered with cross-cutting handlers.
-> Purpose — one managed path per call means no socket exhaustion, no stale DNS, and no hand-rolled Polly.
-> Use case — registering a [client](../../../constructs/behavior/client.md), or tuning what its pipeline does.
+> Outbound HTTP registration and transport resilience behind the client/broker boundary.
 
 ## Registration
 
-- must register every client through `IHttpClientFactory` — never `new HttpClient()`.
-- must prefer `AddRefitApiClient<TApi>` for a new client; it bundles base address, SDK JSON and resilience.
-- must use `AddResilientClient<TClient>` for a plain typed client, or its named overload for a factory-resolved one.
-- must chain `.AddSdkResilience(...)` onto a manual `AddHttpClient<T>()` — a bare registration is non-conformant.
-- must override Refit JSON at the preset layer, never by passing a hand-built `RefitSettings`.
-
-```csharp
-// ✅ Refit, the default for a new client
-builder.Services.AddRefitApiClient<IBillingApi>("https://billing.internal");
-// ✅ manual registration, resilience chained on
-builder.Services.AddHttpClient<TelegramClient>(c => c.BaseAddress = new Uri("https://api.telegram.org/"))
-    .AddSdkResilience();
-```
+- must register clients through `IHttpClientFactory`.
+- must prefer `AddRefitApiClient<TApi>` for a new declarative HTTP client.
+- must use `AddResilientClient<TClient>` for a typed client, or add `AddSdkResilience` to manual registration.
+- must provide base addresses through settings, not source literals.
+- must configure JSON at the supported preset seam rather than bypass it with unrelated settings.
+- registration API → [Refit registration](../../../../../../../../../workbench/wow-two-sdk-beta/wow-two-sdk.backend.beta/engineering/codebase/wow-two-back-beta-sdk/src/Http/Refit/RefitClientServiceCollectionExtensions.cs).
 
 ---
 
 ## Resilience
 
-`AddSdkResilience` wraps a client in retry → circuit breaker → per-attempt timeout, inside a total-request timeout.
-It tunes `IHttpClientBuilder.AddStandardResilienceHandler(...)` through `HttpResilienceOptions`.
-
-- must tune through `HttpResilienceOptions`, never a custom `DelegatingHandler` or a Polly policy.
-- must keep `AttemptTimeout` shorter than `TotalRequestTimeout`.
-- must keep `CircuitBreakerSamplingDuration` at least twice `AttemptTimeout`.
-
-| Option | Default | Meaning |
-|---|---|---|
-| `MaxRetryAttempts` | `3` | retries after the first try |
-| `AttemptTimeout` | `10s` | per-attempt timeout |
-| `TotalRequestTimeout` | `30s` | budget for the whole logical request |
-| `CircuitBreakerSamplingDuration` | `30s` | failure-rate window |
-| `CircuitBreakerFailureRatio` | `0.1` | trip threshold |
-
-Tracing is wired by the observability package — every call through the pipeline is instrumented, no per-client setup.
+- must configure retry, circuit breaking and timeout through the SDK resilience seam.
+- must keep attempt timeout below the total logical request budget.
+- must preserve the provider's valid relationship between attempt timeout and circuit-breaker sampling duration.
+- must not stack independent retry loops in a client and broker.
+- must not retry or hedge an unsafe side effect without a replay-safe contract or idempotency mechanism.
+- must pass cancellation through every outbound call.
+- must not treat caller cancellation as permission to spend another retry attempt.
+- must configure tracing explicitly through the [observability owner](../../observability/observability.md).
+- current options and pipeline → [resilience options](../../../../../../../../../workbench/wow-two-sdk-beta/wow-two-sdk.backend.beta/engineering/codebase/wow-two-back-beta-sdk/src/Http/Resilience/HttpResilienceOptions.cs)
+  and [resilience registration](../../../../../../../../../workbench/wow-two-sdk-beta/wow-two-sdk.backend.beta/engineering/codebase/wow-two-back-beta-sdk/src/Http/Resilience/HttpResilienceBuilderExtensions.cs).
 
 ---
 
-## Cross-cutting handlers
+## Handlers
 
-Chain these onto the same `IHttpClientBuilder`, after the registration helper. Each carries its own options type.
-
-- OAuth2 client-credentials bearer, cached → `OAuth2ClientCredentialsHttpClientBuilderExtensions`
-- mutual TLS with a client certificate → `MutualTlsHttpClientBuilderExtensions`
-- request hedging, parallel attempts → `HttpHedgingBuilderExtensions`
-- inbound → outbound header propagation → `HeaderPropagationServiceCollectionExtensions`
+- must add cross-cutting HTTP handlers on the same factory-managed client registration.
+- must configure authentication, client certificates, hedging and propagated headers only when the integration needs them.
+- must not forward arbitrary inbound credentials to another provider.
+- must dispose response messages and owned streams after consuming them.
 
 ---
 
 ## Errors
 
-- must let an HTTP error bubble out of the client — the caller translates it.
-- must not catch `HttpRequestException` inside the client; the context is lost with it.
-- must not retry inside the client — retry belongs to the pipeline.
-- must deserialize a provider's typed error body into a model, returning a result or throwing a typed exception.
+- must let the HTTP pipeline observe transport exceptions before converting them at the app-facing boundary.
+- must preserve a provider's typed failure details when translating them into the application's error vocabulary.
+- must follow the [result policy](../../../components/result.md#failure) outside the framework's HTTP callback contract.
+- must place fallback, stale-cache use and degradation in the [broker](../integrations.md#degradation).

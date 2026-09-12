@@ -11,7 +11,7 @@ Which utilities may be written, how classes compose, and what a token is are `co
 
 ## The entry (`index.css`)
 
-An app's `src/index.css` imports Tailwind, imports the library's design tokens, and `@source`s the library's
+An app's `src/bootstrap/index.css` imports Tailwind, imports the library's design tokens, and `@source`s the library's
 compiled output so the utility classes its components emit are generated — Tailwind v4 ignores `node_modules`.
 
 ```css
@@ -19,14 +19,14 @@ compiled output so the utility classes its components emit are generated — Tai
 
 /* Design tokens (@theme) shipped by the library — gives bg-primary, text-foreground,
    bg-card, border-border, etc. */
-@import '@wow-two-beta/ui/styles.css';
+@import '@wow-two-beta/ui-vue/styles.css';
 
 /* Tailwind v4 ignores node_modules; point it at the beta UI's dist so its utility
    classes are generated. Path is relative to THIS file. */
-@source '../../node_modules/@wow-two-beta/ui/dist';
+@source '../../node_modules/@wow-two-beta/ui-vue/dist';
 ```
 
-- must load the Tailwind Vite plugin `@tailwindcss/vite` — `plugins: [react(), tailwindcss()]`.
+- must load the Tailwind Vite plugin `@tailwindcss/vite` — `plugins: [vue(), tailwindcss()]`.
 - must not add a `tailwind.config.js` content array; `@source` declarations live in CSS.
 - must count `@source`'s depth from `index.css`, which lives in `bootstrap/`
   ([architecture](../architecture/architecture.md) § *Layers*) — `../../node_modules/…`, two up,

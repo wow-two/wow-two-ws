@@ -1,6 +1,6 @@
 # Test Databases
 
-*Last updated: 2026-08-18*
+*Last updated: 2026-09-10*
 
 > Which database a backend test runs against, and how the tier picks it — Postgres by default,
 > SQLite as a switchable speed fallback.
@@ -113,6 +113,8 @@ and the suite fails with Respawn `"No tables found"`.
   host builds**.
   - `AddPostgresPersistence` reads env first (env wins over config), and env is visible at registration time.
 - set it in the fixture's `InitializeAsync` — container started, host not yet built.
-- clear it on dispose, so concurrent suites don't leak a connection string into each other.
+- must serialize fixtures that change the same environment variable; it is process-global during host construction.
+- must save its prior value and restore it on dispose, including failed initialization.
+- must not claim restoration prevents overlapping host-build races.
 - this is the host-boot analogue of the repository tier's `RelationalTestDb` seam.
   - same goal (point the DB at the test instance), different layer (process env vs. fixture-owned context).

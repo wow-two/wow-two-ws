@@ -1,16 +1,15 @@
 # CheckboxGroup
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > Zero-to-many from a short fixed set, every option visible at once under one legend.
 > What a control is → [control](../../constructs/visual/control.md).
-> Its full surface → `CheckboxGroup.spec.md`.
 
 ## Reach for it when
 
 - must collect several values from a set short enough to show whole
 - must give every item a `value` — the group keys selection by it
-- should carry `legend`; it is the group's label and its `fieldset` needs one
+- must give the selection group an accessible name
 
 ---
 
@@ -28,6 +27,3 @@
 ## Values
 
 - should leave `orientation` at `vertical` — the readable default for labels
-- must set `horizontal` only for two or three short options
-- must cascade `isDisabled` from the group, never repeat it per item
-- must not wrap an item in its own field — the group hands each a fresh context

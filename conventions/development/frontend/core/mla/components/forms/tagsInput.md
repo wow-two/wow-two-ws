@@ -1,10 +1,9 @@
 # TagsInput
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > Free-form labels typed in — each commit turns into a removable chip inside the box.
 > What a control is → [control](../../constructs/visual/control.md).
-> Its full surface → `TagsInput.spec.md`.
 
 ## Reach for it when
 
@@ -27,8 +26,5 @@
 
 ## Values
 
-- should leave `delimiters` at `[',']` — Enter and Tab already commit alongside it
-- must pass `validate` for anything beyond non-empty; the default only trims
-- must set `max` where the list has a cap; nothing is bounded by default
 - should leave `allowsDuplicates` off — a repeated tag is almost always a mistype
 - should leave `tagVariant` at `neutral`; a tone here competes with the field's own state

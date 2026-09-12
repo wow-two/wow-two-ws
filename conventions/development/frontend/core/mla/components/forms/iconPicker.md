@@ -1,10 +1,9 @@
 # IconPicker
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > The searchable icon grid — it commits a key the product stores, never the component behind it.
 > What a control is → [control](../../constructs/visual/control.md).
-> Its full surface → `IconPicker.spec.md`.
 
 ## Reach for it when
 
@@ -27,8 +26,4 @@
 
 ## Values
 
-- must speak the icon key, never the icon component — `bell`, `chevron-down`, `cart`
-- should leave `icons` at the built-in lucide subset; pass a set to widen or narrow it
 - should leave `columns` at `8`, `size` at `20` px, `iconButtonSize` at `36` px
-- should leave `placeholder` at `Search icons…`
-- must set `name` for a plain form post; the hidden input carries the key

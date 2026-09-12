@@ -1,6 +1,6 @@
 # Variants
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > Every variant prefix — state, breakpoint, theme, relationship, arbitrary selector — and the ones that hide a rule.
 > Purpose — a variant keeps a conditional style in the markup, where the rest of the box's appearance already lives.
@@ -62,7 +62,7 @@ children.
 ```vue
 <!-- ✅ state from data-*, ring on focus-visible, group for the ancestor relationship -->
 <div class="group" :data-state="isOpen ? 'open' : 'closed'">
-  <button type="button" class="outline-none focus-visible:ring-2 focus-visible:ring-ring
+  <button type="button" class="outline-hidden focus-visible:ring-2 focus-visible:ring-ring
                                group-data-[state=open]:rotate-180">…</button>
 </div>
 

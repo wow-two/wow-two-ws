@@ -1,10 +1,9 @@
 # StepCard
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > The numbered step — a big faint number over an icon, a title, and a line.
 > What a display is → [display](../../constructs/visual/display.md).
-> Its full surface → `StepCard.vue`.
 
 ## Reach for it when
 
@@ -20,10 +19,3 @@
 | [FeatureCard](featureCard.md) | the tiles are unordered capabilities |
 | [Timeline](timeline.md) | the steps are events on a rail, not tiles in a row |
 | `Stepper` | the reader is moving through the steps rather than reading them |
-
----
-
-## Values
-
-- must number `step` from `1` and keep it in sync with the card's position
-- must pass `description` or fill the default slot; the body needs one

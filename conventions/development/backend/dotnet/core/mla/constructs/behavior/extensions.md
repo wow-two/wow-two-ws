@@ -1,6 +1,6 @@
 # Extensions
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > The static tier over a **domain**'s types — logic that needs no collaborator and owns no state.
 > Purpose — behaviour that needs nothing injected does not earn a service, and does not belong on the type it acts on.
@@ -12,8 +12,7 @@
 - must sit in an `Extensions/` folder under the domain it extends.
 
 ### File
-- must give it its own file, named for the type →
-  [one type, one file](../../mla.md).
+- file rules → [one type, one file](../../mla.md).
 
 ---
 

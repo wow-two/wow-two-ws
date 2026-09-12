@@ -1,10 +1,9 @@
 # Center
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > The both-axis centring shorthand — and nothing else.
 > What a layout is → [layout](../../constructs/visual/layout.md).
-> Its full surface → `Center.spec.md`.
 
 ## Reach for it when
 
@@ -20,9 +19,3 @@
 | [Stack](stack.md) | the centred children also need a gap between them |
 | [Flex](flex.md) | only one axis is centred |
 | [AspectRatio](aspectRatio.md) | the box's shape is the constraint, not the child's position |
-
----
-
-## Values
-
-- must carry any further arrangement as a class — it declares no props

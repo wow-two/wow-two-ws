@@ -1,6 +1,6 @@
 # Controllers
 
-*Last updated: 2026-08-18*
+*Last updated: 2026-09-10*
 
 > The HTTP delivery surface for one resource — a thin dispatcher, holding no logic of its own.
 > Purpose — the edge binds, maps and returns; everything it would otherwise decide belongs behind the mediator.
@@ -12,8 +12,7 @@
 - must sit in a `Controllers/` folder under the domain it exposes.
 
 ### File
-- must give it its own file, named for the type →
-  [one type, one file](../../mla.md).
+- file rules → [one type, one file](../../mla.md).
 
 ---
 
@@ -34,7 +33,8 @@
 ```
 
 ### Construct
-- must declare a `sealed class` inheriting `ControllerBase`, with a primary constructor.
+- declaration and injection → [behavior](behavior.md) § *Shared rules*.
+- must inherit `ControllerBase`.
 - must carry `[ApiController]` and a literal kebab-case `[Route("api/{noun}")]` — never the `[controller]` token.
 - must inject the mediator for application work, and no service, repository or validator.
 

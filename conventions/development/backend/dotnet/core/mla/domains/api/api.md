@@ -1,6 +1,6 @@
 # Api
 
-*Last updated: 2026-08-16*
+*Last updated: 2026-09-10*
 
 > The HTTP surface a service exposes — what a client may send, and what it reads back.
 > Purpose — the wire is a contract with a client, so it changes on the client's schedule, not the domain's.
@@ -8,15 +8,12 @@
 
 ## Contract
 
-- must bind one [api request](../../constructs/data/api-request.md) per action, and map it at the edge.
+- must choose a body through the [request/body rule](api-messages.md#requests).
 - must wrap a success in the envelope, and send an error as ProblemDetails → [api messages](api-messages.md).
 - must keep caller context off the body — the edge merges it into the application message.
 - must point the dependency api → application; an application message never references an api one.
 - must map inbound `ApiRequest → Command` and outbound `Model → Dto`, both in the controller.
-- must cut the Api layer into domain folders like every other layer — `Api/{Domain}/`.
-- must give each domain folder its own `Requests/` and `Models/` — the bodies it binds, the payloads it returns.
-- must keep `Controllers/` at the domain folder, never one flat folder per project
-  ([domain structuring](../../../../shapes/service/architecture/clean/domain-structuring.md)).
+- project placement → [domain structuring](../../../../shapes/service/architecture/clean/domain-structuring.md).
 - must hold no logic in the delivery type → [controller](../../constructs/behavior/controller.md).
 
 ---
@@ -40,7 +37,7 @@
 
 ## Action attributes
 
-- must carry `[ProducesResponseType<ApiResponse<T>>(2xx)]` — the one typed success body.
+- must declare the success response type matching the actual body; no envelope type for a stream or `204`.
 - must carry `[ProducesResponseType(status)]` per failure it returns, with no payload type.
 - may carry `[Consumes(mediaType)]` to constrain a non-JSON body.
 - may carry `[Tags]`, `[EndpointSummary]` or `[EndpointDescription]` when the generated spec text needs help.
@@ -51,7 +48,7 @@
 
 - must return `Task<IActionResult>` unless the response is a stream.
 - must use a block body from the start — an action binds, dispatches and maps, three steps minimum.
-- must bind the payload through an [api request](../../constructs/data/api-request.md).
+- must use the [request/body rule](api-messages.md#requests) when binding a payload.
 - must read the actor through `ICurrentUser` → [api context](api-context-building.md).
 - must reach for `User` or `HttpContext` only for a fact `ICurrentUser` does not expose.
 - must take a `CancellationToken` last, and pass it down.
@@ -82,7 +79,7 @@ var result = await sender.SendAsync(command, ct);
 
 return result.Match<IActionResult>(
     ok => CreatedAtAction(nameof(GetById), new { id = ok.Data.Product.Id },
-        ApiResponse<ProductDto>.Ok(ok.Data.Product)),
+        ApiResponse<ProductDto>.Ok(ok.Data.Product.ToDto())),
     fail => Problem(detail: fail.Error.Message, statusCode: statusMapper.ToStatusCode(fail.Error)));
 // ❌ try/catch at the edge, raw body, bare status
 try { return Ok(await sender.SendAsync(command, ct)); }

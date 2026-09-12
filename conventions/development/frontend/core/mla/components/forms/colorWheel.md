@@ -1,10 +1,9 @@
 # ColorWheel
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > The hue ring — one value in degrees, and the only circular geometry in the folder.
 > What a control is → [control](../../constructs/visual/control.md).
-> Its full surface → `ColorWheel.spec.md`.
 
 ## Reach for it when
 
@@ -26,7 +25,5 @@
 
 ## Values
 
-- must treat the value as degrees, `0`–`360`, wrapped rather than clamped
 - should leave `size` at `200` px and `thickness` at `30` px
 - should leave `step` at `1` — one degree per arrow press
-- must expect `0` when uncontrolled — the ring opens on red

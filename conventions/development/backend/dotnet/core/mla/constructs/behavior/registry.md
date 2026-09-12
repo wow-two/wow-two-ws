@@ -1,6 +1,6 @@
 # Registries
 
-*Last updated: 2026-08-16*
+*Last updated: 2026-09-10*
 
 > A type that owns a set of key-to-type bindings and answers lookups against it.
 > Purpose — hold what callers registered at composition time, and fail loudly when the set is incomplete.
@@ -12,8 +12,7 @@
 - must sit in a `Registries/` folder under the domain whose types it binds.
 
 ### File
-- must give it its own file, named for the type →
-  [one type, one file](../../mla.md).
+- file rules → [one type, one file](../../mla.md).
 
 ---
 
@@ -47,24 +46,36 @@
 #### [Exceptions](../../../lla/notation/documentation/exceptions.md)
 - must document the throw for an unbound key — completeness is the registry's to enforce.
 
+#### [Params](../../../lla/notation/documentation/params.md)
+- must apply the parameter rules to the lookup key.
+
+#### [Returns](../../../lla/notation/documentation/returns.md)
+- must name the binding returned by the lookup.
+
 ```csharp
 // ✅ the incompleteness is the contract
 /// <summary>Gets the type bound to the discriminator.</summary>
 /// <param name="discriminator">The enum member to resolve.</param>
+/// <returns>The type bound to the discriminator.</returns>
 /// <exception cref="InvalidOperationException">No type is bound to the member.</exception>
 ```
 
 ### Members
-- must accept registrations at composition time only, never after the first lookup.
+- may mutate its binding set during composition, overriding the state-free baseline in
+  [language constructs](../../../lla/constructs/constructs.md) § *Behavior components*.
+- must freeze registrations before the first lookup.
 - must throw when a key in the closed set has no binding — a silent miss hides a wiring fault.
 - may use `=>` for a member that returns or delegates — a registry holds bindings, not logic that grows
   ([style](../../../lla/notation/style/style.md) § *The body*).
 
 ```csharp
 // ✅ the miss is loud
-public Type Get(CodeContentType key) => _bindings.TryGetValue(key, out var type)
-    ? type
-    : throw new InvalidOperationException($"No type bound to {key}.");
+public Type Get(CodeContentType key)
+{
+    return _bindings.TryGetValue(key, out var type)
+        ? type
+        : throw new InvalidOperationException($"No type bound to {key}.");
+}
 
 // ❌ a null hides a wiring fault until the caller dereferences it
 public Type? Get(CodeContentType key) => _bindings.GetValueOrDefault(key);

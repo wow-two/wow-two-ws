@@ -1,10 +1,9 @@
 # ToggleButton
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > A button that stays pressed — a mode, not a one-shot command.
-> What an action is → [action](../../constructs/visual/action.md).
-> Its full surface → `ToggleButton.spec.md`.
+> Kind → [control](../../constructs/visual/control.md).
 
 ## Reach for it when
 
@@ -27,6 +26,4 @@
 
 ## Values
 
-- must set `value` on every toggle inside a group — it keys the group's selection
-- must render as `div` only when interactive children nest inside the toggle
 - should keep the `ghost` / `primary` defaults; `solid` fills on press

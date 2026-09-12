@@ -1,10 +1,9 @@
 # Heading
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > The outline entry — its semantic level and its visual size are chosen separately.
 > What a display is → [display](../../constructs/visual/display.md).
-> Its full surface → `Heading.spec.md`.
 
 ## Reach for it when
 
@@ -27,6 +26,6 @@
 
 ## Values
 
-- must set `level` from the outline — `2` is the default, a page's own title is `1`
-- must fix a wrong visual scale through `size`, never by moving `level`
+- must take the level from the document outline and adjust visual size independently.
+
 - should leave `size` at `lg` and `weight` at `semibold`

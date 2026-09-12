@@ -1,0 +1,23 @@
+ENV runtime=.NET 10.0.8 arch=Arm64 EF=10.0.3 SQLiteProvider=10.0.3
+ENV SQLite=3.49.1
+PASS normal.insert: record.Id=1, class.Id=1
+PASS normal.detect-change: record=Modified, class=Modified
+PASS normal.persist-two-mutations: fresh context persisted both second changes
+PASS same-key.record.Attach: The instance of entity type 'RecordEntity' cannot be tracked because another instance with the same key value for {'Id'} is already being tracked. When attaching existing entities, ensure that only one entity instance with a given key value is attached. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see the conflicting key values.
+PASS same-key.class.Attach: The instance of entity type 'ClassEntity' cannot be tracked because another instance with the same key value for {'Id'} is already being tracked. When attaching existing entities, ensure that only one entity instance with a given key value is attached. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see the conflicting key values.
+PASS same-key.record.Update: The instance of entity type 'RecordEntity' cannot be tracked because another instance with the same key value for {'Id'} is already being tracked. When attaching existing entities, ensure that only one entity instance with a given key value is attached. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see the conflicting key values.
+PASS same-key.class.Update: The instance of entity type 'ClassEntity' cannot be tracked because another instance with the same key value for {'Id'} is already being tracked. When attaching existing entities, ensure that only one entity instance with a given key value is attached. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see the conflicting key values.
+PASS record.equal-copy: record == true, ReferenceEquals false
+PASS same-key.record.equal-copy: The instance of entity type 'RecordEntity' cannot be tracked because another instance with the same key value for {'Id'} is already being tracked. When attaching existing entities, ensure that only one entity instance with a given key value is attached. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see the conflicting key values.
+PASS fresh-context.Update: record with-copy and manual class-copy each updated a row
+PASS fresh-context.Update.persist: both persisted
+PASS fresh-context.Attach-alone: Attach uses copied values as original snapshot; zero writes
+PASS fresh-context.Attach-marked: marking Name modified updates record copy
+PASS fresh-context.Attach-marked.persist: fresh context read attach-marked
+PASS same-context.SetValues: copied values applied to existing tracked instance
+PASS navigation.transient.default: second record Add=False, records before EF=1, record rows=1, class rows=2
+PASS navigation.transient.reference: second record Add=True, records before EF=2, record rows=2, class rows=2
+PASS navigation.mutate-remove.default: contains before=True, after=False, Remove=False, class Remove=True, remaining linked record rows=1
+PASS navigation.mutate-remove.reference: contains before=True, after=True, Remove=True, class Remove=True, remaining linked record rows=0
+PASS tracker.reference-after-record-mutation: Find and Entry still resolve the same mutated record instance
+SUMMARY passed=20 failed=0

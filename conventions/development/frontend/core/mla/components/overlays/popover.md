@@ -1,10 +1,9 @@
 # Popover
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
-> The click-anchored panel — positioned on its trigger, focus-trapped, and it never dims the page.
+> A trigger-anchored interactive panel whose modal behavior follows its interaction contract.
 > What an overlay is → [overlay](../../constructs/visual/overlay.md).
-> Its full surface → `Popover.spec.md`.
 
 ## Reach for it when
 
@@ -28,4 +27,3 @@
 ## Values
 
 - should leave `placement` at `bottom` and `offset` at `8` — the house anchor pair
-- must not add a scrim — a popover that dims the page is a [Modal](modal.md)

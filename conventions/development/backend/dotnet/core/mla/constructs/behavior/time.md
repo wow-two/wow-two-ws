@@ -1,6 +1,6 @@
 # Time
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > Our seam over the clock — the thing a type asks for the current instant instead of reading a static.
 > Purpose — a static clock cannot be moved, so a test that depends on time either sleeps or lies.
@@ -12,8 +12,7 @@
 - must sit in a `Time/` folder, never beside a single consumer.
 
 ### File
-- must give it its own file, named for the type →
-  [one type, one file](../../mla.md).
+- file rules → [one type, one file](../../mla.md).
 
 ---
 
@@ -33,7 +32,7 @@
 ```
 
 ### Construct
-- must build on `TimeProvider` → [constructs](../../../lla/constructs/constructs.md) § *The constructs*.
+- clock contract and `TimeProvider` usage → [time](../../components/time.md).
 - must be injected like any collaborator — never resolved from a static.
 - must expose UTC; a local-time conversion is the caller's, at the edge.
 

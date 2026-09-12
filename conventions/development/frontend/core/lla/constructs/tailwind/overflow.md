@@ -1,14 +1,12 @@
 # Overflow
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > Every overflow and overscroll utility, and the clips that hide content with no way to reach it.
 > Purpose — `overflow-hidden` is the fastest way to make a layout look right and to make content unreachable.
 > Use case — reach here whenever content exceeds its box, and whenever a sticky or a popover stops working.
 
 ## The utilities
-
-`overflow-hidden` leads the group, ahead of `overflow-y-auto` and `overflow-x-auto`.
 
 | Utility | Applies | Verdict |
 |---|---|---|

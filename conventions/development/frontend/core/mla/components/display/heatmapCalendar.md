@@ -1,10 +1,9 @@
 # HeatmapCalendar
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > The year grid — 53 weeks by 7 days, each cell shaded by its count.
 > What a display is → [display](../../constructs/visual/display.md).
-> Its full surface → `HeatmapCalendar.spec.md`.
 
 ## Reach for it when
 
@@ -26,7 +25,6 @@
 
 ## Values
 
-- should leave `cellSize` at `12` px, `gap` at `2` px, `levels` at `5`, `tone` at `brand`
-- should leave `weekStart` at `0`, and set `1` only where the locale starts on Monday
-- must leave `year` unset for the current year — it is resolved lazily on purpose
+- must offer readable values and meaningful labels when the heatmap is interactive.
+
 - should leave `hasLegend` on; the shading means nothing without its scale

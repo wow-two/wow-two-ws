@@ -1,14 +1,12 @@
 # Typography
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > Every type utility — size, weight, family, alignment, wrapping — and the spellings a translation breaks.
 > Purpose — the type scale is a fixed set of steps, and a size outside it is a design decision made in passing.
 > Use case — reach here before sizing, weighting or truncating text.
 
 ## The utilities
-
-`text-sm`, `text-xs` and `font-medium` lead the group; `text-[10px]` and `text-[11px]` are the sizes below scale.
 
 | Utility | Applies | Verdict |
 |---|---|---|

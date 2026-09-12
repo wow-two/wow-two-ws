@@ -11,7 +11,7 @@
 | Shape | Is | Status |
 |---|---|---|
 | [app](app/app.md) | a product frontend a browser loads — routes, pages, a composition root | written |
-| [library](library/library.md) | a package another frontend installs and imports | shell |
+| [library](library/library.md) | a package another frontend installs and imports | written |
 
 - must not coin a third shape — a monorepo `@{brand}/*` package is a library, and an SDK is a published one.
 

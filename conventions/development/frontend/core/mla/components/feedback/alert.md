@@ -1,10 +1,9 @@
 # Alert
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > The section note — a titled report about the region it sits in, with room for actions.
 > What a feedback component is → [feedback](../../constructs/visual/feedback.md).
-> Its full surface → `Alert.spec.md`.
 
 ## Reach for it when
 
@@ -28,7 +27,4 @@
 
 ## Values
 
-- must bind `@close` to get a close button — an unbound handler renders none
-- must set `severity` from the shared vocabulary; unset falls through to `info`
 - should pass the slot, not the same-named prop, when the half carries markup
-- should leave `closeLabel` at `Dismiss` unless the copy has to name what closes

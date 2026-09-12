@@ -1,15 +1,14 @@
 # CurrencyInput
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > An amount of money — a [NumberInput](numberInput.md) with a leading symbol pinned inside the box.
 > What a control is → [control](../../constructs/visual/control.md).
-> Its full surface → `CurrencyInput.spec.md`.
 
 ## Reach for it when
 
 - must collect a price, a balance, a limit — anything denominated
-- must keep the bound value a bare number; the symbol is decoration only
+- must separate currency identity and display formatting from the numeric value; use the agreed exact-number contract where precision requires it
 - should reach for every [NumberInput](numberInput.md) prop — they pass straight through
 
 ---
@@ -22,10 +21,4 @@
 | [PercentInput](percentInput.md) | the number is a rate and the suffix is `%` |
 | [MaskedInput](maskedInput.md) | the format is rigid and the value is a string |
 
----
-
-## Values
-
-- must set `symbol` per currency — it defaults to `$` and is never derived
-- should set `step` to the minor unit, `0.01`, over the inherited `1`
-- must set `min` to `0` where a negative amount is meaningless
+- should choose the step from the currency and business precision; currencies do not share one minor unit.

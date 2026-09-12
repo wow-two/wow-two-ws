@@ -1,6 +1,6 @@
 # Display
 
-*Last updated: 2026-08-23*
+*Last updated: 2026-09-10*
 
 > A render of content the component does not own — it shows what it is given and changes nothing.
 > Purpose — the largest kind gets one rule set: take data in, render it, emit intent, never mutate.
@@ -8,15 +8,11 @@
 
 ## Gate
 
-- must **not own its content** — a component that produces a value is a [control](control.md).
-- must render from props alone, so the same props always render the same output.
-- must stay in flow and stay non-blocking; a floating surface is an [overlay](overlay.md).
-- must report system state through [feedback](feedback.md) instead of styling an error itself.
-
-```txt
-✅ Card · DataTable · PdfViewer · VideoPlayer · DotsGlyph · StatusBadge · PricingCard
-❌ EmptyState             (it stands in for content that is absent — a state)
-```
+- must render caller-owned content rather than fetch or mutate a product's records.
+- may own presentation state: expansion, active view, playback, scrolling and animation.
+- must classify a structured editor as a [control](control.md) when its primary contract edits a value.
+- must use [feedback](feedback.md) for an operation report and [state](state.md) for a region replacement.
+- must use an [overlay](overlay.md) contract for a floating descriptive or interactive surface.
 
 ---
 
@@ -58,14 +54,8 @@
   for a layer over one child, and `*Text` for a styled run.
 - must admit `*Heading` for a typographic outline entry, `*Avatar` for a portrait mark, `*Sparkline` for an
   axis-free trend, and `*Timeline` for a vertical event rail.
+- must admit `*Group` for grouped content.
 - must read every one of them as a shape word ([visual kinds](visual.md) § *Shape words*).
-
-```vue
-<script setup lang="ts">
-/** Renders a column-driven table with client-side sorting. */
-defineOptions({ name: 'DataTable', inheritAttrs: false });
-</script>
-```
 
 ---
 
@@ -88,25 +78,19 @@ defineOptions({ name: 'DataTable', inheritAttrs: false });
 
 - must emit the user's intent — `select`, `sort`, `expand` — and leave the change to the caller.
 
-```vue
-<script setup lang="ts">
-defineProps<{ rows: ReadonlyArray<TRow>; columns: ReadonlyArray<ColumnDef<TRow>> }>();   // ✅
-defineEmits<{ (e: 'sort', descriptor: SortDescriptor): void }>();                        // ✅ intent
-defineProps<{ queryKey: string }>();                                                     // ❌ it would fetch
-</script>
-```
-
 ---
 
 ## Composition
 
-- must be composed by a [page](page.md), a [view](view.md), a [panel](panel.md), or a [layout](layout.md).
-- must compose [indicator](indicator.md) and [action](action.md) inside its own slots.
-- must not mount a [view](view.md), a [panel](panel.md), or a [page](page.md).
+- must follow the shared [composition contract](visual.md#composition-order).
+- may own compound panels, alternate views and controls needed to present its subject.
+- may show an empty row or fallback for its collection; the page decides route-level loading and failure.
+- must pass user intent to the caller when it changes domain records.
+- must preserve each composed widget's semantics and avoid nested interactive elements with competing activation.
 
 ```txt
-✅ CodesTableView → DataTable → Badge + CopyButton
-❌ DataTable → LoadingState      (the caller decides whether there is anything to show)
+✅ EventCalendar → MonthView; DataTable → empty row; Tabs → TabsPanel
+❌ DataTable → a product-specific API client
 ```
 
 ---
@@ -117,4 +101,4 @@ defineProps<{ queryKey: string }>();                                            
 - [state](state.md) — the stand-in when there is nothing to display
 - [indicator](indicator.md) — the passive marks a display hangs off its rows
 - [feedback](feedback.md) — the kind that reports system state rather than content
-- [visual kinds](visual.md) — every other kind, and the composition ladder
+- [visual kinds](visual.md) — every other kind, and the composition contract

@@ -1,10 +1,9 @@
 # DataTable
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > The column-driven table — hand it rows and a `columns` descriptor, it sorts on the client.
 > What a display is → [display](../../constructs/visual/display.md).
-> Its full surface → `DataTable.spec.md`.
 
 ## Reach for it when
 
@@ -27,7 +26,5 @@
 
 ## Values
 
-- must set `rowKey`; without it rows key by index and reorder badly
 - should leave the [Table](table.md) dials unset — each defers to the root's own default
 - should leave `emptyContent` at `No results.`, or raise an [EmptyState](emptyState.md)
-- must mark a column `isSortable` per column; the header is inert otherwise

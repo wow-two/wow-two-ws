@@ -1,10 +1,9 @@
 # Legend
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > The `<legend>` — the name a whole [Fieldset](fieldset.md) answers to.
 > What a display is → [display](../../constructs/visual/display.md).
-> Its full surface → `Legend.spec.md`.
 
 ## Reach for it when
 
@@ -20,9 +19,3 @@
 |---|---|
 | [Label](label.md) | the copy names one control |
 | `SectionHeader` | the region is visual and posts no fields |
-
----
-
-## Values
-
-- must not restyle it into a heading — it matches [Label](label.md) by design

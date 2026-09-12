@@ -1,6 +1,6 @@
 # Persistence
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > How a service stores and reads its own state, cut into the four things that swap independently.
 > Purpose — an entity is not tied to an engine, an engine not to a mapper, neither to a migrator.
@@ -8,7 +8,8 @@
 
 ## Contract
 
-- must treat the applied SQL as canonical — the schema is what shipped, never what a model implies.
+- must take schema authority from the selected [migration strategy](migrations/migrations.md#strategy):
+  applied scripts for SQL-owned schemas, model and generated migrations for EF-owned schemas.
 - must keep the [entity](../../constructs/data/entity.md) free of any provider type.
 - must express a schema change as a migration, never as a hand-edit against a live database.
 

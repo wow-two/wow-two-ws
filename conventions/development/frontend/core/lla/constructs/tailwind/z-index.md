@@ -1,14 +1,12 @@
 # Z-index
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > The semantic stacking tiers, the utilities they generate, and the raw numbers that stack by accident.
 > Purpose — stacking is global state, so it needs one ordered vocabulary rather than a number picked per component.
 > Use case — reach here before raising anything above its siblings, and whenever an overlay lands behind something.
 
 ## The utilities
-
-Twelve tiers, declared as `--z-index-*` tokens in gaps of ten. `z-modal`, `z-raised` and `z-toast` lead their use.
 
 | Utility | Applies | Verdict |
 |---|---|---|
@@ -23,12 +21,12 @@ Twelve tiers, declared as `--z-index-*` tokens in gaps of ten. `z-modal`, `z-rai
 | `z-auto` | stacking left to the document order | `use` |
 | a raw number — `z-10`, `z-20`, `z-40` | a tier compared against tiers it cannot see | `banned` |
 | an arbitrary value — `z-[1]` | the same, spelled to dodge the scale | `banned` |
-| a `z-*` on a `static` element | a stacking order the browser ignores | `banned` |
+| a `z-*` on a static box outside flex/grid item layout | an inert stacking value | `banned` |
 | a new tier added between two existing ones | a vocabulary that grows per component | `use with care` |
 | `isolate` on a subtree | a stacking context that contains its children's tiers | `use` |
 
 - must take every `z-*` from the semantic tiers, whose token scale is the single ordering.
-- must pair a `z-*` with `relative`, `absolute`, `fixed` or `sticky` — `static` ignores it ([position](position.md)).
+- must apply `z-*` to a positioned box or a flex/grid item; static flex/grid items need no positioning utility.
 - must reach for `isolate` when a subtree's stacking must not escape, rather than a higher tier.
 - must add a tier to the theme when a genuinely new layer appears, taking one of the gaps of ten
   ([custom properties](../css/custom-properties.md)).
@@ -43,7 +41,7 @@ Twelve tiers, declared as `--z-index-*` tokens in gaps of ten. `z-modal`, `z-rai
   time, so it wins today and loses the first time a tooltip opens over the same box.
 - **`z-[1]` and other arbitrary values** — reach for `z-raised`; the value dodges the scale while claiming a place
   in it, and a reader has no way to tell which tier it was meant to beat.
-- **a `z-*` on a `static` element** — reach for `relative`; `z-index` applies only to positioned boxes and to flex or
+- **a `z-*` on a static non-flex/grid item** — reach for `relative`; `z-index` applies to positioned boxes and flex or
   grid children, so on a static block it is inert and the layering bug survives the "fix".
 - **a tier invented per component** — reach for the twelve already declared; a second vocabulary means two orderings
   that nothing reconciles, and the conflict only shows when both are on screen at once.

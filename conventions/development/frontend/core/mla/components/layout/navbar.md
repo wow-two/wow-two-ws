@@ -1,10 +1,9 @@
 # Navbar
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > The header bar — a start, centre and end row inside a centred container.
 > What a layout is → [layout](../../constructs/visual/layout.md).
-> Its full surface → `Navbar.spec.md`.
 
 ## Reach for it when
 
@@ -27,7 +26,4 @@
 
 ## Values
 
-- must pass `sticky` to pin it — it does not stick by default
-- must leave `height` at `md`, `containerSize` at `lg`, and `bordered` on
-- must not nest a [Container](container.md) inside it — it mounts one already
 - should leave `tone` unset for the `card` fill; a tone applies the `subtle` treatment

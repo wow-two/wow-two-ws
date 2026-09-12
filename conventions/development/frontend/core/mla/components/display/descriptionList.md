@@ -1,10 +1,9 @@
 # DescriptionList
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > Many label-value pairs as a semantic `<dl>` — settings panels, property lists.
 > What a display is → [display](../../constructs/visual/display.md).
-> Its full surface → `DescriptionList.spec.md`.
 
 ## Reach for it when
 
@@ -27,4 +26,3 @@
 ## Values
 
 - should leave `layout` at `inline` and `density` at `md`
-- must keep one list per record — two records side by side are a table

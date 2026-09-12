@@ -1,15 +1,13 @@
 # TelInput
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > A phone number as plain text — `type="tel"`, the dial keypad on mobile, autofill wired.
 > What a control is → [control](../../constructs/visual/control.md).
-> Its full surface → `TelInput.spec.md`.
 
 ## Reach for it when
 
 - must collect a number whose country is already known or irrelevant
-- must let the browser autofill it; `autocomplete="tel"` already ships
 - should reach for it over [TextInput](textInput.md) purely for the mobile keypad
 
 ---
@@ -27,5 +25,3 @@
 ## Values
 
 - should leave `size` at `md`, `border` at `sm`, `ring` at `md` — the input house set
-- must leave `state` unset; the surrounding field's invalid flag drives it
-- must not read `type="tel"` as validation — nothing about the number is checked

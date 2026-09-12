@@ -1,10 +1,9 @@
 # Flex
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-10*
 
 > The bare flex box — no direction, no gap, no alignment of its own.
 > What a layout is → [layout](../../constructs/visual/layout.md).
-> Its full surface → `Flex.spec.md`.
 
 ## Reach for it when
 
@@ -22,9 +21,3 @@
 | [Center](center.md) | the one job is centring on both axes |
 | [Inline](inline.md) | the row wraps and the items share one gap |
 | [Box](box.md) | nothing has to sit on a flex line at all |
-
----
-
-## Values
-
-- must space children with `gap-*` → [spacing](../../../lla/constructs/tailwind/spacing.md)
