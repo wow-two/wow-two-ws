@@ -1,8 +1,16 @@
 # Vue sweep — final verification and release readiness
 
-*Last updated: 2026-09-12*
+*Last updated: 2026-09-13*
 
 ## Scope and outcome
+
+**2026-09-13 close-out:** the owner authorized autonomous commits for the remaining Vue sweep.
+`9577d6c` commits the prepared error/logging slice; `3ae7df7` commits the remaining coupled implementation.
+All current gates passed again: 93 Node/DOM/SSR files / 1,639 tests, 30 Chromium tests, 407 SFCs,
+types, lint, formatting, capability graph, library/playground builds and a fresh independent npm consumer.
+All 14 case-only paths are committed with their intended spelling and no duplicate legacy entries.
+Current logs are `/private/tmp/vue-closeout-{types,lint,format,tests,browser,build,playground,package}.log`.
+The verified local `0.0.5` artifact is `/private/tmp/ui-vue-closeout-20260913.tgz`; it is not a new release.
 
 **2026-09-12 amendment:** the owner-selected lossless JSON/exact-number prototype is implemented.
 Current gates pass: 1,634 Node/DOM/SSR tests, 30 Chromium ordinary/forced-colors tests, types/lint/format,
@@ -16,8 +24,8 @@ documents. C01–C15 amendments are implemented; their evidence and SDK task map
 and [domain resolution](domains-shapes-resolution.md).
 
 The selected SDK is `@wow-two-beta/ui-vue`. React implementation and release remain parked.
-The implementation sweep is complete for the recorded Vue work; release acceptance remains open
-where the table below says pending. Neither a new package version nor a publication is claimed.
+The implementation sweep is complete for the recorded Vue work; publication remains open.
+The table below is historical. Neither a new package version nor a publication is claimed.
 
 ## Integrated gates — 2026-09-10 checkpoint
 
@@ -84,11 +92,10 @@ There is no remaining Vue implementation decision in the component, Result or fo
 
 The local Vue manifest and verified npm registry version are both `0.0.5` as of 2026-09-12. The release workflow
 bumps the beta patch version before building and checks the exact tarball it will publish.
-No version bump, commit, tag, git push or npm publication was performed by this sweep.
+Local commits were completed on 2026-09-13: `9577d6c` error/logging conventions, `3ae7df7` implementation,
+`0e4aaae` documentation and `877f022` release gates. The SDK working tree and index are clean.
+No version bump, tag, git push or npm publication was performed by this sweep.
 Browser execution, the isolated npm consumer and the registry check are complete. Select/build/verify the
 new version through the release workflow. Preserve the pre-existing shared staged/unstaged work when preparing commits.
-Fourteen case-only filename renames (including the earlier JSON/PDF component renames) are explicitly
-recorded in Git's index for macOS/Linux portability. Every staged blob and all unrelated index entries
-were preserved exactly; no source contents were newly staged. The recorded operation plan is
-`/private/tmp/vue-case-only-index-plan.json`. The shared staged index still requires deliberate review
-when preparing the release commit.
+Fourteen case-only filename renames (including the earlier JSON/PDF component renames) are committed
+for macOS/Linux portability. The current operation inventory is `/private/tmp/vue-closeout-casing.json`.

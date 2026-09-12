@@ -1,6 +1,6 @@
 # Frontend conventions and SDK sweep
 
-*Last updated: 2026-09-12*
+*Last updated: 2026-09-13*
 
 ## Scope
 
@@ -37,7 +37,7 @@
 - Generic autosave now serializes writes, cancels queued disposal work and observes late failures; 13 regression tests pass.
 - Forms source is `src/formsEngine/adapters/{house,tanstack}`; public `forms-engine` package keys are preserved.
 - Explicit Temporal codecs pass 37 tests against recorded .NET 10 serializer fixtures.
-- Final combined gate including exact numbers: 93 Node/DOM/SSR files / 1,634 tests, 407 SFCs, full types/lint/format passed.
+- Final combined gate including exact numbers: 93 Node/DOM/SSR files / 1,639 tests, 407 SFCs, full types/lint/format passed on 2026-09-13.
 - Library and playground production builds passed. Packed checks passed 72 targets / 64 core JS entries / 68 total JS entries, strict public types, exact numeric behavior and generated consumer CSS.
 - Generic hooks retired, capability roles grouped, Result carrier files/names corrected, query/router adapters placed, and visual foundation roots folded into component folders.
 - Added row 43 for the final source-role inventory; capability graph checks now run in typecheck.
@@ -53,7 +53,7 @@
 - New Vue `foundation/numbers` and `foundation/json` provide ExactNumber and LosslessJson; an explicit client JSON codec handles both HTTP directions. Both form adapters preserve exact values. [Prototype and complete evidence](lossless-numbers.md).
 - SDK aggregate/browser/fresh-consumer checks are complete. Nothing published; prototype adoption and exact-number UI/schema extensions remain explicitly scoped follow-ups.
 - Final evidence and release limits: [Vue final verification](vue-final-verification.md).
-- Fourteen case-only filename renames are explicitly recorded in Git's index; every staged blob and all unrelated entries were verified unchanged. No source contents were newly staged.
+- Fourteen case-only filename renames are committed with their intended spelling and no duplicate legacy index paths.
 - Current local manifests: React `@wow-two-beta/ui` `0.0.108`; Vue `@wow-two-beta/ui-vue` `0.0.5`.
   Vue npm registry version `0.0.5` was verified 2026-09-12; React registry version was not checked.
 
@@ -61,11 +61,18 @@
 
 ## Working tree
 
+- On 2026-09-13 the owner authorized agent staging and commits for the entire remaining Vue SDK sweep.
+  This replaces the earlier commit-by-commit human handover for this sweep only; publication remains the owner's.
+  Preserve unrelated workspace edits and use cohesive dependency-complete commits.
+
 - Root frontend app/library shape docs already had intentional edits; two old frontend handoffs were deleted.
 - SDK had 690 status entries, including staged work, at the baseline read.
 - This session now owns convention amendments and the Vue implementation lanes listed above.
 - Do not restore deleted handoffs, discard earlier changes, or commit the shared staged index indiscriminately.
-- Vue source, tests, package/configuration and release-workflow edits exist. No commits or publication.
+- Vue SDK working tree and index are clean. Local commits: `9577d6c` error/logging conventions,
+  `3ae7df7` implementation sweep, `0e4aaae` migration/verification docs, `877f022` release gates.
+- All release checks passed again, including Chromium and an independent fresh npm consumer.
+  Evidence: [final verification](vue-final-verification.md). Nothing has been published by this session.
 
 ---
 
@@ -74,6 +81,6 @@
 1. Read resolution reports; initial analysis findings are historical, not current defects.
 2. The owner-requested lossless-number prototype (row 44) is implemented and all gates pass; read its report for API boundaries.
 3. Preserve parked React/app tasks; the numeric prototype does not silently migrate all clients or native-number controls.
-4. Resolve prototype feedback and rerun affected gates for actual source changes.
-5. Review the shared staged/unstaged content while preparing the commit; case-only names are already recorded.
-6. Verify the intended version against the registry and release workflow before publication.
+4. The remaining Vue sweep is committed. Retain scoped agent-commit authorization for this sweep; the human publishes.
+5. The owner can push the SDK commits to run the Vue release workflow; it bumps and verifies the new tarball.
+6. Verify registry/tag/release state after publication, and brainstorm the documented follow-ups separately.
