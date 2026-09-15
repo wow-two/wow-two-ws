@@ -10,10 +10,10 @@
 ## No brand / product prefix
 
 - a **type, member, or extension-method** name carries **no product / brand prefix**
-- `MigrateDatabaseAsync` not `MigrateSmartQrDatabaseAsync` · `DatabaseContext` not `SmartQrDbContext`
-- **project / package names keep the brand** — `SmartQr.Api`, `WoW.Two.Sdk.Backend.Beta`
+- `MigrateDatabaseAsync` not `MigrateForeverPinDatabaseAsync` · `DatabaseContext` not `ForeverPinDbContext`
+- **project / package names keep the brand** — `ForeverPin.Api`, `WoW.Two.Sdk.Backend.Beta`
   - the carve-out is the name identifying the *assembly*, never the code inside it
-- every symbol under `SmartQr.*` is already smart-qr's; the prefix tells a reader nothing the namespace doesn't
+- every symbol under `ForeverPin.*` is already forever-pin's; the prefix tells a reader nothing the namespace doesn't
 
 ---
 

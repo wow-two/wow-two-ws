@@ -19,4 +19,4 @@
 - the durable output of exploration is a **per-app design spec**, not this folder.
 - location — `workbench/{repo}/platform/research/design-research/design-research.md` (or the repo's analogue).
 - shape — token tables (light + dark) · semantic→`@wow-two-beta/ui` mapping · type · layout/shape · component rules · usage don'ts · iterate-next.
-- first adopter — `smart-qr-poc`.
+- first adopter — `forever-pin`.

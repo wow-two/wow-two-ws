@@ -5,15 +5,15 @@
 > What the backend SDK and the reference product log and trace today, and what a convention would rule on.
 > Purpose — research feeding a future `mla/domains/observability/`; this is analysis, not the convention.
 > Citation roots: `sdk:` = `wow-two-sdk.backend.beta/engineering/codebase/wow-two-back-beta-sdk/src/`,
-> `sqr:` = `ventures/smart-qr-poc/engineering/codebase/smartqr.backend-services/`; both under `workbench/`.
+> `sqr:` = `ventures/10x-venture-forever-pin/engineering/codebase/forever-pin.backend-services/`; both under `workbench/`.
 
 ## Verdict
 
 - one trace id spans inbound HTTP → mediator handler → EF repository, carried by `Activity.Current`, not by our code
 - it never reaches a log line — the Serilog text template renders no `TraceId`, so logs cannot be joined to traces
 - the mediator handler is invisible in the trace: `LoggingBehavior` times with a `Stopwatch` and opens no span,
-  and smart-qr does not register it at all
-- smart-qr handlers catch every exception, so `AppErrorObserver` never runs — no `errors_total`, no error span status
+  and forever-pin does not register it at all
+- forever-pin handlers catch every exception, so `AppErrorObserver` never runs — no `errors_total`, no error span status
 - biggest gap: **no trace id in logs**; second: the product template ships without `AddApiDefaults`
 
 ---
@@ -47,11 +47,11 @@ Rows cite SDK files unless the path carries the `sqr:` prefix.
 - `UseSerilogRequestLogging` — zero hits SDK-wide; the request log is the `Microsoft.AspNetCore` default
 - `OtlpServiceCollectionExtensions.cs:11` claims "traces, metrics, **and logs**"; the body wires only the tracer
   and meter providers, so logs are never exported
-- smart-qr adopts the floor twice — `sqr:SmartQr.Api/Configurations/HostConfiguration.cs:17` (`smart-qr-api`)
-  and `sqr:SmartQr.Redirect.Api/Configurations/HostConfiguration.cs:18` (`smart-qr-redirect`)
+- forever-pin adopts the floor twice — `sqr:ForeverPin.Api/Configurations/HostConfiguration.cs:17` (`forever-pin-api`)
+  and `sqr:ForeverPin.Redirect.Api/Configurations/HostConfiguration.cs:18` (`forever-pin-redirect`)
 - the product template calls neither `AddApiDefaults` nor `UseApiDefaults` — zero hits under
   `wow-two-sdk-beta.product-template/engineering/codebase/sample.backend-services/`
-- smart-qr's own logging is 15 call sites, all `LogError` / `LogWarning` in `catch` — no business event is logged
+- forever-pin's own logging is 15 call sites, all `LogError` / `LogWarning` in `catch` — no business event is logged
 
 ---
 
@@ -61,37 +61,37 @@ The path an owner request takes, and what carries across each hop.
 
 1. **inbound HTTP** — `AddAspNetCoreInstrumentation` opens the server span and adopts an inbound `traceparent`.
    **survives** — a trace id exists from here on.
-2. **middleware** — `sqr:SmartQr.Api/Configurations/HostConfiguration.cs:61` calls `UseApiDefaults` *after*
+2. **middleware** — `sqr:ForeverPin.Api/Configurations/HostConfiguration.cs:61` calls `UseApiDefaults` *after*
    `UseStaticFiles` (`:59`) and a custom header middleware (`:55`), so `UseExceptionHandler` is not outermost.
    **survives**, but a throw from those two outer layers escapes the ProblemDetails pipeline.
 3. **controller** — no instrumentation of its own; still inside the server span. **survives**.
 4. **mediator handler** — `Activity.Current` flows over `await`, so the id is intact, but nothing opens a child
    span, and `AddMediatorLoggingBehavior` is unregistered
-   (`sqr:SmartQr.Api/Configurations/HostConfiguration.Extensions.cs:57`).
+   (`sqr:ForeverPin.Api/Configurations/HostConfiguration.Extensions.cs:57`).
    **survives, invisible** — the slowest layer produces no span and no timing.
 5. **repository → EF Core → Postgres** — `AddEntityFrameworkCoreInstrumentation` emits a child DB span, and
-   `sqr:SmartQr.Redirect.Api/Infrastructure/Routing/DbRedirectCodeRepository.cs:19` is EF. **survives**.
+   `sqr:ForeverPin.Redirect.Api/Infrastructure/Routing/DbRedirectCodeRepository.cs:19` is EF. **survives**.
 6. **outbound HTTP (Stripe, Google)** — `AddHttpClientInstrumentation` is registered, but both callers are vendor
-   SDKs (`sqr:SmartQr.Api/SmartQr.Api.csproj:14`, `:11`) and no `AddHttpClient` exists in the product.
+   SDKs (`sqr:ForeverPin.Api/ForeverPin.Api.csproj:14`, `:11`) and no `AddHttpClient` exists in the product.
    **unverified** — see `## Open`.
 7. **every log line written along the way** — `[INF] {Message}` and nothing else. Verified from
-   `sqr:SmartQr.Api/logs/log-20260812.txt:1`: `2026-08-12 17:41:11.147 +05:00 [INF] Migrations up to date`.
+   `sqr:ForeverPin.Api/logs/log-20260812.txt:1`: `2026-08-12 17:41:11.147 +05:00 [INF] Migrations up to date`.
    **breaks** — no `TraceId`, no `SpanId`, no `SourceContext`, and not one of the four enrichers renders.
 8. **failure path** — handlers catch and return a result
-   (`sqr:SmartQr.Infrastructure/Codes/Core/CommandHandlers/CodeDeleteCommandHandler.cs:30`), so nothing reaches
+   (`sqr:ForeverPin.Infrastructure/Codes/Core/CommandHandlers/CodeDeleteCommandHandler.cs:30`), so nothing reaches
    `Web/ExceptionHandling/UnhandledExceptionHandler.cs:27`. **breaks** — `AppErrorObserver.Record` never runs,
    the span keeps status `Unset`, and `errors_total` never increments. Its only 3 call sites are the two
    exception handlers plus `Mediator/ExceptionHandling/ExceptionToResultBehavior.cs:38`, also unregistered.
-9. **failure response** — `sqr:SmartQr.Api/ControllerProblemExtensions.cs:20` returns a hand-built `ObjectResult`
+9. **failure response** — `sqr:ForeverPin.Api/ControllerProblemExtensions.cs:20` returns a hand-built `ObjectResult`
    and never `IProblemDetailsService`, so `CustomizeProblemDetails` does not run. **breaks** — a business failure
    carries no `traceId`, while a framework 404 does: `"traceId": "00-ae2f4d1e763b1eb481f6a6c34736e961-…"`.
-10. **redirect analytics** — `sqr:SmartQr.Redirect.Api/Infrastructure/Analytics/ChannelScanRecorder.cs:22` hands
+10. **redirect analytics** — `sqr:ForeverPin.Redirect.Api/Infrastructure/Analytics/ChannelScanRecorder.cs:22` hands
     the scan to a channel and `ScanFlushBackgroundService.cs:19` drains it later. **breaks** — `ScanRecord`
     carries no trace id, and the request span has ended by flush time.
 11. **cross-service** — the two hosts share Postgres and never call each other, so no HTTP seam needs propagation
     today. `AddConventionalHeaderPropagation` exists but neither host registers it. **not exercised**.
 
-- level filtering is dead: `sqr:SmartQr.Api/appsettings.json:5` sets `Microsoft.AspNetCore: Warning`, yet
+- level filtering is dead: `sqr:ForeverPin.Api/appsettings.json:5` sets `Microsoft.AspNetCore: Warning`, yet
   `log-20260727.txt` holds 59 `Request starting` lines at `[INF]` — Serilog replaces the `ILoggerFactory`, so
   `Logging:LogLevel` is inert, and no `Serilog:MinimumLevel` section exists
 
@@ -148,7 +148,7 @@ Only what has a concrete use in this codebase today.
   `Executing endpoint` from the file sink while keeping app events — what the dead `Logging:LogLevel` block wanted.
 - **`Serilog.Sinks.Seq`** — pinned at `Directory.Packages.props:82`, absent from the csproj. Use: a structured
   local viewer, the only way the enriched properties above become searchable.
-- **sampling** — one concrete candidate: `GET /{slug}` on `smart-qr-redirect` is the single hot route, and it
+- **sampling** — one concrete candidate: `GET /{slug}` on `forever-pin-redirect` is the single hot route, and it
   writes a full MVC request log per scan into a 7-day rolling file.
 
 ---
@@ -215,7 +215,7 @@ Hosts.
 1. Does `AddHttpClientInstrumentation` cover the `HttpClient` that `Stripe.net` and `Google.Apis.Auth` create
    internally, and does `traceparent` leave on those calls? Not verifiable from this tree.
 2. Is the default-on OTLP exporter (`Meta/ApiDefaultsOptions.cs:18`) failing silently against `localhost:4317` on
-   every local run? No `OTEL_*` variable is set in smart-qr, and no exporter error appears in any log file.
+   every local run? No `OTEL_*` variable is set in forever-pin, and no exporter error appears in any log file.
 3. Which backend receives traces in production — a collector, Seq, or Azure Monitor? The sink and sampling rules
    depend on the answer.
 4. Should the file sink survive once a structured sink exists, or is it a development-only affordance?

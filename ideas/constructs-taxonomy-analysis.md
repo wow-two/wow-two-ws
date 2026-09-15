@@ -234,7 +234,7 @@ Behavioral · Enterprise), every row carrying a verdict from a closed set (`use`
 ## Open
 
 - **iteration 17 needs a re-read.** Per-use-case grouping was agreed before the layer split moved handlers
-  to `Infrastructure`. Measured in smart-qr, only 2 of 20 validators pair with a message; the other 18 are
+  to `Infrastructure`. Measured in forever-pin, only 2 of 20 validators pair with a message; the other 18 are
   domain validators, so the grouping would move two files and split the validator population in two.
 - the SDK has no layer split, so it files the same role folders by domain with no `Application` /
   `Infrastructure` pair above them.
@@ -276,12 +276,12 @@ Every turn that moved the design, newest last. A row is what changed and what ma
 | 16 | 2026-08-21 | handler refuted as a processing service | a handler dispatches, the way a controller does for HTTP |
 | 17 | 2026-08-21 | message + validator + handler grouped per use case | they change together, and the message is the domain's door |
 | 18 | 2026-08-21 | two validator kinds separated | a message validator is 1:1 with its message; a domain validator is reused |
-| 19 | 2026-08-21 | `*Handlers/` moved to `Infrastructure` in `architecture.md` | smart-qr keeps 11 of 11 handlers there; the doc said `Application` |
+| 19 | 2026-08-21 | `*Handlers/` moved to `Infrastructure` in `architecture.md` | forever-pin keeps 11 of 11 handlers there; the doc said `Application` |
 | 20 | 2026-08-21 | the layer split is interface vs implementation | `Application/*/Services/` holds 6 interfaces and 0 classes |
 | 21 | 2026-08-21 | validators stay in `Application` | 20 of 20 sit there, and a validator states a message's contract |
 | 22 | 2026-08-21 | validator purity written into `validator.md` | 20 of 20 inject nothing, and a state-reading check in the pipeline is a race |
 | 23 | 2026-08-21 | three service folders placed in `Infrastructure` | they are implementations; their interfaces stay in `Application/{Domain}/Services/` |
-| 24 | 2026-08-21 | a subdomain level found between domain and role folders | smart-qr files `Codes/Core/`, `Codes/Content/`, `Codes/Rules/` |
+| 24 | 2026-08-21 | a subdomain level found between domain and role folders | forever-pin files `Codes/Core/`, `Codes/Content/`, `Codes/Rules/` |
 | 25 | 2026-08-21 | iterations 21-22 reversed — validators move to `Infrastructure` | either kind may inject a service, and a service must never take an input it has to reject |
 | 26 | 2026-08-21 | validators keep their place under `FoundationServices/` | no carve-out needed once the layer is settled |
 | 27 | 2026-08-21 | per-use-case wrapping refuted (iteration 17 closed) | one location rule beats a second shape; the same argument that killed the folder threshold |

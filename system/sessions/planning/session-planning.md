@@ -18,7 +18,7 @@ Shortest of the three sessions. `w2` has no external clock and no ceremonies —
 | Active | `system/planning/pln-tasks.md` | what's being worked now, with IDs | **abstract** — a capability, not a step |
 | Detail | each repo's `engineering/planning/` | how that capability gets built | concrete file / API changes |
 
-- `pln-tasks.md` states outcomes: *finish codes functionality for smart-qr*. Never sub-steps.
+- `pln-tasks.md` states outcomes: *finish codes functionality for forever-pin*. Never sub-steps.
 - The repo's own planning breaks it down. This file never mirrors that breakdown.
 - Pulling mints a Task ID. No ID → not schedulable, not in a day log.
 
@@ -55,7 +55,7 @@ Between two undeadlined candidates, the one unblocking a consumer wins. A blocke
 | `sdk` | `wow-two-sdk` / `-sdk-beta` package work |
 | `plt` | `wow-two-platform` internal infra |
 | `app` | products — drydock, secrets-vault |
-| `ven` | ventures — smart-qr, micro-saas, TNIS, prism |
+| `ven` | ventures — forever-pin, micro-saas, TNIS, prism |
 | `con` | conventions, standards, ADRs |
 | `ws` | workspace / meta — registry, scripts, templates |
 

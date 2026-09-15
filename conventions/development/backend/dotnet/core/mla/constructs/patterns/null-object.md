@@ -11,7 +11,7 @@
 - must prefix the type `NoOp` and keep the contract's noun — `NoOpMessagingMetrics`
   (`src/Messaging/MessagingMetrics.cs`), `NoOpMigrationRunner`
   (`src/Testing.Data/Migrations/NoOpBespokeMigrator.cs`), `NoopGeoBroker`
-  (`smart-qr-poc/…/SmartQr.Redirect.Api/Infrastructure/Routing/`).
+  (`forever-pin/…/ForeverPin.Redirect.Api/Infrastructure/Routing/`).
 - must return the contract's defined empty value — `null` for a lookup, an empty sequence, a completed task —
   never throw.
 - must state in `<remarks>` what replaces it, because a no-op is a placeholder and the reader must know the swap

@@ -78,7 +78,7 @@ plus the explicitly resolved original rows. Row 42 remains the release acceptanc
    Exact numeric JSON can remain unquoted on the wire; the selected client codec must parse/write it
    without binary64 conversion. This prototype does not migrate every endpoint or native numeric form
    control. Restricted numeric representations are the last design option, not the default.
-2. **Theme visual validation:** Smart QR is now an authored candidate because its tokens changed.
+2. **Theme visual validation:** ForeverPin is now an authored candidate because its tokens changed.
    Its application must revalidate the appearance. Automated declared-pair contrast checks do not
    establish contrast for every custom image, background or composition.
 3. **Runtime evidence:** Firefox and WebKit are unverified. Browser minimums beyond the documented

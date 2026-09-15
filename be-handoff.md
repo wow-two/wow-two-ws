@@ -24,7 +24,7 @@ uncommitted files** and `wow-two-ws` **13** — the work below the commit line i
 backend lane only; the `fe-*` docs and `conventions/development/frontend/` belong to another chat.
 
 Sweep file: `wow-two-sdk.backend.beta/be-convention-sweep.md` — **6 rows open**, 58 shipped, 4 refuted.
-The 31 product rows moved to `smart-qr-poc/smartqr-be-update.md` on 2026-08-25; this file measures the SDK.
+The 31 product rows moved to `workbench/ventures/10x-venture-forever-pin/foreverpin-be-update.md` on 2026-08-25; this file measures the SDK.
 
 ---
 

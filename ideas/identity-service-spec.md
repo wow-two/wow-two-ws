@@ -8,7 +8,7 @@
 > every app consumes app-scoped sessions.*
 >
 > **Status:** parked — **start after `wow-two-platform.secrets-vault` is ready** (it holds the Google client
-> secret + the IdP's token-signing keys + rotation). Spawned from **smart-qr v0.3** (Google OAuth built inline);
+> secret + the IdP's token-signing keys + rotation). Spawned from **forever-pin v0.3** (Google OAuth built inline);
 > this is where that auth infra extracts at portfolio scale. Deployed/monitored by `drydock` like any service.
 
 ## Problem
@@ -32,11 +32,11 @@
 - **Registry:** per-app `client_id`/secret, redirect URIs, theme. **User store:** unified vs per-tenant (open Q).
 - **SDK:** `WoW2.Sdk.Backend.Beta` auth client — apps drop in "Login with WoW Two ID" + validate IdP tokens (replaces each app's inline verifier + session wiring).
 
-## Extraction from smart-qr v0.3
+## Extraction from forever-pin v0.3
 
 The v0.3 inline pieces ARE the IdP core, lifted:
 
-| smart-qr v0.3 (inline) | → becomes in the IdP |
+| forever-pin v0.3 (inline) | → becomes in the IdP |
 |---|---|
 | `IGoogleTokenVerifier` seam | the IdP's Google provider |
 | cookie session (`sqr-auth`) | IdP-issued session/token |
@@ -47,7 +47,7 @@ The v0.3 inline pieces ARE the IdP core, lifted:
 ## Sequencing & dependencies
 
 1. **Gate:** `secrets-vault` ready (Google secret + IdP signing keys + rotation).
-2. IdP MVP: Google + **one** consuming app (smart-qr) → migrate smart-qr off its own client.
+2. IdP MVP: Google + **one** consuming app (forever-pin) → migrate forever-pin off its own client.
 3. Onboard the next apps; retire per-app Google clients.
 
 ## Open questions
@@ -59,4 +59,4 @@ The v0.3 inline pieces ARE the IdP core, lifted:
 
 ## Related
 
-- `ideas/smart-qr-spec.md` (origin product) · `ideas/drydock-spec.md` (deploys it) · `ven-msaas-context.md` (the portfolio it serves).
+- `ideas/forever-pin-spec.md` (origin product) · `ideas/drydock-spec.md` (deploys it) · `ven-msaas-context.md` (the portfolio it serves).

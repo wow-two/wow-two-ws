@@ -171,7 +171,7 @@ nth26 pins current `0.0.104` and still imports only 9 symbols. The adoption gap 
 1. **Close the chrome gap first** — replace the 322 LOC of local primitives with shipped SDK components.
    Cheap, proves the pin, no new package.
 2. **Reconcile `foundation/geolocation`** — drop nth26's local `useGeolocation` + `distanceMetres`.
-3. **Extract the map vector** *after* the smart-qr Vue pilot resolves — target framework should be decided,
+3. **Extract the map vector** *after* the forever-pin Vue pilot resolves — target framework should be decided,
    not guessed.
 4. Ship as `@wow-two-beta/ui-map` companion: `createMap` · `MapView` · `LayerSpec<TId,TGroup>` +
    `buildLayers` · `bakeSdfIcon` · `PositionLayer` · `MapControls` · `Marquee` / `MeasureTool` / `ZoomWindow`.

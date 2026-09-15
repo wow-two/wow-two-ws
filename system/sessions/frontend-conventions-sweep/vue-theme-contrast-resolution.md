@@ -4,9 +4,9 @@
 
 ## Outcome
 
-All 183 shipped themes pass the expanded supported-token contrast validator in both modes. Smart QR is now an authored **candidate** pending visual review in its app. There is no claim that the edited palette already has human validation.
+All 183 shipped themes pass the expanded supported-token contrast validator in both modes. ForeverPin is now an authored **candidate** pending visual review in its app. There is no claim that the edited palette already has human validation.
 
-Exactly 382 theme foreground values changed: 364 generated subtle-foreground values (182 generated themes × two modes), plus 18 explicit Smart QR foreground values. Fourteen default CSS foreground values changed. At the foreground-only checkpoint every existing background, branded fill, soft fill, border, input and ring token was unchanged. The later required-indicator amendment below separately changes input and border-strong tokens; the current regression hash preserves all other non-foreground tokens except explicitly permitted ring indicators. CSS `@source './'` remains intact.
+Exactly 382 theme foreground values changed: 364 generated subtle-foreground values (182 generated themes × two modes), plus 18 explicit ForeverPin foreground values. Fourteen default CSS foreground values changed. At the foreground-only checkpoint every existing background, branded fill, soft fill, border, input and ring token was unchanged. The later required-indicator amendment below separately changes input and border-strong tokens; the current regression hash preserves all other non-foreground tokens except explicitly permitted ring indicators. CSS `@source './'` remains intact.
 
 The complete per-theme/mode/token before-and-after ledger is [vue-theme-token-changes.json](vue-theme-token-changes.json). The generated palette is deterministic; there is no random recoloring.
 
@@ -26,24 +26,24 @@ These guarantees apply to the declared opaque SDK surfaces and those specified c
 
 | Palette | Mode | Token | Before | After |
 |---|---|---|---|---|
-| Smart QR | light | `muted-foreground` | `#6e7188` | `oklch(49.6% 0.0358 279.3)` |
-| Smart QR | light | `subtle-foreground` | `#9b9fb5` | `oklch(49.5% 0.0323 277.4)` |
-| Smart QR | light | `primary-soft-foreground` | `#5b21b6` | `oklch(42.5% 0.2106 292.8)` |
-| Smart QR | light | `accent-foreground` | `#ffffff` | `oklch(22.9% 0.0000 89.9)` |
-| Smart QR | light | `accent-soft-foreground` | `#115e59` | `oklch(41.6% 0.0705 188.2)` |
-| Smart QR | light | `destructive-soft-foreground` | `#b91c1c` | `oklch(41.4% 0.1694 27.5)` |
-| Smart QR | light | `info-foreground` | `#ffffff` | `oklch(23.5% 0.0000 89.9)` |
-| Smart QR | light | `info-soft-foreground` | `#0e7490` | `oklch(41.9% 0.0783 223.1)` |
-| Smart QR | light | `success-foreground` | `#ffffff` | `oklch(27.3% 0.0000 89.9)` |
-| Smart QR | light | `success-soft-foreground` | `#15803d` | `oklch(41.8% 0.1152 150.1)` |
-| Smart QR | light | `warning-foreground` | `#78350f` | `oklch(39.7% 0.1054 45.9)` |
-| Smart QR | light | `warning-soft-foreground` | `#b45309` | `oklch(46.9% 0.1261 49.0)` |
-| Smart QR | dark | `subtle-foreground` | `#6e6e76` | `oklch(61.3% 0.0123 286.0)` |
-| Smart QR | dark | `primary-foreground` | `#ffffff` | `oklch(16.9% 0.0000 89.9)` |
-| Smart QR | dark | `destructive-foreground` | `#ffffff` | `oklch(22.7% 0.0000 89.9)` |
-| Smart QR | dark | `info-foreground` | `#ffffff` | `oklch(35.7% 0.0000 89.9)` |
-| Smart QR | dark | `success-foreground` | `#ffffff` | `oklch(37.3% 0.0000 89.9)` |
-| Smart QR | dark | `warning-foreground` | `#78350f` | `oklch(39.7% 0.1054 45.9)` |
+| ForeverPin | light | `muted-foreground` | `#6e7188` | `oklch(49.6% 0.0358 279.3)` |
+| ForeverPin | light | `subtle-foreground` | `#9b9fb5` | `oklch(49.5% 0.0323 277.4)` |
+| ForeverPin | light | `primary-soft-foreground` | `#5b21b6` | `oklch(42.5% 0.2106 292.8)` |
+| ForeverPin | light | `accent-foreground` | `#ffffff` | `oklch(22.9% 0.0000 89.9)` |
+| ForeverPin | light | `accent-soft-foreground` | `#115e59` | `oklch(41.6% 0.0705 188.2)` |
+| ForeverPin | light | `destructive-soft-foreground` | `#b91c1c` | `oklch(41.4% 0.1694 27.5)` |
+| ForeverPin | light | `info-foreground` | `#ffffff` | `oklch(23.5% 0.0000 89.9)` |
+| ForeverPin | light | `info-soft-foreground` | `#0e7490` | `oklch(41.9% 0.0783 223.1)` |
+| ForeverPin | light | `success-foreground` | `#ffffff` | `oklch(27.3% 0.0000 89.9)` |
+| ForeverPin | light | `success-soft-foreground` | `#15803d` | `oklch(41.8% 0.1152 150.1)` |
+| ForeverPin | light | `warning-foreground` | `#78350f` | `oklch(39.7% 0.1054 45.9)` |
+| ForeverPin | light | `warning-soft-foreground` | `#b45309` | `oklch(46.9% 0.1261 49.0)` |
+| ForeverPin | dark | `subtle-foreground` | `#6e6e76` | `oklch(61.3% 0.0123 286.0)` |
+| ForeverPin | dark | `primary-foreground` | `#ffffff` | `oklch(16.9% 0.0000 89.9)` |
+| ForeverPin | dark | `destructive-foreground` | `#ffffff` | `oklch(22.7% 0.0000 89.9)` |
+| ForeverPin | dark | `info-foreground` | `#ffffff` | `oklch(35.7% 0.0000 89.9)` |
+| ForeverPin | dark | `success-foreground` | `#ffffff` | `oklch(37.3% 0.0000 89.9)` |
+| ForeverPin | dark | `warning-foreground` | `#78350f` | `oklch(39.7% 0.1054 45.9)` |
 | Default CSS | light | `subtle-foreground` | `#74747d` | `oklch(54.5% 0.0137 285.9)` |
 | Default CSS | light | `primary-soft-foreground` | `#1d4ed8` | `oklch(46.1% 0.2172 264.4)` |
 | Default CSS | light | `destructive-soft-foreground` | `#b91c1c` | `oklch(45.8% 0.1873 27.5)` |
@@ -60,7 +60,7 @@ These guarantees apply to the declared opaque SDK surfaces and those specified c
 | Default CSS | dark | `info-foreground` | `#ffffff` | `oklch(35.7% 0 89.9)` |
 
 
-The internal authored palette catalog was renamed `constants/Validated.ts` → `constants/Authored.ts`, and its export became `AuthoredThemes`; registry references were updated. The public registry APIs are unchanged. Smart QR's status, tags and description now identify a contrast-corrected candidate awaiting app review.
+The internal authored palette catalog was renamed `constants/Validated.ts` → `constants/Authored.ts`, and its export became `AuthoredThemes`; registry references were updated. The public registry APIs are unchanged. ForeverPin's status, tags and description now identify a contrast-corrected candidate awaiting app review.
 
 ## Validation
 
@@ -70,7 +70,7 @@ The internal authored palette catalog was renamed `constants/Validated.ts` → `
 - `pnpm exec vue-tsc --noEmit -p tsconfig.typecheck.json` — passed.
 - Scoped ESLint, Prettier and capability-reference checks passed before handoff; parent owns the final build and packed CSS/consumer gates.
 
-This resolution supersedes the read-only Smart QR contrast finding in [vue-capability-layout-audit.md](vue-capability-layout-audit.md).
+This resolution supersedes the read-only ForeverPin contrast finding in [vue-capability-layout-audit.md](vue-capability-layout-audit.md).
 
 
 ## Required-indicator amendment
@@ -79,14 +79,14 @@ InputStyles uses `input` for the default boundary, `border-strong` on hover and 
 
 The final validator declares **119 pairs per mode**. It now checks input, border-strong and ring against background, card, popover and muted. Pair de-duplication also distinguishes opaque foreground-on-muted from foreground over a 30% muted overlay; both are independently covered. All **183 themes pass**. Every ring already passed the expanded neutral-host requirements, so no ring token changed.
 
-This is a separate amendment to the foreground ledger: **732 theme indicator values changed** (input and border-strong × 183 themes × two modes), plus **four default CSS indicator values**. Only lightness changes; background, fill, decorative border, existing foreground and branded hue values remain intact. The exact 732-value ledger is [vue-theme-indicator-changes.json](vue-theme-indicator-changes.json). Smart QR remains a candidate awaiting app visual review.
+This is a separate amendment to the foreground ledger: **732 theme indicator values changed** (input and border-strong × 183 themes × two modes), plus **four default CSS indicator values**. Only lightness changes; background, fill, decorative border, existing foreground and branded hue values remain intact. The exact 732-value ledger is [vue-theme-indicator-changes.json](vue-theme-indicator-changes.json). ForeverPin remains a candidate awaiting app visual review.
 
 | Palette | Mode | Tokens | Before | After |
 |---|---|---|---|---|
-| Smart QR | light | border-strong | #c7cad9 | oklch(59.1% 0.0210 276.9) |
-| Smart QR | light | input | #e4e6f0 | oklch(59.0% 0.0137 277.1) |
-| Smart QR | dark | border-strong | #3a3a40 | oklch(51.6% 0.0103 285.9) |
-| Smart QR | dark | input | #2a2a2e | oklch(51.6% 0.0072 285.9) |
+| ForeverPin | light | border-strong | #c7cad9 | oklch(59.1% 0.0210 276.9) |
+| ForeverPin | light | input | #e4e6f0 | oklch(59.0% 0.0137 277.1) |
+| ForeverPin | dark | border-strong | #3a3a40 | oklch(51.6% 0.0103 285.9) |
+| ForeverPin | dark | input | #2a2a2e | oklch(51.6% 0.0072 285.9) |
 | Default CSS | light | input, border-strong | #d4d4d8 | oklch(64.3% 0.0055 286.3) |
 | Default CSS | dark | input, border-strong | #3f3f46 | oklch(50.6% 0.0119 285.8) |
 

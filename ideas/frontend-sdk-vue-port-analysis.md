@@ -21,7 +21,7 @@
 - **Don't port the whole SDK.** Parity across 237 components ≈ the original 14-week build, for zero current
   Vue consumers.
 - **Do extract `packages/core`** — the ~37k agnostic LOC. Pays off for React today; halves any later port.
-- **Do run the smart-qr pilot.** Its slice is 30% of the SDK and covers ~84% of what *every* current
+- **Do run the forever-pin pilot.** Its slice is 30% of the SDK and covers ~84% of what *every* current
   consumer imports.
 - If Vue wins the pilot, the marginal cost of covering all 9 existing apps is **3,878 LOC**.
 - Repo shape: **same repo, monorepo** (`core` / `react` / `vue`). A separate repo without a shared core
@@ -118,7 +118,7 @@ Measured across every frontend importing `@wow-two-beta/ui`:
 
 | App | files | LOC | SDK files | symbols | pinned |
 |---|---:|---:|---:|---:|---|
-| `smart-qr` | 134 | 6,880 | 42 | **94** | `0.0.97` |
+| `forever-pin` | 134 | 6,880 | 42 | **94** | `0.0.97` |
 | `transcript-forge` | 45 | 2,787 | 12 | 57 | `^0.0.90` |
 | `museums-gallery` | 127 | 8,348 | 41 | 39 | `0.0.104` |
 | `drydock` | 17 | 1,475 | 7 | 18 | `0.0.95` |
@@ -132,10 +132,10 @@ Measured across every frontend importing `@wow-two-beta/ui`:
   `prism` 4%.
 - Big apps carry their own UI layer: `nth26` → `@nth26/shared` + `@tabler/icons-react`; `haven` →
   `@haven/ui` + `@haven/app-ui` + `cva`.
-- Deep usage lives in the small apps: `smart-qr` 94 symbols · `transcript-forge` 57 · `museums-gallery` 39.
+- Deep usage lives in the small apps: `forever-pin` 94 symbols · `transcript-forge` 57 · `museums-gallery` 39.
 - ⚑ **`haven` is already broken on bump** — pinned `^0.0.54`, imports `@wow-two-beta/ui/{actions,forms,hooks}`,
   subpaths absent from the `0.0.104` export map. Fix independently of any Vue decision.
-- Losing `smart-qr` to Vue removes the React SDK's only deep real-world validator.
+- Losing `forever-pin` to Vue removes the React SDK's only deep real-world validator.
 
 ---
 
@@ -145,21 +145,21 @@ Transitive closure over the SDK, seeded from each app's imported symbols, depend
 
 | Scope | files | LOC | React to rewrite | copy verbatim |
 |---|---:|---:|---:|---:|
-| **smart-qr slice** | 346 | 20,145 | 13,681 | 6,464 |
+| **forever-pin slice** | 346 | 20,145 | 13,681 | 6,464 |
 | **all-9-apps slice** | 410 | 24,023 | 16,326 | 7,697 |
 | Marginal cost of full coverage | +64 | **+3,878** | +2,645 | +1,233 |
 
 - All-9 needs **85 component folders**: `display` 26 · `forms` 21 · `layout` 15 · `actions` 9 ·
   `feedback` 9 · `overlays` 4 · `nav` 1.
 - Versus the full SDK: **30% of LOC, 36% of components.**
-- smart-qr's seed was 47 component folders from its 94 symbols (glyph components not seeded) — treat
+- forever-pin's seed was 47 component folders from its 94 symbols (glyph components not seeded) — treat
   20,145 as a floor.
 
-smart-qr slice by area — `presentation/forms` 4,726 · `layout` 2,769 · `actions` 2,439 · `overlays` 2,056 ·
+forever-pin slice by area — `presentation/forms` 4,726 · `layout` 2,769 · `actions` 2,439 · `overlays` 2,056 ·
 `domain/emoji` 1,970 · `display` 1,759 · `foundation/primitives` 1,407 · `utils` 1,315 · `hooks` 997 ·
 `feedback` 366 · `storage` 274 · `icons` 67.
 
-Scoping the pilot by smart-qr lands most of the consumer surface by accident. That is the finding that
+Scoping the pilot by forever-pin lands most of the consumer surface by accident. That is the finding that
 makes the pilot worth running.
 
 ---
@@ -181,7 +181,7 @@ pure logic testable without a DOM and opens Svelte / web components / SSR later.
 
 ## 8 · Risks
 
-- **Double rewrite** — finishing `smart-qr`'s React frontend, then rewriting it in Vue, pays for the frontend
+- **Double rewrite** — finishing `forever-pin`'s React frontend, then rewriting it in Vue, pays for the frontend
   twice. Bounded at 6,880 LOC, but real. Freeze it at *working*, don't polish.
 - **`forms-engine` is the one hard non-component piece** — `AppForm` + `useFieldArray` +
   `defaultMapFieldPath` sit on `@tanstack/react-form`; the Vue adapter is a redesign.
@@ -198,12 +198,12 @@ pure logic testable without a DOM and opens Svelte / web components / SSR later.
 
 ## 9 · Sequence
 
-1. **Finish `smart-qr`** backend + logic. Freeze the React frontend at working.
+1. **Finish `forever-pin`** backend + logic. Freeze the React frontend at working.
 2. **Extract `packages/core`** in the UI repo — the ~7.7k agnostic LOC inside the consumer closure:
    `*.variants.ts`, `foundation/themes`, `domain/{color,emoji}`, `foundation/{http,storage,utils}` types.
    Benefits React immediately.
-3. **Build `@wow-two-beta/ui-vue` v0.1** against `core` — scope to the ~47 folders smart-qr needs, not 85.
-4. **Port the `smart-qr` frontend to Vue.** Same theme, same API names. Measure honestly against React.
+3. **Build `@wow-two-beta/ui-vue` v0.1** against `core` — scope to the ~47 folders forever-pin needs, not 85.
+4. **Port the `forever-pin` frontend to Vue.** Same theme, same API names. Measure honestly against React.
 5. **Decide.** If Vue wins, the +3,878 LOC covering all 9 apps is the follow-on.
 
 ### Open questions

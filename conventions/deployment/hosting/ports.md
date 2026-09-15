@@ -13,9 +13,9 @@
 | secrets-vault | frontend (Vite) | 5173 |
 | drydock | API | 8210 https / 8211 http |
 | drydock | frontend (Vite) | 5174 |
-| smart-qr | API | 7020 https / 7021 http |
-| smart-qr | redirect | 7022 https / 7023 http |
-| smart-qr | frontend (Vite) | 7024 |
+| forever-pin | API | 7020 https / 7021 http |
+| forever-pin | redirect | 7022 https / 7023 http |
+| forever-pin | frontend (Vite) | 7024 |
 | acquisition-explorer | frontend | 7510 |
 | haven | backend services | Auth 7001 · Settings 7003 · Channels.Supply 7005 · Location 7007 · Database 7012 · RenderedContentExtractor 7101 |
 | haven | frontends (Vite) | 7501–7507 (crm · admin · channels · map) |

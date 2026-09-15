@@ -10,7 +10,7 @@
 
 - a cycle maps to **two version numbers**: the **deliverable version** (cycle 1) then the **extraction version** (cycle 2) — **1 cycle = 2 versions shipped**.
 - products start at `v0.1`, minor-increment per version, major only at `.100` or a breaking change — see [version-track.md](../planning/version-track/version-track.md).
-- example: smart-qr `v0.1` (product + migrator built inline) → `v0.2` (migrator extracted to the SDK + adopted across apps) → `v0.3` next deliverable.
+- example: forever-pin `v0.1` (product + migrator built inline) → `v0.2` (migrator extracted to the SDK + adopted across apps) → `v0.3` next deliverable.
 
 ---
 
@@ -49,7 +49,7 @@ The defining rule of cycle 2. A known domain (forms, validation, auth, tables, s
 
 ## What "stable" means
 
-- proven in a real product under tests — e.g. the bespoke migrator ran green (`SmartQr.IntegrationTests` + `SmartQr.Migrations.Tests`) in smart-qr before and after extraction.
+- proven in a real product under tests — e.g. the bespoke migrator ran green (`ForeverPin.Tests.Integration` + `ForeverPin.Tests.Migrations`) in forever-pin before and after extraction.
 - API surface settled — no churn expected that would force a second migration across consumers.
 - documented — the convention exists, so the next adopter follows one path, not a re-derivation.
 
@@ -84,6 +84,6 @@ re-pins and moves on.
 
 ## Roles — every app is both source and target
 
-- **source** — the app that pioneered a block extracts it (current set: drydock → presentation/controller conventions; smart-qr → the migration layer).
+- **source** — the app that pioneered a block extracts it (current set: drydock → presentation/controller conventions; forever-pin → the migration layer).
 - **target** — every other active app adopts the block once it is stable.
 - a target that can't yet adopt (different stack) is **noted, not forced** — e.g. an EF/SQLite app waits for the dialect before taking a Postgres-only block.

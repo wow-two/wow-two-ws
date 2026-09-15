@@ -65,7 +65,7 @@
 
 ## 2. wow-two SDK Building
 
-**Why:** the primary learn-by-shipping track — `wow-two-sdk`, `wow-two-sdk-beta`, `wow-two-platform` are real packages with real consumers (drydock, secrets-vault, smart-qr, …). Every design decision is a forcing function for API design, versioning discipline, and backward-compat thinking.
+**Why:** the primary learn-by-shipping track — `wow-two-sdk`, `wow-two-sdk-beta`, `wow-two-platform` are real packages with real consumers (drydock, secrets-vault, forever-pin, …). Every design decision is a forcing function for API design, versioning discipline, and backward-compat thinking.
 
 **Current level:** actively building — identity baseline shipped, messaging layer scaffolded, errors-layer redesign in progress, Testing.Data companion adopted across all 3 apps.
 
@@ -92,7 +92,7 @@
 
 **Why:** the micro-SaaS portfolio play (3–5 first batch, 50–100 launches target by EOY 2026) is itself the curriculum — the skill to build is *fast validated shipping*, not any single product.
 
-**Current level:** multiple ventures in flight (smart-qr, Whiteout, Hijinx/fun-vault, string-art, LumenCrystal).
+**Current level:** multiple ventures in flight (forever-pin, Whiteout, Hijinx/fun-vault, string-art, LumenCrystal).
 
 ### Topics
 - [ ] Idea → validation loop — how fast can an idea go from spec to "worth continuing"
@@ -112,7 +112,7 @@
 
 **Why:** internal tools (migrators, CLIs, scrapers) are smaller-scoped than the SDK but teach DX and distribution — designing for a user who is future-you or a teammate, not an end customer.
 
-**Current level:** shipped `smart-qr-migrate` CLI, package-analyzer, yt-scraper POC.
+**Current level:** shipped `forever-pin-migrate` CLI, package-analyzer, yt-scraper POC.
 
 ### Topics
 - [ ] CLI design — `System.CommandLine`, argument/option ergonomics, good `--help` output
@@ -122,7 +122,7 @@
 - [ ] When to extract a one-off script into a real reusable tool vs. leave it a script
 
 ### Next deliberate step
-- [ ] TBD — candidate: generalize the smart-qr SQL migrator into the backend-beta SDK migrator (proving ground already validated 2026-06-11)
+- [ ] TBD — candidate: generalize the forever-pin SQL migrator into the backend-beta SDK migrator (proving ground already validated 2026-06-11)
 
 ---
 

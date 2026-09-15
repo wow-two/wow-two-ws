@@ -41,7 +41,7 @@
 - Library and playground production builds passed. Packed checks passed 72 targets / 64 core JS entries / 68 total JS entries, strict public types, exact numeric behavior and generated consumer CSS.
 - Generic hooks retired, capability roles grouped, Result carrier files/names corrected, query/router adapters placed, and visual foundation roots folded into component folders.
 - Added row 43 for the final source-role inventory; capability graph checks now run in typecheck.
-- Artifact review's smart-qr/text/indicator contrast failures are resolved. All 183 themes pass declared contrast pairs; Smart QR is an authored candidate awaiting app visual review.
+- Artifact review's smart-qr/text/indicator contrast failures are resolved. All 183 themes pass declared contrast pairs; ForeverPin is an authored candidate awaiting app visual review.
 - Canonical models are corrected across 95 component surfaces, with 97 spec refreshes and a migration table. DOM root wrappers expose native roots consistently.
 - Packed CSS now registers its own source directory; the production consumer gate catches missing SDK-only utilities.
 - Fresh npm installation passed in a separate temporary root with normal peer resolution and no workspace dependency links.

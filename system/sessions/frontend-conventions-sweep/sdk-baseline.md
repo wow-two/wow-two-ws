@@ -15,7 +15,7 @@ Both releases trigger on main pushes filtered to their respective package direct
 
 ## Existing sweep: measured facts and measurement limitations
 
-Source: `engineering/planning/ui-sdk-conventions-sweep.md`, last updated 2026-08-24. Rows combine different scopes: #9 is React, macro rows are Vue, and #11 is four smart-qr app components. The document is a shared backlog, not a single-package audit.
+Source: `engineering/planning/ui-sdk-conventions-sweep.md`, last updated 2026-08-24. Rows combine different scopes: #9 is React, macro rows are Vue, and #11 is four forever-pin app components. The document is a shared backlog, not a single-package audit.
 
 | Sweep row | Current baseline | Interpretation |
 |---|---|---|
@@ -27,7 +27,7 @@ Source: `engineering/planning/ui-sdk-conventions-sweep.md`, last updated 2026-08
 | #22 folder casing | React has 23 uppercase-initial source directories; Vue has 26 | These are filesystem counts, not a semantic camelCase validation. The old row's 27 total should not be copied as current. |
 | #8/#27 specs | React 203 source `*.spec.md`; Vue 181 | Coverage denominators need a concrete component/root/subpart inventory, so 198/378 is not revalidated. Contradictions require per-spec comparison, not counting. |
 | #25 kind suffixes | Vue still has 406 SFC source files | 112 unsuffixed is not independently revalidated; use current kind/compound exemptions rather than a suffix-only regex. |
-| #11 Screen→Page | Existing row explicitly says smart-qr | Application-owned; do not silently pull app edits into the SDK sweep. |
+| #11 Screen→Page | Existing row explicitly says forever-pin | Application-owned; do not silently pull app edits into the SDK sweep. |
 
 Other rows (#7 taxonomy, #14 HTTP Result adoption, #26 capability ownership, #27 specification accuracy, #30 missing ARIA members) remain independent work. The historical #23 live-prop pass-through discussion persists outside the Open table; its status needs reconciliation instead of assuming completion. Smaller breaches in the “15–22” prose also need explicit dispositions or links to completed rows.
 

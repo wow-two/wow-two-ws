@@ -25,11 +25,11 @@
       "port": 5180
     },
     {
-      "name": "smart-qr",
+      "name": "forever-pin",
       "runtimeExecutable": "pnpm",
       "runtimeArgs": [
         "-C",
-        "workbench/ventures/smart-qr-poc/engineering/codebase/smartqr.frontend-services",
+        "workbench/ventures/10x-venture-forever-pin/engineering/codebase/forever-pin.frontend-services",
         "dev",
         "--port",
         "7025",
@@ -41,11 +41,11 @@
       "port": 7025
     },
     {
-      "name": "smart-qr-http",
+      "name": "forever-pin-http",
       "runtimeExecutable": "pnpm",
       "runtimeArgs": [
         "-C",
-        "workbench/ventures/smart-qr-poc/engineering/codebase/smartqr.frontend-services",
+        "workbench/ventures/10x-venture-forever-pin/engineering/codebase/forever-pin.frontend-services",
         "dev",
         "--port",
         "7026",
@@ -57,25 +57,25 @@
       }
     },
     {
-      "name": "smart-qr-static",
+      "name": "forever-pin-static",
       "runtimeExecutable": "python3",
       "runtimeArgs": [
         "-m",
         "http.server",
         "4180",
         "--directory",
-        "workbench/ventures/smart-qr-poc/engineering/codebase/smartqr.backend-services/SmartQr.Api/wwwroot"
+        "workbench/ventures/10x-venture-forever-pin/engineering/codebase/forever-pin.backend-services/ForeverPin.Api/wwwroot"
       ],
       "port": 4180
     },
     {
-      "name": "smart-qr-api",
+      "name": "forever-pin-api",
       "runtimeExecutable": "dotnet",
       "runtimeArgs": [
         "run",
         "--no-build",
         "--project",
-        "workbench/ventures/smart-qr-poc/engineering/codebase/smartqr.backend-services/SmartQr.Api/SmartQr.Api.csproj",
+        "workbench/ventures/10x-venture-forever-pin/engineering/codebase/forever-pin.backend-services/ForeverPin.Api/ForeverPin.Api.csproj",
         "--launch-profile",
         "https"
       ],

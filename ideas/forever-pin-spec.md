@@ -1,8 +1,8 @@
-# Smart QR — Programmable Codes & Link Router
+# ForeverPin — Programmable Codes & Link Router
 
 *Last updated: 2026-05-31*
 
-> Micro-SaaS portfolio product **#002** (`ven-msaas-context.md` → Active). Working name: **Smart QR**.
+> Micro-SaaS portfolio product **#002** (`ven-msaas-context.md` → Active). Working name: **ForeverPin**.
 > Brandable alternatives: **Permacode** ("your code never dies" angle), **RouteQR**, **Scanforge**, **QRForge**, **Codeway**.
 
 ## Section 0: Brief Answers (the questions that spawned this)
@@ -141,7 +141,7 @@ A code owns: `rules[] (ordered)` + `fallbackUrl` + optional `password`, `expiry`
 
 The visual layer — a design-forward differentiator (Flowcode competes here; animation leapfrogs it). Reference: a Telegram contact QR — gradient rounded modules, center logo in a knockout, frame + caption.
 
-**Static styling (MVP+ — center-logo compositing already built in the POC `SmartQr.Codes`):**
+**Static styling (MVP+ — center-logo compositing already built in the POC `ForeverPin.Codes`):**
 - **Center logo / pfp** in a cleared **circular knockout** (+ optional white ring) so an avatar reads cleanly — what Telegram does. EC level H so the matrix survives occlusion. Source: upload **or** pull-from-URL (their avatar).
 - Module shape (square / rounded / dots), foreground gradient, custom or transparent background.
 - **Frames + caption** — border, top badge, bottom CTA/handle ("@handle", "Scan me").
@@ -160,7 +160,7 @@ The visual layer — a design-forward differentiator (Flowcode competes here; an
 
 | Layer | Tech | Notes |
 |---|---|---|
-| API / app backend | **.NET 9**, Clean Architecture, MediatR | `wow-two-apps.smart-qr` |
+| API / app backend | **.NET 9**, Clean Architecture, MediatR | `wow-two-apps.forever-pin` |
 | **Redirect service** | Separate slim ASP.NET Core minimal-API process | Stateless, horizontally scalable, the only hot path |
 | QR generation | **QRCoder** (MIT, zero-dep) — `SvgQRCode`, `PngByteQRCode` | **No System.Drawing** → Linux-safe |
 | Barcodes | **ZXing.Net** (QR, DataMatrix, PDF417, Aztec, Code128, EAN/UPC) | SkiaSharp/ImageSharp bindings |
@@ -170,7 +170,7 @@ The visual layer — a design-forward differentiator (Flowcode competes here; an
 | Analytics store | append-only events → **ClickHouse** *or* partitioned Postgres | decoupled from redirect |
 | IP-geo | **MaxMind GeoLite2** loaded in-memory | never an external call on hot path |
 | Image storage / CDN | Object storage (R2/S3/Blob) behind **Cloudflare CDN** | immutable images cached at edge |
-| Frontend | **React** + Tailwind + shadcn/ui; visual rule builder + analytics dash | `wow-two-apps.smart-qr` |
+| Frontend | **React** + Tailwind + shadcn/ui; visual rule builder + analytics dash | `wow-two-apps.forever-pin` |
 | Auth / billing | Own accounts + **Stripe** (UZ later: Click/Payme adapter) | standard |
 | Queue / jobs | platform `comms.infra`; bulk gen on worker | CSV→ZIP, webhooks |
 
@@ -197,7 +197,7 @@ byte[] png = new PngByteQRCode(data).GetGraphic(20);
 ### Redirect hot path (the only thing that scales)
 
 ```
-[Scan] → GET r.smartqr.app/{slug}
+[Scan] → GET r.foreverpin.com/{slug}
    → Redis lookup {slug} (rules + fallback)        ~sub-ms, no DB
    → evaluate rules (UA parse, in-mem geo, clock)  ~µs
    → emit scan event to queue/buffer (fire-&-forget, non-blocking)
@@ -255,7 +255,7 @@ URL · **vCard digital business card** · **WiFi join** · app-store router · m
 
 Short link · **password-locked link** · **expiring link** · **scan/click-capped link** · **one-time self-destruct link** · UTM-injecting link · geo/device-routed link (same engine as QR).
 
-> vCard digital business cards (Popl/HiHello/Blinq are whole companies) and password/expiring links (Password.link, SPRL) are each standalone SaaS categories. Folding them in makes Smart QR a **unified redirect platform**, not a single-trick generator — and each is a separate SEO/long-tail acquisition surface.
+> vCard digital business cards (Popl/HiHello/Blinq are whole companies) and password/expiring links (Password.link, SPRL) are each standalone SaaS categories. Folding them in makes ForeverPin a **unified redirect platform**, not a single-trick generator — and each is a separate SEO/long-tail acquisition surface.
 
 ## Section 9: Economics
 
@@ -315,7 +315,7 @@ Margins ~95%+ given Tier-0 costs; the constraint is **distribution in a crowded 
 
 | Repo | Org | Purpose |
 |---|---|---|
-| `wow-two-apps.smart-qr` | wow-two-apps | Full product — .NET backend (app API + redirect service) + React frontend |
+| `wow-two-apps.forever-pin` | wow-two-apps | Full product — .NET backend (app API + redirect service) + React frontend |
 
 ### Candidate extractable SDK libs (beta)
 
@@ -336,7 +336,7 @@ Second consumer-facing product on the stack (with TranscriptForge). **Pure Tier-
 
 ## Section 12: Competitive Differentiation
 
-| Dimension | Smart QR | QR Tiger | Uniqode | Bitly | Flowcode |
+| Dimension | ForeverPin | QR Tiger | Uniqode | Bitly | Flowcode |
 |---|---|---|---|---|---|
 | Programmable routing as headline | ✅ core | up-tier | up-tier | limited | limited |
 | Smart rules + custom domain from $5 | ✅ | ❌ ($37) | partial | ❌ | ❌ |
@@ -354,7 +354,7 @@ Second consumer-facing product on the stack (with TranscriptForge). **Pure Tier-
 
 ## Section 13: Open Questions
 
-1. **Name** — lead with literal "Smart QR" (SEO-honest) or a brand (**Permacode** leans hard into the never-expire wedge, which is the most defensible angle)?
+1. **Name** — lead with literal "ForeverPin" (SEO-honest) or a brand (**Permacode** leans hard into the never-expire wedge, which is the most defensible angle)?
 2. **Wedge feature for launch** — is "never-expire + smart routing from $5" enough, or do we need one viral content-type (vCard cards? GS1?) as the SEO spear-tip?
 3. **Redirect domain strategy** — single branded short domain vs custom-domain-first from day 1 (better trust, more setup friction)?
 4. **UZ or global first?** Routing/never-expire is global; but UZ payments (Click/Payme) + local SEO could be an easier first beachhead. Portfolio leans "global for this one."
@@ -373,11 +373,11 @@ Aligned with [GWDNBM principle](../../../../../.claude/projects/-Users-max-Proje
 
 ## Section 15: Status & Next Steps
 
-**Status:** `building` (portfolio #002). Backend POC scaffolded **2026-06-03** at `workbench/ventures/smart-qr-poc/` — full Haven-style Clean Arch (6 projects + tests, 98 files), builds clean, **8 unit tests green** (QR/barcode generation + routing engine). Chose **POC-first** over the shared template repo (validate the crowded-market wedge before sinking time into shared infra).
+**Status:** `building` (portfolio #002). Backend POC scaffolded **2026-06-03** at `workbench/ventures/10x-venture-forever-pin/` — full Haven-style Clean Arch (6 projects + tests, 98 files), builds clean, **8 unit tests green** (QR/barcode generation + routing engine). Chose **POC-first** over the shared template repo (validate the crowded-market wedge before sinking time into shared infra).
 
 ### Done (POC, 2026-06-03)
 
-- ✅ **Clean Arch backend** mirroring Haven: `SmartQr.Common` (mediator/result/ApiResponse), `.Common.Domain` (entities+enums), `.Common.Persistence` (EF Core + Npgsql, snake_case, enums-as-text), `.Codes` (generation lib), `.Api` (management CQRS API), `.Redirect` (minimal-API hot path), `.Tests`.
+- ✅ **Clean Arch backend** mirroring Haven: `ForeverPin.Common` (mediator/result/ApiResponse), `.Common.Domain` (entities+enums), `.Common.Persistence` (EF Core + Npgsql, snake_case, enums-as-text), `.Codes` (generation lib), `.Api` (management CQRS API), `.Redirect` (minimal-API hot path), `.Tests`.
 - ✅ **Generation proven** — QRCoder `SvgQRCode`+`PngByteQRCode` (cross-platform, no System.Drawing), ZXing.Net barcodes → SVG, ImageSharp logo overlay. Unit-tested (valid SVG markup + PNG signature).
 - ✅ **Routing engine** — ordered rules (device/country/language/time-of-day), first-match-wins, fallback, never-expire override, 404/410 gating. Unit-tested.
 - ✅ **Hot-path design** — `IRedirectConfigStore` (in-memory cache default / Redis production), pure `RoutingEvaluator`, async `ChannelScanRecorder` + batched flush worker (302 never waits on a DB write).

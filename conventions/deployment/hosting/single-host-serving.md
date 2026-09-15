@@ -4,7 +4,7 @@
 
 > **What** — a single-service product app ships as ONE deployable: the backend serves the built SPA from its `wwwroot`; the frontend has no host of its own.
 > **Purpose** — one image, one origin → no CORS, no second deploy, and the API always serves the SPA build it shipped with.
-> **Use case** — every single-service product repo (drydock, smart-qr, secrets-vault). Reach for a split deploy only when the SPA needs its own CDN / origin.
+> **Use case** — every single-service product repo (drydock, forever-pin, secrets-vault). Reach for a split deploy only when the SPA needs its own CDN / origin.
 
 ## The three parts
 

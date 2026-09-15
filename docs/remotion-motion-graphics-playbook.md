@@ -3,7 +3,7 @@
 *Last updated: 2026-08-15*
 
 > **Scope:** Producing motion graphics (promo videos, looping page-header animations, social shorts, data-driven video variants) with **Remotion** — React that renders to MP4 / GIF / WebM. Covers the project shape, the animation primitives, theming for dark/light, transparent-background export, and the Claude-Code verify loop.
-> **Status:** Living document. Reference implementation: `workbench/ventures/smart-qr-promo` (Smart QR promo + hero). Extract shared scaffolding into a template/repo once a 2nd product needs video.
+> **Status:** Living document. Reference implementation: `workbench/ventures/10x-venture-forever-pin-promo` (ForeverPin promo + hero). Extract shared scaffolding into a template/repo once a 2nd product needs video.
 
 ---
 
@@ -79,10 +79,10 @@ Conventions:
 
 ## Two archetypes (reference impl)
 
-### 1. Scene-based promo — `SmartQrPromo`
+### 1. Scene-based promo — `ForeverPinPromo`
 Vertical 1080×1920. `TransitionSeries` of scenes (title → routing → never-expire → stats/CTA). Each scene animates from local frame 0. Motion: `spring` pop-ins, `interpolate`+`clamp` fades/slides, a spring-eased `Counter`, procedural QR reveal with a diagonal `spring` stagger.
 
-### 2. Looping node-graph hero — `SmartQrHero`
+### 2. Looping node-graph hero — `ForeverPinHero`
 Landscape 1920×1080, seamless 7s loop. n8n/Zapier style: requester nodes → central hub → rules engine → destination nodes, wired with curved beziers. Per cycle a **request packet** travels a wire (`bez(curve, t)`), the hub pulses, the matched rule lights, a packet flows out to the destination which pops a badge. Idle wires carry a slow `strokeDashoffset` flow so the graph feels alive between events.
 
 ---
@@ -128,9 +128,9 @@ APNG / animated WebP are the middle ground (true alpha, `<img>`-embeddable, smal
 
 ```bash
 # transparent, per-variant composition ids
-remotion render SmartQrHeroDark  out/hero-dark.webm  --codec=vp9 --image-format=png --pixel-format=yuva420p
-remotion render SmartQrHeroDark  out/hero-dark.gif   --codec=gif --image-format=png --every-nth-frame=2            # 15fps
-remotion render SmartQrHeroLight out/hero-light.gif  --codec=gif --image-format=png --every-nth-frame=2 --scale=0.5 # 960×540
+remotion render ForeverPinHeroDark  out/hero-dark.webm  --codec=vp9 --image-format=png --pixel-format=yuva420p
+remotion render ForeverPinHeroDark  out/hero-dark.gif   --codec=gif --image-format=png --every-nth-frame=2            # 15fps
+remotion render ForeverPinHeroLight out/hero-light.gif  --codec=gif --image-format=png --every-nth-frame=2 --scale=0.5 # 960×540
 ```
 
 `--every-nth-frame=2` halves GIF fps (smaller); `--scale=0.5` halves dimensions (~¼ size). Wrap the common ones as `npm` scripts (`gif`, `gif:web`, `webm`).
@@ -168,11 +168,11 @@ No `Math.random()` / `Date.now()` in scripts — they break determinism (and Rem
 
 ## Reference implementation — file map
 
-`workbench/ventures/smart-qr-promo/`
+`workbench/ventures/10x-venture-forever-pin-promo/`
 
 | Path | What |
 |---|---|
-| `src/Root.tsx` | registers `SmartQrPromo`, `SmartQrHero`, `SmartQrHero{Dark,Light}` |
+| `src/Root.tsx` | registers `ForeverPinPromo`, `ForeverPinHero`, `ForeverPinHero{Dark,Light}` |
 | `src/theme.ts` | base palette + font |
 | `src/components/QrCode.tsx` | procedural animated QR (themeable via `moduleColor`/`plate`/`frameStroke`) |
 | `src/scenes/*` | promo scenes |
@@ -180,5 +180,5 @@ No `Math.random()` / `Date.now()` in scripts — they break determinism (and Rem
 | `src/hero/palette.ts` | dark/light `Palette` + `palettes` |
 | `src/hero/{Wire,Packet}.tsx` | connector + travelling request |
 | `src/hero/{UserNode,SiteNode,RulesNode,QrHub}.tsx` | graph nodes |
-| `src/hero/SmartQrHero.tsx` | `{variant, transparent}` composition |
+| `src/hero/ForeverPinHero.tsx` | `{variant, transparent}` composition |
 | `README.md` | run commands + per-composition detail |

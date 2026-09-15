@@ -3,14 +3,14 @@
 *Last updated: 2026-08-17*
 
 > What — what the null-forgiving operator, guards and test fixtures actually look like across the backend-beta SDK and
-> smart-qr, and which of the two would-be conventions each finding belongs to.
+> forever-pin, and which of the two would-be conventions each finding belongs to.
 > Purpose — research feeding a nullability convention and a testing-ownership split; it states findings, not rules.
 > Use case — reach for it when drafting either convention, or when a `!` / fixture review needs a measured baseline.
 
 Two trees, measured at their source roots:
 
 - SDK — `wow-two-sdk-beta/…/wow-two-back-beta-sdk/src` — 637 `.cs`, 46 826 lines.
-- smart-qr — `ventures/smart-qr-poc/engineering/codebase/smartqr.backend-services` — 215 `.cs`, 9 622 lines.
+- forever-pin — `ventures/10x-venture-forever-pin/engineering/codebase/forever-pin.backend-services` — 215 `.cs`, 9 622 lines.
 
 Paths below are relative to those roots. Counts come from `rg` sweeps excluding `bin/` and `obj/`.
 
@@ -19,7 +19,7 @@ Paths below are relative to those roots. Counts come from `rg` sweeps excluding 
 ## Verdict
 
 - `!` runs 141 times — 100 in tests (assert-then-dereference), 41 in production; 40 of those 41 are the SDK's.
-- That split is an enforcement artefact: the SDK sets `TreatWarningsAsErrors` (`Directory.Build.props:9`), smart-qr has
+- That split is an enforcement artefact: the SDK sets `TreatWarningsAsErrors` (`Directory.Build.props:9`), forever-pin has
   **no** `Directory.Build.props` and no `TreatWarningsAsErrors`, so a nullable warning there never has to be silenced.
 - Biggest nullability gap — the flow attributes are unruled and unused: **one** `[MaybeNullWhen]` in 56 k lines
   (`Messaging/Transport/EventDispatch.cs:34`), so `out x!` and `default!` launder null through non-null signatures.
@@ -32,10 +32,10 @@ Paths below are relative to those roots. Counts come from `rg` sweeps excluding 
 
 ## Nullability today
 
-`Nullable` is `enable` everywhere: SDK via `Directory.Build.props:9`, smart-qr per-`.csproj` (12 of 12, e.g.
-`SmartQr.Domain/SmartQr.Domain.csproj:6`). No `#pragma warning disable CS8…` and no `NoWarn` in either tree.
+`Nullable` is `enable` everywhere: SDK via `Directory.Build.props:9`, forever-pin per-`.csproj` (12 of 12, e.g.
+`ForeverPin.Domain/ForeverPin.Domain.csproj:6`). No `#pragma warning disable CS8…` and no `NoWarn` in either tree.
 
-Counts are `SDK · smart-qr`.
+Counts are `SDK · forever-pin`.
 
 | Pattern | Count | Where (one of) | Verdict |
 |---|---|---|---|
@@ -45,7 +45,7 @@ Counts are `SDK · smart-qr`.
 | `Guard.Against.*` | 4 · 0 | `Foundation/Errors/AppError.cs:36,49` | honest, near-dead |
 | `?? throw` | 18 · 3 | `Testing/Containers/Postgres/PostgresFixture.cs:42` | honest |
 | `null!` | 10 · 0 | `Foundation.Tests/Errors/ExceptionChainTests.cs:63` | honest — all in tests |
-| `!` in tests | 64 · 36 | `SmartQr.Tests.Integration/Tests/CodeRepositoryTests.cs:67` | honest, weak signal |
+| `!` in tests | 64 · 36 | `ForeverPin.Tests.Integration/Tests/CodeRepositoryTests.cs:67` | honest, weak signal |
 | `!` prod — reflection | 9 · 0 | `Mediator/Mediator.cs:57,61,84,87` | honest |
 | `!` prod — `= default!` store-filled | 9 · 0 | `Identity/Core/IdentityUser.cs:15` | honest |
 | `!` prod — lifecycle field | 10 · 0 | `Messaging/Kafka/KafkaTransport.cs:296` | honest, repairable |
@@ -57,9 +57,9 @@ Counts are `SDK · smart-qr`.
 | `!` prod — other | 2 · 0 | `Mediator/Idempotency/IdempotencyBehavior.cs:55` | borderline |
 | nullable method return | 60 · 16 | `Data/Errors/DbExceptionMappingRule.cs:12` | honest |
 | `Task<T?>` / `ValueTask<T?>` | 46 · 18 | `Task<CodeEntity?> GetByIdAsync` — `ICodeRepository.cs` | honest |
-| nullable property | 152 · 63 | `SmartQr.Domain/…/ScanEventEntity.cs:25,29,32,35,38` | honest |
+| nullable property | 152 · 63 | `ForeverPin.Domain/…/ScanEventEntity.cs:25,29,32,35,38` | honest |
 | nullable private field | 35 · 0 | `Foundation/Security/MasterKeySealKeeper.cs:14` | honest |
-| `required` member | 101 · 117 | `SmartQr.Domain/…/CodeEntity.cs:16,22,25,35` | honest |
+| `required` member | 101 · 117 | `ForeverPin.Domain/…/CodeEntity.cs:16,22,25,35` | honest |
 | `required T?` | 6 · 0 | `Testing.Messaging/RecordedTransition.cs:50,53` | honest, unruled |
 | `where T : notnull` | 45 · 0 | generic constraints across the SDK | honest |
 | `[MaybeNullWhen]` | 1 · 0 | `Messaging/Transport/EventDispatch.cs:34` | honest |
@@ -113,7 +113,7 @@ shape with no guard method at all: the field is assumed set because the consume 
 - `Ardalis.GuardClauses` 5.0.0 is referenced (`Directory.Packages.props:135`) and re-exported with a package story
   (`Foundation/Guards/guards.md`), but its two custom guards `NotSlug` / `NotUlid`
   (`Foundation/Guards/IdentifierGuardExtensions.cs:19,32`) have **zero callers** in either tree.
-- **smart-qr guards nothing** — 0 `ThrowIfNull`, 0 `Guard.`, 0 manual arg-null `if`. Its 19 `is null` sites are flow
+- **forever-pin guards nothing** — 0 `ThrowIfNull`, 0 `Guard.`, 0 manual arg-null `if`. Its 19 `is null` sites are flow
   control (`CodeRepository.cs:61`, `RedirectEndpoints.cs:27` → 404), never argument validation.
 - No manual `if (x is null) throw new ArgumentNullException(…)` survives. The one legacy
   `?? throw new ArgumentNullException` is `Testing.Data/EntityFrameworkCore/RelationalTestDb.cs:32`.
@@ -149,7 +149,7 @@ Directive bullets a convention would carry. Each is backed by a site above.
 - may combine `required T?` — "the author must decide, and null is a valid decision"; `RecordedTransition.cs:50` is the
   live example, and the two features are orthogonal rather than contradictory.
 - must guard every **public SDK** entry point with `ArgumentNullException.ThrowIfNull` / `ThrowIfNullOrWhiteSpace`.
-- must not guard inside a product — smart-qr's zero-guard internals are correct; validation runs at the API edge and
+- must not guard inside a product — forever-pin's zero-guard internals are correct; validation runs at the API edge and
   `is null` inside is flow control.
 - must either stop adding `Guard.Against` calls or delete the near-dead `Ardalis.GuardClauses` surface — one of the
   two, not the present limbo.
@@ -161,7 +161,7 @@ Directive bullets a convention would carry. Each is backed by a site above.
 ## Fixtures today
 
 103 declared types: 63 shipped by the SDK as four packages (`Testing`, `Testing.Data`, `Testing.Integrations`,
-`Testing.Messaging`), 26 more declared inside the SDK `*.Tests` projects, 14 in smart-qr. Owner split of the shipped 63:
+`Testing.Messaging`), 26 more declared inside the SDK `*.Tests` projects, 14 in forever-pin. Owner split of the shipped 63:
 **persistence 17 · messaging 22 · identity 7 · api 6 · integrations 3 · neutral 8**.
 
 ### Domain-neutral — 8
@@ -203,10 +203,10 @@ Directive bullets a convention would carry. Each is backed by a site above.
   ordered interceptor invocation log and savepoint event stream.
 - `SqliteMigratorTestBase` — `Migrations.Tests/Harness/SqliteMigratorTestBase.cs:11` — a fresh temp `.db` per test;
   isolation by construction, no reset.
-- `SmartQrTestDb` · `RepositoryTestCollection` · `RepositoryTestBase` — `SmartQr.Tests.Integration/Harness/
-  SmartQrTestDb.cs:10` · `RepositoryTestBase.cs:7,15` — app context on the test provider; reset at `:24`.
-- `TestModuleInit` — `SmartQr.Tests.Integration/Harness/TestModuleInit.cs:9` — `[ModuleInitializer]` picks the provider.
-- `MigratorCollection` — `SmartQr.Tests.Migrations/Harness/MigratorCollection.cs:7` — shares the drop-schema fixture.
+- `ForeverPinTestDb` · `RepositoryTestCollection` · `RepositoryTestBase` — `ForeverPin.Tests.Integration/Harness/
+  ForeverPinTestDb.cs:10` · `RepositoryTestBase.cs:7,15` — app context on the test provider; reset at `:24`.
+- `TestModuleInit` — `ForeverPin.Tests.Integration/Harness/TestModuleInit.cs:9` — `[ModuleInitializer]` picks the provider.
+- `MigratorCollection` — `ForeverPin.Tests.Migrations/Harness/MigratorCollection.cs:7` — shares the drop-schema fixture.
 
 ### Api
 
@@ -215,10 +215,10 @@ Directive bullets a convention would carry. Each is backed by a site above.
 - `MultiHostFixture` — `Testing/MultiHost/MultiHostFixture.cs:51` — N hosts over one container set; env injection.
 - `HttpExtensions` · `TestJson` · `ApiEnvelope<T>` — `Testing/Web/HttpExtensions.cs:11` · `Web/ApiContracts.cs:21,65` —
   JSON verbs and a test-side mirror of the success envelope.
-- `AppFixture` · `AppCollection` · `E2EBase` — `SmartQr.Tests.E2E/Harness/AppFixture.cs:31,211,218` — Api + Redirect
+- `AppFixture` · `AppCollection` · `E2EBase` — `ForeverPin.Tests.E2E/Harness/AppFixture.cs:31,211,218` — Api + Redirect
   hosts on one PG container; per-test reset at `:235`.
-- `CodeRequests` — `SmartQr.Tests.E2E/Support/HttpExtensions.cs:7` — anonymous-object **request-body** builders.
-- Ten `*DtoModel` wire mirrors — `SmartQr.Tests.E2E/Support/ApiContracts.cs:10–110`.
+- `CodeRequests` — `ForeverPin.Tests.E2E/Support/HttpExtensions.cs:7` — anonymous-object **request-body** builders.
+- Ten `*DtoModel` wire mirrors — `ForeverPin.Tests.E2E/Support/ApiContracts.cs:10–110`.
 
 ### Identity
 
@@ -227,8 +227,8 @@ Directive bullets a convention would carry. Each is backed by a site above.
 - `TestCurrentUser` · `TestUserKind` — `Testing/Auth/TestCurrentUser.cs:38,4` — current-user stub, no HTTP.
 - `TestAuthServiceCollectionExtensions` — `Testing/Auth/TestAuthServiceCollectionExtensions.cs:10` — `AddTestAuth`.
 - `CookieExtraction` — `Testing/Auth/CookieExtraction.cs:12` — lifts `Set-Cookie` back onto the client.
-- `GuestClient` — `SmartQr.Tests.E2E/Harness/AppFixture.cs:207` — a provisioned guest plus a cookie-carrying client.
-- `FakeGoogleTokenVerifier` — `SmartQr.Tests.E2E/Harness/FakeGoogleTokenVerifier.cs:6` — accepts only
+- `GuestClient` — `ForeverPin.Tests.E2E/Harness/AppFixture.cs:207` — a provisioned guest plus a cookie-carrying client.
+- `FakeGoogleTokenVerifier` — `ForeverPin.Tests.E2E/Harness/FakeGoogleTokenVerifier.cs:6` — accepts only
   `fake:{sub}:{email}:{name}`.
 
 ### Integrations
@@ -236,7 +236,7 @@ Directive bullets a convention would carry. Each is backed by a site above.
 - `WireMockFixture` — `Testing/WireMock/WireMockFixture.cs:9` — in-proc WireMock; reset clears stubs + history (`:33`).
 - `FakeGitHubClient` · `FakeContainerRegistryClient` — `Testing.Integrations/FakeGitHubClient.cs:16` ·
   `FakeContainerRegistryClient.cs:16` — canned GitHub repo / release / CI and GHCR image-exists outcomes.
-- `FakeBillingBroker` — `SmartQr.Tests.E2E/Harness/FakeBillingBroker.cs:7` — staged Stripe checkout / portal / webhook
+- `FakeBillingBroker` — `ForeverPin.Tests.E2E/Harness/FakeBillingBroker.cs:7` — staged Stripe checkout / portal / webhook
   plus captured arguments; reset at `:56`.
 
 ### Messaging
@@ -256,7 +256,7 @@ Directive bullets a convention would carry. Each is backed by a site above.
 
 ### Product-specific
 
-- `QrCoderReference` — `SmartQr.Tests.Unit/QrCoderReference.cs:6` — live QRCoder SVG parity reference.
+- `QrCoderReference` — `ForeverPin.Tests.Unit/QrCoderReference.cs:6` — live QRCoder SVG parity reference.
 
 ---
 
@@ -264,8 +264,8 @@ Directive bullets a convention would carry. Each is backed by a site above.
 
 - **No test-data builder anywhere.** Nothing named `*Builder`, `*Mother` or `*Seeder` constructs a domain entity.
   Entities are inline object initializers, occasionally lifted to a `private static` in the same file —
-  `SmartQr.Tests.Integration/Tests/CodeRepositoryTests.cs:15` (`NewCode`), `SubscriptionRepositoryTests.cs:11`
-  (`NewSub`), `SmartQr.Tests.E2E/Tests/BillingTests.cs:366,381`. All private, so nothing is shared across files.
+  `ForeverPin.Tests.Integration/Tests/CodeRepositoryTests.cs:15` (`NewCode`), `SubscriptionRepositoryTests.cs:11`
+  (`NewSub`), `ForeverPin.Tests.E2E/Tests/BillingTests.cs:366,381`. All private, so nothing is shared across files.
 - **No fixture naming rule.** Live suffixes: `*Fixture` (owns a container), `*TestDb` (owns an EF context), `*Harness`
   (owns an in-process runtime), `*Base` (per-test hook), `*Collection` (xUnit sharing), `Fake*` (double), `*Recorder`
   (observer). Coherent, none written down.
@@ -273,11 +273,11 @@ Directive bullets a convention would carry. Each is backed by a site above.
   so `RedisFixture`, `RabbitMqFixture`, `KafkaFixture`, `MongoDbFixture` and `AzuriteFixture` carry state between tests
   and nothing says so.
 - **No rule for what a fixture may share.** Four `[CollectionDefinition]`s exist with four ad-hoc name strings: `"data"`
-  (`Data.Tests/Harness/DataTestDb.cs:31`), `"smart-qr-e2e"` (`SmartQr.Tests.E2E/Harness/AppFixture.cs:210`),
-  `"SmartQr repository tests"` (`SmartQr.Tests.Integration/Harness/RepositoryTestBase.cs:6`), `"smart-qr-migrator"`
-  (`SmartQr.Tests.Migrations/Harness/MigratorCollection.cs:6`). No `IClassFixture<T>` anywhere.
+  (`Data.Tests/Harness/DataTestDb.cs:31`), `"forever-pin-e2e"` (`ForeverPin.Tests.E2E/Harness/AppFixture.cs:210`),
+  `"ForeverPin repository tests"` (`ForeverPin.Tests.Integration/Harness/RepositoryTestBase.cs:6`), `"forever-pin-migrator"`
+  (`ForeverPin.Tests.Migrations/Harness/MigratorCollection.cs:6`). No `IClassFixture<T>` anywhere.
 - **The one-assertion-library rule is already broken.** `testing.md` § *E2E / integration stack* names one fluent lib;
-  smart-qr runs 216 `.Should()` against 193 `Assert.*` — `Tests.Unit` (135) and `Tests.Integration` (51) are raw xUnit,
+  forever-pin runs 216 `.Should()` against 193 `Assert.*` — `Tests.Unit` (135) and `Tests.Integration` (51) are raw xUnit,
   `Tests.E2E` (165) is fluent, `Tests.Migrations` mixes both.
 - **Nine broker suites bypass the SDK container fixtures**, newing a container inline in the test class —
   `Messaging.Tests/RabbitMqEventBusTests.cs:15`, `KafkaEventBusTests.cs:13`, `NatsEventBusTests.cs:16`,
@@ -362,7 +362,7 @@ The fixture / testing half. The nullability half is *Nullability rules* above.
 - must build test entities through a shared `{Entity}Builder` with a valid default and per-test overrides, placed
   beside the tests that use it, and must not repeat an inline object initializer across files.
 - must not let a builder reach the database — it returns an entity, and the test decides whether to persist it.
-- must use one assertion library per repo, and must convert `SmartQr.Tests.Unit` and `Tests.Integration` off raw
+- must use one assertion library per repo, and must convert `ForeverPin.Tests.Unit` and `Tests.Integration` off raw
   `Assert.*` to match `testing.md`.
 - must use the SDK container fixture for a broker suite, as the DB tiers already must.
 
@@ -378,5 +378,5 @@ The fixture / testing half. The nullability half is *Nullability rules* above.
   `ThrowIfNull` calls as they are?
 - Does `validation` earn a testing section now, or does its rule ride inside `testing.md` § *Coverage* until a second
   product exercises it?
-- Do product-local API DTO mirrors (`SmartQr.Tests.E2E/Support/ApiContracts.cs`) stay product-local, or does the api
+- Do product-local API DTO mirrors (`ForeverPin.Tests.E2E/Support/ApiContracts.cs`) stay product-local, or does the api
   domain rule that a test references the real contract type whenever the assembly is reachable?

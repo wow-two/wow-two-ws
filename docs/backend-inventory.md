@@ -558,7 +558,7 @@ Four packages, split by tier.
 
 | Backend | Repo | Notes |
 |---|---|---|
-| forever-pin | `ventures/smart-qr-poc` | the reference; 2 hosts, 4 test tiers |
+| forever-pin | `ventures/10x-venture-forever-pin` | the reference; 2 hosts, 4 test tiers |
 | drydock | `wow-two-platform.drydock` | deploy control plane; 94 `.cs` |
 | secrets-vault | `wow-two-platform.secrets-vault` | densest app layer; 109 `.cs` |
 | transcript-forge | `ventures/10x-ventures-transcript-forge` | full 5-project split |

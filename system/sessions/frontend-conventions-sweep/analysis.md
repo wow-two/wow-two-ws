@@ -243,7 +243,7 @@ are the implementation queue. Multiple findings can close together when they sha
 | 7 — component groups | Keep; apply C02/C04 before moving components. |
 | 8 — missing specs | Keep; refresh the component denominator and settle the local instruction override. |
 | 9 — React 19 forms | Keep as React-owned; validate behavior, not only a zero-token grep. |
-| 11 — Screen to Page | App-owned; do not silently include smart-qr edits in the SDK package sweep. |
+| 11 — Screen to Page | App-owned; do not silently include forever-pin edits in the SDK package sweep. |
 | 12–14 — Result and HTTP | Keep; expand to query adapters, cancellation and backend error fixtures under C06. |
 | 17 — Vue root exposure | Keep as Vue-owned; validate root/imperative consumers under C08. |
 | 18 — demo coverage | Keep; zero stories does not mean zero demos. Build a component-to-demo inventory. |

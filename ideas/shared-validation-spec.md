@@ -4,8 +4,8 @@
 
 > **Status:** both halves **shipped** (2026-07-27) — `wow-two-sdk-beta.ui` + `wow-two-sdk.backend.beta`.
 > Piece 3 **killed**; `ErrorCodeResolver` and the resx resolver deferred by owner call — see § *Verdicts*.
-> Split out of the smart-qr validation thread because it is a **frontend + backend SDK vector**, not a product
-> task; nothing in smart-qr blocks on it. **Not yet adopted by any product.**
+> Split out of the forever-pin validation thread because it is a **frontend + backend SDK vector**, not a product
+> task; nothing in forever-pin blocks on it. **Not yet adopted by any product.**
 
 ## Verdicts (2026-07-27)
 
@@ -98,7 +98,7 @@ something, so cost it out by direction:
 | client **laxer** than server | submits, server rejects, message lands on the field | **none** — the server error path handles it |
 
 So client rules are a **latency optimisation, not an authority**. Lax drift is self-healing the moment
-server field errors render correctly on fields — which smart-qr proved out on 2026-07-28 (`P1`).
+server field errors render correctly on fields — which forever-pin proved out on 2026-07-28 (`P1`).
 
 **That means the valuable target is not shared rules. It is shared *messages* and shared *paths*.**
 A user who sees "Name is required" from the client and "Name must not be empty" from the server is hearing
@@ -119,7 +119,7 @@ two voices for one rule. That is the drift that shows.
      already generated client rules for jQuery unobtrusive validation.
    - the ceiling is low: only simple rules survive extraction — required, length, regex, range, comparison.
    - anything conditional (`When`), cross-field, subtype-dispatched (`SetInheritanceValidator`), or
-     whole-set (`CodeRuleSetValidator`) does not survive. smart-qr's validators are mostly these.
+     whole-set (`CodeRuleSetValidator`) does not survive. forever-pin's validators are mostly these.
    - so extraction covers the *cheap* rules, which are exactly the rules that were never worth sharing.
    - the honest alternative: define rules in a neutral declarative format and generate **both** sides.
      Real single-source, real cost, and it means neither FluentValidation nor zod is the author any more.
@@ -127,6 +127,6 @@ two voices for one rule. That is the drift that shows.
 ### Prior art
 
 - `conventions/development/backend/foundation/validation.md` — § *Layer independence*, § *Phases*, § *Map to HTTP*
-- `smart-qr-poc/engineering/planning/validation.md` — § *Presentation validation* (P1 measured, P7 the path rule)
-- `smart-qr-poc/engineering/research/error-ordering/error-ordering.md` — the cited status-code / ordering pass
+- `forever-pin/engineering/planning/validation.md` — § *Presentation validation* (P1 measured, P7 the path rule)
+- `forever-pin/engineering/research/error-ordering/error-ordering.md` — the cited status-code / ordering pass
 - SDK: `forms-engine/SubmitErrors` (`resolveSubmitFailure`, `defaultMapFieldPath`), `foundation/http/FieldErrors`

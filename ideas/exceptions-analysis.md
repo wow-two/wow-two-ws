@@ -10,7 +10,7 @@
 Citation roots, elided from every path below:
 
 - `SDK` = `workbench/wow-two-sdk-beta/wow-two-sdk.backend.beta/engineering/codebase/wow-two-back-beta-sdk/src/`
-- `QR` = `workbench/ventures/smart-qr-poc/engineering/codebase/smartqr.backend-services/`
+- `QR` = `workbench/ventures/10x-venture-forever-pin/engineering/codebase/forever-pin.backend-services/`
 
 ---
 
@@ -19,7 +19,7 @@ Citation roots, elided from every path below:
 - Throw when the caller is a **programmer** or the process cannot continue; return a `Result` when the caller
   is a **user**.
 - The SDK already obeys that line — 767 of its 935 throw sites are argument guards, 19 throw a custom type.
-- Biggest inconsistency: **11 of 11** smart-qr handlers wrap their whole body in `catch (Exception ex)` and
+- Biggest inconsistency: **11 of 11** forever-pin handlers wrap their whole body in `catch (Exception ex)` and
   return `AppError.Of(Unexpected, ex.Message)` — putting the raw exception message on the wire.
 - Root cause is not the handlers: `AddMediatorExceptionToResultBehavior` has **zero call sites**, so the net
   `results.md` promises ("the mediator never throws") is wired in no product.
@@ -30,7 +30,7 @@ Citation roots, elided from every path below:
 
 ## What ships
 
-Ten custom exception types, all in the SDK. smart-qr declares **none** — grep for `class .*Exception` across
+Ten custom exception types, all in the SDK. forever-pin declares **none** — grep for `class .*Exception` across
 `QR` returns nothing.
 
 | Exception type | Where | What it signals | Verdict |
@@ -74,7 +74,7 @@ Three catch sites turn malformed input into a plausible success, so no caller ca
 
 `AppErrorType.SerializationFailed` already exists for exactly this, so the carrier is available.
 
-### smart-qr
+### forever-pin
 
 - 11 of 11 handlers open with `try` and close with `catch (Exception ex)` — `CodeCreateCommandHandler.cs:79`,
   `CodeGetByIdQueryHandler.cs:34`, `BillingCheckoutCommandHandler.cs:41`, and 8 more.
@@ -146,7 +146,7 @@ All five helpers named in `results.md` exist. All five are unused outside tests.
 - **throw → return** should dominate. `Attempt` / `AttemptAsync` is right at a seam wrapping a throw-only
   dependency: both catch `OperationCanceledException` to `Canceled` and unwrap `AppException` before falling
   back to `Unexpected` (`AttemptExtensions.cs:19-30`). `ExceptionToResultBehavior` is that same conversion
-  applied once, centrally, for every handler — which is why 11 hand-rolled copies exist in smart-qr.
+  applied once, centrally, for every handler — which is why 11 hand-rolled copies exist in forever-pin.
 - **return → throw** is correct only where the frame above cannot carry a value: a constructor, a field
   initializer, a `Main`, an interface the framework owns. `AuthorizationBehavior.cs:38` is the honest use — a
   behavior whose `TResponse` is not known to be an `AppResult` has no value to return, so it throws.
@@ -214,7 +214,7 @@ would render 500 rather than the 504 `OperationTimeout` already exists for.
 ## Open
 
 1. Should `AddApiDefaults` auto-wire `AddMediatorExceptionToResultBehavior`, or does it stay opt-in? Auto-wiring
-   deletes 11 catch blocks in smart-qr; opt-in keeps the mediator's behavior order explicit.
+   deletes 11 catch blocks in forever-pin; opt-in keeps the mediator's behavior order explicit.
 2. Delete the four unused bridges, or keep them as consumer-facing API? They are tested but uncalled, and a
    convention naming five helpers nobody uses will not be believed.
 3. Do the messaging exceptions need SDK mapping rules, or is `Messaging/` guaranteed out-of-request? The answer

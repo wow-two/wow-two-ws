@@ -114,4 +114,4 @@ At that checkpoint, the packed build's `getTheme('smart-qr')` returned authored 
 The former `constants/Validated.ts` documented retaining visual validation status regardless of the automated contrast result. That historical build contained 182 passing themes and one authored failing theme. The read-only review left row 37 open; the subsequent correction resolved that finding and renamed the catalog to `constants/Authored.ts`.
 
 
-The current result is documented in [Vue theme contrast resolution](vue-theme-contrast-resolution.md): all 183 themes pass 119 declared pairs per mode after the foreground and required-indicator corrections. Smart QR is a candidate awaiting app review. This establishes the declared token/surface contracts, not universal component WCAG compliance.
+The current result is documented in [Vue theme contrast resolution](vue-theme-contrast-resolution.md): all 183 themes pass 119 declared pairs per mode after the foreground and required-indicator corrections. ForeverPin is a candidate awaiting app review. This establishes the declared token/surface contracts, not universal component WCAG compliance.

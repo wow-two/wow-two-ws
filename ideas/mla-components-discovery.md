@@ -6,7 +6,7 @@
 > Purpose — decide which earn a doc in `mla/components/`, now that `mla/constructs/` holds the layer-2 roles.
 > Use case — read before writing a component doc; carries the evidence, the sort, and the developer-only calls.
 
-Read: `wow-two-sdk.backend.beta` (637 `.cs`) · `smart-qr-poc` · `ventures.tnis` · `wow-two-platform/*`.
+Read: `wow-two-sdk.backend.beta` (637 `.cs`) · `forever-pin` · `ventures.tnis` · `wow-two-platform/*`.
 
 ## Verdict
 
@@ -67,7 +67,7 @@ in a `components/settings.md`; the construct doc would keep only the role and th
 - registration — `AddEnvironmentOverlaidOptions<T>` registers `T` and `IOptions<T>` as singletons
   (`Foundation/Configuration/ConfigurationLoaderServiceCollectionExtensions.cs:16`).
 - doc starter — `Configuration for …`, already fixed by `constructs/data/settings.md`.
-- drift to `class` — `SmartQr.Application/Settings/AuthSettings.cs:4` and
+- drift to `class` — `ForeverPin.Application/Settings/AuthSettings.cs:4` and
   `SecretsVault.Infrastructure/Settings/AdminAuthSettings.cs:10` declare `class` with `get; set;`.
 - drift to defaults — `GitHubOAuthSettings.cs:14,19` seeds `= ""`, trading a startup failure for an `IsConfigured`
   check at `:22`; the no-defaults rule forbids it.
@@ -79,7 +79,7 @@ contract host-wide — a different lifetime and a different failure mode from on
 
 - self-sufficient: the type, a `private static readonly JsonSerializerOptions`, and two methods.
 - naming — `{Type}Json` for a seam over one type (`Codes/Models/Style/StyleSpecJson.cs:7`); `{Domain}Options` where
-  it builds options for callers (`SmartQr.Common.Domain/Serialization/Json/JsonbOptions.cs:8`).
+  it builds options for callers (`ForeverPin.Common.Domain/Serialization/Json/JsonbOptions.cs:8`).
 - members — `Serialize(T)` then `Deserialize(string?)`; the options stay private.
 - lenient read — `StyleSpecJson.cs:21` returns `StyleSpec.Default` on null, blank, or `JsonException`, so an
   unreadable stored descriptor still renders rather than failing the request.

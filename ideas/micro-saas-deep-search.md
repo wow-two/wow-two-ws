@@ -346,13 +346,13 @@ User reviewed enriched candidates (info biz + creator tools + entertainment). De
 | Product | Category | Pricing | Chat |
 |---|---|---|---|
 | **Trademark filing watcher** | Info biz | $10/mo per keyword | Spawned |
-| **Smart QR code (redirect rules + analytics)** | Creator tool | $5/mo Solo, $15/mo Pro | Spawned |
+| **ForeverPin code (redirect rules + analytics)** | Creator tool | $5/mo Solo, $15/mo Pro | Spawned |
 
 Each carries deliverable order: product brief → tech architecture → MVP code → landing copy → distribution plan. No coding before brief sign-off.
 
 ### Deferred to backlog
 
-- **SaaS-wish curated directory** ("wish.com for micro SaaS") — user-proposed 2026-05-22. Marketplace shape (contradicts portfolio "no marketplaces" rule). Recommended reframe = curated directory (no UGC at launch; you seed wishes; visitors upvote without login; SEO long-tail landing pages per wish; builders pay $9/mo to claim wishes). Deferred until at least one of TM watcher / Smart QR clears G1 (1 paying customer by wk 4). Has hidden value: doubles as portfolio idea-pipeline + cross-promo hub for other launches.
+- **SaaS-wish curated directory** ("wish.com for micro SaaS") — user-proposed 2026-05-22. Marketplace shape (contradicts portfolio "no marketplaces" rule). Recommended reframe = curated directory (no UGC at launch; you seed wishes; visitors upvote without login; SEO long-tail landing pages per wish; builders pay $9/mo to claim wishes). Deferred until at least one of TM watcher / ForeverPin clears G1 (1 paying customer by wk 4). Has hidden value: doubles as portfolio idea-pipeline + cross-promo hub for other launches.
 
 ---
 

@@ -21,8 +21,8 @@ Categories: `sdk` · `plt` · `app` · `ven` · `con` · `ws`
 | `ven-t-003` | Name the active Micro-SaaS candidate | `-` | normal | `todo` | `-` | One block `08-12`. `10x-ws` tracks a matching task to give Micro SaaS a section there |
 | `ven-t-004` | Finish the Mintrans demo solution and share it | `2026-08-23` | `high` | `todo` | `ventures.tnis-mintrans` | Added `2026-08-17`. The deliverable sent to Mintrans — distinct from the venture (`ventures.tnis`) and from the hackathon demo, which lives in Yandex org. Gates `ven-t-005` |
 | `ven-t-005` | Complete the Mintrans integration | `2026-09-06` | `high` | `todo` | `ventures.tnis-mintrans` | Added `2026-08-17`. Breakdown belongs in the repo’s `engineering/planning/`, not here |
-| `ven-t-006` | Advance forever-pin per its `engineering/planning/` | `-` | `high` | `wip` | `smart-qr-poc` | Added `2026-08-17`. 10h across `08-15`–`08-16`, the heaviest venture thread this month |
-| `ven-t-007` | Rename smart-qr → forever-pin in code and package names | `-` | normal | `todo` | `smart-qr-poc` | Docs + `active.sh` key renamed `2026-08-17`; repo dirs stay `smart-qr-poc` / `smart-qr-promo` for now. Left: `smartqr.*` project names, `SmartQrPromo` / `SmartQrHero` Remotion ids, the `-poc` suffix. Domain `foreverpin.com` |
+| `ven-t-006` | Advance forever-pin per its `engineering/planning/` | `-` | `high` | `wip` | `forever-pin` | Added `2026-08-17`. 10h across `08-15`–`08-16`, the heaviest venture thread this month |
+| `ven-t-007` | Complete the ForeverPin rebrand | `-` | normal | `done` | `forever-pin` | Local source, projects, docs, product/promo folders renamed 2026-09-13. Full suites pass. GitHub rename and both remote URLs verified. Corrected hero still/video exported under native approval. Product rebrand, verification tooling, and docs committed. |
 
 ---
 

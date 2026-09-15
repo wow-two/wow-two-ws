@@ -114,3 +114,9 @@ Org: [github.com/wow-two-kb](https://github.com/wow-two-kb) — code samples, ru
 Org: [github.com/wow-two-apps](https://github.com/wow-two-apps) — no public repos yet.
 
 > **Note**: Apps like Feedback.Analyzer, DDLParser, StudyMate etc. are still in the old `WoW-2-0-Projects` org and haven't been migrated yet.
+
+## Ventures — product repositories
+
+| Repo / local folder | Purpose | Status |
+|---|---|---|
+| `sulton-max/10x-venture-forever-pin` · `ventures/10x-venture-forever-pin` | ForeverPin QR and programmable links | Active, v0.9 |

@@ -36,7 +36,7 @@
 | Jobs / scheduling | infra | ✅ have | `backend.beta` (Hangfire) |
 | Caching | infra | ✅ have | `backend.beta`, `storage.cache` |
 | File / blob storage | infra | 🟡 partial | `storage.file` |
-| Data layer / migrations | data | ✅ have | `backend.beta` EF, smart-qr migrator |
+| Data layer / migrations | data | ✅ have | `backend.beta` EF, forever-pin migrator |
 | Multi-tenancy | product | ✅ have | `backend.beta` |
 | Feature flags / config | product | ✅ have | `backend.beta` |
 | Comms / notifications | product | 🟡 email/Telegram | `backend.beta` comms |
