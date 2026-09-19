@@ -11,10 +11,14 @@ from pathlib import Path
 import subprocess
 import sys
 import tempfile
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import commit_permission
 
 ROOT = Path(__file__).resolve().parents[2]
 SHARED = ROOT / '.claude' / 'hooks'
 INSTRUCTIONS = ROOT / '.codex' / 'instructions.md'
+MODEL_ROUTING = Path('/Users/max/.codex/conventions/model-routing.md')
+MODEL_PULSE = Path('/Users/max/.codex/conventions/model-routing-pulse.md')
 
 
 def context(event, text):
@@ -50,7 +54,7 @@ def checked_output(result, script):
 
 
 def start(payload):
-    sources = [Path('/Users/max/.codex/conventions/response-style.md'), Path('/Users/max/.codex/conventions/git.md'), ROOT / 'CLAUDE.md']
+    sources = [Path('/Users/max/.codex/conventions/response-style.md'), Path('/Users/max/.codex/conventions/git.md'), MODEL_ROUTING, ROOT / 'CLAUDE.md']
     deferred = []
     for path in sorted((ROOT / '.claude' / 'rules').rglob('*.md')):
         if 'templates' in path.relative_to(ROOT / '.claude' / 'rules').parts:
@@ -65,6 +69,12 @@ def start(payload):
     if deferred:
         text += '\n\nPath-scoped rules: read frontmatter and apply only to matching work: ' + ', '.join(deferred)
     return context('SessionStart', text)
+
+
+def routing_pulse(payload):
+    model = payload.get('model')
+    current = model if isinstance(model, str) and model else 'unknown'
+    return MODEL_PULSE.read_text().replace('{{CURRENT_MODEL}}', current)
 
 
 def prompt(payload):
@@ -83,11 +93,13 @@ def prompt(payload):
     }), 'expand-markers.sh')
     bare = bool(re.search(r'^`~(?:bare|queued)`', markers, re.M))
     Path(tempfile.gettempdir(), 'codex-style-mode-' + key).write_text('bare' if bare else '')
-    parts = [advisory.getvalue().strip(), style, INSTRUCTIONS.read_text(), markers]
+    parts = [advisory.getvalue().strip(), style, INSTRUCTIONS.read_text(),
+             routing_pulse(payload), markers, commit_permission.prompt(payload)]
     return context('UserPromptSubmit', '\n\n'.join(p for p in parts if p))
 
 
 def stop(payload):
+    commit_permission.close(payload)
     if payload.get('stop_hook_active'):
         return {}
     reply = payload.get('last_assistant_message')
@@ -110,18 +122,6 @@ def stop(payload):
     return {}
 
 
-def staging_check(command, args):
-    # Shared personal policy; missing guard fails closed for shell operations.
-    path = ROOT / '.codex/hooks/staging_guard.py'
-    spec = importlib.util.spec_from_file_location('codex_staging_guard', path)
-    module = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(module)
-    reason = module.check(command, args)
-    if reason:
-        sys.stderr.write(reason + '\n')
-        return True
-    return False
-
 
 def guard(payload):
     # Both names are supported for direct tests and native exec payload variants.
@@ -136,8 +136,10 @@ def guard(payload):
         command = command[-1] if len(command) >= 3 and command[-2] in {'-c', '-lc'} else None
     if not isinstance(command, str):
         return {'systemMessage': 'Git guard failed: missing shell command.'}, 2
-    if staging_check(command, args):
-        return {}, 2
+    commit_permission.observe(payload)
+    if commit_permission.permits(payload, command, args.get('workdir') or payload.get('cwd') or str(ROOT)):
+        return context('PreToolUse', commit_permission.status(
+            commit_permission.read_state(payload['session_id']))), 0
     normalized = dict(payload, session_id=session_key(payload), tool_name='Bash',
                       cwd=args.get('workdir') or payload.get('cwd') or str(ROOT),
                       tool_input={'command': command})

@@ -48,12 +48,14 @@ Repairing a binary already in pushed history:
 ## Discipline
 
 - **must not** ever run `git push` (every form, force included), `git reset --hard`, `git restore` to the worktree, `git checkout -- <path>`, `git clean`, or any `gh` write (`pr create`, `issue comment`, `release create`, `api -X POST`, …) — the human is the **only** one who publishes, and no agent discards a working tree. Enforced by the `guard-git` PreToolUse hook ([../../../../.claude/hooks/guard-git.py](../../../../.claude/hooks/guard-git.py)).
-- **may** run `git add`, `git commit` (plain — **not** `--amend`), `git pull`, `git stash`, branch create / switch, `git fetch`, and every read-only git. Commits require user authorization; approval to commit a scoped batch covers its constituent commits without repeated confirmation.
-- history rewrites — `merge`, `rebase`, `cherry-pick`, `revert`, `commit --amend`, soft/mixed `reset` — are blocked unless a **rapid-building session** is live: `.claude/.rapid-build` holding one future ISO-8601 UTC expiry (`2026-08-13T18:30:00Z`). The developer writes that marker; agents never create it, and an expired one is no session.
-- **lane check** — `commit`, `pull` and `stash push` stop once, naming the files, when the tree carries modified / staged paths this session never wrote. That is probably a parallel chat's in-flight work. Ask the developer *is another lane working right now?*; if none is, the dirt is completed-but-uncommitted work and the retry goes through. The hook knows "this session wrote it" from the ledger `.claude/hooks/track-touch.py` keeps.
+- **must not** commit unless the user has enabled the Codex [turn-scoped commit switch](../../../../.codex/commit-permission.md) for the target repository; OFF leaves commits to the developer. Amend remains forbidden. A rapid-building marker does not unlock commits.
+- **may** run `git add`, `git pull`, `git stash`, branch create / switch, `git fetch`, and every read-only git.
+- history rewrites — `merge`, `rebase`, `cherry-pick`, `revert`, soft/mixed `reset` — are blocked unless a **rapid-building session** is live: `.claude/.rapid-build` holding one future ISO-8601 UTC expiry (`2026-08-13T18:30:00Z`). The developer writes that marker; agents never create it, and an expired one is no session.
+- **lane check** — `pull` and `stash push` stop once, naming the files, when the tree carries modified / staged paths this session never wrote. That is probably a parallel chat's in-flight work. Ask the developer *is another lane working right now?*; if none is, the dirt is completed-but-uncommitted work and the retry goes through. The hook knows "this session wrote it" from the ledger `.claude/hooks/track-touch.py` keeps.
 - may stage and unstage explicit task paths; prefer `git restore --staged -- <paths>`. Index-only path resets and cached patches/removals are permitted without a rapid-building marker.
 - must follow the authorized task scope and handover cadence; an agreed batch iteration does not require repeated staging approval.
-- must treat "push it" as a cue to propose the file set and message; it authorizes neither staging nor publishing; "commit this" authorizes the commit once the staged set has been reported.
+- must prepare the scoped staged set and message for a commit request; execute only when the commit switch is ON.
+- must hand push requests to the developer.
 - parallel-lane rules (assume-intentional · no-revert · stage only your own files): [../../../agentic-workflow/agentic-workflow.md](../../../agentic-workflow/agentic-workflow.md).
 
 ---
@@ -64,12 +66,12 @@ Per commit, in this order:
 
 1. within the authorized task scope, agent **carves the index** using explicit paths. Stage and unstage task-owned paths as needed; preserve unrelated staged work.
 2. agent prints the **staged path list** + the commit message (`{type}: {past-tense} {what}`).
-3. agent commits within the developer-authorized scope; the human reviews and pushes — `git push` is never the agent's.
-4. an agreed batch iteration authorizes subsequent batches; wait for the human commit when that is the requested cadence.
+3. with commit permission OFF, the developer reviews and commits; with ON, the agent commits the reviewed staged batch and reports its SHA. The developer always pushes.
+4. an agreed batch iteration authorizes subsequent batches; wait for the human commit between batches when commit permission is OFF.
 
 - **carve** = shape the index so the staged set is exactly one lane's cohesive change, nothing else.
 - read the result with `git status --short` — staged column commits, unstaged column stays behind.
-- may `git add -A` / `-u` / `.` — a pathless add requires the entire resolved file set to be within the authorized scope: it copies into the index and is trivially reversible, changing no working-tree content. The risk is the **commit** that follows, which would claim another lane's work as this lane's — and that is what the lane check above stops, by name, before the commit lands.
+- may `git add -A` / `-u` / `.` only when the entire resolved file set is within the authorized scope; inspect the index for unrelated work.
 - must print the staged paths, not only the message — a shared index makes the message alone unprovable.
 - must re-check `git status` right before printing — a concurrent lane can stage between add and report.
 - must preserve another lane's prepared commit unless the user authorizes changing that staged set.

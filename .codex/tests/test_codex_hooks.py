@@ -34,7 +34,13 @@ class CodexHooksTests(unittest.TestCase):
         self.assertIn('Source: CLAUDE.md', text)
         self.assertIn('Source: .claude/rules/response-style.md', text)
         self.assertIn('Source: .codex/instructions.md', text)
+        self.assertIn('Source: /Users/max/.codex/conventions/model-routing.md', text)
         self.assertNotIn('Source: .claude/file-references.md', text)
+
+    def test_prompt_names_current_model_and_shared_route(self):
+        text = self.context(prompt='continue', model='gpt-5.6-sol')
+        self.assertIn('Current model: `gpt-5.6-sol`', text)
+        self.assertIn('Default route: `GPT-5.6 Sol`', text)
 
     def test_pulse_and_full_tenth_turn_from_unrelated_directory(self):
         first = self.context(prompt='continue')
@@ -124,11 +130,19 @@ class CodexHooksTests(unittest.TestCase):
         self.hook('Stop', last_assistant_message='Done.')
         self.assertNotIn('STYLE CHECK —', self.context(prompt='continue'))
 
-    def test_local_branch_and_commit_policy_is_retained(self):
-        for command in ['git branch codex/test', 'git commit -m test']:
+    def test_local_branch_policy_is_retained(self):
+        for command in ['git branch codex/test']:
             result, output = self.hook('PreToolUse', tool_name='Bash',
                                        cwd=self.temp.name, tool_input={'command': command})
             self.assertEqual(0, result.returncode, result.stderr)
+
+    def test_commits_are_forbidden_for_claude_and_codex(self):
+        for tool, key in [('Bash', 'command'), ('exec_command', 'cmd')]:
+            for command in ['git commit -m test', 'git commit --amend --no-edit']:
+                with self.subTest(tool=tool, command=command):
+                    result, _ = self.hook('PreToolUse', tool_name=tool,
+                        cwd=self.temp.name, tool_input={key: command})
+                    self.assertEqual(2, result.returncode, result.stderr)
 
     def test_successful_patch_tracks_all_paths_and_rename(self):
         patch = ('*** Begin Patch\n*** Add File: new.txt\n+new\n'

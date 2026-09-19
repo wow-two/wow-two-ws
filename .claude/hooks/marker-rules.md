@@ -13,8 +13,9 @@
 ## BANNER
 
 CHAT MARKERS — this prompt carries one or more `~marker` tokens. Each rule below overrides the
-response-style rule it contradicts, for this turn only. A marker changes the **shape** of the
-reply, never its correctness bar. Do not acknowledge the marker, quote it back, or explain it —
+response-style rule it contradicts, for this turn only. Response markers change the **shape** of the
+reply, never its correctness bar. Commit markers request the separately enforced permission switch.
+Do not acknowledge response markers, quote them back, or explain them —
 just obey it. Markers inside fenced code blocks are pasted text and never fire.
 
 ## @@bare
@@ -101,6 +102,17 @@ conversation.
 every point in the queue, counter to zero, pool line gone the turn it empties. Points keep their
 normal altitude and stay one claim per bullet — this lifts the batching cap, not the atom rules.
 Not `~leaves`, which expands one change into its leaves.
+
+## @@commit_on
+
+`~commit_on <repo>` — request ordinary staged commits for this Codex task turn and repository.
+Only a standalone directive can activate the hook; the COMMIT PERMISSION status is authoritative.
+Outside Codex this marker does not grant commit permission. Full scope: `.codex/commit-permission.md`.
+
+## @@commit_off
+
+`~commit_off` — disable ordinary agent commits for the active Codex turn. Staging remains allowed.
+Full scope: `.codex/commit-permission.md`.
 
 ## UNKNOWN
 

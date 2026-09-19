@@ -1,6 +1,6 @@
 # Agentic workflow
 
-*Last updated: 2026-08-13*
+*Last updated: 2026-09-12*
 
 > How parallel Claude chats / agents share one repo without clobbering each other — lane discipline, no-revert, scope containment.
 > Purpose — multiple chats edit the same working tree at once; a wrong "cleanup" silently destroys another lane's uncommitted work.
@@ -18,7 +18,7 @@
 
 - A working tree you didn't just clean is **presumed to hold another lane's in-flight work**. Uncommitted ≠ scratch.
 - A change that looks **incomplete, out-of-scope, or "wrong"** is **another agent's lane** or a crashed run mid-task — **not yours to revert**. Assume necessary until the human says otherwise.
-- **Never** `git checkout -- .`, `git restore`, `git stash`, `git reset --hard`, or delete files to "tidy" changes you didn't author — these silently destroy uncommitted work.
+- **Never** `git checkout -- .`, `git restore` to the worktree, `git stash`, `git reset --hard`, or delete files to "tidy" changes you didn't author — these silently destroy uncommitted work.
 - Found unexpected changes? **Stop and verify with the human** before any destructive op. Provenance by mtime / log is **unreliable** when chats run concurrently (one chat's edit lands inside another's window) — ask, don't infer.
 
 ---
@@ -33,8 +33,8 @@
 
 ## Commit discipline
 
-- Publishing is **human-managed** — agents stage and commit, but **never** run `git push` (hook-enforced: `.claude/hooks/guard-git.py`, which also blocks worktree destruction, gates history rewrites behind a rapid-building marker, and lane-checks `commit` / `pull` / `stash push` against files this session never wrote). Full protocol: [../development/repo/version-control/git.md](../development/repo/version-control/git.md).
-- **The index is shared, one per repo — not per lane.** Two agents staging at once produce one index holding both. Staging is therefore **opt-in**: leave the tree dirty, report your paths, stage only when asked.
+- Commits follow the [Git permission protocol](../development/repo/version-control/git.md); agents stage, and the developer always publishes.
+- **The index is shared, one per repo — not per lane.** Two agents staging at once produce one index holding both. Stage and unstage only within the authorized task scope; an agreed batch iteration remains authorized.
 - A pathless `git add -A` / `-u` / `.` is fine — staging only copies into the index and is trivially reversible; it changes no working-tree content. The hazard is the **commit** after it, which would ship another lane's work under this lane's message. The `guard-git` lane check stops `commit` / `pull` / `stash push` and names the foreign files before that happens; answer its question and re-run.
-- Unstaging is not available: `git restore --staged` is hook-blocked, and `git reset <path>` only runs in a rapid-building session — both de-carve another lane's prepared commit. Foreign paths already staged → report, don't touch.
+- Unstage task-owned paths with `git restore --staged -- <paths>` when needed. Foreign paths already staged → report and preserve unless the user authorizes changing them.
 - Large uncommitted work in a shared tree is **fragile** — flag it for the human to commit so a later agent (or a careless revert) can't lose it.

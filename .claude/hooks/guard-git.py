@@ -2,29 +2,30 @@
 """wow-two-ws git guard — PreToolUse(Bash) hook.
 
 Mechanically enforces `conventions/development/repo/version-control/git.md`
--> ## Discipline. Agents stage and commit; the developer pushes. Publishing and
+-> ## Discipline. Agents stage; the developer commits and pushes. Publishing and
 history rewriting stay the developer's, in GitKraken — except during a rapid-
 building session, when the history ops unlock (see `marker` below). `push` is
 what leaves the machine, and no session unlocks it.
 
 Shared policy (identical in eis-ws / 10x-ws / wow-two-ws):
-  allowed    `git add` in every form (incl. `-A` / `.` / `-u`) · read-only git
+  allowed    index-only staging/unstaging (`add`, `restore --staged`, path `reset`,
+             `apply --cached`, `rm --cached`) · read-only git
              (status log diff show blame describe rev-parse ls-files shortlog
              reflog, `branch --list`, `remote -v`, `stash list|show`) ·
              `git fetch` · read-only gh (`pr view|list|diff|checks|status`,
              `run view|list|watch`, `issue view|list`, `api` GET, `repo view`,
              `auth status`)
-  forbidden  `git push` in every form (`--force`, `--force-with-lease`, `--tags`,
+  forbidden  `git commit` in every form, including `--amend`; `git push` in every form (`--force`, `--force-with-lease`, `--tags`,
              and push-by-gh) · worktree destruction (`reset --hard`, `restore` to the worktree,
              `checkout -- <path>`, `checkout .`, `clean`) · every gh write
              (`pr create|comment|merge|close|edit|review|ready`,
              `issue create|comment|close|edit`, `release create`,
              `api -X POST|PUT|PATCH|DELETE`, `workflow run`, `repo create|delete`)
-  wow-two    allowed on top of the shared list: `git commit` (plain, NOT `--amend`),
-             `git pull`, branch create / switch (`branch <name>`, `switch`,
+  wow-two    allowed on top of the shared list: `git pull`,
+             branch create / switch (`branch <name>`, `switch`,
              `checkout -b`, `checkout <branch>`), `git stash` (every subcommand —
              a stash is a real ref and shows in GitKraken's Stashes panel).
-             Gated on a rapid-building session: `commit --amend`, `merge`, `rebase`,
+             Gated on a rapid-building session: `merge`, `rebase`,
              `cherry-pick`, `revert`, `reset` soft/mixed. `reset --hard` stays
              forbidden always.
   marker     `.claude/.rapid-build` holds ONE ISO-8601 UTC expiry
@@ -33,7 +34,7 @@ Shared policy (identical in eis-ws / 10x-ws / wow-two-ws):
              malformed = no session, reported as a marker problem rather than as a
              forbidden op — they are different problems. The developer writes the
              marker; this hook only ever reads it.
-  lane check `commit`, `pull` and `stash push` stop once, by name, when the tree
+  lane check `pull` and `stash push` stop once, by name, when the tree
              holds modified / staged files this session never wrote — probably a
              parallel chat's in-flight work on the shared branch. The developer
              answers in chat and the retry goes through (it asks once per file set).
@@ -67,8 +68,8 @@ WORKSPACE = "wow-two-ws"
 DOC = "conventions/development/repo/version-control/git.md -> ## Discipline"
 STRICT = False          # True -> no commit / branch / stash-write / history op at all
 RAPID_BUILD = True      # True -> history ops unlock during a rapid-building session
-LANE_CHECK = True       # True -> commit / pull / stash-push ask about foreign dirt
-ALLOWED_HERE = "`git add`, `git commit` (plain), branch create/switch, `git stash`,\n`git pull`, `git fetch`, read-only git + `gh`."
+LANE_CHECK = True       # True -> pull / stash-push ask about foreign dirt
+ALLOWED_HERE = "index-only staging/unstaging, branch create/switch, `git stash`,\n`git pull`, `git fetch`, read-only git + `gh`."
 HANDOVER = "Hand it over by name in chat (`push main to origin`, `discard my edits to Program.cs`)\nand STOP; the developer runs it in GitKraken. A subject-only commit message is welcome."
 
 # `<workspace>/.claude/.rapid-build` — this file sits at `<workspace>/.claude/hooks/`.
@@ -212,7 +213,10 @@ def invocations(cmd, binaries):
                         continue
                     break
                 if j < len(toks):
-                    out.append((base, toks[j].lower(), toks[j + 1:]))
+                    end = j + 1
+                    while end < len(toks) and toks[end] not in SEPARATORS:
+                        end += 1
+                    out.append((base, toks[j].lower(), toks[j + 1:end]))
                 else:
                     out.append((base, "", []))
             expect_cmd = False
@@ -246,7 +250,8 @@ def label(binary, sub, args):
 
 
 def git_verdict(sub, args):
-    flags = {a.split("=", 1)[0] for a in args if a.startswith("-")}
+    options = args[:args.index("--")] if "--" in args else args
+    flags = {a.split("=", 1)[0] for a in options if a.startswith("-")}
     text = label("git", sub, args)
     hard, gated, lane = ("hard", text), ("gated", text), ("lane", text)
 
@@ -256,16 +261,21 @@ def git_verdict(sub, args):
         # `--staged`/`-S` alone rewrites the index; the worktree is untouched, so
         # nothing uncommitted can be lost. Adding `--worktree`/`-W` (or passing no
         # flag at all) overwrites files from the index or HEAD -> destruction.
-        staged = flags & {"--staged", "-S"}
-        worktree = flags & {"--worktree", "-W"}
+        short = {c for a in options if a.startswith("-") and not a.startswith("--") for c in a[1:]}
+        staged = "--staged" in flags or "S" in short
+        worktree = "--worktree" in flags or "W" in short
         return None if (staged and not worktree) else hard
     if sub in WORKTREE_KILL:
         return hard
+    if sub in {"apply", "rm"} and "--cached" in flags and "--index" not in flags:
+        return None  # index-only patch/removal; working-tree files stay intact
     if sub in SURGERY:
         return hard
     if sub == "reset":
         if flags & RESET_KILL:
             return hard
+        if "--" in args and args.index("--") < len(args) - 1 and not (flags & {"--soft", "--mixed"}):
+            return None  # explicit path reset touches only the index
         return hard if STRICT else gated
     if sub == "checkout":
         if "--" in args or "." in args or (flags & CHECKOUT_KILL):
@@ -276,9 +286,7 @@ def git_verdict(sub, args):
             return hard
         return hard if STRICT else None
     if sub == "commit":
-        if STRICT:
-            return hard
-        return gated if ("--amend" in flags) else lane
+        return hard  # the developer commits; rapid-building never unlocks this
     if sub == "pull":
         return hard if STRICT else lane  # allowed outside eis-ws, lane check aside
     if sub in HISTORY:
@@ -511,7 +519,7 @@ def lane_message(op, family, strays):
         "{listing}\n"
         "Ask the developer, in chat, before retrying: is another lane working right now?\n"
         "  yes -> leave those files alone; carve the index to this lane's paths only.\n"
-        "  no  -> completed-but-uncommitted work, fine to stage and commit here.\n"
+        "  no  -> completed-but-uncommitted work; staging is allowed, the developer commits.\n"
         "This asks once per file set: after the answer, re-run the command and it runs.\n"
     ).format(ws=WORKSPACE, doc=DOC, op=op, n=len(strays), fam=family, listing=listing)
 

@@ -1,6 +1,6 @@
 # Claude configuration in Codex
 
-*Last updated: 2026-09-12 05:23 PM*
+*Last updated: 2026-09-15 10:46 PM*
 
 ## Audit and scope
 
@@ -15,7 +15,7 @@ Replaced the renamed AGENTS.md and eight byte-identical copied hooks; native ski
 
 ## Lifecycle
 
-SessionStart, UserPromptSubmit, PreToolUse, PostToolUse and Stop. Shared Git policy, style pulse/recharge and marker expansion; successful Codex patches feed the shared touch ledger.
+SessionStart, UserPromptSubmit, PreToolUse, PostToolUse and Stop. Shared Git policy, style pulse/recharge, model-routing pulse and marker expansion; successful Codex patches feed the shared touch ledger.
 
 The adapter resolves files relative to its installation. Hook commands use the saved workspace's absolute path; update `.codex/hooks.json` if it moves. Session state is hashed with the workspace root and Codex session ID, isolating workspaces and Claude sessions. When config layers include parent and child workspaces, the parent adapter yields if the session cwd is under the child's own adapter.
 
@@ -52,8 +52,19 @@ Shared `CLAUDE.md` and `.claude/` source hashes are unchanged. `git diff --check
 
 Shared Codex defaults are extracted into `~/.codex/AGENTS.md`; duplicate adaptation bullets are removed from `.codex/instructions.md`. General response style is extracted to `~/.codex/conventions/response-style.md`; local rule files import it for Claude and Codex. Project-specific response styles, task schemas, business boundaries and Git restrictions stay local.
 
-The Codex PreToolUse adapter loads the local `.codex/hooks/staging_guard.py`. Recognized index writes without an explicit native escalation request are denied. This does not verify conversational consent: the agent must already have explicit user approval for the repository and file set. Escalation is reviewed by the configured runtime, which may use automatic approval review rather than a human dialog. Tools that omit escalation metadata must hand staging to GitKraken. `~/.codex/rules/staging.rules` adds native prompt decisions for direct staging prefixes; it is not a universal shell firewall.
+Authorized staging and unstaging use the available shell route, including `functions.exec`. The escalation-metadata gate was removed from all four workspace copies on 2026-09-12, alongside the supplemental personal staging prompt rule, after explicit user approval. Native sandbox approval remains authoritative. Existing guards retain their worktree, publishing, history and lane policies. No trust storage is edited.
 
-Reload/review modified hooks through Codex's hook trust UI; trust storage is not edited by this setup. New runs load the global instruction file. Offline tests do not establish live hook activation. Aliases, arbitrary programs and direct filesystem index writes are outside the shell recognizer; instructions forbid using them as bypasses. No security guarantee is claimed for arbitrary tool execution.
 
 Current extraction and verification: [personal conventions setup](/Users/max/Projects/10x-ws/.codex/conventions-setup.md).
+
+## Commit permission — 2026-09-19
+
+The [commit switch](commit-permission.md) defaults OFF and accepts explicit user consent for one repository and turn.
+Live scoped commits through this adapter succeeded with GPG signing; verification is recorded in the
+[SDK batch report](../system/sessions/backend-beta-build/commit-batches-verification.md).
+The switch and existing hook/index suites pass 40 tests. Stop and new-turn expiry are isolated-test evidence.
+Earlier project-trust and no-commit statements above are installation-time snapshots, not current activation claims.
+
+Managed-repository commits use explicit `git -C <absolute-repo>` because a live shell hook may expose the workspace cwd
+instead of `workdir`. GPG-agent and test-socket restrictions use native escalation; no signing, trust or sandbox settings
+are changed. The shared guard continues to block publishing, history changes and commits outside the active grant.
