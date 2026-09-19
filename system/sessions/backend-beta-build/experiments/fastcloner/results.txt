@@ -1,0 +1,34 @@
+ENV runtime=.NET 10.0.8 arch=Arm64 cloner=3.5.6+2b641d60884075737f8b9aea9722166a4bdd2074
+PASS record root copied
+PASS runtime derived type preserved
+PASS root self cycle preserved
+PASS nested cycle preserved
+PASS shared alias properties preserved
+PASS shared alias list preserved
+PASS shared alias dictionary preserved
+PASS shared alias private field preserved
+PASS shared alias get-only property preserved
+PASS private readonly field isolated
+PASS init property nested state isolated
+PASS get-only mutable list isolated
+PASS constructor not rerun
+PASS list isolated
+PASS dictionary comparer behavior preserved
+PASS set comparer behavior preserved
+PASS reference set contains cloned key
+PASS reference set excludes original key
+PASS reference dictionary finds cloned key
+PASS reference dictionary excludes original key
+PASS custom comparer dictionary works
+PASS derived mutable member isolated
+PASS mutation leaves original graph intact
+PASS acyclic shared alias preserved
+PASS acyclic shared object isolated
+PASS acyclic original isolated
+PASS record list-key alias preserved
+PASS record list-key parts isolated
+PASS record list-key set contains cloned key
+PASS record list-key dictionary finds cloned key
+PASS scalar record-key set contains cloned key
+PASS scalar record-key dictionary finds cloned key
+SUMMARY passed=32 failed=0

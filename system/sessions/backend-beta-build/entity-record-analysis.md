@@ -2,7 +2,7 @@
 
 *Last updated: 2026-09-12*
 
-> P01 reopened: compare concrete behavior under WoW2's philosophy, including data-oriented models and `with`.
+> P01 resolved: sealed records; original-instance tracked writes; copies remain detached candidates and snapshots.
 
 ## Conclusion
 
@@ -15,8 +15,11 @@ generated formatting. A plain class avoids some of these defaults but loses the 
 The costs should decide the policy, not Microsoft's preference. The rule-selection owner is
 [WoW2 convention philosophy](../../../conventions/philosophy/philosophy.md).
 
-The earlier class conversion has been paused, the record baseline restored, and P01 reopened. This analysis
-does not decide the entity-copy workflow or the separate value-object invariant/equality questions.
+The earlier class conversion was withdrawn. P01 is resolved to sealed records with original-instance
+tracked writes: validate the proposed changes, assign accepted properties or invoke domain operations on
+the tracked entity, and save. Do not submit a copied replacement while its key is tracked. This preserves
+the useful record features without requiring a generic merge operation. P02 separately establishes external
+validation; P03 permits explicit value-object equality and matching hashes where generated equality is insufficient.
 
 ## What the EF recommendation does and does not mean
 
@@ -67,7 +70,8 @@ stored as a hashed element/key. Immutable extracted field tuples also work. Equa
 separate from EF's internal reference identity and navigation membership requirements.
 
 Generated record equality does not recursively compare list/array contents. A deep clone can isolate those
-collections without making independently allocated collections equal. Structural equality remains P03.
+collections without making independently allocated collections equal. Resolved P03 permits explicit structural
+equality and matching hashing where the value contract requires it, with documented order/duplicate semantics.
 
 Validation starts outside constructors, in a pure extension method or dedicated validator, currently backed
 by FluentValidation. Rules can grow without changing the construction API. Created, copied and deserialized
@@ -103,12 +107,12 @@ The current SDK makes this distinction relevant:
   performs a query without an explicit no-tracking operator (line 34); normal context defaults track it.
 - `UpdateAsync` calls `Set.Update(entity)` (line 66). Reading and sending a `with` copy through the same tracked
   repository/context therefore reaches the duplicate-instance constraint.
-- A record-friendly update contract is possible in our SDK. It must define how proposed state reaches the
-  tracked row rather than requiring products to detach or clear the context as a workaround.
+- A copied-candidate update contract is technically possible, but is not the selected default. The SDK must
+  support original-instance tracked writes without requiring detach/clear workarounds or redundant whole-row modification marking.
 
 The [prototype rule](../../../conventions/development/backend/dotnet/core/mla/constructs/patterns/prototype.md)
 now permits entity candidates and snapshots. The earlier blanket ban was a house rule, not a C# or EF
-prohibition. Accepting a copied candidate through the repository update API remains the P01 workflow decision.
+prohibition. P01 now chooses original-instance tracked updates and prohibits passing a copy as its replacement.
 
 ## Verification
 
@@ -153,6 +157,9 @@ Records remain a viable house choice if data-oriented declarations and copy synt
 identity-collection, copy-depth and persistence-update contracts. Classes are simpler when default reference
 semantics and in-place tracked mutation are the intended workflow. Neither answer follows from external authority.
 
-The open design input is whether `entity with { ... }` should be accepted as a proposed update by our
-repository contract, or mainly used for detached calculations/snapshots. P01 remains open in the
-[audit](conventions-audit.md#points); N114 cannot trigger a class conversion while it is open.
+The developer's proposed convention restriction is correct for tracked writes and is now applied:
+`with` creates a new instance, normally with the same key; the original remains tracked. Update that original
+and save it. Copies may still support detached calculations/snapshots, and a separately declared candidate
+application operation could be correct if it defines fields, relationships and concurrency. Such an operation
+is not needed merely to retain records. P01 is closed in the [audit](conventions-audit.md#points);
+N114 verifies this SDK behavior rather than converting models or adding implicit merging.

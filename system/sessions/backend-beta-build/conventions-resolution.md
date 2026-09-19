@@ -1,10 +1,174 @@
 # Backend convention repair evidence
 
-*Last updated: 2026-09-12*
+*Last updated: 2026-09-13*
 
 > Mechanical repair evidence for the [full audit](conventions-audit.md). The decision queue remains in that audit's `Points` section. Original audit reports preserve the pre-repair findings.
 
 SDK source was read to verify claims; this pass edits conventions and trackers only. A convention closure is not an SDK implementation or release claim. Local sample checks are named below; the SDK build/test/pack battery has not run in this pass.
+
+## Final convention acceptance — 2026-09-15
+
+- All eight design points and both naming discussion rows are settled; BC03 and BC25 close the 25-task audit.
+- Final wording repairs align internal Model inputs/wrappers with Event payloads, scope Service/Validator
+  summaries to concrete types, and distinguish collaborating-abstraction prefixes from competing role suffixes.
+- Formatter examples no longer mandate one global capability name; Transport points application publishing
+  to Bus and workflow orchestration to Service. Validator references the actual Consumption heading.
+- Independent acceptance reread the final edits and checked 159 backend docs plus 1,050 local links/fragments;
+  no convention blocker remains in the naming scope. [Evidence](naming-final-acceptance.md).
+- Workspace task con-t-003 closed. SDK tracker retains implementation obligations; no package/release claim.
+- Metrics renames passed compilation and four existing pump tests. Envelope renames passed two scoped builds
+  and eight existing claim-check tests; [evidence](envelope-role-verification.md).
+
+## Metrics complete-name decision — 2026-09-15
+
+- MetricsService confirmed; clarified that responsibility nouns precede the behavior role suffix in constructs.
+  SDK interface/default/no-op renames dispatched; no new Metrics role.
+- Guest session Service rename compiled and its existing configured-registration test passed.
+  [Evidence](guest-session-service-verification.md).
+- Envelope is the final active naming case; internal Model and HTTP ApiResponse roles are proposed.
+
+## Bus definition — 2026-09-15
+
+- Bus confirmed for application-facing publishing/sending over a Transport. Added its definition and both
+  construct/behavior index entries, including metadata and completion-guarantee boundaries.
+- Guest session behavior follows the existing Service role; mechanical rename dispatched.
+- Google authenticator and hash-chain validator renames compiled; no existing direct tests found.
+  [Google evidence](google-id-token-authenticator-verification.md), [chain evidence](hash-chain-validator-verification.md).
+- Reports and context retain the hash-chain segment/checkpoint documentation gap and Google cancellation/options
+  observations for the SDK implementation sweep. Metrics is the active naming decision.
+
+## Validator integrity scope — 2026-09-15
+
+- Hash-chain integrity checks confirmed under Validator. Broadened its role to supplied data checked against
+  rules with validity/failure results. Domain contracts can retain structured results without inheriting
+  AbstractValidator; dedicated input/field validation continues through the existing FluentValidation integration.
+- Updated construct/behavior indexes and scoped the validation domain's authoring/consumption instructions.
+- HashChainValidator source/result/method renames dispatched. No Verifier convention is introduced.
+- Bus is the active vocabulary decision.
+
+## Serializer definition — 2026-09-14
+
+- Serializer confirmed for object data to/from a specified representation. Added its behavior definition
+  and construct/behavior index entries; stored-JSON wrapper policy is linked to its existing owner.
+- All 102 local targets across the definition and indexes exist; `git diff --check` passed.
+- SDK source conformance remains in N101. Google token verification aligns with the existing Authenticator
+  role; source rename dispatched. Hash-chain integrity Verifier is the active vocabulary decision.
+
+## Transport definition — 2026-09-14
+
+- Transport confirmed for sending or receiving messages through a selected delivery medium, including
+  in-process channels. Added `core/mla/constructs/behavior/transport.md` and both construct/behavior entries.
+- Defined delivery ownership, processing boundary and guarantee/lifecycle documentation requirements.
+- All 99 local targets across the definition and two indexes exist; `git diff --check` passed.
+- SDK conformance remains in N101, including checking the saga wrapper against the medium-ownership boundary.
+- Formatter source rename/placement completed; core build passed with no direct existing runtime tests.
+  [Evidence](humanized-text-formatter-verification.md). No builds or approvals pending.
+- Serializer is the active vocabulary discussion; per-type stored-JSON wrappers remain retired.
+
+## Humanized text naming — 2026-09-13
+
+- Confirmed `HumanizedTextFormatter` / `IHumanizedTextFormatter`; Formatter owns linguistic forms as well as
+  relative-time and value formatting. Added the specialization to the Formatter definition; no Humanizer role.
+- SDK rename and Formatter placement/documentation conformance dispatched; verification remains pending.
+- N100 vocabulary discussion closed; its SDK tracker row remains open for outstanding implementation.
+- N101 Transport is the active vocabulary discussion.
+
+## Formatter role and service verification — 2026-09-13
+
+- Formatter definition was absent. Added `core/mla/constructs/behavior/formatter.md` for values expressed
+  as display text under culture/format rules; registered it in behavior and construct indexes.
+- Definition covers culture source, format/input contracts and the clock seam for relative-time phrases.
+- All 98 local link targets across the definition and two indexes exist; `git diff --check` passed.
+- SDK placement/documentation conformance remains in N100. Humanizer is the active vocabulary discussion.
+- Coordinator/no-op renames verified: scoped builds and 17 existing tests passed;
+  [evidence](coordinator-service-verification.md). Event-saga rename and isolated core compilation passed;
+  [evidence](event-saga-service-verification.md) retains the lack of direct runtime coverage.
+- No pending builds or approvals remain.
+
+## Exporter role — 2026-09-13
+
+- Exporter retained for structured data written as a data exchange document. Added
+  `core/mla/constructs/behavior/exporter.md` with location, naming, responsibility and destination contracts;
+  registered it in behavior and construct indexes. Existing CSV/XLSX SDK names remain.
+- All 95 local link targets across the new convention and two indexes exist; `git diff --check` passed.
+- SDK folder/documentation conformance remains in N100; this is a convention closure, not SDK completion.
+- Formatter is the active vocabulary discussion; no Formatter or Humanizer convention change is claimed.
+
+## Permission recovery and Parser — 2026-09-13
+
+- Recovery procedure captured in the global `/Users/max/.codex/AGENTS.md` and read back after native-approved
+  editing. No security settings or approval rules changed. New instruction chains inherit the guidance;
+  existing chats may need to reread it. [Capture details](permission-recovery.md#shared-capture).
+- `DelayedRetryService` confirmed/applied; Messaging.Tests compiled and six existing fault/bus tests passed
+  through native approval. [Evidence](delayed-retry-service-verification.md) records scope and coverage limits.
+
+- Native escalation resolved the two outstanding execution blocks: test-runner local socket and official NuGet
+  restore. All 28 existing mapper/consumer/policy tests passed. FastCloner 3.5.6 restored and passed all 32 graph
+  assertions on .NET 10.0.8 Arm64. [Permission evidence](permission-recovery.md) and [clone output](experiments/fastcloner/results.txt).
+- Parser confirmed and defined for format syntax decoding; behavior and keep-list indexes updated. Failure
+  carriers remain inherited; partial-input and stream contracts are explicit. [Convention verification](parser-convention-verification.md).
+- C26 retains SDK clone integration; N100/N101 retain parser source conformance, including the mixed Cron
+  evaluation member. Active naming decision: DelayedRetryService for the retry coordinator that performs scheduling.
+
+## Recorder role application — 2026-09-13
+
+Recorder verification completed: Data.Tests, Testing.Messaging and Messaging.Tests builds passed, with existing
+warnings; [exact evidence](recorder-rename-verification.md). No runtime test, pack or release claim.
+
+Error-nature mapper applied: `ErrorNatureMapper` / `IErrorNatureMapper`, with DI override retained.
+[Evidence](error-nature-mapper-verification.md): SDK/Foundation.Tests compiled; runtime tests reached a sandbox
+socket denial. Native retry was dismissed on session end, not approved; no executed test pass is claimed.
+`EventFaultPolicy` / `IEventFaultPolicy` confirmed for Retry/DeadLetter/Ignore selection; implementation and
+consumer verification are delegated. The active naming decision is Parser for syntax decoding; its definition
+remains proposed pending the user's vocabulary decision.
+
+User confirmed the recorder/interceptor distinction: `InterceptorInvocationTracker` records invocations;
+an interceptor retains its own `Interceptor` suffix. Renamed the Data.Tests declaration/file and four source
+reference files without changing behavior. Equivalent live recorders renamed to `RecordedMessageTracker` /
+`RecordedTransitionTracker`, with their source and SDK doc references updated. No old recorder type names
+remain in source; scoped whitespace checks pass. Compilation results are recorded above; no runtime test or
+release result is claimed. N100 remains open for its other cases.
+
+## Direct stored JSON usage — 2026-09-13
+
+User clarification: no dedicated per-type options-holder class either. Custom discriminators/converters or
+legacy formats require configuration only; explicit options or a registered profile key cover that need.
+Removed the holder requirement from the persistence owner. Current SDK source supports explicit options in
+`SystemTextJsonMessageSerializer` and EF converters; no general keyed JSON-options registry was found in the
+source inventory. C29 records the shared abstraction/options-profile completion and documentation migration,
+including removal of the old `{Root}JsonConstants` recommendation. This is a source gap to resolve in the SDK
+sweep, not a reason to retain product wrappers. Tracker: 107 rows, 73 marked complete, 6 refuted, 28 open.
+
+- P08 confirmed/applied: retire the per-type Json role, static exception and its construct/component docs. The persistence domain now owns stored JSON independently of HTTP. Default SDK options/converters are used directly; document-specific pinned options remain only for a format-specific need. Existing absence and malformed-document behavior must survive any wrapper migration.
+- Current SDK source inspection found no per-type `*Json` class/record declarations to remove. Existing `JsonValueConverter<T>` uses the stored preset and rejects a decoded null; it is not treated as a nullable wrapper replacement. N24 retains product migration follow-up, including boundary semantics; real serializer implementations remain in their own naming cases.
+- N25 closes as a convention-only row. Tracker recount across N/R/D/C IDs: 106 rows, 73 marked complete, 6 refuted, 27 open. Historical duplicate IDs are preserved. No SDK build/test/pack or release claimed.
+- Link/anchor check: 153 current backend documents, 973 local targets, no missing paths or heading fragments. Whitespace checks passed in both repositories. All eight shared design decisions are applied; BC03 still contains N100/N101 and BC25 final acceptance still awaits their resolution.
+- [SDK naming inventory](sdk-naming-inventory.md) records 70 current declarations and distinguishes role candidates from reserved vocabulary decisions. Active case: test recorder naming. The inventory corrects old location/count/failure-mode premises without silently deciding them.
+
+## Test comments and acceptance sweep — 2026-09-13
+
+- P07 confirmed: test-body AAA markers and scenario/rationale comments are optional when clarifying. Descriptive names remain required; useful setup/timing/provider explanations are preserved. Service testing owns the rule and SDK testing links it. N108 retains SDK documentation application without an unconditional comment-addition/deletion pass.
+- Launched the authorized bounded acceptance sweep of settled conventions. [Acceptance evidence](conventions-acceptance.md) records link/anchor checks and two mechanical cleanup findings; all applied. External method/dedicated-validator alternatives are now explicit, and repeated tracked-write/request-companion obligations point to their application owners.
+- BC20 closes; BC03's JSON/suffix decisions and BC25 final acceptance remain. P08 is the sole open point in the eight-point design pool; N100/N101 retain their separate case-by-case scope. No SDK source/build/release completion is claimed by the convention sweep.
+
+## Shared handler work — 2026-09-13
+
+- P06 confirmed: command/query handlers reuse shared services rather than dispatching another request. The messaging owner now states the settled restriction, the prohibition on direct-handler/proxy-dispatch workarounds, and the validation/permission/transaction obligations that extraction must preserve.
+- Mediator and handler owners point to that contract; the open nested-request exception is removed. Event publication keeps its separately declared contract. C21 extends SDK source/example inventory and behavior verification; BC04 closes at the convention level.
+- While reading the next queued testing owner, corrected its invalid-input HTTP example from 422 to the already-settled 400 convention. P07 test-body prose remains undecided.
+
+## API mapping placement evidence — 2026-09-13
+
+- P05 confirmed: an API request and its dedicated mapping extension companion stay together in the request file. API messages own the small deterministic boundary mapping contract and rationale; business logic and validation remain at the application boundary. HTTP payload complexity is not treated as a protocol limitation.
+- Updated request and extension declaration owners plus MLA/LLA file rules, including folder, receiver-name and type-summary scope. The companion is `{RequestType}Extensions`; ordinary domain extensions retain their existing rules. The exception does not admit unrelated types.
+- C28 records SDK inventory, examples and checks without claiming runtime changes. P05 closes BC07; the queue advances to P06 nested handler dispatch.
+
+## Documentation inheritance evidence — 2026-09-13
+
+- P04 confirmed: applicable per-block and declaration-kind defaults survive omitted role fields or whole Type doc/Member docs sections. Explicit restrictions override only their declared scope; a type restriction does not implicitly restrict members.
+- Replaced the documentation owner's omission-as-ban rule with inherited fields and explicit overrides, including mapper-field and type-remarks examples. Retained optional/conditional tag requirements; inheritance does not require irrelevant tags.
+- Replaced the params owner's stale `Declared fields only` reference and made its collaborator-only constructor summary exemption explicit. Existing explicit role restrictions remain effective, including API request type remarks.
+- Swept `conventions/` for old admission wording and references; the active omission-based prohibition is gone. Historical audit evidence below remains a pre-repair snapshot. SDK application extends the existing N108 documentation pass; BC20 remains partial solely for P07 test-body documentation.
 
 ## Root closure
 
@@ -470,8 +634,10 @@ No external messages, Git mutations or package publication performed.
 
 ## Record comparison, copying and validation — 2026-09-12
 
+- P03 confirmed: explicit value-object equality is allowed when generated equality does not express the value, including collection contents. Matching hashing, declared order/duplicate semantics, consistent non-value exclusions and stable hash inputs are required. Value-object owners updated; C27 added for SDK inventory/implementation. P01–P03 close BC09 at the convention level; runtime work remains separate.
+
 - Resolved P02 from the developer's explicit policy: model validation starts externally, through a pure extension method or dedicated FluentValidation-backed validator. Constructor data checks are exceptional documented contracts, since validation can grow. Programmer argument guards remain distinct.
 - Updated domain validation and value-object application rules to validate candidates at the accepting boundary, including copied and deserialized candidates. Removed the pending get-only/always-valid-construction recommendation. SDK work extends C21.
 - Entity rules distinguish same-key comparison, selected-field comparison, stable extracted hash keys and EF navigation reference membership. A field comparer does not make mutable hash inputs stable; a deep clone does not supply structural collection equality.
-- Prototype rules permit entity candidates/snapshots and acknowledge that manual class copies share the same shallow-copy issue. Saving a candidate through the repository remains P01's unresolved workflow question.
+- P01 resolved: retain sealed records; mutate the original entity for tracked load-modify-save. Prototype and EF conventions prohibit submitting a replacement copy while its key is tracked, regardless of copy mechanism. N114 owns SDK verification of same-instance writes and rejection of duplicate replacements; no implicit merge is requested. Copies remain detached candidates/snapshots.
 - [Deep-copy library analysis](deep-copy-analysis.md) retains comparison and isolated experiment sources/results. DeepCloner 0.10.4 passes 28 of 32 checks; cloned reference-hash and record-with-list hash-key lookups fail. FastCloner is confirmed and saved in the prototype convention; 3.5.6 package execution still awaits the original network tool request. C26 retains verification/integration; no SDK source or dependency has changed.

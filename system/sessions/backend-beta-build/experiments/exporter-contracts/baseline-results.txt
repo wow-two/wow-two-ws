@@ -1,0 +1,86 @@
+/Users/max/Projects/10x-ws/workbench/career/engineering/wow-two/wow-two-ws/workbench/wow-two-sdk-beta/wow-two-sdk.backend.beta/engineering/codebase/wow-two-back-beta-sdk/src/WoW.Two.Sdk.Backend.Beta.csproj : warning NU1510: PackageReference Microsoft.Extensions.Http will not be pruned. Consider removing this package from your dependencies, as it is likely unnecessary.
+Runtime=10.0.8; Culture=fr-FR; ClosedXML=0.104.2.0; CsvHelper=33.0.0.0
+
+EXPORTER=CsvTabularExporter
+normal: success; length=68; position=68; open=True; seekCalls=0; setLengthCalls=0; tokenCanceled=False
+  utf8Bom=False; output="Zebra,Amount,When,Alpha\r\n\u0022\u00E9,quoted\u0022,12.5,09/15/2026 00:00:00,tail\r\n"
+empty: success; length=25; position=25; open=True; seekCalls=0; setLengthCalls=0; tokenCanceled=False
+  utf8Bom=False; output="Zebra,Amount,When,Alpha\r\n"
+fields: success; length=27; position=27; open=True; seekCalls=0; setLengthCalls=0; tokenCanceled=False
+  utf8Bom=False; output="Property\r\npublic-property\r\n"
+attributes: success; length=25; position=25; open=True; seekCalls=0; setLengthCalls=0; tokenCanceled=False
+  utf8Bom=False; output="csv-first,csv-last\r\nz,a\r\n"
+class-attributes: success; length=23; position=23; open=True; seekCalls=0; setLengthCalls=0; tokenCanceled=False
+  utf8Bom=False; output="Name,Amount\r\nrow,12.5\r\n"
+scalar: success; length=8; position=8; open=True; seekCalls=0; setLengthCalls=0; tokenCanceled=False
+  utf8Bom=False; output="12\r\n34\r\n"
+empty-scalar: success; length=0; position=0; open=True; seekCalls=0; setLengthCalls=0; tokenCanceled=False
+  utf8Bom=False; output=""
+nonseekable: success; length=68; position=68; open=True; seekCalls=0; setLengthCalls=0; tokenCanceled=False
+  utf8Bom=False; output="Zebra,Amount,When,Alpha\r\n\u0022\u00E9,quoted\u0022,12.5,09/15/2026 00:00:00,tail\r\n"
+nonseekable-prefix: success; length=76; position=76; open=True; seekCalls=0; setLengthCalls=0; tokenCanceled=False
+  utf8Bom=False; output="PPPPPPPPZebra,Amount,When,Alpha\r\n\u0022\u00E9,quoted\u0022,12.5,09/15/2026 00:00:00,tail\r\n"
+position-prefix: success; length=76; position=76; open=True; seekCalls=0; setLengthCalls=0; tokenCanceled=False
+  utf8Bom=False; output="PPPPPPPPZebra,Amount,When,Alpha\r\n\u0022\u00E9,quoted\u0022,12.5,09/15/2026 00:00:00,tail\r\n"
+overwrite-existing: success; length=20000; position=68; open=True; seekCalls=0; setLengthCalls=0; tokenCanceled=False
+  utf8Bom=False; output="Zebra,Amount,When,Alpha\r\n\u0022\u00E9,quoted\u0022,12.5,09/15/2026 00:00:00,tail\r\n\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000"
+enumeration-fails: WriterException: An unexpected error occurred. See inner exception for details.; inner=InvalidOperationException: diagnostic enumeration failure; length=68; position=68; open=True; seekCalls=0; setLengthCalls=0; tokenCanceled=False
+  utf8Bom=False; output="Zebra,Amount,When,Alpha\r\n\u0022\u00E9,quoted\u0022,12.5,09/15/2026 00:00:00,tail\r\n"
+destination-fails: IOException: diagnostic destination failure; inner=: ; length=12; position=12; open=True; seekCalls=0; setLengthCalls=0; tokenCanceled=False
+  utf8Bom=False; output="Zebra,Amount"
+pre-canceled: WriterException: An unexpected error occurred. See inner exception for details.; inner=OperationCanceledException: The operation was canceled.; length=25; position=25; open=True; seekCalls=0; setLengthCalls=0; tokenCanceled=True
+  utf8Bom=False; output="Zebra,Amount,When,Alpha\r\n"
+mid-enumeration-canceled: WriterException: An unexpected error occurred. See inner exception for details.; inner=OperationCanceledException: The operation was canceled.; length=68; position=68; open=True; seekCalls=0; setLengthCalls=0; tokenCanceled=True
+  utf8Bom=False; output="Zebra,Amount,When,Alpha\r\n\u0022\u00E9,quoted\u0022,12.5,09/15/2026 00:00:00,tail\r\n"
+
+EXPORTER=ExcelTabularExporter
+normal: success; length=7140; position=7140; open=True; seekCalls=25; setLengthCalls=0; tokenCanceled=False
+  workbookReadable=true; sheets=1; name=Sheet1; tables=1; range=A1:D2
+  cells=Zebra<Text>[format:0/] | Amount<Text>[format:0/] | When<Text>[format:0/] | Alpha<Text>[format:0/]
+  cells=é,quoted<Text>[format:0/] | 12,5<Number>[format:0/] | 15/09/2026 00:00:00<DateTime>[format:14/] | tail<Text>[format:0/]
+empty: success; length=7025; position=7025; open=True; seekCalls=25; setLengthCalls=0; tokenCanceled=False
+  workbookReadable=true; sheets=1; name=Sheet1; tables=1; range=A1:D1
+  cells=Zebra<Text>[format:0/] | Amount<Text>[format:0/] | When<Text>[format:0/] | Alpha<Text>[format:0/]
+fields: success; length=7052; position=7052; open=True; seekCalls=25; setLengthCalls=0; tokenCanceled=False
+  workbookReadable=true; sheets=1; name=Sheet1; tables=1; range=A1:C2
+  cells=Field<Text>[format:0/] | Property<Text>[format:0/] | StaticProperty<Text>[format:0/]
+  cells=public-field<Text>[format:0/] | public-property<Text>[format:0/] | static-property<Text>[format:0/]
+attributes: success; length=7005; position=7005; open=True; seekCalls=25; setLengthCalls=0; tokenCanceled=False
+  workbookReadable=true; sheets=1; name=Sheet1; tables=1; range=A1:B2
+  cells=xlsx-first<Text>[format:0/] | xlsx-last<Text>[format:0/]
+  cells=z<Text>[format:0/] | a<Text>[format:0/]
+class-attributes: success; length=7006; position=7006; open=True; seekCalls=25; setLengthCalls=0; tokenCanceled=False
+  workbookReadable=true; sheets=1; name=Sheet1; tables=1; range=A1:B2
+  cells=Name<Text>[format:0/] | Amount<Text>[format:0/]
+  cells=row<Text>[format:0/] | 12,5<Number>[format:0/]
+scalar: success; length=6978; position=6978; open=True; seekCalls=25; setLengthCalls=0; tokenCanceled=False
+  workbookReadable=true; sheets=1; name=Sheet1; tables=1; range=A1:A3
+  cells=Int32<Text>[format:0/]
+  cells=12<Number>[format:0/]
+  cells=34<Number>[format:0/]
+empty-scalar: success; length=6951; position=6951; open=True; seekCalls=25; setLengthCalls=0; tokenCanceled=False
+  workbookReadable=true; sheets=1; name=Sheet1; tables=1; range=A1:A1
+  cells=Int32<Text>[format:0/]
+nonseekable: success; length=7140; position=7140; open=True; seekCalls=0; setLengthCalls=0; tokenCanceled=False
+  workbookReadable=true; sheets=1; name=Sheet1; tables=1; range=A1:D2
+  cells=Zebra<Text>[format:0/] | Amount<Text>[format:0/] | When<Text>[format:0/] | Alpha<Text>[format:0/]
+  cells=é,quoted<Text>[format:0/] | 12,5<Number>[format:0/] | 15/09/2026 00:00:00<DateTime>[format:14/] | tail<Text>[format:0/]
+nonseekable-prefix: success; length=7148; position=7148; open=True; seekCalls=0; setLengthCalls=0; tokenCanceled=False
+  workbookReadable=false; FileFormatException: File contains corrupted data.
+position-prefix: success; length=7140; position=7140; open=True; seekCalls=25; setLengthCalls=1; tokenCanceled=False
+  workbookReadable=true; sheets=1; name=Sheet1; tables=1; range=A1:D2
+  cells=Zebra<Text>[format:0/] | Amount<Text>[format:0/] | When<Text>[format:0/] | Alpha<Text>[format:0/]
+  cells=é,quoted<Text>[format:0/] | 12,5<Number>[format:0/] | 15/09/2026 00:00:00<DateTime>[format:14/] | tail<Text>[format:0/]
+overwrite-existing: success; length=7140; position=7140; open=True; seekCalls=25; setLengthCalls=1; tokenCanceled=False
+  workbookReadable=true; sheets=1; name=Sheet1; tables=1; range=A1:D2
+  cells=Zebra<Text>[format:0/] | Amount<Text>[format:0/] | When<Text>[format:0/] | Alpha<Text>[format:0/]
+  cells=é,quoted<Text>[format:0/] | 12,5<Number>[format:0/] | 15/09/2026 00:00:00<DateTime>[format:14/] | tail<Text>[format:0/]
+enumeration-fails: InvalidOperationException: diagnostic enumeration failure; inner=: ; length=0; position=0; open=True; seekCalls=0; setLengthCalls=0; tokenCanceled=False
+destination-fails: IOException: diagnostic destination failure; inner=: ; length=14; position=14; open=True; seekCalls=2; setLengthCalls=0; tokenCanceled=False
+pre-canceled: OperationCanceledException: The operation was canceled.; inner=: ; length=0; position=0; open=True; seekCalls=0; setLengthCalls=0; tokenCanceled=True
+mid-enumeration-canceled: success; length=7176; position=7176; open=True; seekCalls=25; setLengthCalls=0; tokenCanceled=True
+  workbookReadable=true; sheets=1; name=Sheet1; tables=1; range=A1:D4
+  cells=Zebra<Text>[format:0/] | Amount<Text>[format:0/] | When<Text>[format:0/] | Alpha<Text>[format:0/]
+  cells=é,quoted<Text>[format:0/] | 12,5<Number>[format:0/] | 15/09/2026 00:00:00<DateTime>[format:14/] | tail<Text>[format:0/]
+  cells=é,quoted<Text>[format:0/] | 12,5<Number>[format:0/] | 15/09/2026 00:00:00<DateTime>[format:14/] | tail<Text>[format:0/]
+  cells=é,quoted<Text>[format:0/] | 12,5<Number>[format:0/] | 15/09/2026 00:00:00<DateTime>[format:14/] | tail<Text>[format:0/]

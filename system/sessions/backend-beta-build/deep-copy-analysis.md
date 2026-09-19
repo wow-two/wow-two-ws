@@ -4,7 +4,7 @@ Date: 2026-09-12. Scope: data graphs only; isolated library experiments, not SDK
 
 ## Verdict status
 
-**FastCloner is the confirmed library choice, recorded in the prototype convention on 2026-09-12.** Exact-package verification of the 3.5.6 runtime/reflection API remains outstanding under SDK sweep C26. The pending approval is the tool's network-access request for NuGet restore, not a request for another library decision. Selection does not claim the prepared experiment has passed. Its current metadata and explicit hash-collection handling support the selection; no general-purpose library receives an "any object" guarantee.
+**FastCloner is the confirmed library choice. Exact-package verification passed on 2026-09-13:** all 32 graph assertions passed with runtime API `FastCloner.FastCloner.DeepClone`, package 3.5.6, .NET 10.0.8 Arm64. Native escalation resolved the official NuGet restore restriction. SDK integration remains outstanding under C26; no general-purpose library receives an "any object" guarantee.
 
 **DeepCloner 0.10.4 is rejected for the proposed general data-graph default:** four reproduced failures break lookup of cloned keys in reference-comparer HashSet/Dictionary collections on .NET 10. Its broader object-copy tests passed; the objection is concrete collection behavior, not age alone.
 
@@ -88,9 +88,13 @@ The cloned-key lookup failures are consistent with copied stored identity hashes
 
 Prepared 32-assertion source: `/private/tmp/be-deep-clone-experiment/Program.cs`.
 
-Initial sandbox restore failed `NU1301`, DNS resolution unavailable for `api.nuget.org`. Escalated restore request is pending; no denial or successful package result has been returned yet. The package has therefore **not yet been executed** in this report revision.
+Initial sandbox restore failed `NU1301`; the native escalated restore completed successfully on 2026-09-13.
+`dotnet run --project /private/tmp/be-deep-clone-experiment/experiment.csproj --no-restore` exited 0:
+**32 passed, 0 failed.** Assembly informational version `3.5.6+2b641d60884075737f8b9aea9722166a4bdd2074`;
+runtime .NET 10.0.8, Arm64. All four hash-key lookups that failed in the DeepCloner control pass here.
+The executed source matches the retained session source byte-for-byte; [full results](experiments/fastcloner/results.txt).
 
-## Adopted boundary; executable verification outstanding
+## Adopted boundary; SDK integration outstanding
 
 - Clone detached, owned, in-memory data graphs when independent mutable state is required.
 - Treat a clone as a separate object graph with copied identity values, not a fresh database identity or a replacement for an already tracked entity.
@@ -105,7 +109,7 @@ These are bounded contract implications, not an obligation to invent a universal
 
 ## Commands and artifacts
 
-Prepared candidate command (initial failure, escalation pending):
+Executed candidate restore (native escalation resolved the original sandbox failure):
 
 ```sh
 dotnet restore /private/tmp/be-deep-clone-experiment/experiment.csproj --configfile /private/tmp/be-deep-clone-experiment/NuGet.Config --disable-parallel
