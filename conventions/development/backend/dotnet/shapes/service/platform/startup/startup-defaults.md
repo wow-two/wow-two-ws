@@ -18,7 +18,11 @@ using WoW.Two.Sdk.Backend.Beta.Meta;
 builder.AddApiDefaults(options => options.ServiceName = "{service}");
 // Configure the product's auth, mediator and data here.
 var app = builder.Build();
-app.UseApiDefaults();
+app.UseApiDefaults(pipeline =>
+{
+    pipeline.UseAuthentication();
+    pipeline.UseAuthorization();
+});
 ```
 
 ---
@@ -31,4 +35,4 @@ app.UseApiDefaults();
 - must supply CORS origins and validator assemblies explicitly when those concerns are needed.
 - must raise a missing composition seam in the SDK instead of forking the bundle in the product.
 - must follow [middleware dependencies](host-configuration.md#middleware) for auth and metadata-dependent additions.
-- must not assume the bundle's IP-based limiter supports an authenticated-user policy at the same position.
+- must place auth in the `UseApiDefaults` callback when limiter or cache policies depend on identity.

@@ -1,6 +1,6 @@
 # Behavior components
 
-*Last updated: 2026-09-10*
+*Last updated: 2026-09-13*
 
 > The component kinds whose identity is what they do.
 > Purpose — one suffix per verb, so a name carries the responsibility rather than the shape.
@@ -14,18 +14,23 @@
 | [repository](repository.md) | reads and persists rows |
 | [client](client.md) | calls one external provider in its own vocabulary |
 | [broker](broker.md) | presents our vocabulary over an external dependency |
+| [transport](transport.md) | sends or receives messages through a delivery medium |
+| [bus](bus.md) | exposes application publishing and sending over a transport |
 | [adapter](adapter.md) | fits a third-party type to an interface we declared |
 | [handler](handler.md) | receives one dispatched message |
 | [controller](controller.md) | dispatches at the HTTP edge |
-| [validator](validator.md) | validates one request |
+| [validator](validator.md) | checks supplied data against input or integrity rules |
 | [mapper](mapper.md) | transforms an input it is handed |
+| [parser](parser.md) | decodes format syntax into structured data |
+| [exporter](exporter.md) | writes structured data as a data exchange document |
+| [formatter](formatter.md) | expresses values as display text under culture or format rules |
+| [serializer](serializer.md) | encodes or decodes object data under a format contract |
 | [registry](registry.md) | owns key → type bindings registered at composition |
 | [policy](policy.md) | decides whether, when or how often another operation runs |
 | [builder](builder.md) | accumulates one value, ending in `Build()` |
 | [background service](background-service.md) | runs work off the request path |
 | [extensions](extensions.md) | static logic over a domain — no injection, no state |
 | [time](time.md) | our seam over the clock |
-| [json](json.md) | one type's storage seam |
 | [interceptor](interceptor.md) | observes or controls a message in a chain |
 | [tracker](tracker.md) | live operational state updated by producers and persisted nowhere |
 | [renderer](renderer.md) | a model transformed into a representation such as text, markup or an image |

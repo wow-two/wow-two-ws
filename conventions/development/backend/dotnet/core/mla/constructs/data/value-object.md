@@ -1,6 +1,6 @@
 # Value objects
 
-*Last updated: 2026-09-10*
+*Last updated: 2026-09-12*
 
 > A type whose identity is its values, stored inside an entity's row instead of owning one.
 > Purpose — the suffix is what separates a type that owns a row from one that rides inside one.
@@ -35,6 +35,7 @@
 - declaration baseline → [data](data.md) § *Shared rules*.
 - must declare `{ get; init; }` — a value object is written once, whole.
 - must declare no key — a type carrying its own identity is an [entity](entity.md).
+- equality application and explicit structural-equality exceptions → [value-object equality](../../components/value-object.md#equality).
 
 ```csharp
 // ✅

@@ -1,6 +1,6 @@
 # Null object
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-09-13*
 
 > An implementation that satisfies a contract by doing nothing, registered where the real one is absent.
 > Purpose — keep the null check out of every caller, so an unconfigured capability is a registration, not a branch.
@@ -9,8 +9,8 @@
 ## Shape
 
 - must prefix the type `NoOp` and keep the contract's noun — `NoOpMessagingMetrics`
-  (`src/Messaging/MessagingMetrics.cs`), `NoOpMigrationRunner`
-  (`src/Testing.Data/Migrations/NoOpBespokeMigrator.cs`), `NoopGeoBroker`
+  (`src/Messaging/MessagingMetrics.cs`), `NoOpMigrationRunnerService`
+  (`src/Testing.Data/Migrations/Services/NoOpMigrationRunnerService.cs`), `NoopGeoBroker`
   (`forever-pin/…/ForeverPin.Redirect.Api/Infrastructure/Routing/`).
 - must return the contract's defined empty value — `null` for a lookup, an empty sequence, a completed task —
   never throw.

@@ -1,6 +1,6 @@
 # Api messages
 
-*Last updated: 2026-09-10*
+*Last updated: 2026-09-13*
 
 > HTTP bodies and payloads, with explicit mapping between wire and application models.
 
@@ -42,12 +42,21 @@
 - must name the mapping for its target role — `ToCommand(...)` or `ToQuery(...)`.
 - must keep mapping independent of `HttpContext` and injected caller-context services.
 - must use a block body for edge mapping.
-- must apply [extension declaration rules](../../constructs/behavior/extensions.md) to the mapping type.
+- must keep the API request and its mapping extension class together in `{RequestType}.cs`, in the request's folder and namespace.
+- must name that companion `{RequestType}Extensions`; it extends only that request and maps it through `ToCommand(...)` or `ToQuery(...)`.
+- must apply [extension declaration rules](../../constructs/behavior/extensions.md) except this explicit folder, file, receiver-name and type-summary scope; the companion summary names the request mapping capability.
+- must keep mapping a simple, deterministic projection of body values and explicit route/caller arguments; no persistence I/O, service calls, business decisions or workflow orchestration.
+- must leave validation and business rules at the application boundary; a nested HTTP payload does not authorize complex mapping logic.
+- must keep unrelated extensions outside the request file; this exception does not combine arbitrary types or response mappings.
 
 ---
 
-## Open
+## Placement rationale
 
-- request/extension co-location: the earlier same-file requirement conflicts with
-  [one type, one file](../../mla.md#one-type-one-file-required). The exception needs an explicit decision;
-  do not expand it to unrelated types.
+The wire shape and its small boundary translation form one reviewable unit, so their declarations stay
+together. WoW2 requires simple request mapping by design; HTTP itself does not limit payload complexity.
+This is the scoped API request exception to [one type, one file](../../mla.md#one-type-one-file-required).
+
+Example layout: `Requests/CreateCodeApiRequest.cs` contains `CreateCodeApiRequest` followed by
+`CreateCodeApiRequestExtensions`; the extension's `ToCommand(...)` copies authored fields and accepts
+server-authoritative values explicitly.

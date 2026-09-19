@@ -1,6 +1,6 @@
 # Extensions
 
-*Last updated: 2026-09-10*
+*Last updated: 2026-09-13*
 
 > The static tier over a **domain**'s types — logic that needs no collaborator and owns no state.
 > Purpose — behaviour that needs nothing injected does not earn a service, and does not belong on the type it acts on.
@@ -9,7 +9,7 @@
 ## Location
 
 ### Folder
-- must sit in an `Extensions/` folder under the domain it extends.
+- must sit in an `Extensions/` folder under the domain it extends, except a [request mapping companion](../../domains/api/api-messages.md#mapping), which stays in its request's file and folder.
 
 ### File
 - file rules → [one type, one file](../../mla.md).
@@ -23,7 +23,7 @@
 #### [Summary](../../../lla/notation/documentation/summary.md)
 - must start with **Extends**, and name whichever the type name carries — the domain, the capability, or the
   primitive.
-- must not name one of our own receiver types — a class extends a domain, not one type.
+- must not name one of our own receiver types unless it is the scoped request mapping companion; that companion names its request mapping capability.
 
 ```csharp
 // ✅ names the domain
@@ -45,7 +45,7 @@
   `NumericExtensions`; a primitive belongs to no domain of ours, so its own name is the only one available.
 - must reach for the capability over the primitive once the methods share one subject — `StringExtensions`
   holding only casing methods hides what it is, and the next unrelated method has nowhere else to go.
-- must not name one of our own types — `CodeExtensions` covers `CodeEntity` and `CodeModel` alike.
+- must not name one of our own types except the scoped `{RequestType}Extensions` companion — ordinary `CodeExtensions` covers `CodeEntity` and `CodeModel` alike.
 - must not name the layer — no `ApplicationExtensions`.
 
 ---

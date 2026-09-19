@@ -1,10 +1,10 @@
 # Models
 
-*Last updated: 2026-09-10*
+*Last updated: 2026-09-15*
 
-> The application's own representation of a thing — what a service or handler hands back, inside a `Result`.
+> The application's own data shape, including internal operation inputs, outputs and message wrappers.
 > Purpose — a wire shape reaching inward makes a response change ripple into services; the model stops it.
-> Use case — every service and handler return value; the edge maps it to a [dto](dto.md).
+> Use case — internal data shared by services and handlers; the edge maps client projections to a [dto](dto.md).
 
 ## Location
 
@@ -34,11 +34,13 @@
 
 ### Construct
 - declaration baseline → [data](data.md) § *Shared rules*.
-- must declare `{ get; init; }` — a model is built at the point it is returned.
-- must carry entities, value objects, primitives or other models — never a [dto](dto.md).
+- must declare `{ get; init; }` — a model is initialized before use.
+- must carry entities, value objects, primitives, application messages or other models — never a [dto](dto.md).
 
 ### Type name
 - must suffix with `Model`, noun-first — `CodeModel`, `BillingStatusModel`.
+- must retain a wrapper's purpose before the role — `EventEnvelopeModel`, `OtpDeliveryEnvelopeModel`.
+- must keep the wrapped event's `Event` role; `OrderCreatedEvent` does not become `OrderCreatedEventModel`.
 - must serve every operation returning that shape; create and update share one model.
 - must qualify only when one noun carries two shapes — `CodeSummaryModel` beside `CodeModel`.
 - must not declare one when the operation returns an entity, a value object or a primitive.

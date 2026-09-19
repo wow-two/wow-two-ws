@@ -1,6 +1,6 @@
 # Params
 
-*Last updated: 2026-08-16*
+*Last updated: 2026-09-13*
 
 > The `<param>` block — one per parameter, always, describing its role in this method's process.
 
@@ -9,7 +9,7 @@
 - must document **every** parameter of a documented method — the set is complete or the doc is wrong.
 - **consistency is the reason** — a per-parameter test leaves a reader unable to tell an omission from a decision.
 - must not document the parameters of a constructor injecting only collaborators.
-  - it carries no `<summary>` either ([documentation](documentation.md) § *Declared fields only*).
+- must omit `<summary>` on that collaborator-only constructor; this is an explicit constructor exemption under [documentation](documentation.md#inherited-fields-and-explicit-overrides-required), not an omission-based ban.
 - must document every parameter of a constructor taking values, and of a mixed one.
 - `<param>` is exempt from *Mandated comment* ([documentation](documentation.md) § *Comment anti-patterns*).
 

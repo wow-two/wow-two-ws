@@ -1,6 +1,6 @@
 # Mediator
 
-*Last updated: 2026-09-10*
+*Last updated: 2026-09-13*
 
 > Applying the in-process mediator to requests, notifications and their interception pipeline.
 
@@ -32,7 +32,7 @@
 - must register each handler-bearing assembly once through `AddMediator(assembly)`.
 - must pass the assembly explicitly across a layer boundary; the parameterless overload scans its calling assembly.
 - must inject `ISender` for requests, `IPublisher` for notifications, or `IMediator` only when both are needed.
-- must preserve the domain's [nested-dispatch policy](../messaging.md#dispatch).
+- must use shared services for handler reuse under the domain's [dispatch policy](../messaging.md#dispatch); examples must not demonstrate handler-to-handler command/query sends.
 - must account for sequential notification dispatch: a throwing handler stops later handlers.
 
 ---

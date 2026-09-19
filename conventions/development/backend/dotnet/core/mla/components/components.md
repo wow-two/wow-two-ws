@@ -43,7 +43,6 @@ thing a doc owns.
 | [constants](constants.md) | the value is readable the moment the class exists |
 | [enums](enums.md) | the member names an option, and naming it is the whole contract |
 | [extensions](extensions.md) | the method runs on the receiver, with no collaborator to inject |
-| [json](json.md) | the seam holds its options and serializes with nothing else present |
 | [settings](settings.md) | the record binds and validates without another type existing |
 | [options](options.md) | the delegate fills the class, and its defaults hold when none runs |
 | [time](time.md) | the seam answers the clock question on its own |

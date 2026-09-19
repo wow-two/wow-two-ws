@@ -1,6 +1,6 @@
 # Api requests
 
-*Last updated: 2026-09-10*
+*Last updated: 2026-09-13*
 
 > The presentation-layer body a client sends, bound by one controller action.
 > Purpose — the `Api` qualifier is what tells the wire body apart from the application message it maps to.
@@ -13,6 +13,7 @@
 
 ### File
 - file rules → [one type, one file](../../mla.md).
+- dedicated mapping companion placement → [API mapping exception](../../domains/api/api-messages.md#mapping).
 
 ---
 

@@ -1,16 +1,16 @@
 # Validation
 
-*Last updated: 2026-09-12*
+*Last updated: 2026-09-15*
 
 > Input validity, phase ordering, and field failures independent of the validation provider.
 
 ## Contract
 
-- must use a validator for caller-supplied payloads and an argument guard for programmer preconditions.
+- must validate caller-supplied payloads externally through a validation method or dedicated validator under [placement](#placement); use an argument guard for programmer preconditions.
 - must not run untrusted boundary input through throwing programmer-error guards.
 - must keep each validation layer independently correct within its own scope.
 - must not assume an outer layer already checked an inner layer's obligations.
-- must define a dedicated validator type through the [validator construct](../../constructs/behavior/validator.md).
+- must follow the [validator construct](../../constructs/behavior/validator.md) when declaring a dedicated validator type.
 
 ---
 
@@ -18,7 +18,8 @@
 
 - must start data and business validation outside model constructors, including entity and value-object rules; validation can grow independently of construction.
 - may use a pure validation extension method for a small rule set; use a dedicated validator as composition, dependencies or rule reporting grow.
-- must use the [FluentValidation integration](fluentvalidation/fluentvalidation.md) when authoring dedicated validators.
+- must use the [FluentValidation integration](fluentvalidation/fluentvalidation.md) for dedicated input/field validators.
+- domain integrity checks and their result contracts → [validator construct](../../constructs/behavior/validator.md).
 - must keep rules with the concept they validate; external placement does not transfer ownership to an unrelated storing entity.
 - must validate created, copied or deserialized candidate data at the boundary that accepts it for use or persistence.
 - must not claim that every constructed instance is already valid when validation is external.
@@ -55,6 +56,8 @@
 ---
 
 ## Consumption
+
+These rules govern the SDK input/field-validation contract; domain integrity results follow their own contract.
 
 - must depend on the SDK `IValidator<T>` contract, not the concrete validation provider.
 - must handle non-null `Validate(T)` output as the validation failure; null denotes valid input.

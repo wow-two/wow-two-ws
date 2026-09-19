@@ -25,6 +25,6 @@
 - must not treat `AddJsonStringEnums()` alone as installing the complete SDK preset.
 - must use `JsonStringEnumConverter(JsonNamingPolicy.CamelCase, allowIntegerValues: false)` in the SDK preset.
 - must not hand-roll options per controller or override casing, enum or null policy per endpoint.
-- must use a stored preset for JSON documents, never reuse wire options as a persistence contract.
-- must use `StoredJsonConstants.Default` or options built by `StoredJsonOptionsFactory` for that stored contract.
+- must follow the independent [stored JSON contract](../../../../core/mla/domains/persistence/stored-json.md)
+  for persisted documents; never reuse wire options as the persistence contract.
 - must keep relational enum storage separate; its owner is [Postgres](../../../../core/mla/domains/persistence/database/postgres/postgres.md).

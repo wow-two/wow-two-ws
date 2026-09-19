@@ -51,18 +51,13 @@ public sealed class AppTestDb : RelationalTestDb<AppDbContext>
 
 ---
 
-## The switch — `TestSetupOptions`
+## Provider selection
 
-The provider is one code-level setting — `TestSetupOptions.Current.Database`, defaulting to Postgres.
-No environment variable.
-
-- it defaults to `DatabaseProvider.Postgres`; assign `DatabaseProvider.Sqlite` to flip the whole suite.
-- set it **once** before the fixtures start — a `[ModuleInitializer]` in the test assembly is the canonical home.
-  - the value is version-controlled, never an external var.
-- a suite MAY override `RelationalTestDb<TContext>.Provider` to pin one provider — the future per-suite seam.
-  - otherwise it follows `TestSetupOptions.Current`.
-- a test MUST read the provider only through the `Testing.Data` fixtures.
-- a test MUST NOT hard-code a provider, or new up a `DbContext` against a fixed one.
+- must let each `RelationalTestDb<TContext>` instance own its provider.
+- must default the parameterless fixture constructor to `DatabaseProvider.Postgres`.
+- must pass `DatabaseProvider.Sqlite` to the base constructor for a SQLite suite.
+- must not use static or process-global provider selection.
+- must read the provider only through the `Testing.Data` fixture.
 
 ---
 
@@ -72,9 +67,7 @@ SQLite is a **speed** fallback — in-memory, no Docker — **not** the fidelity
 Reach for it only when the Postgres suite is the bottleneck.
 
 - a test depending on a Postgres-only feature MUST stay on Postgres.
-  - per-test opt-out is a **future** capability, not available yet.
-  - the choice is per-run today — the whole suite follows the switch.
-- to make a suite SQLite-capable, use `RelationalTestDb<TContext>` — it already branches on the switch.
+- to make a suite SQLite-capable, pass `DatabaseProvider.Sqlite` to `RelationalTestDb<TContext>`.
   - **nothing else changes**; the same fixture runs on either engine.
 - a suite that can't go green on SQLite relies on PG-only behavior.
   - keep it on Postgres rather than weakening the assertion.
@@ -84,18 +77,17 @@ Reach for it only when the Postgres suite is the bottleneck.
 ## How to switch
 
 ```csharp
-// one place in the test project, e.g. TestSetup.cs
-internal static class TestSetup
+public sealed class AppTestDb : RelationalTestDb<AppDbContext>
 {
-    [ModuleInitializer]
-    internal static void Init() => TestSetupOptions.Current.Database = DatabaseProvider.Sqlite;
+    public AppTestDb() : base(DatabaseProvider.Sqlite) { }
+
+    protected override AppDbContext CreateContext(DbContextOptionsBuilder<AppDbContext> builder) =>
+        new(builder.Options);
 }
 ```
 
-- **→ SQLite** — add the module initializer above, or set
-  `TestSetupOptions.Current.Database = DatabaseProvider.Sqlite` once, then run the tests.
-- **→ back to Postgres** — remove that line (or set `DatabaseProvider.Postgres`); the default is Postgres.
-- **scope** — it's a committed code change, so flip it on a branch when measuring and keep `main` on Postgres.
+- **→ SQLite** — pass `DatabaseProvider.Sqlite` from that suite's fixture.
+- **→ back to Postgres** — remove the constructor; the base default is Postgres.
 - **when to flip** — default to Postgres for fidelity.
   - switch to SQLite only when the suite gets slow (~2–3 min+) **and** no test relies on PG-only behavior.
 
@@ -103,18 +95,12 @@ internal static class TestSetup
 
 ## E2E host-boot — point the host at the test container
 
-The E2E tier boots the real host (`WebApiTestHost<T>` / `WebApplicationFactory`), and the host's
-`AddPostgresPersistence<TContext>` **resolves the connection string eagerly, at service registration** —
-before `WebApplicationFactory.ConfigureAppConfiguration` applies.
-Configuration alone is therefore too late: the host migrates against the appsettings default,
-and the suite fails with Respawn `"No tables found"`.
+The E2E tier boots the real host through `WebApiTestHost<T>` / `WebApplicationFactory`.
 
-- a host-boot fixture MUST publish the container's connection string via **`DB_CONNECTION`, set before the
-  host builds**.
-  - `AddPostgresPersistence` reads env first (env wins over config), and env is visible at registration time.
-- set it in the fixture's `InitializeAsync` — container started, host not yet built.
-- must serialize fixtures that change the same environment variable; it is process-global during host construction.
-- must save its prior value and restore it on dispose, including failed initialization.
-- must not claim restoration prevents overlapping host-build races.
+- must inject each host's connection string through `ConfigureConfigurationHook`.
+- must add an in-memory value for `DatabaseSettings:ConnectionString`.
+- must evaluate the fixture's connection string when the host builds, after its container starts.
+- must not mutate process environment variables to configure a test host.
+- must keep configuration values on the host that consumes them.
 - this is the host-boot analogue of the repository tier's `RelationalTestDb` seam.
-  - same goal (point the DB at the test instance), different layer (process env vs. fixture-owned context).
+  - same goal (point the DB at the test instance), different layer (host configuration vs. fixture-owned context).

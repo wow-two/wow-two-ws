@@ -1,6 +1,6 @@
 # Mla
 
-*Last updated: 2026-09-10*
+*Last updated: 2026-09-13*
 
 > Role definitions and application rules within one codebase, shared by services, libraries, SDKs and CLIs.
 
@@ -20,6 +20,7 @@
 
 - must follow [files](../lla/constructs/constructs.md#files) for symbol placement and companions.
 - must state only a scoped deviation here or in the role's owner.
+- API request mapping companion exception → [API mapping](domains/api/api-messages.md#mapping).
 
 ### Partial types
 

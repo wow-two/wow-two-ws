@@ -1,6 +1,6 @@
 # Testing
 
-*Last updated: 2026-09-10*
+*Last updated: 2026-09-13*
 
 > Service test tiers, method names and shared harness ownership.
 
@@ -52,7 +52,7 @@
 - must use PascalCase within segments; underscores separate segments, not words.
 - must name the tested action, expected behavior and scenario rather than implementation details.
 - may omit `_When{Condition}` only for unconditional behavior.
-- must name the HTTP status in an HTTP response test, such as `Create_ShouldReturn422_WhenInputIsInvalid`.
+- must name the HTTP status in an HTTP response test, such as `Create_ShouldReturn400_WhenInputIsInvalid`.
 - must name the behavioral outcome in a below-HTTP test, such as `Lookup_ShouldReturnMissing_WhenKeyIsUnknown`.
 - must not require an HTTP status in a repository, pure-logic or other non-HTTP test.
 
@@ -66,7 +66,11 @@
 
 ---
 
-## Open
+## Body documentation
 
-- test body documentation: decide the AAA marker convention and whether a gist beyond the method name is needed.
-  Test XML documentation exemptions remain governed by the notation owner.
+- must keep test names descriptive under the method-naming rules above; a comment does not replace the scenario or expectation in the name.
+- may use `// Arrange`, `// Act` and `// Assert` when they clarify the body's phases; the markers are optional.
+- may add a scenario or rationale comment when the name and code leave a relevant fact unclear; must not require a second gist for every test.
+- must not repeat the test name or narrate self-explanatory statements in body comments.
+- must preserve comments that explain non-obvious setup, timing, provider behavior or assertions; optional markers are not grounds for blanket comment deletion.
+- test XML documentation exemptions remain governed by the [notation owner](../../../../core/lla/notation/documentation/documentation.md).

@@ -1,6 +1,6 @@
 # Constructs
 
-*Last updated: 2026-09-10*
+*Last updated: 2026-09-13*
 
 > The canonical suffix→role vocabulary for backend types — one name per role,
 > the suffix declaring the responsibility.
@@ -68,7 +68,7 @@ Split by what the type is for — [data](data/data.md) holds, [behavior](behavio
   - role: a dispatched use case — write, read, fan-out
   - authority: [application request](data/application-request.md)
 - `Validator`
-  - role: input validation for one request
+  - role: supplied data checked against rules, returning validity or failures
   - authority: [validator](behavior/validator.md)
 - `Controller`
   - role: the HTTP delivery surface — a thin dispatcher
@@ -121,6 +121,24 @@ Split by what the type is for — [data](data/data.md) holds, [behavior](behavio
 - `Mapper`
   - role: any deterministic in→out transform, owning no data
   - authority: [mapper](behavior/mapper.md)
+- `Parser`
+  - role: a format's text, bytes or stream decoded into structured data
+  - authority: [parser](behavior/parser.md)
+- `Exporter`
+  - role: structured data written as a data exchange document
+  - authority: [exporter](behavior/exporter.md)
+- `Formatter`
+  - role: values expressed as display text under culture or format rules
+  - authority: [formatter](behavior/formatter.md)
+- `Transport`
+  - role: sends or receives messages through a selected delivery medium
+  - authority: [transport](behavior/transport.md)
+- `Bus`
+  - role: application publishing and sending over a transport
+  - authority: [bus](behavior/bus.md)
+- `Serializer`
+  - role: object data encoded to or decoded from a specified representation
+  - authority: [serializer](behavior/serializer.md)
 - `Pipeline` · `PipelineStep`
   - role: an ordered multi-step flow, and one step of it
   - authority: [pipelines](patterns/pipelines.md)
@@ -156,9 +174,6 @@ Split by what the type is for — [data](data/data.md) holds, [behavior](behavio
 - `Capabilities`
   - role: supported operations, a kind of model
   - authority: [capabilities](data/capabilities.md)
-- `Json`
-  - role: one type's persisted JSON seam — `Options`, `Serialize`, `Deserialize`
-  - authority: [json](behavior/json.md)
 
 **Scope.** Every suffix here names a type in an owned backend codebase: service, library, SDK or CLI.
 A browser-side type is a wire projection of one, so it carries none of them.
@@ -211,11 +226,14 @@ key with a TTL, a file on disk.
 A capability contract carries the **role**; the type implementing it carries the **shape** it takes.
 
 - must suffix the contract with its role — `ICacheRepository`, `IBlobRepository`, `IUserRepository`.
+- must keep responsibility nouns before the role suffix — `IMessagingMetricsService`; `Metrics` alone names
+  the subject, not the behavior role.
 - must carry the shape as a **prefix** and the role as the suffix — `InMemoryDeadLetterRepository`,
   `SystemTextJsonMessageSerializer`, `HybridCacheRepository`. The suffix answers *what is this*, the prefix
   answers *which implementation*.
-- must not stack two role words — `CacheStorageAdapter` names a kind, a role and a shape at once, where
-  `HybridCacheRepository` says the same thing in the order the tree already uses.
+- must not stack competing role suffixes — `CacheStorageAdapter` leaves the type's responsibility ambiguous.
+- may name a collaborating abstraction in the implementation prefix — `TransportEventBus` is a `Bus`
+  implemented over a `Transport`; the final suffix owns the type's role.
 - must leave a lone implementation the role's own name — a shape prefix earns its place by telling one
   implementation from another.
 - `Adapter` · `Broker` · `Client` stay suffixes where the shape **is** the role — a type whose whole job is
@@ -321,7 +339,7 @@ Rename to the canonical; never introduce the synonym.
 - must fold a name in our own SDK like any other — the SDK is ours, so a convention change reaches it as a
   row in that repo's sweep file, never as an exemption.
 - must name a pure `static class` by its role — `Constants`, `Extensions` or `Mapper`.
-- may use the `Factory`, non-generic companion and `Json` forms declared below and in their role docs.
+- may use the `Factory` and non-generic companion forms declared below and in their role docs.
 - must not leave a static transform named `GeohashEncoder`; its role is `Mapper`.
 
 ### `Factory` vs `Mapper`
@@ -356,7 +374,7 @@ companion is a language idiom, not a role.
 
 - must file a `static readonly` object built once at type load under `Constants` — being configured does
   not make it behavior, and `JsonOptionsConstants` owns those options the way a literal is owned.
-- must split values from operations unless the role explicitly owns both, as the [Json seam](behavior/json.md) does.
+- must split values from operations; stored JSON uses the [shared SDK contract](../domains/persistence/stored-json.md).
 
 ---
 

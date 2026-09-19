@@ -1,6 +1,6 @@
 # Prototype
 
-*Last updated: 2026-09-12*
+*Last updated: 2026-09-13*
 
 > A new value derived from an existing one by copying it and changing the parts that differ.
 > Purpose — keep a variant close to its source without a constructor that repeats every unchanged member.
@@ -48,6 +48,7 @@ var preview = (StyleSpec)spec.Clone();
 
 - may copy an [entity](../data/entity.md) for candidate state, calculation or a snapshot; copying preserves its database identity unless deliberately changed.
 - must not treat an entity copy as an inserted row or automatically tracked replacement; the persistence operation must define how the accepted candidate reaches the tracked instance.
+- EF update target and copy-replacement restrictions → [tracked writes](../../domains/persistence/access/ef/ef.md#tracked-writes).
 - must validate a candidate at its accepting boundary under [validation placement](../../domains/validation/validation.md#placement); copying is not validation.
 - must preserve any exceptional constructor-enforced contract across every supported copy path; neither `with` nor a graph cloner promises to rerun the ordinary constructor.
 - must not equate deep copying with deep equality; copied arrays and lists still have their declared equality semantics.

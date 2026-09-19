@@ -1,6 +1,6 @@
 # Http
 
-*Last updated: 2026-09-10*
+*Last updated: 2026-09-16*
 
 > Outbound HTTP registration and transport resilience behind the client/broker boundary.
 
@@ -22,11 +22,14 @@
 - must preserve the provider's valid relationship between attempt timeout and circuit-breaker sampling duration.
 - must not stack independent retry loops in a client and broker.
 - must not retry or hedge an unsafe side effect without a replay-safe contract or idempotency mechanism.
+- must use `UnsafeRequestReplaySelector` to opt an unsafe method into replay; safe methods are GET, HEAD, OPTIONS and TRACE.
+- must treat `StreamContent` as non-replayable; streaming calls use the retry client and run once for unsafe methods.
 - must pass cancellation through every outbound call.
 - must not treat caller cancellation as permission to spend another retry attempt.
 - must configure tracing explicitly through the [observability owner](../../observability/observability.md).
 - current options and pipeline → [resilience options](../../../../../../../../../workbench/wow-two-sdk-beta/wow-two-sdk.backend.beta/engineering/codebase/wow-two-back-beta-sdk/src/Http/Resilience/HttpResilienceOptions.cs)
   and [resilience registration](../../../../../../../../../workbench/wow-two-sdk-beta/wow-two-sdk.backend.beta/engineering/codebase/wow-two-back-beta-sdk/src/Http/Resilience/HttpResilienceBuilderExtensions.cs).
+- hedging is a separate client registration; must not stack it with the retry pipeline.
 
 ---
 

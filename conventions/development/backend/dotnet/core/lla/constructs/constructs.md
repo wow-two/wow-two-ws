@@ -1,6 +1,6 @@
 # Language constructs
 
-*Last updated: 2026-09-10*
+*Last updated: 2026-09-13*
 
 > Every C# construct we may declare, what each one is for, and the constructs banned outright.
 > Purpose — settle the *form* once, so no role doc has to re-argue `record` vs `class`.
@@ -109,7 +109,7 @@
 
 ## Files
 
-- must give an independently declared type its own file, named for the type.
+- must give an independently declared type its own file, named for the type, except an explicitly scoped companion exception in its role/application owner.
 - must name a generic-only type by its base name, without arity or type parameters.
 - must keep a generic type and its same-named non-generic companion in that file.
 - must keep a closed union's nested cases in the root type's file.

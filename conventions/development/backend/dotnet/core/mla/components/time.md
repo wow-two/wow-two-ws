@@ -37,9 +37,9 @@ var next = parser.NextOccurrence(
 ## Registration
 
 - must register the clock seams at composition through `AddTimeProviders()`.
-- must register an intended `IClock` replacement explicitly; supplying a `TimeProvider` does not adapt it to NodaTime.
-- must account for registration precedence: the default overload uses `TryAddSingleton` for both clocks;
-  the instance overload adds the supplied `TimeProvider` and uses `TryAddSingleton` for `IClock`.
+- must derive the default `IClock` from the registered `TimeProvider`.
+- must register an independent `IClock` explicitly only when the two clocks intentionally differ.
+- must replace both registrations when a test host owns the clock.
 - registration surface → [time registration](../../../../../../../workbench/wow-two-sdk-beta/wow-two-sdk.backend.beta/engineering/codebase/wow-two-back-beta-sdk/src/Foundation/Time/TimeServiceCollectionExtensions.cs).
 
 ---
@@ -47,9 +47,8 @@ var next = parser.NextOccurrence(
 ## Tests
 
 - must use `FakeTimeProvider` for deterministic BCL clock tests.
-- must also register a controlled NodaTime `IClock` when the tested path reads it.
-- must advance both controlled clocks coherently when a flow reads both abstractions.
-- must not assume the test host's `TimeProvider` replacement changes `IClock`.
+- must adapt NodaTime `IClock` to that same fake clock.
+- must advance the one fake clock when a flow reads both abstractions.
 
 ---
 

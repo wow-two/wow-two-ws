@@ -1,6 +1,6 @@
 # Documentation
 
-*Last updated: 2026-09-10*
+*Last updated: 2026-09-13*
 
 > XML-doc index — the cross-cutting format and the per-block table; each block's rules live in `documentation/`.
 
@@ -52,14 +52,23 @@ Most bad doc comments are true sentences filed in the wrong place. Route by **au
 
 ---
 
-## Declared fields only [REQUIRED]
+## Inherited fields and explicit overrides [REQUIRED]
 
-A component doc names the doc fields its types carry, one sub-heading each. **A field the component does not declare is
-forbidden on that component** — the omission is the ban, so no doc has to list what it excludes.
+General documentation rules apply to each relevant declaration. A component's role doc adds or overrides rules;
+its listed fields are not an exhaustive whitelist. Inheritance here concerns conventions, not the XML `<inheritdoc/>` tag.
 
-- must add a field only by declaring it in the component doc, with the rule it obeys there.
-- must justify the addition in that sub-heading's first line — what the field carries that the declared ones cannot.
-- must not read a missing field as an oversight; a component with no `<remarks>` sub-heading forbids `<remarks>`.
+- must inherit applicable per-block and declaration-kind defaults when a role omits a field or a whole Type doc/Member docs section.
+- must apply rules to their declared scope; a type-doc restriction does not implicitly restrict method docs.
+- must treat a role-specific requirement or prohibition as an explicit override of the general default for that scope.
+- must not infer a prohibition from an omitted heading or from a role listing only `<summary>`.
+- must state each override explicitly in the owning role doc, with the fact or restriction it adds; inherited defaults need not be repeated.
+- must preserve conditional defaults: inheriting `<remarks>` admission does not require remarks without a qualifying consumer fact.
+
+Examples:
+
+- A mapper role that specifies only its summary still inherits method `<param>` and `<returns>` requirements.
+- A role that explicitly forbids `<remarks>` on its type suppresses type remarks; general member rules still apply.
+- A constructor injecting only collaborators retains its explicit documentation exemption in [params](params.md).
 
 ---
 

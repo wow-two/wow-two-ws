@@ -1,6 +1,6 @@
 # Handlers
 
-*Last updated: 2026-09-10*
+*Last updated: 2026-09-13*
 
 > The single receiver bound to one dispatched message.
 > Purpose — the use case lives in one type, reachable without its caller knowing it.
@@ -52,3 +52,4 @@ public sealed class ChannelReader
 
 - response contract → [service results](../../../../shapes/service/platform/responses/results.md).
 - application payloads → [models](../data/model.md).
+- request composition and shared services → [dispatch](../../domains/messaging/messaging.md#dispatch).

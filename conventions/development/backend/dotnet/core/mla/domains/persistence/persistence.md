@@ -12,6 +12,7 @@
   applied scripts for SQL-owned schemas, model and generated migrations for EF-owned schemas.
 - must keep the [entity](../../constructs/data/entity.md) free of any provider type.
 - must express a schema change as a migration, never as a hand-edit against a live database.
+- must follow [stored JSON](stored-json.md) for persisted document serialization.
 
 ---
 

@@ -1,6 +1,6 @@
 # Messaging
 
-*Last updated: 2026-09-10*
+*Last updated: 2026-09-13*
 
 > Dispatching a message to its handlers without binding the message to its transport.
 
@@ -37,8 +37,16 @@ public sealed record CodeGetByIdQuery : IQuery<AppResult<CodeModel>>
 ## Dispatch
 
 - must use `ISender` for a request and `IPublisher` for an event when using the [mediator](mediator/mediator.md).
-- must not let a handler send another message under the domain's current default;
-  shared orchestration belongs in a service.
+- must not compose a command/query handler by dispatching another command/query through the mediator.
+- must extract shared work into an injected [service](../../constructs/behavior/service.md) and call that service from each handler.
+- must not bypass this rule by directly invoking another handler or hiding nested request dispatch behind a service.
+- must keep required validation and permission checks in the shared operation's contract; extracting work must not silently drop checks previously supplied by a child request's pipeline.
+- must keep the composition's transaction ownership explicit; a reused service must not silently commit the caller's unit of work.
+- must treat this as a request-composition rule; event publication follows its declared event and delivery contract, including the outbox when required.
+
+Shared services reuse the operation without entering a second request interception pipeline. Nested request
+dispatch can repeat validation, authorization and transaction interceptors, making their ordering depend on
+the handler call graph. WoW2 chooses explicit service composition for this work.
 
 ---
 
@@ -60,10 +68,3 @@ public sealed record CodeGetByIdQuery : IQuery<AppResult<CodeModel>>
 - [mediator](mediator/mediator.md) — in-process request/response and notifications.
 - event bus — transport-specific event delivery; no provider convention is declared here yet.
 - [outbox](../../constructs/patterns/outbox.md) — stage in the state transaction and dispatch after commit.
-
----
-
-## Open
-
-- nested request dispatch: the mediator's former handler-subrequest example conflicts with the domain default.
-  An explicit exception or removal of that default remains a design decision.

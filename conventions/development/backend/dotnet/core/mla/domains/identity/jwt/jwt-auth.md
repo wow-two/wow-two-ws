@@ -1,6 +1,6 @@
 # JWT auth
 
-*Last updated: 2026-09-10*
+*Last updated: 2026-09-16*
 
 > Bearer validation and token issuance as separate registrations with an explicit trust configuration.
 
@@ -21,9 +21,10 @@
 - must wire authentication and authorization in the host pipeline.
 - must keep issuer, audience, signature and lifetime validation enabled for normal protected endpoints.
 - must use HTTPS for remote metadata in a deployed service.
-- must not assume registration enforces mutually exclusive key sources: the current helper rejects neither-present only.
-- must not assume the helper enforces HTTPS metadata: it follows the supplied metadata URI's scheme.
-- must treat `JwksUri` as the helper's metadata-address input, not assume any raw key-set URL is valid discovery metadata.
+- must rely on registration to reject missing or simultaneous verification-key sources.
+- must use `MetadataAddress` for OpenID Connect discovery metadata, not a raw key-set URL.
+- must keep `AllowInsecureMetadataForDevelopment` explicit and local to development setup.
+- must select one accepted signing algorithm; symmetric algorithms require 32/48/64-byte keys for HS256/384/512.
 - current semantics → [JWT registration source](../../../../../../../../../workbench/wow-two-sdk-beta/wow-two-sdk.backend.beta/engineering/codebase/wow-two-back-beta-sdk/src/Identity/Jwt/JwtServiceCollectionExtensions.cs).
 
 ---

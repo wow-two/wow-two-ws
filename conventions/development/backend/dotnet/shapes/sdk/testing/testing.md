@@ -1,6 +1,6 @@
 # Testing
 
-*Last updated: 2026-09-10*
+*Last updated: 2026-09-13*
 
 > Behavior, registration and package-consumption checks for the SDK.
 
@@ -13,6 +13,7 @@
 - must keep tests for public registration seams, including configured and default paths.
 - must check that replacement APIs preserve their documented failure and cancellation behavior.
 - must verify the package's intended public API from a consumer context, not only within the defining assembly.
+- test-body comments follow the shared [optional-comment convention](../../service/architecture/clean/testing.md#body-documentation).
 
 ---
 

@@ -21,7 +21,8 @@
 ### Type doc
 
 #### [Summary](../../../lla/notation/documentation/summary.md)
-- must start with **Provides**, and name the work it does for its caller.
+- must start a concrete implementation with **Provides**, naming the work it does for its caller.
+- interface starter → [language constructs](../../../lla/constructs/constructs.md) § *Behavior components*.
 
 ```csharp
 // ✅ names the work, not the type

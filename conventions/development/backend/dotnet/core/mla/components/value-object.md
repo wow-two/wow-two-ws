@@ -45,7 +45,12 @@
 - must use compiler-generated equality where each identifying member already has the required equality semantics.
 - must not assume an array or list compares by contents under record equality.
 - must not claim a member is excluded from equality when its backing field still participates.
-- must retain the existing no-handwritten-equality default pending the exception decision below.
+- may implement explicit typed equality and `GetHashCode` when generated equality does not express the value's meaning, including collection content comparison.
+- must use the same participating values and element comparers for equality and hashing; equal values must produce equal hashes.
+- must document whether collection order and duplicate items matter; use sequence semantics for ordered lists and set semantics only when the domain defines a set.
+- must exclude a member only when it does not define the value, with that exclusion stated in the type's equality contract and applied consistently to hashing.
+- must keep equality-participating data stable while used as a hash key or set element; `init` and deep copying do not make nested mutable collections immutable.
+- must verify equal contents in separate instances, unequal contents, the declared order/duplicate behavior and matching hashes for equal values when supplying custom equality.
 
 ---
 
@@ -54,9 +59,3 @@
 - must store the value inside its owning row as columns or a serialized column.
 - must replace the stored value wholesale when it changes.
 - EF mapping → [runtime mapping](../domains/persistence/access/ef/ef-mapping.md).
-
----
-
-## Open
-
-- equality: choose how structural collections and identity-excluded members fit the no-custom-equality default.
