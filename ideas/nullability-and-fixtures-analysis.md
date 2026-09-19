@@ -185,7 +185,7 @@ Directive bullets a convention would carry. Each is backed by a site above.
 - `RelationalTestDb<TContext>` — `Testing.Data/EntityFrameworkCore/RelationalTestDb.cs:17` — provider-switchable EF DB:
   PG + Respawn, or in-memory SQLite recreated per reset (`:119`).
 - `RelationalTestBase<TDb,TContext>` — `…/RelationalTestBase.cs:11` — per-test reset over a shared collection fixture.
-- `TestSetupOptions` — `…/TestSetupOptions.cs:6` — the global Postgres / SQLite switch.
+- `RelationalTestDb<TContext>.Provider` — fixture-owned Postgres / SQLite selection.
 - `RelationalTestDbServiceCollectionExtensions` · `DbContextProviderSwapExtensions` —
   `…/RelationalTestDbServiceCollectionExtensions.cs:9` · `…/DbContextProviderSwapExtensions.cs:7` — DI-built context;
   repoint a host's `DbContext` at the test provider.
@@ -300,7 +300,7 @@ in the wrong place: its entire subject is which provider a `DbContext` test runs
 
 ### `persistence` — the largest section, absorbs `test-databases.md` wholesale
 
-- `RelationalTestDb<TContext>` subclassing · the `TestSetupOptions` Postgres / SQLite switch.
+- `RelationalTestDb<TContext>` subclassing · fixture-owned Postgres / SQLite selection.
 - Respawn reset and the `migration_history` exclusion · `DbContextProviderSwapExtensions`.
 - The migrator tier — `MigratorPostgresFixture` drop-schema, `MigratorHarness`, `MigrationsWorkspace`.
 - Test-entity and seeding rules (`Widget` / `SoftWidget` as the shape).
@@ -308,7 +308,7 @@ in the wrong place: its entire subject is which provider a `DbContext` test runs
 ### `api`
 
 - `WebApiTestHost<T>` / `WebApiTestBase<T>` / `MultiHostFixture`.
-- The `DB_CONNECTION`-before-host-build seam — today in `test-databases.md` § *E2E host-boot*, an api rule.
+- The host-local `ConfigureConfigurationHook` seam in `test-databases.md` § *E2E host-boot*.
 - Request-body builders (`CodeRequests`) · DTO wire mirrors, and when a mirror beats referencing the contract type.
 
 ### `messaging`

@@ -39,7 +39,7 @@ The v0.3 inline pieces ARE the IdP core, lifted:
 | forever-pin v0.3 (inline) | → becomes in the IdP |
 |---|---|
 | `IGoogleTokenVerifier` seam | the IdP's Google provider |
-| cookie session (`sqr-auth`) | IdP-issued session/token |
+| cookie session (`foreverpin-auth`) | IdP-issued session/token |
 | `users` table + claim flow | IdP user store + account linking |
 
 > Two-cycle model: v0.4 was "extract auth infra → SDK". This idea is the larger target that extraction grows into — extract to the SDK first, then promote to a running service.

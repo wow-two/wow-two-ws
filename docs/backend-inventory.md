@@ -472,7 +472,7 @@ Four packages, split by tier.
 **`Testing.Data`** — `src/Testing.Data/`
 
 - EF — `RelationalTestDb<TContext>` (`CreatePostgres` / `CreateSqlite`), `RelationalTestBase<TDb, TContext>`,
-  `AddTestEntityFrameworkCore`, `TestSetupOptions.Current`, `RemoveAllForDbContext`, `RepointDbContext`
+  `AddTestEntityFrameworkCore`, fixture-owned `RelationalTestDb<TContext>.Provider`, `RemoveAllForDbContext`, `RepointDbContext`
 - migrator — `MigratorHarness`, `MigratorPostgresFixture`, `MigratorTestBase`, `MigrationsWorkspace`,
   `MigrationHistoryRow`, `NoOpBespokeMigrator` + `DisableBespokeMigrator`
 

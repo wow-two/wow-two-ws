@@ -32,7 +32,7 @@ Categories: `sdk` · `plt` · `app` · `ven` · `con` · `ws`
 |---|---|---|---|---|---|---|
 | `con-t-001` | Close the presentation-layer convention | `-` | `high` | `wip` | `-` | Current owners: backend `core/mla/domains/api/` and `shapes/service/platform/responses/`; closure in audit `BC04` and `BC07` |
 | `con-t-002` | Land the Dto-vs-`Response` naming cleanup | `-` | normal | `todo` | `-` | Convention states it; renaming is per-app work |
-| `con-t-003` | Complete the backend convention sweep before the SDK release | `-` | `high` | `wip` | `wow-two-ws` | Mechanical repairs complete; 19/25 grouped convention tasks closed. [Audit and remaining decisions](../sessions/backend-beta-build/conventions-audit.md); [repair evidence](../sessions/backend-beta-build/conventions-resolution.md). SDK consequences added as C14–C25; settle decisions before SDK implementation/release |
+| `con-t-003` | Complete the backend convention sweep before the SDK release | `-` | `high` | `done` | `wow-two-ws` | Completed 2026-09-15: 25/25 convention tasks closed, all naming decisions settled. [Final acceptance](../sessions/backend-beta-build/naming-final-acceptance.md): 159 docs, 1,050 local links/fragments pass. SDK implementation and release remain in their own sweep. |
 
 ---
 
