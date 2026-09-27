@@ -1,0 +1,84 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "wow-two/deploy.schema.json",
+  "title": "wow-two deployment descriptor (engineering/deployment/deploy.yml)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["descriptor", "product", "services"],
+  "properties": {
+    "descriptor": { "const": 1, "description": "Format version." },
+    "product": { "$ref": "#/$defs/slug", "description": "The Wheelhouse runner product slug." },
+    "platform": { "enum": ["linux/amd64", "linux/arm64"], "default": "linux/amd64" },
+    "shared": {
+      "type": "array", "items": { "$ref": "#/$defs/path" },
+      "description": "Paths, relative to engineering/, whose change rebuilds every service."
+    },
+    "services": {
+      "type": "object", "minProperties": 1,
+      "propertyNames": { "$ref": "#/$defs/slug" },
+      "additionalProperties": { "$ref": "#/$defs/service" }
+    }
+  },
+  "$defs": {
+    "slug": { "type": "string", "pattern": "^[a-z][a-z0-9-]{0,47}$" },
+    "path": { "type": "string", "minLength": 1, "not": { "pattern": "^/|(^|/)\\.\\.(/|$)" } },
+    "service": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["build", "paths", "health"],
+      "properties": {
+        "image": {
+          "type": "string", "pattern": "^[a-z0-9][a-z0-9._/:-]*[a-z0-9]$", "not": { "pattern": ":[^/]*$" },
+          "description": "Image repository without a tag, for a legacy name. Default: <registry>/<service>."
+        },
+        "build": {
+          "type": "object", "additionalProperties": false, "required": ["dockerfile"],
+          "properties": {
+            "dockerfile": { "$ref": "#/$defs/path" },
+            "context": { "$ref": "#/$defs/path", "default": "codebase" },
+            "target": { "type": "string" },
+            "args": { "type": "object", "additionalProperties": { "type": ["string", "integer"] } },
+            "contexts": { "type": "object", "additionalProperties": { "$ref": "#/$defs/path" } }
+          }
+        },
+        "paths": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/path" } },
+        "port": { "type": "integer", "minimum": 1, "maximum": 65535, "default": 8080 },
+        "health": {
+          "oneOf": [
+            { "type": "string", "pattern": "^/" },
+            {
+              "type": "object", "additionalProperties": false, "required": ["command"],
+              "properties": { "command": { "type": "array", "minItems": 1, "items": { "type": "string" } } }
+            }
+          ]
+        },
+        "memory": { "type": "string", "pattern": "^[1-9][0-9]*[kmg]$", "default": "512m" },
+        "stopGrace": { "type": "string", "pattern": "^[1-9][0-9]*[smh]$", "default": "30s" },
+        "settings": {
+          "type": "object", "additionalProperties": false,
+          "properties": {
+            "file": { "type": "string", "pattern": "^/", "default": "/app/appsettings.Local.json" },
+            "required": { "type": "array", "items": { "type": "string", "minLength": 1 } }
+          }
+        },
+        "volumes": {
+          "type": "object", "propertyNames": { "$ref": "#/$defs/slug" },
+          "additionalProperties": { "type": "string", "pattern": "^/" }
+        },
+        "sites": {
+          "type": "object", "propertyNames": { "$ref": "#/$defs/slug" },
+          "additionalProperties": {
+            "type": ["object", "null"], "additionalProperties": false,
+            "properties": {
+              "port": { "type": "integer", "minimum": 1, "maximum": 65535 },
+              "path": { "type": "string", "pattern": "^/" },
+              "exposure": { "enum": ["public", "private"], "default": "public" }
+            }
+          }
+        },
+        "needs": { "type": "array", "items": { "enum": ["postgres", "valkey", "broker"] } },
+        "capabilities": { "type": "array", "items": { "type": "string", "pattern": "^[A-Z][A-Z_]{1,31}$" } }
+      }
+    }
+  }
+}

@@ -1,6 +1,6 @@
 # Repo Structure Standard
 
-*Last updated: 2026-09-19*
+*Last updated: 2026-09-27*
 
 > **Scope:** the on-disk layout + naming for **product / venture repos** under `wow-two-ws/workbench/`.
 > The *structural* layer — folders + names, not code style (that lives in [`backend/`](../../backend/) and
@@ -195,10 +195,11 @@ The two code dirs carry the repo `{slug}.` prefix (`{slug}.backend-services/`, `
 
 ## 13. Image publishing (the deploy artifact)
 
-A product repo publishes its **single deployable image** via a fixed-name CI workflow, so the control plane (Drydock) can both **detect** that the repo is publishable and **resolve** what to ship.
+A product repo publishes **one image per service** and a **release bundle** that pins them, through a fixed-name CI workflow, so the control plane (Wheelhouse) can both **detect** that the repo is publishable and **resolve** what to ship. What each service is, how it builds and which paths change it lives in the [deployment descriptor](../../../deployment/descriptor/deploy-descriptor.md) (`engineering/deployment/deploy.yml`).
 
-- **Marker file:** `.github/workflows/publish-docker-image.yml` — its presence = the repo publishes a deployable image (Drydock keys on this exact path).
-- **Trigger + build:** on a published GitHub **release** (semver tag), build from `engineering/deployment/Dockerfile` (context `engineering/codebase/`, §8) and push to **`ghcr.io/{owner}/{repo}`** (lowercased) with **two tags — the release tag + `latest`**.
-- **Resolution contract:** Drydock resolves a deployable as *latest release → its tag → `ghcr.io/{owner}/{repo}:{tag}`*, pinning the explicit release tag (reproducible deploy + rollback).
-- **Tag value:** apps use the **product iteration version** (`vX.Y.Z`, `version-track.md`); libraries use the .NET-major scheme (`docs/versioning-strategy.md`).
-- Per-repo today; a reusable/example workflow + the full `deployment` convention domain is a later step.
+- **Marker file:** `.github/workflows/publish-docker-image.yml` — its presence = the repo publishes deployables (Wheelhouse keys on this exact path).
+- **Images:** each service pushes to **`ghcr.io/{owner}/{repo}/{service}`** (lowercased); a descriptor `image` keeps a legacy repository name.
+- **Releases:** a published GitHub **release** (semver tag `vX.Y.Z`) rebuilds only the services whose paths changed since the previous release, tags them `X.Y.Z` and attaches the release bundle; unchanged services keep their image and version.
+- **Candidates:** every push builds its changed services as `sha-{commit}` and uploads the bundle as the Actions artifact `bundle-{commit}`; Wheelhouse can start the build of a commit that has none.
+- **Resolution contract:** Wheelhouse deploys a bundle's digest-pinned images, never a moving tag (reproducible deploy + rollback); dev takes candidates, test and prod take releases.
+- **Tag value:** apps use the **product iteration version** (`vX.Y.Z`, `version-track.md`); a service shows the release in which it last changed. Libraries use the .NET-major scheme (`docs/versioning-strategy.md`).
