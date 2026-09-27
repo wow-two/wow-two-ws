@@ -40,7 +40,7 @@ docs/ (strategy, playbooks) · system/sessions/ · ideas/ · scripts/ · workben
 - 2–3 related repos per session. Updating a lib → check consumers for breaking changes.
 - Each repo's own `CLAUDE.md` overrides this root. Conventional commits (`feat`/`fix`/`docs`/`refactor`).
 - Passive language — describe where things are; never instruct to pre-read.
-- **Git:** agents stage; ordinary commits default to developer-owned. Codex may commit only with the explicit user-enabled, turn-scoped [commit switch](.codex/commit-permission.md). Agents never push or amend. The shared guard retains worktree, publishing, history and lane restrictions. Protocol: `conventions/development/repo/version-control/git.md`.
+- **Git:** [personal commit permission](/Users/max/.codex/conventions/git.md#repository-commit-permission) defines two persistent repository flags. Local integration: [commit and push switches](.codex/commit-permission.md). Commit flag ON: agents commit that repository; push flag ON: agents push it — ordinary forms only, no chat-specific confirmation; they never force-push or amend. The shared guard retains worktree, history and lane restrictions. Protocol: `conventions/development/repo/version-control/git.md`.
 - **No `README.md` below a repo root.** Folder lead docs use `{folder}.md` (e.g. `Data/Migrations/migrations.md`). See `conventions/development/repo/structure/repo-structure.md` §3. **Exception:** declared NuGet `PackageReadmeFile` and npm `README.md` beside `package.json` are functional package metadata; preserve them as required by SDK structure.
 - **Skills** (`.claude/skills/`): `open-active` (open the working set in Rider/WebStorm) · `create-repo` (scaffold a conformant repo).
 - **Live state / roadmap:** `workbench/wow-two/wow-two.refinement`.

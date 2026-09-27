@@ -1,9 +1,9 @@
 # Git
 
-*Last updated: 2026-09-12*
+*Last updated: 2026-09-27*
 
 > Commit-message format **and** the agent⇄human commit protocol, for every repo under `wow-two-ws/`.
-> Purpose — a uniform, scannable history whose subject reads as *what changed* (past tense); and one unambiguous rule for who publishes (the human, always).
+> Purpose — a uniform, scannable history whose subject reads as *what changed* (past tense); and one unambiguous rule for who publishes (the repository push flag decides).
 
 ## Shared defaults
 
@@ -47,15 +47,15 @@ Repairing a binary already in pushed history:
 
 ## Discipline
 
-- **must not** ever run `git push` (every form, force included), `git reset --hard`, `git restore` to the worktree, `git checkout -- <path>`, `git clean`, or any `gh` write (`pr create`, `issue comment`, `release create`, `api -X POST`, …) — the human is the **only** one who publishes, and no agent discards a working tree. Enforced by the `guard-git` PreToolUse hook ([../../../../.claude/hooks/guard-git.py](../../../../.claude/hooks/guard-git.py)).
-- **must not** commit unless the user has enabled the Codex [turn-scoped commit switch](../../../../.codex/commit-permission.md) for the target repository; OFF leaves commits to the developer. Amend remains forbidden. A rapid-building marker does not unlock commits.
+- **must not** run `git push` while the repository push flag is `OFF`, nor ever a forcing, deleting or mirror push; **must not** ever run `git reset --hard`, `git restore` to the worktree, `git checkout -- <path>`, `git clean`, or any `gh` write (`pr create`, `issue comment`, `release create`, `api -X POST`, …) — the push flag decides who publishes, and no agent discards a working tree. Enforced by the `guard-git` PreToolUse hook ([../../../../.claude/hooks/guard-git.py](../../../../.claude/hooks/guard-git.py)).
+- **must** follow the [shared repository commit switch](/Users/max/.codex/conventions/git.md#repository-commit-permission) and its [local adapter](../../../../.codex/commit-permission.md). Amend remains forbidden.
 - **may** run `git add`, `git pull`, `git stash`, branch create / switch, `git fetch`, and every read-only git.
-- history rewrites — `merge`, `rebase`, `cherry-pick`, `revert`, soft/mixed `reset` — are blocked unless a **rapid-building session** is live: `.claude/.rapid-build` holding one future ISO-8601 UTC expiry (`2026-08-13T18:30:00Z`). The developer writes that marker; agents never create it, and an expired one is no session.
+- **must not** run history rewrites — `merge`, `rebase`, `cherry-pick`, `revert`, soft/mixed `reset`; hand them to the developer by name.
 - **lane check** — `pull` and `stash push` stop once, naming the files, when the tree carries modified / staged paths this session never wrote. That is probably a parallel chat's in-flight work. Ask the developer *is another lane working right now?*; if none is, the dirt is completed-but-uncommitted work and the retry goes through. The hook knows "this session wrote it" from the ledger `.claude/hooks/track-touch.py` keeps.
-- may stage and unstage explicit task paths; prefer `git restore --staged -- <paths>`. Index-only path resets and cached patches/removals are permitted without a rapid-building marker.
+- may stage and unstage explicit task paths; prefer `git restore --staged -- <paths>`. Index-only path resets and cached patches/removals are permitted.
 - must follow the authorized task scope and handover cadence; an agreed batch iteration does not require repeated staging approval.
-- must prepare the scoped staged set and message for a commit request; execute only when the commit switch is ON.
-- must hand push requests to the developer.
+- must prepare the scoped staged set and message; execute only while the repository commit flag is `ON`.
+- may push in the ordinary form only while the repository push flag is `ON`; otherwise hand push requests to the developer.
 - parallel-lane rules (assume-intentional · no-revert · stage only your own files): [../../../agentic-workflow/agentic-workflow.md](../../../agentic-workflow/agentic-workflow.md).
 
 ---
@@ -66,8 +66,8 @@ Per commit, in this order:
 
 1. within the authorized task scope, agent **carves the index** using explicit paths. Stage and unstage task-owned paths as needed; preserve unrelated staged work.
 2. agent prints the **staged path list** + the commit message (`{type}: {past-tense} {what}`).
-3. with commit permission OFF, the developer reviews and commits; with ON, the agent commits the reviewed staged batch and reports its SHA. The developer always pushes.
-4. an agreed batch iteration authorizes subsequent batches; wait for the human commit between batches when commit permission is OFF.
+3. agent commits and reports the SHA only while the repository commit flag is `ON`; otherwise the developer commits. Pushing follows the separate push flag.
+4. an agreed batch iteration authorizes subsequent batches; preserve any requested human commit-by-commit handover.
 
 - **carve** = shape the index so the staged set is exactly one lane's cohesive change, nothing else.
 - read the result with `git status --short` — staged column commits, unstaged column stays behind.

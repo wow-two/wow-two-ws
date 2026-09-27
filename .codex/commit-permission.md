@@ -1,55 +1,105 @@
-# Commit permission
+# Commit and push permission
 
-*Last updated: 2026-09-19*
+*Last updated: 2026-09-27*
 
-## Switch
+> Codex and Claude Code integration for the repository commit and push flags in `wow-two-ws`.
 
-Ordinary agent commits are OFF by default. Explicit user consent may enable commits for one repository in
-one Codex task turn. Staging remains permitted within the authorized task scope.
+## Contract
 
-Use one standalone line in the user prompt:
+- flag, directive and consent rules: [personal Git conventions](/Users/max/.codex/conventions/git.md#repository-commit-permission); not repeated here.
+- staging and batch handover: [workspace Git protocol](../conventions/development/repo/version-control/git.md#protocol-agent--human).
+- this adapter applies to `wow-two-ws`; other workspaces retain their installed local policy.
+
+---
+
+## Adapters
+
+- `.codex/hooks/commit_permission.py` owns both records: it applies directives and answers the commit and push checks.
+- Codex feeds it native prompts and tool calls directly.
+- Claude Code: `.claude/hooks/commit-switch.py` feeds it exact prompts (tail-called by `expand-markers.sh`).
+- Claude Code: `.claude/hooks/guard-git.py` asks it before an ordinary commit or push, with the tool call's id as the turn.
+- must resolve directive paths against the workspace root; `.` selects the workspace repository.
+- must make the entire user message exactly two shell-style tokens: directive and repository path.
+
+The following fenced examples are documentation, not consent:
 
 ```text
-~commit_on workbench/wow-two-sdk-beta/wow-two-sdk.backend.beta
+~commit_on workbench/wow-two-sdk-beta/wow-two-sdk-beta.ui
 ```
 
-Disable it with a standalone `~commit_off`. Paths resolve against the workspace root; `.` selects the workspace
-repository. Quoted examples, fenced code and XML-wrapped text never activate the switch.
+```text
+~commit_off workbench/wow-two-sdk-beta/wow-two-sdk-beta.ui
+```
 
-The hook keys consent by workspace, session and turn. A new turn starts OFF. Stop closes the current grant.
-A missing turn ID, unknown live turn, malformed state or unresolved repository leaves commits OFF.
-This uses the documented [Codex hook turn identity](https://learn.chatgpt.com/docs/hooks#pretooluse).
+```text
+~commit_status workbench/wow-two-sdk-beta/wow-two-sdk-beta.ui
+```
 
-## Natural-language consent
+```text
+~push_on workbench/wow-two-sdk-beta/wow-two-sdk-beta.ui
+```
 
-When the user explicitly enables commits for the active turn in prose, the agent may run:
+```text
+~push_off workbench/wow-two-sdk-beta/wow-two-sdk-beta.ui
+```
+
+```text
+~push_status workbench/wow-two-sdk-beta/wow-two-sdk-beta.ui
+```
+
+---
+
+## Record
+
+- two records inside the repository's resolved Git directory: `codex-commit-permission.json` and `codex-push-permission.json`.
+- each record's `enabled` is its flag, and the only field its check reads; neither flag stands in for the other.
+- `revision`, `last_change` (action, chat, turn, prompt, time) and `seen_consents` are evidence and replay protection.
+- schema 2 dropped `confirmed_session_id`, a copy of `last_change.session_id`; v1 records merge on read and write.
+- must keep the records outside tracked source; a clone starts without permission state.
+- must change records only through the prompt hook, never by editing JSON or replaying events.
+- `UserPromptSubmit` owns state transitions; shell checks only read records, and `Stop` leaves them unchanged.
+
+---
+
+## Status
+
+The helper is read-only and prints both flags; it exposes no `on`, `off`, or mutation command:
 
 ```sh
-python3 .codex/hooks/commit_permission.py on --repo workbench/wow-two-sdk-beta/wow-two-sdk.backend.beta
-python3 .codex/hooks/commit_permission.py status
-python3 .codex/hooks/commit_permission.py off
+python3 -B .codex/hooks/commit_permission.py status --repo workbench/wow-two-sdk-beta/wow-two-sdk-beta.ui
 ```
 
-The helper uses `CODEX_THREAD_ID` and the live turn already observed by PreToolUse; it cannot invent a turn.
-If native hooks are unavailable or untrusted, activation fails closed. Offline test events must use isolated
-temporary storage and must never seed live consent. No trust store or native permission is changed.
+- must report an unreadable record or unavailable repository as blocked, preserving the stored record.
+- unavailable or untrusted hooks cannot activate permission; offline fixtures must use isolated temporary state.
 
-## Scope
+---
 
-- The accepted commit form is `git commit -m "subject"`, with optional `git -C <repo>`.
-- For a managed repository, use `git -C <absolute-repo> commit -m "subject"` so the hook sees the repository explicitly;
-  the live shell hook may report the workspace cwd instead of the command's `workdir`.
-- Inspect the exact staged paths, their diff and whitespace before each commit.
-- State the batch and proposed subject before committing; report the resulting SHA.
-- Existing unrelated staged work must be preserved and excluded from the batch.
-- ON permits ordinary new commits only; it does not permit push, amend or other history rewrites.
-- Compound shell commands, implicit staging, alternative Git configurations and pathspec commits stay blocked.
-- Native sandbox approval and hook trust remain authoritative.
-- If signing cannot reach the configured GPG agent, retry the same authorized commit through native escalation;
-  preserve signing settings.
-- This local hook is a workflow guardrail, not a security boundary against arbitrary executable code.
+## Commit and push forms
+
+```sh
+git -C <absolute-repository> commit -m "subject"                  # commit flag ON
+git -C <absolute-repository> push [-u] [<remote> [<refspec>...]]   # push flag ON
+```
+
+- must use explicit `git -C` for managed repositories; shell hook working-directory metadata may name the workspace.
+- may use `git commit -m "subject"` only when the hook resolves the target repository unambiguously.
+- must inspect staged paths, their diff, and whitespace; state the batch and proposed subject before committing.
+- must preserve unrelated staged paths and exclude them from the reviewed batch.
+- must report the resulting SHA after a commit, and the pushed branch and range after a push.
+- must leave forcing, deleting and mirror pushes (`--force`, `+ref`, `:ref`, `--delete`, `--mirror`), amend, history rewrites, implicit staging, and pathspec commits to their separate restrictions.
+- must reject compound shell forms and alternative Git configurations for the ordinary commit and push exceptions.
+- must preserve configured signing; a signing-socket block uses native escalation for the same authorized command.
+- this workflow guard does not claim a security boundary against arbitrary executable code.
+
+---
 
 ## Verification
 
-`python3 -B .codex/tests/test_commit_permission.py` tests lifecycle, task and repository isolation, explicit
-revocation, quoted markers, malformed state and rejected command forms without executing any Git commit.
+```sh
+python3 -B .codex/tests/test_commit_permission.py
+python3 -B .claude/hooks/tests/test_commit_switch.py
+```
+
+- must test persistence across chats, revocation, repository isolation, schema merging and malformed state.
+- must test prompt provenance, replayed transitions, concurrency, and rejected commit forms without making commits.
+- offline passing tests do not prove hook trust or a live permission change.

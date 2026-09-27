@@ -209,4 +209,10 @@ END {
 
 [ -n "$out" ] && printf '%s\n' "$out"
 
+# The repository commit and push switches read the same payload and print only for an exact ~commit_* or ~push_* prompt.
+switch=.claude/hooks/commit-switch.py
+if [ -f "$switch" ]; then
+  python3 "$switch" < "$tmp" 2>/dev/null || printf 'COMMIT SWITCH BROKEN: "%s" failed -- permission unchanged.\n' "$switch"
+fi
+
 exit 0

@@ -1,6 +1,6 @@
 # Chat markers
 
-*Last updated: 2026-08-24*
+*Last updated: 2026-09-26*
 
 > Rule text injected by `.claude/hooks/expand-markers.sh` when a marker appears in the prompt.
 > The vocabulary **is** the set of `## @@name` headers below — add a marker by adding a section,
@@ -105,14 +105,35 @@ Not `~leaves`, which expands one change into its leaves.
 
 ## @@commit_on
 
-`~commit_on <repo>` — request ordinary staged commits for this Codex task turn and repository.
-Only a standalone directive can activate the hook; the COMMIT PERMISSION status is authoritative.
-Outside Codex this marker does not grant commit permission. Full scope: `.codex/commit-permission.md`.
+`~commit_on <repo>` — enable the repository's commit flag; it stays `ON` for every chat until `~commit_off`.
+The entire user message must be the directive and its path; observe the native hook's effective status.
+Full protocol: `.codex/commit-permission.md`. The Codex adapter and Claude Code's `commit-switch.py` apply it; nothing else grants it.
 
 ## @@commit_off
 
-`~commit_off` — disable ordinary agent commits for the active Codex turn. Staging remains allowed.
-Full scope: `.codex/commit-permission.md`.
+`~commit_off <repo>` — disable the named repository through the native user-prompt hook.
+Full protocol: `.codex/commit-permission.md`.
+
+## @@commit_status
+
+`~commit_status <repo>` — read the repository flag without changing it.
+Full protocol: `.codex/commit-permission.md`.
+
+## @@push_on
+
+`~push_on <repo>` — enable the repository's push flag; ordinary pushes stay allowed in every chat until `~push_off`.
+The entire user message must be the directive and its path; observe the native hook's effective status.
+Full protocol: `.codex/commit-permission.md`. Independent of the commit flag; nothing else grants it.
+
+## @@push_off
+
+`~push_off <repo>` — disable the named repository's push flag through the native user-prompt hook.
+Full protocol: `.codex/commit-permission.md`.
+
+## @@push_status
+
+`~push_status <repo>` — read the repository's push flag without changing it.
+Full protocol: `.codex/commit-permission.md`.
 
 ## UNKNOWN
 

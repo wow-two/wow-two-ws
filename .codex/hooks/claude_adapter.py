@@ -68,6 +68,7 @@ def start(payload):
     text = '\n\n'.join(f'Source: {p.relative_to(ROOT) if p.is_relative_to(ROOT) else p}\n{p.read_text()}' for p in sources)
     if deferred:
         text += '\n\nPath-scoped rules: read frontmatter and apply only to matching work: ' + ', '.join(deferred)
+    text += '\n\n' + commit_permission.prompt(payload)
     return context('SessionStart', text)
 
 
@@ -88,8 +89,11 @@ def prompt(payload):
     # there, and expand the actual prompt last so its explicit modifiers win.
     style = checked_output(run_shared('style-recharge.sh', {
         'session_id': key, 'prompt': ''}), 'style-recharge.sh')
+    marker_prompt = payload.get('prompt') if isinstance(payload.get('prompt'), str) else ''
+    if commit_permission.directive(marker_prompt):
+        marker_prompt = commit_permission.directive_text(marker_prompt)
     markers = checked_output(run_shared('expand-markers.sh', {
-        'prompt': payload.get('prompt') if isinstance(payload.get('prompt'), str) else ''
+        'prompt': marker_prompt
     }), 'expand-markers.sh')
     bare = bool(re.search(r'^`~(?:bare|queued)`', markers, re.M))
     Path(tempfile.gettempdir(), 'codex-style-mode-' + key).write_text('bare' if bare else '')
@@ -130,16 +134,25 @@ def guard(payload):
     args = payload.get('tool_input')
     if not isinstance(args, dict):
         return {'systemMessage': 'Git guard failed: missing shell input.'}, 2
+    if 'command' in args and 'cmd' in args and args['command'] != args['cmd']:
+        return {'systemMessage': 'Git guard failed: conflicting shell command fields.'}, 2
     command = args.get('command', args.get('cmd'))
     if isinstance(command, list):
-        # Legacy shell tools can supply [shell, -c, command].
-        command = command[-1] if len(command) >= 3 and command[-2] in {'-c', '-lc'} else None
+        # Inspect exactly the script the supported shell will execute, never a trailing argument.
+        shells = {'sh', 'bash', 'zsh', '/bin/sh', '/bin/bash', '/bin/zsh',
+                  '/usr/bin/sh', '/usr/bin/bash', '/usr/bin/zsh'}
+        command = (command[2] if len(command) == 3 and isinstance(command[0], str)
+                   and command[0] in shells and command[1] in ('-c', '-lc') else None)
     if not isinstance(command, str):
         return {'systemMessage': 'Git guard failed: missing shell command.'}, 2
-    commit_permission.observe(payload)
-    if commit_permission.permits(payload, command, args.get('workdir') or payload.get('cwd') or str(ROOT)):
-        return context('PreToolUse', commit_permission.status(
-            commit_permission.read_state(payload['session_id']))), 0
+    cwd = args.get('workdir') or payload.get('cwd') or str(ROOT)
+    decision = commit_permission.assess(payload, command, cwd)
+    if decision is not None:
+        allowed, reason = decision
+        if allowed:
+            return context('PreToolUse', reason), 0
+        sys.stderr.write('BLOCKED — ' + reason + '\n')
+        return {}, 2
     normalized = dict(payload, session_id=session_key(payload), tool_name='Bash',
                       cwd=args.get('workdir') or payload.get('cwd') or str(ROOT),
                       tool_input={'command': command})
@@ -148,7 +161,8 @@ def guard(payload):
     if result.returncode:
         sys.stderr.write(result.stderr or 'Workspace Git guard failed; command not run.\n')
         return {}, 2
-    return {}, 0
+    notice = commit_permission.notice(payload, command, cwd)
+    return (context('PreToolUse', notice) if notice else {}), 0
 
 
 def touch(payload):

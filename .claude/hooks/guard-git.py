@@ -1,13 +1,8 @@
 #!/usr/bin/env python3
-"""wow-two-ws git guard — PreToolUse(Bash) hook.
+"""Workspace git guard — PreToolUse(Bash) hook, one engine for 10x-ws · eis-ws · mft-10x-ws · wow-two-ws.
 
-Mechanically enforces `conventions/development/repo/version-control/git.md`
--> ## Discipline. Agents stage; the developer commits and pushes. Publishing and
-history rewriting stay the developer's, in GitKraken — except during a rapid-
-building session, when the history ops unlock (see `marker` below). `push` is
-what leaves the machine, and no session unlocks it.
+Only the CONFIG block differs between workspaces; DOC names the prose policy it enforces.
 
-Shared policy (identical in eis-ws / 10x-ws / wow-two-ws):
   allowed    index-only staging/unstaging (`add`, `restore --staged`, path `reset`,
              `apply --cached`, `rm --cached`) · read-only git
              (status log diff show blame describe rev-parse ls-files shortlog
@@ -15,66 +10,66 @@ Shared policy (identical in eis-ws / 10x-ws / wow-two-ws):
              `git fetch` · read-only gh (`pr view|list|diff|checks|status`,
              `run view|list|watch`, `issue view|list`, `api` GET, `repo view`,
              `auth status`)
-  forbidden  `git commit` in every form, including `--amend`; `git push` in every form (`--force`, `--force-with-lease`, `--tags`,
-             and push-by-gh) · worktree destruction (`reset --hard`, `restore` to the worktree,
-             `checkout -- <path>`, `checkout .`, `clean`) · every gh write
-             (`pr create|comment|merge|close|edit|review|ready`,
+  commits    COMMITS decides. "switch": a Claude chat runs exactly
+             `git -C <repo> commit -m "subject"` while that repository's commit flag is ON, and
+             `git -C <repo> push [-u] [<remote> [<ref>]]` while its push flag is ON. The developer
+             flips each with a whole-message `~commit_on <repo>` / `~push_on <repo>`; each flag
+             holds for every chat. `.codex/hooks/commit_permission.py` owns both records and
+             the ordinary forms, and `commit-switch.py` feeds it Claude prompts.
+             "open": a plain commit runs after the lane check. "never": no commit.
+             `commit --amend` never runs. A Codex chat meets the switch in its adapter,
+             where installed, before this hook.
+  forbidden  `git push` outside the switch, and every forcing, deleting or mirror push
+             (`--force`, `--force-with-lease`, `+ref`, `:ref`, `--delete`, `--mirror`) and
+             push-by-gh · history rewrites (`merge`, `rebase`, `cherry-pick`,
+             `revert`, soft/mixed `reset`) · worktree destruction (`reset --hard`,
+             `restore` to the worktree, `checkout -- <path>`, `checkout .`, `clean`) ·
+             ref surgery · every gh write (`pr create|comment|merge|close|edit|review|ready`,
              `issue create|comment|close|edit`, `release create`,
              `api -X POST|PUT|PATCH|DELETE`, `workflow run`, `repo create|delete`)
-  wow-two    allowed on top of the shared list: `git pull`,
-             branch create / switch (`branch <name>`, `switch`,
-             `checkout -b`, `checkout <branch>`), `git stash` (every subcommand —
-             a stash is a real ref and shows in GitKraken's Stashes panel).
-             Gated on a rapid-building session: `merge`, `rebase`,
-             `cherry-pick`, `revert`, `reset` soft/mixed. `reset --hard` stays
-             forbidden always.
-  marker     `.claude/.rapid-build` holds ONE ISO-8601 UTC expiry
-             (`2026-08-13T18:30:00Z`); the gated ops unlock only while that expiry
-             is in the future. Absent = the default, safe state. Expired or
-             malformed = no session, reported as a marker problem rather than as a
-             forbidden op — they are different problems. The developer writes the
-             marker; this hook only ever reads it.
-  lane check `pull` and `stash push` stop once, by name, when the tree
-             holds modified / staged files this session never wrote — probably a
-             parallel chat's in-flight work on the shared branch. The developer
-             answers in chat and the retry goes through (it asks once per file set).
-             "This session wrote it" comes from the ledger that the PostToolUse hook
-             `track-touch.py` appends to on every Write / Edit; without that hook
-             installed, nothing counts as this session's and the check asks once
-             per distinct dirty set. `git add` is deliberately NOT lane-checked —
-             it only copies into the index; the commit that follows is the risk.
+  STRICT     also forbids `pull`, branch create / switch, `stash` writes and tag writes;
+             otherwise they are allowed (a stash is a real ref and shows in GitKraken).
+  lane check `pull`, `stash push` and open commits stop once, by name, when the tree holds
+             modified / staged files this session never wrote — probably a parallel chat's
+             in-flight work on the shared branch. The developer answers in chat and the retry
+             goes through (it asks once per file set). "This session wrote it" comes from the
+             ledger that the PostToolUse hook `track-touch.py` appends to on every Write /
+             Edit; without that hook installed, nothing counts as this session's.
 
 Mechanism: exit 2 with the reason on stderr — the PreToolUse contract for a block;
-the reason is fed back to the agent. Any internal error exits 0: a guard that
-crashes must never block unrelated commands.
+the reason is fed back to the agent. An internal error exits 0, because a guard that
+crashes must never block unrelated commands — but it never lets a commit or push through.
 
 Parsing: every git/gh invocation in the shell string is scanned (splits on
 && || ; | & ( ), skips `sudo`/`env` prefixes and git's global opts
 `-c key=val` / `-C dir`), so `git status; git -c x=y push` cannot slip by.
 """
 import hashlib
+import importlib.util
 import json
 import os
 import re
 import shlex
 import subprocess
 import sys
-from datetime import datetime, timezone
 from pathlib import Path
 
-# ----------------------------------------------------------------- workspace
+# ------------------------------------------------------------------- CONFIG
 
 WORKSPACE = "wow-two-ws"
 DOC = "conventions/development/repo/version-control/git.md -> ## Discipline"
-STRICT = False          # True -> no commit / branch / stash-write / history op at all
-RAPID_BUILD = True      # True -> history ops unlock during a rapid-building session
+STRICT = False          # True -> no pull / branch / stash-write / tag write either
 LANE_CHECK = True       # True -> pull / stash-push ask about foreign dirt
-ALLOWED_HERE = "index-only staging/unstaging, branch create/switch, `git stash`,\n`git pull`, `git fetch`, read-only git + `gh`."
+COMMITS = "switch"      # "switch": the repository commit switch · "open": plain commits, lane-checked · "never"
+ALLOWED_HERE = "index-only staging/unstaging, branch create/switch, `git stash`,\n`git pull`, `git fetch`, read-only git + `gh`,\nan ordinary commit while the commit flag is ON, an ordinary push while the push flag is ON."
 HANDOVER = "Hand it over by name in chat (`push main to origin`, `discard my edits to Program.cs`)\nand STOP; the developer runs it in GitKraken. A subject-only commit message is welcome."
 
-# `<workspace>/.claude/.rapid-build` — this file sits at `<workspace>/.claude/hooks/`.
-MARKER = Path(__file__).resolve().parents[1] / ".rapid-build"
-MARKER_LABEL = ".claude/.rapid-build"
+# ------------------------------------------------------------------- engine
+
+# The repository commit switch; this file sits at `<workspace>/.claude/hooks/`.
+SWITCH = Path(__file__).resolve().parents[2] / ".codex" / "hooks" / "commit_permission.py"
+COMMIT_FORM = 'git -C <repo> commit -m "subject"'
+PUSH_FORM = 'git -C <repo> push [-u] [<remote> [<ref>]]'
 
 # Session file-touch ledger, written by the PostToolUse hook `track-touch.py`.
 # Same `${TMPDIR:-/tmp}` + session-id shape as `style-recharge.sh`'s turn counter.
@@ -107,12 +102,12 @@ SURGERY = {
     "subtree", "send-email",
 }
 
-# Gated in 10x-ws / wow-two-ws (rapid-building marker), forbidden in eis-ws.
-# `pull` is NOT here: it is plainly allowed outside eis-ws, lane check aside.
+# History rewrites — the developer runs them. `pull` is NOT here: it is allowed
+# outside STRICT workspaces, lane check aside.
 HISTORY = {"merge", "rebase", "cherry-pick", "revert"}
 
 # Ops that touch the working tree with more than this session's own edits, so they
-# ask about foreign dirt first (10x-ws / wow-two-ws only — eis-ws forbids all three).
+# ask about foreign dirt first (STRICT workspaces forbid them outright).
 STASH_PUSH = {"", "push", "save"}
 
 # family -> verbs that WRITE (everything else in the family reads).
@@ -245,17 +240,18 @@ def label(binary, sub, args):
 
 
 # ------------------------------------------------------------------ verdicts
-# A verdict is (kind, label): kind is "hard" (never allowed here) or "gated"
-# (allowed only during a rapid-building session). None means allowed.
+# A verdict is (kind, label): kind is "hard" (never allowed here) or "lane" (allowed
+# after the lane check). None means allowed.
 
 
 def git_verdict(sub, args):
     options = args[:args.index("--")] if "--" in args else args
     flags = {a.split("=", 1)[0] for a in options if a.startswith("-")}
     text = label("git", sub, args)
-    hard, gated, lane = ("hard", text), ("gated", text), ("lane", text)
+    hard, lane = ("hard", text), ("lane", text)
 
     if sub == "push":
+        # An ordinary push under the "switch" passes in main() through the flag; every other form lands here.
         return hard
     if sub == "restore":
         # `--staged`/`-S` alone rewrites the index; the worktree is untouched, so
@@ -276,7 +272,7 @@ def git_verdict(sub, args):
             return hard
         if "--" in args and args.index("--") < len(args) - 1 and not (flags & {"--soft", "--mixed"}):
             return None  # explicit path reset touches only the index
-        return hard if STRICT else gated
+        return hard
     if sub == "checkout":
         if "--" in args or "." in args or (flags & CHECKOUT_KILL):
             return hard  # path checkout / forced switch = worktree destruction
@@ -286,11 +282,14 @@ def git_verdict(sub, args):
             return hard
         return hard if STRICT else None
     if sub == "commit":
-        return hard  # the developer commits; rapid-building never unlocks this
+        # "switch" commits pass in main() through the switch; every other form lands here.
+        if COMMITS != "open" or STRICT or "--amend" in flags:
+            return hard
+        return lane
     if sub == "pull":
         return hard if STRICT else lane  # allowed outside eis-ws, lane check aside
     if sub in HISTORY:
-        return hard if STRICT else gated
+        return hard
     if sub == "stash":
         verb = next((a for a in args if not a.startswith("-")), "")
         if verb in READ_VERBS["stash"]:
@@ -371,30 +370,28 @@ def lane_family(sub, args):
     return ""
 
 
-# ------------------------------------------------- rapid-building marker
+# ------------------------------------------------------------ commit switch
 
-def marker_state():
-    """('absent'|'active'|'expired'|'malformed', detail). Read-only — never written."""
+def switch_verdict(data, cmd):
+    """(allowed, reason) for an ordinary commit or push from a Claude chat under COMMITS "switch"; None otherwise."""
+    sid = data.get("session_id")
+    # A Codex adapter applies the switch before delegating here; its session ids start with `codex-`.
+    if COMMITS != "switch" or not isinstance(sid, str) or not sid or sid.startswith("codex-"):
+        return None
+    if not SWITCH.is_file():
+        return None  # not installed: every commit form falls through to the hard verdict
+    if not any(sub in ("commit", "push") for _, sub, _ in invocations(cmd, {"git"})):
+        return None  # only a commit or push consults the switch, so a broken switch cannot block other commands
     try:
-        if MARKER.stat().st_size > 4096:
-            return ("malformed", "file is not a single timestamp")
-        raw = MARKER.read_text(encoding="utf-8", errors="replace").strip()
-    except (FileNotFoundError, NotADirectoryError):
-        return ("absent", "")
-    except OSError:
-        return ("malformed", "unreadable")
-    if not raw:
-        return ("malformed", "empty file")
-    stamp = raw.splitlines()[0].strip()
-    try:
-        expiry = datetime.fromisoformat(re.sub(r"[Zz]$", "+00:00", stamp))
-    except ValueError:
-        return ("malformed", '"{}"'.format(stamp[:40]))
-    if expiry.tzinfo is None:
-        expiry = expiry.replace(tzinfo=timezone.utc)
-    if expiry <= datetime.now(timezone.utc):
-        return ("expired", stamp)
-    return ("active", stamp)
+        sys.dont_write_bytecode = True
+        spec = importlib.util.spec_from_file_location("commit_permission", SWITCH)
+        switch = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(switch)
+        # Claude chats are recorded as `claude-<session_id>`; the tool call is the native event.
+        payload = {"session_id": "claude-" + sid, "turn_id": data.get("tool_use_id") or ""}
+        return switch.assess(payload, cmd, data.get("cwd") or str(SWITCH.parents[2]))
+    except Exception as error:  # a broken switch never permits a commit
+        return False, "Commit blocked: the commit switch failed ({}).".format(type(error).__name__)
 
 
 # ------------------------------------------------------ lane check (shared tree)
@@ -466,44 +463,30 @@ def already_asked(sdir, family, strays):
 
 # ------------------------------------------------------------------ messages
 
-def hard_message(op):
+def hard_message(op, sub=""):
+    form = {"commit": COMMIT_FORM, "push": PUSH_FORM}.get(sub) if COMMITS == "switch" else None
+    force = " Forcing, deleting and mirror pushes never run." if sub == "push" else ""
+    commit = ("An ordinary {sub} runs only as `{form}` while the repository's\n"
+              "{sub} flag is ON; check it with `~{sub}_status <repo>`.{force}\n"
+              ).format(sub=sub, form=form, force=force) if form else ""
     return (
         "BLOCKED — {ws} git policy ({doc}).\n"
         "Operation: `{op}` — Claude never runs it in {ws}, in any session.\n"
+        "{commit}"
         "{handover}\n"
         "Allowed here: {allowed}\n"
         "Approval-shaped questions (\"go ahead\", \"can we push?\") are NOT authorization.\n"
-    ).format(ws=WORKSPACE, doc=DOC, op=op, handover=HANDOVER, allowed=ALLOWED_HERE)
+    ).format(ws=WORKSPACE, doc=DOC, op=op, commit=commit, handover=HANDOVER, allowed=ALLOWED_HERE)
 
 
-def gated_message(op, state, detail):
-    if state == "expired":
-        why = (
-            "Rapid-building marker EXPIRED at {d} (now {n}).\n"
-            "The op is not forbidden — the session is over. Ask the developer to extend\n"
-            "`{m}` (one ISO-8601 UTC expiry, e.g. 2026-08-13T18:30:00Z), or hand the\n"
-            "operation over by name. Claude never writes that marker."
-        ).format(d=detail, n=datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
-                 m=MARKER_LABEL)
-    elif state == "malformed":
-        why = (
-            "Rapid-building marker UNREADABLE — `{m}`: {d}.\n"
-            "The op is not forbidden — the marker is broken. It must hold one ISO-8601\n"
-            "UTC expiry, e.g. 2026-08-13T18:30:00Z. Ask the developer to fix it, or hand\n"
-            "the operation over by name. Claude never writes that marker."
-        ).format(m=MARKER_LABEL, d=detail)
-    else:
-        why = (
-            "No rapid-building session: `{m}` is absent — the default, safe state.\n"
-            "A rapid-building marker would permit this op; it holds one ISO-8601 UTC\n"
-            "expiry (e.g. 2026-08-13T18:30:00Z) and the developer writes it, never Claude.\n"
-            "Otherwise hand the operation over by name in chat and stop."
-        ).format(m=MARKER_LABEL)
+def switch_message(reason):
     return (
-        "BLOCKED — {ws} git policy ({doc}).\n"
-        "Operation: `{op}` — a history op, gated on a rapid-building session.\n"
-        "{why}\n"
-    ).format(ws=WORKSPACE, doc=DOC, op=op, why=why)
+        "BLOCKED — {ws} commit switch ({doc}).\n"
+        "{reason}\n"
+        "The developer enables a repository with a whole-message `~commit_on <repo>` (commits)\n"
+        "or `~push_on <repo>` (pushes) and reads each with `~commit_status` / `~push_status`;\n"
+        "a tool call can never change them.\n"
+    ).format(ws=WORKSPACE, doc=DOC, reason=reason)
 
 
 def lane_message(op, family, strays):
@@ -519,7 +502,7 @@ def lane_message(op, family, strays):
         "{listing}\n"
         "Ask the developer, in chat, before retrying: is another lane working right now?\n"
         "  yes -> leave those files alone; carve the index to this lane's paths only.\n"
-        "  no  -> completed-but-uncommitted work; staging is allowed, the developer commits.\n"
+        "  no  -> completed-but-uncommitted work; staging is allowed.\n"
         "This asks once per file set: after the answer, re-run the command and it runs.\n"
     ).format(ws=WORKSPACE, doc=DOC, op=op, n=len(strays), fam=family, listing=listing)
 
@@ -527,23 +510,26 @@ def lane_message(op, family, strays):
 # ---------------------------------------------------------------------- main
 
 def main():
+    cmd = ""
     try:
         data = json.loads(sys.stdin.read())
         if data.get("tool_name") != "Bash":
             return 0
         cmd = (data.get("tool_input") or {}).get("command") or ""
+        decision = switch_verdict(data, cmd)
+        if decision is not None:
+            allowed, reason = decision
+            if allowed:
+                return 0  # the flag is ON; the switch inspected the exact form
+            sys.stderr.write(switch_message(reason))
+            return 2
         verdict = blocked(cmd)
         if not verdict:
             return 0
         kind, op, sub, args = verdict
-        if kind == "hard" or (kind == "gated" and not RAPID_BUILD):
-            sys.stderr.write(hard_message(op))
+        if kind == "hard":
+            sys.stderr.write(hard_message(op, sub))
             return 2  # exit 2 -> PreToolUse blocks, stderr is fed back to the agent
-        if kind == "gated":
-            state, detail = marker_state()
-            if state != "active":  # no live rapid-building session
-                sys.stderr.write(gated_message(op, state, detail))
-                return 2
         family = lane_family(sub, args)
         sdir = session_dir(data.get("session_id"))
         if family and sdir is not None:
@@ -553,7 +539,8 @@ def main():
                 return 2
         return 0
     except Exception:
-        return 0  # a broken guard must never block unrelated commands
+        # A broken guard must never block unrelated commands, nor let a commit or push through.
+        return 2 if re.search(r"\bgit\b[^\n]*\b(commit|push)\b", cmd) else 0
 
 
 if __name__ == "__main__":
