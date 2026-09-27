@@ -1,6 +1,6 @@
 # State and data
 
-*Last updated: 2026-09-10*
+*Last updated: 2026-09-26*
 
 > Request outcomes, server caches and local state across frontend frameworks.
 
@@ -34,6 +34,31 @@
 - must dispose session-scoped caches on logout or identity change; late responses cannot repopulate them.
 - must persist local state only through [storage](../storage/storage.md).
 - must keep framework/engine bindings in provider leaves, including [Vue queries](vue/vue.md).
+
+---
+
+## Loading
+
+A data region answers three loading moments differently: the first load, a refresh the user asked for, and a
+background refetch. The user must always be able to tell that an asked-for refresh ran.
+
+- must render a first load as a skeleton shaped like the loaded region; a spinner only where that shape is unknown.
+- must swap a region to its skeleton for a user-requested refresh and back, even when the values come back unchanged.
+- must hold that skeleton for a minimum duration, 400 ms by default, through the SDK `useRefresh`.
+- must keep labels, headings and actions visible during a refresh; only values turn into placeholders (`Skeleton.Slot`).
+- must keep identities (names, ids, paths) through a refresh; they turn into placeholders on a first load only.
+- must keep content on screen during background refetches and polling; show freshness with a timestamp or `fetching`.
+- must replace a failed first load with the failure surface and a retry action; keep last good values when a refresh fails.
+- must announce loading once per region through `Skeleton.Group`; the skeleton shapes stay decorative.
+- must not disable the refresh control while it runs; overlapping requests share one pending state.
+
+```tsx
+const vitals = useFleetVitals();
+const { refresh, refreshing } = useRefresh(vitals.refetch);
+<Skeleton.Group loading={vitals.loading || refreshing}>
+  <span>Memory</span> <Skeleton.Slot>{percent}%</Skeleton.Slot>
+</Skeleton.Group>
+```
 
 ---
 
