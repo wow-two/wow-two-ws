@@ -1,6 +1,6 @@
 # Layout
 
-*Last updated: 2026-09-10*
+*Last updated: 2026-09-29*
 
 > Which layout to reach for, and with what values — the application register over the SDK's `layout/` group.
 > Use case — picking between two arrangements that both work, or fixing the value one carries here.
@@ -13,6 +13,7 @@
 | [AppShell](appShell.md) | one frame owns the app — header, sidebar, main, aside, footer |
 | [AspectRatio](aspectRatio.md) | a media box has to hold its shape before the media loads |
 | [Box](box.md) | a shell needs a class, and nothing here has to be arranged |
+| [CanvasArea](canvasArea.md) | a diagram, map or board pans and zooms inside a fixed box |
 | [Center](center.md) | one child sits in the middle of its parent on both axes |
 | [Cluster](cluster.md) | a wrapping row reads as centred — hero CTAs, footer links |
 | [Container](container.md) | page content is capped at a readable width and centred |

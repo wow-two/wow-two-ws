@@ -1,6 +1,6 @@
 # Feedback
 
-*Last updated: 2026-09-10*
+*Last updated: 2026-09-29*
 
 > Which report to reach for, and with what values — the application register over the SDK's `feedback/` group.
 > Use case — picking between two reports that both work, or fixing the value one carries here.
@@ -29,6 +29,7 @@
 | [ProgressSteps](progressSteps.md) | a flow's named stages show which one is current |
 | [Skeleton](skeleton.md) | the shape of unloaded content stands in for it |
 | [Spinner](spinner.md) | a bare indeterminate mark is the whole report |
+| [SplashScreen](splashScreen.md) | the app's first load shows the product logo over a progress bar |
 | [StatusIndicator](statusIndicator.md) | a service's health reads as a dot plus a line |
 | [Toast](toast.md) | one transient card is mounted by hand, outside the queue |
 | [ToastSimple](toastSimple.md) | the transient card takes free-form children |

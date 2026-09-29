@@ -1,6 +1,6 @@
 # State and data
 
-*Last updated: 2026-09-26*
+*Last updated: 2026-09-29*
 
 > Request outcomes, server caches and local state across frontend frameworks.
 
@@ -50,7 +50,8 @@ background refetch. The user must always be able to tell that an asked-for refre
 - must keep content on screen during background refetches and polling; show freshness with a timestamp or `fetching`.
 - must replace a failed first load with the failure surface and a retry action; keep last good values when a refresh fails.
 - must announce loading once per region through `Skeleton.Group`; the skeleton shapes stay decorative.
-- must not disable the refresh control while it runs; overlapping requests share one pending state.
+- must show a running refresh on its control through `Button` `isLoading`: the icon turns into a spinner, the label
+  stays and the control dims; it keeps focus, and overlapping requests share one pending state.
 
 ```tsx
 const vitals = useFleetVitals();
