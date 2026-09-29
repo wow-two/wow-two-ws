@@ -1,6 +1,6 @@
 # Conventions — wow-two
 
-*Last updated: 2026-09-27*
+*Last updated: 2026-09-29*
 
 > **The single index to every convention.** When a task touches *how we build* — code, repo structure,
 > naming, versioning — search HERE first, then open only the file(s) you need. Lookup table,
@@ -152,8 +152,9 @@ Cross-area: **[swappable-modules.md](development/swappable-modules.md)** — eng
 | Need | File |
 |---|---|
 | Repo layout (product / venture) · `product/` + `engineering/` · code under `engineering/codebase/{slug}.{backend,frontend}-services` · naming · folder-docs (no README below root) · archetypes · **image-publish contract** (§13) · **audit** | [development/repo/structure/repo-structure.md](development/repo/structure/repo-structure.md) |
+| App and service versions · `<Version>` in `Directory.Build.props` and `version` in `package.json` · status endpoint · shown in the app · stamped on migrations · release tags | [development/repo/versioning/versioning.md](development/repo/versioning/versioning.md) |
 | SDK / library repo shape · `engineering/` + npm package under `engineering/codebase/{slug}/` · `src/` source-only + `tests/{unit,stories}` · config repoint · dist-only publish | [development/repo/structure/sdk-structure.md](development/repo/structure/sdk-structure.md) |
-| Commit-message format (`{type}: {past-tense verb} {subject}`, 50–70 chars, subject only · one cohesive change) **+ commit protocol** — agent stages; ordinary commits require the scoped switch; the human publishes **+ large files** — LFS vs gitignore, and repairing a binary already in pushed history | [development/repo/version-control/git.md](development/repo/version-control/git.md) |
+| Commit messages · scoped index handover · independent repository Git flags · LFS, gitignore and large-file recovery | [development/repo/version-control/git.md](development/repo/version-control/git.md) |
 
 ### backend/ — .NET conventions · [the dotnet index](development/backend/dotnet/dotnet-conventions.md)
 
@@ -176,6 +177,9 @@ project placement, build and startup → the deliverable under `shapes/`.
 
 ### frontend/ — frontend conventions (cut twice) · [the frontend index](development/frontend/frontend-conventions.md)
 
+Framework selection, React migration and exceptions →
+[frontend standard](development/repo/repo-conventions.md#frontend-standard).
+
 Two orthogonal cuts: **scope** — how far a rule reaches; **shape** — what is being built.
 
 | Folder | Holds |
@@ -183,7 +187,7 @@ Two orthogonal cuts: **scope** — how far a rule reaches; **shape** — what is
 | `core/lla/` | one symbol — constructs per platform · a form end to end · naming · docs · style |
 | `core/mla/` | one app — the kinds we declare · which to reach for · domains · framework deltas |
 | `core/hla/` | between our own frontends — **empty by design** |
-| `shapes/app/` | a product frontend — architecture · platform (styling, dev server) · routing |
+| `shapes/app/` | a product frontend — architecture · platform (styling, dev server) · routing · responsive (device targets, screen classes) |
 | `shapes/library/` | a package another frontend imports — kind-grouped layout, capability modules |
 
 **Routing.** A kind you declare → `core/mla/constructs/` · which one, with what values →
@@ -191,17 +195,17 @@ Two orthogonal cuts: **scope** — how far a rule reaches; **shape** — what is
 `core/lla/notation/` · a capability → `core/mla/domains/{domain}/` · where a folder is created, how it builds
 and ships → `shapes/{app,library}/`.
 
+Product frontend projects and shared packages →
+[frontend workspace](development/frontend/shapes/app/architecture/workspace.md).
+
 ---
 
-## planning — index: [planning/planning-conventions.md](planning/planning-conventions.md)
+## planning — [planning/version-track/version-track.md](planning/version-track/version-track.md)
 
 | Area | File |
 |---|---|
-| Rough-track docs — `r{X.Y}` unbounded first build: one task per subsystem, no sub-steps + template | [planning/rough-track/rough-track.md](planning/rough-track/rough-track.md) |
-| Version-track docs — `v{X.Y}` versions: naming, lifecycle, cadence + iteration template | [planning/version-track/version-track.md](planning/version-track/version-track.md) |
-| Polish-track docs — `p{X.Y}` behavior-invariant cleanup, tasks per file, decoupled + template | [planning/polish-track/polish-track.md](planning/polish-track/polish-track.md) |
-| Vector-track docs — subject lanes, one chat each: archetype ladders, seams, git + build contention, release cuts + template | [planning/vector-track/vector-track.md](planning/vector-track/vector-track.md) |
-| Engineering planning — repo roadmap + backlog | [planning/engineering-planning/engineering-planning-conventions.md](planning/engineering-planning/engineering-planning-conventions.md) |
+| The only planning convention — `engineering/planning/backlog.md` + `version-track/v{X.Y}/v{X.Y}.md` · backlog groups + `Features` group · version types · Polish iterations · task form · lifecycle + templates | [planning/version-track/version-track.md](planning/version-track/version-track.md) |
+| Handoff docs — write-once, read-once, delete | [agentic-workflow/agentic-workflow.md](agentic-workflow/agentic-workflow.md#handoff-docs--write-once-read-once-delete) |
 
 ---
 
@@ -231,6 +235,7 @@ and ships → `shapes/{app,library}/`.
 | Need | File |
 |---|---|
 | Design exploration — variant-driven (a few in-context options → pick → lock → cascade → spec) · other modes · mode-selection · per-app spec shape | [design/research/design-exploration.md](design/research/design-exploration.md) |
+| Logo system — WoW2 family scope · compositions · exact parent endorsement · masters · export verification | [design/identity/logo-system.md](design/identity/logo-system.md) |
 
 ---
 
@@ -247,6 +252,8 @@ and ships → `shapes/{app,library}/`.
 ## Scaffolding
 
 - New conformant repo → skill **`create-repo`**. Template repo: `workbench/wow-two-sdk-beta/wow-two-sdk-beta.product-template/`.
+- React starter adaptation and Vue completion requirements →
+  [frontend scaffolding](development/repo/repo-conventions.md#scaffolding).
 
 ---
 
