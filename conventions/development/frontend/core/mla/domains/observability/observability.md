@@ -1,6 +1,6 @@
 # Observability
 
-*Last updated: 2026-09-10*
+*Last updated: 2026-09-29*
 
 > What the app records locally, and where a record lands — level, bound context, redaction, and the sink seam.
 > Purpose — a logger is called from error paths, so a failure raised out of one masks the error it was recording.
@@ -45,6 +45,7 @@
 - [domains](../domains.md) — the shape every domain follows
 - [analytics](../analytics/analytics.md) — product events, consent-gated and vendor-bound
 - [feedback](../feedback/feedback.md) — the user-visible half of reporting a failure
+- [reporting](../reporting/reporting.md) — the incident that leaves the device, joined to these records by trace id
 - [data](../data/state-and-data.md) — the error type a record most often carries
 
 ---

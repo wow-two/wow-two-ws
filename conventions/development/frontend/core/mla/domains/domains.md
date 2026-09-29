@@ -1,6 +1,6 @@
 # Domains
 
-*Last updated: 2026-09-10*
+*Last updated: 2026-09-29*
 
 > Capability contracts, provider adapters and their shared lifetime boundary.
 
@@ -45,6 +45,7 @@
 | [i18n](i18n/i18n.md) | locale, messages and formatting |
 | [icons](icons/icons.md) | decorative and semantic glyphs |
 | [observability](observability/observability.md) | structured local records |
+| [reporting](reporting/reporting.md) | the user's trail and one-click incident reports |
 | [storage](storage/storage.md) | small synchronous persistence |
 | [uploads](uploads/uploads.md) | admission and queue scheduling |
 | [validation](validation/validation.md) | Standard Schema validation |

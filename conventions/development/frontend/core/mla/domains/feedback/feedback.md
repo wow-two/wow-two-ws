@@ -1,6 +1,6 @@
 # Feedback
 
-*Last updated: 2026-08-22*
+*Last updated: 2026-09-29*
 
 > The notice bus app code publishes on, and the surface that renders a notice.
 > Purpose — an explicit hub instance serves publishers both inside and outside the component tree.
@@ -19,6 +19,8 @@
 - must render no UI from the bus — the surface is a separate adapter, and the boundary runs one way.
 - must keep a bridge to a request seam on this side, so that seam never depends on the bus.
 - must mount one rendering adapter per hub and destination; duplicate destinations repeat the same notice.
+- must offer a one-click report only on a failure that points at a defect or an outage
+  ([reporting](../reporting/reporting.md)); a validation, auth or not-found failure carries none.
 
 ---
 
@@ -46,6 +48,7 @@
 - [data](../data/state-and-data.md) — the error the query bridge coerces into a notice
 - [feedback components](../../constructs/visual/feedback.md) — the kind that renders a notice
 - [observability](../observability/observability.md) — the local record of the same failure
+- [reporting](../reporting/reporting.md) — the incident a notice's Report action sends
 
 ---
 
