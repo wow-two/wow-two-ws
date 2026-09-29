@@ -12,16 +12,25 @@ Categories: `sdk` · `plt` · `app` · `ven` · `con` · `ws`
 
 ---
 
+## Apps
+
+| Task ID | Task | Deadline | Priority | Status | Repo | Notes |
+|---|---|---|---|---|---|---|
+| `app-t-001` | Finish wheelhouse for a reliable release | `-` | `high` | `todo` | `wow-two-platform.wheelhouse` | Added `2026-09-29`: first release target, with `app-t-002` and `ven-t-006`, ahead of TNIS. Breakdown in the repo's `engineering/planning/` |
+| `app-t-002` | Finish secrets-vault for a reliable release | `-` | `high` | `todo` | `wow-two-platform.secrets-vault` | Added `2026-09-29`: same release push as `app-t-001` and `ven-t-006` |
+
+---
+
 ## Ventures
 
 | Task ID | Task | Deadline | Priority | Status | Repo | Notes |
 |---|---|---|---|---|---|---|
 | `ven-t-001` | Record the ministry outcome + agreed next steps | `-` | `high` | `todo` | `ventures.tnis` | Presentation `2026-08-12`, 1:45–4 PM. Written nowhere yet. Home: `product/context.md` |
-| `ven-t-002` | Advance `TNIS` per `follow-up-roadmap.md` | `-` | `high` | `wip` | `ventures.tnis` | ~6h15m `08-12`, brainstorms `08-13`. Roadmap holds the breakdown |
-| `ven-t-003` | Name the active Micro-SaaS candidate | `-` | normal | `todo` | `-` | One block `08-12`. `10x-ws` tracks a matching task to give Micro SaaS a section there |
-| `ven-t-004` | Finish the Mintrans demo solution and share it | `2026-08-23` | `high` | `todo` | `ventures.tnis-mintrans` | Added `2026-08-17`. The deliverable sent to Mintrans — distinct from the venture (`ventures.tnis`) and from the hackathon demo, which lives in Yandex org. Gates `ven-t-005` |
-| `ven-t-005` | Complete the Mintrans integration | `2026-09-06` | `high` | `todo` | `ventures.tnis-mintrans` | Added `2026-08-17`. Breakdown belongs in the repo’s `engineering/planning/`, not here |
-| `ven-t-006` | Advance forever-pin per its `engineering/planning/` | `-` | `high` | `wip` | `forever-pin` | Added `2026-08-17`. 10h across `08-15`–`08-16`, the heaviest venture thread this month |
+| `ven-t-002` | Advance `TNIS` per its follow-up backlog | `-` | `high` | `todo` | `ventures.tnis` | Deferred `2026-09-29` until wheelhouse, secrets-vault and forever-pin reach a reliable release — maybe the mid-October vacation. ~6h15m `08-12`, brainstorms `08-13`. Roadmap holds the breakdown |
+| `ven-t-003` | Name the active Micro-SaaS candidate | `-` | normal | `todo` | `-` | One block `08-12`. `10x-ws` tracks a matching task to give Micro SaaS a section there. User `2026-09-29`: after the three releases, return to the stale SaaS products — maybe transcript-forge |
+| `ven-t-004` | Finish the Mintrans demo solution and share it | `-` | `high` | `todo` | `ventures.tnis-mintrans` | Deadline removed `2026-09-29`: the hackathon was paid, so finishing is the user's call; deferred with `ven-t-002`. Added `2026-08-17`. The deliverable sent to Mintrans — distinct from the venture (`ventures.tnis`) and from the hackathon demo, which lives in Yandex org. Gates `ven-t-005` |
+| `ven-t-005` | Complete the Mintrans integration | `-` | `high` | `todo` | `ventures.tnis-mintrans` | Deadline removed `2026-09-29`: the hackathon was paid, so finishing is the user's call; deferred with `ven-t-002`. Added `2026-08-17`. Breakdown belongs in the repo’s `engineering/planning/`, not here |
+| `ven-t-006` | Finish forever-pin for a reliable release | `-` | `high` | `wip` | `forever-pin` | Target set `2026-09-29`: a reliable release, alongside `app-t-001` and `app-t-002`; breakdown in its `engineering/planning/`. Added `2026-08-17`. 10h across `08-15`–`08-16`, the heaviest venture thread this month |
 | `ven-t-007` | Complete the ForeverPin rebrand | `-` | normal | `done` | `forever-pin` | Local source, projects, docs, product/promo folders renamed 2026-09-13. Full suites pass. GitHub rename and both remote URLs verified. Corrected hero still/video exported under native approval. Product rebrand, verification tooling, and docs committed. |
 
 ---
@@ -55,7 +64,7 @@ Not started, ordered, top = next. Pulling one promotes it above and mints its ID
 | `IClock` + `DateTimeOffset` clock → `Foundation.Time` | feature | adopting = a pure delete in products |
 | `FailureCategory` union (`+402` / `+503`) → canonical enum | feature | bake at extract time |
 | `ApiResponse<T>` envelope → `Web.Contracts` | feature | products drop the inline copy |
-| Remaining v0.2 extract items | feature | 13-item list, detail in drydock's backlog |
+| Remaining v0.2 extract items | feature | 13-item list, detail in wheelhouse's backlog |
 | `ToCommand` / `ApiRequest` support | idea | evaluate once apps adopt the convention |
 
 ### Conventions
@@ -64,6 +73,20 @@ Not started, ordered, top = next. Pulling one promotes it above and mints its ID
 |---|---|---|
 | Reconcile controller and message examples | issue | Backend audit `BC07` and `BC13`; current construct owner is `controller.md`, not the removed `controllers.md` |
 | Apply the current convention authoring rules | check | Backend audit `BC20`; directive rules and single ownership per `conventions/conventions.md` |
+| Align result, validation and ProblemDetails conventions with `AppError` | check | From the backend SDK's errors research §6; verify what already landed |
+| Settle explicit `IQuery` / `ICommand` markers in `mediator.md` | check | From the backend SDK's mediator research, decision 2; verify first |
+| Resolve `Provides mapping for` vs `Extends` in XML-doc summaries | issue | TNIS: `request-models.md:82` against `documentation/summary.md:83` |
+| Name grouped controls and input suffixes; prefer gaps and separators to borders | feature | ForeverPin polish findings (`ShapeControls` vs `ShapeControlsGroup`) |
+| Document the derived component-catalog pattern in `sdk-structure.md` | feature | UI SDK v0.1 iteration 3 |
+| Move shipped facts from the UI SDK vector analyses into conventions | check | UI SDK content audit |
+
+### → product template (`wow-two-sdk-beta.product-template`)
+
+| Item | Type | Notes |
+|---|---|---|
+| Stop `vue/html-self-closing` fighting Prettier on void elements | issue | PbnStudio; `eslint.config.mjs` lacks the override |
+| Serve `vite preview` over http without the mkcert `server.https` | issue | Hijinx: http previews and E2E get empty responses |
+| Stamp `src/form.ts` into new repos | feature | UI SDK forms row, deferred |
 
 ### → SDK repos (`wow-two-sdk.backend.beta` · `wow-two-sdk-beta.ui`)
 
@@ -79,8 +102,8 @@ Not tasks — where a promoted capability gets broken down.
 
 | Source | Holds |
 |---|---|
-| `workbench/{org}/{repo}/engineering/planning/` | that repo's roadmap, backlog, versions |
-| `workbench/ventures/ventures.tnis/follow-up-roadmap.md` | `TNIS` venture breakdown |
+| `workbench/{org}/{repo}/engineering/planning/` | that repo's backlog and version track (`conventions/planning/version-track/version-track.md`) |
+| `workbench/ventures/ventures.tnis-mintrans/engineering/planning/backlog.md` | `TNIS` follow-up breakdown (the former follow-up roadmap) |
 | `workbench/ventures/ventures.tnis-mintrans/` | the Mintrans deliverable — demo + integration |
 | `workbench/wow-two/wow-two.refinement` | live ecosystem state + roadmap |
 
