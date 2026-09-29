@@ -1,6 +1,6 @@
 # Agentic workflow
 
-*Last updated: 2026-09-12*
+*Last updated: 2026-09-29*
 
 > How parallel Claude chats / agents share one repo without clobbering each other — lane discipline, no-revert, scope containment.
 > Purpose — multiple chats edit the same working tree at once; a wrong "cleanup" silently destroys another lane's uncommitted work.
@@ -28,6 +28,23 @@
 - An agent edits **only its assigned files** — state the allowlist in its brief; everything else is read-only to it.
 - A build / test failure rooted **outside your lane** → **STOP and report it** as a hand-off; don't "fix" it by editing or deleting another lane's files. A blocked `Api` build because a *library* changed is someone's hand-off, not your repair job.
 - Deleting a project, editing a `.sln` / `.csproj`, or rewiring DI is almost never a presentation / frontend lane's job — if your task seems to need it, it's the wrong lane: stop and flag.
+
+---
+
+## Handoff docs — write-once, read-once, delete [REQUIRED]
+
+A handoff (`handoff.md`) exists for exactly one purpose: **loading a fresh chat with the context the previous chat is about to lose.** It is a courier, not a record. The version doc and the backlog are the record ([version-track.md](../planning/version-track/version-track.md)).
+
+- must write it only when a chat is ending with work in flight, and only for the chat that picks that work up.
+- must not maintain it. A handoff updated turn by turn has become a second plan doc, and it will disagree with the version doc — the numbering drift that produced a phantom "Iteration 7.5" started exactly this way.
+- **the chat that loads a handoff owns its disposal.** On load: move anything durable into the version doc, the backlog or the architecture docs (a settled fork, a measured figure, a trap worth keeping), then **delete the file**. Everything else was transport.
+- must not let two chats load the same handoff. Once read, it is spent; a second reader is reading a stale snapshot of a tree that has moved.
+- must delete it on load when nothing in it is durable — a handoff carrying only what the version doc already says has already done its job, and keeping it guarantees a later reader trusts the older of two records.
+- must never cite a handoff as the source of a decision. If a decision only lives there, it was never recorded — move it first.
+
+**Precedence:** version doc > handoff, always. A handoff that contradicts the version doc is wrong by definition, whichever is newer.
+
+Distinguish it from the version-track's **transient iteration plan** (`v{X.Y}/{iter-slug}.md`), which is also delete-when-done but serves the *current* chat's own build, not the next chat's start.
 
 ---
 

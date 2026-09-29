@@ -80,7 +80,7 @@ Consumer code remains against its existing published pin until release adoption;
   build completed with 135 warnings and 0 errors. No SDK source changed between compilation and test execution.
 - All 17 existing TranscriptForge VTT cases passed against the current SDK assembly: 0 failed, 0 skipped, .NET 10.
   Native escalation supplied VSTest's required local socket permission; the command exited 0 with no pending approval.
-- The pre/post `engineering/planning/sweep.sh` outputs were identical (987 declarations). The battery retains
+- The pre/post `engineering/scripts/sweep.sh` outputs were identical (987 declarations). The battery retains
   existing findings elsewhere; it is not a whole-SDK conformance pass. Logs: `/tmp/parser-conformance-sweep-before.log`
   and `/tmp/parser-conformance-sweep-after.log`.
 - No parser-specific SDK tests existed at intake. Existing consumer VTT cases can be compiled against current source via a temporary test import;

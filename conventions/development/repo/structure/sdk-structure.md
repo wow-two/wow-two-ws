@@ -1,6 +1,6 @@
 # SDK Repo Structure
 
-*Last updated: 2026-07-12*
+*Last updated: 2026-09-29*
 
 On-disk layout + naming for **SDK / library repos** under `wow-two-ws/workbench/` — the package-shaped counterpart to [repo-structure.md](repo-structure.md) (product / venture repos). Reference: `wow-two-sdk-beta.ui` (`@wow-two-beta/ui`). Not yet executed — see *Application*.
 
@@ -25,8 +25,10 @@ On-disk layout + naming for **SDK / library repos** under `wow-two-ws/workbench/
 ├── .github/workflows/               ← CI runs from repo-root .github only
 └── engineering/
     ├── engineering.md
-    ├── planning/                    ← version-track/ · polish-track/ · planning.md · backlog.md
-    ├── architecture/                ← architecture.md · decisions/ · testing.md · research/
+    ├── planning/                    ← backlog.md · version-track/v{X.Y}/v{X.Y}.md
+    ├── architecture/                ← architecture.md · decisions/ · testing.md
+    ├── research/                    ← analyses and deep-dives (research.md lead)
+    ├── development/                 ← rules.md — working rules for agents
     └── codebase/
         ├── codebase.md
         └── {slug}/                  ← THE npm package
@@ -62,9 +64,10 @@ The package is defined by where `package.json` sits — it plus the lockfile, co
 
 ## Planning
 
-- must place version + polish tracks under `engineering/planning/` — `version-track/v{X.Y}/` + `polish-track/p{X.Y}/`, per [version-track.md](../../../planning/version-track/version-track.md) + [polish-track.md](../../../planning/polish-track/polish-track.md)
-- must put design docs under `engineering/architecture/` — `architecture.md` · `decisions/` · `testing.md` · `research/`
-- must keep `product/` absent — `planning/` + `architecture/` are the only `engineering/` design surfaces an SDK needs
+- must plan with `engineering/planning/backlog.md` and `engineering/planning/version-track/v{X.Y}/v{X.Y}.md` only, per [version-track.md](../../../planning/version-track/version-track.md) — no flat `v0.1.md`, no polish track, no planning lead doc
+- must track the SDK's vectors and every ecosystem-wide extraction in its backlog
+- must put design docs under `engineering/architecture/` — `architecture.md` · `decisions/` · `testing.md`; analyses and deep-dives under `engineering/research/`
+- must keep `product/` absent — `planning/`, `architecture/` and `research/` are the only `engineering/` design surfaces an SDK needs
 
 ---
 

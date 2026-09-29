@@ -7,7 +7,7 @@
 > Use case — reach for this whenever adding or removing a contributor on any wow-two org repo.
 
 - State / live roster: [context.md](./context.md) ← read first
-- Per-repo plans: `engineering/planning/{planning,backlog,rules}.md` (shape: `conventions/planning/engineering-planning/`)
+- Per-repo plans: `engineering/planning/backlog.md` + `version-track/v{X.Y}/` (shape: `conventions/planning/version-track/version-track.md`); agent rules: `engineering/development/rules.md`
 - Copy-ready templates: `.claude/rules/templates/onboarding-{start-here,planning-board,quickstart}.md`
 - **Status channel** (set once): GitHub repo Issues — recommended, co-located + async — or a Telegram thread.
   Async status, lib requests, API-seam coordination land here. No standup.
@@ -34,7 +34,7 @@ Recommended chat name: `wow-two - onboard-{member}`.
 | Beta **libs** | You | `wow-two-sdk-beta.ui`, `wow-two-sdk.backend.beta` — incl. version bumps |
 
 - Contributor consumes libs as **published packages**; never edits libs or backends. (Stated once = the collision-free guarantee.)
-- **One live seam:** `drydock` frontend ↔ backend **API contract** — coordinate on the status channel.
+- **One live seam:** `wheelhouse` frontend ↔ backend **API contract** — coordinate on the status channel.
 - **Blocked on a lib?** Contributor posts the needed API on the channel → you change + bump the beta lib → they re-pull.
   Caret-pin (`^0.0.x`) means the bump reaches their app on next install. The wall has a gate; they never edit the lib.
 - **Multiplier:** each task = a scoped Claude session on the repo's `CLAUDE.md`. One trusted dev + Claude per vertical ≫ two devs on one file.
@@ -48,14 +48,14 @@ Read [context.md](./context.md) (live roster) first. Two flows: pre-invite (you)
 ### Pre-invite checklist — run in order (longest lead first)
 
 1. **Org invite + package read.** Add member to the org holding their repos (`wow-two-platform`); grant package-registry
-   **read** only for repos that consume a lib — `drydock` does (`@wow-two-beta/ui` `^0.0.56`), `secrets-vault` doesn't yet.
+   **read** only for repos that consume a lib — `wheelhouse` does (`@wow-two-beta/ui` `^0.0.56`), `secrets-vault` doesn't yet.
 2. **Seed starter backlogs.** 3–5 scoped one-day items at the **top** of each repo's `backlog.md`.
-   `drydock`: swap a hand-rolled component to the beta `ui` lib (dogfoods it).
+   `wheelhouse`: swap a hand-rolled component to the beta `ui` lib (dogfoods it).
    `secrets-vault`: a frontend task needing no ui-lib (it doesn't consume one). No starters = no first task.
 3. **Establish the status channel** (above) and tell the contributor where it is.
 4. **Write entry docs** from templates: `wow-two-ws/PLANNING.md` (board) + paste `## Start here` into each repo's `CLAUDE.md`.
 5. **Add build-only CI** to repos with none — `dotnet build` + `test`, no publish.
-   `drydock` has no `.github/` at all (create fresh); `secrets-vault` has only `publish-docker-image.yml`.
+   `wheelhouse` has no `.github/` at all (create fresh); `secrets-vault` has only `publish-docker-image.yml`.
 6. **Fix dangling pointers** in repos they'll read (e.g. the `backend.beta` planning pointer).
 7. **Write `wow-two-ws/ONBOARDING.md`** from the quickstart template; **dry-run `scripts/setup.sh`** yourself as the contributor before inviting.
 

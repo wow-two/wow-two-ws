@@ -2,7 +2,7 @@
 
 > **Scope**: .NET **library packages** (SDK + Platform libs) — the `<Version>` / NuGet version, where **x = .NET major**.
 >
-> **Apps** (product repos) do **not** use this scheme — their release + deployable **image tag** is the **product iteration version** (`vX.Y.Z`, see [`../conventions/planning/version-planning/version-docs.md`](../conventions/planning/version-planning/version-docs.md)). One axis, no .NET-major segment. E.g. a library ships `v10.0.1`; the secrets-vault app ships `v1.0.0`.
+> **Apps** (product repos) do **not** use this scheme — their release + deployable **image tag** is the **product iteration version** (`vX.Y.Z`, see [`../conventions/planning/version-track/version-track.md`](../conventions/planning/version-track/version-track.md)). One axis, no .NET-major segment. E.g. a library ships `v10.0.1`; the secrets-vault app ships `v1.0.0`.
 
 ---
 

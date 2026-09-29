@@ -1,6 +1,6 @@
 # Conventions — Development
 
-*Last updated: 2026-09-10*
+*Last updated: 2026-09-29*
 
 > The **development** domain: how we structure repos and write code. Lookup table, not auto-loaded.
 > Each area has its own `{area}-conventions.md` index.
@@ -17,7 +17,7 @@
 
 **Cross-area:** [sdk-extraction.md](sdk-extraction.md) — the extraction **threshold**: what earns a place in either SDK (carries logic + ecosystem-worth) vs stays inline in the product (pure DRY / layout wrappers — duplicate freely); an atom that carries logic is never product-local.
 
-Versioning moved to the sibling **planning** domain → [`../planning/`](../planning/planning-conventions.md).
+Planning lives in the sibling **planning** domain → [`../planning/version-track/version-track.md`](../planning/version-track/version-track.md).
 
 <a id="the-layers-of-a-thing-required"></a>
 

@@ -28,7 +28,7 @@ Same relationship `eis` has between its tasks file and its ticket context docs.
 
 ## No dated logs
 
-Git is the journal. Version docs (`engineering/versions/v{X.Y}/`) hold per-version detail; `docs/planning.md` § *Log* holds pivots. Timing comes from the `10x-ws` day log.
+Git is the journal. Version docs (`engineering/planning/version-track/v{X.Y}/`) hold per-version detail; the backlog holds what is unbuilt. Timing comes from the `10x-ws` day log.
 
 ---
 
@@ -54,7 +54,7 @@ Between two undeadlined candidates, the one unblocking a consumer wins. A blocke
 |---|---|
 | `sdk` | `wow-two-sdk` / `-sdk-beta` package work |
 | `plt` | `wow-two-platform` internal infra |
-| `app` | products — drydock, secrets-vault |
+| `app` | products — wheelhouse, secrets-vault |
 | `ven` | ventures — forever-pin, micro-saas, TNIS, prism |
 | `con` | conventions, standards, ADRs |
 | `ws` | workspace / meta — registry, scripts, templates |

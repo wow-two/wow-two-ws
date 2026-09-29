@@ -127,6 +127,6 @@ two voices for one rule. That is the drift that shows.
 ### Prior art
 
 - `conventions/development/backend/foundation/validation.md` — § *Layer independence*, § *Phases*, § *Map to HTTP*
-- `forever-pin/engineering/planning/validation.md` — § *Presentation validation* (P1 measured, P7 the path rule)
+- `forever-pin/engineering/research/validation.md` — § *Presentation validation* (P1 measured, P7 the path rule)
 - `forever-pin/engineering/research/error-ordering/error-ordering.md` — the cited status-code / ordering pass
 - SDK: `forms-engine/SubmitErrors` (`resolveSubmitFailure`, `defaultMapFieldPath`), `foundation/http/FieldErrors`

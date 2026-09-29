@@ -43,7 +43,7 @@ The defining rule of cycle 2. A known domain (forms, validation, auth, tables, s
 - must not gate a vector **capability** on "a consumer asked" — proactive to completeness is the default
 - may gate an alternative **engine adapter** (a 2nd/3rd wrapping of the same capability, e.g. RHF beside TanStack) on preference/trigger once swap-freedom exists (≥2 adapters) — that is the lone exception, not a capability gap
 - applies to both the backend and the frontend SDK
-- track every vector + its completion iterations in the SDK's `docs/planning.md` Vectors table — a new vector (e.g. i18n) gets a row there the moment it is triggered
+- track every vector + its completion iterations in the SDK repository's `engineering/planning/backlog.md` `Vectors` group — a new vector (e.g. i18n) gets a row there the moment it is triggered
 
 ---
 
@@ -113,6 +113,6 @@ Main CI answers every SDK push with a release commit (`chore: release … [skip 
 
 ## Roles — every app is both source and target
 
-- **source** — the app that pioneered a block extracts it (current set: drydock → presentation/controller conventions; forever-pin → the migration layer).
+- **source** — the app that pioneered a block extracts it (current set: wheelhouse → presentation/controller conventions; forever-pin → the migration layer).
 - **target** — every other active app adopts the block once it is stable.
 - a target that can't yet adopt (different stack) is **noted, not forced** — e.g. an EF/SQLite app waits for the dialect before taking a Postgres-only block.

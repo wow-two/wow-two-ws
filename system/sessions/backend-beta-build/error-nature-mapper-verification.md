@@ -28,7 +28,7 @@ Paths are relative to the SDK's `engineering/codebase/wow-two-back-beta-sdk/src/
 - `Observability/Errors/AppErrorObserverServiceCollectionExtensions.cs`.
 - `Observability/Errors/ErrorRecordingService.cs`.
 - `Mediator.Tests/Behaviors/ExceptionToResultBehaviorTests.cs`.
-- SDK `engineering/planning/errors/errors-architecture-investigation.md` exact type references.
+- SDK `engineering/research/errors/errors-architecture-investigation.md` exact type references.
 
 ---
 

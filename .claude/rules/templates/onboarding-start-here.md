@@ -10,6 +10,6 @@
 ## Start here
 
 - Your lane: `engineering/codebase/{slug}.frontend-services/` only — backend + libs are owned, don't edit.
-- Plans: `engineering/planning/planning.md` (roadmap) · `backlog.md` (your queue — **top = next**).
+- Plans: `engineering/planning/backlog.md` (your queue — **top = next**) · `version-track/` (the newest folder is the active version).
 - Board · split · git rules · status channel: `wow-two-ws/PLANNING.md`.
 - Blocked on a lib? → post the needed API on the status channel; owner bumps it, you re-pull. Never edit the lib.

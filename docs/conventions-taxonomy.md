@@ -1,6 +1,6 @@
 # Conventions Taxonomy — product-vs-SDK reorg
 
-*Last updated: 2026-07-11*
+*Last updated: 2026-09-29*
 
 A proposal for reshaping `conventions/development/` so it serves both repo archetypes (product/venture vs SDK/library) cleanly and stays coherent as the convention set grows. Read-only analysis — no file has moved; the owner reviews before any restructure.
 
@@ -56,7 +56,7 @@ conventions/
 │   └── frontend/                           ← concern: CODE STYLE · stack React (archetype-agnostic)
 │       ├── frontend-conventions.md
 │       └── code-style/ architecture/ presentation/
-├── planning/            [sibling domain] version-track · polish-track · engineering-planning
+├── planning/            [sibling domain] version-track (backlog + versions)
 ├── agentic-workflow/    [sibling domain] parallel-chat lanes
 ├── marketing/           [sibling domain] naming · GTM · channels
 └── design/              [sibling domain] variant-driven design exploration
