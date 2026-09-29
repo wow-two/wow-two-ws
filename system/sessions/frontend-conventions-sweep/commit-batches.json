@@ -1,0 +1,2477 @@
+{
+  "repo": "/Users/max/Projects/10x-ws/workbench/career/engineering/wow-two/wow-two-ws/workbench/wow-two-sdk-beta/wow-two-sdk-beta.ui",
+  "base": "f4fe5c6477bc83a344e8c10cc4d6467dabf176b8",
+  "groups": [
+    {
+      "name": "foundations",
+      "subject": "fix: hardened Vue foundations and session lifecycle boundaries",
+      "paths": [
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/analytics/Analytics.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/auth/AuthBridge.spec.md",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/auth/AuthBridge.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/auth/index.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/auth/providers/AuthProvider.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/domain/emoji/EmojiCatalog.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/flags/FlagClient.spec.md",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/flags/FlagClient.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/flags/FlagTypes.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/flags/StaticFlagProvider.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/flags/index.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/flags/providers/FlagsContext.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/formsEngine/AppForm.spec.md",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/formsEngine/AppForm.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/formsEngine/FormArrayIdentity.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/formsEngine/UseFieldArray.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/formsEngine/adapters/house/UseAppForm.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/formsEngine/adapters/tanstack/UseAppForm.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/formsEngine/index.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/async/Retry.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/channels/CreateSyncChannel.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/channels/MemorySyncHub.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/channels/SyncChannel.spec.md",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/channels/hooks/UseBroadcastState.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/collections/Comparison.spec.md",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/collections/Comparison.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/collections/Records.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/commands/CommandRegistry.spec.md",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/commands/CommandRegistry.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/commands/providers/CommandsContext.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/config/ConfigField.spec.md",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/config/ConfigField.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/config/ConfigSource.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/config/DefineConfig.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/config/index.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/crypto/Digest.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/crypto/Encoding.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/crypto/HashObject.spec.md",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/crypto/HashObject.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/dom/hooks/UseScrollLock.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/files/DownloadFile.spec.md",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/files/DownloadFile.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/gestures/hooks/UseDrag.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/gestures/hooks/UseLongPress.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/gestures/hooks/UsePinch.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/history/HistoryCore.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/http/CreateApiClient.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/http/FieldErrors.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/http/RequestScope.spec.md",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/http/RequestScope.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/http/index.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/i18n/ExactNumberFormatter.spec.md",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/i18n/ExactNumberFormatter.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/i18n/LocaleFormatters.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/i18n/UseLocaleDefaults.spec.md",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/i18n/UseLocaleDefaults.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/i18n/index.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/icons/icon/Icon.spec.md",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/icons/icon/Icon.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/icons/spinner/Spinner.spec.md",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/icons/spinner/Spinner.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/idb/Transactions.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/identifiers/Guid.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/json/LosslessJson.spec.md",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/json/LosslessJson.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/json/adapters/losslessJson/JsonAdapter.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/json/index.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/logger/Logger.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/logger/Redaction.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/net/ConnectionLifetimes.spec.md",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/net/CreateEventStream.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/net/CreatePoller.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/net/CreateSocketClient.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/notifications/QueryPermission.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/observers/ObserveIntersection.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/observers/ObserveMutation.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/observers/hooks/UseIntersectionObserver.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/observers/hooks/UseResizeObserver.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/primitives/colorModeProvider/ColorModeProvider.spec.md",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/primitives/colorModeProvider/ColorModeProvider.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/primitives/dismissableLayer/DismissableLayer.spec.md",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/primitives/dismissableLayer/DismissableLayer.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/primitives/focusScope/FocusScope.spec.md",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/primitives/focusScope/FocusScope.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/primitives/presence/Presence.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/primitives/rovingFocusGroup/RovingFocusContext.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/primitives/slot/Primitive.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/primitives/slot/Slot.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/resilience/RetryDelay.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/resilience/RetryPolicy.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/screen/WakeLock.spec.md",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/screen/WakeLock.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/selection/models/Field.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/shortcuts/hooks/UseEscape.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/shortcuts/hooks/UseHotkeys.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/speech/ListVoices.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/speech/SpeechRecognitionResult.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/styles/Cn.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/styles/SurfaceStyles.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/styles/index.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/themes/Css.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/uploads/UploadQueue.spec.md",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/uploads/UploadQueue.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/uploads/UseUploadQueue.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/uploads/XhrUploadTransport.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/validators/Composites.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/validators/Messages.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/validators/Primitives.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/validators/Validator.spec.md",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/validators/Validator.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/validators/index.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/virtualization/UseVirtualList.spec.md",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/virtualization/UseVirtualList.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/workers/UseWorker.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/workers/WorkerHost.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/index.css",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/query/QuerySession.spec.md",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/query/adapters/tanstack/CreateQueryClient.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/query/adapters/tanstack/Persistence.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/query/adapters/tanstack/QueryLifetime.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/query/adapters/tanstack/hooks/UseAppInfiniteQuery.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/query/adapters/tanstack/hooks/UseAppLazyQuery.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/query/adapters/tanstack/hooks/UseAppMutation.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/query/adapters/tanstack/hooks/UseAppPaginatedQuery.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/query/adapters/tanstack/hooks/UseAppQuery.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/query/adapters/tanstack/hooks/UseOptimisticMutation.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/query/adapters/tanstack/index.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/router/adapters/vueRouter/appErrorBoundary/AppErrorBoundary.spec.md",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/router/adapters/vueRouter/routeAnnouncer/RouteAnnouncer.spec.md",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/router/adapters/vueRouter/routeAnnouncer/RouteAnnouncer.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/tests/BrowserKeyboard.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/tests/unit/auth/AuthBridgeLifetime.dom.test.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/tests/unit/auth/SessionComposition.dom.test.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/tests/unit/flags/FlagBoundary.test.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/tests/unit/formsEngine/ArrayIdentity.dom.test.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/tests/unit/formsEngine/FormsEngine.test.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/tests/unit/foundation/FoundationBoundaries.test.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/tests/unit/foundation/browser/RuntimeLifetimes.dom.test.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/tests/unit/foundation/browser/RuntimeLifetimes.test.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/tests/unit/foundation/commands/CommandsProvider.dom.test.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/tests/unit/foundation/config/ConfigBoundary.test.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/tests/unit/foundation/config/config.test.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/tests/unit/foundation/dom/ScrollLock.dom.test.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/tests/unit/foundation/files/DownloadFile.dom.test.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/tests/unit/foundation/http/JsonCodec.test.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/tests/unit/foundation/http/RequestLifetime.test.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/tests/unit/foundation/http/http.test.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/tests/unit/foundation/i18n/ExactNumberFormatter.test.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/tests/unit/foundation/i18n/LocaleDefaults.dom.test.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/tests/unit/foundation/icons/IconAttributes.dom.test.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/tests/unit/foundation/primitives/FocusScope.browser.test.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/tests/unit/foundation/primitives/Ownership.dom.test.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/tests/unit/foundation/primitives/Presence.dom.test.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/tests/unit/foundation/resilience/resilience.test.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/tests/unit/foundation/styles/ClassMerging.test.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/tests/unit/foundation/themes/ThemeScope.browser.test.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/tests/unit/foundation/validators/BoundarySafety.test.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/tests/unit/foundation/validators/ExactNumber.test.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/tests/unit/query/SessionBoundary.dom.test.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/tests/unit/router/RouteComponents.dom.test.ts"
+      ],
+      "commit": "99f832b7c60e45b32e5689d78f05cd612664b0d3",
+      "original_commit": "a83856199935d64281e867fdfaf6870ee1c3f172"
+    },
+    {
+      "name": "form_controls",
+      "subject": "feat: completed breaking Vue control and exact-value APIs",
+      "paths": [
+        "engineering/codebase/wow-two-front-vue-beta-sdk/apps/playground/src/gallery/fixtures/FormsExamples.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/DateExtensions.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/MonthGrid.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/NativeControlAttributes.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/TimeColumns.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/addressEditor/AddressEditor.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/calendarPicker/CalendarPicker.spec.md",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/calendarPicker/CalendarPicker.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/chatComposerInput/ChatComposerInput.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/checkboxInput/CheckboxInput.spec.md",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/checkboxInput/CheckboxInput.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/codeEditor/CodeEditor.spec.md",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/codeEditor/CodeEditor.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/colorArea/ColorArea.spec.md",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/colorArea/ColorArea.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/colorInput/ColorInput.spec.md",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/colorInput/ColorInput.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/colorPicker/ColorPicker.spec.md",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/colorPicker/ColorPicker.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/colorSliderInput/ColorSliderInput.spec.md",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/colorSliderInput/ColorSliderInput.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/colorSwatchPicker/ColorSwatchPicker.spec.md",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/colorSwatchPicker/ColorSwatchPicker.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/colorWheelInput/ColorWheelInput.spec.md",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/colorWheelInput/ColorWheelInput.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/comboboxPicker/ComboboxPicker.spec.md",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/comboboxPicker/ComboboxPicker.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/cronInput/CronInput.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/currencyInput/CurrencyInput.spec.md",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/dataGridEditor/CellEditor.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/dataGridEditor/DataGridEditor.spec.md",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/dataGridEditor/DataGridEditor.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/dateInput/DateInput.spec.md",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/dateInput/DateInput.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/datePicker/DatePicker.spec.md",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/datePicker/DatePicker.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/dateRangePicker/DateRangePicker.spec.md",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/dateRangePicker/DateRangePicker.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/dateTimeInput/DateTimeInput.spec.md",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/dateTimeInput/DateTimeInput.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/editableInput/EditableInput.spec.md",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/editableInput/EditableInput.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/editableInput/EditableInputCancel.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/editableInput/EditableInputSubmit.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/emailInput/EmailInput.spec.md",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/emailInput/EmailInput.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/emojiPicker/CategoryNav.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/emojiPicker/EmojiGrid.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/emojiPicker/EmojiPicker.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/emojiPicker/EmojiPickerPopover.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/exactNumberInput/ExactNumberInput.spec.md",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/exactNumberInput/ExactNumberInput.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/exactNumberInput/index.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/filePicker/FilePicker.spec.md",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/filePicker/FilePicker.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/fileUploadPicker/FileUploadPicker.spec.md",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/fileUploadPicker/FileUploadPicker.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/fontPicker/FontPicker.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/gradientPicker/GradientPicker.spec.md",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/gradientPicker/GradientPicker.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/iconPicker/IconPicker.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/index.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/jsonEditor/JsonEditor.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/jsonEditor/JsonEditorTextView.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/jsonEditor/JsonEditorTreeNode.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/keyboardShortcutPicker/KeyboardShortcutPicker.spec.md",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/keyboardShortcutPicker/KeyboardShortcutPicker.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/knobInput/KnobInput.spec.md",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/knobInput/KnobInput.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/listboxPicker/ListboxPicker.spec.md",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/listboxPicker/ListboxPicker.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/listboxPicker/ListboxPickerItem.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/markdownEditor/MarkdownEditor.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/maskedInput/MaskedInput.spec.md",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/maskedInput/MaskedInput.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/multiSelectPicker/MultiSelectPicker.spec.md",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/multiSelectPicker/MultiSelectPicker.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/multiSelectPicker/MultiSelectPickerContent.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/numberInput/NumberInput.spec.md",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/numberInput/NumberInput.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/optionTilePicker/OptionTilePicker.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/passwordInput/PasswordInput.spec.md",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/passwordInput/PasswordInput.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/percentInput/PercentInput.spec.md",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/phoneInput/PhoneInput.spec.md",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/phoneInput/PhoneInput.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/pinInput/PinInput.spec.md",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/pinInput/PinInput.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/radioInput/RadioInput.spec.md",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/radioInput/RadioInput.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/rangeCalendarPicker/RangeCalendarPicker.spec.md",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/rangeCalendarPicker/RangeCalendarPicker.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/reactionPicker/ReactionPicker.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/recurrenceEditor/RecurrenceEditor.spec.md",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/recurrenceEditor/RecurrenceEditor.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/searchInput/SearchInput.spec.md",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/searchInput/SearchInput.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/selectPicker/SelectPicker.spec.md",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/selectPicker/SelectPicker.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/selectPicker/SelectPickerContent.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/selectPicker/SelectPickerItem.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/sliderInput/SliderInput.spec.md",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/sliderInput/SliderInput.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/sortableGroup/SortableGroup.spec.md",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/sortableGroup/SortableGroup.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/sortableGroup/SortableGroupContext.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/sortableGroup/SortableGroupHandle.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/sortableGroup/SortableGroupItem.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/switchInput/SwitchInput.spec.md",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/switchInput/SwitchInput.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/tagsInput/TagsInput.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/telInput/TelInput.spec.md",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/telInput/TelInput.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/textAreaInput/TextAreaInput.spec.md",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/textAreaInput/TextAreaInput.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/textInput/TextInput.spec.md",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/textInput/TextInput.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/timeInput/TimeInput.spec.md",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/timeInput/TimeInput.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/timePicker/TimePicker.spec.md",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/timePicker/TimePicker.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/toggleInput/ToggleInput.spec.md",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/toggleInput/ToggleInput.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/urlInput/UrlInput.spec.md",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/urlInput/UrlInput.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/wizardForm/WizardFormSteps.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/tests/types/NativeControlProps.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/tests/unit/presentation/forms/ExactNumberInput.dom.test.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/tests/unit/presentation/forms/InputInteraction.dom.test.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/tests/unit/presentation/forms/NativeFormState.dom.test.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/tests/unit/presentation/forms/PickerSafety.dom.test.ts"
+      ],
+      "commit": "c405ed1df50d0527564010a79f3542f50047682b",
+      "original_commit": "b0b1d2048e9ead6f211aa5db4e5590dbcd024766"
+    },
+    {
+      "name": "presentation",
+      "subject": "feat: revised breaking Vue interactions and Google identity APIs",
+      "paths": [
+        "engineering/codebase/wow-two-front-vue-beta-sdk/apps/playground/src/gallery/fixtures/ActionsExamples.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/oauth/GoogleIdentity.spec.md",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/oauth/GoogleIdentity.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/oauth/index.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/actions/backToTopButton/BackToTopButton.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/actions/button/Button.spec.md",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/actions/button/Button.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/actions/googleSignInButton/GoogleSignInButton.spec.md",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/actions/googleSignInButton/GoogleSignInButton.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/actions/speedDialGroup/SpeedDialGroup.spec.md",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/actions/speedDialGroup/SpeedDialGroup.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/actions/speedDialGroup/SpeedDialGroupAction.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/actions/speedDialGroup/SpeedDialGroupTrigger.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/display/audioPlayer/AudioPlayer.spec.md",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/display/audioPlayer/AudioPlayer.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/display/audioWaveformPreview/AudioWaveformPreview.spec.md",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/display/audioWaveformPreview/AudioWaveformPreview.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/display/card/Card.spec.md",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/display/card/Card.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/display/carousel/Carousel.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/display/carousel/CarouselDot.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/display/carousel/CarouselNext.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/display/carousel/CarouselPrev.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/display/carousel/CarouselSlides.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/display/carousel/CarouselViewport.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/display/chatBubbleCard/ChatBubbleCard.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/display/commentThreadGroup/Comment.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/display/commentThreadGroup/CommentThreadGroup.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/display/dataTable/DataTable.spec.md",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/display/dataTable/DataTable.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/display/diffViewer/DiffViewer.spec.md",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/display/diffViewer/DiffViewer.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/display/diffViewer/LineDiff.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/display/eventCalendarViewer/AgendaView.spec.md",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/display/eventCalendarViewer/AgendaView.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/display/eventCalendarViewer/EventCalendarViewer.spec.md",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/display/eventCalendarViewer/EventCalendarViewer.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/display/eventCalendarViewer/EventCalendarViewerLayout.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/display/eventCalendarViewer/MonthView.spec.md",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/display/eventCalendarViewer/MonthView.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/display/eventCalendarViewer/TimeGridView.spec.md",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/display/eventCalendarViewer/TimeGridView.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/display/ganttTimeline/GanttTimeline.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/display/gradientText/GradientText.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/display/heatmapCalendarGrid/HeatmapCalendarGrid.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/display/marqueeGroup/MarqueeGroup.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/display/messageGroup/MessageGroup.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/display/notificationCenterGroup/NotificationCenterGroup.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/display/notificationCenterGroup/NotificationItem.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/display/onboardingChecklistCard/OnboardingChecklistCard.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/display/pdfViewer/PdfViewer.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/display/pricingCard/PricingCard.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/display/reactionBar/ReactionBar.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/display/scheduleView/ScheduleView.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/display/snippetText/SnippetText.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/display/sparkline/Sparkline.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/display/stepperGroup/StepperGroup.spec.md",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/display/stepperGroup/StepperGroup.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/display/stepperGroup/StepperGroupContext.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/display/stepperGroup/StepperGroupStep.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/display/tag/Tag.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/display/threadView/ThreadView.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/display/typewriterText/TypewriterText.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/display/videoPlayer/VideoPlayer.spec.md",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/display/videoPlayer/VideoPlayer.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/feedback/alert/Alert.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/feedback/banner/Banner.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/feedback/inlineSpinner/InlineSpinner.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/feedback/loadingOverlay/LoadingOverlay.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/feedback/loadingState/LoadingState.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/feedback/passwordStrengthCallout/PasswordStrengthCallout.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/feedback/presenceIndicator/PresenceIndicator.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/feedback/spinner/Spinner.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/feedback/toast/Toast.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/feedback/toastHost/ToastHost.spec.md",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/feedback/toastHost/ToastHost.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/feedback/typingIndicator/TypingIndicator.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/feedback/undoBar/UndoBar.spec.md",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/feedback/undoBar/UndoBar.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/layout/appShell/AppShell.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/layout/navbar/Navbar.spec.md",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/layout/navbar/Navbar.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/layout/resizablePanelsLayout/ResizablePanelsLayout.spec.md",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/layout/resizablePanelsLayout/ResizablePanelsLayout.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/layout/resizablePanelsLayout/ResizableSeparator.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/nav/NavExtensions.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/nav/breadcrumb/Breadcrumb.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/nav/contextMenu/ContextMenu.spec.md",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/nav/contextMenu/ContextMenu.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/nav/contextMenu/ContextMenuContent.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/nav/contextMenu/ContextMenuTrigger.spec.md",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/nav/contextMenu/ContextMenuTrigger.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/nav/dropdownMenu/DropdownMenuContent.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/nav/menu/Menu.spec.md",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/nav/menu/Menu.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/nav/menubar/Menubar.spec.md",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/nav/menubar/Menubar.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/nav/menubar/MenubarContent.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/nav/menubar/MenubarTrigger.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/nav/navigationMenu/NavigationMenu.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/nav/navigationMenu/NavigationMenuContent.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/nav/navigationMenu/NavigationMenuTrigger.spec.md",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/nav/navigationMenu/NavigationMenuTrigger.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/nav/pagination/Pagination.spec.md",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/nav/pagination/Pagination.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/nav/scrollSpy/UseScrollSpy.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/nav/tableOfContents/TableOfContents.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/overlays/OverlayCloseButton.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/overlays/actionSheet/ActionSheetCancel.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/overlays/commandPaletteModal/CommandPaletteModalInput.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/overlays/drawer/DrawerContent.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/overlays/modal/ModalContent.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/overlays/popover/PopoverContent.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/overlays/tooltip/Tooltip.spec.md",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/overlays/tooltip/Tooltip.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/overlays/tourPopover/TourPopover.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/tests/unit/foundation/oauth/GoogleIdentity.dom.test.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/tests/unit/presentation/actions/Focus.browser.test.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/tests/unit/presentation/actions/GoogleSignInButton.dom.test.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/tests/unit/presentation/actions/InactiveActions.dom.test.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/tests/unit/presentation/actions/SpeedDialInteraction.dom.test.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/tests/unit/presentation/display/CalendarAndTable.dom.test.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/tests/unit/presentation/display/Card.dom.test.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/tests/unit/presentation/display/DiffAndWaveform.dom.test.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/tests/unit/presentation/display/Localization.dom.test.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/tests/unit/presentation/display/MediaPlayerState.dom.test.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/tests/unit/presentation/display/StepperGroup.dom.test.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/tests/unit/presentation/feedback/FeedbackOwnership.dom.test.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/tests/unit/presentation/forms/KeyboardExit.browser.test.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/tests/unit/presentation/layout/Navbar.dom.test.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/tests/unit/presentation/layout/ResizablePanels.dom.test.ts",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/tests/unit/presentation/nav/InteractionSafety.dom.test.ts"
+      ],
+      "commit": "4001b1fe228802953d464922e65292dfc44283cc",
+      "original_commit": "bd921078b0e2b3309aa5e6c642c6cbc6cd1a033a"
+    },
+    {
+      "name": "release_verification",
+      "subject": "test: expanded Vue browser and packed consumer release gates",
+      "paths": [
+        ".github/workflows/release-vue.yml",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/apps/playground/tests/gallery-smoke.mjs",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/package.json",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/scripts/check-package.mjs",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/scripts/fixtures/consumer-invalid.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/scripts/fixtures/consumer.vue",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/vitest.config.ts"
+      ],
+      "commit": "c094ce63d0f7c8789928db565409ee6464b04fdd",
+      "original_commit": "c0ab3e14d362ab887bfd394985a75748ab160b00"
+    },
+    {
+      "name": "sweep_documentation",
+      "subject": "docs: recorded the full Vue SDK sweep and migration guidance",
+      "paths": [
+        "engineering/architecture/analysis/forever-pin-vue-readiness.md",
+        "engineering/architecture/analysis/vue-sdk-optimization/component-messages.md",
+        "engineering/architecture/analysis/vue-sdk-optimization/consumer-bundle-after.json",
+        "engineering/architecture/analysis/vue-sdk-optimization/consumer-bundle-measurements.json",
+        "engineering/architecture/analysis/vue-sdk-optimization/consumer-bundle-probe.mjs",
+        "engineering/architecture/analysis/vue-sdk-optimization/deeper-audit.md",
+        "engineering/architecture/analysis/vue-sdk-optimization/full-sweep-controls.md",
+        "engineering/architecture/analysis/vue-sdk-optimization/full-sweep-foundations.md",
+        "engineering/architecture/analysis/vue-sdk-optimization/full-sweep-implementation.md",
+        "engineering/architecture/analysis/vue-sdk-optimization/full-sweep-presentation.md",
+        "engineering/architecture/analysis/vue-sdk-optimization/full-sweep-runtime.md",
+        "engineering/codebase/wow-two-front-vue-beta-sdk/MIGRATION.md",
+        "engineering/planning/planning.md",
+        "engineering/planning/ui-sdk-conventions-sweep.md",
+        "engineering/planning/vue-port-track.md"
+      ],
+      "commit": "cbadbd416a662659908956b706a9219e3660ef0f",
+      "original_commit": "75dfb59a3912a86013546c1a475978ba44224fb8"
+    }
+  ],
+  "notes": [
+    "GoogleIdentity breaking owner API remains together with GoogleSignInButton, OAuth test and ActionsExamples.",
+    "BrowserKeyboard helper travels in the first commit because foundation browser tests import it.",
+    "KeyboardExit browser regression stays with navigation/overlay changes, despite its forms test directory.",
+    "All presentation changes consume the prior foundation additions (UseLocaleDefaults, exact formatting, comparison, styles, primitive lifecycle).",
+    "Documentation is last; report claims describe the complete integrated sweep.",
+    "No working-tree or index mutation performed by partition audit."
+  ],
+  "validation": {
+    "foundations": {
+      "source_typecheck": "passed",
+      "test_files": 96,
+      "tests": 728,
+      "log": "/private/tmp/vue-commit-partition-foundation-tests.log"
+    },
+    "form_controls": {
+      "source_typecheck": "passed",
+      "test_files": 15,
+      "tests": 372,
+      "log": "/private/tmp/vue-commit-partition-forms-tests.log"
+    },
+    "presentation": {
+      "source_typecheck": "passed",
+      "note": "Full integrated test results are already recorded in staged full-sweep-implementation.md; no broad rerun here."
+    }
+  },
+  "status": "complete; five verified Vue commits; foreign staging restored; concurrent Vue edits preserved",
+  "verified_sweep_paths": 445,
+  "paths_sha256": "b21c80159d69318f35a7cf847f83703e106232c94897eddf87e5931f928b785d",
+  "reviewed_index_blobs": {
+    ".github/workflows/release-vue.yml": {
+      "mode": "100644",
+      "blob": "1cb7bc4c1a35dfd3893b40a122b80f426f014170"
+    },
+    "engineering/architecture/analysis/forever-pin-vue-readiness.md": {
+      "mode": "100644",
+      "blob": "08079c15a7f8f2a1e9ec9d1df9bafe36506f7892"
+    },
+    "engineering/architecture/analysis/vue-sdk-optimization/component-messages.md": {
+      "mode": "100644",
+      "blob": "0c30e9fb75450c4a1438c6f462828a4a839ca3a5"
+    },
+    "engineering/architecture/analysis/vue-sdk-optimization/consumer-bundle-after.json": {
+      "mode": "100644",
+      "blob": "a783c2cac6423e2d044b53deb78980e2c29e7f0b"
+    },
+    "engineering/architecture/analysis/vue-sdk-optimization/consumer-bundle-measurements.json": {
+      "mode": "100644",
+      "blob": "077c593001ac442213be59deabbc2a460840f47b"
+    },
+    "engineering/architecture/analysis/vue-sdk-optimization/consumer-bundle-probe.mjs": {
+      "mode": "100644",
+      "blob": "2b8c49a662f752f093220930e9be7414248cd849"
+    },
+    "engineering/architecture/analysis/vue-sdk-optimization/deeper-audit.md": {
+      "mode": "100644",
+      "blob": "2df4be48ec4f9d8707cc1ed98690a697c77a03c5"
+    },
+    "engineering/architecture/analysis/vue-sdk-optimization/full-sweep-controls.md": {
+      "mode": "100644",
+      "blob": "7d24987179d631b6286850ee16d4e013c61bdf05"
+    },
+    "engineering/architecture/analysis/vue-sdk-optimization/full-sweep-foundations.md": {
+      "mode": "100644",
+      "blob": "5f7822899c07d9e84eb867c17a20617a0783312f"
+    },
+    "engineering/architecture/analysis/vue-sdk-optimization/full-sweep-implementation.md": {
+      "mode": "100644",
+      "blob": "4a57f64a70a0c1292781485ba4338cb955d2581c"
+    },
+    "engineering/architecture/analysis/vue-sdk-optimization/full-sweep-presentation.md": {
+      "mode": "100644",
+      "blob": "729ff43c585408b1191f9b69cfc8ee38aba53230"
+    },
+    "engineering/architecture/analysis/vue-sdk-optimization/full-sweep-runtime.md": {
+      "mode": "100644",
+      "blob": "b34d04d1faa360912b54ee1fd84aed86cac33bf6"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/MIGRATION.md": {
+      "mode": "100644",
+      "blob": "2d5bddacdf0e30bc659f1175e2d550da2a8d3379"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/apps/playground/src/gallery/fixtures/ActionsExamples.ts": {
+      "mode": "100644",
+      "blob": "3c6fce46dc186c7fef9fd86e091e2a9fc7743dc4"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/apps/playground/src/gallery/fixtures/FormsExamples.ts": {
+      "mode": "100644",
+      "blob": "dd8691bb00ae7386cdd427ae77b1379d36a29590"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/apps/playground/tests/gallery-smoke.mjs": {
+      "mode": "100644",
+      "blob": "86501d12809ed6504332547d2ef6ed72f1a1787f"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/package.json": {
+      "mode": "100644",
+      "blob": "f369e399ddbdf3282c83769948970d002216bb74"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/scripts/check-package.mjs": {
+      "mode": "100644",
+      "blob": "803b496d702b2aa7f1b2c7b9d4a4bfec0e8c21d3"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/scripts/fixtures/consumer-invalid.vue": {
+      "mode": "100644",
+      "blob": "360118c83f3a61215f53e3d2856063b9387c8807"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/scripts/fixtures/consumer.vue": {
+      "mode": "100644",
+      "blob": "d33492810866aa07e259478b5e48b3d4561dd49a"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/analytics/Analytics.ts": {
+      "mode": "100644",
+      "blob": "338cec070726767e44c68a843e5b226f8a5c3906"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/auth/AuthBridge.spec.md": {
+      "mode": "100644",
+      "blob": "12ed695009577a64ecc33968999d72d3c2a31bd0"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/auth/AuthBridge.ts": {
+      "mode": "100644",
+      "blob": "0e001dd72cfc725f8cd85d75e9848f8d55fc6f57"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/auth/index.ts": {
+      "mode": "100644",
+      "blob": "84b872fc9c5579c33132bcf33aa2294788b279e9"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/auth/providers/AuthProvider.vue": {
+      "mode": "100644",
+      "blob": "69a8ba09760b28dd326d4c124bf8690db26b8c1b"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/domain/emoji/EmojiCatalog.ts": {
+      "mode": "100644",
+      "blob": "3775035cca141a5d6ab2527268d7513c8d64dd1d"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/flags/FlagClient.spec.md": {
+      "mode": "100644",
+      "blob": "969f94975114714dce2c5a556b278b8d9f362f25"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/flags/FlagClient.ts": {
+      "mode": "100644",
+      "blob": "43c6548090859e90431eea25e3d94e4d9847403a"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/flags/FlagTypes.ts": {
+      "mode": "100644",
+      "blob": "960345f3075f20103e7796f30f68d664be69315a"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/flags/StaticFlagProvider.ts": {
+      "mode": "100644",
+      "blob": "0a45646303aa0b95a07574b5ef7becc21c651d16"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/flags/index.ts": {
+      "mode": "100644",
+      "blob": "b9257b714fcd845e0b3f56bec3b7d2df0468335f"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/flags/providers/FlagsContext.ts": {
+      "mode": "100644",
+      "blob": "cbd5c706561747b3434912004b34fcaa8506a37a"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/formsEngine/AppForm.spec.md": {
+      "mode": "100644",
+      "blob": "bbdbba7068689cf21e4de2b5486f1b63e47d201c"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/formsEngine/AppForm.ts": {
+      "mode": "100644",
+      "blob": "50a010ae751932dc3750e24d14232e34d6296db3"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/formsEngine/FormArrayIdentity.ts": {
+      "mode": "100644",
+      "blob": "4a814c66ff2aed09c084794cb4b257f178b3097c"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/formsEngine/UseFieldArray.ts": {
+      "mode": "100644",
+      "blob": "74fced2abead6913e0a02a11ce55177288bf7718"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/formsEngine/adapters/house/UseAppForm.ts": {
+      "mode": "100644",
+      "blob": "41394ec1eb053d21269d07800e3eeebb2790529f"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/formsEngine/adapters/tanstack/UseAppForm.ts": {
+      "mode": "100644",
+      "blob": "d99732c25d76fab9c72dcb05e6a5adf984d750f8"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/formsEngine/index.ts": {
+      "mode": "100644",
+      "blob": "cad6666b6c22268026ed3122c2d5a5eaa18a3c08"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/async/Retry.ts": {
+      "mode": "100644",
+      "blob": "5827e9aa23d4fb62a9460be827e7ad5c4c12fecb"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/channels/CreateSyncChannel.ts": {
+      "mode": "100644",
+      "blob": "6b4ee2160b7a3c0d5ab84a2f1a41abec31307acb"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/channels/MemorySyncHub.ts": {
+      "mode": "100644",
+      "blob": "ef868ac26f9adce2a8bd1e2800236a6876009162"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/channels/SyncChannel.spec.md": {
+      "mode": "100644",
+      "blob": "39ba8094c0e1bdcda3c638a7c9ba683be63ba6dc"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/channels/hooks/UseBroadcastState.ts": {
+      "mode": "100644",
+      "blob": "5c1542dfafb6a3432c196ef23920bb78cb03157d"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/collections/Comparison.spec.md": {
+      "mode": "100644",
+      "blob": "f3e416a8524e2c6c9aadbb4f0d3e390d5dc750e7"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/collections/Comparison.ts": {
+      "mode": "100644",
+      "blob": "e4f05e7af0b45c229343a0a30ed8d94f0b6a0750"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/collections/Records.ts": {
+      "mode": "100644",
+      "blob": "8fb140c4524e572f3e700b66e010c4ec5606777f"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/commands/CommandRegistry.spec.md": {
+      "mode": "100644",
+      "blob": "d40a070fee2544d727c418513ea1afee2c388fd0"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/commands/CommandRegistry.ts": {
+      "mode": "100644",
+      "blob": "dea389e10baf86d8b5359b7faade3f0af46220a4"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/commands/providers/CommandsContext.ts": {
+      "mode": "100644",
+      "blob": "52fe3fab489f91ba2523ca65a0ba9174c4159694"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/config/ConfigField.spec.md": {
+      "mode": "100644",
+      "blob": "7ef15cae28bf5f25c272116849ea23980620eddc"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/config/ConfigField.ts": {
+      "mode": "100644",
+      "blob": "632ea7176f5fd9299f32e18ddabd8b2c396abab3"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/config/ConfigSource.ts": {
+      "mode": "100644",
+      "blob": "51b2e9240b5d7deab960abc85da2d49e6a16c49f"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/config/DefineConfig.ts": {
+      "mode": "100644",
+      "blob": "0840b1869b9a6ef4e4915858b3e1cca0ca36879e"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/config/index.ts": {
+      "mode": "100644",
+      "blob": "066d677504baf51df609346651a747ef97a0ce62"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/crypto/Digest.ts": {
+      "mode": "100644",
+      "blob": "161ab6f3049b390cd9ad903ab0ba2d74e5d15caf"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/crypto/Encoding.ts": {
+      "mode": "100644",
+      "blob": "36f6a1ead267fb6e02f38a74d98c7207ad2738b2"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/crypto/HashObject.spec.md": {
+      "mode": "100644",
+      "blob": "8a7f04f556ed51490237d595a73960ed347a07cc"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/crypto/HashObject.ts": {
+      "mode": "100644",
+      "blob": "c87b337311b6749d810833d2fcbe3d1ae03386f2"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/dom/hooks/UseScrollLock.ts": {
+      "mode": "100644",
+      "blob": "2b0b2cfa2340844743f1f8ac026ac37cacc4cc6b"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/files/DownloadFile.spec.md": {
+      "mode": "100644",
+      "blob": "5b86cd34c8ede0b4bb78c36fbdf2455e1cae1c95"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/files/DownloadFile.ts": {
+      "mode": "100644",
+      "blob": "01fe20a7441c537fe1e6470bd35b08ebb77f733a"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/gestures/hooks/UseDrag.ts": {
+      "mode": "100644",
+      "blob": "afcb182083c2a08e22c03fe2400ea5f116428ed2"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/gestures/hooks/UseLongPress.ts": {
+      "mode": "100644",
+      "blob": "cb0e2dd31dcee94d8dc06704483c8fd0de2ab779"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/gestures/hooks/UsePinch.ts": {
+      "mode": "100644",
+      "blob": "ebaa519333e4f9bab64e383ae26769f5347dd8b2"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/history/HistoryCore.ts": {
+      "mode": "100644",
+      "blob": "8a82ff967b2433f747d5e9846e1ef2512843e133"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/http/CreateApiClient.ts": {
+      "mode": "100644",
+      "blob": "f579e5487cb8297392cd4e860e5f8ccd5f76dd4e"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/http/FieldErrors.ts": {
+      "mode": "100644",
+      "blob": "00c6101863777a90f9d87e29f87fa4d525fb6ef2"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/http/RequestScope.spec.md": {
+      "mode": "100644",
+      "blob": "27ab9ba78c00e6bd5ad86ef32a99b4292b2a1d7f"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/http/RequestScope.ts": {
+      "mode": "100644",
+      "blob": "94c07c3fa98646ded84fa57fba3bdb05eb366827"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/http/index.ts": {
+      "mode": "100644",
+      "blob": "dc9af270ad391e74fed2ccaa68af25476beacb68"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/i18n/ExactNumberFormatter.spec.md": {
+      "mode": "100644",
+      "blob": "6bf8af486de4cc0b07b7c117c0d9741eb4559772"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/i18n/ExactNumberFormatter.ts": {
+      "mode": "100644",
+      "blob": "6bf17cd6b2f4f15b7237cbb330da4859a880528e"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/i18n/LocaleFormatters.ts": {
+      "mode": "100644",
+      "blob": "b4b3ef5a31f215c20d2b6553145e9a1bca78a6d4"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/i18n/UseLocaleDefaults.spec.md": {
+      "mode": "100644",
+      "blob": "d4d6ff6c36ba655f7e3fbcfbed58decd1b233b24"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/i18n/UseLocaleDefaults.ts": {
+      "mode": "100644",
+      "blob": "2c309d8efc143e2931b2424e8f284c3ec0ebad49"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/i18n/index.ts": {
+      "mode": "100644",
+      "blob": "bb69a168f61816e3fb09e9633c7be1e852062b0f"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/icons/icon/Icon.spec.md": {
+      "mode": "100644",
+      "blob": "c144585110904f59bb110320ff2ff0cf114fdd82"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/icons/icon/Icon.vue": {
+      "mode": "100644",
+      "blob": "a4b785334da62f7ad6b8840ffa41f11d0adb46e5"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/icons/spinner/Spinner.spec.md": {
+      "mode": "100644",
+      "blob": "b4a7eca9918023bd09b19c1a7a326384bdd2dbb6"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/icons/spinner/Spinner.vue": {
+      "mode": "100644",
+      "blob": "68eb3c62cbcd56fc75d10a1fd93cf978991036e5"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/idb/Transactions.ts": {
+      "mode": "100644",
+      "blob": "89a58433c783682c2b62b3513816337e4d59469d"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/identifiers/Guid.ts": {
+      "mode": "100644",
+      "blob": "94af3834110bc7656e314119f9ad2d831016d179"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/json/LosslessJson.spec.md": {
+      "mode": "100644",
+      "blob": "4a0dac2636021725181f8188d29e275ce462244c"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/json/LosslessJson.ts": {
+      "mode": "100644",
+      "blob": "0267c7bf399838050703b1cca9364a7215c8dd9a"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/json/adapters/losslessJson/JsonAdapter.ts": {
+      "mode": "100644",
+      "blob": "ef59352c6f0a46cba97019d5e4b6559e85b8a452"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/json/index.ts": {
+      "mode": "100644",
+      "blob": "9db0d4c43f48292d5ffd6c153f6476e8d8fbafec"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/logger/Logger.ts": {
+      "mode": "100644",
+      "blob": "7321ce741e354b1f6780d0676a963fcc250d9de2"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/logger/Redaction.ts": {
+      "mode": "100644",
+      "blob": "2bce4fb4c788e863c4f0302950c20f3e658e5092"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/net/ConnectionLifetimes.spec.md": {
+      "mode": "100644",
+      "blob": "7fd1ca13fb5ca80b184480f0b34a20bc4a3afd7b"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/net/CreateEventStream.ts": {
+      "mode": "100644",
+      "blob": "225537ee501ce2adb84b983f67e77557de2631e1"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/net/CreatePoller.ts": {
+      "mode": "100644",
+      "blob": "8511fb43f38e66d5d889551a62de016aa3441e4c"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/net/CreateSocketClient.ts": {
+      "mode": "100644",
+      "blob": "330d3d893362a2b65e69b8623ec9e31c4c1aa1c9"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/notifications/QueryPermission.ts": {
+      "mode": "100644",
+      "blob": "f2b029b3eaaf31f602ced49d2d0daa4636c9251d"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/oauth/GoogleIdentity.spec.md": {
+      "mode": "100644",
+      "blob": "053d5516f9feb47b9c9722eb52fda6ec229897ef"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/oauth/GoogleIdentity.ts": {
+      "mode": "100644",
+      "blob": "1aba96b6c2a6846f61fbf91144ee79d3078b3996"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/oauth/index.ts": {
+      "mode": "100644",
+      "blob": "4a26bb89109687e9f46fed6366340aefb85bf3a8"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/observers/ObserveIntersection.ts": {
+      "mode": "100644",
+      "blob": "81d9adc4aae438984715004fa73db5e23475e8cb"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/observers/ObserveMutation.ts": {
+      "mode": "100644",
+      "blob": "71f78b83d2cab54d84e153f47e516742b24adfb7"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/observers/hooks/UseIntersectionObserver.ts": {
+      "mode": "100644",
+      "blob": "0185c0a0f11d69adeba711816f3bb3c58e9f4f52"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/observers/hooks/UseResizeObserver.ts": {
+      "mode": "100644",
+      "blob": "ea0f6119961d069e4d9b5a47e8db2d8b620119af"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/primitives/colorModeProvider/ColorModeProvider.spec.md": {
+      "mode": "100644",
+      "blob": "6341f785678574f66621835c6288999a85e742f8"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/primitives/colorModeProvider/ColorModeProvider.vue": {
+      "mode": "100644",
+      "blob": "758273a89e4290d9934d312ea200ebcef37f487c"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/primitives/dismissableLayer/DismissableLayer.spec.md": {
+      "mode": "100644",
+      "blob": "143be24427d5857c07f836bd1100efbe83d25739"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/primitives/dismissableLayer/DismissableLayer.vue": {
+      "mode": "100644",
+      "blob": "b39878b4fef0763aa3fd980f51c28c0171cef11e"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/primitives/focusScope/FocusScope.spec.md": {
+      "mode": "100644",
+      "blob": "cfe99dd67d66829e35dc0e6419a95bc8819a956b"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/primitives/focusScope/FocusScope.vue": {
+      "mode": "100644",
+      "blob": "011b540ca61519646205a990062b45629367d08f"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/primitives/presence/Presence.ts": {
+      "mode": "100644",
+      "blob": "58c11999f574be9d4eb85fc2096690aa798e642f"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/primitives/rovingFocusGroup/RovingFocusContext.ts": {
+      "mode": "100644",
+      "blob": "380a6ecee4917279aad2dc99720826e6404b3212"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/primitives/slot/Primitive.ts": {
+      "mode": "100644",
+      "blob": "de56518cb3dd7ea4f9e00d948ae3eb160c7a720a"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/primitives/slot/Slot.ts": {
+      "mode": "100644",
+      "blob": "b44bc3cf6b024b22618ffcc99d356ee4d6ae5c65"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/resilience/RetryDelay.ts": {
+      "mode": "100644",
+      "blob": "7fb84d24505d9b475849692bb66a8ee274dbb10d"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/resilience/RetryPolicy.ts": {
+      "mode": "100644",
+      "blob": "ab87c219e9172e55ffa693883daeec8d6ad0518a"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/screen/WakeLock.spec.md": {
+      "mode": "100644",
+      "blob": "bf0ec33140bc6860ac1550c3f5e6ad07a280d6d5"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/screen/WakeLock.ts": {
+      "mode": "100644",
+      "blob": "23bc0e4562cb7c8d082e12b46604f9865acab70c"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/selection/models/Field.ts": {
+      "mode": "100644",
+      "blob": "5c3ab471ef55b526fb031c24840edc4136d010df"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/shortcuts/hooks/UseEscape.ts": {
+      "mode": "100644",
+      "blob": "e8c963e7ac30398629f047bff12146b237ee50b0"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/shortcuts/hooks/UseHotkeys.ts": {
+      "mode": "100644",
+      "blob": "4449043f89e9000d32c1206a0ceef5537ec7f8bc"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/speech/ListVoices.ts": {
+      "mode": "100644",
+      "blob": "75d72d074f5a45a3033a40bf9a7aaa2a08bf6e5f"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/speech/SpeechRecognitionResult.ts": {
+      "mode": "100644",
+      "blob": "255c3f08d2784527eb197e1e8d29a841572daba5"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/styles/Cn.ts": {
+      "mode": "100644",
+      "blob": "0dd6d07bfaa98e87c87f28feedf18702a4633b24"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/styles/SurfaceStyles.ts": {
+      "mode": "100644",
+      "blob": "bae59b730e73a4d2d4a3b63f1351e41ec9af028f"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/styles/index.ts": {
+      "mode": "100644",
+      "blob": "43d8df6070d43d78828f0ab2ab94b6d046bded99"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/themes/Css.ts": {
+      "mode": "100644",
+      "blob": "50af1c9bd0e1669a43352490a336c0c53c1a65cf"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/uploads/UploadQueue.spec.md": {
+      "mode": "100644",
+      "blob": "e3b87e6f83b360df7fdd8b332fd419f103ada5e9"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/uploads/UploadQueue.ts": {
+      "mode": "100644",
+      "blob": "e26108e35bc2a87668b9933977d3660b8102539e"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/uploads/UseUploadQueue.ts": {
+      "mode": "100644",
+      "blob": "3b8bf4251b2eb0e0c41fcf0ba70358eebc218783"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/uploads/XhrUploadTransport.ts": {
+      "mode": "100644",
+      "blob": "57bc70cf7bf9fac02d1b95bffa23fb44ec195859"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/validators/Composites.ts": {
+      "mode": "100644",
+      "blob": "0939d22a8a488656dc2c6b5c118995a7744bb9b2"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/validators/Messages.ts": {
+      "mode": "100644",
+      "blob": "eb2f4e4d7c061b732011576d3cca58e2f0af27dd"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/validators/Primitives.ts": {
+      "mode": "100644",
+      "blob": "ee2c272562cb05d9c1968e35d27531dcc2b923d7"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/validators/Validator.spec.md": {
+      "mode": "100644",
+      "blob": "c96b58f0d9441d389b01fabaa6c7bcf45edbfd47"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/validators/Validator.ts": {
+      "mode": "100644",
+      "blob": "337c4081819f136a51d6c5f4a69def716fe4df15"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/validators/index.ts": {
+      "mode": "100644",
+      "blob": "88f738fc90c6d809b77d934bbadb7ffc3a97d0ea"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/virtualization/UseVirtualList.spec.md": {
+      "mode": "100644",
+      "blob": "840101d7d88415978d6f5cb97ba5ea8083734c3d"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/virtualization/UseVirtualList.ts": {
+      "mode": "100644",
+      "blob": "639f5e4bbfdca16c517ef708e6a851c7686cbf0f"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/workers/UseWorker.ts": {
+      "mode": "100644",
+      "blob": "b37b4be0e7d0f29dc8d4ce5f3353e2eb2cd23945"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/foundation/workers/WorkerHost.ts": {
+      "mode": "100644",
+      "blob": "2f4079922c9d9effd6ef8331a592222ff9075c1b"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/index.css": {
+      "mode": "100644",
+      "blob": "f52d4773e000d0090018e7c8a50624702b3c6dc6"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/actions/backToTopButton/BackToTopButton.vue": {
+      "mode": "100644",
+      "blob": "dba6138e882a133abbd7cba77aa8b7bb4e59a591"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/actions/button/Button.spec.md": {
+      "mode": "100644",
+      "blob": "65bb796863abe3123b54721fa7382457f14897be"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/actions/button/Button.vue": {
+      "mode": "100644",
+      "blob": "b4e69fdb8c804cc352a513aa70c4e8646c0c9283"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/actions/googleSignInButton/GoogleSignInButton.spec.md": {
+      "mode": "100644",
+      "blob": "f0e294e01f70bee4d5fbb88088e50d86af7a4d5f"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/actions/googleSignInButton/GoogleSignInButton.vue": {
+      "mode": "100644",
+      "blob": "334ce5c5de8a3cf2141c607765f9ac0236c263bc"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/actions/speedDialGroup/SpeedDialGroup.spec.md": {
+      "mode": "100644",
+      "blob": "1ddc3dd24da7e8ffa2c814087fada7a607096a86"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/actions/speedDialGroup/SpeedDialGroup.vue": {
+      "mode": "100644",
+      "blob": "bd63733f5778fe8804fdc42c56a5a9f3f45f48f3"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/actions/speedDialGroup/SpeedDialGroupAction.vue": {
+      "mode": "100644",
+      "blob": "aefd7f40ab47c38aa9ce26f5034a73841773c840"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/actions/speedDialGroup/SpeedDialGroupTrigger.vue": {
+      "mode": "100644",
+      "blob": "6b6edb6ce44ebf26d6d770b535d91da8fec85499"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/display/audioPlayer/AudioPlayer.spec.md": {
+      "mode": "100644",
+      "blob": "592ebdfaede76ba080cfa7b2ff3a3ed5d67f5c57"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/display/audioPlayer/AudioPlayer.vue": {
+      "mode": "100644",
+      "blob": "2e11e972e7fdbeb22007c0dae1a284d35bdd69ce"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/display/audioWaveformPreview/AudioWaveformPreview.spec.md": {
+      "mode": "100644",
+      "blob": "c0b618a1605c1f38d742c9a9b7eeade57f425c7f"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/display/audioWaveformPreview/AudioWaveformPreview.vue": {
+      "mode": "100644",
+      "blob": "7d31e369d823407153d35270a5a95930ce4d5076"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/display/card/Card.spec.md": {
+      "mode": "100644",
+      "blob": "f2b4f2f15dbb12c12a06dc16b3bdbc5e0ef0cb63"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/display/card/Card.vue": {
+      "mode": "100644",
+      "blob": "4a98f4490556c0afda090cd7fd55a0b49f43f924"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/display/carousel/Carousel.vue": {
+      "mode": "100644",
+      "blob": "d8104377ba9e04b70e91a34fd8dddea3bc48e278"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/display/carousel/CarouselDot.vue": {
+      "mode": "100644",
+      "blob": "4d74ea2e0148be67af640cd5f7c638df2c7aef62"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/display/carousel/CarouselNext.vue": {
+      "mode": "100644",
+      "blob": "b895c78e2fff0f2fb8c9c0b1a8a5cbf4dc7bf38d"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/display/carousel/CarouselPrev.vue": {
+      "mode": "100644",
+      "blob": "7da2c246d175db5ebdb44b369af735fade9a50e0"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/display/carousel/CarouselSlides.vue": {
+      "mode": "100644",
+      "blob": "64d4596d4400b6bbd6d771bc979c12628139c3ca"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/display/carousel/CarouselViewport.vue": {
+      "mode": "100644",
+      "blob": "f9c11849dfdcccd2a7ef3e492acfbcc38e6fa140"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/display/chatBubbleCard/ChatBubbleCard.vue": {
+      "mode": "100644",
+      "blob": "b1484a68bf73f4009ad82fddc5ea7196f655888e"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/display/commentThreadGroup/Comment.vue": {
+      "mode": "100644",
+      "blob": "1831180d2b2628157e7f19060fd2933bfd8c4eeb"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/display/commentThreadGroup/CommentThreadGroup.vue": {
+      "mode": "100644",
+      "blob": "f195607ca1bd66f9a327a571726afa851751a1dd"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/display/dataTable/DataTable.spec.md": {
+      "mode": "100644",
+      "blob": "eae90ba25e796986c4ee2603811855c7f6c62c52"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/display/dataTable/DataTable.vue": {
+      "mode": "100644",
+      "blob": "d519c40f1ee36b86b25548cc02ebfef7cad54952"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/display/diffViewer/DiffViewer.spec.md": {
+      "mode": "100644",
+      "blob": "31e594997de2c784c4aa38899b2541b5f9089562"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/display/diffViewer/DiffViewer.vue": {
+      "mode": "100644",
+      "blob": "b51e49528dab65552643cce28db8e1f9e493f09f"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/display/diffViewer/LineDiff.ts": {
+      "mode": "100644",
+      "blob": "0d08201e3ac04d2e126f72acdbb9868771b9986b"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/display/eventCalendarViewer/AgendaView.spec.md": {
+      "mode": "100644",
+      "blob": "42c158390740e86b6029c143ce774fbfee852c42"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/display/eventCalendarViewer/AgendaView.vue": {
+      "mode": "100644",
+      "blob": "ab9cac7187d766444390fbf27c37f48e1649c3f1"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/display/eventCalendarViewer/EventCalendarViewer.spec.md": {
+      "mode": "100644",
+      "blob": "43afa1ef5940f2a27283fa2151c7db7a54596ce4"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/display/eventCalendarViewer/EventCalendarViewer.vue": {
+      "mode": "100644",
+      "blob": "ee0aef7b380a53df3f87e5aabf3d97cec2441720"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/display/eventCalendarViewer/EventCalendarViewerLayout.ts": {
+      "mode": "100644",
+      "blob": "3f162ad62c11ed11e099ba477254cc00d0dfd23b"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/display/eventCalendarViewer/MonthView.spec.md": {
+      "mode": "100644",
+      "blob": "e13b123f76852abfc821a0f52dd60d86f9a86c00"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/display/eventCalendarViewer/MonthView.vue": {
+      "mode": "100644",
+      "blob": "6571faa254dddf29a851d01883bdfcb94e279c99"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/display/eventCalendarViewer/TimeGridView.spec.md": {
+      "mode": "100644",
+      "blob": "d1f2f016ea2f89b554762fd01a16a8f4d689a9f4"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/display/eventCalendarViewer/TimeGridView.vue": {
+      "mode": "100644",
+      "blob": "9c5352b28a6f54b91b39092d18718afc4a43cfc9"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/display/ganttTimeline/GanttTimeline.vue": {
+      "mode": "100644",
+      "blob": "b3c42d02dba9d949df8a2de968cbfc688d822415"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/display/gradientText/GradientText.vue": {
+      "mode": "100644",
+      "blob": "5c512f26e3083c29b9a2b7ac9234fb86a638b231"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/display/heatmapCalendarGrid/HeatmapCalendarGrid.vue": {
+      "mode": "100644",
+      "blob": "e036bda6094c59480bcd3ef3e4a2cfee8e6c6a4e"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/display/marqueeGroup/MarqueeGroup.vue": {
+      "mode": "100644",
+      "blob": "3b6fa76c90db9e73756294496ab3b14ffa6f293c"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/display/messageGroup/MessageGroup.vue": {
+      "mode": "100644",
+      "blob": "679c8074562799d0e60bd4f158faf531b1af98a8"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/display/notificationCenterGroup/NotificationCenterGroup.vue": {
+      "mode": "100644",
+      "blob": "a048de95d526784ac98720464c0b57fab6c6097b"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/display/notificationCenterGroup/NotificationItem.vue": {
+      "mode": "100644",
+      "blob": "255d22082cc734cf68b1c47966685b3049551523"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/display/onboardingChecklistCard/OnboardingChecklistCard.vue": {
+      "mode": "100644",
+      "blob": "ed183d598f7e4999760a86fdee0bb112efdd9867"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/display/pdfViewer/PdfViewer.vue": {
+      "mode": "100644",
+      "blob": "3b3aa2409d5aba02980b07d41c33c6fefbda028d"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/display/pricingCard/PricingCard.vue": {
+      "mode": "100644",
+      "blob": "d3fa8c6f1c789f144f9809ab444e19a5e11e6891"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/display/reactionBar/ReactionBar.vue": {
+      "mode": "100644",
+      "blob": "cd82857e4a426578361f9c520d8e2ee7acb133ec"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/display/scheduleView/ScheduleView.vue": {
+      "mode": "100644",
+      "blob": "edc2eae0935713698043e6d6c72f5d35f5429b8a"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/display/snippetText/SnippetText.vue": {
+      "mode": "100644",
+      "blob": "98814413540949b0a07315d943dc8206483e15a1"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/display/sparkline/Sparkline.vue": {
+      "mode": "100644",
+      "blob": "86e57170787daaae3dfd0842cb85d766c354d171"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/display/stepperGroup/StepperGroup.spec.md": {
+      "mode": "100644",
+      "blob": "46dccc9de7532968dd940294f083f67066e4bf52"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/display/stepperGroup/StepperGroup.vue": {
+      "mode": "100644",
+      "blob": "39b4acd5303944c9cefe67f0e43ff1355fb72bda"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/display/stepperGroup/StepperGroupContext.ts": {
+      "mode": "100644",
+      "blob": "9c8718fc81edf3f65bf7889b149569c6b1367192"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/display/stepperGroup/StepperGroupStep.vue": {
+      "mode": "100644",
+      "blob": "fe852db60d4a5b2ca683b6b03489be7b6e930a3a"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/display/tag/Tag.vue": {
+      "mode": "100644",
+      "blob": "00f4150ad0b21d1d7bbcc1dee4be863321c4d66c"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/display/threadView/ThreadView.vue": {
+      "mode": "100644",
+      "blob": "d62737cd240964a5332d5b77cbc05acb4e1996b9"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/display/typewriterText/TypewriterText.vue": {
+      "mode": "100644",
+      "blob": "f1bad335b1ee87a15aed46448c6f63e484428966"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/display/videoPlayer/VideoPlayer.spec.md": {
+      "mode": "100644",
+      "blob": "cb63a9ea59d94c3593514df1af82345ac310a6fe"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/display/videoPlayer/VideoPlayer.vue": {
+      "mode": "100644",
+      "blob": "8199c23220edc59855ac0e1425bee208d03d1a4b"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/feedback/alert/Alert.vue": {
+      "mode": "100644",
+      "blob": "51793dfe7b7af025f21898d8343266972e4a4e07"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/feedback/banner/Banner.vue": {
+      "mode": "100644",
+      "blob": "01c764df23d47b59b036940628d41f7830052e2f"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/feedback/inlineSpinner/InlineSpinner.vue": {
+      "mode": "100644",
+      "blob": "e1aa4dd3ab6c645e30e830fa0a721e482503972a"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/feedback/loadingOverlay/LoadingOverlay.vue": {
+      "mode": "100644",
+      "blob": "707b48767bd2d270274a5ee80a4954c18071a732"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/feedback/loadingState/LoadingState.vue": {
+      "mode": "100644",
+      "blob": "346a21a9c719deac895c1c533646716692737498"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/feedback/passwordStrengthCallout/PasswordStrengthCallout.vue": {
+      "mode": "100644",
+      "blob": "ff47ef051eff09445907b0919738291d37f66309"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/feedback/presenceIndicator/PresenceIndicator.vue": {
+      "mode": "100644",
+      "blob": "e31d976edb58a9af7ee8c4f5aa40d1e9d562d7ab"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/feedback/spinner/Spinner.vue": {
+      "mode": "100644",
+      "blob": "bdc7ba6a88f09e94bb4227103a539f9f64ea5f7b"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/feedback/toast/Toast.vue": {
+      "mode": "100644",
+      "blob": "02646b7c597eb91c6a520b5b0bbcd6e77ebccc44"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/feedback/toastHost/ToastHost.spec.md": {
+      "mode": "100644",
+      "blob": "1cd17b1f3acb00d6a16cd225de645fe986138a2b"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/feedback/toastHost/ToastHost.vue": {
+      "mode": "100644",
+      "blob": "9c2bf25380bc7641d9a32a6fff954fe1e6032aad"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/feedback/typingIndicator/TypingIndicator.vue": {
+      "mode": "100644",
+      "blob": "003a97d6fee181793d5ff227b7348370ea72a028"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/feedback/undoBar/UndoBar.spec.md": {
+      "mode": "100644",
+      "blob": "e7e15b692166bacdd6d6c202a489365829351040"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/feedback/undoBar/UndoBar.vue": {
+      "mode": "100644",
+      "blob": "001eb66e4b8257724ddbb7b99cdb18e0694162ba"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/DateExtensions.ts": {
+      "mode": "100644",
+      "blob": "1d5d33081c14f4136b3dfc56e559c5a0da2a8a9d"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/MonthGrid.vue": {
+      "mode": "100644",
+      "blob": "b5115477ac61590ea497462edf7bfb956d86b9ea"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/NativeControlAttributes.ts": {
+      "mode": "100644",
+      "blob": "ba545f72be18c476f67f2d521bb7e646230c4b77"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/TimeColumns.vue": {
+      "mode": "100644",
+      "blob": "8355a06a44585b77508f224a432ded6f296ee5ec"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/addressEditor/AddressEditor.vue": {
+      "mode": "100644",
+      "blob": "558f3145fab83d4cccb67de9f394e09df66a9c71"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/calendarPicker/CalendarPicker.spec.md": {
+      "mode": "100644",
+      "blob": "164c69580596c72198ce82b2546944ac39b8c2b1"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/calendarPicker/CalendarPicker.vue": {
+      "mode": "100644",
+      "blob": "a5edb99e1635fe7001c83e274a3b6ea11ef8eee0"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/chatComposerInput/ChatComposerInput.vue": {
+      "mode": "100644",
+      "blob": "6b695c0b04e5d5e50aec68e4d0940e8339003556"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/checkboxInput/CheckboxInput.spec.md": {
+      "mode": "100644",
+      "blob": "9ce61c4d37d437245ac05f6d7fe3e68db07de676"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/checkboxInput/CheckboxInput.vue": {
+      "mode": "100644",
+      "blob": "bba2b92616b52b23100f6e990d0444162959ff97"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/codeEditor/CodeEditor.spec.md": {
+      "mode": "100644",
+      "blob": "7efdfb95233cb8ff8c47d6e4ab5163dd0ea82376"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/codeEditor/CodeEditor.vue": {
+      "mode": "100644",
+      "blob": "f2a1d84bed71bd967cc2c820089abfb36625e539"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/colorArea/ColorArea.spec.md": {
+      "mode": "100644",
+      "blob": "964eac72847b4a3bfb3694aeb08d87fbedcdb7a9"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/colorArea/ColorArea.vue": {
+      "mode": "100644",
+      "blob": "defb5081462c95a6f5012a65675921d2ba7b87e0"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/colorInput/ColorInput.spec.md": {
+      "mode": "100644",
+      "blob": "3a8eaa32e6336597c4924209dd7ebc13c9e058ce"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/colorInput/ColorInput.vue": {
+      "mode": "100644",
+      "blob": "09ff742d9162c133ac485e528ec157eae4aa7ce5"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/colorPicker/ColorPicker.spec.md": {
+      "mode": "100644",
+      "blob": "466d17e76cac3d9926fd875901b9c6276a0a5da8"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/colorPicker/ColorPicker.vue": {
+      "mode": "100644",
+      "blob": "9424c400a63ac1fe4bfc5820baafe51e4ba3f0df"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/colorSliderInput/ColorSliderInput.spec.md": {
+      "mode": "100644",
+      "blob": "5195fce7d0f6eef9a562f22e3420d9fe2d818a62"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/colorSliderInput/ColorSliderInput.vue": {
+      "mode": "100644",
+      "blob": "3f85f2c74ca5e0a31672cd1c9564c7aede77592f"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/colorSwatchPicker/ColorSwatchPicker.spec.md": {
+      "mode": "100644",
+      "blob": "32a7601763fb43264219228a8f89a28df1db5b06"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/colorSwatchPicker/ColorSwatchPicker.vue": {
+      "mode": "100644",
+      "blob": "8474ee498c201bd926775541a1cc4b9bc546a62a"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/colorWheelInput/ColorWheelInput.spec.md": {
+      "mode": "100644",
+      "blob": "cdbe81ba29b2719b4b63b6a46eb898fd14d33ded"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/colorWheelInput/ColorWheelInput.vue": {
+      "mode": "100644",
+      "blob": "3d96fb4fef9eb33fe145c5f678ea295f55125d97"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/comboboxPicker/ComboboxPicker.spec.md": {
+      "mode": "100644",
+      "blob": "5e50eded0c6002c56b1f9f8b38c2c50162fa60c4"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/comboboxPicker/ComboboxPicker.vue": {
+      "mode": "100644",
+      "blob": "0c15d070fca42d6ef47ea103fd3452668ecbf39b"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/cronInput/CronInput.vue": {
+      "mode": "100644",
+      "blob": "2c300b3cd414c77128d438a4b8c873297abdd925"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/currencyInput/CurrencyInput.spec.md": {
+      "mode": "100644",
+      "blob": "2a0814af0efd86588e804657175f684fa2243e4b"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/dataGridEditor/CellEditor.vue": {
+      "mode": "100644",
+      "blob": "b17d907d8ac0a7ffc7eb2140e7f49701b5c59437"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/dataGridEditor/DataGridEditor.spec.md": {
+      "mode": "100644",
+      "blob": "887e5c981c4d69d1c73eb429c77f19f8d0313065"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/dataGridEditor/DataGridEditor.vue": {
+      "mode": "100644",
+      "blob": "58dea4429ee8319fbc88fc501098e63a2a21fe79"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/dateInput/DateInput.spec.md": {
+      "mode": "100644",
+      "blob": "2b0650e8d7a4b4514548e957b18675e4a891c97e"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/dateInput/DateInput.vue": {
+      "mode": "100644",
+      "blob": "ff85d9f533457f37df76a101122bad13ad33137b"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/datePicker/DatePicker.spec.md": {
+      "mode": "100644",
+      "blob": "604d2fda59addca50844614315f757b355e88cb1"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/datePicker/DatePicker.vue": {
+      "mode": "100644",
+      "blob": "b23645fc67ee6769d2fc557537a01174954c8204"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/dateRangePicker/DateRangePicker.spec.md": {
+      "mode": "100644",
+      "blob": "2d7cf517581852cac49b6785cc920408d5edfeb4"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/dateRangePicker/DateRangePicker.vue": {
+      "mode": "100644",
+      "blob": "f60368b2de0b30e4f0d91d4b4dadbdbd40d4b069"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/dateTimeInput/DateTimeInput.spec.md": {
+      "mode": "100644",
+      "blob": "ca4b48ca43cb814abdb7b7011e3e26488ca5c87f"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/dateTimeInput/DateTimeInput.vue": {
+      "mode": "100644",
+      "blob": "5a137aa3d4d8da8373ffcc37fd2530a01d77a81b"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/editableInput/EditableInput.spec.md": {
+      "mode": "100644",
+      "blob": "3001f91ad9831d0e67a459f498325b1f6ef2d732"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/editableInput/EditableInput.vue": {
+      "mode": "100644",
+      "blob": "dda1d139adc0adc56a214bf76bfcd0266dab986f"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/editableInput/EditableInputCancel.vue": {
+      "mode": "100644",
+      "blob": "ed978030956404869db1e2dcd6a8f32ada6f5ff5"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/editableInput/EditableInputSubmit.vue": {
+      "mode": "100644",
+      "blob": "13460469bedea789602f127a3b30ecbd26815902"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/emailInput/EmailInput.spec.md": {
+      "mode": "100644",
+      "blob": "19ae7017cf44d9ad25902f29a562ab93561b8c3f"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/emailInput/EmailInput.vue": {
+      "mode": "100644",
+      "blob": "3d6ad561b0ed92b436eaf80d4941c97d5622cc2c"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/emojiPicker/CategoryNav.vue": {
+      "mode": "100644",
+      "blob": "47ed1de888b52fca076271314d6f350ab5dc1ab0"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/emojiPicker/EmojiGrid.vue": {
+      "mode": "100644",
+      "blob": "4c88bdc1b27095abafd4b825fa6ee1c6954f7e52"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/emojiPicker/EmojiPicker.vue": {
+      "mode": "100644",
+      "blob": "545e4f44b92350025592a7ef0e9d630e70a279cb"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/emojiPicker/EmojiPickerPopover.vue": {
+      "mode": "100644",
+      "blob": "f0cd5cc8b66357a76d9ec4fe89509bb386a0000a"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/exactNumberInput/ExactNumberInput.spec.md": {
+      "mode": "100644",
+      "blob": "4551aa34d8361f14ab0711987b26dc24c946be8f"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/exactNumberInput/ExactNumberInput.vue": {
+      "mode": "100644",
+      "blob": "ccf05eb9635d354df6fb1e7853ac1f2ba6910b69"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/exactNumberInput/index.ts": {
+      "mode": "100644",
+      "blob": "37d8553531f15417d74182678b9d8696e425ae8f"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/filePicker/FilePicker.spec.md": {
+      "mode": "100644",
+      "blob": "a1add5c33a7e43f9a07d8b362f52e238eeb8756e"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/filePicker/FilePicker.vue": {
+      "mode": "100644",
+      "blob": "e2c058a4ee7c872b6996d7152617f7c4567dfb54"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/fileUploadPicker/FileUploadPicker.spec.md": {
+      "mode": "100644",
+      "blob": "827c205208ab9d7c4233801590a3d6c132729b36"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/fileUploadPicker/FileUploadPicker.vue": {
+      "mode": "100644",
+      "blob": "aa24145d45ee63cd7d254733649a9c8b5f2bd785"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/fontPicker/FontPicker.vue": {
+      "mode": "100644",
+      "blob": "02d7759079d3afc5c9b280170b2774cad24823ce"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/gradientPicker/GradientPicker.spec.md": {
+      "mode": "100644",
+      "blob": "aff4da7f6a2917496cb658c45f3c7642e751571c"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/gradientPicker/GradientPicker.vue": {
+      "mode": "100644",
+      "blob": "cb5ec5aa984cf2b0c57611585ef6738de1ff8e4d"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/iconPicker/IconPicker.vue": {
+      "mode": "100644",
+      "blob": "316ffbb9f15d6a0c7c5340374ad2b16e802fffb9"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/index.ts": {
+      "mode": "100644",
+      "blob": "14ad59304b06bcc77f79cf2bb3ece71ad4fe6947"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/jsonEditor/JsonEditor.vue": {
+      "mode": "100644",
+      "blob": "3c330acd4749cc5934b13fcdc9a12bd95f4a42be"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/jsonEditor/JsonEditorTextView.vue": {
+      "mode": "100644",
+      "blob": "63a7954a219a604594918e95285cad5e0077c565"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/jsonEditor/JsonEditorTreeNode.vue": {
+      "mode": "100644",
+      "blob": "ff1f61286977753fedd3b723eaa636a4c871992b"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/keyboardShortcutPicker/KeyboardShortcutPicker.spec.md": {
+      "mode": "100644",
+      "blob": "4b653e6e5eb26b587475850028de73044a2782a2"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/keyboardShortcutPicker/KeyboardShortcutPicker.vue": {
+      "mode": "100644",
+      "blob": "52b27990835433ed20a4b023f9a022d199eb039b"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/knobInput/KnobInput.spec.md": {
+      "mode": "100644",
+      "blob": "96c9d6c86e1de874f195e59f1b9d38fc4152c5d1"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/knobInput/KnobInput.vue": {
+      "mode": "100644",
+      "blob": "15652ef1f5157e3231f072db9c64a1a6ddc0076d"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/listboxPicker/ListboxPicker.spec.md": {
+      "mode": "100644",
+      "blob": "a0a0450537782a2e75eb9488d2b004c68de6d25d"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/listboxPicker/ListboxPicker.vue": {
+      "mode": "100644",
+      "blob": "40e57fc56742174b83645f360cb9b9fc8104a245"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/listboxPicker/ListboxPickerItem.vue": {
+      "mode": "100644",
+      "blob": "fd3f8dd2f1800f81c6424489a612609010fa655d"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/markdownEditor/MarkdownEditor.vue": {
+      "mode": "100644",
+      "blob": "4a406fbb03508f71cb5a2cb72bb30d55e0123dba"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/maskedInput/MaskedInput.spec.md": {
+      "mode": "100644",
+      "blob": "01b7dfd297eb21651764909f52e45fa4814b2292"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/maskedInput/MaskedInput.vue": {
+      "mode": "100644",
+      "blob": "1c5ddafe90500da03d4175d035d3223307f09c1b"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/multiSelectPicker/MultiSelectPicker.spec.md": {
+      "mode": "100644",
+      "blob": "b7c9c6a471d2384e7099ed2d221b160abe75d108"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/multiSelectPicker/MultiSelectPicker.vue": {
+      "mode": "100644",
+      "blob": "a24b14324aad22fc4fd1e1a6cfddd9237589b654"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/multiSelectPicker/MultiSelectPickerContent.vue": {
+      "mode": "100644",
+      "blob": "b2687ccaddd3fc18d8334498df754b14bea858d6"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/numberInput/NumberInput.spec.md": {
+      "mode": "100644",
+      "blob": "d7350999988729e432d9474fe265ab66f428d223"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/numberInput/NumberInput.vue": {
+      "mode": "100644",
+      "blob": "22e6d18f97607946d96a58d8a71f87a5b64d7a32"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/optionTilePicker/OptionTilePicker.vue": {
+      "mode": "100644",
+      "blob": "466c24c8cceeff327f57c026a3922362819dde9a"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/passwordInput/PasswordInput.spec.md": {
+      "mode": "100644",
+      "blob": "aec113e62933e73d63bdb0cf9a773d3280b1c219"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/passwordInput/PasswordInput.vue": {
+      "mode": "100644",
+      "blob": "70ca119d7de86062bf853180cd1063cb15b529cf"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/percentInput/PercentInput.spec.md": {
+      "mode": "100644",
+      "blob": "3372151f7f588ce53a76b220ff6490b6d012e1f2"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/phoneInput/PhoneInput.spec.md": {
+      "mode": "100644",
+      "blob": "5a1a51aa8062897ba5bee8022d146674f5e36f28"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/phoneInput/PhoneInput.vue": {
+      "mode": "100644",
+      "blob": "68b914a82594ef596bfc2d6542b5085e5c6baa4c"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/pinInput/PinInput.spec.md": {
+      "mode": "100644",
+      "blob": "56e2e45543c0da4089a98b8988e41ddee72502a4"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/pinInput/PinInput.vue": {
+      "mode": "100644",
+      "blob": "feedc8be330eecf73d50e21cc9f7e4900839ed52"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/radioInput/RadioInput.spec.md": {
+      "mode": "100644",
+      "blob": "e18207428a7029f85a5712be17f1dccdbe787b3f"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/radioInput/RadioInput.vue": {
+      "mode": "100644",
+      "blob": "25ae474e128f3ff6fb7ab8c40252a3cf35b0cabc"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/rangeCalendarPicker/RangeCalendarPicker.spec.md": {
+      "mode": "100644",
+      "blob": "f26d2e89dc73fe3e1848d212de79d55213e396e8"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/rangeCalendarPicker/RangeCalendarPicker.vue": {
+      "mode": "100644",
+      "blob": "81d291482079eaa6f2a026a0d3b4c0a9db8149bf"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/reactionPicker/ReactionPicker.vue": {
+      "mode": "100644",
+      "blob": "5f1923f6ed16f773b8b358aa22a396894da4da4e"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/recurrenceEditor/RecurrenceEditor.spec.md": {
+      "mode": "100644",
+      "blob": "c048e2b834841422a5ceb4fba770d414f6cb3931"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/recurrenceEditor/RecurrenceEditor.vue": {
+      "mode": "100644",
+      "blob": "4fe92689d54d5fa8d1a3a37bfb8a38f033531a0e"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/searchInput/SearchInput.spec.md": {
+      "mode": "100644",
+      "blob": "8e660414ad192acf1d5023895e6761a3a49a38fc"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/searchInput/SearchInput.vue": {
+      "mode": "100644",
+      "blob": "1d9adb86a77b2778c18ed38db7609ce3a037718d"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/selectPicker/SelectPicker.spec.md": {
+      "mode": "100644",
+      "blob": "7339efbf6adade992440ed6f7c290a782dac4d9c"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/selectPicker/SelectPicker.vue": {
+      "mode": "100644",
+      "blob": "922d70217511ca5d867bb4c3a57725bf9d446598"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/selectPicker/SelectPickerContent.vue": {
+      "mode": "100644",
+      "blob": "0d447fcde74880112b117fb3249336c5144a61b4"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/selectPicker/SelectPickerItem.vue": {
+      "mode": "100644",
+      "blob": "3a50a6d51f86a03374097303c5b76b80170e17d7"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/sliderInput/SliderInput.spec.md": {
+      "mode": "100644",
+      "blob": "1657ed7715e4ff46a6efd9c76f9bc28896492b42"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/sliderInput/SliderInput.vue": {
+      "mode": "100644",
+      "blob": "891206ad1d208ee30c940022f8d2b7c0a2d582d0"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/sortableGroup/SortableGroup.spec.md": {
+      "mode": "100644",
+      "blob": "413784b21d437e89abbd29458f80e9a901b43d16"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/sortableGroup/SortableGroup.vue": {
+      "mode": "100644",
+      "blob": "f4a84de9b2da13f355a7f411657c4b1c0e2adc2e"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/sortableGroup/SortableGroupContext.ts": {
+      "mode": "100644",
+      "blob": "bdab011bf3886f7dd2a34345275d25a8d436b3a5"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/sortableGroup/SortableGroupHandle.vue": {
+      "mode": "100644",
+      "blob": "9f100d9ee7ecb3a5c950cd37df2087a882f86782"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/sortableGroup/SortableGroupItem.vue": {
+      "mode": "100644",
+      "blob": "b131a5cb7055ab7f9081fa4ce196824ab86e6bda"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/switchInput/SwitchInput.spec.md": {
+      "mode": "100644",
+      "blob": "6a6ffe65517290c1e932c19442371f3c2721b6ef"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/switchInput/SwitchInput.vue": {
+      "mode": "100644",
+      "blob": "2bcbe46ed99359248d5f05c85b14d8644bf72788"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/tagsInput/TagsInput.vue": {
+      "mode": "100644",
+      "blob": "e6909ce99cef6e2f763fa5b8f6c635aad2d3d1b3"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/telInput/TelInput.spec.md": {
+      "mode": "100644",
+      "blob": "9391a709d9316e0c3487f0f2b6c4889cc20a0b00"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/telInput/TelInput.vue": {
+      "mode": "100644",
+      "blob": "e5a496e9e6a1a6f68ad3673ead7659de86d6a788"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/textAreaInput/TextAreaInput.spec.md": {
+      "mode": "100644",
+      "blob": "b17a4d864876a3108bb705c3a76a33559de83e02"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/textAreaInput/TextAreaInput.vue": {
+      "mode": "100644",
+      "blob": "322b9c30d90158b85902e669486eb70a1a97998a"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/textInput/TextInput.spec.md": {
+      "mode": "100644",
+      "blob": "493dff66bb9e40af7d7cbf845039a6c7c2ae0a9d"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/textInput/TextInput.vue": {
+      "mode": "100644",
+      "blob": "6bf6d090ef753ddc0bbc513233559c66cc66109c"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/timeInput/TimeInput.spec.md": {
+      "mode": "100644",
+      "blob": "500ebd88816601cf829c1241fb5f32091edbe1c3"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/timeInput/TimeInput.vue": {
+      "mode": "100644",
+      "blob": "7559d8c82864a5bdbb5abe262890e31821f920e7"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/timePicker/TimePicker.spec.md": {
+      "mode": "100644",
+      "blob": "2b3bae3a160992424e26267d6614cb204acd1419"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/timePicker/TimePicker.vue": {
+      "mode": "100644",
+      "blob": "7cf689ffd37e5462fd15af14682bdd4e010c0538"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/toggleInput/ToggleInput.spec.md": {
+      "mode": "100644",
+      "blob": "b11f5cf163b0371ebf767fedd97c48002343c8bc"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/toggleInput/ToggleInput.vue": {
+      "mode": "100644",
+      "blob": "18520394d3c65496b6c3b63efba2904d3997fbf2"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/urlInput/UrlInput.spec.md": {
+      "mode": "100644",
+      "blob": "1c48bdcbe54917c75d6043bb3d310ec65f2850f8"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/urlInput/UrlInput.vue": {
+      "mode": "100644",
+      "blob": "4708fd4b9b117773c754a98cd098e1e7ea1c724e"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/wizardForm/WizardFormSteps.vue": {
+      "mode": "100644",
+      "blob": "4aedc2bcddded97a92fe974b55bba516a7171ecd"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/layout/appShell/AppShell.vue": {
+      "mode": "100644",
+      "blob": "cb12d48d79f580f0a2a0b2a6f25753489429e6f3"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/layout/navbar/Navbar.spec.md": {
+      "mode": "100644",
+      "blob": "b5d2f5e4a532a011535b93daf438a5879f3007c5"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/layout/navbar/Navbar.vue": {
+      "mode": "100644",
+      "blob": "63d9915a4ea8f14ea9814776c9edc50cef80ab94"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/layout/resizablePanelsLayout/ResizablePanelsLayout.spec.md": {
+      "mode": "100644",
+      "blob": "2537f2709aa748f89ec8b9cd2785c9d76ede523a"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/layout/resizablePanelsLayout/ResizablePanelsLayout.vue": {
+      "mode": "100644",
+      "blob": "01c9752384102584a0d171c1186eb7abb2450144"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/layout/resizablePanelsLayout/ResizableSeparator.vue": {
+      "mode": "100644",
+      "blob": "628b2bc4607fef2bf27664f912a4925d90028941"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/nav/NavExtensions.ts": {
+      "mode": "100644",
+      "blob": "2e8d4fde1083e954ee9fc15d832f7ad0ca88a06f"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/nav/breadcrumb/Breadcrumb.vue": {
+      "mode": "100644",
+      "blob": "d023d94ad3dddaf8347cefa3c84b23e055c771ab"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/nav/contextMenu/ContextMenu.spec.md": {
+      "mode": "100644",
+      "blob": "c795b9097b07c9be70cf84bf20c9b92ae9ac9c8d"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/nav/contextMenu/ContextMenu.vue": {
+      "mode": "100644",
+      "blob": "15f892052129b51d6b234bbb128bfa237882a8a5"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/nav/contextMenu/ContextMenuContent.vue": {
+      "mode": "100644",
+      "blob": "a9d75e70756d2ffebb917a1d2859f1dcf8ffd60b"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/nav/contextMenu/ContextMenuTrigger.spec.md": {
+      "mode": "100644",
+      "blob": "3d7312e634050642a18d721c993465ba5fec04c0"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/nav/contextMenu/ContextMenuTrigger.vue": {
+      "mode": "100644",
+      "blob": "f7e408e3162bb885aa3f6570749c0818b2d3ad91"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/nav/dropdownMenu/DropdownMenuContent.vue": {
+      "mode": "100644",
+      "blob": "5c9a069b1729dd6cc11a9202c79f29a6dde4049b"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/nav/menu/Menu.spec.md": {
+      "mode": "100644",
+      "blob": "1ad7f7cc98178eb98620893914b8ff15f499e4aa"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/nav/menu/Menu.vue": {
+      "mode": "100644",
+      "blob": "ed9647cacd820597e27ad151bd8993a3c7f31a68"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/nav/menubar/Menubar.spec.md": {
+      "mode": "100644",
+      "blob": "79ad3e649f2bbbf245dba15c876f4c67406305d1"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/nav/menubar/Menubar.vue": {
+      "mode": "100644",
+      "blob": "645b3972ca32569250a9e69a1efe4b660d2762e1"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/nav/menubar/MenubarContent.vue": {
+      "mode": "100644",
+      "blob": "85992cc81777f46cf17c62b7a1e4eebd128c5f7a"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/nav/menubar/MenubarTrigger.vue": {
+      "mode": "100644",
+      "blob": "f9435b57c25f8637fca1ebe1d724ea4bd6b8137b"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/nav/navigationMenu/NavigationMenu.vue": {
+      "mode": "100644",
+      "blob": "df3d5cc02fc67da05f8fa1ea2283bad06e1be372"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/nav/navigationMenu/NavigationMenuContent.vue": {
+      "mode": "100644",
+      "blob": "566ca8fa683de1b5d5c040adb1101a34afac9df5"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/nav/navigationMenu/NavigationMenuTrigger.spec.md": {
+      "mode": "100644",
+      "blob": "a0d923f3ae52b0fe1bf7e67bba5f076c4e9e86f5"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/nav/navigationMenu/NavigationMenuTrigger.vue": {
+      "mode": "100644",
+      "blob": "1be5eebda506f191f89c67ab1201caead5f1ea17"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/nav/pagination/Pagination.spec.md": {
+      "mode": "100644",
+      "blob": "0f9ef8d819f4db8e7fb06c96af63d7855c8a3b6d"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/nav/pagination/Pagination.vue": {
+      "mode": "100644",
+      "blob": "831959a235be82a8814d710af3a062b7e3bde92e"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/nav/scrollSpy/UseScrollSpy.ts": {
+      "mode": "100644",
+      "blob": "35c830a6d4162f9e71c4bc5a2487796a39786167"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/nav/tableOfContents/TableOfContents.vue": {
+      "mode": "100644",
+      "blob": "8655bad05e0f215a4e81a02c34d9d4dd18f5a288"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/overlays/OverlayCloseButton.vue": {
+      "mode": "100644",
+      "blob": "bbcd97ad64ce5895dafc3cacaec1023f8a42f942"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/overlays/actionSheet/ActionSheetCancel.vue": {
+      "mode": "100644",
+      "blob": "4a9ddcef31c5441b5a4ed1881700efbc486a0f14"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/overlays/commandPaletteModal/CommandPaletteModalInput.vue": {
+      "mode": "100644",
+      "blob": "e8198bf1752e628f8111cbda19c6628e36164ef8"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/overlays/drawer/DrawerContent.vue": {
+      "mode": "100644",
+      "blob": "01d8032148dc4e81f9f25b83bad5449ecff48b5e"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/overlays/modal/ModalContent.vue": {
+      "mode": "100644",
+      "blob": "472f305d6711ac04a4ea4c6ef48f1467e9b3070b"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/overlays/popover/PopoverContent.vue": {
+      "mode": "100644",
+      "blob": "019961ad664ae054233d1c02488fe482ea7daea8"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/overlays/tooltip/Tooltip.spec.md": {
+      "mode": "100644",
+      "blob": "eceb426fbbeb727cf55de1b62c56dc33c2c2ad65"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/overlays/tooltip/Tooltip.vue": {
+      "mode": "100644",
+      "blob": "f86c2d6b3848c4c1ca9af9109c3e545d8c37744b"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/overlays/tourPopover/TourPopover.vue": {
+      "mode": "100644",
+      "blob": "91cc1b3a9e079dfd737659f83a2069127a3478dc"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/query/QuerySession.spec.md": {
+      "mode": "100644",
+      "blob": "9aaf757699424c4f7710f041ba8037920ea38e5f"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/query/adapters/tanstack/CreateQueryClient.ts": {
+      "mode": "100644",
+      "blob": "c523a4917ec576bc690ec505a21a6cfeada7e070"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/query/adapters/tanstack/Persistence.ts": {
+      "mode": "100644",
+      "blob": "27226413f90e46c3134a4d01a168cd8256d61179"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/query/adapters/tanstack/QueryLifetime.ts": {
+      "mode": "100644",
+      "blob": "9730fec34107115ab558bd318cf26cf484aa318c"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/query/adapters/tanstack/hooks/UseAppInfiniteQuery.ts": {
+      "mode": "100644",
+      "blob": "e7a91a6e2e38c3912e6ba4284aaa74c5ba077da1"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/query/adapters/tanstack/hooks/UseAppLazyQuery.ts": {
+      "mode": "100644",
+      "blob": "5c5f56f5896e46f8164b648acc75d7551bb2bfc3"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/query/adapters/tanstack/hooks/UseAppMutation.ts": {
+      "mode": "100644",
+      "blob": "16efdd25fb3d95c5c358a1589b7bc31f21ac70c2"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/query/adapters/tanstack/hooks/UseAppPaginatedQuery.ts": {
+      "mode": "100644",
+      "blob": "816d06e6480ff2b6a979e969cf7361445ecea895"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/query/adapters/tanstack/hooks/UseAppQuery.ts": {
+      "mode": "100644",
+      "blob": "7c058100107daaa44031c6fc585759515f0db3b0"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/query/adapters/tanstack/hooks/UseOptimisticMutation.ts": {
+      "mode": "100644",
+      "blob": "6242a8fb944064bb70d66a181698f34e6a1ba255"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/query/adapters/tanstack/index.ts": {
+      "mode": "100644",
+      "blob": "82194f2fef4b9236f7f1f8046f97294cace748ec"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/router/adapters/vueRouter/appErrorBoundary/AppErrorBoundary.spec.md": {
+      "mode": "100644",
+      "blob": "900ade7c35143b4a9aa7041e6e71bb5979215ec3"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/router/adapters/vueRouter/routeAnnouncer/RouteAnnouncer.spec.md": {
+      "mode": "100644",
+      "blob": "b8303d768923c6ad45d44ddc811eb8ec9f910411"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/router/adapters/vueRouter/routeAnnouncer/RouteAnnouncer.vue": {
+      "mode": "100644",
+      "blob": "95d5090b5cd6708437623de5e51cc06ffe240479"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/tests/BrowserKeyboard.ts": {
+      "mode": "100644",
+      "blob": "fd96b8d023568b3c1d14de55f5e4110c9a5a4e4e"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/tests/types/NativeControlProps.ts": {
+      "mode": "100644",
+      "blob": "18f352789b6e6b7ac33d92f6386adbd9541ae7f6"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/tests/unit/auth/AuthBridgeLifetime.dom.test.ts": {
+      "mode": "100644",
+      "blob": "d6f17d34639d0bb4cde7a777557a77db2711f8bf"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/tests/unit/auth/SessionComposition.dom.test.ts": {
+      "mode": "100644",
+      "blob": "c3ce194cf9ed62f47a6d86d0efe918131d507a22"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/tests/unit/flags/FlagBoundary.test.ts": {
+      "mode": "100644",
+      "blob": "462a3ed283a18d7786907290edc6810f65d0f952"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/tests/unit/formsEngine/ArrayIdentity.dom.test.ts": {
+      "mode": "100644",
+      "blob": "e9534e7d7f52d477743333292c120c8a48c6bf76"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/tests/unit/formsEngine/FormsEngine.test.ts": {
+      "mode": "100644",
+      "blob": "44adfef1d0356573eda1b7dc518a846d95fc1a03"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/tests/unit/foundation/FoundationBoundaries.test.ts": {
+      "mode": "100644",
+      "blob": "feb4dc45b0e0bdc8b263303172daea61293d86b4"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/tests/unit/foundation/browser/RuntimeLifetimes.dom.test.ts": {
+      "mode": "100644",
+      "blob": "16f1f77f1442e5a0002a0da979f83a2951f8461f"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/tests/unit/foundation/browser/RuntimeLifetimes.test.ts": {
+      "mode": "100644",
+      "blob": "914afba78180d31e9fc93c347cf7e8752306c86e"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/tests/unit/foundation/commands/CommandsProvider.dom.test.ts": {
+      "mode": "100644",
+      "blob": "1fc4aa7830b8ab618dc7ad7618682f309f2f4e40"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/tests/unit/foundation/config/ConfigBoundary.test.ts": {
+      "mode": "100644",
+      "blob": "586210ebe18cbec9ddc9fb5d2b6b413a78601498"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/tests/unit/foundation/config/config.test.ts": {
+      "mode": "100644",
+      "blob": "d774c97ce698039d6a0093dc54ef0477a1d575b4"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/tests/unit/foundation/dom/ScrollLock.dom.test.ts": {
+      "mode": "100644",
+      "blob": "d075d45c1834a599913429b7d1e3b3dd7377f58c"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/tests/unit/foundation/files/DownloadFile.dom.test.ts": {
+      "mode": "100644",
+      "blob": "3954bcad1691e51c8b98581a244e805d5160da79"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/tests/unit/foundation/http/JsonCodec.test.ts": {
+      "mode": "100644",
+      "blob": "17fae47f850d0bec7fb0f3c9aef0a3ca08d37d03"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/tests/unit/foundation/http/RequestLifetime.test.ts": {
+      "mode": "100644",
+      "blob": "f24c8b7e8d7a91c5373a84b33913e49ec6e2f921"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/tests/unit/foundation/http/http.test.ts": {
+      "mode": "100644",
+      "blob": "fb1f9fcac68abb527830ee7d176eb54985e81877"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/tests/unit/foundation/i18n/ExactNumberFormatter.test.ts": {
+      "mode": "100644",
+      "blob": "51ac39aa6bf13f540cd8c4075e7ec381cbd03788"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/tests/unit/foundation/i18n/LocaleDefaults.dom.test.ts": {
+      "mode": "100644",
+      "blob": "122ec16e27eb946d6b0cac8b81c607153bb7e65b"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/tests/unit/foundation/icons/IconAttributes.dom.test.ts": {
+      "mode": "100644",
+      "blob": "095041c1a4b6165877a0f2ca883c7e134c7cbde3"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/tests/unit/foundation/oauth/GoogleIdentity.dom.test.ts": {
+      "mode": "100644",
+      "blob": "f991f0df2850643348c95c76fbd389d5a9ec1641"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/tests/unit/foundation/primitives/FocusScope.browser.test.ts": {
+      "mode": "100644",
+      "blob": "1355f7dd3af92c4ac15f771d809a4ff07bbd195c"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/tests/unit/foundation/primitives/Ownership.dom.test.ts": {
+      "mode": "100644",
+      "blob": "2ab4b588471b924181f553817cd1379b48895917"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/tests/unit/foundation/primitives/Presence.dom.test.ts": {
+      "mode": "100644",
+      "blob": "1f1e54ceaa9be035bff51aa6f97ba388f8934e02"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/tests/unit/foundation/resilience/resilience.test.ts": {
+      "mode": "100644",
+      "blob": "fef69af01f55f174e29acb5a6a678284b03b2f8b"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/tests/unit/foundation/styles/ClassMerging.test.ts": {
+      "mode": "100644",
+      "blob": "6fff614c46dc565a9b90477b3b37ade0e805c978"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/tests/unit/foundation/themes/ThemeScope.browser.test.ts": {
+      "mode": "100644",
+      "blob": "9e533bda0483f1f55515be9977bee8b65b1e95c9"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/tests/unit/foundation/validators/BoundarySafety.test.ts": {
+      "mode": "100644",
+      "blob": "a5e930c9c1b0ae24615184bcb3f21782e88214fa"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/tests/unit/foundation/validators/ExactNumber.test.ts": {
+      "mode": "100644",
+      "blob": "de103cf355fe0036b8b963e5eaed19172a5e31bb"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/tests/unit/presentation/actions/Focus.browser.test.ts": {
+      "mode": "100644",
+      "blob": "e31d796a3558359234558f6d47df6772289fa8f5"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/tests/unit/presentation/actions/GoogleSignInButton.dom.test.ts": {
+      "mode": "100644",
+      "blob": "96f7a95b661eef41a73797d711a0f060a65f7bb5"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/tests/unit/presentation/actions/InactiveActions.dom.test.ts": {
+      "mode": "100644",
+      "blob": "b06479e5443644f1a31c7e31ae7ef7e9407c18aa"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/tests/unit/presentation/actions/SpeedDialInteraction.dom.test.ts": {
+      "mode": "100644",
+      "blob": "56cf5650819546a05282efa8fff87d4e02ff4a17"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/tests/unit/presentation/display/CalendarAndTable.dom.test.ts": {
+      "mode": "100644",
+      "blob": "9b8963d81bc3034eb4e13d9d6d7584571e208f09"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/tests/unit/presentation/display/Card.dom.test.ts": {
+      "mode": "100644",
+      "blob": "0198cf021ad6da942a6bb566b1ca82e7d97667fa"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/tests/unit/presentation/display/DiffAndWaveform.dom.test.ts": {
+      "mode": "100644",
+      "blob": "f4d39f2108fee7a62289af8648058c722bb34132"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/tests/unit/presentation/display/Localization.dom.test.ts": {
+      "mode": "100644",
+      "blob": "3440feaa09d42bfb7e86aa3c3ced11a265079a5b"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/tests/unit/presentation/display/MediaPlayerState.dom.test.ts": {
+      "mode": "100644",
+      "blob": "d81225eec12035852128cba0dbb2aa3e0f519e8f"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/tests/unit/presentation/display/StepperGroup.dom.test.ts": {
+      "mode": "100644",
+      "blob": "0ef35b9e89ad76afbb76e389dcb5d6ea154e39f1"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/tests/unit/presentation/feedback/FeedbackOwnership.dom.test.ts": {
+      "mode": "100644",
+      "blob": "6ef0953882a557000286b5da0243c85e805ff089"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/tests/unit/presentation/forms/ExactNumberInput.dom.test.ts": {
+      "mode": "100644",
+      "blob": "19379c527a7a5b1314ddd9a4969b4a6fa9c78a19"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/tests/unit/presentation/forms/InputInteraction.dom.test.ts": {
+      "mode": "100644",
+      "blob": "6e767519affdb400dd756ce58f139cdadc921c14"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/tests/unit/presentation/forms/KeyboardExit.browser.test.ts": {
+      "mode": "100644",
+      "blob": "3685240d1280f915743cc7f9345896b23c7222f9"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/tests/unit/presentation/forms/NativeFormState.dom.test.ts": {
+      "mode": "100644",
+      "blob": "6feeb8f14631f8ec67325f997072b06128511a47"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/tests/unit/presentation/forms/PickerSafety.dom.test.ts": {
+      "mode": "100644",
+      "blob": "2fcd22419fa84feaaee03be966b19bdf489684e0"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/tests/unit/presentation/layout/Navbar.dom.test.ts": {
+      "mode": "100644",
+      "blob": "31f0f6d7c72d4ef22f70e89a45f68c990523a7dd"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/tests/unit/presentation/layout/ResizablePanels.dom.test.ts": {
+      "mode": "100644",
+      "blob": "b5ff27646e12267cdcd881c5c2dd7663b6e79979"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/tests/unit/presentation/nav/InteractionSafety.dom.test.ts": {
+      "mode": "100644",
+      "blob": "2862bb6b1eb9a0dd5e0e6667e04cbf5478dfdc49"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/tests/unit/query/SessionBoundary.dom.test.ts": {
+      "mode": "100644",
+      "blob": "f0e7d24fc5e0559adbff32e30b4e41664b6207c6"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/tests/unit/router/RouteComponents.dom.test.ts": {
+      "mode": "100644",
+      "blob": "2ae61293a50edeeae03780aa57cabc8667e5e7d0"
+    },
+    "engineering/codebase/wow-two-front-vue-beta-sdk/vitest.config.ts": {
+      "mode": "100644",
+      "blob": "af13b8b35cfb69abfe4cd154a5067336e932d561"
+    },
+    "engineering/planning/planning.md": {
+      "mode": "100644",
+      "blob": "6fdcd2f0f3191f64a763b14ae598046dc4e13a51"
+    },
+    "engineering/planning/ui-sdk-conventions-sweep.md": {
+      "mode": "100644",
+      "blob": "57925d4a33ad5faffac3d7e38098f695946eedc8"
+    },
+    "engineering/planning/vue-port-track.md": {
+      "mode": "100644",
+      "blob": "500be65efb646ae0bf92a8bb031569efcbf3d37e"
+    }
+  },
+  "first_batch_staged": false,
+  "foreign_staged_paths": [
+    "engineering/architecture/component-catalog.md",
+    "engineering/architecture/gen-catalog.mjs",
+    "engineering/architecture/ocharo-studio-adoption.md",
+    "engineering/codebase/wow-two-front-beta-sdk/package.json",
+    "engineering/codebase/wow-two-front-beta-sdk/src/foundation/hooks/index.ts",
+    "engineering/codebase/wow-two-front-beta-sdk/src/foundation/hooks/useVisitInvitation/index.ts",
+    "engineering/codebase/wow-two-front-beta-sdk/src/foundation/hooks/useVisitInvitation/useVisitInvitation.ts",
+    "engineering/codebase/wow-two-front-beta-sdk/src/foundation/storage/NamespacedBroker.ts",
+    "engineering/codebase/wow-two-front-beta-sdk/src/foundation/storage/StorageBroker.ts",
+    "engineering/codebase/wow-two-front-beta-sdk/src/foundation/sync/LatestRevisionQueue.ts",
+    "engineering/codebase/wow-two-front-beta-sdk/src/foundation/sync/index.ts",
+    "engineering/codebase/wow-two-front-beta-sdk/src/presentation/forms/index.ts",
+    "engineering/codebase/wow-two-front-beta-sdk/src/presentation/forms/pointControl/PointControl.tsx",
+    "engineering/codebase/wow-two-front-beta-sdk/src/presentation/forms/pointControl/index.ts",
+    "engineering/codebase/wow-two-front-beta-sdk/src/router/CreateAppRouter.tsx",
+    "engineering/codebase/wow-two-front-beta-sdk/tests/stories/presentation/forms/pointControl/PointControl.stories.tsx",
+    "engineering/codebase/wow-two-front-beta-sdk/tests/unit/foundation/hooks/useVisitInvitation/useVisitInvitation.test.ts",
+    "engineering/codebase/wow-two-front-beta-sdk/tests/unit/foundation/storage/storage.test.ts",
+    "engineering/codebase/wow-two-front-beta-sdk/tests/unit/foundation/sync/latestRevisionQueue.test.ts",
+    "engineering/codebase/wow-two-front-beta-sdk/tests/unit/router/CreateAppRouter.test.tsx",
+    "engineering/codebase/wow-two-front-beta-sdk/tsup.config.ts",
+    "engineering/codebase/wow-two-front-beta-sdk/vitest.config.ts"
+  ],
+  "first_batch_exclusive": false,
+  "foreign_staged_backup": {
+    "path": "/private/tmp/ocharo-staged-during-vue-commits.diff",
+    "sha256": "ff6a3e9ab5636c025da288d60ecefc4859ed50b25944ca5614129f4ee9668c8e",
+    "restore_authorized": true,
+    "authorization": "User explicitly approved temporarily unstaging and restoring the 20 Ocharo/React staged files in this chat on 2026-09-26.",
+    "note": "Two React router paths joined Ocharo staging before isolation; included in approved temporary preservation."
+  },
+  "foreign_staged_index_blobs": {
+    "engineering/architecture/component-catalog.md": {
+      "mode": "100644",
+      "blob": "920dc444ca261444ed9666f0708bf21fcba62e59"
+    },
+    "engineering/architecture/gen-catalog.mjs": {
+      "mode": "100644",
+      "blob": "48362199d39f92a24ba59dc2587f67d1b6fe9d42"
+    },
+    "engineering/architecture/ocharo-studio-adoption.md": {
+      "mode": "100644",
+      "blob": "df37a2c3de8e0c474973edeb6097311df02c0eea"
+    },
+    "engineering/codebase/wow-two-front-beta-sdk/package.json": {
+      "mode": "100644",
+      "blob": "98b916bfcb791d864aa90e270dbd923f17818264"
+    },
+    "engineering/codebase/wow-two-front-beta-sdk/src/foundation/hooks/index.ts": {
+      "mode": "100644",
+      "blob": "4badfdec4a42151e5987390779db303390726cc2"
+    },
+    "engineering/codebase/wow-two-front-beta-sdk/src/foundation/hooks/useVisitInvitation/index.ts": {
+      "mode": "100644",
+      "blob": "d69e1756f284b76f7abb26e83a30cfa3ab7c9c5a"
+    },
+    "engineering/codebase/wow-two-front-beta-sdk/src/foundation/hooks/useVisitInvitation/useVisitInvitation.ts": {
+      "mode": "100644",
+      "blob": "516d4a6eeaca9a98fe1e830f23bce0101e289e27"
+    },
+    "engineering/codebase/wow-two-front-beta-sdk/src/foundation/storage/NamespacedBroker.ts": {
+      "mode": "100644",
+      "blob": "33cfefd38e00ea17ab5ea2ae9068fb55a6871827"
+    },
+    "engineering/codebase/wow-two-front-beta-sdk/src/foundation/storage/StorageBroker.ts": {
+      "mode": "100644",
+      "blob": "ac4810c2dedea842bd030d55e1b9324504df0ce2"
+    },
+    "engineering/codebase/wow-two-front-beta-sdk/src/foundation/sync/LatestRevisionQueue.ts": {
+      "mode": "100644",
+      "blob": "b80603315b27695ff737b9404ac3e9e8433878da"
+    },
+    "engineering/codebase/wow-two-front-beta-sdk/src/foundation/sync/index.ts": {
+      "mode": "100644",
+      "blob": "1852e95a1a2ab59bb2b478dce10c1c437d83a62f"
+    },
+    "engineering/codebase/wow-two-front-beta-sdk/src/presentation/forms/index.ts": {
+      "mode": "100644",
+      "blob": "5638e0ef952e3c80254e89048f3ebfb7d900ec6b"
+    },
+    "engineering/codebase/wow-two-front-beta-sdk/src/presentation/forms/pointControl/PointControl.tsx": {
+      "mode": "100644",
+      "blob": "0e412ca66c5aaf80ac7f0a30df68a871228de192"
+    },
+    "engineering/codebase/wow-two-front-beta-sdk/src/presentation/forms/pointControl/index.ts": {
+      "mode": "100644",
+      "blob": "636c05a66f55bba7cf924954ec593e0d0d27c7dd"
+    },
+    "engineering/codebase/wow-two-front-beta-sdk/src/router/CreateAppRouter.tsx": {
+      "mode": "100644",
+      "blob": "bae4088a2f41606c4fc015fcc8662d3a0ac67f15"
+    },
+    "engineering/codebase/wow-two-front-beta-sdk/tests/stories/presentation/forms/pointControl/PointControl.stories.tsx": {
+      "mode": "100644",
+      "blob": "67873296316df98da172325338744286a134e326"
+    },
+    "engineering/codebase/wow-two-front-beta-sdk/tests/unit/foundation/hooks/useVisitInvitation/useVisitInvitation.test.ts": {
+      "mode": "100644",
+      "blob": "773fd31de60ae16bf6463905256d06a6c330fcc3"
+    },
+    "engineering/codebase/wow-two-front-beta-sdk/tests/unit/foundation/storage/storage.test.ts": {
+      "mode": "100644",
+      "blob": "57a138ef538dfe0d39d9655d5bfbe8489d06a2aa"
+    },
+    "engineering/codebase/wow-two-front-beta-sdk/tests/unit/foundation/sync/latestRevisionQueue.test.ts": {
+      "mode": "100644",
+      "blob": "194ff63be543baba37f54abd0ef524642983a50d"
+    },
+    "engineering/codebase/wow-two-front-beta-sdk/tests/unit/router/CreateAppRouter.test.tsx": {
+      "mode": "100644",
+      "blob": "ffeee3a08b942568ccb312fc846359c27f23970e"
+    },
+    "engineering/codebase/wow-two-front-beta-sdk/tsup.config.ts": {
+      "mode": "100644",
+      "blob": "fd3c95eeaa84301114821e1a4bca4e8e7c57c353"
+    },
+    "engineering/codebase/wow-two-front-beta-sdk/vitest.config.ts": {
+      "mode": "100644",
+      "blob": "90ce24548e780be982dc16e06cedecb6595c1cea"
+    }
+  },
+  "documentation_refresh": "Three handoff documents corrected after source commits; no implementation changes.",
+  "foreign_staged_restored": true,
+  "concurrent_changes_after_commit": [
+    "engineering/codebase/wow-two-front-vue-beta-sdk/package.json",
+    "engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/forms/index.ts"
+  ],
+  "identity_repair": {
+    "date": "2026-09-26",
+    "performed_by": "human",
+    "name": "Sultonbek Rakhimov",
+    "email": "sultonbek.rakhimov@gmail.com",
+    "backup_ref": "refs/backup/vue-identity-755a111cbf97",
+    "remote_main_verified": "f4fe5c6477bc83a344e8c10cc4d6467dabf176b8",
+    "trees_messages_dates_preserved": true,
+    "repository_identity_pinned": true,
+    "working_state_preserved_at_repair": "human script completed both snapshots; subsequent concurrent changes remain outside this task",
+    "old_to_new": {
+      "a83856199935d64281e867fdfaf6870ee1c3f172": "99f832b7c60e45b32e5689d78f05cd612664b0d3",
+      "b0b1d2048e9ead6f211aa5db4e5590dbcd024766": "c405ed1df50d0527564010a79f3542f50047682b",
+      "bd921078b0e2b3309aa5e6c642c6cbc6cd1a033a": "4001b1fe228802953d464922e65292dfc44283cc",
+      "c0ab3e14d362ab887bfd394985a75748ab160b00": "c094ce63d0f7c8789928db565409ee6464b04fdd",
+      "75dfb59a3912a86013546c1a475978ba44224fb8": "cbadbd416a662659908956b706a9219e3660ef0f"
+    },
+    "signatures_verified": true,
+    "backup_ref_verified": true
+  },
+  "release_fixture_followup": {
+    "commit": "8a80db88cdf97ad8392bc6b8b3f490eea416e750",
+    "subject": "test: awaited iframe readiness before focus restoration checks",
+    "path": "engineering/codebase/wow-two-front-vue-beta-sdk/tests/unit/foundation/primitives/FocusScope.browser.test.ts",
+    "blob": "e51956a3d490977ef4a7026bcb6621988032f69f",
+    "linux_tests_passed": 2101,
+    "linux_test_files_passed": 172,
+    "personal_identity_verified": true,
+    "signature_verified": true,
+    "foreign_staged_paths_restored": 39,
+    "foreign_staged_restored": true,
+    "remaining_unstaged_tracked_work_preserved": true,
+    "backup": "/private/tmp/vue-focus-commit-20260926/",
+    "status": "pushed; hosted release and public npm artifact verified",
+    "release_run": 36189754639,
+    "release_conclusion": "success",
+    "release_version": "0.0.7",
+    "release_commit": "3295e9f1173063f0f50d45de4732bf3a819b918d",
+    "release_tag": "ui-vue-v0.0.7",
+    "npm_accepted": true,
+    "public_npm_verified": true,
+    "public_npm_verified_at": "2026-09-25T21:55:54.998Z",
+    "public_npm_evidence": "/private/tmp/ui-vue-0.0.7-verification.json",
+    "tarball_sha1": "58f11a0949c189c10de747e6c6962f6f577b28f5",
+    "packed_exports_verified": 72
+  }
+}

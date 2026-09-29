@@ -1,0 +1,595 @@
+{
+  "method": "sRGB luminance; alpha composited over declared adjacent surface; decorative dividers excluded",
+  "sourceSha256": "b6003ea8c4236041592e578129bcd7cc07b64c1ed59236522d90ef7250505fdc",
+  "pairs": [
+    {
+      "mode": "light",
+      "pair": "foreground/background",
+      "ratio": 14.309432065402547,
+      "minimum": 4.5
+    },
+    {
+      "mode": "light",
+      "pair": "foreground/card",
+      "ratio": 15.599718491603525,
+      "minimum": 4.5
+    },
+    {
+      "mode": "light",
+      "pair": "foreground/popover",
+      "ratio": 15.599718491603525,
+      "minimum": 4.5
+    },
+    {
+      "mode": "light",
+      "pair": "foreground/muted",
+      "ratio": 13.087595303925756,
+      "minimum": 4.5
+    },
+    {
+      "mode": "light",
+      "pair": "muted-foreground/background",
+      "ratio": 5.704171752291298,
+      "minimum": 4.5
+    },
+    {
+      "mode": "light",
+      "pair": "muted-foreground/card",
+      "ratio": 6.218518887178337,
+      "minimum": 4.5
+    },
+    {
+      "mode": "light",
+      "pair": "muted-foreground/popover",
+      "ratio": 6.218518887178337,
+      "minimum": 4.5
+    },
+    {
+      "mode": "light",
+      "pair": "muted-foreground/muted",
+      "ratio": 5.2171107208770575,
+      "minimum": 4.5
+    },
+    {
+      "mode": "light",
+      "pair": "subtle-foreground/background",
+      "ratio": 4.922254991007194,
+      "minimum": 4.5
+    },
+    {
+      "mode": "light",
+      "pair": "subtle-foreground/card",
+      "ratio": 5.366096421761975,
+      "minimum": 4.5
+    },
+    {
+      "mode": "light",
+      "pair": "subtle-foreground/popover",
+      "ratio": 5.366096421761975,
+      "minimum": 4.5
+    },
+    {
+      "mode": "light",
+      "pair": "subtle-foreground/muted",
+      "ratio": 4.501959337770449,
+      "minimum": 4.5
+    },
+    {
+      "mode": "light",
+      "pair": "primary-foreground/primary",
+      "ratio": 6.169998325412062,
+      "minimum": 4.5
+    },
+    {
+      "mode": "light",
+      "pair": "primary-soft-foreground/primary-soft",
+      "ratio": 7.185662571868862,
+      "minimum": 4.5
+    },
+    {
+      "mode": "light",
+      "pair": "primary foreground/90% hover on card",
+      "ratio": 5.0542095573520305,
+      "minimum": 4.5
+    },
+    {
+      "mode": "light",
+      "pair": "primary foreground/90% hover on background",
+      "ratio": 5.121351570733355,
+      "minimum": 4.5
+    },
+    {
+      "mode": "light",
+      "pair": "accent-foreground/accent",
+      "ratio": 5.473250081210842,
+      "minimum": 4.5
+    },
+    {
+      "mode": "light",
+      "pair": "accent-soft-foreground/accent-soft",
+      "ratio": 6.730003987041354,
+      "minimum": 4.5
+    },
+    {
+      "mode": "light",
+      "pair": "accent foreground/90% hover on card",
+      "ratio": 4.50247020441653,
+      "minimum": 4.5
+    },
+    {
+      "mode": "light",
+      "pair": "accent foreground/90% hover on background",
+      "ratio": 4.562742064381111,
+      "minimum": 4.5
+    },
+    {
+      "mode": "light",
+      "pair": "destructive-foreground/destructive",
+      "ratio": 6.477143294275617,
+      "minimum": 4.5
+    },
+    {
+      "mode": "light",
+      "pair": "destructive-soft-foreground/destructive-soft",
+      "ratio": 6.883839319308563,
+      "minimum": 4.5
+    },
+    {
+      "mode": "light",
+      "pair": "destructive foreground/90% hover on card",
+      "ratio": 5.497384964033895,
+      "minimum": 4.5
+    },
+    {
+      "mode": "light",
+      "pair": "destructive foreground/90% hover on background",
+      "ratio": 5.569274368732657,
+      "minimum": 4.5
+    },
+    {
+      "mode": "light",
+      "pair": "success-foreground/success",
+      "ratio": 5.96409242512615,
+      "minimum": 4.5
+    },
+    {
+      "mode": "light",
+      "pair": "success-soft-foreground/success-soft",
+      "ratio": 7.0472599463459344,
+      "minimum": 4.5
+    },
+    {
+      "mode": "light",
+      "pair": "success foreground/90% hover on card",
+      "ratio": 4.834442414533662,
+      "minimum": 4.5
+    },
+    {
+      "mode": "light",
+      "pair": "success foreground/90% hover on background",
+      "ratio": 4.901212411441574,
+      "minimum": 4.5
+    },
+    {
+      "mode": "light",
+      "pair": "warning-foreground/warning",
+      "ratio": 5.963201460690541,
+      "minimum": 4.5
+    },
+    {
+      "mode": "light",
+      "pair": "warning-soft-foreground/warning-soft",
+      "ratio": 6.848776322759636,
+      "minimum": 4.5
+    },
+    {
+      "mode": "light",
+      "pair": "warning foreground/90% hover on card",
+      "ratio": 4.83132894025203,
+      "minimum": 4.5
+    },
+    {
+      "mode": "light",
+      "pair": "warning foreground/90% hover on background",
+      "ratio": 4.900892208317388,
+      "minimum": 4.5
+    },
+    {
+      "mode": "light",
+      "pair": "info-foreground/info",
+      "ratio": 6.004110107670544,
+      "minimum": 4.5
+    },
+    {
+      "mode": "light",
+      "pair": "info-soft-foreground/info-soft",
+      "ratio": 6.756519843232508,
+      "minimum": 4.5
+    },
+    {
+      "mode": "light",
+      "pair": "info foreground/90% hover on card",
+      "ratio": 4.847334767412768,
+      "minimum": 4.5
+    },
+    {
+      "mode": "light",
+      "pair": "info foreground/90% hover on background",
+      "ratio": 4.913745529424002,
+      "minimum": 4.5
+    },
+    {
+      "mode": "light",
+      "pair": "input/background",
+      "ratio": 3.412967272834747,
+      "minimum": 3
+    },
+    {
+      "mode": "light",
+      "pair": "input/card",
+      "ratio": 3.720715709326098,
+      "minimum": 3
+    },
+    {
+      "mode": "light",
+      "pair": "input/popover",
+      "ratio": 3.720715709326098,
+      "minimum": 3
+    },
+    {
+      "mode": "light",
+      "pair": "input/muted",
+      "ratio": 3.1215448836996007,
+      "minimum": 3
+    },
+    {
+      "mode": "light",
+      "pair": "border-strong/background",
+      "ratio": 3.7515963160411263,
+      "minimum": 3
+    },
+    {
+      "mode": "light",
+      "pair": "border-strong/card",
+      "ratio": 4.08987905018801,
+      "minimum": 3
+    },
+    {
+      "mode": "light",
+      "pair": "border-strong/popover",
+      "ratio": 4.08987905018801,
+      "minimum": 3
+    },
+    {
+      "mode": "light",
+      "pair": "border-strong/muted",
+      "ratio": 3.431259473026736,
+      "minimum": 3
+    },
+    {
+      "mode": "light",
+      "pair": "ring/background",
+      "ratio": 5.659664431037817,
+      "minimum": 3
+    },
+    {
+      "mode": "light",
+      "pair": "ring/card",
+      "ratio": 6.169998325412062,
+      "minimum": 3
+    },
+    {
+      "mode": "light",
+      "pair": "ring/popover",
+      "ratio": 6.169998325412062,
+      "minimum": 3
+    },
+    {
+      "mode": "light",
+      "pair": "ring/muted",
+      "ratio": 5.176403737821053,
+      "minimum": 3
+    },
+    {
+      "mode": "light",
+      "pair": "inactive segmented label/muted",
+      "ratio": 5.329702570466928,
+      "minimum": 4.5
+    },
+    {
+      "mode": "dark",
+      "pair": "foreground/background",
+      "ratio": 16.421053633021284,
+      "minimum": 4.5
+    },
+    {
+      "mode": "dark",
+      "pair": "foreground/card",
+      "ratio": 14.669284316731801,
+      "minimum": 4.5
+    },
+    {
+      "mode": "dark",
+      "pair": "foreground/popover",
+      "ratio": 13.420487797773154,
+      "minimum": 4.5
+    },
+    {
+      "mode": "dark",
+      "pair": "foreground/muted",
+      "ratio": 12.20106995760599,
+      "minimum": 4.5
+    },
+    {
+      "mode": "dark",
+      "pair": "muted-foreground/background",
+      "ratio": 8.548648797643727,
+      "minimum": 4.5
+    },
+    {
+      "mode": "dark",
+      "pair": "muted-foreground/card",
+      "ratio": 7.636693877203461,
+      "minimum": 4.5
+    },
+    {
+      "mode": "dark",
+      "pair": "muted-foreground/popover",
+      "ratio": 6.986581947794135,
+      "minimum": 4.5
+    },
+    {
+      "mode": "dark",
+      "pair": "muted-foreground/muted",
+      "ratio": 6.351764287116878,
+      "minimum": 4.5
+    },
+    {
+      "mode": "dark",
+      "pair": "subtle-foreground/background",
+      "ratio": 7.257117172161678,
+      "minimum": 4.5
+    },
+    {
+      "mode": "dark",
+      "pair": "subtle-foreground/card",
+      "ratio": 6.482940589402943,
+      "minimum": 4.5
+    },
+    {
+      "mode": "dark",
+      "pair": "subtle-foreground/popover",
+      "ratio": 5.931047704524575,
+      "minimum": 4.5
+    },
+    {
+      "mode": "dark",
+      "pair": "subtle-foreground/muted",
+      "ratio": 5.392138427100259,
+      "minimum": 4.5
+    },
+    {
+      "mode": "dark",
+      "pair": "primary-foreground/primary",
+      "ratio": 6.586444205408103,
+      "minimum": 4.5
+    },
+    {
+      "mode": "dark",
+      "pair": "primary-soft-foreground/primary-soft",
+      "ratio": 8.216381665350083,
+      "minimum": 4.5
+    },
+    {
+      "mode": "dark",
+      "pair": "primary foreground/90% hover on card",
+      "ratio": 5.6199979657325585,
+      "minimum": 4.5
+    },
+    {
+      "mode": "dark",
+      "pair": "primary foreground/90% hover on background",
+      "ratio": 5.543649928024563,
+      "minimum": 4.5
+    },
+    {
+      "mode": "dark",
+      "pair": "accent-foreground/accent",
+      "ratio": 7.773659432307853,
+      "minimum": 4.5
+    },
+    {
+      "mode": "dark",
+      "pair": "accent-soft-foreground/accent-soft",
+      "ratio": 8.4565879901057,
+      "minimum": 4.5
+    },
+    {
+      "mode": "dark",
+      "pair": "accent foreground/90% hover on card",
+      "ratio": 6.509900700720877,
+      "minimum": 4.5
+    },
+    {
+      "mode": "dark",
+      "pair": "accent foreground/90% hover on background",
+      "ratio": 6.432397103788646,
+      "minimum": 4.5
+    },
+    {
+      "mode": "dark",
+      "pair": "destructive-foreground/destructive",
+      "ratio": 7.2655982566116695,
+      "minimum": 4.5
+    },
+    {
+      "mode": "dark",
+      "pair": "destructive-soft-foreground/destructive-soft",
+      "ratio": 8.395900939786685,
+      "minimum": 4.5
+    },
+    {
+      "mode": "dark",
+      "pair": "destructive foreground/90% hover on card",
+      "ratio": 6.143206731975204,
+      "minimum": 4.5
+    },
+    {
+      "mode": "dark",
+      "pair": "destructive foreground/90% hover on background",
+      "ratio": 6.068306166834025,
+      "minimum": 4.5
+    },
+    {
+      "mode": "dark",
+      "pair": "success-foreground/success",
+      "ratio": 8.200574061114372,
+      "minimum": 4.5
+    },
+    {
+      "mode": "dark",
+      "pair": "success-soft-foreground/success-soft",
+      "ratio": 8.479301109317202,
+      "minimum": 4.5
+    },
+    {
+      "mode": "dark",
+      "pair": "success foreground/90% hover on card",
+      "ratio": 6.870663612533579,
+      "minimum": 4.5
+    },
+    {
+      "mode": "dark",
+      "pair": "success foreground/90% hover on background",
+      "ratio": 6.787774452665237,
+      "minimum": 4.5
+    },
+    {
+      "mode": "dark",
+      "pair": "warning-foreground/warning",
+      "ratio": 9.136519150521032,
+      "minimum": 4.5
+    },
+    {
+      "mode": "dark",
+      "pair": "warning-soft-foreground/warning-soft",
+      "ratio": 8.74819936295406,
+      "minimum": 4.5
+    },
+    {
+      "mode": "dark",
+      "pair": "warning foreground/90% hover on card",
+      "ratio": 7.629719299573292,
+      "minimum": 4.5
+    },
+    {
+      "mode": "dark",
+      "pair": "warning foreground/90% hover on background",
+      "ratio": 7.5423802349785065,
+      "minimum": 4.5
+    },
+    {
+      "mode": "dark",
+      "pair": "info-foreground/info",
+      "ratio": 7.494810960838417,
+      "minimum": 4.5
+    },
+    {
+      "mode": "dark",
+      "pair": "info-soft-foreground/info-soft",
+      "ratio": 8.367657861310159,
+      "minimum": 4.5
+    },
+    {
+      "mode": "dark",
+      "pair": "info foreground/90% hover on card",
+      "ratio": 6.302622381462805,
+      "minimum": 4.5
+    },
+    {
+      "mode": "dark",
+      "pair": "info foreground/90% hover on background",
+      "ratio": 6.22369677829605,
+      "minimum": 4.5
+    },
+    {
+      "mode": "dark",
+      "pair": "input/background",
+      "ratio": 4.287827495222037,
+      "minimum": 3
+    },
+    {
+      "mode": "dark",
+      "pair": "input/card",
+      "ratio": 3.830409548265952,
+      "minimum": 3
+    },
+    {
+      "mode": "dark",
+      "pair": "input/popover",
+      "ratio": 3.5043266933168167,
+      "minimum": 3
+    },
+    {
+      "mode": "dark",
+      "pair": "input/muted",
+      "ratio": 3.1859151309357845,
+      "minimum": 3
+    },
+    {
+      "mode": "dark",
+      "pair": "border-strong/background",
+      "ratio": 6.274065317642255,
+      "minimum": 3
+    },
+    {
+      "mode": "dark",
+      "pair": "border-strong/card",
+      "ratio": 5.60475898946972,
+      "minimum": 3
+    },
+    {
+      "mode": "dark",
+      "pair": "border-strong/popover",
+      "ratio": 5.127625724851714,
+      "minimum": 3
+    },
+    {
+      "mode": "dark",
+      "pair": "border-strong/muted",
+      "ratio": 4.661717303279901,
+      "minimum": 3
+    },
+    {
+      "mode": "dark",
+      "pair": "ring/background",
+      "ratio": 6.861931000250691,
+      "minimum": 3
+    },
+    {
+      "mode": "dark",
+      "pair": "ring/card",
+      "ratio": 6.129912187976516,
+      "minimum": 3
+    },
+    {
+      "mode": "dark",
+      "pair": "ring/popover",
+      "ratio": 5.608072619216101,
+      "minimum": 3
+    },
+    {
+      "mode": "dark",
+      "pair": "ring/muted",
+      "ratio": 5.098509635822917,
+      "minimum": 3
+    },
+    {
+      "mode": "dark",
+      "pair": "inactive segmented label/muted",
+      "ratio": 6.819274241508015,
+      "minimum": 4.5
+    }
+  ],
+  "failures": []
+}

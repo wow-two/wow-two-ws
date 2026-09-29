@@ -1,0 +1,65 @@
+{
+  "baselineCommit": "132e14c",
+  "candidate": "uncommitted two-file visual trial",
+  "route": "/app/ab7f00a9-efdb-4ba3-87ae-cd442dedfa69/edit",
+  "data": "disposable local PostgreSQL; guest-owned static URL code",
+  "content": {
+    "name": "Spring menu table tent",
+    "url": "https://example.com/menu"
+  },
+  "viewport": {
+    "desktop": [
+      1440,
+      1000
+    ],
+    "mobile": [
+      390,
+      844
+    ]
+  },
+  "raster": {
+    "desktop": [
+      1440,
+      1000
+    ],
+    "mobile": [
+      375,
+      812
+    ]
+  },
+  "browser": {
+    "surface": "Codex in-app browser",
+    "devicePixelRatio": 1,
+    "rootFontSize": "16px",
+    "zoom": "1"
+  },
+  "overflow": {
+    "before390": {
+      "clientWidth": 375,
+      "scrollWidth": 604
+    },
+    "after390": {
+      "clientWidth": 375,
+      "scrollWidth": 375
+    },
+    "after360": {
+      "clientWidth": 345,
+      "scrollWidth": 345
+    }
+  },
+  "captureNote": "Final images use native viewport captures. Experimental full-page and transient resize frames were discarded. Mobile raster uses the browser capture dimensions; before/after are matched.",
+  "images": {
+    "after-edit-dark-desktop-viewport.jpg": "1ee9ead411b2d7391df7fa3ac2cc8c07f65498394a4906240f03b7d312ed0319",
+    "after-edit-light-desktop-viewport.jpg": "0c13778d4957ecee08f305e3aebc635e1311147e70d4afdbb9901a70db827d74",
+    "after-edit-light-mobile-viewport.jpg": "6df6df65dcc3c8f2c46ecdeabd737303dcf6c45a6bc7eeaa83b1d6fad54600b5",
+    "before-edit-dark-desktop-viewport.jpg": "0d7fe95bb65972d0dfa5ee2d8a3fd131a0f12310844849c1738211dc50d806f6",
+    "before-edit-light-desktop-viewport.jpg": "406cfd62d94f13ad8dcae084217afe6b1d0bdacb6bbe7e6ab0e8f2b10382eddc",
+    "before-edit-light-mobile-viewport.jpg": "dd6516bedf5e0caa1f6f224e0cd19dc73fa192111d951e4be1023ea31293499d"
+  },
+  "computedCandidate": {
+    "headingFont": "Geist Variable",
+    "headingSize": "24px",
+    "headingWeight": "600",
+    "lightHelperColor": "rgb(84, 89, 111)"
+  }
+}

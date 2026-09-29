@@ -1,6 +1,6 @@
 # Frontend conventions and SDK sweep
 
-*Last updated: 2026-09-13*
+*Last updated: 2026-09-26*
 
 ## Scope
 
@@ -9,14 +9,108 @@
 - User permits radical SDK changes and confirms no production consumers.
 - Conventions root: `conventions/development/frontend/` (363 Markdown files).
 - SDK repo: `workbench/wow-two-sdk-beta/wow-two-sdk-beta.ui/`.
-- Existing track: SDK `engineering/planning/ui-sdk-conventions-sweep.md`; retain its IDs and completed work.
+- Existing track: folded on 2026-09-29 into the SDK's `engineering/planning/version-track/v0.1/v0.1.md` (iterations 10–11); open work in its `backlog.md`, method and gates in `engineering/development/rules.md`.
 - Active SDK scope: Vue only, confirmed 2026-09-10. React library/release is parked.
 - On 2026-09-13 the owner added a full SDK optimization pass, all playground/showcase/theme apps, and CI repair. React app-only corrections are authorized.
 - User requests a full sweep with autonomous resolutions; retain only genuine decisions for brainstorming.
 
 ---
 
-## State
+## Current milestone — ForeverPin adoption, 2026-09-26
+
+- Native escaped directive enabled ordinary commits for ForeverPin in this chat. Workspace/template permissions remain OFF.
+- All standing ForeverPin changes were committed first, with personal signatures: `3718f7c` routing,
+  `f0d9203` CI/release verification, and `ae04e2b` gap analysis. The tree was clean before new work.
+- `aeea5ba` closed the owner-accepted internal v0.9 milestone, moved all 41 unchecked rows exactly once into
+  planned v0.11, preserved 22 parked hero rows, and opened v0.10. The separate backend lane remains unchecked.
+- `132e14c` moved the app into `forever-pin.frontend-services/apps/web`, keeping root pnpm commands/IDE paths stable.
+  All 134 source/test files moved byte-for-byte; dependency resolutions were unchanged. The app remains React.
+- `0d3eba0` records the [full frontend audit](../../../workbench/ventures/10x-venture-forever-pin/engineering/architecture/frontend-adoption.md),
+  verification, and adoption position. Only the frontend workspace checkbox is complete; Vue/backend adoption remain open.
+- Verified ForeverPin typecheck, 4 unit tests, production build, frozen install, API BuildSpa target, 14 matching artifact
+  hashes, Docker SPA stage, API HTML/assets, and real local guest/create/dashboard/edit/preview flows.
+- [Frontend workspace convention](../../../conventions/development/frontend/shapes/app/architecture/workspace.md) now requires
+  private pnpm root + apps/web from day one; optional packages and peer apps do not move existing paths.
+  Runtime federation remains a separate decision. Conventions/skill/generator changes are uncommitted.
+- Actual product-template source now uses Vue/ui-vue 0.0.7 in apps/web. Its typecheck/build, 6 tests, lint/format,
+  Docker SPA stage, and independently renamed frozen-install/build/test/deploy fixture pass. Template remains uncommitted.
+- [Visual comparison](foreverpin-visual-20260926/comparison.md): 6 matched native screenshots, source hashes and viewport metrics.
+  The owner accepted the AppLayout.tsx/index.css candidate; signed commit `59c708b` records it.
+  Mobile overflow is gone at 390/360px; computed typography and source contrast checked. Candidate build/typecheck pass.
+- Owner-authorized [palette refinement](foreverpin-palette-20260926/comparison.md) applies neutral surfaces, separate
+  structural/control borders, readable inactive tabs, and explicit semantic feedback pairs in both modes.
+  Signed palette commit `6264a34` contains only this frontend/design batch; concurrent backend work remains separate.
+  Typecheck/build and 98 declared contrast pairs pass; matched light/dark/mobile screenshots are retained.
+- Managed runtimes remain available for this review: PostgreSQL container `foreverpin-frontend-review-db-20260926`
+  on 127.0.0.1:15492; API HTTPS 7020/HTTP 7021 (session 93693); HTTPS Vite 7024 (session 47268).
+  These belong to this task; keep them while review continues, stop them when review ends. Do not touch Wheelhouse/Ocharo containers.
+- Browser tab 1 is handed off at the disposable edit route. Viewport override reset. Capture metadata identifies the test record.
+- The owner confirmed the after palette; `6264a34` is the accepted visual baseline for Vue.
+- Implement Vue adoption against published 0.0.7;
+  use the audit's correctness/interaction matrix. Do not complete v0.10 until the separate backend lane and owner acceptance finish.
+
+## Prior SDK milestone — 2026-09-26
+
+- Pushed candidate `cbadbd4` reached [release CI](vue-release-20260926.md), which stopped at one Firefox
+  iframe-fixture failure (2,100 passed). Reproduced under Linux; the corrected load/activation fixture
+  passes all 2,101 tests across 172 files. After explicit index-coordination approval, the one-file correction
+  was committed as `8a80db8` with a verified personal GPG signature. All 39 Ocharo staged blobs/modes and remaining
+  unstaged tracked work were preserved. The owner pushed the correction; release run `36189754639` matches
+  `8a80db8`. Run `36189754639` now passed every gate, including all 2,101 tests and packed-consumer checks.
+  Public npm now serves `latest=0.0.7`; registry/tarball hashes, manifest and all 72 exports match.
+  The GitHub release/tag resolve to bot commit `3295e9f`, which changes only the Vue manifest version and
+  directly follows tested source `8a80db8`. This task did not pull over Ocharo's staged manifest.
+- Identity repair complete: the owner [corrected all five commit identities](commit-identity-repair.md)
+  to personal Gmail and pinned the repository identity. Original trees, messages and dates match;
+  the script reported unchanged index/worktree. The owner pushed the corrected chain.
+  Corrected sweep tip is `cbadbd4`; the release-fixture follow-up is `8a80db8`. Other tasks' work remains separate.
+- The owner expanded the active pass to the entire Vue SDK, including rewrites and missing reusable capabilities.
+  Manual per-component review is optional. React remains parked; QR rendering remains ForeverPin-owned.
+- Source baseline is `f4fe5c6477bc83a344e8c10cc4d6467dabf176b8` plus earlier staged readiness changes.
+  Release `0.0.7` and its public tarball are independently verified above. Concurrent local manifest edits
+  are separate from the published source.
+- [Full implementation and coverage](../../../workbench/wow-two-sdk-beta/wow-two-sdk-beta.ui/engineering/architecture/analysis/vue-sdk-optimization/full-sweep-implementation.md)
+  records the complete capability pass, API migrations, source-family evidence and remaining proof limits.
+- Implemented exact editing/config/flags, session-owned HTTP/query/auth, form identities/validation/native types,
+  browser cleanup, localization, focus/menus, display/media/layout fixes and measured class-merge optimization.
+- Final combined gates pass: 2,025 unit/DOM/SSR tests; 57 Chromium/forced-colors/WebKit checks; 408 SFCs;
+  types, acyclic capability graph, lint/format, library/playground builds, 183 theme contrast pairs,
+  seven-family gallery smoke, 72 packed exports and a clean npm tarball consumer with strict Vue templates.
+- Firefox's installed runtime cannot launch on this Mac (`sandbox_extension_issue_file_to_process` permission
+  failure), even with native escalation. No OS/browser sandbox was weakened. Linux CI matrix includes Firefox;
+  the complete hosted matrix now passes. Live OAuth/device permissions and product visuals are not proved by mocks.
+- Consumer gzip measurements: Button 27,340→19,920 bytes; Text 22,746→15,089; Card 23,622→15,975.
+  Packed gates enforce explicit bundle budgets. HTTP grows to 3,589 bytes with cancellation/metadata contracts.
+- User enabled ordinary-commit autonomy for the preceding SDK turn; the scoped switch registered ON.
+  The subsequent commit received the generic workspace denial. No commit was created or guard bypassed.
+  Verified SDK index contains 445 sweep paths; cached whitespace check passes. The developer publishes.
+- [Commit permission repair](commit-permission-analysis.md), September 26: installed one persistent flag per repository.
+  OFF remains unchanged. ON survives replies/subagents; a different chat must explicitly reconfirm before committing.
+  Exact native user directives own mutations; the helper is read-only. Shared Git conventions and local entrypoints updated.
+  All 71 permission/adapter/lifecycle/staging tests pass. SDK/workspace flags remain absent (OFF); no commits ran.
+  The former shared-turn state collision was reproduced live while OFF. It fits the earlier failure, but the exact
+  historical writer was not journaled; the separate-legacy-hook diagnosis remains unproven.
+- September 26 commits complete: [five verified batches](commit-batches.md), `99f832b`, `c405ed1`, `4001b1f`,
+  `c094ce6`, `cbadbd4`, cover all 445 reviewed paths. Final committed blobs/modes match the manifest;
+  each commit contains exactly its planned paths. Implementation boundaries typecheck; focused tests pass (728 / 372).
+- Escaped directive fix installed after explicit approval: the parser accepts the exact Markdown-escaped
+  marker spelling and preserves the original native prompt as evidence. All 78 installed permission,
+  lifecycle and index tests pass. A fresh native escaped directive enabled SDK commits for this chat;
+  all five actual commits succeeded. SDK permission remains ON; workspace permission remains OFF.
+- Shared-index coordination: the owner approved temporary Ocharo staging isolation. Two React router files
+  joined the original 20 paths before isolation. All 22 exact staged blobs/modes were restored after committing.
+  Concurrent Ocharo Vue port changes appeared during this turn, including PointControl and package exports;
+  preserve those uncommitted changes. The [batch manifest](commit-batches.json) records the restoration evidence.
+- The owner confirmed moving away from React. Vue 3 / strict TypeScript / Vite / Tailwind v4 and `ui-vue` now
+  form the [frontend standard](../../../conventions/development/repo/repo-conventions.md#frontend-standard).
+  React is legacy maintenance/migration work; new React exceptions require explicit repository-scoped consent.
+  Seven convention/entrypoint files were updated and checked; they remain unstaged in the workspace.
+  The current Vue starter implementation is recorded above; templates/skills follow the framework standard.
+- Unrelated React edits include AlertModal and Ocharo adoption work; all remain outside the Vue sweep.
+- The corrected Vue candidate is published. ForeverPin v0.10 adoption is active;
+  playground/sandbox/theme-app optimization follows migration.
+
+## Prior sweep evidence
 
 - Full conventions reading complete; findings consolidated in [analysis](analysis.md).
 - Baseline/notation evidence: [LLA analysis](lla-analysis.md).
@@ -62,9 +156,9 @@
 
 ## Working tree
 
-- On 2026-09-13 the owner revoked agent commit authorization and restored the workspace commit ban.
-  Agents may stage cohesive dependency-complete batches; the owner commits and publishes.
-  Preserve unrelated workspace edits and wait for the owner's commit between staged batches.
+- Ordinary commit execution follows the current persistent repository switch and confirmed chat.
+  The owner activated SDK commits on September 26; five sweep commits are complete.
+  Preserve unrelated workspace edits. The owner publishes.
 
 - Root frontend app/library shape docs already had intentional edits; two old frontend handoffs were deleted.
 - SDK had 690 status entries, including staged work, at the baseline read.
@@ -82,7 +176,8 @@
 1. Read resolution reports; initial analysis findings are historical, not current defects.
 2. The owner-requested lossless-number prototype (row 44) is implemented and all gates pass; read its report for API boundaries.
 3. React library/release remains parked; all four demo apps are included in the optimization pass. The numeric prototype does not silently migrate all clients or native-number controls.
-4. The original conventions sweep is committed. The optimization batch is verified; prepare staged batches for human commits. The human publishes.
+4. The original conventions sweep is committed. The current Vue batch is verified; commit cohesive batches when
+   the native repository switch confirms this chat. The human publishes.
 5. The owner can push the SDK commits to run the Vue release workflow; it bumps and verifies the new tarball.
 6. Verify registry/tag/release state after publication, and brainstorm the documented follow-ups separately.
 
@@ -195,3 +290,8 @@
   `wow-two-sdk-beta/wow-two-sdk-beta.ui`, workflow `release-vue.yml`, label `Vue release`, with direct
   `npm publish` and `npm stage publish` permissions. The package remains public at `0.0.5` until the owner
   reruns the failed release; agents do not initiate publishing under the workspace Git policy.
+- Release closed September 19: the owner reran failed jobs for run `34998940096`; attempt 2 passed every
+  validation, build, browser-smoke, packed-consumer and source gate. npm published public
+  `@wow-two-beta/ui-vue@0.0.6` through the saved OIDC publisher with signed provenance. Release commit
+  `e2ca132`, tag `ui-vue-v0.0.6` and the matching GitHub release exist. A fresh-cache `npm pack` retrieved
+  the public artifact with integrity `sha512-n14JnUL46s4VZljI8qZkn8uEoBbmPHAoN2cXhrKFWz9qCX7yhXbPN/Xt59hgXM/OPsl3LGXRbc+AnV9PwhQRLA==`.

@@ -1,0 +1,20 @@
+{
+  "client": 1440,
+  "scroll": 1440,
+  "tokens": {
+    "background": "#f4f5f8",
+    "border": "#dce0e8",
+    "border-strong": "#737e93",
+    "card": "#ffffff",
+    "foreground": "#202331",
+    "input": "#7b8597",
+    "muted": "#e9ebf1",
+    "muted-foreground": "#586174",
+    "popover": "#ffffff",
+    "primary": "#7040d7",
+    "ring": "#7040d7",
+    "subtle-foreground": "#626b7c",
+    "warning": "#925500"
+  },
+  "viewport": 1440
+}

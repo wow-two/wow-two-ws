@@ -1,0 +1,71 @@
+{
+  "method": "WCAG sRGB relative luminance from source hex tokens; not a rendered browser accessibility verdict",
+  "pairs": [
+    {
+      "pair": "baseline light muted/canvas",
+      "foreground": "#6e7188",
+      "background": "#d9dde8",
+      "ratio": 3.529
+    },
+    {
+      "pair": "candidate light muted/canvas",
+      "foreground": "#54596f",
+      "background": "#d9dde8",
+      "ratio": 5.093
+    },
+    {
+      "pair": "baseline light subtle/card",
+      "foreground": "#9b9fb5",
+      "background": "#ebeef4",
+      "ratio": 2.253
+    },
+    {
+      "pair": "candidate light subtle/card",
+      "foreground": "#5b5f73",
+      "background": "#ebeef4",
+      "ratio": 5.427
+    },
+    {
+      "pair": "candidate light subtle/canvas",
+      "foreground": "#5b5f73",
+      "background": "#d9dde8",
+      "ratio": 4.643
+    },
+    {
+      "pair": "baseline dark subtle/card",
+      "foreground": "#6e6e76",
+      "background": "#1c1c1f",
+      "ratio": 3.364
+    },
+    {
+      "pair": "candidate dark subtle/card",
+      "foreground": "#858590",
+      "background": "#1c1c1f",
+      "ratio": 4.659
+    },
+    {
+      "pair": "candidate dark primary/card",
+      "foreground": "#9a71f8",
+      "background": "#1c1c1f",
+      "ratio": 4.931
+    },
+    {
+      "pair": "candidate dark primaryforeground/primary",
+      "foreground": "#171322",
+      "background": "#9a71f8",
+      "ratio": 5.285
+    },
+    {
+      "pair": "candidate light accentforeground/accent",
+      "foreground": "#ffffff",
+      "background": "#0f766e",
+      "ratio": 5.473
+    },
+    {
+      "pair": "candidate dark accentforeground/accent",
+      "foreground": "#042f2e",
+      "background": "#2dd4bf",
+      "ratio": 7.774
+    }
+  ]
+}

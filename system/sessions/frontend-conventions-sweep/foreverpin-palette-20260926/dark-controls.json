@@ -1,0 +1,21 @@
+{
+  "client": 1440,
+  "scroll": 1440,
+  "toggles": [
+    {
+      "background": "rgb(20, 21, 26)",
+      "color": "rgb(241, 243, 248)",
+      "pressed": "true",
+      "text": "Content",
+      "track": "rgb(42, 46, 58)"
+    },
+    {
+      "background": "rgba(0, 0, 0, 0)",
+      "color": "oklab(0.964049 -0.000133961 -0.00699019 / 0.7)",
+      "pressed": "false",
+      "text": "Design",
+      "track": "rgb(42, 46, 58)"
+    }
+  ],
+  "viewport": 1440
+}

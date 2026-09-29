@@ -1,0 +1,23 @@
+{
+  "baseline": "59c708b",
+  "palette": "6264a34",
+  "build": "typecheck and production build passed; /private/tmp/foreverpin-palette-build-20260926.log",
+  "screenshots": {
+    "after-dark-desktop.jpg": "8333632cf2d584330f77404f566c74629f5a87692251304f42394767bc8ffd0d",
+    "after-dark-focus.jpg": "b92f8d744fd5d4271fd8cf5373d616e08080dccd73660a32f67ac437182fd438",
+    "after-dark-menu.jpg": "e3ba745cc559990b7adf634aa2562768e44c34ec1ae3c9597385d5158078812a",
+    "after-design-light.jpg": "35cce9c81d68e51f69f10c2612e8561dd359f8fe38b58d8ac178aa8783c93796",
+    "after-light-desktop.jpg": "558500eb3ec87e4221b13439e9f5a02ba7097558982cadb2d07f66534807b111",
+    "after-light-mobile.jpg": "39f0b88e545688a4b2ca1be428682d68dca1fe2a6fbb917114d93778c346a930",
+    "before-dark-desktop.jpg": "346f8718b0d6b5ba1f92aa5ffd417d2fc6ee68630a93dd092a372bb2cc12250a",
+    "before-design-light.jpg": "57408e95fadb8ad0dd1a7c1fcb3f04cceaff0ecd97fc04b61ee8b7fe154bf5ec",
+    "before-light-desktop.jpg": "6da375b83a86402b9613f9322374b1016571c5d96435d9b5bae6bce6566605a4",
+    "before-light-mobile.jpg": "db9699c3f2ec2ce4fa1df06d86f07b6194bda4800bb7afea70a135805477bb0e"
+  },
+  "mobile": {
+    "viewportWidth": 390,
+    "clientWidth": 375,
+    "scrollWidth": 375
+  },
+  "limits": "Focused palette verification; not a full accessibility or Vue migration acceptance."
+}
