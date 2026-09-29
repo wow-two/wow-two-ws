@@ -1,0 +1,457 @@
+{
+  "date": "2026-09-29",
+  "scope": "Local Release packaging only; no external deployment or Docker execution.",
+  "command": "dotnet publish <Brand>.Api/<Brand>.Api.csproj -c Release --no-restore --disable-build-servers -o /private/tmp/first-ten-publish/<slug>",
+  "execution": "All ten native escalation retries exited 0; initial sandbox attempts stalled without output and were terminated.",
+  "migrationEvidence": "Published persistence assemblies contain SQL resource names or EF migration type metadata. Actual migrated startup was exercised in earlier product tests/live local hosts; no new startup or tests were run for this packaging check.",
+  "passed": 10,
+  "failed": 0,
+  "results": [
+    {
+      "product": "retainer-balance",
+      "output": "/private/tmp/first-ten-publish/retainer-balance",
+      "passed": true,
+      "checks": {
+        "publishExitCode": 0,
+        "indexPresent": true,
+        "indexMatchesBuiltFrontend": true,
+        "builtJsAndCssReferenced": true,
+        "allReferencedAssetsPresentAndNonempty": true,
+        "domainApiMarkerInBundle": true,
+        "noRawFrontendEntrypoint": true,
+        "noDatabaseOrDataProtectionKeyFiles": true,
+        "persistenceAssemblyPresent": true,
+        "schemaMetadataPresent": true
+      },
+      "assets": [
+        {
+          "reference": "/assets/index-nuusNeL2.js",
+          "exists": true,
+          "bytes": 228563,
+          "sha256": "d814b821387b22c7456c9aa52c418cce641ae7607cf2843b2e1529fe5a79250f"
+        },
+        {
+          "reference": "/assets/index-BNRazn_K.css",
+          "exists": true,
+          "bytes": 153320,
+          "sha256": "ebbb61c0ab59ca404b31159a2eb67241eb6bcb2aced09c122669bb076e1195b7"
+        }
+      ],
+      "domainApiMarkers": [
+        "/api/access",
+        "/api/account",
+        "/api/workspace"
+      ],
+      "unexpectedDataFiles": [],
+      "embeddedSqlResourceNames": [],
+      "efMigrationTypeMarkers": [
+        "InitialAccess",
+        "InitialWorkspace",
+        "WorkspaceSnapshot"
+      ]
+    },
+    {
+      "product": "documentation-checker",
+      "output": "/private/tmp/first-ten-publish/documentation-checker",
+      "passed": true,
+      "checks": {
+        "publishExitCode": 0,
+        "indexPresent": true,
+        "indexMatchesBuiltFrontend": true,
+        "builtJsAndCssReferenced": true,
+        "allReferencedAssetsPresentAndNonempty": true,
+        "domainApiMarkerInBundle": true,
+        "noRawFrontendEntrypoint": true,
+        "noDatabaseOrDataProtectionKeyFiles": true,
+        "persistenceAssemblyPresent": true,
+        "schemaMetadataPresent": true
+      },
+      "assets": [
+        {
+          "reference": "/assets/index-DvfnPUqZ.js",
+          "exists": true,
+          "bytes": 234501,
+          "sha256": "2c382e549214fd30065d8dac450e1c6c639032b9281745317e670834a4c68632"
+        },
+        {
+          "reference": "/assets/index-DneEnP38.css",
+          "exists": true,
+          "bytes": 154584,
+          "sha256": "5438eef000bce8ddc55316adb3678f9a6d4c8c037e0053e23a469556251bddb0"
+        }
+      ],
+      "domainApiMarkers": [
+        "/api/access",
+        "/api/account",
+        "/api/checks"
+      ],
+      "unexpectedDataFiles": [],
+      "embeddedSqlResourceNames": [
+        "Migrations/001-checks/Apply.sql",
+        "Migrations/001-checks/Rollback.sql"
+      ],
+      "efMigrationTypeMarkers": [
+        "InitialAccess"
+      ]
+    },
+    {
+      "product": "file-watch",
+      "output": "/private/tmp/first-ten-publish/file-watch",
+      "passed": true,
+      "checks": {
+        "publishExitCode": 0,
+        "indexPresent": true,
+        "indexMatchesBuiltFrontend": true,
+        "builtJsAndCssReferenced": true,
+        "allReferencedAssetsPresentAndNonempty": true,
+        "domainApiMarkerInBundle": true,
+        "noRawFrontendEntrypoint": true,
+        "noDatabaseOrDataProtectionKeyFiles": true,
+        "persistenceAssemblyPresent": true,
+        "schemaMetadataPresent": true
+      },
+      "assets": [
+        {
+          "reference": "/assets/index-DndwEaGY.js",
+          "exists": true,
+          "bytes": 233607,
+          "sha256": "6a12a75fc44a3d1ad839721b0a45b45d4f6646bd5f789cb07dc5d2bbe3356331"
+        },
+        {
+          "reference": "/assets/index-DneEnP38.css",
+          "exists": true,
+          "bytes": 154584,
+          "sha256": "5438eef000bce8ddc55316adb3678f9a6d4c8c037e0053e23a469556251bddb0"
+        }
+      ],
+      "domainApiMarkers": [
+        "/api/access",
+        "/api/account",
+        "/api/arrivals"
+      ],
+      "unexpectedDataFiles": [],
+      "embeddedSqlResourceNames": [
+        "Migrations/001-arrivals/Apply.sql",
+        "Migrations/001-arrivals/Rollback.sql"
+      ],
+      "efMigrationTypeMarkers": [
+        "InitialAccess"
+      ]
+    },
+    {
+      "product": "procedure-review",
+      "output": "/private/tmp/first-ten-publish/procedure-review",
+      "passed": true,
+      "checks": {
+        "publishExitCode": 0,
+        "indexPresent": true,
+        "indexMatchesBuiltFrontend": true,
+        "builtJsAndCssReferenced": true,
+        "allReferencedAssetsPresentAndNonempty": true,
+        "domainApiMarkerInBundle": true,
+        "noRawFrontendEntrypoint": true,
+        "noDatabaseOrDataProtectionKeyFiles": true,
+        "persistenceAssemblyPresent": true,
+        "schemaMetadataPresent": true
+      },
+      "assets": [
+        {
+          "reference": "/assets/index-DjCsIq3i.js",
+          "exists": true,
+          "bytes": 225441,
+          "sha256": "9babdf497526954097c8e595eb8033cfd57edde3caaba045d0729b0715c70450"
+        },
+        {
+          "reference": "/assets/index-BNRazn_K.css",
+          "exists": true,
+          "bytes": 153320,
+          "sha256": "ebbb61c0ab59ca404b31159a2eb67241eb6bcb2aced09c122669bb076e1195b7"
+        }
+      ],
+      "domainApiMarkers": [
+        "/api/access",
+        "/api/account",
+        "/api/workspace"
+      ],
+      "unexpectedDataFiles": [],
+      "embeddedSqlResourceNames": [],
+      "efMigrationTypeMarkers": [
+        "InitialAccess",
+        "InitialWorkspace",
+        "WorkspaceSnapshot"
+      ]
+    },
+    {
+      "product": "training-seats",
+      "output": "/private/tmp/first-ten-publish/training-seats",
+      "passed": true,
+      "checks": {
+        "publishExitCode": 0,
+        "indexPresent": true,
+        "indexMatchesBuiltFrontend": true,
+        "builtJsAndCssReferenced": true,
+        "allReferencedAssetsPresentAndNonempty": true,
+        "domainApiMarkerInBundle": true,
+        "noRawFrontendEntrypoint": true,
+        "noDatabaseOrDataProtectionKeyFiles": true,
+        "persistenceAssemblyPresent": true,
+        "schemaMetadataPresent": true
+      },
+      "assets": [
+        {
+          "reference": "/assets/index-BbRPLp2-.js",
+          "exists": true,
+          "bytes": 229690,
+          "sha256": "9ed15bf54beb1726a24fbd5d3cce4e76f9b478b3115832e794d9b45b22136bfd"
+        },
+        {
+          "reference": "/assets/index-BNRazn_K.css",
+          "exists": true,
+          "bytes": 153320,
+          "sha256": "ebbb61c0ab59ca404b31159a2eb67241eb6bcb2aced09c122669bb076e1195b7"
+        }
+      ],
+      "domainApiMarkers": [
+        "/api/access",
+        "/api/account",
+        "/api/workspace"
+      ],
+      "unexpectedDataFiles": [],
+      "embeddedSqlResourceNames": [],
+      "efMigrationTypeMarkers": [
+        "InitialAccess",
+        "InitialWorkspace",
+        "WorkspaceSnapshot"
+      ]
+    },
+    {
+      "product": "epub-review",
+      "output": "/private/tmp/first-ten-publish/epub-review",
+      "passed": true,
+      "checks": {
+        "publishExitCode": 0,
+        "indexPresent": true,
+        "indexMatchesBuiltFrontend": true,
+        "builtJsAndCssReferenced": true,
+        "allReferencedAssetsPresentAndNonempty": true,
+        "domainApiMarkerInBundle": true,
+        "noRawFrontendEntrypoint": true,
+        "noDatabaseOrDataProtectionKeyFiles": true,
+        "persistenceAssemblyPresent": true,
+        "schemaMetadataPresent": true
+      },
+      "assets": [
+        {
+          "reference": "/assets/index-zA0itJ5-.js",
+          "exists": true,
+          "bytes": 272006,
+          "sha256": "26553d840647bb53050f315c49a071d3a74a8de3b8f6d37459f649ddc4f69712"
+        },
+        {
+          "reference": "/assets/index-CtgrpOdK.css",
+          "exists": true,
+          "bytes": 149525,
+          "sha256": "acbf5c2a6fddd791c7bf0c829d9cc94039be20134c1a859dd9e0aebcdb7730d9"
+        }
+      ],
+      "domainApiMarkers": [
+        "/api/access",
+        "/api/account",
+        "/api/publications"
+      ],
+      "unexpectedDataFiles": [],
+      "embeddedSqlResourceNames": [
+        "Migrations/001-publications/Apply.sql",
+        "Migrations/001-publications/Rollback.sql"
+      ],
+      "efMigrationTypeMarkers": [
+        "InitialAccess"
+      ]
+    },
+    {
+      "product": "customer-promises",
+      "output": "/private/tmp/first-ten-publish/customer-promises",
+      "passed": true,
+      "checks": {
+        "publishExitCode": 0,
+        "indexPresent": true,
+        "indexMatchesBuiltFrontend": true,
+        "builtJsAndCssReferenced": true,
+        "allReferencedAssetsPresentAndNonempty": true,
+        "domainApiMarkerInBundle": true,
+        "noRawFrontendEntrypoint": true,
+        "noDatabaseOrDataProtectionKeyFiles": true,
+        "persistenceAssemblyPresent": true,
+        "schemaMetadataPresent": true
+      },
+      "assets": [
+        {
+          "reference": "/assets/index-CNC9SZUx.js",
+          "exists": true,
+          "bytes": 384778,
+          "sha256": "8e23cbdcd5c809c467234f330bbdcbec04cb2f4de04437cda44ade07ad3e018e"
+        },
+        {
+          "reference": "/assets/index-Zw_adGjW.css",
+          "exists": true,
+          "bytes": 149312,
+          "sha256": "55b24c8dc88afbdbd639442daea7676b4452128a9e6eb165f8262891dac56f96"
+        }
+      ],
+      "domainApiMarkers": [
+        "/api/access",
+        "/api/account",
+        "/api/accounts"
+      ],
+      "unexpectedDataFiles": [],
+      "embeddedSqlResourceNames": [
+        "Migrations/001-commitments/Apply.sql",
+        "Migrations/001-commitments/Rollback.sql",
+        "Migrations/002-update-order/Apply.sql",
+        "Migrations/002-update-order/Rollback.sql"
+      ],
+      "efMigrationTypeMarkers": [
+        "InitialAccess"
+      ]
+    },
+    {
+      "product": "vendor-renewals",
+      "output": "/private/tmp/first-ten-publish/vendor-renewals",
+      "passed": true,
+      "checks": {
+        "publishExitCode": 0,
+        "indexPresent": true,
+        "indexMatchesBuiltFrontend": true,
+        "builtJsAndCssReferenced": true,
+        "allReferencedAssetsPresentAndNonempty": true,
+        "domainApiMarkerInBundle": true,
+        "noRawFrontendEntrypoint": true,
+        "noDatabaseOrDataProtectionKeyFiles": true,
+        "persistenceAssemblyPresent": true,
+        "schemaMetadataPresent": true
+      },
+      "assets": [
+        {
+          "reference": "/assets/index-CCez_6Xo.js",
+          "exists": true,
+          "bytes": 227177,
+          "sha256": "91accddb61a5d0da86aec92adc21c40d271181e2046f7ac6f386e97a196c24fa"
+        },
+        {
+          "reference": "/assets/index-BNRazn_K.css",
+          "exists": true,
+          "bytes": 153320,
+          "sha256": "ebbb61c0ab59ca404b31159a2eb67241eb6bcb2aced09c122669bb076e1195b7"
+        }
+      ],
+      "domainApiMarkers": [
+        "/api/access",
+        "/api/account",
+        "/api/workspace"
+      ],
+      "unexpectedDataFiles": [],
+      "embeddedSqlResourceNames": [],
+      "efMigrationTypeMarkers": [
+        "InitialAccess",
+        "InitialWorkspace",
+        "WorkspaceSnapshot"
+      ]
+    },
+    {
+      "product": "config-checker",
+      "output": "/private/tmp/first-ten-publish/config-checker",
+      "passed": true,
+      "checks": {
+        "publishExitCode": 0,
+        "indexPresent": true,
+        "indexMatchesBuiltFrontend": true,
+        "builtJsAndCssReferenced": true,
+        "allReferencedAssetsPresentAndNonempty": true,
+        "domainApiMarkerInBundle": true,
+        "noRawFrontendEntrypoint": true,
+        "noDatabaseOrDataProtectionKeyFiles": true,
+        "persistenceAssemblyPresent": true,
+        "schemaMetadataPresent": true
+      },
+      "assets": [
+        {
+          "reference": "/assets/index-DBzbrJJ2.js",
+          "exists": true,
+          "bytes": 237850,
+          "sha256": "c5cc9e56a3bf91ba8a665f3e5af4dc8a63d1a7afe038bb214b9c2c9540a9a669"
+        },
+        {
+          "reference": "/assets/index-DneEnP38.css",
+          "exists": true,
+          "bytes": 154584,
+          "sha256": "5438eef000bce8ddc55316adb3678f9a6d4c8c037e0053e23a469556251bddb0"
+        }
+      ],
+      "domainApiMarkers": [
+        "/api/access",
+        "/api/account",
+        "/api/parity"
+      ],
+      "unexpectedDataFiles": [],
+      "embeddedSqlResourceNames": [
+        "Migrations/001-parity/Apply.sql",
+        "Migrations/001-parity/Rollback.sql"
+      ],
+      "efMigrationTypeMarkers": [
+        "InitialAccess"
+      ]
+    },
+    {
+      "product": "podcast-readiness",
+      "output": "/private/tmp/first-ten-publish/podcast-readiness",
+      "passed": true,
+      "checks": {
+        "publishExitCode": 0,
+        "indexPresent": true,
+        "indexMatchesBuiltFrontend": true,
+        "builtJsAndCssReferenced": true,
+        "allReferencedAssetsPresentAndNonempty": true,
+        "domainApiMarkerInBundle": true,
+        "noRawFrontendEntrypoint": true,
+        "noDatabaseOrDataProtectionKeyFiles": true,
+        "persistenceAssemblyPresent": true,
+        "schemaMetadataPresent": true
+      },
+      "assets": [
+        {
+          "reference": "/assets/index-BXBPA6LU.js",
+          "exists": true,
+          "bytes": 400156,
+          "sha256": "7af7989081d0a4837c04f75f3f3ee3e3840fbd879234d29f96aeca1955ae22d3"
+        },
+        {
+          "reference": "/assets/index-DmOPq3eR.css",
+          "exists": true,
+          "bytes": 149460,
+          "sha256": "72adb44b16acebc856c6978f136d0a6d4f3f5be00a58b6c5b85eeee7005ea81c"
+        }
+      ],
+      "domainApiMarkers": [
+        "/api/access",
+        "/api/account",
+        "/api/episodes",
+        "/api/guest-packet"
+      ],
+      "unexpectedDataFiles": [],
+      "embeddedSqlResourceNames": [
+        "Migrations/001-episodes/Apply.sql",
+        "Migrations/001-episodes/Rollback.sql"
+      ],
+      "efMigrationTypeMarkers": [
+        "InitialAccess"
+      ]
+    }
+  ],
+  "dataFilenamePatterns": [
+    "*.db",
+    "*.db-wal",
+    "*.db-shm",
+    "*.db-journal",
+    "key-*.xml"
+  ]
+}

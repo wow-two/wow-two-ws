@@ -1,0 +1,114 @@
+[data-product="procedures"] .review-summary {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 20px;
+  padding: 16px 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+[data-product="procedures"] .procedure-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(320px, 1fr);
+  gap: 24px;
+  align-items: start;
+}
+[data-product="procedures"] .review-board {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+[data-product="procedures"] .review-board.single-column {
+  grid-template-columns: 1fr;
+}
+[data-product="procedures"] .review-column {
+  min-width: 0;
+}
+[data-product="procedures"] .column-heading h2 {
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+[data-product="procedures"] .column-heading p {
+  font-size: 11px;
+  margin: 5px 0 15px;
+}
+[data-product="procedures"] .procedure-card {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  text-align: left;
+  padding: 18px 14px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: var(--ink);
+  font: inherit;
+  cursor: pointer;
+  margin-bottom: 14px;
+}
+[data-product="procedures"] .procedure-card.selected {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+[data-product="procedures"] .procedure-card .eyebrow {
+  font-size: 9px;
+  letter-spacing: 0.06em;
+}
+[data-product="procedures"] .procedure-card strong {
+  font-size: 16px;
+  line-height: 1.35;
+}
+[data-product="procedures"] .card-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+}
+[data-product="procedures"] .card-meta .avatar {
+  flex-shrink: 0;
+}
+[data-product="procedures"] .review-desk {
+  border-top: 4px solid var(--accent);
+}
+[data-product="procedures"] .source-reference {
+  overflow-wrap: anywhere;
+}
+[data-product="procedures"] .procedure-excerpt {
+  font:
+    14px/1.9 system-ui,
+    sans-serif;
+  white-space: pre-wrap;
+  background: var(--surface-alt);
+  border-left: 2px solid var(--line);
+  margin: 0;
+  padding: 18px;
+}
+[data-product="procedures"] .attestation-form {
+  padding-top: 20px;
+  border-top: 1px solid var(--line);
+}
+[data-product="procedures"] .review-history {
+  padding-left: 20px;
+  font-size: 12px;
+  line-height: 1.8;
+}
+@media (max-width: 1023px) {
+  [data-product="procedures"] .procedure-layout {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 767px) {
+  [data-product="procedures"] .review-board {
+    grid-template-columns: 1fr;
+  }
+  [data-product="procedures"] .procedure-card {
+    gap: 10px;
+  }
+  [data-product="procedures"] .column-heading h2 {
+    font-size: 16px;
+  }
+}

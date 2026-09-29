@@ -1,0 +1,28 @@
+{
+  "date": "2026-09-29",
+  "products": [
+    "retainer",
+    "docs",
+    "files",
+    "procedures",
+    "training",
+    "epub",
+    "promises",
+    "renewals",
+    "config",
+    "podcast"
+  ],
+  "build": "passed npm run build",
+  "browser_workflows": 10,
+  "exports_read": 11,
+  "route_theme_size_checks": 60,
+  "final_phone_touch_regression_checks": 10,
+  "page_horizontal_overflows": 0,
+  "broken_local_markdown_links": [],
+  "portable_bytes": 358515,
+  "portable_sha256": "9b4315f370238497bc28b4f704ccba9040f96619ce9d5391e5266dfe86fafcae",
+  "portable_external_assets": [],
+  "portable_file_protocol_browser_test": "blocked by browser URL policy; not bypassed",
+  "production_services_implemented": false,
+  "paid_market_validation": false
+}

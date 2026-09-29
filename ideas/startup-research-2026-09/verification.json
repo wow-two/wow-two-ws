@@ -1,0 +1,37 @@
+{
+  "status": "passed",
+  "checks": [
+    "250 per lane",
+    "contiguous unique W0001–W1000",
+    "unique exact names",
+    "all required fields",
+    "eight bounded score dimensions",
+    "valid source references",
+    "40 researched per lane",
+    "300 review cohort",
+    "100 shortlisted",
+    "one selected per conservative family",
+    "zero rejected ideas in shortlist",
+    "MRR customer arithmetic"
+  ],
+  "total": 1000,
+  "review_pool": 300,
+  "desk_researched": 160,
+  "shortlist": 100,
+  "customer_validated": 0,
+  "source_records": 164,
+  "unique_source_urls": 162,
+  "families": 633,
+  "shortlist_lanes": {
+    "developer": 21,
+    "creator": 28,
+    "business": 34,
+    "personal": 17
+  },
+  "shortlist_models": {
+    "freemium": 57,
+    "subscription": 36,
+    "hybrid": 4,
+    "lifetime": 3
+  }
+}

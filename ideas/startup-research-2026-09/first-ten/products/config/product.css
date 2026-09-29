@@ -1,0 +1,97 @@
+[data-product="config"] .config-environments {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  padding: 20px;
+}
+[data-product="config"] .config-pair {
+  align-items: center;
+  display: flex;
+  gap: 20px;
+  font-size: 14px;
+}
+[data-product="config"] .config-env-dot {
+  background: var(--accent);
+  border-radius: 50%;
+  display: inline-block;
+  height: 7px;
+  width: 7px;
+}
+[data-product="config"] .config-env-dot.production {
+  background: var(--success);
+}
+[data-product="config"] .config-workspace {
+  align-items: start;
+  display: grid;
+  gap: 20px;
+}
+[data-product="config"] .config-comparison {
+  min-width: 0;
+}
+[data-product="config"] .config-table {
+  min-width: 590px;
+}
+[data-product="config"] .config-table tbody tr.selected {
+  background: var(--accent-soft);
+}
+[data-product="config"] .config-table tbody th {
+  background: transparent;
+  border-top: 1px solid var(--line);
+  font-size: 12px;
+  font-weight: normal;
+  letter-spacing: normal;
+  text-transform: none;
+}
+[data-product="config"] .config-table td {
+  border-left: 1px solid var(--line);
+}
+[data-product="config"] .config-key {
+  background: transparent;
+  border: 0;
+  color: var(--ink);
+  cursor: pointer;
+  display: grid;
+  gap: 9px;
+  padding: 5px 0;
+  text-align: left;
+}
+[data-product="config"] .config-key .badge {
+  justify-self: start;
+}
+[data-product="config"] .config-key:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 5px;
+}
+[data-product="config"] .config-detail {
+  min-width: 0;
+}
+[data-product="config"] .config-detail h2 {
+  font-size: 15px;
+  overflow-wrap: anywhere;
+}
+[data-product="config"] .config-detail .badge {
+  align-self: flex-start;
+}
+[data-product="config"] .config-footnote {
+  border-top: 1px solid var(--line);
+  padding: 16px 20px;
+}
+[data-product="config"] .config-audit {
+  margin-top: 24px;
+}
+[data-product="config"] .config-audit-row {
+  align-items: start;
+  gap: 16px;
+  padding: 18px 20px;
+}
+[data-product="config"] .config-audit-row p {
+  margin: 5px 0 0;
+}
+@media (min-width: 1024px) {
+  [data-product="config"] .config-workspace {
+    grid-template-columns: minmax(0, 1fr) 310px;
+  }
+}

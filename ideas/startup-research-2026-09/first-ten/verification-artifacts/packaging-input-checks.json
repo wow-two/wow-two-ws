@@ -1,0 +1,152 @@
+[
+  {
+    "product": "retainer-balance",
+    "check": "dependency-nuget",
+    "exit": 0
+  },
+  {
+    "product": "retainer-balance",
+    "check": "dependency-npm",
+    "exit": 0
+  },
+  {
+    "product": "retainer-balance",
+    "check": "compose-config",
+    "exit": 0
+  },
+  {
+    "product": "documentation-checker",
+    "check": "dependency-nuget",
+    "exit": 0
+  },
+  {
+    "product": "documentation-checker",
+    "check": "dependency-npm",
+    "exit": 0
+  },
+  {
+    "product": "documentation-checker",
+    "check": "compose-config",
+    "exit": 0
+  },
+  {
+    "product": "file-watch",
+    "check": "dependency-nuget",
+    "exit": 0
+  },
+  {
+    "product": "file-watch",
+    "check": "dependency-npm",
+    "exit": 0
+  },
+  {
+    "product": "file-watch",
+    "check": "compose-config",
+    "exit": 0
+  },
+  {
+    "product": "procedure-review",
+    "check": "dependency-nuget",
+    "exit": 0
+  },
+  {
+    "product": "procedure-review",
+    "check": "dependency-npm",
+    "exit": 0
+  },
+  {
+    "product": "procedure-review",
+    "check": "compose-config",
+    "exit": 0
+  },
+  {
+    "product": "training-seats",
+    "check": "dependency-nuget",
+    "exit": 0
+  },
+  {
+    "product": "training-seats",
+    "check": "dependency-npm",
+    "exit": 0
+  },
+  {
+    "product": "training-seats",
+    "check": "compose-config",
+    "exit": 0
+  },
+  {
+    "product": "epub-review",
+    "check": "dependency-nuget",
+    "exit": 0
+  },
+  {
+    "product": "epub-review",
+    "check": "dependency-npm",
+    "exit": 0
+  },
+  {
+    "product": "epub-review",
+    "check": "compose-config",
+    "exit": 0
+  },
+  {
+    "product": "customer-promises",
+    "check": "dependency-nuget",
+    "exit": 0
+  },
+  {
+    "product": "customer-promises",
+    "check": "dependency-npm",
+    "exit": 0
+  },
+  {
+    "product": "customer-promises",
+    "check": "compose-config",
+    "exit": 0
+  },
+  {
+    "product": "vendor-renewals",
+    "check": "dependency-nuget",
+    "exit": 0
+  },
+  {
+    "product": "vendor-renewals",
+    "check": "dependency-npm",
+    "exit": 0
+  },
+  {
+    "product": "vendor-renewals",
+    "check": "compose-config",
+    "exit": 0
+  },
+  {
+    "product": "config-checker",
+    "check": "dependency-nuget",
+    "exit": 0
+  },
+  {
+    "product": "config-checker",
+    "check": "dependency-npm",
+    "exit": 0
+  },
+  {
+    "product": "config-checker",
+    "check": "compose-config",
+    "exit": 0
+  },
+  {
+    "product": "podcast-readiness",
+    "check": "dependency-nuget",
+    "exit": 0
+  },
+  {
+    "product": "podcast-readiness",
+    "check": "dependency-npm",
+    "exit": 0
+  },
+  {
+    "product": "podcast-readiness",
+    "check": "compose-config",
+    "exit": 0
+  }
+]

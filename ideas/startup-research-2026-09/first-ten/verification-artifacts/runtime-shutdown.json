@@ -1,0 +1,61 @@
+{
+  "date": "2026-09-29",
+  "scope": "Ten task-owned product watchers and one prototype server; Ctrl+C graceful shutdown",
+  "results": [
+    {
+      "sessionId": 65940,
+      "exitCode": 0,
+      "completed": true
+    },
+    {
+      "sessionId": 34671,
+      "exitCode": 0,
+      "completed": true
+    },
+    {
+      "sessionId": 88387,
+      "exitCode": 0,
+      "completed": true
+    },
+    {
+      "sessionId": 86936,
+      "exitCode": 0,
+      "completed": true
+    },
+    {
+      "sessionId": 79523,
+      "exitCode": 0,
+      "completed": true
+    },
+    {
+      "sessionId": 88919,
+      "exitCode": 0,
+      "completed": true
+    },
+    {
+      "sessionId": 81335,
+      "exitCode": 0,
+      "completed": true
+    },
+    {
+      "sessionId": 6565,
+      "exitCode": 0,
+      "completed": true
+    },
+    {
+      "sessionId": 80640,
+      "exitCode": 0,
+      "completed": true
+    },
+    {
+      "sessionId": 4009,
+      "exitCode": 0,
+      "completed": true
+    },
+    {
+      "sessionId": 81468,
+      "exitCode": 0,
+      "completed": true
+    }
+  ]
+}
