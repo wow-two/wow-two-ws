@@ -18,7 +18,7 @@ Shared source and workspace overrides: `.claude/rules/response-style.md`; reinfo
 ## SDK doctrine — build the whole vector
 
 - The SDK's main frame: a product's need is the **trigger** to build a vector, **not** its scope. Ship the essential slice for that product, then **complete the whole vector** in a dedicated pass — inventory every capability, build to completeness — so the *next* product finds it already there. A known domain (forms, validation, auth, tables) is built proactively; the real cost is integration, paid once in the SDK. Full rule: `conventions/development/dev-cycle.md` § *Vector completeness*. Applies to both the backend and frontend SDKs.
-- **The SDK is ours, and breaking it is cheap.** A product blocked on a missing or wrong SDK API fixes the SDK rather than working around it in the product — add the export, correct the type, widen the prop. Both SDKs are beta-forever; the developer publishes and the consumer re-pins. A workaround in a product is the more expensive outcome, because it hides the gap from every later consumer.
+- **The SDK is ours, and breaking it is cheap.** A product blocked on a missing or wrong SDK API fixes the SDK rather than working around it in the product — add the export, correct the type, widen the prop. Both SDKs are beta-forever: the product chat commits the SDK change, pushes it when the SDK's push flag is ON (main CI bumps and publishes), then re-pins the product to the published version — `conventions/development/dev-cycle.md` § *SDK change loop*. After every SDK push, wait for CI's release commit and `git pull --ff-only` before committing there again — § *SDK release sync*. A workaround in a product is the more expensive outcome, because it hides the gap from every later consumer.
 
 ## Layout
 

@@ -1,6 +1,6 @@
 # Development cycle
 
-*Last updated: 2026-09-12*
+*Last updated: 2026-09-29*
 
 > Two cycles per active app — implement a version in-app, then extract its stable blocks to the SDK + conventions and adopt across the active apps.
 > Purpose — mature the apps and the shared SDK in parallel: ship fast in one product, harden once, propagate everywhere — never in isolation.
@@ -67,6 +67,35 @@ re-pins and moves on.
 - must not soften a fix into an overload, a flag, or a parallel type to spare a consumer a re-pin.
 - must name the break in the commit message, so a consumer knows what to change.
 - the exception is a shape that is **right** and merely inconvenient; churn for its own sake is not a fix.
+
+---
+
+## SDK change loop — from a product chat
+
+A product chat that needs the SDK changed makes the change, ships it and adopts it in one sitting.
+
+- must add or fix the capability in the SDK repo, with its tests, rather than work around it in the product.
+- must pass the SDK repo's own gates, then commit there — one repo, one commit; the product commit is separate.
+- must push the SDK repo when its push flag is `ON` — main CI bumps (`0.0.y` npm, `10.y.z-beta` NuGet) and publishes.
+- must wait for the published version before adopting — `npm view {package} version` or the NuGet feed.
+- must re-pin the product to the published version, never a `file:` / `link:` path or a local build.
+- must hand the push to the developer while the SDK push flag is `OFF`, naming the commit and the adoption left.
+- must follow the release sync below after every SDK push.
+
+---
+
+## SDK release sync — after every push
+
+Main CI answers every SDK push with a release commit (`chore: release … [skip ci]`); a commit made beside it forks
+`main`. The rule applies to any chat that pushes an SDK repo, product chat or SDK lane.
+
+- must wait, after pushing an SDK repo, for main CI's release commit to land on `origin/main`.
+- must then `git pull --ff-only` and make the next commit on top of the release commit.
+- must not commit in that repo while its release run is in flight — queue the work, or do it in another repo.
+- must rebase unpushed commits onto `origin/main` when a release commit landed beside them, then push.
+- may hand the wait to a background agent or shell that waits the average release time, then pulls.
+- the average release time — UI SDK ≈ 7 min, backend SDK ≈ 10 min; `gh run list --workflow` gives today's figure.
+- a failed release run lands no release commit; fix forward, and the next push releases.
 
 ---
 
