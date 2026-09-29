@@ -52,6 +52,7 @@ PROJECTS=(
   "museums-gallery|ventures/ventures.museums-gallery/engineering/codebase/museums-gallery.backend-services/MuseumsGallery.sln|ventures/ventures.museums-gallery/engineering/codebase/museums-gallery.frontend-services"
   "tnis|ventures/ventures.tnis/engineering/codebase/tnis.backend-services/tnis.backend-services.slnx|ventures/ventures.tnis/engineering/codebase/tnis.frontend-services"
   "tnis-mintrans|ventures/ventures.tnis-mintrans/engineering/codebase/tnis-mintrans.backend-services/TnisMintrans.sln|ventures/ventures.tnis-mintrans/engineering/codebase/tnis-mintrans.frontend-services"
+  "ocharo-studio|ventures/ventures.ocharo-studio/engineering/codebase/ocharo-studio.backend-services/OcharoStudio.BackendServices.slnx|ventures/ventures.ocharo-studio/engineering/codebase/ocharo-studio.frontend-services"
 )
 
 MODE="both"     # both | backend | frontend

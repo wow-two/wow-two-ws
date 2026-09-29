@@ -120,3 +120,14 @@ Org: [github.com/wow-two-apps](https://github.com/wow-two-apps) — no public re
 | Repo / local folder | Purpose | Status |
 |---|---|---|
 | `sulton-max/10x-venture-forever-pin` · `ventures/10x-venture-forever-pin` | ForeverPin QR and programmable links | Active, v0.9 |
+| `ventures.ocharo-studio` · `workbench/ventures/ventures.ocharo-studio` | Ocharo Studio: 3D mannequin and per-part textile creative studio | Implemented locally; Ocharo rename in progress |
+
+## ocharo-hq (brand workspace)
+
+Organization: [github.com/ocharo-hq](https://github.com/ocharo-hq).
+
+- `workbench/ocharo-hq/ocharo-ws/` owns Ocharo setup and repository navigation.
+- Its Git history and GitHub organization remain independent of WoW2.
+- Its managed repositories sit directly under its own ignored `workbench/`.
+- Coding chats use the WoW2 root for existing shared hooks and engineering conventions.
+- Product checkouts remain at their existing paths until the separate migration.
