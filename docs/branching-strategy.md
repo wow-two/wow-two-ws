@@ -1,7 +1,7 @@
 # WoW 2.0 — Branching Strategy
 
 > **Scope**: All SDK and Platform library repos (NuGet packages).
-> App repos may need a different strategy (with staging/environments) — TBD.
+> Deployable product repos follow [Product repos](#product-repos) below.
 
 ---
 
@@ -138,6 +138,25 @@ This strategy applies to all **library repos** (SDK + Platform). Other repo type
 |-----------|----------|-------|
 | SDK libs (`sdk.*`) | This document | Two branches, dual publish |
 | Platform libs (`platform.*`) | This document | Same — internal but same flow |
-| Apps (`apps.*`) | TBD | May need staging/env branches |
+| Products and apps | [Product repos](#product-repos) | `main` releases; optional `dev` / `test` branches |
 | KB modules (`kb.*`) | Simplified | Possibly main-only, no packages |
 | Meta repos | Main-only | Docs, roadmap — no CI/CD needed |
+
+---
+
+## Product repos
+
+Deployable products (anything with `engineering/deployment/deploy.yml`) branch by what a build is for; the full
+version and tag table is in the [deploy descriptor](../conventions/deployment/descriptor/deploy-descriptor.md)
+§ *Builds and versions*.
+
+| Branch | Required | Build | Image tag | Deploys to |
+|---|---|---|---|---|
+| `main` | yes | release `X.Y.Z` | `X.Y.Z`, `latest` | dev, test, prod |
+| `test` | optional | `X.Y.(Z+1)-test.<n>`, replacing the previous | `test-latest` | dev, test |
+| `dev` | optional | `X.Y.(Z+1)-dev.<n>`, replacing the previous | `dev-latest` | dev |
+| `feat/*`, `fix/*`, … | no | candidate `X.Y.(Z+1)-<branch>.<n>`, 14 days | `sha-<commit>` | dev |
+
+- A product starts with `main` only; `dev` and `test` appear when a product needs a shared integration or QA line.
+- With them, changes move `feat/*` → `dev` → `test` → `main` by merge; each branch builds its own images.
+- Prod only ever runs a `main` release; Wheelhouse deploys digests, never the moving tags.

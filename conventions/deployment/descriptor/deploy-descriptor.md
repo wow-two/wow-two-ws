@@ -1,6 +1,6 @@
 # Deployment Descriptor — `deploy.yml`
 
-*Last updated: 2026-09-27*
+*Last updated: 2026-09-29*
 
 > **What** — one file per product repo, `engineering/deployment/deploy.yml`, declaring the product's deployable services:
 > how each one builds, which paths change it, how it runs, which sites it serves and what it needs.
@@ -111,48 +111,52 @@ services:
 
 ## Builds and versions
 
-A service carries the product version in which it last changed. An old version on a service means no change since then.
+A product version is `X.Y.Z`: `X.Y` is the newest version-track folder
+([versioning](../../development/repo/versioning/versioning.md)); CI assigns `Z`. A service carries the product
+version in which it last changed, so services version independently and an old version means no change since.
 
-| Build | Trigger | Changed services | Unchanged services |
-|---|---|---|---|
-| Release | A `vX.Y.Z` tag | Built and tagged `X.Y.Z` | Keep the previous release's image and version |
-| Candidate | Any push; any commit on request | Built and tagged `sha-<commit>`, shown as `X.Y.Z+<commit>` | Keep the last release's image and version |
+| Built from | Version | Image tags | Deploys to | Kept |
+|---|---|---|---|---|
+| `main` | `X.Y.Z`, the next `Z` | `X.Y.Z`, `latest` | dev, test, prod | for good: a release |
+| `test` | `X.Y.(Z+1)-test.<n>` | `test-latest` | dev, test | until the next `test` build |
+| `dev` | `X.Y.(Z+1)-dev.<n>` | `dev-latest` | dev | until the next `dev` build |
+| any other branch, or a dispatched commit | `X.Y.(Z+1)-<branch>.<n>` | `sha-<commit>` | dev | 14 days |
 
+- `Z` is the highest `vX.Y.*` tag plus one, so no version-bump commit lands in history; `Z` restarts at 0 on a new `X.Y`.
+- A `main` build releases only when a service or the descriptor changed; a docs-only push releases nothing.
+- A descriptor-only change releases a new bundle that reuses every image.
+- `<n>` counts the branch's commits since it left `main`, so one commit always gets the same version.
+- `<branch>` is the branch name made tag-safe (`feat/login` → `feat-login`); a pre-release sorts below its release.
 - A service changed when a path in its `paths`, `shared` or its Dockerfile differs from the previous release's commit.
-- The release generator is `release.py` in Wheelhouse's `wheelhouse.runner-services`; it needs Python 3.9+ with PyYAML, Git and Docker Buildx.
+- Moving tags (`latest`, `test-latest`, `dev-latest`) name the newest build of their branch, never what an environment
+  runs; Wheelhouse records that, and deploys only digest-pinned images.
+- dev, test and prod are environments; `dev` and `test` branches are optional, and a product without them builds
+  every other branch as a candidate.
+- The release generator is `release.py`; it needs Python 3.9+ with PyYAML, Git and Docker Buildx. It moves from
+  Wheelhouse's `wheelhouse.runner-services` into `wow-two-platform.pipelines` with the shared workflow; until then
+  product CI fetches it from Wheelhouse by git blob SHA, which survives history rewrites, and checks its SHA-256.
 - `release.py plan` prints what builds and every service's version; `release.py build` builds, pushes and writes the bundle.
 - CI checks out the full history (`fetch-depth: 0`), so the generator can diff against the previous release.
-- A candidate bundle uploads as the Actions artifact `bundle-<commit>` with a 14-day retention.
-- A release bundle attaches to the GitHub release as `<product>-release.tar.gz`.
-- Dev deploys any candidate or release; test and prod deploy releases only.
-- Wheelhouse can start the build workflow for a commit that has no build; one commit never builds twice.
+
+## Artifacts and retention
+
+- Images live in GHCR, one repository per service; container storage and bandwidth are free under GitHub's current
+  policy, with a month's notice before any change.
+- A self-hosted registry waits for a trigger: GHCR billing, private images across many targets, or pull latency.
+- A bundle is about 2 KB, so every release bundle is kept for good.
+- Keep every deployed digest and each target's rollback set, and the last 10 release images per service.
+- Keep only the newest `dev` and `test` builds; other candidates expire after 14 days.
+- Wheelhouse owns deletion, because only it knows what each target runs.
 
 ## CI workflow
 
-`.github/workflows/publish-docker-image.yml` stays the marker file. Its shape:
+`.github/workflows/publish-docker-image.yml` stays the marker file. It calls the shared publish workflow in
+`wow-two-platform.pipelines`, pinned to a tag, which:
 
-```yaml
-on:
-  push: { branches: ['**'] }             # every push builds a candidate
-  release: { types: [published] }        # a vX.Y.Z tag builds a release
-  workflow_dispatch:
-    inputs: { commit: { required: true } }   # Wheelhouse builds a commit that has no build
-permissions: { contents: write, packages: write, actions: read }
-jobs:
-  bundle:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-        with: { ref: '${{ inputs.commit || github.sha }}', fetch-depth: 0 }
-      - uses: docker/setup-buildx-action@v3
-      - uses: docker/login-action@v3
-        with: { registry: ghcr.io, username: '${{ github.actor }}', password: '${{ secrets.GITHUB_TOKEN }}' }
-      # Fetch release.py from Wheelhouse at a pinned commit, download the previous release's bundle as --base,
-      # then: python3 release.py build --checkout --registry ghcr.io/<owner>/<repo> --output bundle
-      #       [--tag <tag> on a release] [--branch <branch> on a push]
-      - uses: actions/upload-artifact@v4       # candidates
-        with: { name: 'bundle-${{ inputs.commit || github.sha }}', path: bundle/, retention-days: 14 }
-```
+- builds on every push: `main` releases, `dev` and `test` replace their builds, other branches build candidates;
+- builds a dispatched commit that has no build yet (Wheelhouse's Build action);
+- builds each changed service from `deploy.yml`, whatever its Dockerfile, target, arguments or build contexts;
+- tags and publishes images and the bundle per the table above, and moves the branch's tag last.
 
-- The workflow above is the reference shape; each product adopts it when it moves to per-service builds.
-- A scheduled cleanup deletes `sha-*` images older than 14 days; release images stay.
+The workflow Wheelhouse and ForeverPin run today (candidate on push, release on a published GitHub release) is the
+shape the shared workflow replaces.
