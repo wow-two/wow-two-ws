@@ -18,3 +18,7 @@ __pycache__/
 # Git flag store, its hash-chained change log, lock and temp files — per workspace, never committed
 .codex/git-flags.*
 .codex/.git-flags-*
+
+# Stray local output: app smoke logs written to the workspace root and a local pnpm store
+/logs/
+/.pnpm-store/
