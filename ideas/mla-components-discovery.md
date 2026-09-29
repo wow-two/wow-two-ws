@@ -63,7 +63,7 @@ in a `components/settings.md`; the construct doc would keep only the role and th
 - section name — a `public const string SectionName` (`ClassifierSettings.cs:8`), or the type name, which
   `Foundation/Configuration/ConfigurationLoader.cs:21` defaults to.
 - env overlay — secrets carry `[EnvironmentVariable("…")]`:
-  `Drydock.Infrastructure/Settings/GitHubOAuthSettings.cs:13,18`.
+  `Wheelhouse.Infrastructure/Settings/GitHubOAuthSettings.cs:13,18`.
 - registration — `AddEnvironmentOverlaidOptions<T>` registers `T` and `IOptions<T>` as singletons
   (`Foundation/Configuration/ConfigurationLoaderServiceCollectionExtensions.cs:16`).
 - doc starter — `Configuration for …`, already fixed by `constructs/data/settings.md`.

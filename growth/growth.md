@@ -65,7 +65,7 @@
 
 ## 2. wow-two SDK Building
 
-**Why:** the primary learn-by-shipping track — `wow-two-sdk`, `wow-two-sdk-beta`, `wow-two-platform` are real packages with real consumers (drydock, secrets-vault, forever-pin, …). Every design decision is a forcing function for API design, versioning discipline, and backward-compat thinking.
+**Why:** the primary learn-by-shipping track — `wow-two-sdk`, `wow-two-sdk-beta`, `wow-two-platform` are real packages with real consumers (wheelhouse, secrets-vault, forever-pin, …). Every design decision is a forcing function for API design, versioning discipline, and backward-compat thinking.
 
 **Current level:** actively building — identity baseline shipped, messaging layer scaffolded, errors-layer redesign in progress, Testing.Data companion adopted across all 3 apps.
 
@@ -136,7 +136,7 @@
 - [ ] Refactorings — full catalog beyond rename/extract (Move to Namespace, Change Signature, Safe Delete, Type Migration)
 - [ ] Live Templates & File Templates — custom ones for repeated wow-two patterns (e.g. new CQRS handler scaffold)
 - [ ] Structural Search & Replace — pattern-based refactors across a solution
-- [ ] Database tools — connect directly to the Postgres instances behind drydock/secrets-vault in-IDE
+- [ ] Database tools — connect directly to the Postgres instances behind wheelhouse/secrets-vault in-IDE
 - [ ] HTTP Client (`.http` files) — replace ad-hoc curl/Postman for API testing
 - [ ] Docker/container tools integration
 - [ ] Keymap — commit to one scheme, learn it cold for the top ~20 actions

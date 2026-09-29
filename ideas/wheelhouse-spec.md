@@ -1,8 +1,8 @@
-# Drydock — Product Ops & Deploy Control Plane
+# Wheelhouse — Product Ops & Deploy Control Plane
 
 *Last updated: 2026-06-09*
 
-> Named **Drydock** (chosen 2026-06-09) — a ship is built, serviced, launched, and repaired from drydock; the portfolio is a fleet of small vessels. Internal platform (not a sellable product) — the control plane for the micro-SaaS portfolio (`ven-msaas-context.md`, target 50–100 launches by EOY 2026). Lives at new org `wow-two-ops` → repo `wow-two-ops.drydock`. Names considered: Hangar, Marina, Mission Control, Shipyard, Launchpad.
+> Named **Wheelhouse** (chosen 2026-06-09) — a ship is built, serviced, launched, and repaired from wheelhouse; the portfolio is a fleet of small vessels. Internal platform (not a sellable product) — the control plane for the micro-SaaS portfolio (`ven-msaas-context.md`, target 50–100 launches by EOY 2026). Lives at new org `wow-two-ops` → repo `wow-two-ops.wheelhouse`. Names considered: Hangar, Marina, Mission Control, Shipyard, Launchpad.
 > One-liner: *a personal Vercel/Heroku for the whole portfolio — one dashboard to deploy front+back to my VPSs, buy+wire domains, and watch everything stay alive.*
 
 ## Section 0: Brief Answers (the questions that spawned this)
@@ -10,7 +10,7 @@
 - **What is it?** A single dashboard + .NET API that holds every product, every VPS, every domain, and every secret — and turns "ship this product to that server on this domain" into a few clicks. Replaces the pile of manual SSH + registrar tabs + scattered `.env` files that 50–100 products would otherwise need.
 - **Push front/back to a VPS?** Yes. Each VPS runs **Docker + Traefik** (reverse proxy, auto-SSL, label-based routing). GitHub Actions builds images → **GHCR**; Launchpad SSHes in (SSH.NET), drops a generated `docker-compose.yml`, runs `docker compose pull && up -d`. Front (React→nginx/static) and back (.NET) are two containers in one stack. Live logs stream to the dashboard. Rollback = re-pin previous image tag. See §3.
 - **Search / buy / assign domains in a few clicks?** Yes, via API. **Porkbun** (cleanest buy/search/pricing API, cheap) for registration; **Cloudflare** for DNS + SSL. Flow: search → buy → set nameservers to Cloudflare → create A-record → VPS IP → Traefik picks up the host rule and issues the cert. Caveat: registrar account must be **pre-funded** — "a few clicks" = an API purchase against balance, not a new checkout each time. See §4.
-- **Build vs. buy?** Recommend **bespoke** (Docker + Traefik + SSH.NET + GHCR) as primary — it fits the wow-two stack, gives full control, and is itself a flagship internal .NET build. Fast-lane fallback: wrap **Coolify** (open-source self-hosted Vercel; has an API) and make Drydock a thin registry+domains+dashboard layer on top. See §8.
+- **Build vs. buy?** Recommend **bespoke** (Docker + Traefik + SSH.NET + GHCR) as primary — it fits the wow-two stack, gives full control, and is itself a flagship internal .NET build. Fast-lane fallback: wrap **Coolify** (open-source self-hosted Vercel; has an API) and make Wheelhouse a thin registry+domains+dashboard layer on top. See §8.
 
 ## Section 1: What it manages (5 core domains)
 
@@ -25,7 +25,7 @@
 ## Section 2: Architecture & stack
 
 ```
-┌───────────────────── Drydock control plane ─────────────────────┐
+┌───────────────────── Wheelhouse control plane ─────────────────────┐
 │  React dashboard ──HTTP/SignalR──▶ .NET 9 API (Clean Arch / CQRS)│
 │   (@wow-two-beta/ui, Vite)          ├─ Products/Servers/Domains  │
 │                                     ├─ Hangfire (deploy jobs)    │
@@ -57,13 +57,13 @@
 | Dashboard | **React + Vite + `@wow-two-beta/ui`** | their beta UI lib |
 | Domains | **Porkbun API** (buy) + **Cloudflare API** (DNS/SSL) | best programmatic registrar + free DNS w/ great API |
 
-**Ecosystem fit:** its own repo `wow-two-ops.drydock` under new org `wow-two-ops` (it manages the other repos, so it sits above them). Split `.drydock.api` / `.drydock.web` later. Not a `platform.*` lib — it's an app.
+**Ecosystem fit:** its own repo `wow-two-ops.wheelhouse` under new org `wow-two-ops` (it manages the other repos, so it sits above them). Split `.wheelhouse.api` / `.wheelhouse.web` later. Not a `platform.*` lib — it's an app.
 
 ## Section 3: Deploy flow (the core mechanic)
 
 1. Push to `main` → GitHub Actions builds `…-web` + `…-api` images → GHCR (tag = git SHA).
-2. Action calls Drydock webhook *(or* user clicks **Deploy** in dashboard*)*.
-3. Drydock queues a Hangfire job for `product × server × env`.
+2. Action calls Wheelhouse webhook *(or* user clicks **Deploy** in dashboard*)*.
+3. Wheelhouse queues a Hangfire job for `product × server × env`.
 4. Job: render `docker-compose.yml` from template (image tags, Traefik labels with the assigned domain, injected secrets as env) → scp to VPS → `docker compose pull && up -d`.
 5. Traefik auto-detects the new container's host label → routes the domain → issues/renews SSL.
 6. Health check hits `/health`; status + streamed logs land in the dashboard. **Rollback** = redeploy previous SHA tag (one click).
@@ -142,9 +142,9 @@ Either way, the **registry + domain-buying + unified dashboard + cost/kill-gate 
 
 ## Section 10: Open questions
 
-1. **Name** — ✅ **Drydock** (chosen 2026-06-09).
+1. **Name** — ✅ **Wheelhouse** (chosen 2026-06-09).
 2. **Registrar** — Porkbun (best API) vs Namecheap (familiar, stricter API: IP whitelist + min spend)?
 3. **Build vs wrap** — bespoke Docker+Traefik (own it) vs Coolify-as-substrate (ship faster)?
 4. **VPS reality** — provider = **Hetzner Cloud** ✅ (full REST API + cloud-init provisioning, §7 #12). Open: how many servers now? Decides multi-server priority.
 5. **One big VPS vs one-per-product** — bin-pack many products per host (cheaper, Traefik shines) vs isolation per product?
-6. **CI ownership** — build in GitHub Actions (recommended, reuse pipelines) vs build inside Drydock on a runner?
+6. **CI ownership** — build in GitHub Actions (recommended, reuse pipelines) vs build inside Wheelhouse on a runner?

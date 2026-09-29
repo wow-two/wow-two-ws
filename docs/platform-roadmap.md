@@ -13,10 +13,10 @@
 
 ## Governing principles (verified)
 
-1. **It's an Internal Developer Platform — treat it as an internal *product*, not a pile of libraries.** The catalog (`backend.beta` + `beta.ui` + `secrets-vault` + `drydock` + `product-template`) is the product; its users are your own product teams. `[CNCF-Platforms]`
+1. **It's an Internal Developer Platform — treat it as an internal *product*, not a pile of libraries.** The catalog (`backend.beta` + `beta.ui` + `secrets-vault` + `wheelhouse` + `product-template`) is the product; its users are your own product teams. `[CNCF-Platforms]`
 2. **Buy/wrap before build.** *"Build the thinnest viable platform layer over implementations from managed providers; build a capability yourself only when it's not available elsewhere."* Most bricks = thin integration layers, not from-scratch services. `[CNCF-Platforms]`
 3. **Sequence undifferentiated + frequently-required first.** *"Pipelines, databases and observability may be a good place to start."* For wow-two that's **CI/CD, secrets, observability, and the central IdP** (every app needs auth). `[CNCF-Platforms]`
-4. **Don't chase max maturity — problem-driven MVP per brick.** recognize → MVP → iterate → scale. *"Each additional level of maturity costs more funding and people's time; reaching the highest should not be a goal."* Keep `secrets-vault` single-tenant, `drydock` partial, etc. until a consumer forces the next level. `[CNCF-Maturity]`
+4. **Don't chase max maturity — problem-driven MVP per brick.** recognize → MVP → iterate → scale. *"Each additional level of maturity costs more funding and people's time; reaching the highest should not be a goal."* Keep `secrets-vault` single-tenant, `wheelhouse` partial, etc. until a consumer forces the next level. `[CNCF-Maturity]`
 5. **Modular à-la-carte catalog.** Each brick independently adoptable — any subset, no obligation to take the rest. Validates the brick decomposition **and** the 3-forms migrate-up model. `[Dapr]`
 
 ## Capability map — current state
@@ -31,7 +31,7 @@
 | **Identity — central IdP / SSO** | infra | ❌ missing | **DECIDED** |
 | **Secrets** | infra | 🟡 Form 2 only | `secrets-vault` |
 | **CI/CD pipelines** | dev-ex | 🟡 skeleton | `platform.pipelines` |
-| **Deploy / ops control plane** | infra | 🟡 partial | `drydock` |
+| **Deploy / ops control plane** | infra | 🟡 partial | `wheelhouse` |
 | **Scaffolding / CLI** | dev-ex | 🟡 template+skill, no CLI | `product-template`, `create-repo` |
 | Jobs / scheduling | infra | ✅ have | `backend.beta` (Hangfire) |
 | Caching | infra | ✅ have | `backend.beta`, `storage.cache` |
@@ -47,7 +47,7 @@
 | Analytics / product metrics | data | ❌ missing | — (buy) |
 | Event bus / messaging | infra | 🟡 partial | `comms.infra` (MassTransit) |
 | Durable execution / workflows | infra | ❌ missing | — (buy/defer) |
-| API gateway / ingress | infra | ✅ have (Traefik) | via `drydock` |
+| API gateway / ingress | infra | ✅ have (Traefik) | via `wheelhouse` |
 | UI component library | dev-ex | 🟡 partial | `beta.ui` |
 | AI gateway / LLM proxy | data/AI | ❌ skeleton | `templates.ai` |
 | Internal developer portal | dev-ex | ❌ missing | — (DEFER) |
@@ -62,7 +62,7 @@
 |---|---|---|---|---|---|
 | 1 | **Central Identity Provider** | consumer-side ✅ → standalone OIDC/SSO | 1→2→3 | **Build thin** — add OIDC-server endpoints (OpenIddict, OSS .NET) atop the existing `backend.beta` user store; *or* self-host Keycloak/Zitadel | Every app needs auth; ~80% already built; kills the "hundreds of OAuth clients across providers" problem. Undifferentiated + highest fanout. **Specifics unverified — see Open Questions.** |
 | 2 | **secrets-vault — harden + Form 1** | Form 2 ✅ → + Form 1 wireable | 2 → +1 | Build (mostly done) | Every app needs secrets; Form 1 lets a new micro-SaaS embed in-process, then graduate to the container. Already decided + in-flight. |
-| 3 | **drydock — deploy golden-path** | partial → 1-click deploy + streamed logs | service | **Build thin** (wrap Traefik / GHCR / Hetzner / Cloudflare) | Every product must ship; this *is* the self-service golden path = the IDP core. Finish SSH executor + Hangfire + SignalR. |
+| 3 | **wheelhouse — deploy golden-path** | partial → 1-click deploy + streamed logs | service | **Build thin** (wrap Traefik / GHCR / Hetzner / Cloudflare) | Every product must ship; this *is* the self-service golden path = the IDP core. Finish SSH executor + Hangfire + SignalR. |
 
 ### Tier 1 — high fanout, cheap given current state
 
@@ -76,7 +76,7 @@
 
 | # | Brick | State → goal | Form | Build/Buy | Why |
 |---|---|---|---|---|---|
-| 7 | **Feedbacks** | missing → central triage inbox + in-app report client | 1 client + 3 service | **Build** — steal `Sentry`'s issue/event data model | Toast report → exception auto-prioritized → deep-links to the log trace (brick #6). Central + cross-app; NOT inside `drydock` (operator ≠ triage audience). |
+| 7 | **Feedbacks** | missing → central triage inbox + in-app report client | 1 client + 3 service | **Build** — steal `Sentry`'s issue/event data model | Toast report → exception auto-prioritized → deep-links to the log trace (brick #6). Central + cross-app; NOT inside `wheelhouse` (operator ≠ triage audience). |
 | 8 | **Notifications brick** | email/Telegram → multi-channel (email/push/in-app/SMS) | 1→3 | Build thin, or wrap **Novu** | Every SaaS notifies users; extend the existing comms slice. |
 | 9 | **Audit-log brick** | inside secrets-vault → standalone reusable | 1→2 | Build (harvest from `secrets-vault`) | Trust/compliance; the hash-chain pattern is already proven — extract it. |
 | 10 | **Admin / back-office brick** | missing → turnkey per-product admin UI | 1 | Build thin (atop `beta.ui` + identity) | Every SaaS wants an admin panel; high reuse once built. |
@@ -87,7 +87,7 @@
 - **Billing / metering** → **buy** Stripe (+ Lago/Orb for usage metering) *when a product earns money*. Non-commercial now → not yet.
 - **Event bus / durable execution (Temporal)** → **defer** until an app actually needs async sagas; `comms.infra` (MassTransit) covers basic messaging.
 - **AI gateway / LLM proxy** → build thin *when* shared key-mgmt + routing + caching pays off (relevant given the AI-native WoW 3.0 vision) — not before identity/CLI.
-- **Own API gateway** → **don't build**; Traefik (already in the `drydock` deploy flow) suffices for companion-per-app.
+- **Own API gateway** → **don't build**; Traefik (already in the `wheelhouse` deploy flow) suffices for companion-per-app.
 - **Internal developer portal (Backstage)** → **defer**; a registry doc + the `wow` CLI deliver catalog + self-service at your scale. Standing up Backstage now is the classic small-team over-engineering trap.
 - **BaaS (Supabase-style)** → **skip**; the .NET `product-template` already gives every app a real backend.
 - **Search** → **buy** (Meilisearch / managed) on demand.
@@ -98,7 +98,7 @@
 |---|---|
 | Identity (central IdP) | **Build thin** — wrap OpenIddict / self-host Keycloak/Zitadel; you already own the user store *(picks unverified)* |
 | Secrets | **Built** — keep, add Form 1 |
-| Deploy plane | **Build thin** — `drydock`, wrap infra APIs |
+| Deploy plane | **Build thin** — `wheelhouse`, wrap infra APIs |
 | `wow` CLI / scaffolding | **Build thin** — no good off-the-shelf fit for your conventions |
 | Notifications | **Build thin or wrap Novu** |
 | Audit log | **Build** — harvest from secrets-vault |

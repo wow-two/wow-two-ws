@@ -9,7 +9,7 @@
 >
 > **Status:** parked — **start after `wow-two-platform.secrets-vault` is ready** (it holds the Google client
 > secret + the IdP's token-signing keys + rotation). Spawned from **forever-pin v0.3** (Google OAuth built inline);
-> this is where that auth infra extracts at portfolio scale. Deployed/monitored by `drydock` like any service.
+> this is where that auth infra extracts at portfolio scale. Deployed/monitored by `wheelhouse` like any service.
 
 ## Problem
 
@@ -26,7 +26,7 @@
 
 ## Architecture (sketch)
 
-- `wow-two-platform.identity` — Clean-Arch .NET + hosted login UI, sibling to `drydock` / `secrets-vault`.
+- `wow-two-platform.identity` — Clean-Arch .NET + hosted login UI, sibling to `wheelhouse` / `secrets-vault`.
 - **Providers:** Google first → pluggable interface for email / social.
 - **Tokens:** OIDC/JWT (or opaque session); signing keys from `secrets-vault`.
 - **Registry:** per-app `client_id`/secret, redirect URIs, theme. **User store:** unified vs per-tenant (open Q).
@@ -59,4 +59,4 @@ The v0.3 inline pieces ARE the IdP core, lifted:
 
 ## Related
 
-- `ideas/forever-pin-spec.md` (origin product) · `ideas/drydock-spec.md` (deploys it) · `ven-msaas-context.md` (the portfolio it serves).
+- `ideas/forever-pin-spec.md` (origin product) · `ideas/wheelhouse-spec.md` (deploys it) · `ven-msaas-context.md` (the portfolio it serves).

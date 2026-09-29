@@ -5,7 +5,7 @@ description: >-
   .NET backends, WebStorm for frontends — by running scripts/active.sh in this workspace. Use this
   whenever the user wants to open, launch, fire up, boot, or "spin up" their active projects /
   working set / "the repos I'm working on" / "everything I'm working on" in their IDEs, or to open
-  specific named projects (e.g. "open drydock and forever-pin in the IDEs", "just the frontends", "open
+  specific named projects (e.g. "open wheelhouse and forever-pin in the IDEs", "just the frontends", "open
   all my backends in Rider", "list what I'm working on"). Trigger even when the user does NOT say
   "active.sh" or name the IDEs — phrases like "open my projects", "fire up my workspace", "boot up
   everything I'm building" should use this skill. Covers opening all, opening a subset, backend-only

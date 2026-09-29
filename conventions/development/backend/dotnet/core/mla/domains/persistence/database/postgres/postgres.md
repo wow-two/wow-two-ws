@@ -54,7 +54,7 @@
 ```csharp
 services.AddNpgsqlDataSource(dataSource => dataSource.MapEnums(
     CaseStyle.Snake,
-    ns => ns.StartsWith("Drydock.Domain", StringComparison.Ordinal),
+    ns => ns.StartsWith("Wheelhouse.Domain", StringComparison.Ordinal),
     assemblies: typeof(ChannelType).Assembly));
 ```
 

@@ -8,7 +8,7 @@
 
 | Member | Repos (lane) | Stage |
 |---|---|---|
-| Mentee #1 (TBD) | `secrets-vault` + `drydock` → **frontends only** (`{slug}.frontend-services/`) | Pre-invite |
+| Mentee #1 (TBD) | `secrets-vault` + `wheelhouse` → **frontends only** (`{slug}.frontend-services/`) | Pre-invite |
 
 ## Status channel
 
@@ -20,11 +20,11 @@ Pre-invite checklist (SOP → *Pre-invite checklist*). None executed — SOP aut
 
 | # | Step | Status |
 |---|---|---|
-| 1 | Org invite (`wow-two-platform`) + `@wow-two-beta/ui` read (drydock only — secrets-vault doesn't consume it) | ☐ |
-| 2 | Seed 3–5 frontend starters atop `drydock` + `secrets-vault` `backlog.md` | ☐ — both backlogs owner-infra only, no frontend starters |
+| 1 | Org invite (`wow-two-platform`) + `@wow-two-beta/ui` read (wheelhouse only — secrets-vault doesn't consume it) | ☐ |
+| 2 | Seed 3–5 frontend starters atop `wheelhouse` + `secrets-vault` `backlog.md` | ☐ — both backlogs owner-infra only, no frontend starters |
 | 3 | Establish + name the status channel | ☐ |
 | 4 | `wow-two-ws/PLANNING.md` board + `## Start here` in both repo `CLAUDE.md` | ☐ |
-| 5 | `build.yml` (build+test, no publish) → `drydock` (no `.github/` — create fresh); `secrets-vault` has only `publish-docker-image.yml` | ☐ |
+| 5 | `build.yml` (build+test, no publish) → `wheelhouse` (no `.github/` — create fresh); `secrets-vault` has only `publish-docker-image.yml` | ☐ |
 | 6 | Fix `backend.beta` dangling planning pointer | ☐ |
 | 7 | `wow-two-ws/ONBOARDING.md` quickstart + dry-run `scripts/setup.sh` as the mentee | ☐ |
 
@@ -33,11 +33,11 @@ Step 1 (org invite) is the owner's to action — longest lead, do first.
 ## Owned lanes (you)
 
 - Beta libs: `wow-two-sdk-beta.ui`, `wow-two-sdk.backend.beta` — incl. version bumps.
-- App backends: `secrets-vault.backend-services`, `drydock.backend-services` + deploy/SSH.
+- App backends: `secrets-vault.backend-services`, `wheelhouse.backend-services` + deploy/SSH.
 
 ## Live seam
 
-- `drydock` frontend ↔ backend **API contract** — the one interface to coordinate async.
+- `wheelhouse` frontend ↔ backend **API contract** — the one interface to coordinate async.
 
 ## Open items
 

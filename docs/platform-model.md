@@ -45,7 +45,7 @@ We don't gate building on "is it ready." Build into **beta**, harden over months
 Build in beta  →  battle-harden   →  migrate beta→stable  →  shake repos    →  OSS promote
 (sdk-beta,        (tests cover all   (beta SDK → real        (clean-commit     (non-profit,
  platform.*,       angles; survive    wow-two-sdk; full       rebuild of the    public, free)
- drydock)          real product use)  checks + semver)        promoted set)
+ wheelhouse)          real product use)  checks + semver)        promoted set)
 ```
 
 1. **Build in beta** — everything starts in `wow-two-sdk-beta` / `wow-two-platform` (private, fast-moving, beta-forever, `0.x`, auto-bump on push).
@@ -62,7 +62,7 @@ We do **not** sequence "finish A, then start B." Platforms grow together.
 
 - Build **A**; if **B** needs a piece of A, build that piece and consume it mid-flight.
 - "**2 bricks in A, 3 bricks in B**" — interleave; no platform blocks on another being "done."
-- Consume-while-building is the norm: `drydock` reuses `secrets-vault` patterns before secrets-vault is finished; apps use `backend.beta` while it's still beta.
+- Consume-while-building is the norm: `wheelhouse` reuses `secrets-vault` patterns before secrets-vault is finished; apps use `backend.beta` while it's still beta.
 - The dependency map is a **pull graph**, not a waterfall: a consumer pulls the API it needs → the producer bumps it → the consumer re-pulls.
 
 So **"what to build first" is the wrong frame**. The right frame: *which brick unblocks the most consumers per unit effort?* The roadmap ranks **bricks**, not whole platforms.

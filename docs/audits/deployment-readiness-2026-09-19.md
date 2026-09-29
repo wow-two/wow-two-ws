@@ -1,24 +1,24 @@
-# Deployment readiness — ForeverPin and Dry Dock
+# Deployment readiness — ForeverPin and Wheelhouse
 
 *Last updated: 2026-09-19 11:37 AM*
 
 ## Decision and scope
 
-Continue Dry Dock as the private deployment control plane, with ForeverPin as its first real workload.
+Continue Wheelhouse as the private deployment control plane, with ForeverPin as its first real workload.
 Keep the deployment contract usable from an operator's machine so a broken control plane cannot block recovery.
-User approved the ownership split on September 19: **GitHub Actions builds; Dry Dock governs deployment**.
+User approved the ownership split on September 19: **GitHub Actions builds; Wheelhouse governs deployment**.
 The detailed implementation sequence below is the baseline; the pipeline is not implemented or signed off for production.
 
-- User selected **ForeverPin**, and possibly **Dry Dock** for infrastructure governance.
+- User selected **ForeverPin**, and possibly **Wheelhouse** for infrastructure governance.
 - Budget: about **$15/month**; eventual ambition: **3–6 products** on one VPS.
 - The inventory covers the local ventures directory and relevant platform/template repositories.
-- Detailed readiness checks cover Dry Dock and ForeverPin; other products received a manifest/deployment inventory.
+- Detailed readiness checks cover Wheelhouse and ForeverPin; other products received a manifest/deployment inventory.
 - Remote repository state, GHCR contents, DNS, production data and a live VPS were not verified.
 - Existing product edits were preserved. No provider, billing, or production deployment changes were made.
 - Local ForeverPin packaging was implemented and verified after the baseline review.
 
 The portfolio is not uniformly three months stale. ForeverPin has September changes and a September verification record;
-Dry Dock has a working foundation but June planning and deployment files that lag its code.
+Wheelhouse has a working foundation but June planning and deployment files that lag its code.
 
 ---
 
@@ -26,16 +26,16 @@ Dry Dock has a working foundation but June planning and deployment files that la
 
 | Component | Evidence on September 19 | Consequence |
 |---|---|---|
-| Dry Dock backend | Solution builds with cached restore assets; zero errors, 69 warnings | The old June handoff saying the build is broken is stale |
-| Dry Dock tests | 54 unit + 11 integration + 2 migration + 48 HTTP E2E passed; none skipped | Existing registry/auth/image-resolution foundation is reusable |
-| Dry Dock frontend | `npm run typecheck` passed | Type check only; browser and production-image checks remain |
+| Wheelhouse backend | Solution builds with cached restore assets; zero errors, 69 warnings | The old June handoff saying the build is broken is stale |
+| Wheelhouse tests | 54 unit + 11 integration + 2 migration + 48 HTTP E2E passed; none skipped | Existing registry/auth/image-resolution foundation is reusable |
+| Wheelhouse frontend | `npm run typecheck` passed | Type check only; browser and production-image checks remain |
 | ForeverPin | Fresh full verifier: 208 backend tests, 4 frontend tests, production frontend build | Current product verification is green |
 | Docker | Both ForeverPin images built; the local three-service stack reached healthy state | Local packaging works; production remains unverified |
 
-Dry Dock build command:
+Wheelhouse build command:
 
 ```sh
-dotnet build engineering/codebase/drydock.backend-services/Drydock.slnx \
+dotnet build engineering/codebase/wheelhouse.backend-services/Wheelhouse.BackendServices.slnx \
   --no-restore -p:SkipSpaBuild=true --nologo -v:q \
   -m:1 -nodeReuse:false -p:UseSharedCompilation=false
 ```
@@ -43,7 +43,7 @@ dotnet build engineering/codebase/drydock.backend-services/Drydock.slnx \
 Test command, with native permission for runner sockets and Docker:
 
 ```sh
-dotnet test engineering/codebase/drydock.backend-services/Drydock.slnx \
+dotnet test engineering/codebase/wheelhouse.backend-services/Wheelhouse.BackendServices.slnx \
   --no-build --no-restore -p:SkipSpaBuild=true -m:1 --nologo -v:q
 ```
 
@@ -54,7 +54,7 @@ Source: [ForeverPin verification](../../workbench/ventures/10x-venture-forever-p
 
 ---
 
-## Dry Dock: retain the foundation, finish deployment
+## Wheelhouse: retain the foundation, finish deployment
 
 ### Present in code
 
@@ -65,16 +65,16 @@ Source: [ForeverPin verification](../../workbench/ventures/10x-venture-forever-p
 - GitHub release and GHCR image lookup; recognizes `.github/workflows/publish-docker-image.yml`.
 - A deployment entity with product, server, environment and image-tag fields.
 
-Sources: [host registration](../../workbench/wow-two-platform/wow-two-platform.drydock/engineering/codebase/drydock.backend-services/Drydock.Api/Configurations/HostConfigurationExtensions.cs),
-[release lookup](../../workbench/wow-two-platform/wow-two-platform.drydock/engineering/codebase/drydock.backend-services/Drydock.Application/Products/Queries/ProductVersionStatus/ProductVersionStatusQueryHandler.cs),
-[deployment entity](../../workbench/wow-two-platform/wow-two-platform.drydock/engineering/codebase/drydock.backend-services/Drydock.Domain/Deployments/Entities/Deployment.cs).
+Sources: [host registration](../../workbench/wow-two-platform/wow-two-platform.wheelhouse/engineering/codebase/wheelhouse.backend-services/Wheelhouse.Api/Configurations/HostConfigurationExtensions.cs),
+[release lookup](../../workbench/wow-two-platform/wow-two-platform.wheelhouse/engineering/codebase/wheelhouse.backend-services/Wheelhouse.Application/Products/Queries/ProductVersionStatus/ProductVersionStatusQueryHandler.cs),
+[deployment entity](../../workbench/wow-two-platform/wow-two-platform.wheelhouse/engineering/codebase/wheelhouse.backend-services/Wheelhouse.Domain/Deployments/Entities/Deployment.cs).
 
 ### Missing or inconsistent
 
 1. **Execution:** no implemented SSH deployment executor, deployment API/worker, health-gated rollout or rollback path in the inspected source.
-2. **Own packaging:** Compose and Dockerfile supply `Data Source=/data/drydock.db`, while the API registers PostgreSQL.
+2. **Own packaging:** Compose and Dockerfile supply `Data Source=/data/wheelhouse.db`, while the API registers PostgreSQL.
    The supplied container configuration cannot satisfy the current database contract without an override and reachable PostgreSQL.
-3. **Publishing:** no image-publishing workflow found locally in Dry Dock or ForeverPin. The platform pipelines repository contains only a README.
+3. **Publishing:** no image-publishing workflow found locally in Wheelhouse or ForeverPin. The platform pipelines repository contains only a README.
 4. **Release model:** lookup resolves a single `ghcr.io/{repo}:{tag}`; the entity still names frontend/API image tags.
    ForeverPin needs two backend services released together. A service-to-image-digest map is a better contract.
 5. **Operator access:** empty `AllowedGitHubLogins` deliberately allows any authenticated GitHub user.
@@ -83,10 +83,10 @@ Sources: [host registration](../../workbench/wow-two-platform/wow-two-platform.d
 6. **Build freshness:** the SPA target skips install when `node_modules` exists and uses an incomplete timestamp input list.
    Align it with the existing single-host build convention when repairing packaging.
 
-Sources: [Compose](../../workbench/wow-two-platform/wow-two-platform.drydock/engineering/deployment/docker-compose.yml),
-[Dockerfile](../../workbench/wow-two-platform/wow-two-platform.drydock/engineering/deployment/Dockerfile),
-[auth settings](../../workbench/wow-two-platform/wow-two-platform.drydock/engineering/codebase/drydock.backend-services/Drydock.Infrastructure/Settings/AuthSettings.cs),
-[API project](../../workbench/wow-two-platform/wow-two-platform.drydock/engineering/codebase/drydock.backend-services/Drydock.Api/Drydock.Api.csproj).
+Sources: [Compose](../../workbench/wow-two-platform/wow-two-platform.wheelhouse/engineering/deployment/docker-compose.yml),
+[Dockerfile](../../workbench/wow-two-platform/wow-two-platform.wheelhouse/engineering/deployment/Dockerfile),
+[auth settings](../../workbench/wow-two-platform/wow-two-platform.wheelhouse/engineering/codebase/wheelhouse.backend-services/Wheelhouse.Infrastructure/Settings/AuthSettings.cs),
+[API project](../../workbench/wow-two-platform/wow-two-platform.wheelhouse/engineering/codebase/wheelhouse.backend-services/Wheelhouse.Api/Wheelhouse.Api.csproj).
 
 The June handoff is a historical checklist, not today's build result.
 Keep the useful code; reconcile the planning and packaging against these findings.
@@ -131,7 +131,7 @@ Sources: [API project](../../workbench/ventures/10x-venture-forever-pin/engineer
 [redirect startup](../../workbench/ventures/10x-venture-forever-pin/engineering/codebase/forever-pin.backend-services/ForeverPin.Redirect.Api/Configurations/HostConfiguration.cs),
 [scan recorder](../../workbench/ventures/10x-venture-forever-pin/engineering/codebase/forever-pin.backend-services/ForeverPin.Redirect.Api/Infrastructure/Analytics/ChannelScanRecorder.cs),
 [flush worker](../../workbench/ventures/10x-venture-forever-pin/engineering/codebase/forever-pin.backend-services/ForeverPin.Redirect.Api/Infrastructure/Analytics/ScanFlushBackgroundService.cs),
-[product planning](../../workbench/ventures/10x-venture-forever-pin/engineering/planning/planning.md).
+[product backlog](../../workbench/ventures/10x-venture-forever-pin/engineering/planning/backlog.md).
 
 ---
 
@@ -142,7 +142,7 @@ flowchart LR
     Repo[Product commit] --> CI[GitHub Actions: verify and build]
     CI --> Registry[GHCR: immutable images]
     CI --> Manifest[Release manifest: commit and image digests]
-    Manifest --> Dock[Dry Dock: select release and environment]
+    Manifest --> Dock[Wheelhouse: select release and environment]
     Dock --> Runner[SSH deployment runner]
     Operator[Operator recovery command] --> Runner
     Registry --> Host[VPS: Docker Compose]
@@ -154,10 +154,10 @@ flowchart LR
 ### Ownership
 
 - **Product repository:** images, runtime configuration schema, Compose definition, health checks and migrations.
-- **Platform pipelines:** shared CI workflow after the first product workflow is proven; retain a thin marker workflow per product for Dry Dock discovery.
-- **Dry Dock:** desired product/environment/release, operator authorization, execution, audit trail and observed status.
-- **Deployment runner:** the same tested operation used by Dry Dock and operator recovery; no second divergent shell workflow.
-- **Host bootstrap:** Docker, private admin access, ingress, storage and backup setup. Keep it independent of Dry Dock's database/UI.
+- **Platform pipelines:** shared CI workflow after the first product workflow is proven; retain a thin marker workflow per product for Wheelhouse discovery.
+- **Wheelhouse:** desired product/environment/release, operator authorization, execution, audit trail and observed status.
+- **Deployment runner:** the same tested operation used by Wheelhouse and operator recovery; no second divergent shell workflow.
+- **Host bootstrap:** Docker, private admin access, ingress, storage and backup setup. Keep it independent of Wheelhouse's database/UI.
 
 ### Minimum release manifest
 
@@ -180,9 +180,9 @@ Treat tags as human labels; deploy recorded digests so retry and rollback use th
 Compose starts containers without automatically proving readiness; use health conditions and application probes.
 [Docker startup-order documentation](https://docs.docker.com/compose/how-tos/startup-order/).
 
-Dry Dock itself must be bootstrappable and updatable with the operator path.
+Wheelhouse itself must be bootstrappable and updatable with the operator path.
 Its process restarting cannot be the only witness of its own deployment outcome.
-Existing product containers must keep serving when Dry Dock is unavailable.
+Existing product containers must keep serving when Wheelhouse is unavailable.
 
 ---
 
@@ -199,14 +199,14 @@ Existing product containers must keep serving when Dry Dock is unavailable.
   Production and staging still share the host's CPU, storage and failure risk.
 - Prefer an x86-64 host for the initial cut unless all images/native dependencies are verified on ARM.
   Haven's existing scripts explicitly build `linux/amd64`; choosing CAX ARM later requires deliberate image validation.
-- An 8 GB class VPS is a reasonable **starting hypothesis** for ForeverPin plus Dry Dock at light traffic.
+- An 8 GB class VPS is a reasonable **starting hypothesis** for ForeverPin plus Wheelhouse at light traffic.
   No production memory, traffic or storage measurements were captured. This is not a capacity guarantee for six products.
 - Build on CI, not the VPS. Measure memory, CPU, disk growth and redirect latency before admitting more workloads.
 - Apply container resource limits, log rotation, bounded retention and low-disk alerts.
 - Count tax, IPv4 and independent backup storage in the $15 total; previous provider quotes were not revalidated here.
 - Keep routine full-stack preview environments local until demand justifies another always-on copy.
 
-Initial always-on shape: ingress + PostgreSQL + ForeverPin management + ForeverPin redirect + private Dry Dock.
+Initial always-on shape: ingress + PostgreSQL + ForeverPin management + ForeverPin redirect + private Wheelhouse.
 No Redis, queue broker or telemetry database is required by the inspected initial deployment contract.
 
 ---
@@ -217,7 +217,7 @@ No Redis, queue broker or telemetry database is required by the inspected initia
   Existing applications must explicitly read mounted secret files; `_FILE` variables are not universally supported.
   Compose mounts do not themselves encrypt the backing host file.
   [Docker secrets documentation](https://docs.docker.com/compose/how-tos/use-secrets/).
-- Keep decryption/recovery keys outside the VPS and outside Dry Dock's own database.
+- Keep decryption/recovery keys outside the VPS and outside Wheelhouse's own database.
 - Secrets Vault is a separate unfinished product; do not make it a prerequisite for recovering the initial applications.
 - Use a deployment credential with pinned SSH host identity; treat Docker access as privileged even if the SSH user is not named root.
 - Keep SSH/admin access private; expose only intended web ingress. Keep PostgreSQL off the public interface.
@@ -278,10 +278,10 @@ The existing Secrets Vault publish workflow is a useful starting example, but it
 
 | Stage | Work | Acceptance evidence |
 |---|---|---|
-| 1. Packaging | ForeverPin's two images; Dry Dock PostgreSQL packaging; frozen dependencies; runtime config contract | Clean builds, local Compose smoke, restart retains state, no secrets baked into images |
+| 1. Packaging | ForeverPin's two images; Wheelhouse PostgreSQL packaging; frozen dependencies; runtime config contract | Clean builds, local Compose smoke, restart retains state, no secrets baked into images |
 | 2. Release | Tested product workflow; GHCR digests; release manifest; shared workflow extraction | Same verified commit produces both ForeverPin images; reproducible staging-to-production promotion |
 | 3. Execution | Provider-neutral SSH runner, locking, deploy state, health checks, failure handling, recovery command | Deploy two releases to disposable target; recover from unhealthy release; repeat safely |
-| 4. Dry Dock integration | Environment + multi-service release model, runner integration, private access, owner allowlist | Select release/environment; observe real outcome; recovery works while Dry Dock is stopped |
+| 4. Wheelhouse integration | Environment + multi-service release model, runner integration, private access, owner allowlist | Select release/environment; observe real outcome; recovery works while Wheelhouse is stopped |
 | 5. Public launch | Chosen host, DNS/TLS, real provider callbacks, tested backups, monitoring, completed ForeverPin product gates | Working public redirect/editor, restore drill, measured headroom, costs within approved budget |
 
 Keep domain purchasing, automatic VPS provisioning, full Secrets Vault integration, multi-host orchestration and broad UI redesign
@@ -289,5 +289,5 @@ outside this initial deployment slice. They can be added after ForeverPin proves
 Do not require a React-to-Vue migration or a portfolio-wide SDK upgrade to ship this pipeline.
 Fix SDK defects at their owner when one actually blocks the agreed slice.
 
-Immediate implementation boundary: **repeatable local packaging for ForeverPin and Dry Dock**, not a new server purchase.
+Immediate implementation boundary: **repeatable local packaging for ForeverPin and Wheelhouse**, not a new server purchase.
 No estimate of completion time is asserted; the missing deployment executor is substantive new work.

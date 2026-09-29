@@ -33,7 +33,7 @@ Usage counted by grepping the 11 SDK-consuming product backends for each symbol.
 | `workbench/wow-two-sdk-beta/wow-two-sdk.backend.beta/` | the beta backend SDK mono-lib | the real platform |
 | `workbench/wow-two-platform/` | 17 repos | 14 empty, 1 stub, 2 products |
 | `workbench/wow-two-sdk/` | 7 repos | 5 empty, 2 with code |
-| `workbench/ventures/` + drydock + secrets-vault | 11 product backends | the consumers |
+| `workbench/ventures/` + wheelhouse + secrets-vault | 11 product backends | the consumers |
 
 **Headline: the platform org is empty.** Every shared backend capability lives in the beta SDK mono-lib.
 
@@ -54,7 +54,7 @@ Usage counted by grepping the 11 SDK-consuming product backends for each symbol.
 
 - namespaces are `WoW.Two.Sdk.Backend.Beta.*`; package ids are `WoW2.Sdk.*` — the two differ by design
 - 203 public `Add*` / `Use*` / `Map*` registration methods across `src/`
-- products pin `10.0.45-beta` (forever-pin, drydock) or `10.0.40-beta`; testing companions lag at `10.0.40-beta`
+- products pin `10.0.45-beta` (forever-pin, wheelhouse) or `10.0.40-beta`; testing companions lag at `10.0.40-beta`
 
 ---
 
@@ -356,7 +356,7 @@ Three runners plus a CLI. The bespoke SQL migrator is the one products actually 
 **CLI** — `src/Data/Migrations/cli/`, `PackAsTool`, command `wow-migrate`
 
 - verbs `apply` `new` `promote` `rollback` `status` `verify`; `MigrationsPathResolver`, `CliRunner`, `CliCommands`
-- maturity — **shipped · used**; forever-pin, drydock and secrets-vault all run the bespoke path
+- maturity — **shipped · used**; forever-pin, wheelhouse and secrets-vault all run the bespoke path
 
 ---
 
@@ -479,7 +479,7 @@ Four packages, split by tier.
 **`Testing.Messaging`** — `MessagingTestHarness`, `MessagingRecorder` + `AddMessagingRecorder`, `SagaTestHarness`,
 `SagaRecorder` + `AddSagaRecorder`, `RecordedMessage`, `RecordedTransition`. Unused.
 
-**`Testing.Integrations`** — `FakeGitHubClient`, `FakeContainerRegistryClient`. Used by drydock.
+**`Testing.Integrations`** — `FakeGitHubClient`, `FakeContainerRegistryClient`. Used by wheelhouse.
 
 - maturity — **shipped · used**; `RelationalTestDb` in 3 repos, `MigratorTestBase` in forever-pin
 
@@ -559,7 +559,7 @@ Four packages, split by tier.
 | Backend | Repo | Notes |
 |---|---|---|
 | forever-pin | `ventures/10x-venture-forever-pin` | the reference; 2 hosts, 4 test tiers |
-| drydock | `wow-two-platform.drydock` | deploy control plane; 94 `.cs` |
+| wheelhouse | `wow-two-platform.wheelhouse` | deploy control plane; 94 `.cs` |
 | secrets-vault | `wow-two-platform.secrets-vault` | densest app layer; 109 `.cs` |
 | transcript-forge | `ventures/10x-ventures-transcript-forge` | full 5-project split |
 | tnis | `ventures/ventures.tnis` | plus an ingestion CLI |
@@ -603,7 +603,7 @@ designed — but it means most of the SDK surface is unproven against a real pro
   `design-patterns` `docs.api` `storage.cache` `storage.file` `contrimap` `main` `pipelines`
 - their solution names carry a `Backbone.*` generation the beta SDK superseded
 - `templates.ai` is a **stub** — 4 wired csprojs whose entire content is `public class Class1` ×4
-- `drydock` and `secrets-vault` are the only real code, and they are products, not packages
+- `wheelhouse` and `secrets-vault` are the only real code, and they are products, not packages
 
 ### `wow-two-sdk` — 7 repos, 5 empty
 
@@ -637,7 +637,7 @@ in the working tree on this date — re-check the two convention entries before 
 - the same doc cites the path `src/meta/ApiDefaultsExtensions.cs`; the folder is `src/Meta/`, and the mono-lib
   rule is that area folders are PascalCase.
 - the repo `CLAUDE.md` states "**Source-gen first**" as a working rule; the SDK ships no source generator.
-- drydock's `README.md` says EF Core / SQLite; the code calls `AddPostgresPersistence<DrydockDbContext>` and
+- wheelhouse's `README.md` says EF Core / SQLite; the code calls `AddPostgresPersistence<WheelhouseDbContext>` and
   no `UseSqlite` appears anywhere in that repo.
 
 ---

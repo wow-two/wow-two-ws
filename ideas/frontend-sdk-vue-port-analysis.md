@@ -121,7 +121,7 @@ Measured across every frontend importing `@wow-two-beta/ui`:
 | `forever-pin` | 134 | 6,880 | 42 | **94** | `0.0.97` |
 | `transcript-forge` | 45 | 2,787 | 12 | 57 | `^0.0.90` |
 | `museums-gallery` | 127 | 8,348 | 41 | 39 | `0.0.104` |
-| `drydock` | 17 | 1,475 | 7 | 18 | `0.0.95` |
+| `wheelhouse` | 17 | 1,475 | 7 | 18 | `0.0.95` |
 | `secrets-vault` | 21 | 1,556 | 12 | 17 | `0.0.95` |
 | `prism` | 126 | 28,171 | 5 | 11 | `0.0.62` |
 | `nth26` | 272 | 23,008 | 5 | 9 | `0.0.104` |

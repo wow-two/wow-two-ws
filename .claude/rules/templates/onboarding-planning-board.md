@@ -21,7 +21,7 @@
 
 - Contributor → app **frontends** (`{slug}.frontend-services/`); consumes libs as packages; no lib/backend edits.
 - Owner → beta libs + app backends/infra.
-- Live seam: `drydock` frontend ↔ backend **API contract** — coordinate on the status channel.
+- Live seam: `wheelhouse` frontend ↔ backend **API contract** — coordinate on the status channel.
 
 ## Status channel
 
@@ -33,8 +33,8 @@ Single trusted contributor → fix-forward + CI-green signal, not gates. See SOP
 
 ## Dependency map
 
-- `drydock.frontend-services` → `@wow-two-beta/ui` (`^0.0.x`) — owner controls bumps.
-- `drydock` frontend → `drydock` backend — the one live API seam.
+- `wheelhouse.frontend-services` → `@wow-two-beta/ui` (`^0.0.x`) — owner controls bumps.
+- `wheelhouse` frontend → `wheelhouse` backend — the one live API seam.
 
 ## Git note
 
