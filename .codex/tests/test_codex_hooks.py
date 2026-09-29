@@ -38,13 +38,14 @@ class CodexHooksTests(unittest.TestCase):
         self.assertNotIn('Source: .claude/file-references.md', text)
 
     def test_prompt_names_current_model_and_shared_route(self):
-        text = self.context(prompt='continue', model='gpt-5.6-sol')
-        self.assertIn('Current model: `gpt-5.6-sol`', text)
-        self.assertIn('Default route: `GPT-5.6 Sol`', text)
+        text = self.context(prompt='continue', model='gpt-6-sol')
+        self.assertIn('Current model: `gpt-6-sol`', text)
+        self.assertIn('Default route: `GPT-6 Sol`', text)
 
     def test_pulse_and_full_tenth_turn_from_unrelated_directory(self):
         first = self.context(prompt='continue')
         self.assertIn('PLAN (enforce)', first)
+        self.assertIn('Chat content uses bullets only', first)
         self.assertNotIn('STYLE RECHARGE (turn', first)
         for _ in range(9):
             tenth = self.context(prompt='continue')
@@ -71,13 +72,13 @@ class CodexHooksTests(unittest.TestCase):
         reply = ('### Plan\n\n- ✅ Audited rules\n- ✅ Ported hooks\n'
                  '- 🔄 Discuss the point\n- ⬜ Implement agreed changes\n\n'
                  '### Queue\n\n- 1 / 1 from walkthrough · open: validation\n\n'
-                 'What distinguishes the two inputs?')
+                 '- What distinguishes the two inputs?')
         self.hook('Stop', last_assistant_message=reply)
         self.assertNotIn('STYLE CHECK —', self.context(prompt='continue'))
 
     def test_explicit_bare_marker_does_not_report_missing_blocks(self):
         self.context(prompt='~bare answer briefly')
-        self.hook('Stop', last_assistant_message='One answer.\nAnother line.\nThird line.\nFourth line.')
+        self.hook('Stop', last_assistant_message='- One answer.\n- Another line.\n- Third line.\n- Fourth line.')
         self.assertNotIn('STYLE CHECK —', self.context(prompt='continue'))
 
     def test_missing_reply_never_reads_claude_transcript_shape(self):
@@ -127,8 +128,15 @@ class CodexHooksTests(unittest.TestCase):
 
 
     def test_no_eis_required_empty_queue(self):
-        self.hook('Stop', last_assistant_message='Done.')
+        self.hook('Stop', last_assistant_message='- Done.')
         self.assertNotIn('STYLE CHECK —', self.context(prompt='continue'))
+
+    def test_short_prose_and_sixteen_word_bullet_are_reported(self):
+        reply = 'A short prose answer.\n- ' + ' '.join(['word'] * 16)
+        self.hook('Stop', last_assistant_message=reply)
+        verdict = self.context(prompt='continue')
+        self.assertIn('chat text outside bullets', verdict)
+        self.assertIn('bullet cap 15 words', verdict)
 
     def test_local_branch_policy_is_retained(self):
         for command in ['git branch codex/test']:

@@ -1,10 +1,10 @@
 #!/bin/bash
-# UserPromptSubmit hook: short style pulse every turn, FULL response-style.md every Nth turn.
+# UserPromptSubmit hook: shared format + local pulse; full rules every Nth turn.
 # Counters long-session attention fade: the per-turn pulse keeps recency, the periodic
 # full reinject restores the complete ruleset into recent context.
 #
 # HARD RULE -- NO QUOTED PROSE IN THIS FILE.
-# The injected text lives in .claude/hooks/style-pulse.md and is emitted with `cat`.
+# Injected text lives in the shared format pulse and local style-pulse.md.
 # Reason: an apostrophe inside an inline `echo '...'` ends the quote -> bash parse error
 # -> exit 2, and UserPromptSubmit treats exit 2 as "block the prompt AND erase it".
 # Edit the .md, never inline the text back into this script.
@@ -30,15 +30,17 @@ printf '%s' "$n" > "$f" 2>/dev/null
 
 full=.claude/rules/response-style.md
 pulse=.claude/hooks/style-pulse.md
+format=/Users/max/.codex/conventions/response-format-pulse.md
 
 if [ "$N" -gt 0 ] && [ $((n % N)) -eq 0 ] && [ -f "$full" ]; then
   printf 'STYLE RECHARGE (turn %s -- full ruleset, re-read and apply):\n' "$n"
   cat /Users/max/.codex/conventions/response-style.md
   cat "$full"
-elif [ -f "$pulse" ]; then
+elif [ -f "$format" ] && [ -f "$pulse" ]; then
+  cat "$format"
   cat "$pulse"
 else
-  printf 'STYLE HOOK BROKEN: no "%s" under "%s" -- style enforcement OFF this turn.\n' "$pulse" "$PWD"
+  printf 'STYLE HOOK BROKEN: missing shared format or local pulse -- style enforcement OFF this turn.\n'
 fi
 
 # Chat markers land LAST, so their rule text outranks the pulse/ruleset they override.

@@ -29,18 +29,13 @@ import re
 import sys
 import tempfile
 
-CAP = 75            # bullet cap, characters, marker excluded
-CAP_GRACE = 10      # the ruleset lets the "compression floor" run a claim over the
-                    # cap; that judgement is not mechanical, so only a clear overrun
-                    # -- CAP + CAP_GRACE -- is reported
+CAP = 15            # whitespace-separated words per bullet, status excluded
 STREAM_LINES = 15   # streamed-reply line cap as the ruleset states it
 STREAM_SLACK = 18   # the ruleset says "~15"; only complain past this
 PLAN_MIN, PLAN_MAX = 4, 6
 PLAN_LINE_EXEMPT = 3          # <=3-line reply needs no Plan block
 STATUSES = ("✅", "\U0001f504", "⬜", "✗")
 VERBATIM_RUN = 24             # backtick/quote span this long reads as verbatim
-PROSE_MIN_CHARS = 300
-PROSE_MIN_SENTENCES = 4
 MAX_SHOWN = 3                 # never list more than this many over-cap bullets
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -51,8 +46,6 @@ FENCE = re.compile(r"^\s*(```|~~~)")
 HEADING = re.compile(r"^\s*#{1,6}\s")
 PLAN_HDR = re.compile(r"^\s*#{2,4}\s*Plan\s*$", re.I)
 QUEUE_HDR = re.compile(r"^\s*(#{2,4}\s*)?Queue\s*$", re.I)
-SENTENCE = re.compile(r"[.!?](?:\s|$)")
-URLISH = re.compile(r"https?://|\]\(")
 LONG_RUN = re.compile(
     r"`[^`]{%d,}`|\"[^\"]{%d,}\"|'[^']{%d,}'|“[^”]{%d,}”"
     % (VERBATIM_RUN, VERBATIM_RUN, VERBATIM_RUN, VERBATIM_RUN)
@@ -114,8 +107,6 @@ def exempt_bullet(text):
     """Exemptions from the cap, stated in the ruleset. Bias hard toward silence."""
     if LONG_RUN.search(text):      # verbatim quote / error string / long identifier
         return True
-    if URLISH.search(text):        # a URL cannot be shortened to fit
-        return True
     return False
 
 
@@ -128,9 +119,12 @@ def over_cap(lines, flags):
         if text is None:
             continue
         text = text.rstrip()
-        if len(text) <= CAP + CAP_GRACE or exempt_bullet(text):
+        words = text.split()
+        if words and words[0] in STATUSES:
+            words = words[1:]
+        if len(words) <= CAP or exempt_bullet(text):
             continue
-        hits.append((i, len(text), text))
+        hits.append((i, len(words), text))
     return hits
 
 
@@ -162,30 +156,16 @@ def has_queue(lines, flags):
     return False
 
 
-def prose_paragraphs(lines, flags):
-    """Contiguous plain-text runs that look like findings written as prose."""
-    hits, buf, start = [], [], 0
-    def flush():
-        if not buf:
-            return
-        text = " ".join(buf).strip()
-        if len(text) >= PROSE_MIN_CHARS and len(SENTENCE.findall(text)) >= PROSE_MIN_SENTENCES:
-            hits.append((start, text))
+def unbulleted_lines(lines, flags):
+    """Find chat text outside bullets or approved structural Markdown."""
+    hits = []
     for i, (line, (fence, table, quote)) in enumerate(zip(lines, flags), start=1):
-        plain = (not fence and not table and not quote
-                 and line.strip()
-                 and not HEADING.match(line)
-                 and bullet_text(line) is None
-                 and not line.strip().startswith("---")
-                 and not re.match(r"^\s*\d+[.)]\s", line))
-        if plain:
-            if not buf:
-                start = i
-            buf.append(line.strip())
-        else:
-            flush()
-            buf = []
-    flush()
+        stripped = line.strip()
+        if (not stripped or fence or table or quote or HEADING.match(line)
+                or bullet_text(line) is not None or stripped.startswith('---')
+                or stripped.startswith('::')):
+            continue
+        hits.append((i, stripped))
     return hits
 
 
@@ -210,11 +190,10 @@ def measure(reply, cfg):
     # structural ones -- those the ruleset never exempts.
     hits = [] if walkthrough else over_cap(lines, flags)
     if hits:
-        detail = ["  L%d  %d chars  %s" % (i, n, t[:CAP] + "…" if len(t) > CAP else t)
+        detail = ["  L%d  %d words  %s" % (i, n, t[:120] + "…" if len(t) > 120 else t)
                   for i, n, t in hits[:MAX_SHOWN]]
         more = "" if len(hits) <= MAX_SHOWN else "  (+%d more)" % (len(hits) - MAX_SHOWN)
-        findings.append("bullet cap %d: %d bullet(s) clearly over (>%d, grace applied)"
-                        % (CAP, len(hits), CAP + CAP_GRACE))
+        findings.append("bullet cap %d words: %d bullet(s) over" % (CAP, len(hits)))
         findings.extend(detail)
         if more:
             findings.append(more)
@@ -237,12 +216,10 @@ def measure(reply, cfg):
         findings.append("streamed reply: %d lines, tables and fences already excluded (cap ~%d)"
                         % (len(readable), STREAM_LINES))
 
-    prose = prose_paragraphs(lines, flags)
-    if prose and not walkthrough and (start is not None or queued):
-        i, text = prose[0]
-        findings.append("possible prose finding at L%d, %d chars -- LOW CONFIDENCE, "
-                        "ignore if it is a <=2-sentence answer or a deliverable"
-                        % (i, len(text)))
+    plain = unbulleted_lines(lines, flags)
+    if plain and not walkthrough:
+        findings.append("chat text outside bullets at line(s): %s" %
+                        ', '.join(str(i) for i, _ in plain[:MAX_SHOWN]))
 
     return findings
 
