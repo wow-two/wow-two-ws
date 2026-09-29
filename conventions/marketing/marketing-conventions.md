@@ -1,14 +1,15 @@
 # Marketing — Conventions
 
-*Last updated: 2026-06-23*
+*Last updated: 2026-09-29*
 
-> How we name, brand, and take wow-two products to market — brand identity, domains, and go-to-market. Visual identity lives in the frontend `styling` convention.
+> How we name and take wow-two products to market — naming, domains and go-to-market.
 
 ## Index
 
 | Need | File |
 |---|---|
 | Brand-name + domain selection — taxonomy · scoring rubric · verification runbook · domain strategy · checklist | [brand-naming-and-domains.md](brand-naming-and-domains.md) |
+| WoW2 family logos — compositions · exact parent endorsement · asset ownership | [logo system](../design/identity/logo-system.md) |
 | Go-to-market meta — laws · launch sequence · activation/retention · pricing & CRO · metrics · workflow · checklist | [go-to-market.md](go-to-market.md) |
 | Channel catalog — audience-fit + effort/payoff per channel | [channels/channels.md](channels/channels.md) |
 | SEO — intents · comparison pages · programmatic SEO | [channels/seo.md](channels/seo.md) |
@@ -19,7 +20,7 @@
 
 ## Structure
 
-- `brand-naming-and-domains.md` — brand identity + domains (the pre-build decision).
+- `brand-naming-and-domains.md` — naming + domains (the pre-build decision).
 - `go-to-market.md` — the strategic meta: laws, sequence, activation, pricing, metrics, workflow.
 - `channels/` — per-channel depth; lead doc `channels.md` is the catalog, deep docs per channel (`seo`, `content-formats`).
 
@@ -29,4 +30,3 @@
 
 - messaging / positioning — wedge → tagline → copy ladder
 - `channels/launch.md` — a dedicated doc if Product-Hunt / community depth grows
-- visual identity — logo, palette, type (links to frontend `styling`)
