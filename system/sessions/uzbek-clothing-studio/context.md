@@ -4,10 +4,10 @@
 
 ## Current state
 
-Second iteration and interaction refinement are implemented in `workbench/ventures/ventures.ocharo-studio` (renamed from `ventures.uzbek-studio`).
+Second iteration and interaction refinement are implemented in `workbench/ocharo-hq/ocharo-ws/workbench/ventures.ocharo-studio` (renamed from `ventures.uzbek-studio`).
 Initial history: developer `323b2ed`; first implementation `646000a`. This iteration remains uncommitted.
 The installed persistent commit switch reports OFF; no tool may enable it. A genuine standalone user directive
-`~commit_on workbench/ventures/ventures.ocharo-studio` is required by the current workspace hook.
+`~commit_on workbench/ocharo-hq/ocharo-ws/workbench/ventures.ocharo-studio` is required by the current workspace hook.
 
 - Two placement anchors, scale/rotation and garment-relative shifts; schema-1 migration into schema 2.
 - Amber selected-part outlines and clean exports; coherent authored UVs and demand-driven rendering.

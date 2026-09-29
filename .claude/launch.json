@@ -152,12 +152,49 @@
       "runtimeArgs": [
         "-C",
         "workbench/ventures/10x-ventures-transcript-forge/engineering/codebase/transcript-forge.frontend-services",
-        "dev",
-        "--port",
-        "8237",
-        "--strictPort"
+        "dev:http"
       ],
-      "port": 8237
+      "port": 8274
+    },
+    {
+      "name": "transcript-forge-https",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": [
+        "-C",
+        "workbench/ventures/10x-ventures-transcript-forge/engineering/codebase/transcript-forge.frontend-services",
+        "dev"
+      ],
+      "port": 8274,
+      "url": "https://localhost:8274"
+    },
+    {
+      "name": "transcript-forge-api",
+      "runtimeExecutable": "dotnet",
+      "runtimeArgs": [
+        "run",
+        "--no-build",
+        "--project",
+        "workbench/ventures/10x-ventures-transcript-forge/engineering/codebase/transcript-forge.backend-services/TranscriptForge.Api/TranscriptForge.Api.csproj",
+        "--launch-profile",
+        "https"
+      ],
+      "port": 8232
+    },
+    {
+      "name": "transcript-forge-api-safe",
+      "runtimeExecutable": "dotnet",
+      "runtimeArgs": [
+        "run",
+        "--no-build",
+        "--project",
+        "workbench/ventures/10x-ventures-transcript-forge/engineering/codebase/transcript-forge.backend-services/TranscriptForge.Api/TranscriptForge.Api.csproj",
+        "--launch-profile",
+        "https",
+        "--",
+        "--Jobs:Store=InMemory",
+        "--Tools:YtDlpSource=System"
+      ],
+      "port": 8232
     },
     {
       "name": "museums-gallery",
@@ -172,6 +209,15 @@
         "VITE_HTTPS": "false"
       },
       "port": 8229
+    },
+    {
+      "name": "tnis-api",
+      "runtimeExecutable": "bash",
+      "runtimeArgs": [
+        "workbench/ventures/ventures.tnis/scripts/run.sh",
+        "api"
+      ],
+      "port": 8239
     },
     {
       "name": "tnis-studio",
@@ -233,6 +279,295 @@
       ],
       "port": 5176,
       "autoPort": true
+    },
+    {
+      "name": "ui-vue-atlas",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": [
+        "-C",
+        "workbench/wow-two-sdk-beta/wow-two-sdk-beta.ui/engineering/codebase/wow-two-front-vue-beta-sdk",
+        "--filter",
+        "atlas",
+        "dev"
+      ],
+      "port": 5178,
+      "autoPort": true
+    },
+    {
+      "name": "pose-coach-api",
+      "runtimeExecutable": "dotnet",
+      "runtimeArgs": [
+        "run",
+        "--no-build",
+        "--project",
+        "workbench/ventures/ventures.pose-coach/engineering/codebase/pose-coach.backend-services/PoseCoach.Api/PoseCoach.Api.csproj",
+        "--launch-profile",
+        "http"
+      ],
+      "port": 8259
+    },
+    {
+      "name": "listing-shelf-api",
+      "runtimeExecutable": "bash",
+      "runtimeArgs": [
+        "-c",
+        "cd workbench/ventures/ventures.listing-shelf/engineering/codebase/listing-shelf.backend-services/ListingShelf.Api && exec dotnet run --launch-profile https"
+      ],
+      "port": 8255
+    },
+    {
+      "name": "listing-shelf-http",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": [
+        "-C",
+        "workbench/ventures/ventures.listing-shelf/engineering/codebase/listing-shelf.frontend-services",
+        "dev:http"
+      ],
+      "env": {
+        "VITE_HTTPS": "false"
+      },
+      "port": 8256
+    },
+    {
+      "name": "listing-shelf-single",
+      "runtimeExecutable": "bash",
+      "runtimeArgs": [
+        "-c",
+        "cd workbench/ventures/ventures.listing-shelf/engineering/codebase/listing-shelf.backend-services/ListingShelf.Api && dotnet build -nologo -v q && exec dotnet bin/Debug/net10.0/ListingShelf.Api.dll --webroot /Users/max/Projects/10x-ws/workbench/career/engineering/wow-two/wow-two-ws/workbench/ventures/ventures.listing-shelf/engineering/codebase/listing-shelf.frontend-services/apps/web/dist --staticWebAssets none.json --urls 'https://localhost:8254;http://localhost:8255'"
+      ],
+      "env": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "port": 8254,
+      "url": "https://localhost:8254"
+    },
+    {
+      "name": "haven-web",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": [
+        "--dir",
+        "workbench/ventures/10x-ven-haven/engineering/codebase/haven.frontend-services",
+        "dev"
+      ],
+      "port": 7520,
+      "url": "https://localhost:7520"
+    },
+    {
+      "name": "haven-channels",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": [
+        "--dir",
+        "workbench/ventures/10x-ven-haven/engineering/codebase/haven.frontend-services",
+        "dev:channels"
+      ],
+      "port": 7522,
+      "url": "https://localhost:7522"
+    },
+    {
+      "name": "haven-admin",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": [
+        "--dir",
+        "workbench/ventures/10x-ven-haven/engineering/codebase/haven.frontend-services",
+        "dev:admin"
+      ],
+      "port": 7524,
+      "url": "https://localhost:7524"
+    },
+    {
+      "name": "haven-map",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": [
+        "--dir",
+        "workbench/ventures/10x-ven-haven/engineering/codebase/haven.frontend-services",
+        "dev:map"
+      ],
+      "port": 7526,
+      "url": "https://localhost:7526"
+    },
+    {
+      "name": "haven-landing",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": [
+        "--dir",
+        "workbench/ventures/10x-ven-haven/engineering/codebase/haven.frontend-services",
+        "dev:landing"
+      ],
+      "port": 7528,
+      "url": "https://localhost:7528"
+    },
+    {
+      "name": "wheelhouse-api",
+      "runtimeExecutable": "bash",
+      "runtimeArgs": [
+        "-c",
+        "cd workbench/wow-two-platform/wow-two-platform.wheelhouse/engineering/codebase/wheelhouse.backend-services/Wheelhouse.Api && exec dotnet run --launch-profile https"
+      ],
+      "port": 8211
+    },
+    {
+      "name": "wheelhouse-web",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": [
+        "-C",
+        "workbench/wow-two-platform/wow-two-platform.wheelhouse/engineering/codebase/wheelhouse.frontend-services",
+        "dev"
+      ],
+      "port": 5174,
+      "url": "https://localhost:5174"
+    },
+    {
+      "name": "wheelhouse-web-http",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": [
+        "-C",
+        "workbench/wow-two-platform/wow-two-platform.wheelhouse/engineering/codebase/wheelhouse.frontend-services",
+        "dev"
+      ],
+      "env": {
+        "VITE_HTTPS": "false",
+        "VITE_PORT": "5175"
+      },
+      "port": 5175
+    },
+    {
+      "name": "ocharo-studio-api",
+      "runtimeExecutable": "dotnet",
+      "runtimeArgs": [
+        "run",
+        "--project",
+        "/Users/max/Projects/10x-ws/workbench/career/engineering/wow-two/wow-two-ws/workbench/ocharo-hq/ocharo-ws/workbench/ocharo-studio/engineering/codebase/ocharo-studio.backend-services/OcharoStudio.Api",
+        "--no-launch-profile",
+        "-p:BuildSpa=false",
+        "--urls",
+        "http://127.0.0.1:8261;http://[::1]:8261"
+      ],
+      "env": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "DB_CONNECTION": "Data Source=/Users/max/Projects/10x-ws/workbench/career/engineering/wow-two/wow-two-ws/workbench/ocharo-hq/ocharo-ws/workbench/ocharo-studio/engineering/codebase/ocharo-studio.backend-services/OcharoStudio.Api/appdata/ocharo-studio.db"
+      },
+      "port": 8261
+    },
+    {
+      "name": "ocharo-studio-web",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": [
+        "--prefix",
+        "/Users/max/Projects/10x-ws/workbench/career/engineering/wow-two/wow-two-ws/workbench/ocharo-hq/ocharo-ws/workbench/ocharo-studio/engineering/codebase/ocharo-studio.frontend-services",
+        "run",
+        "dev"
+      ],
+      "env": {
+        "STUDIO_API_URL": "http://127.0.0.1:8261"
+      },
+      "port": 8262,
+      "url": "https://localhost:8262"
+    },
+    {
+      "name": "ocharo-catalogue-api",
+      "runtimeExecutable": "dotnet",
+      "runtimeArgs": [
+        "run",
+        "--project",
+        "workbench/ocharo-hq/ocharo-ws/workbench/ocharo-platform/engineering/codebase/ocharo-catalogue.backend-services/OcharoCatalogue.Api",
+        "--launch-profile",
+        "https"
+      ],
+      "port": 8279
+    },
+    {
+      "name": "ocharo-catalogue-web",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": [
+        "-C",
+        "workbench/ocharo-hq/ocharo-ws/workbench/ocharo-platform/engineering/codebase/ocharo-catalogue.frontend-services",
+        "dev"
+      ],
+      "port": 8282,
+      "url": "https://localhost:8282"
+    },
+    {
+      "name": "ocharo-blog-api",
+      "runtimeExecutable": "dotnet",
+      "runtimeArgs": [
+        "run",
+        "--project",
+        "workbench/ocharo-hq/ocharo-ws/workbench/ocharo-marketing/engineering/codebase/ocharo-blog.backend-services/OcharoBlog.Api",
+        "--launch-profile",
+        "https"
+      ],
+      "port": 8281
+    },
+    {
+      "name": "ocharo-blog-web",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": [
+        "-C",
+        "workbench/ocharo-hq/ocharo-ws/workbench/ocharo-marketing/engineering/codebase/ocharo-marketing.frontend-services",
+        "dev:editorial"
+      ],
+      "port": 8284,
+      "url": "https://localhost:8284/studio/"
+    },
+    {
+      "name": "ocharo-marketing-web",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": [
+        "-C",
+        "workbench/ocharo-hq/ocharo-ws/workbench/ocharo-marketing/engineering/codebase/ocharo-marketing.frontend-services",
+        "dev"
+      ],
+      "port": 8358,
+      "url": "https://localhost:8358"
+    },
+    {
+      "name": "ocharo-marketing-qa",
+      "runtimeExecutable": "dotnet",
+      "runtimeArgs": [
+        "run",
+        "--project",
+        "workbench/ocharo-hq/ocharo-ws/workbench/ocharo-marketing/engineering/codebase/ocharo-marketing.backend-services/OcharoMarketing.Api",
+        "--launch-profile",
+        "https"
+      ],
+      "port": 8277,
+      "env": {
+        "Marketing__DataDirectory": "/Users/max/Projects/10x-ws/workbench/career/engineering/wow-two/wow-two-ws/workbench/ocharo-hq/ocharo-ws/.local/qa/ocharo-marketing",
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    },
+    {
+      "name": "ocharo-brand-api",
+      "runtimeExecutable": "dotnet",
+      "runtimeArgs": [
+        "run",
+        "--project",
+        "workbench/ocharo-hq/ocharo-ws/workbench/ocharo-platform/engineering/codebase/ocharo-brand.backend-services/OcharoBrand.Api",
+        "--launch-profile",
+        "https"
+      ],
+      "port": 8287
+    },
+    {
+      "name": "ocharo-brand-web",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": [
+        "-C",
+        "workbench/ocharo-hq/ocharo-ws/workbench/ocharo-platform/engineering/codebase/ocharo-brand.frontend-services",
+        "dev"
+      ],
+      "port": 8288,
+      "url": "https://localhost:8288"
+    },
+    {
+      "name": "ocharo-motion-web",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": [
+        "-C",
+        "workbench/ocharo-hq/ocharo-ws/workbench/ocharo-assets/engineering/codebase/ocharo-motion.frontend-services/apps/web",
+        "dev:http"
+      ],
+      "port": 8298
     }
   ]
 }

@@ -38,7 +38,7 @@ Org: [github.com/wow-two-platform](https://github.com/wow-two-platform) — pipe
 
 | Repo | Purpose | Status |
 |------|---------|--------|
-| `wow-two-platform.pipelines` | CI/CD pipeline templates (GitHub Actions, NuGet publish) | Active |
+| `wow-two-platform.pipelines` | Shared GitHub Actions: every product's reusable build-and-publish workflow and the release generator ([delivery pipeline](../docs/delivery-pipeline.md) D7) | Active |
 | `wow-two-platform.core.di` | DI configuration helpers | Active |
 | `wow-two-platform.core.app` | Base application setup | Active |
 | `wow-two-platform.core.exceptions` | Exception handling patterns | Active |
@@ -53,7 +53,7 @@ Org: [github.com/wow-two-platform](https://github.com/wow-two-platform) — pipe
 | `wow-two-platform.main` | Main platform assembly | Active |
 | `wow-two-platform.design-patterns` | Common design patterns | Active |
 | `wow-two-platform.contrimap` | POCO mapping | POC |
-| `wow-two-platform.drydock` | Product ops & deploy control plane (Clean-Arch .NET 10 + React) | Active |
+| `wow-two-platform.wheelhouse` | Product ops & deploy control plane (Clean-Arch .NET 10 + Vue) | Active |
 | `wow-two-platform.secrets-vault` | Secrets vault — envelope-encrypted store + management UI | Active |
 | `.github` | Org-wide GitHub config | Active |
 
@@ -120,9 +120,22 @@ Org: [github.com/wow-two-apps](https://github.com/wow-two-apps) — no public re
 | Repo / local folder | Purpose | Status |
 |---|---|---|
 | `sulton-max/10x-venture-forever-pin` · `ventures/10x-venture-forever-pin` | ForeverPin QR and programmable links | Active, v0.9 |
-| `ventures.ocharo-studio` · `workbench/ventures/ventures.ocharo-studio` | Ocharo Studio: 3D mannequin and per-part textile creative studio | Implemented locally; Ocharo rename in progress |
+| `ventures.listing-shelf` · `workbench/ventures/ventures.listing-shelf` | ListingShelf: listing/post crawler and archive; OLX and Domtut initial adapters, no social media | v0.2 built (Vue shelf console, SDK 10.0.59); verification pending |
+| `ventures.pose-coach` · `workbench/ventures/ventures.pose-coach` | PoseCoach: iPhone photo director (Swift/SwiftUI) with a .NET API and Vue console | Pattern menu, camera and API built locally; collage layouts next |
+| `ventures.retainer-balance` · `workbench/ventures/ventures.retainer-balance` | Retainer Balance — first-ten SaaS pilot | Local v0.1 implemented and tested; authenticated Vue/.NET pilot; launch gates remain |
+| `ventures.documentation-checker` · `workbench/ventures/ventures.documentation-checker` | Documentation Checker — first-ten SaaS pilot | Local v0.1 implemented and tested; authenticated Vue/.NET pilot; launch gates remain |
+| `ventures.file-watch` · `workbench/ventures/ventures.file-watch` | File Watch — first-ten SaaS pilot | Local v0.1 implemented and tested; authenticated Vue/.NET pilot; launch gates remain |
+| `ventures.procedure-review` · `workbench/ventures/ventures.procedure-review` | Procedure Review — first-ten SaaS pilot | Local v0.1 implemented and tested; authenticated Vue/.NET pilot; launch gates remain |
+| `ventures.training-seats` · `workbench/ventures/ventures.training-seats` | Training Seats — first-ten SaaS pilot | Local v0.1 implemented and tested; authenticated Vue/.NET pilot; launch gates remain |
+| `ventures.epub-review` · `workbench/ventures/ventures.epub-review` | Epub Review — first-ten SaaS pilot | Local v0.1 implemented and tested; authenticated Vue/.NET pilot; launch gates remain |
+| `ventures.customer-promises` · `workbench/ventures/ventures.customer-promises` | Customer Promises — first-ten SaaS pilot | Local v0.1 implemented and tested; authenticated Vue/.NET pilot; launch gates remain |
+| `ventures.vendor-renewals` · `workbench/ventures/ventures.vendor-renewals` | Vendor Renewals — first-ten SaaS pilot | Local v0.1 implemented and tested; authenticated Vue/.NET pilot; launch gates remain |
+| `ventures.config-checker` · `workbench/ventures/ventures.config-checker` | Config Checker — first-ten SaaS pilot | Local v0.1 implemented and tested; authenticated Vue/.NET pilot; launch gates remain |
+| `ventures.podcast-readiness` · `workbench/ventures/ventures.podcast-readiness` | Podcast Readiness — first-ten SaaS pilot | Local v0.1 implemented and tested; authenticated Vue/.NET pilot; launch gates remain |
 
 ## ocharo-hq (brand workspace)
+
+Six main repositories plus the `.github` profile repository belong to Ocharo. Blog, Brand and Catalogue are adopted components, not additional repository targets. Current paths: [Ocharo repository map](../workbench/ocharo-hq/ocharo-ws/docs/repositories.md).
 
 Organization: [github.com/ocharo-hq](https://github.com/ocharo-hq).
 
@@ -130,4 +143,10 @@ Organization: [github.com/ocharo-hq](https://github.com/ocharo-hq).
 - Its Git history and GitHub organization remain independent of WoW2.
 - Its managed repositories sit directly under its own ignored `workbench/`.
 - Coding chats use the WoW2 root for existing shared hooks and engineering conventions.
-- Product checkouts remain at their existing paths until the separate migration.
+
+| Repo / local folder | Purpose | Status |
+|---|---|---|
+| `ocharo-platform` · `workbench/ocharo-hq/ocharo-ws/workbench/ocharo-platform` | Ocharo Platform: brand identity, catalogue and business management; adopted Brand Workspace | Brand/Catalogue sources adopted; application integration pending |
+| `ocharo-studio` · `workbench/ocharo-hq/ocharo-ws/workbench/ocharo-studio` | Ocharo Studio: 3D mannequin and per-part textile creative studio | Existing Studio implementation retained; integration deferred |
+| `ocharo-marketing` · `workbench/ocharo-hq/ocharo-ws/workbench/ocharo-marketing` | Ocharo Marketing: operator desk, editorial/public app container, distribution and lead capture | Both Blog sources adopted; broader public apps/integration pending |
+| `ocharo-assets` · `workbench/ocharo-hq/ocharo-ws/workbench/ocharo-assets` | Ocharo Assets: asset creation and motion research; Ocharo Motion runtime retained | Garment library adopted; runtime integration deferred |
