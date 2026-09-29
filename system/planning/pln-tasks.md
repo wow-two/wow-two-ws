@@ -1,4 +1,4 @@
-*Last updated: 2026-08-24*
+*Last updated: 2026-09-29*
 
 # Tasks
 
@@ -64,6 +64,12 @@ Not started, ordered, top = next. Pulling one promotes it above and mints its ID
 |---|---|---|
 | Reconcile controller and message examples | issue | Backend audit `BC07` and `BC13`; current construct owner is `controller.md`, not the removed `controllers.md` |
 | Apply the current convention authoring rules | check | Backend audit `BC20`; directive rules and single ownership per `conventions/conventions.md` |
+
+### → SDK repos (`wow-two-sdk.backend.beta` · `wow-two-sdk-beta.ui`)
+
+| Item | Type | Notes |
+|---|---|---|
+| Rename the SDK repos: `wow-two-sdk.backend.beta` → `wow-two-sdk.be.beta`, `wow-two-sdk-beta.ui` → `wow-two-sdk.fe.beta` | chore | Added `2026-09-29`, not a priority. Spans the GitHub renames, local folders + remotes, `package.json` `repository`/`homepage`, the Pages URL, registry, `CLAUDE.md` files, conventions, launch configs. Package ids stay. Open: the registry wants repo prefix = org name (`wow-two-sdk-beta`) |
 
 ---
 
