@@ -40,7 +40,7 @@ Open `/hooks` in Codex CLI from this workspace and review any untrusted or modif
 - [Codex hook lifecycle, payloads and trust](https://learn.chatgpt.com/docs/hooks)
 - [EIS reference port](/Users/max/Projects/Company/EPAM/eis/eis-ws/.codex/claude-port.md)
 
-## Installed verification
+## Installed verification (historical)
 
 Installed adapter: 20 tests passed. Native `skills/list` discovers `create-repo` and `open-active`; both skill validations passed.
 
@@ -57,14 +57,15 @@ Authorized staging and unstaging use the available shell route, including `funct
 
 Current extraction and verification: [personal conventions setup](/Users/max/Projects/10x-ws/.codex/conventions-setup.md).
 
-## Commit permission — 2026-09-19
+## Repository Git flags — 2026-09-29
 
-The [commit switch](commit-permission.md) defaults OFF and accepts explicit user consent for one repository and turn.
-Live scoped commits through this adapter succeeded with GPG signing; verification is recorded in the
-[SDK batch report](../system/sessions/backend-beta-build/commit-batches-verification.md).
-The switch and existing hook/index suites pass 40 tests. Stop and new-turn expiry are isolated-test evidence.
-Earlier project-trust and no-commit statements above are installation-time snapshots, not current activation claims.
+The [local adapter](commit-permission.md) implements the [shared four-flag protocol](/Users/max/.codex/conventions/git.md#repository-commit-permission),
+including persistent state across chats. Native prompt hooks own changes; shell checks and Stop events only read or preserve state.
+
+The former per-turn temporary records are not imported. Their subagent collision is documented in the
+[permission analysis](../system/sessions/frontend-conventions-sweep/commit-permission-analysis.md).
+Earlier signing and trust results above are historical snapshots; they do not establish activation of this revision.
 
 Managed-repository commits use explicit `git -C <absolute-repo>` because a live shell hook may expose the workspace cwd
-instead of `workdir`. GPG-agent and test-socket restrictions use native escalation; no signing, trust or sandbox settings
-are changed. The shared guard continues to block publishing, history changes and commits outside the active grant.
+instead of `workdir`. GPG-agent and test-socket restrictions use native escalation; signing, trust and sandbox settings
+remain unchanged. The shared guard retains publishing, history, worktree and lane restrictions.

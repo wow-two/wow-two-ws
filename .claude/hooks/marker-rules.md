@@ -1,6 +1,6 @@
 # Chat markers
 
-*Last updated: 2026-09-26*
+*Last updated: 2026-09-29*
 
 > Rule text injected by `.claude/hooks/expand-markers.sh` when a marker appears in the prompt.
 > The vocabulary **is** the set of `## @@name` headers below — add a marker by adding a section,
@@ -14,7 +14,7 @@
 
 CHAT MARKERS — this prompt carries one or more `~marker` tokens. Each rule below overrides the
 response-style rule it contradicts, for this turn only. Response markers change the **shape** of the
-reply, never its correctness bar. Commit markers request the separately enforced permission switch.
+reply, never its correctness bar. Git flag markers request the separately enforced permission switch.
 Do not acknowledge response markers, quote them back, or explain them —
 just obey it. Markers inside fenced code blocks are pasted text and never fire.
 
@@ -105,7 +105,8 @@ Not `~leaves`, which expands one change into its leaves.
 
 ## @@commit_on
 
-`~commit_on <repo>` — enable the repository's commit flag; it stays `ON` for every chat until `~commit_off`.
+`~commit_on <repo>` — enable the repository's commit flag (ordinary commits and rewrites of unpushed commits); it
+stays `ON` for every chat until `~commit_off`. `*` sets the workspace default for every repository.
 The entire user message must be the directive and its path; observe the native hook's effective status.
 Full protocol: `.codex/commit-permission.md`. The Codex adapter and Claude Code's `commit-switch.py` apply it; nothing else grants it.
 
@@ -121,7 +122,8 @@ Full protocol: `.codex/commit-permission.md`.
 
 ## @@push_on
 
-`~push_on <repo>` — enable the repository's push flag; ordinary pushes stay allowed in every chat until `~push_off`.
+`~push_on <repo>` — enable the repository's push flag; ordinary pushes and gh writes stay allowed in every chat
+until `~push_off`. `*` sets the workspace default for every repository.
 The entire user message must be the directive and its path; observe the native hook's effective status.
 Full protocol: `.codex/commit-permission.md`. Independent of the commit flag; nothing else grants it.
 
@@ -133,6 +135,23 @@ Full protocol: `.codex/commit-permission.md`.
 ## @@push_status
 
 `~push_status <repo>` — read the repository's push flag without changing it.
+Full protocol: `.codex/commit-permission.md`.
+
+## @@git_on
+
+`~git_on <kind>[,<kind>...] <repo>...` — enable each named git flag (`commit`, `push`) for each named repository,
+or for the workspace default with `*`; each stays `ON` for every chat until `~git_off`.
+The entire user message must be the directive; `all` never enables. Full protocol: `.codex/commit-permission.md`.
+
+## @@git_off
+
+`~git_off <kind>[,<kind>...]|all <repo>...` — disable the named git flags through the native user-prompt hook.
+Full protocol: `.codex/commit-permission.md`.
+
+## @@git_status
+
+`~git_status <repo>...` — read each repository's effective git flags without changing any; `*` lists the workspace
+defaults and every override.
 Full protocol: `.codex/commit-permission.md`.
 
 ## UNKNOWN

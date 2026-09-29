@@ -14,5 +14,7 @@ Thumbs.db
 __pycache__/
 *.py[cod]
 
-# Rapid-building marker — local, expiring session flag read by .claude/hooks/guard-git.py
-.claude/.rapid-build
+
+# Git flag store, its hash-chained change log, lock and temp files — per workspace, never committed
+.codex/git-flags.*
+.codex/.git-flags-*

@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
-"""Workspace git guard — PreToolUse(Bash) hook, one engine for 10x-ws · eis-ws · mft-10x-ws · wow-two-ws.
+"""Workspace git guard — PreToolUse hook (Bash + file edits), one engine for every workspace.
 
 Only the CONFIG block differs between workspaces; DOC names the prose policy it enforces.
 
   allowed    index-only staging/unstaging (`add`, `restore --staged`, path `reset`,
-             `apply --cached`, `rm --cached`) · read-only git
+             `rm --cached`) · `mv` and `rm` without force · `apply` unless reversed ·
+             `submodule init|update|sync` · `notes` writes · read-only git
              (status log diff show blame describe rev-parse ls-files shortlog
              reflog, `branch --list`, `remote -v`, `stash list|show`) ·
              `git fetch` · read-only gh (`pr view|list|diff|checks|status`,
@@ -13,32 +14,46 @@ Only the CONFIG block differs between workspaces; DOC names the prose policy it 
   commits    COMMITS decides. "switch": a Claude chat runs exactly
              `git -C <repo> commit -m "subject"` while that repository's commit flag is ON, and
              `git -C <repo> push [-u] [<remote> [<ref>]]` while its push flag is ON. The developer
-             flips each with a whole-message `~commit_on <repo>` / `~push_on <repo>`; each flag
-             holds for every chat. `.codex/hooks/commit_permission.py` owns both records and
-             the ordinary forms, and `commit-switch.py` feeds it Claude prompts.
-             "open": a plain commit runs after the lane check. "never": no commit.
-             `commit --amend` never runs. A Codex chat meets the switch in its adapter,
-             where installed, before this hook.
-  forbidden  `git push` outside the switch, and every forcing, deleting or mirror push
-             (`--force`, `--force-with-lease`, `+ref`, `:ref`, `--delete`, `--mirror`) and
-             push-by-gh · history rewrites (`merge`, `rebase`, `cherry-pick`,
-             `revert`, soft/mixed `reset`) · worktree destruction (`reset --hard`,
-             `restore` to the worktree, `checkout -- <path>`, `checkout .`, `clean`) ·
-             ref surgery · every gh write (`pr create|comment|merge|close|edit|review|ready`,
-             `issue create|comment|close|edit`, `release create`,
-             `api -X POST|PUT|PATCH|DELETE`, `workflow run`, `repo create|delete`)
-  STRICT     also forbids `pull`, branch create / switch, `stash` writes and tag writes;
-             otherwise they are allowed (a stash is a real ref and shows in GitKraken).
-  lane check `pull`, `stash push` and open commits stop once, by name, when the tree holds
-             modified / staged files this session never wrote — probably a parallel chat's
-             in-flight work on the shared branch. The developer answers in chat and the retry
+             flips each with a whole-message `~commit_on <repo>` / `~push_on <repo>`, or sets the
+             workspace default with `*`; each flag holds for every chat. `.codex/hooks/commit_permission.py`
+             owns the workspace store `.codex/git-flags.json` and the ordinary forms, and `commit-switch.py`
+             feeds it Claude prompts. "open": a plain commit runs after the lane check. "never": no commit.
+             A Codex chat meets the switch in its adapter, where installed, before this hook.
+  flags      two kinds, for commands that are risky AND used often. Where `.codex/hooks/commit_permission.py`
+             is installed, each runs while the target repository's flag of its kind is ON
+             (`~git_on <kind> <repo>`); otherwise it blocks:
+               commit   local history rewrites: `commit --amend` · `rebase` · `cherry-pick` · `revert` ·
+                        `merge` · `am` · `subtree` · soft / mixed `reset` to a commit. A rewrite that would
+                        replace a commit already on a remote-tracking branch never runs.
+               push     every gh write (`pr create|comment|merge|...`, `issue ...`, `release ...`,
+                        `workflow run`, `secret set`, `repo create|edit|rename`, `api` writes)
+             A gated git command acts on `git -C <repo>`, else the working directory; a `cd`, `pushd`,
+             `--git-dir` or `--work-tree` in the same command blocks it, since the target is unknown.
+             A gh write acts on `-R owner/name`, a `repos/owner/name` API path, `repo ... owner/name` or
+             `--source <path>`, matched to the workspace repository with that origin; an unmatched one
+             reads the workspace repository's flag. Without the module each category stays forbidden.
+  store      the flag store and its change log (`.codex/git-flags.json|log|lock`) are never edited by a
+             tool: a Write / Edit / MultiEdit / NotebookEdit on them, or a shell command naming them, blocks.
+  forbidden  risky commands that are rarely needed, whatever the flags: `git push` outside the ordinary
+             form (forcing, deleting, mirror, pruning, hook-skipping) · worktree discards (`restore` to
+             the worktree, path / `.` / forced `checkout`, forced `switch`, `reset --hard|--merge|--keep`,
+             `clean`, forced `rm` / `mv`, reversed `apply`, `checkout-index`) · every `config` write ·
+             `remote` and `worktree` writes · `submodule add|deinit|set-url|set-branch|absorbgitdirs` · ref and object
+             surgery (`filter-branch`, `filter-repo`, `fast-import`, `update-ref`, `update-index`,
+             `replace`, `gc`, `prune`, `reflog` and `symbolic-ref` writes) · `send-email` · `gh repo delete`
+  STRICT     also forbids `pull`, branch create / switch, `stash` writes, tag writes and every
+             gated category; otherwise they are allowed (a stash is a real ref and shows in GitKraken).
+  lane check `pull`, `stash push`, open commits and flagged history rewrites stop
+             once, by name, when the tree holds modified / staged files this session never
+             wrote — probably a parallel chat's in-flight work on the shared branch. The developer answers in chat and the retry
              goes through (it asks once per file set). "This session wrote it" comes from the
              ledger that the PostToolUse hook `track-touch.py` appends to on every Write /
              Edit; without that hook installed, nothing counts as this session's.
 
 Mechanism: exit 2 with the reason on stderr — the PreToolUse contract for a block;
-the reason is fed back to the agent. An internal error exits 0, because a guard that
-crashes must never block unrelated commands — but it never lets a commit or push through.
+the reason is fed back to the agent. An internal error exits 0 for a command with no git
+or gh call, because a guard that crashes must never block unrelated commands — and 2 for
+every git or gh call, so a crash never lets a write through.
 
 Parsing: every git/gh invocation in the shell string is scanned (splits on
 && || ; | & ( ), skips `sudo`/`env` prefixes and git's global opts
@@ -53,6 +68,7 @@ import shlex
 import subprocess
 import sys
 from pathlib import Path
+from urllib.parse import urlsplit
 
 # ------------------------------------------------------------------- CONFIG
 
@@ -61,7 +77,7 @@ DOC = "conventions/development/repo/version-control/git.md -> ## Discipline"
 STRICT = False          # True -> no pull / branch / stash-write / tag write either
 LANE_CHECK = True       # True -> pull / stash-push ask about foreign dirt
 COMMITS = "switch"      # "switch": the repository commit switch · "open": plain commits, lane-checked · "never"
-ALLOWED_HERE = "index-only staging/unstaging, branch create/switch, `git stash`,\n`git pull`, `git fetch`, read-only git + `gh`,\nan ordinary commit while the commit flag is ON, an ordinary push while the push flag is ON."
+ALLOWED_HERE = "index-only staging/unstaging, unforced `git mv` / `git rm`, `git apply`, branch create/switch,\n`git stash`, `git pull`, `git fetch`, read-only git + `gh`, ordinary commits and rewrites of unpushed\ncommits while the repository's `commit` flag is ON, and ordinary pushes and gh writes while its `push` flag is ON."
 HANDOVER = "Hand it over by name in chat (`push main to origin`, `discard my edits to Program.cs`)\nand STOP; the developer runs it in GitKraken. A subject-only commit message is welcome."
 
 # ------------------------------------------------------------------- engine
@@ -70,6 +86,10 @@ HANDOVER = "Hand it over by name in chat (`push main to origin`, `discard my edi
 SWITCH = Path(__file__).resolve().parents[2] / ".codex" / "hooks" / "commit_permission.py"
 COMMIT_FORM = 'git -C <repo> commit -m "subject"'
 PUSH_FORM = 'git -C <repo> push [-u] [<remote> [<ref>]]'
+
+# The flag store, its change log and its lock; no tool edits or names them.
+STORE_FILES = re.compile(r"git-flags\.(?:json|log|lock)")
+EDIT_TOOLS = {"Write", "Edit", "MultiEdit", "NotebookEdit"}
 
 # Session file-touch ledger, written by the PostToolUse hook `track-touch.py`.
 # Same `${TMPDIR:-/tmp}` + session-id shape as `style-recharge.sh`'s turn counter.
@@ -86,25 +106,35 @@ READ_ONLY = {
     "whatchanged", "range-diff", "cherry", "annotate", "var", "version", "help",
 }
 
-# Worktree destruction — forbidden everywhere, no exemption.
+# The flag kinds: history rewrites follow `commit`, gh writes follow `push`, each while the target repository's
+# flag is ON.
+FLAG_KINDS = {"commit", "push"}
+# Gated kinds that rewrite the index or the working tree, so they meet the lane check too.
+LANE_KINDS = {"commit"}
+
+# Worktree destruction — rarely needed, never run.
 # `restore` is NOT here: `--staged` alone is index-only and safe, so it is
 # resolved in git_verdict() where the flags are visible.
-WORKTREE_KILL = {"clean"}
+WORKTREE_KILL = {"clean", "checkout-index"}
 RESET_KILL = {"--hard", "--merge", "--keep"}
 CHECKOUT_KILL = {"-f", "--force", "--ours", "--theirs"}
 SWITCH_KILL = {"-f", "--force", "--discard-changes"}
 
-# Ref / history surgery — not named in the policy text, but the same family as
-# the ops it forbids (they rewrite or bypass history). Blocked everywhere.
+# Ref and object surgery — rarely needed, never run.
 SURGERY = {
-    "filter-branch", "filter-repo", "fast-import", "am", "apply", "rm", "mv",
-    "update-ref", "update-index", "checkout-index", "replace", "gc", "prune",
-    "subtree", "send-email",
+    "filter-branch", "filter-repo", "fast-import", "update-ref", "update-index", "replace",
+    "gc", "prune",
 }
 
-# History rewrites — the developer runs them. `pull` is NOT here: it is allowed
+# Never run by an agent, whatever the flags.
+NEVER = {"send-email"}
+
+# History rewrites — the `commit` flag. `pull` is NOT here: it is allowed
 # outside STRICT workspaces, lane check aside.
-HISTORY = {"merge", "rebase", "cherry-pick", "revert"}
+HISTORY = {"merge", "rebase", "cherry-pick", "revert", "am", "subtree"}
+
+# Directory changes that hide which repository a later command in the same shell string acts on.
+DIRECTORY_CHANGES = {"cd", "pushd", "popd"}
 
 # Ops that touch the working tree with more than this session's own edits, so they
 # ask about foreign dirt first (STRICT workspaces forbid them outright).
@@ -116,9 +146,7 @@ WRITE_VERBS = {
     "remote": {"add", "remove", "rm", "rename", "set-url", "set-head", "set-branches",
                "prune", "update"},
     "worktree": {"add", "remove", "move", "prune", "lock", "unlock", "repair"},
-    "notes": {"add", "append", "copy", "edit", "remove", "prune", "merge"},
-    "submodule": {"add", "init", "deinit", "update", "set-url", "set-branch", "sync",
-                  "absorbgitdirs"},
+    "submodule": {"add", "deinit", "set-url", "set-branch", "absorbgitdirs"},
 }
 # family -> verbs that READ (everything else in the family, bare included, writes).
 READ_VERBS = {"stash": {"list", "show"}}
@@ -160,7 +188,18 @@ GH_WRITE_VERBS = {"create", "delete", "edit", "merge", "close", "reopen", "comme
 GH_API_WRITE_METHODS = {"POST", "PUT", "PATCH", "DELETE"}
 # `gh api -f/-F/--field/--raw-field/--input` makes the request a POST with no `-X`.
 GH_API_IMPLICIT_POST = {"-f", "-F", "--field", "--raw-field", "--input"}
-EXTRA_GH_BLOCKED = set()
+# gh (group, verb) pairs a workspace blocks on top of these; its CONFIG block may set EXTRA_GH_BLOCKED.
+EXTRA_GH_BLOCKED = globals().get("EXTRA_GH_BLOCKED", set())
+# gh writes an agent never runs, whatever the flags.
+GH_NEVER = {("repo", "delete")}
+GH_REPO_FLAGS = {"-R", "--repo"}
+# gh flags that take a separate value, so the positional after them is not the endpoint or repository.
+GH_VALUE_FLAGS = {"-X", "--method", "-H", "--header", "-f", "-F", "--field", "--raw-field", "--input",
+                  "-q", "--jq", "-t", "--template", "--cache", "-p", "--preview", "--hostname",
+                  "-R", "--repo", "--source", "--remote", "-d", "--description", "-h", "--homepage",
+                  "--visibility", "-b", "--body", "-T", "--title", "--team", "--template-repository",
+                  "-l", "--label", "-a", "--assignee", "-m", "--milestone", "--base", "--head",
+                  "--ref", "--json", "-e", "--env", "--app", "--org", "-u", "--user"}
 GLOBAL_OPTS_WITH_VALUE = {"-c", "-C", "--git-dir", "--work-tree", "--namespace",
                           "--exec-path", "--super-prefix", "--config-env"}
 SEPARATORS = {"&&", "||", ";", "|", "&", "(", ")", "{", "}", "\n", "!"}
@@ -182,9 +221,13 @@ def tokenize(cmd):
 
 
 def invocations(cmd, binaries):
-    """Yield (binary, subcommand, args) for each `binary ...` call in a shell string."""
+    """Yield (binary, subcommand, args, directory, hidden) for each `binary ...` call in a shell string.
+
+    `directory` joins every `git -C <dir>` in order (None without one). `hidden` is True when the
+    repository cannot be read from the call itself: an earlier `cd` / `pushd` / `popd` in the same
+    string, or a `--git-dir` / `--work-tree` option."""
     toks = tokenize(cmd)
-    out, i, expect_cmd = [], 0, True
+    out, i, expect_cmd, moved = [], 0, True, False
     while i < len(toks):
         t = toks[i]
         if t in SEPARATORS:
@@ -196,13 +239,21 @@ def invocations(cmd, binaries):
             if base in CMD_PREFIXES or (("=" in t) and not t.startswith("-")):
                 i += 1  # `sudo git push` / `VAR=x git push` — the command is still ahead
                 continue
+            if base in DIRECTORY_CHANGES:
+                moved = True
             if base in binaries:
-                j = i + 1
+                j, directory, hidden = i + 1, None, moved
                 while j < len(toks):  # skip global options to reach the subcommand
                     a = toks[j]
                     if a in GLOBAL_OPTS_WITH_VALUE:
+                        if a == "-C" and j + 1 < len(toks):
+                            directory = os.path.join(directory or "", toks[j + 1])
+                        elif a in ("--git-dir", "--work-tree"):
+                            hidden = True
                         j += 2
                         continue
+                    if a.startswith(("--git-dir=", "--work-tree=")):
+                        hidden = True
                     if a.startswith("-"):
                         j += 1
                         continue
@@ -211,9 +262,9 @@ def invocations(cmd, binaries):
                     end = j + 1
                     while end < len(toks) and toks[end] not in SEPARATORS:
                         end += 1
-                    out.append((base, toks[j].lower(), toks[j + 1:end]))
+                    out.append((base, toks[j].lower(), toks[j + 1:end], directory, hidden))
                 else:
-                    out.append((base, "", []))
+                    out.append((base, "", [], directory, hidden))
             expect_cmd = False
         i += 1
     return out
@@ -240,18 +291,50 @@ def label(binary, sub, args):
 
 
 # ------------------------------------------------------------------ verdicts
-# A verdict is (kind, label): kind is "hard" (never allowed here) or "lane" (allowed
-# after the lane check). None means allowed.
+# A verdict is (kind, label): kind is "hard" (never allowed here), "lane" (allowed after
+# the lane check) or a FLAG_KINDS category (allowed while the repository's flag is ON).
+# None means allowed.
 
 
-def git_verdict(sub, args):
+def checkout_discards(args, flags, cwd):
+    """Recognize checkout's path form even when its optional `--` is omitted."""
+    short = {c for a in args if a.startswith("-") and not a.startswith("--") for c in a[1:]}
+    if ("--" in args or "." in args or flags & CHECKOUT_KILL or "p" in short
+            or flags & {"--patch", "--pathspec-from-file", "--pathspec-file-nul"}):
+        return True
+    named = positionals(args, {"-b", "-B", "--orphan", "--conflict"})
+    if len(named) > 1:
+        return True  # tree-ish + pathspec, not a branch switch
+    if not named or flags & {"-b", "-B", "--orphan"}:
+        return False
+    if cwd is None:
+        return True  # a preceding directory change hides the path/branch distinction
+    # A branch/ref takes precedence over a same-named file. Otherwise tracked pathspecs
+    # select the worktree-discard form, including deleted files and wildcard pathspecs.
+    try:
+        ref = subprocess.run(["git", "-C", cwd, "rev-parse", "--verify", "--quiet", "--end-of-options",
+                              named[0] + "^{commit}"], capture_output=True, timeout=5)
+        if ref.returncode == 0:
+            return False
+        paths = subprocess.run(["git", "-C", cwd, "ls-files", "--error-unmatch", "--", named[0]],
+                               capture_output=True, timeout=5)
+        return paths.returncode == 0
+    except (OSError, subprocess.TimeoutExpired):
+        return True
+
+
+def git_verdict(sub, args, cwd=None):
     options = args[:args.index("--")] if "--" in args else args
     flags = {a.split("=", 1)[0] for a in options if a.startswith("-")}
     text = label("git", sub, args)
     hard, lane = ("hard", text), ("lane", text)
 
+    def gated(kind):
+        return hard if STRICT else (kind, text)
+
     if sub == "push":
-        # An ordinary push under the "switch" passes in main() through the flag; every other form lands here.
+        # An ordinary push under the "switch" passes in main() through the flag; every other form, forcing,
+        # deleting, mirror, pruning or hook-skipping included, lands here and never runs.
         return hard
     if sub == "restore":
         # `--staged`/`-S` alone rewrites the index; the worktree is untouched, so
@@ -263,33 +346,38 @@ def git_verdict(sub, args):
         return None if (staged and not worktree) else hard
     if sub in WORKTREE_KILL:
         return hard
-    if sub in {"apply", "rm"} and "--cached" in flags and "--index" not in flags:
-        return None  # index-only patch/removal; working-tree files stay intact
-    if sub in SURGERY:
+    if sub in {"rm", "mv"}:
+        # `rm` refuses a file with uncommitted changes and `mv` an existing target, unless forced.
+        return hard if flags & {"-f", "--force"} else None
+    if sub == "apply":
+        # A patch applies like an edit and fails rather than overwrite on a conflict; applied in reverse,
+        # a `git diff` output discards the worktree's changes.
+        return hard if flags & {"-R", "--reverse"} else None
+    if sub in NEVER or sub in SURGERY:
         return hard
     if sub == "reset":
         if flags & RESET_KILL:
             return hard
         if "--" in args and args.index("--") < len(args) - 1 and not (flags & {"--soft", "--mixed"}):
             return None  # explicit path reset touches only the index
-        return hard
+        return gated("commit")
     if sub == "checkout":
-        if "--" in args or "." in args or (flags & CHECKOUT_KILL):
-            return hard  # path checkout / forced switch = worktree destruction
-        return hard if STRICT else None
+        return hard if STRICT or checkout_discards(args, flags, cwd) else None
     if sub == "switch":
         if flags & SWITCH_KILL:
             return hard
         return hard if STRICT else None
     if sub == "commit":
         # "switch" commits pass in main() through the switch; every other form lands here.
-        if COMMITS != "open" or STRICT or "--amend" in flags:
+        if "--amend" in flags:
+            return gated("commit")
+        if COMMITS != "open" or STRICT:
             return hard
         return lane
     if sub == "pull":
         return hard if STRICT else lane  # allowed outside eis-ws, lane check aside
     if sub in HISTORY:
-        return hard
+        return gated("commit")
     if sub == "stash":
         verb = next((a for a in args if not a.startswith("-")), "")
         if verb in READ_VERBS["stash"]:
@@ -310,9 +398,22 @@ def git_verdict(sub, args):
             return hard
         return None
     if sub == "config":
-        if flags & CONFIG_WRITE_FLAGS or len(positionals(args, CONFIG_VALUE_FLAGS)) >= 2:
+        named = positionals(args, CONFIG_VALUE_FLAGS)
+        verb = named[0] if named else ""
+        if flags & CONFIG_WRITE_FLAGS or verb in {"set", "unset", "rename-section", "remove-section", "edit"}:
             return hard
-        return None
+        if verb in {"get", "list"}:
+            return None
+        return hard if len(named) >= 2 else None
+    if sub == "lfs":
+        named = positionals(args, set())
+        verb = named[0] if named else ""
+        # LFS upload is not the documented ordinary `git push` exception. Installation,
+        # pruning and migration writes retain their existing human-only restrictions.
+        if verb == "migrate":
+            return None if len(named) > 1 and named[1] == "info" else hard
+        safe = {"", "help", "version", "env", "status", "ls-files", "fetch", "pull", "checkout", "track", "untrack"}
+        return None if verb in safe else hard
     if sub == "symbolic-ref":
         if flags & {"-d", "--delete"} or len(positionals(args, set())) >= 2:
             return hard
@@ -327,7 +428,14 @@ def git_verdict(sub, args):
 
 def gh_verdict(sub, args):
     verb = next((a for a in args if not a.startswith("-")), "").lower()
-    hard = ("hard", label("gh", sub, args))
+    text = label("gh", sub, args)
+    hard = ("hard", text)
+    if (sub, verb) in GH_NEVER:
+        return hard
+    flags = {a.split("=", 1)[0] for a in args if a.startswith("-")}
+    if sub == "repo" and verb == "create" and flags & {"--source", "--remote", "--push"}:
+        return hard  # source/remote configure a local remote; push is not an ordinary git push
+    gated = hard if STRICT else ("push", text)
     if sub == "api":
         method = ""
         for i, a in enumerate(args):
@@ -337,25 +445,244 @@ def gh_verdict(sub, args):
                 method = a.split("=", 1)[1].upper()
             elif a.startswith("-X") and len(a) > 2:
                 method = a[2:].upper()
+        if method == "DELETE" and re.fullmatch(r"/?(?:api/v3/)?repos/[^/]+/[^/]+/?", gh_api_path(args)):
+            return hard  # repository deletion stays human-only through REST too
         if method in GH_API_WRITE_METHODS:
-            return hard
+            return gated
         if any(a.split("=", 1)[0] in GH_API_IMPLICIT_POST for a in args):
-            return hard  # `-f key=val` turns `gh api` into a POST with no `-X`
+            return gated  # `-f key=val` turns `gh api` into a POST with no `-X`
         return None
     if (sub, verb) in GH_BLOCKED_PAIRS or (sub, verb) in EXTRA_GH_BLOCKED:
-        return hard
+        return gated
     if verb in GH_WRITE_VERBS:
-        return hard
+        return gated
     return None
 
 
-def blocked(cmd):
-    """First (kind, label, subcommand, args) that is not plainly allowed."""
-    for binary, sub, args in invocations(cmd, {"git", "gh"}):
-        verdict = gh_verdict(sub, args) if binary == "gh" else git_verdict(sub, args)
-        if verdict:
-            return verdict[0], verdict[1], sub, args
+# ------------------------------------------------------------ gated targets
+# A gated category reads the flag of the repository the command acts on.
+
+WORKSPACE_ROOT = Path(__file__).resolve().parents[2]
+GITHUB_SLUG = re.compile(r"github\.com[:/]+([^/\s]+)/([^/\s]+?)(?:\.git)?/?$", re.I)
+
+
+def git_target(directory, hidden, cwd):
+    """The directory a git call acts on, or None when the call hides it."""
+    if hidden:
+        return None
+    base = cwd or os.getcwd()
+    return os.path.normpath(os.path.join(base, directory)) if directory else base
+
+
+def gh_api_path(args):
+    named = positionals(args, GH_VALUE_FLAGS)
+    return urlsplit(named[0]).path if named else ""
+
+
+def gh_slug(sub, args):
+    """The `owner/name` a gh write names, `("path", dir)` for `repo create --source`, or None."""
+    for i, a in enumerate(args):
+        if a in GH_REPO_FLAGS and i + 1 < len(args):
+            return args[i + 1]
+        if a.startswith("--repo="):
+            return a.split("=", 1)[1]
+        if sub == "repo" and a == "--source" and i + 1 < len(args):
+            return ("path", args[i + 1])
+        if sub == "repo" and a.startswith("--source="):
+            return ("path", a.split("=", 1)[1])
+    named = positionals(args, GH_VALUE_FLAGS)
+    if sub == "api" and named:
+        match = re.match(r"/?(?:api/v3/)?repos/([^/\s]+)/([^/?\s]+)", gh_api_path(args))
+        return match.group(1) + "/" + match.group(2) if match else None
+    if sub == "repo" and len(named) >= 2 and "/" in named[1]:
+        return named[1]
     return None
+
+
+def repository_configs():
+    """Visit managed repositories, descending through nested workbenches without a depth limit.
+
+    Grouping folders may contain repositories at any depth. Once a repository is found, only
+    its `workbench` can own nested repositories; dependency/source trees are not searched.
+    Directory symlinks are never followed, and Git metadata must remain inside the workspace.
+    """
+    root = WORKSPACE_ROOT.resolve()
+    excluded = {".git", "node_modules", "vendor", ".venv", "venv", "__pycache__", ".cache"}
+
+    def config_for(repo):
+        marker = repo / ".git"
+        try:
+            if marker.is_symlink():
+                return None
+            if marker.is_file():
+                text = marker.read_text(encoding="utf-8").strip()
+                if not text.startswith("gitdir:"):
+                    return None
+                gitdir = (repo / text.split(":", 1)[1].strip()).resolve()
+            else:
+                gitdir = marker.resolve()
+            gitdir.relative_to(root)
+            common = (gitdir / "commondir").resolve()
+            common.relative_to(root)
+            if common.is_file():
+                gitdir = (gitdir / common.read_text(encoding="utf-8").strip()).resolve()
+                gitdir.relative_to(root)
+            config = (gitdir / "config").resolve()
+            config.relative_to(root)
+            return config if config.is_file() else None
+        except (OSError, ValueError):
+            return None
+
+    config = config_for(root)
+    if config:
+        yield root, config
+    workbench = root / "workbench"
+    if not workbench.is_dir() or workbench.is_symlink():
+        return
+    for directory, children, _ in os.walk(workbench, followlinks=False):
+        repo = Path(directory)
+        children[:] = sorted(name for name in children
+                             if name not in excluded and not (repo / name).is_symlink())
+        if (repo / ".git").exists():
+            config = config_for(repo)
+            if config:
+                yield repo, config
+            children[:] = [name for name in children if name == "workbench"]
+
+
+def local_repository(slug):
+    """The workspace repository whose remote points at `owner/name` on GitHub, or None."""
+    wanted = "/".join(slug.lower().rstrip("/").removesuffix(".git").split("/")[-2:])
+    for repo, config in repository_configs():
+        try:
+            content = config.read_text(encoding="utf-8", errors="replace")
+        except OSError:
+            continue
+        for url in re.findall(r"^\s*url\s*=\s*(\S+)", content, re.M):
+            match = GITHUB_SLUG.search(url)
+            if match and (match.group(1) + "/" + match.group(2)).lower() == wanted:
+                return str(repo)
+    return None
+
+
+def gh_target(sub, args, cwd):
+    """The workspace directory whose flag a gh write reads."""
+    named = gh_slug(sub, args)
+    if isinstance(named, tuple):
+        return os.path.normpath(os.path.join(cwd or os.getcwd(), named[1]))
+    if named:
+        return local_repository(named) or str(WORKSPACE_ROOT)
+    return cwd or os.getcwd()
+
+
+_SWITCH_MODULE = []
+
+
+def switch_module():
+    """The flag module, loaded once; None when this workspace does not install it."""
+    if not _SWITCH_MODULE:
+        module = None
+        if SWITCH.is_file():
+            sys.dont_write_bytecode = True
+            spec = importlib.util.spec_from_file_location("commit_permission", SWITCH)
+            module = importlib.util.module_from_spec(spec)
+            spec.loader.exec_module(module)
+        _SWITCH_MODULE.append(module)
+    return _SWITCH_MODULE[0]
+
+
+def flag_decision(kind, target):
+    """(allowed, reason) for a gated category at `target`; None when this workspace has no flags."""
+    try:
+        module = switch_module()
+    except Exception as error:  # a broken flag module never permits a gated command
+        return False, "The flag module failed ({}); the command stays blocked.".format(type(error).__name__)
+    if module is None or not hasattr(module, "enabled"):
+        return None
+    if target is None:
+        return False, ("The command changes directory or names a Git directory, so the guard cannot tell\n"
+                       "which repository it acts on. Name it with `git -C <repo>` in a command of its own.")
+    return module.enabled(kind, target)
+
+
+def assess(cmd, cwd):
+    """(block, lanes) for a shell string.
+
+    `block` is the first call that must stop, as (kind, label, subcommand, reason), or None. `lanes`
+    lists every passing call that meets the lane check, as (family, label, directory)."""
+    lanes = []
+    for binary, sub, args, directory, hidden in invocations(cmd, {"git", "gh"}):
+        verdict = (gh_verdict(sub, args) if binary == "gh"
+                   else git_verdict(sub, args, git_target(directory, hidden, cwd)))
+        if not verdict:
+            continue
+        kind, op = verdict
+        if kind == "lane":
+            lanes.append((lane_family(sub, args), op, git_target(directory, hidden, cwd) or cwd))
+            continue
+        if kind not in FLAG_KINDS:
+            return (kind, op, sub, None), lanes
+        target = gh_target(sub, args, cwd) if binary == "gh" else git_target(directory, hidden, cwd)
+        decision = flag_decision(kind, target)
+        if decision is None:
+            return ("hard", op, sub, None), lanes
+        allowed, reason = decision
+        if not allowed:
+            return (kind, op, sub, reason), lanes
+        if binary == "git" and kind == "commit":
+            revisions = replaced(sub, args)
+            pushed = None if revisions is None else published(target, revisions)
+            if pushed is not False:
+                return ("rewrite", op, sub, PUSHED if pushed else UNCLEAR), lanes
+        if kind in LANE_KINDS and LANE_CHECK:
+            lanes.append((kind, op, target))
+    return None, lanes
+
+
+# --------------------------------------------------------- pushed history
+# A flagged rewrite never replaces a commit that a remote-tracking branch already holds.
+
+REBASE_VALUE_FLAGS = {"--onto", "-s", "--strategy", "-X", "--strategy-option", "-x", "--exec", "--empty",
+                      "--whitespace", "-C"}
+REBASE_RESUME = {"--continue", "--abort", "--skip", "--quit", "--edit-todo", "--show-current-patch"}
+PUSHED = "It replaces commits a remote-tracking branch already holds; rewriting pushed history stays with the developer."
+UNCLEAR = ("The guard cannot tell which commits it replaces. Name the range plainly in a command of its own,\n"
+           "such as `git -C <repo> rebase <upstream>` or `git -C <repo> reset --soft <commit>`.")
+
+
+def replaced(sub, args):
+    """Revision arguments naming the commits a rewrite replaces, [] when it replaces none, None when unclear."""
+    if sub == "commit":
+        return ["HEAD^!"]  # `--amend` replaces HEAD
+    options = args[:args.index("--")] if "--" in args else args
+    flags = {a.split("=", 1)[0] for a in options if a.startswith("-")}
+    if sub == "reset":
+        named = positionals(options, {"--pathspec-from-file"})
+        return [(named[0] if named else "HEAD") + "..HEAD"] if len(named) <= 1 else None
+    if sub == "rebase":
+        if flags & REBASE_RESUME:
+            return []  # continues or ends a rebase that already started
+        named = positionals(options, REBASE_VALUE_FLAGS)
+        if len(named) > 2:
+            return None
+        branch = named[1] if len(named) == 2 else "HEAD"
+        if "--root" in flags:
+            return [branch]
+        return [(named[0] if named else "@{upstream}") + ".." + branch]
+    return []  # merge, cherry-pick, revert, am and subtree add commits and replace none
+
+
+def published(cwd, revisions):
+    """True when a commit in `revisions` is on a remote-tracking branch; None when git cannot tell."""
+    if not revisions:
+        return False
+    if cwd is None or any(rev.startswith("-") for rev in revisions):
+        return None
+    every = git_out(cwd, ["rev-list", "--count"] + revisions + ["--"])
+    local = git_out(cwd, ["rev-list", "--count"] + revisions + ["--not", "--remotes", "--"])
+    if every is None or local is None:
+        return None
+    return every.strip() != local.strip()
 
 
 def lane_family(sub, args):
@@ -380,7 +707,7 @@ def switch_verdict(data, cmd):
         return None
     if not SWITCH.is_file():
         return None  # not installed: every commit form falls through to the hard verdict
-    if not any(sub in ("commit", "push") for _, sub, _ in invocations(cmd, {"git"})):
+    if not any(sub in ("commit", "push") for _, sub, *_ in invocations(cmd, {"git"})):
         return None  # only a commit or push consults the switch, so a broken switch cannot block other commands
     try:
         sys.dont_write_bytecode = True
@@ -471,7 +798,7 @@ def hard_message(op, sub=""):
               ).format(sub=sub, form=form, force=force) if form else ""
     return (
         "BLOCKED — {ws} git policy ({doc}).\n"
-        "Operation: `{op}` — Claude never runs it in {ws}, in any session.\n"
+        "Operation: `{op}` — no flag permits it in {ws}; Claude never runs it, in any session.\n"
         "{commit}"
         "{handover}\n"
         "Allowed here: {allowed}\n"
@@ -479,13 +806,41 @@ def hard_message(op, sub=""):
     ).format(ws=WORKSPACE, doc=DOC, op=op, commit=commit, handover=HANDOVER, allowed=ALLOWED_HERE)
 
 
+def flag_message(op, kind, reason):
+    return (
+        "BLOCKED — {ws} git flag `{kind}` ({doc}).\n"
+        "Operation: `{op}`\n"
+        "{reason}\n"
+        "The developer turns it on with a whole-message `~git_on {kind} <repo>` (`*` for the workspace\n"
+        "default) and reads every flag with `~git_status <repo>`; a tool call can never change a flag.\n"
+    ).format(ws=WORKSPACE, doc=DOC, op=op, kind=kind, reason=reason)
+
+
+def rewrite_message(op, reason):
+    return (
+        "BLOCKED — {ws} git flag `commit` ({doc}).\n"
+        "Operation: `{op}`\n"
+        "{reason}\n"
+        "{handover}\n"
+    ).format(ws=WORKSPACE, doc=DOC, op=op, reason=reason, handover=HANDOVER)
+
+
+def store_message(target):
+    return (
+        "BLOCKED — {ws} git flag store ({doc}).\n"
+        "`{target}` names the git flag store or its hash-chained change log. Only a whole-message directive\n"
+        "changes a flag (`~git_on|off <kind> <repo>`, `*` for the workspace default), and `~git_status *`\n"
+        "reads them all; no tool edits, moves or reads the store. Ask the developer in chat.\n"
+    ).format(ws=WORKSPACE, doc=DOC, target=target)
+
+
 def switch_message(reason):
     return (
         "BLOCKED — {ws} commit switch ({doc}).\n"
         "{reason}\n"
         "The developer enables a repository with a whole-message `~commit_on <repo>` (commits)\n"
-        "or `~push_on <repo>` (pushes) and reads each with `~commit_status` / `~push_status`;\n"
-        "a tool call can never change them.\n"
+        "or `~push_on <repo>` (pushes), `*` for the workspace default, and reads each with\n"
+        "`~commit_status` / `~push_status`; a tool call can never change them.\n"
     ).format(ws=WORKSPACE, doc=DOC, reason=reason)
 
 
@@ -509,13 +864,36 @@ def lane_message(op, family, strays):
 
 # ---------------------------------------------------------------------- main
 
+def edited_paths(tool_input):
+    """Every file path a Write / Edit / MultiEdit / NotebookEdit call names."""
+    paths = [tool_input.get(name) for name in ("file_path", "notebook_path")]
+    paths += [edit.get("file_path") for edit in tool_input.get("edits") or [] if isinstance(edit, dict)]
+    return [path for path in paths if isinstance(path, str) and path]
+
+
+def protected(path):
+    """True for the flag store, its change log or its lock, by name or through a symbolic link."""
+    return any(STORE_FILES.fullmatch(os.path.basename(p)) for p in (path, os.path.realpath(path)))
+
+
 def main():
     cmd = ""
     try:
         data = json.loads(sys.stdin.read())
-        if data.get("tool_name") != "Bash":
+        tool = data.get("tool_name")
+        if tool in EDIT_TOOLS:
+            hit = next((p for p in edited_paths(data.get("tool_input") or {}) if protected(p)), None)
+            if hit:
+                sys.stderr.write(store_message(hit))
+                return 2
+            return 0
+        if tool != "Bash":
             return 0
         cmd = (data.get("tool_input") or {}).get("command") or ""
+        named = STORE_FILES.search(cmd)
+        if named:
+            sys.stderr.write(store_message(named.group(0)))
+            return 2
         decision = switch_verdict(data, cmd)
         if decision is not None:
             allowed, reason = decision
@@ -523,24 +901,27 @@ def main():
                 return 0  # the flag is ON; the switch inspected the exact form
             sys.stderr.write(switch_message(reason))
             return 2
-        verdict = blocked(cmd)
-        if not verdict:
-            return 0
-        kind, op, sub, args = verdict
-        if kind == "hard":
-            sys.stderr.write(hard_message(op, sub))
+        block, lanes = assess(cmd, data.get("cwd") or "")
+        if block:
+            kind, op, sub, reason = block
+            if kind == "hard":
+                sys.stderr.write(hard_message(op, sub))
+            elif kind == "rewrite":
+                sys.stderr.write(rewrite_message(op, reason))
+            else:
+                sys.stderr.write(flag_message(op, kind, reason))
             return 2  # exit 2 -> PreToolUse blocks, stderr is fed back to the agent
-        family = lane_family(sub, args)
         sdir = session_dir(data.get("session_id"))
-        if family and sdir is not None:
-            strays = out_of_lane(data.get("cwd") or "", sdir)
-            if strays and not already_asked(sdir, family, strays):
-                sys.stderr.write(lane_message(op, family, strays))
-                return 2
+        for family, op, directory in lanes:
+            if family and sdir is not None:
+                strays = out_of_lane(directory or "", sdir)
+                if strays and not already_asked(sdir, family, strays):
+                    sys.stderr.write(lane_message(op, family, strays))
+                    return 2
         return 0
     except Exception:
-        # A broken guard must never block unrelated commands, nor let a commit or push through.
-        return 2 if re.search(r"\bgit\b[^\n]*\b(commit|push)\b", cmd) else 0
+        # A broken guard must never block unrelated commands, nor let a git or gh write through.
+        return 2 if re.search(r"(^|[\s;&|(])(git|gh)(\s|$)", cmd) else 0
 
 
 if __name__ == "__main__":

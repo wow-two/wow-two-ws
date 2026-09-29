@@ -30,10 +30,14 @@ class IndexOperationTests(unittest.TestCase):
         for cmd in ['git restore f', 'git restore --staged --worktree f',
                     'git restore --staged -SW f', 'git reset --hard',
                     'git reset --hard HEAD -- f', 'git clean -fd', 'git push',
-                    'git apply p', 'git apply --index p', 'git rm f',
+                    'git apply -R p', 'git rm -f f', 'git mv -f a b',
                     'git add f; git push', 'gh pr merge 1']:
             with self.subTest(cmd=cmd):
                 self.assertEqual(2, self.invoke(cmd).returncode)
+    def test_unforced_worktree_edits_run_without_a_flag(self):
+        for cmd in ['git apply p', 'git apply --index p', 'git rm f', 'git mv a b']:
+            with self.subTest(cmd=cmd):
+                self.assertEqual(0, self.invoke(cmd).returncode)
     def test_loader_includes_shared_style_and_local_rules(self):
         result = subprocess.run(['python3', str(ROOT / '.codex/hooks/claude_adapter.py')],
             input=json.dumps({'hook_event_name':'SessionStart','cwd':str(ROOT)}),

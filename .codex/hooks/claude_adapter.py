@@ -90,7 +90,7 @@ def prompt(payload):
     style = checked_output(run_shared('style-recharge.sh', {
         'session_id': key, 'prompt': ''}), 'style-recharge.sh')
     marker_prompt = payload.get('prompt') if isinstance(payload.get('prompt'), str) else ''
-    if commit_permission.directive(marker_prompt):
+    if commit_permission.directives(marker_prompt):
         marker_prompt = commit_permission.directive_text(marker_prompt)
     markers = checked_output(run_shared('expand-markers.sh', {
         'prompt': marker_prompt
@@ -127,7 +127,30 @@ def stop(payload):
 
 
 
+def patched_paths(args):
+    """Every path an `apply_patch` call adds, updates, deletes or moves to."""
+    patch = args if isinstance(args, str) else args.get('command', args.get('input', '')) if isinstance(args, dict) else ''
+    return re.findall(r'^\*\*\* (?:Add File|Update File|Delete File|Move to): (.+)$', patch, re.M) \
+        if isinstance(patch, str) else []
+
+
+def patch_guard(payload):
+    """The shared guard judges each patched path as a file edit; it refuses the git flag store and its log."""
+    cwd = Path(payload.get('cwd') or ROOT)
+    normalized = dict(payload, session_id=session_key(payload), tool_name='MultiEdit',
+                      tool_input={'edits': [{'file_path': str((cwd / p.strip()).resolve())}
+                                            for p in patched_paths(payload.get('tool_input'))]})
+    result = subprocess.run([sys.executable, str(SHARED / 'guard-git.py')],
+        input=json.dumps(normalized), capture_output=True, text=True, cwd=ROOT, timeout=15)
+    if result.returncode:
+        sys.stderr.write(result.stderr or 'Workspace Git guard failed; patch not applied.\n')
+        return {}, 2
+    return {}, 0
+
+
 def guard(payload):
+    if payload.get('tool_name') == 'apply_patch':
+        return patch_guard(payload)
     # Both names are supported for direct tests and native exec payload variants.
     if payload.get('tool_name') not in {'Bash', 'exec_command', 'shell_command', 'shell'}:
         return {}, 0
@@ -182,8 +205,7 @@ def touch(payload):
         # writes cannot be inferred reliably and stay outside the touch ledger.
         if 'Success. Updated the following files:' not in output:
             return {'systemMessage': 'Codex touch tracking skipped: patch success unavailable.'}
-        patch = args.get('command', args.get('input', ''))
-        paths = re.findall(r'^\*\*\* (?:Add File|Update File|Delete File|Move to): (.+)$', patch, re.M)
+        paths = patched_paths(args)
     else:
         paths = [args[k] for k in ('file_path', 'notebook_path') if isinstance(args.get(k), str)]
         paths += [e['file_path'] for e in args.get('edits', [])

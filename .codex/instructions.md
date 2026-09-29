@@ -1,13 +1,13 @@
 # Codex adaptations
 
-*Last updated: 2026-09-27*
+*Last updated: 2026-09-29*
 
 General defaults: `~/.codex/AGENTS.md`. Enforcement remains in `.codex/hooks/`;
 index-only operations follow the shared Git conventions without a separate staging gate.
 
-Ordinary commits and pushes follow the [shared repository flags](/Users/max/.codex/conventions/git.md#repository-commit-permission).
-The [local adapter](commit-permission.md) reports both persistent flags; each is final for every chat.
-Commit flag ON: ordinary commits run. Push flag ON: ordinary pushes run. Force pushes and amend remain forbidden.
+The [shared repository Git flags](/Users/max/.codex/conventions/git.md#repository-commit-permission)
+govern commits, pushes, history changes and GitHub writes. The [local adapter](commit-permission.md)
+implements the four independent flags, including persistence across chats and the human-only command restrictions.
 
 ## Product runtime ownership
 

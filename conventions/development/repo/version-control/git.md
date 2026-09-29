@@ -1,6 +1,6 @@
 # Git
 
-*Last updated: 2026-09-27*
+*Last updated: 2026-09-29*
 
 > Commit-message format **and** the agent⇄human commit protocol, for every repo under `wow-two-ws/`.
 > Purpose — a uniform, scannable history whose subject reads as *what changed* (past tense); and one unambiguous rule for who publishes (the repository push flag decides).
@@ -25,11 +25,13 @@ Route a file over **1 MB** by asking one question — *can it be regenerated?*
 | Text that diffs and compresses — `.sql`, `.csv`, `.jsonl`, `.json` | plain git, whatever the size |
 | Under 1 MB | plain git — LFS is not worth its client dependency at that size |
 
-- must run `git lfs install` and `git lfs track` **before** staging the file, never after — `.gitattributes` only governs what has not been committed yet
+- must verify `git-lfs` and the repository's effective LFS filters through read-only checks before staging LFS files
+- must leave `git lfs install` and required filter/hook configuration to the human; configuration writes follow [Discipline](#discipline)
+- may run `git lfs track` and stage `.gitattributes` within the authorized scope once the required filters exist; track before staging the binary
 - must commit `.gitattributes` in the same commit as the first tracked binary
 - must track by extension, not by path — `*.pmtiles`, not `public/tiles/*.pmtiles`; a moved file silently leaves LFS otherwise
 - must state the LFS requirement in the repo `README.md` — a clone without `git-lfs` checks out **pointer text**, and the failure is silent until something reads the file
-- must watch the GitHub free tier — 1 GB storage and 1 GB/month bandwidth per account, and every CI checkout spends bandwidth
+- must check the current [GitHub LFS billing and allowances](https://docs.github.com/en/billing/concepts/product-billing/git-lfs) before committing to storage or download usage
 - should keep a large artefact out of git entirely when a release asset or an object store will do — LFS is the answer when the file must be *in the tree*, not merely *available*
 
 Repairing a binary already in pushed history:
@@ -47,10 +49,12 @@ Repairing a binary already in pushed history:
 
 ## Discipline
 
-- **must not** run `git push` while the repository push flag is `OFF`, nor ever a forcing, deleting or mirror push; **must not** ever run `git reset --hard`, `git restore` to the worktree, `git checkout -- <path>`, `git clean`, or any `gh` write (`pr create`, `issue comment`, `release create`, `api -X POST`, …) — the push flag decides who publishes, and no agent discards a working tree. Enforced by the `guard-git` PreToolUse hook ([../../../../.claude/hooks/guard-git.py](../../../../.claude/hooks/guard-git.py)).
-- **must** follow the [shared repository commit switch](/Users/max/.codex/conventions/git.md#repository-commit-permission) and its [local adapter](../../../../.codex/commit-permission.md). Amend remains forbidden.
-- **may** run `git add`, `git pull`, `git stash`, branch create / switch, `git fetch`, and every read-only git.
-- **must not** run history rewrites — `merge`, `rebase`, `cherry-pick`, `revert`, soft/mixed `reset`; hand them to the developer by name.
+- **must** run a flagged command only while the target repository's flag of its kind is `ON`: `commit` (the ordinary commit plus local rewrites — amend, `merge`, `rebase`, `cherry-pick`, `revert`, `am`, `subtree`, soft/mixed `reset`) and `push` (the ordinary push plus every `gh` write). A rewrite never replaces a commit already on a remote-tracking branch. Only commands that are risky and used often get a flag. Enforced by the `guard-git` PreToolUse hook ([../../../../.claude/hooks/guard-git.py](../../../../.claude/hooks/guard-git.py)).
+- flags live in the workspace store `.codex/git-flags.json`: `~git_on <kind> *` sets the workspace default for every repository, a per-repository directive an override; `~git_status *` lists both.
+- **must** follow the [shared repository git flags](/Users/max/.codex/conventions/git.md#repository-commit-permission) and their [local adapter](../../../../.codex/commit-permission.md); the kinds and their commands are listed there.
+- **must not** ever run a risky command that is rarely needed: forcing, deleting or mirror pushes, `reset --hard`, worktree `restore`, `checkout -- <path>`, `clean`, `config` and `remote` writes, ref surgery, `gh repo delete`; no flag unlocks them.
+- **may** run `git add`, unforced `git mv` / `git rm`, `git apply`, `git pull`, `git stash`, branch create / switch, `git fetch`, and every read-only git.
+- **must** request the exact `~git_on <kind> <repo>` directive when a task needs a gated command whose flag is `OFF`; never infer a flag from prose.
 - **lane check** — `pull` and `stash push` stop once, naming the files, when the tree carries modified / staged paths this session never wrote. That is probably a parallel chat's in-flight work. Ask the developer *is another lane working right now?*; if none is, the dirt is completed-but-uncommitted work and the retry goes through. The hook knows "this session wrote it" from the ledger `.claude/hooks/track-touch.py` keeps.
 - may stage and unstage explicit task paths; prefer `git restore --staged -- <paths>`. Index-only path resets and cached patches/removals are permitted.
 - must follow the authorized task scope and handover cadence; an agreed batch iteration does not require repeated staging approval.

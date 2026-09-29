@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
-"""Claude Code adapter for the repository commit and push switches — SessionStart and UserPromptSubmit.
+"""Claude Code adapter for the workspace git flags — SessionStart and UserPromptSubmit.
 
-`.codex/hooks/commit_permission.py` owns both per-repository flags; this file only feeds it Claude events.
-Only a prompt that is exactly `~commit_on|off|status <repo>` or `~push_on|off|status <repo>` can change or
-read a flag; every other prompt prints nothing. At session start each ON flag of the working repository is
-surfaced. `guard-git.py` reads the same records before a commit or push; each flag is final for every chat.
+`.codex/hooks/commit_permission.py` owns the workspace flag store; this file only feeds it Claude events.
+Only a prompt that is exactly `~commit_on|off|status <repo>`, `~push_on|off|status <repo>` or
+`~git_on|off <kind>[,<kind>...] <repo>...` / `~git_status <repo>...` (`*` for the workspace default) can change or
+read a flag; every other prompt prints nothing. At session start the working repository's effective flags are
+surfaced. `guard-git.py` reads the same store before a gated command; each flag is final for every chat.
 
 Claude chats are recorded as `claude-<session_id>` in the change evidence only.
 Claude Code sends no turn id, so each genuine prompt event gets a fresh one.
@@ -35,13 +36,8 @@ def handle(payload):
     event = payload.get("hook_event_name")
     switch = load()
     if event == "SessionStart":
-        cwd = payload.get("cwd") or switch.ROOT
-        try:
-            on = [kind for kind in switch.KINDS if (state := switch.read_state(cwd, kind)) and state["enabled"]]
-            return "\n".join(switch.status(cwd, session, kind) for kind in on)
-        except (ValueError, OSError, switch.subprocess.SubprocessError):
-            return ""  # the working directory is no repository of this workspace
-    if event != "UserPromptSubmit" or switch.directive(payload.get("prompt")) is None:
+        return switch.session_status(payload.get("cwd") or switch.ROOT)
+    if event != "UserPromptSubmit" or switch.directives(payload.get("prompt")) is None:
         return ""
     return switch.prompt(dict(payload, session_id=session, turn_id=payload.get("turn_id") or uuid.uuid4().hex))
 
