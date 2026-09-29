@@ -1,6 +1,6 @@
 # WoW 2.0 — Workspace Root
 
-Full-stack .NET + React developer ecosystem. `wow-two-ws` is a meta-repo (workspace config only); managed repos are independent gits under `workbench/` (gitignored as a whole).
+Full-stack .NET + Vue developer ecosystem. `wow-two-ws` is a meta-repo (workspace config only); managed repos are independent gits under `workbench/` (gitignored as a whole).
 
 ## Instruction sources
 
@@ -14,6 +14,7 @@ Shared source and workspace overrides: `.claude/rules/response-style.md`; reinfo
 
 - Touching code · repo structure · naming · versioning → read **`conventions/conventions.md` first** (the single index to all conventions), then open only the file you need. Don't pre-read; don't skip.
 - A convention applies to every repo; a repo-level `CLAUDE.md` / `.claude/rules/` overrides for that repo.
+- Frontend selection, React migration and exceptions → [frontend standard](conventions/development/repo/repo-conventions.md#frontend-standard).
 
 ## SDK doctrine — build the whole vector
 

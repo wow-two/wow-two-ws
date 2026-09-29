@@ -1,6 +1,6 @@
 # Boundaries
 
-*Last updated: 2026-09-10*
+*Last updated: 2026-09-26*
 
 > The app's outer edge — what stays inside it, what extracts to a package, and how the repo is shaped.
 > Purpose — in-app reuse and SDK reuse run on opposite triggers, and mixing them strands generic code.
@@ -32,16 +32,12 @@ consumer is a matter of time, not of chance.
 
 ## Packaging
 
-Two shapes, by app count, both under `engineering/codebase/{slug}.frontend-services/`
-(`@{brand}` = the repo's package scope).
+Project layout and package boundaries → [frontend workspace](workspace.md).
 
-- must default to a **single app** — one Vite app with the layered `src/`, no workspace, until a second app
-  or genuine cross-app reuse appears.
-- must shape a **multi-app repo** as a pnpm workspace — `packages/{common,ui,domain}` (`@{brand}/*`) plus
-  lowercase app folders, each with the same layered `src/`.
 - must keep `@{brand}/ui` dumb (no data, context or storage), `@{brand}/common` for shared hooks, utils and
   identity, `@{brand}/domain` for pure types and enums with no component runtime.
 - must extract to a repo-local package only once two apps in that repo need it.
+- must leave shared packages absent until that extraction is needed.
 - must keep only **product-specific** components in a repo's `@{brand}/ui` — a generic one goes upstream to
   `@wow-two-beta/ui` immediately.
 

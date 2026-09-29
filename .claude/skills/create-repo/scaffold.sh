@@ -3,7 +3,7 @@
 # scaffold.sh — deterministic mechanics for the create-repo skill.
 #   Creates workbench/{org}/{repo}, COPIES the product-repo template (which now
 #   ships a complete working `Sample` example — 5 Clean-Arch projects + tests +
-#   a Vite/React frontend + Docker), fills the doc {{placeholders}}, then
+#   a Vite/Vue frontend workspace + Docker), fills the doc {{placeholders}}, then
 #   REBRANDS the example: Sample → Brand across all code/config, renames every
 #   Sample* file/dir → Brand*, retargets the two code-dir slug prefixes
 #   (sample.{backend,frontend}-services → {repo-slug}.{…}), and re-allocates the
@@ -67,6 +67,8 @@ echo "[scaffold] target=$REPO_DIR"
 # ---- guardrails ----
 [ -d "$TEMPLATE" ] || { echo "[scaffold] template missing: $TEMPLATE" >&2; exit 1; }
 [ -e "$REPO_DIR" ] && { echo "[scaffold] refusing to clobber existing: $REPO_DIR" >&2; exit 1; }
+# Reject an outdated starter before creating a repository, allocating ports or registering it.
+node "$SCRIPT_DIR/validate-frontend.mjs" "$TEMPLATE/engineering/codebase/sample.frontend-services"
 
 # ---- 1. create + copy template (incl. the complete `Sample` example) ----
 mkdir -p "$WB/$ORG"
@@ -93,7 +95,7 @@ done < <(find "$REPO_DIR" -type f \( -name '*.md' -o -name '*.json' -o -name '*.
 # Files that may carry the Sample/sample token (code + config; docs already handled above,
 # but .md is harmless to re-run). Excludes binary/build dirs (already pruned) and .git.
 CODE_GLOBS=(-name '*.cs' -o -name '*.csproj' -o -name '*.sln' -o -name '*.props' \
-            -o -name '*.json' -o -name '*.ts' -o -name '*.tsx' -o -name '*.mjs' \
+            -o -name '*.json' -o -name '*.ts' -o -name '*.tsx' -o -name '*.vue' -o -name '*.mjs' \
             -o -name '*.html' -o -name '*.css' -o -name '*.yml' -o -name '*.yaml' \
             -o -name '*.http' -o -name 'Dockerfile' -o -name '.dockerignore' -o -name '*.md')
 
@@ -137,14 +139,14 @@ for kind in backend frontend; do
 done
 
 # ---- 2c. PORT pass: re-allocate the template's dev ports to the next-free pair ----
-# Template binds 8220 (https) / 8221 (http) + 8225 (vite). Pick the next-free even/odd
+# Template binds 8220 (https) / 8221 (http) + 8224 (vite). Pick the next-free even/odd
 # backend pair (HTTPS even, HTTP odd = even+1) starting from ports.md's "Next free", and
 # a free vite port; scan existing launchSettings + vite configs to avoid collisions.
-PORTS_MD="$WS_DIR/conventions/development/repo/ports.md"
-TPL_HTTPS=8220; TPL_HTTP=8221; TPL_VITE=8225
+PORTS_MD="$WS_DIR/conventions/deployment/hosting/ports.md"
+TPL_HTTPS=8220; TPL_HTTP=8221; TPL_VITE=8224
 
 # in-use ports across the whole workbench (every launchSettings + vite.config), minus the
-# template copy we are about to overwrite (it still reads 8220/8221/8225 at this point).
+# template copy we are about to overwrite (it still reads 8220/8221/8224 at this point).
 used_ports() {
   {
     grep -rho -E 'localhost:[0-9]+' "$WB" --include=launchSettings.json 2>/dev/null | grep -o -E '[0-9]+'
@@ -163,11 +165,11 @@ while :; do
   if [ "$NEW_HTTPS" != "$TPL_HTTPS" ] && is_free "$NEW_HTTPS" && is_free "$NEW_HTTP"; then break; fi
   NEW_HTTPS=$((NEW_HTTPS + 2))
 done
-# vite: first free port at/after 8225 that isn't the new backend pair or the template's.
+# vite: first free even port after 8224 that isn't the new backend pair or the template's.
 NEW_VITE="$TPL_VITE"
 while { [ "$NEW_VITE" = "$TPL_VITE" ] || ! is_free "$NEW_VITE"; } \
       || [ "$NEW_VITE" = "$NEW_HTTPS" ] || [ "$NEW_VITE" = "$NEW_HTTP" ]; do
-  NEW_VITE=$((NEW_VITE + 1))
+  NEW_VITE=$((NEW_VITE + 2))
 done
 
 # rewrite the three ports across launchSettings, vite proxy, .http, appsettings (ports
@@ -224,6 +226,9 @@ node_modules/
 *.tsbuildinfo
 EOF
 
+# Verify the copied/rebranded frontend before registering the result as a usable scaffold.
+node "$SCRIPT_DIR/validate-frontend.mjs" "$FE_DIR"
+
 # ---- 4. git init (NO commit — developer owns git) ----
 if [ ! -d "$REPO_DIR/.git" ]; then
   git -C "$REPO_DIR" init -q
@@ -258,8 +263,8 @@ cat <<EOF
   backend    : $BE_DIR
                ($BRAND.sln + $BRAND.{Api,Application,Domain,Infrastructure,Persistence} + tests/$BRAND.Tests)
   frontend   : $FE_DIR
-               (Vite/React app; deploy.mjs → $REPO_SLUG.backend-services/$BRAND.Api/wwwroot)
-  ports      : $NEW_HTTPS https / $NEW_HTTP http · $NEW_VITE vite   (was 8220/8221 · 8225; ports.md row added)
+               (pnpm workspace; Vue app in apps/web; single-host deployment)
+  ports      : $NEW_HTTPS https / $NEW_HTTP http · $NEW_VITE vite   (was 8220/8221 · 8224; ports.md row added)
   short name : $SHORT_NAME      (scripts/active.sh $SHORT_NAME)
   net        : net$NET_VERSION.0
 

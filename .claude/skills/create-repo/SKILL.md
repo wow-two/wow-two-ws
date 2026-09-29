@@ -2,7 +2,7 @@
 name: create-repo
 description: >-
   Scaffold a NEW conformant product / venture repo for the wow-two workspace — copies the standard
-  product-template's example product (a complete Clean-Arch .NET 10 backend + React 19 / Vite frontend
+  product-template's example product (a complete Clean-Arch .NET 10 backend + Vue 3 / Vite frontend workspace
   under engineering/codebase/, single-host serving, Docker) and rebrands it to the new name, then git
   init + registration in scripts/active.sh. Use this whenever the user wants to create / start / spin up
   / bootstrap / set up a new repo, project, product, venture, app, service, or POC in this workspace
@@ -21,12 +21,17 @@ Scaffolds a **product / venture** repo that conforms to
 repo `{slug}` = its last dot-segment, e.g. `secrets-vault`, so several open repos never collide on a
 bare folder name in an IDE).
 
-The product-template now **ships a complete, working `Sample` example** — 5 Clean-Arch projects
+The product-template is the source of the `Sample` example — 5 Clean-Arch projects
 (`Sample.{Api,Application,Domain,Infrastructure,Persistence}`), a classic `Sample.sln`,
-`tests/Sample.Tests`, and a Vite/React frontend, all wired to the kit `WoW2.Sdk.Backend.Beta`. So
+`tests/Sample.Tests`, and a Vue frontend workspace, wired to the kit `WoW2.Sdk.Backend.Beta`.
 **`scaffold.sh` copies that example and rebrands it** (`Sample` → `{Brand}`, file/dir renames, port
 re-allocation) — there is **no code generation**. Claude's job afterward is to **verify the copy
-builds and fill the doc `{{placeholders}}`**, not to author code.
+builds and fill the doc `{{placeholders}}`**.
+
+Framework selection follows `conventions/development/repo/repo-conventions.md#frontend-standard`.
+Project layout follows `conventions/development/frontend/shapes/app/architecture/workspace.md`.
+`validate-frontend.mjs` rejects an outdated React/root-app template before `scaffold.sh` creates anything.
+If validation fails, report the template gap; do not report the copied legacy starter as conformant.
 
 > **Doc rule:** no `README.md` below the repo root — every folder leads with a meaningfully-named
 > `{folder}.md` doc (`engineering/engineering.md`, `architecture/architecture.md`,
@@ -56,6 +61,7 @@ scripts_dir=".claude/skills/create-repo"
 ```
 
 This (deterministic, no code-gen, no commit):
+0. validates the template's private pnpm workspace and Vue `apps/web` app,
 1. creates `workbench/{org}/{repo-name}/`,
 2. copies the product-repo template — **including the working `Sample` example** —
    (`workbench/wow-two-sdk-beta/wow-two-sdk-beta.product-template/`) in, dropping its `.git` + build artifacts,
@@ -65,8 +71,8 @@ This (deterministic, no code-gen, no commit):
    `vite.config.ts`, `scripts/deploy.mjs`, `Dockerfile`/`docker-compose.yml`, `appsettings*.json`,
    `launchSettings.json`), then renames every `Sample*` **file/dir** → `{Brand}*`
    (`Sample.sln`→`{Brand}.sln`, the 5 project dirs, `tests/Sample.Tests`, `SampleDbContext.cs`, …),
-5. **port pass** — the template binds `8220` https / `8221` http / `8225` vite; re-allocates to the
-   next-free even/odd backend pair + free vite port (seeded from `conventions/deployment/hosting/ports.md`
+5. **port pass** — the template binds `8220` https / `8221` http / `8224` vite; re-allocates to the
+   next-free even/odd backend pair + free even vite port (seeded from `conventions/deployment/hosting/ports.md`
    "Next free", scanning existing `launchSettings.json`/`vite.config.ts` to avoid collisions), rewrites
    them across launchSettings/vite proxy/`.http`/appsettings, and appends a `ports.md` row + bumps "Next free",
 6. **slug-prefix pass** — the template ships its code dirs as `sample.backend-services/` +
@@ -89,18 +95,19 @@ is already in place and rebranded** — no authoring needed; just verify it buil
 {repo}/
 ├── README.md · CLAUDE.md · .claude/rules/file-references.md
 ├── product/                  product.md · context.md
-│   ├── features/  features.md           ├── planning/   planning.md
+│   ├── features/  (one spec per feature, listed in the backlog)
 │   ├── flows/     flows.md              └── marketing/  marketing.md
 └── engineering/              engineering.md
     ├── architecture/   architecture.md
     ├── codebase/       codebase.md · {slug}.backend-services/ · {slug}.frontend-services/   ← ALL code here
-    ├── development/    development.md · backend-guidelines.md · frontend-guidelines.md · iteration-guide.md
+    ├── development/    development.md · rules.md · backend-guidelines.md · frontend-guidelines.md · iteration-guide.md
     ├── deployment/     deployment.md · Dockerfile · docker-compose.yml   (context = ../codebase)
-    ├── planning/       planning.md · backlog.md · rules.md
-    ├── versions/       versions.md
+    ├── planning/       backlog.md · version-track/v0.1/v0.1.md   (no lead doc; CI reads X.Y from the newest folder)
     ├── research/       research.md
     └── scripts/        scripts.md
 ```
+
+Planning follows `conventions/planning/version-track/version-track.md`: one backlog plus one folder per version.
 
 The template already ships this conformant shape. If a copy ever hands back a stale name
 (`business-logic/`, `platform-development/`, `src/`, `guidelines/`, a folder `README.md`) rename it to
@@ -130,21 +137,22 @@ What's there (rebranded from `Sample` → `{Brand}`):
   - `{Brand}.Api` — fixed four-statement `Program.cs` → `Configurations/HostConfiguration`(+`Extensions`),
     which owns startup work; `Controllers/GreetingController` (`ISender` + `result switch → Ok / Problem`);
     `wwwroot/index.html` placeholder; `appsettings.json`(+`.Development`); `Properties/launchSettings.json`.
-- **Ports** — already re-allocated by `scaffold.sh` (template's `8220`/`8221` https/http + `8225` vite →
+- **Ports** — already re-allocated by `scaffold.sh` (template's `8220`/`8221` https/http + `8224` vite →
   the next-free pair; see §2's port pass). Nothing to set by hand.
 
-> **Drydock is an optional richer reference only** — for deeper patterns (more verticals, controllers,
-> commands) consult `workbench/wow-two-platform/wow-two-platform.drydock/`, but it is **not** the code
-> source and is not copied. Note Drydock predates the kit (local `Results/` etc.) — prefer the kit.
+> **Wheelhouse is an optional richer reference only** — for deeper patterns (more verticals, controllers,
+> commands) consult `workbench/wow-two-platform/wow-two-platform.wheelhouse/`, but it is **not** the code
+> source and is not copied. Note Wheelhouse predates the kit (local `Results/` etc.) — prefer the kit.
 
-## 4 · The frontend is already in place — `engineering/codebase/{slug}.frontend-services/`
+## 4 · Frontend workspace — `engineering/codebase/{slug}.frontend-services/`
 
-Also copied + rebranded. A minimal Vite 6 + React 19 app at the `{slug}.frontend-services/` root: `package.json`
-name `{brand-lc}-frontend` (scripts `dev`/`build`/`deploy`); `vite.config.ts` (`base:'/'`, dev
-`server.proxy['/api'] → http://localhost:{HTTP_PORT}` — already pointed at the new http port);
-`src/main.tsx` (StrictMode root) + `src/App.tsx` (fetches `GET /api/greeting`, shows it) + `index.html`;
-`scripts/deploy.mjs` (build → copy `dist` into `{slug}.backend-services/{Brand}.Api/wwwroot` — path already
-rebranded). For `multi` mode, fan this single app out into a pnpm workspace as the product grows.
+- Workspace root: private `package.json`, pinned pnpm `packageManager`, `pnpm-workspace.yaml`, `pnpm-lock.yaml`.
+- Initial app: `apps/web/`, named `@{brand-lc}/web`, with its manifest, `index.html`, Vite/TS config and Vue source.
+- Root `dev`, `build` and `typecheck` scripts delegate to the app; run installation from the workspace root.
+- `scripts/deploy.mjs` copies `apps/web/dist` to `{slug}.backend-services/{Brand}.Api/wwwroot`.
+- `single` and `multi` use the same frontend workspace; add app siblings without moving `apps/web`.
+- Shared packages follow the convention's extraction rule; empty placeholder packages are unnecessary.
+- Verify `/api` proxy and ports against the deployment conventions after the mechanical port pass.
 
 ## 5 · Single-host serving + Docker (already wired)
 
@@ -174,7 +182,7 @@ be="workbench/{org}/{repo-name}/engineering/codebase/{slug}.backend-services"
 dotnet build "$be/{Brand}.sln"
 
 fe="workbench/{org}/{repo-name}/engineering/codebase/{slug}.frontend-services"
-( cd "$fe" && npm install && npm run build )
+( cd "$fe" && pnpm install --frozen-lockfile && pnpm typecheck && pnpm build )
 ```
 
 Then fill the doc `{{placeholders}}` (`{{ONE_LINE_WHAT_THIS_IS}}`, guideline bodies, the per-project
@@ -184,6 +192,9 @@ Report: repo path, resolved `{Brand, org, mode}`, the **ports** chosen, backend 
 frontend build result, the `active.sh` short name, and anything left as a `{{placeholder}}` for the
 user to fill. If a build fails, fix against `conventions/development/backend/` and re-run before
 reporting success.
+
+Confirm the generated app remains in `apps/web`, workspace commands select it, and the host includes its built output.
+The structural validator does not establish a successful frontend build or correct host serving.
 
 ## Notes
 

@@ -1,10 +1,13 @@
 # React 19
 
-*Last updated: 2026-09-10*
+*Last updated: 2026-09-26*
 
-> Every construct React 19 offers a component or a hook, and the ones banned outright.
+> Legacy React 19 construct reference for maintenance and migration.
 > Purpose — separate framework support from the house source-form policy.
 > Use case — reach here before writing a hook, a ref or a render idiom new to this codebase.
+
+Framework selection and permitted React work →
+[frontend standard](../../../../../repo/repo-conventions.md#frontend-standard).
 
 ## The groups
 

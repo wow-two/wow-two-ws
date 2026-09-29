@@ -1,9 +1,9 @@
 # Vue 3
 
-*Last updated: 2026-09-10*
+*Last updated: 2026-09-26*
 
 > Every construct Vue 3 offers a `.vue` file or a composable, and the ones banned outright.
-> Purpose — Vue is a second baseline under TypeScript, and a wrong pick costs a lost update, a leak, or an XSS.
+> Purpose — constrain Vue source forms, reactive state and lifecycle behavior.
 > Use case — reach here before writing a macro, a directive or a reactive primitive new to this codebase.
 
 ## The groups

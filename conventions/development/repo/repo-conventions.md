@@ -1,6 +1,6 @@
 # Conventions — Development — Repo
 
-*Last updated: 2026-07-12*
+*Last updated: 2026-09-29*
 
 > How a repo is shaped and equipped — repo **shape** splits by **archetype** (product / venture vs SDK / library),
 > grouped under `structure/`; version control + the default tech stack are the shared, cross-archetype setup. Code
@@ -22,7 +22,15 @@ Repo shape by archetype — product / venture (both stacks, one repo) vs SDK / l
 
 | File | Covers |
 |---|---|
-| [version-control/git.md](version-control/git.md) | Commit-message format — `{type}: {past-tense verb} {subject}`, one cohesive change per commit — **+ the agent⇄human commit protocol** (agent stages + commits; the human pushes, hook-enforced) |
+| [version-control/git.md](version-control/git.md) | Commit messages, scoped index handover, independent repository Git flags and large-file handling |
+
+---
+
+## Versioning
+
+| File | Covers |
+|---|---|
+| [versioning/versioning.md](versioning/versioning.md) | The product version — declared in `Directory.Build.props` and `package.json`, stamped on builds and migrations, reported by services and shown in apps |
 
 ---
 
@@ -31,7 +39,30 @@ Repo shape by archetype — product / venture (both stacks, one repo) vs SDK / l
 > The default stack for wow-two product / venture repos; an SDK repo runs the same floor. Code-style per layer: [../backend/](../backend/) · [../frontend/](../frontend/).
 
 - **Backend** — .NET 10 · ASP.NET Core · EF Core · MediatR (CQRS) · Clean Architecture. DB: SQLite (single-user / POC) → Postgres (when scaling / multi-instance). CI: GitHub Actions → GHCR.
-- **Frontend** — React 19 · Vite · TypeScript (strict) · Tailwind v4 · `@wow-two-beta/ui`.
+- **Frontend** — [frontend standard](#frontend-standard).
 - **Beta SDKs** — consume these first; build-locally-then-migrate if a capability is missing.
-  - `@wow-two-beta/ui` (npm) — React component library.
+  - frontend package and framework selection → [frontend standard](#frontend-standard).
   - `WoW.Two.Sdk.Backend.Beta` (nuget.org) — backend wrappers (hosting, observability, mediator, …). Still maturing — adopt where stable.
+
+---
+
+## Frontend standard
+
+- must use Vue 3, strict TypeScript, Vite and Tailwind v4 for new product frontends and UI work.
+- must build reusable frontend capabilities in `@wow-two-beta/ui-vue`; products consume its public exports.
+- must follow [Vue constructs](../frontend/core/lla/constructs/vue/vue.md) and the shared frontend conventions.
+- must treat existing React frontends and `@wow-two-beta/ui` as legacy migration targets.
+- may maintain existing React behavior while its product's explicitly scoped Vue migration remains incomplete.
+- must implement new frontend features and SDK capabilities on the Vue track.
+- must obtain an explicit user decision for a temporary React exception, naming its repository and scope.
+- must record that exception and its migration exit condition in the repository's planning track.
+- must not infer an exception from existing React code, examples, templates, skills or stale repository instructions.
+- must preserve required React behavior until the replacement's scoped verification passes.
+- must not treat this framework decision as authorization to delete a product or execute an unscoped migration.
+
+### Scaffolding
+
+- must apply this standard and the [frontend workspace](../frontend/shapes/app/architecture/workspace.md)
+  when using `create-repo`.
+- must validate the template's Vue app and workspace layout before copying it as a conformant starter.
+- must verify the generated Vue workspace before reporting a new frontend scaffold complete.

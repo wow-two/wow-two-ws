@@ -1,6 +1,6 @@
 # Architecture
 
-*Last updated: 2026-09-10*
+*Last updated: 2026-09-26*
 
 > The slice tree a TypeScript app is built on — five Clean-Arch layers at `src/`, each sliced by domain.
 > Purpose — one inward dependency direction, so a layer reads without its callers.
@@ -8,6 +8,8 @@
 > A package has no layers and no slices — its own layout is [library](../../library/library.md) § *Layout*.
 
 ## Layers [REQUIRED]
+
+Each app's `src/` lives beneath the [frontend workspace](workspace.md).
 
 Dependencies: `presentation → application → domain`, `application → integration → domain`.
 `bootstrap` composes all; application imports only the same-domain endpoint or a shared integration contract.

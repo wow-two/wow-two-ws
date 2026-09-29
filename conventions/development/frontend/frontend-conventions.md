@@ -1,10 +1,17 @@
 # Conventions — Development — Frontend
 
-*Last updated: 2026-09-10*
+*Last updated: 2026-09-26*
 
 > Conventions for every frontend under `wow-two-ws/`. Lookup table — open a file when the task
 > touches it; do not pre-read. The tree splits twice, and the cuts are orthogonal.
 > How to write a doc here → template + rules in [conventions](../../conventions.md).
+
+## Framework selection
+
+- new frontend work, SDK selection and React migration exceptions →
+  [frontend standard](../repo/repo-conventions.md#frontend-standard).
+
+---
 
 ## The two cuts [REQUIRED]
 
@@ -132,7 +139,7 @@ One row per domain → [domains](core/mla/domains/domains.md). The four with the
 
 ### `core/lla/constructs/{react,vue}/` — each framework's own constructs
 
-- [react](core/lla/constructs/react/react.md) — [components](core/lla/constructs/react/components.md) ·
+- [react](core/lla/constructs/react/react.md) — legacy reference: [components](core/lla/constructs/react/components.md) ·
   [hooks](core/lla/constructs/react/hooks.md) · [jsx](core/lla/constructs/react/jsx.md) ·
   [boundaries](core/lla/constructs/react/boundaries.md).
 - [vue](core/lla/constructs/vue/vue.md) — [SFC](core/lla/constructs/vue/vue-sfc.md) ·
@@ -151,7 +158,8 @@ The lead is [app](shapes/app/app.md) — its vectors and their status.
 | File | What it covers |
 |---|---|
 | [architecture](shapes/app/architecture/architecture.md) | Five layers × domain slices, the slice tree |
-| [boundaries](shapes/app/architecture/boundaries.md) | In-app restraint, the SDK-extraction trigger, packaging |
+| [workspace](shapes/app/architecture/workspace.md) | pnpm root, `apps/web`, optional packages, build ownership |
+| [boundaries](shapes/app/architecture/boundaries.md) | In-app restraint and package/SDK extraction triggers |
 | [platform](shapes/app/platform/platform.md) | The vector lead over the styling and dev-server wiring |
 | [styling](shapes/app/platform/styling.md) | The `index.css` entry, `@source` depth, brand tokens, dark mode |
 | [dev-server](shapes/app/platform/dev-server.md) | HTTPS through mkcert, the `/api` proxy, previewing a route |
