@@ -1,6 +1,6 @@
 # Dapper
 
-*Last updated: 2026-09-10*
+*Last updated: 2026-09-26*
 
 > SQL access through a connection factory, with explicit naming and cancellation.
 
@@ -20,6 +20,9 @@
 - must not cache or share an open connection between independent operations.
 - must register `AddDataSourceConnectionFactory()` over a shared `DbDataSource`, or a custom factory for another provider.
 - must keep transaction-sharing policy at the [unit-of-work boundary](../../../../constructs/patterns/unit-of-work.md).
+- must use `IDataSession.OpenConnectionAsync` inside an explicit unit and pass the lease's transaction to every command.
+- must dispose borrowed leases without closing the shared connection or committing its transaction.
+- must dispose outstanding leases before settling the unit.
 
 ```csharp
 await using var connection = await connectionFactory.CreateOpenAsync(ct);
@@ -54,6 +57,10 @@ var parameter = SqlNamingMapper.ParRef("Limit", naming.ParameterCase);
 - must exclude generated or immutable properties from insert/update lists through `ExcludedOnInsert` and `ExcludedOnUpdate`.
 - must include the id among update exclusions when overriding that set.
 - must register through `AddDapperRepository` in the owning persistence registration.
+- must preserve generated tenant and soft-delete read predicates; custom SQL owns equivalent predicates.
+- must explicitly read PostgreSQL `xmin` before attaching a Dapper row for concurrency-checked EF writes.
+- must not infer full-row provenance, EF converters or owned graph support from a generic Dapper entity result.
+- must not assume generic Dapper writes perform optimistic concurrency checks or soft deletion.
 - current constraints, virtual methods and registration overloads → [repository source](../../../../../../../../../../workbench/wow-two-sdk-beta/wow-two-sdk.backend.beta/engineering/codebase/wow-two-back-beta-sdk/src/Data/Dapper/Repositories/DapperRepository.cs).
 
 ---

@@ -1,6 +1,6 @@
 # Http
 
-*Last updated: 2026-09-16*
+*Last updated: 2026-09-26*
 
 > Outbound HTTP registration and transport resilience behind the client/broker boundary.
 
@@ -39,6 +39,19 @@
 - must configure authentication, client certificates, hedging and propagated headers only when the integration needs them.
 - must not forward arbitrary inbound credentials to another provider.
 - must dispose response messages and owned streams after consuming them.
+
+---
+
+## Destination safety
+
+- must use `AddSafeOutboundHttp` on clients accepting external or user-controlled destinations.
+- must validate the actual resolved address at connection time, including mapped IPv4 and IPv6 transition ranges.
+- must disable automatic redirects and system proxies when destination policy depends on the socket callback.
+- must follow a redirect explicitly through the protected client so the next destination is checked.
+- must keep HTTPS required unless the integration explicitly permits HTTP.
+- must opt private-network destinations in explicitly for controlled internal integrations.
+- must not replace the guarded primary handler or enable HTTP/3 on the protected client.
+- must configure response-size limits separately; destination protection does not bound downloaded content.
 
 ---
 

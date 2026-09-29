@@ -1,6 +1,6 @@
 # Time
 
-*Last updated: 2026-09-10*
+*Last updated: 2026-09-24*
 
 > Applying the [clock seam](../constructs/behavior/time.md) to timestamps, durations and schedules.
 
@@ -26,8 +26,7 @@
 - must pass an injected instant and an explicit zone when calculating a cron occurrence.
 
 ```csharp
-var next = parser.NextOccurrence(
-    "0 0 8 * * *",
+var next = parser.Parse("0 0 8 * * *").GetNextOccurrence(
     timeProvider.GetUtcNow(),
     TimeZoneMapper.ResolveTimeZone("Asia/Tashkent"));
 ```
@@ -57,4 +56,4 @@ var next = parser.NextOccurrence(
 - must handle invalid zone ids and cron expressions at the input boundary.
 - must not assume every zone id is available on every machine; zone data remains an OS dependency.
 - API and exceptions → [zone mapper](../../../../../../../workbench/wow-two-sdk-beta/wow-two-sdk.backend.beta/engineering/codebase/wow-two-back-beta-sdk/src/Foundation/Time/TimeZoneMapper.cs)
-  and [cron parser](../../../../../../../workbench/wow-two-sdk-beta/wow-two-sdk.backend.beta/engineering/codebase/wow-two-back-beta-sdk/src/Foundation/Time/ICronExpressionParser.cs).
+  and [cron parser](../../../../../../../workbench/wow-two-sdk-beta/wow-two-sdk.backend.beta/engineering/codebase/wow-two-back-beta-sdk/src/Foundation/Time/Parsers/ICronExpressionParser.cs).
