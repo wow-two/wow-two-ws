@@ -1,0 +1,2264 @@
+[
+  {
+    "id": "S051",
+    "name": "Customer integration operations desk",
+    "category": "Developer / data / IT operations",
+    "buyer": "Head of integrations at 10–80-person B2B SaaS vendors",
+    "job": "Keep customer-specific integrations functioning through upstream changes.",
+    "current_workaround": "Connector spreadsheets, support tickets and scattered deployment notes.",
+    "record": "Integration instance with mapping revisions, owners and recovery history.",
+    "workflow": [
+      "Register instance",
+      "Approve mapping revision",
+      "Record deployment",
+      "Resolve failures",
+      "Retire connector"
+    ],
+    "roles": [
+      "Integration engineer",
+      "Support lead"
+    ],
+    "wedge": "Lifecycle evidence across existing runtimes, initially one connector family; unvalidated.",
+    "why_pay": "Faster diagnosis could protect renewal revenue.",
+    "expansion": "Reusable mappings and customer change campaigns.",
+    "competitors": [
+      {
+        "name": "Prismatic",
+        "url": "https://prismatic.io/pricing/",
+        "observed": "2026-10-05",
+        "facts": "Integration deployment and support, volume pricing per instance.",
+        "price": "Contact sales; amount, currency and minimum term unverified.",
+        "access": "opened"
+      },
+      {
+        "name": "Paragon",
+        "url": "https://www.useparagon.com/pricing",
+        "observed": "2026-10-05",
+        "facts": "Authentication, workflows and sync priced by connected customer organizations.",
+        "price": "Custom quote; amount, currency and commitment unverified.",
+        "access": "opened"
+      }
+    ],
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 149,
+      "unit": "workspace",
+      "free_boundary": "Two sandbox instances; no customer data.",
+      "paid_boundary": "Twenty active instances and approval history.",
+      "lifetime": "No lifetime hosted collaboration; continuing security, storage and support need recurring funding."
+    },
+    "channel": "Find integration leads in SaaS engineering communities; propose reconstructing one recurring connector failure.",
+    "retention": "Customer rollouts and upstream changes.",
+    "moat": "Mapping exceptions and resolution provenance, if maintained.",
+    "mvp": [
+      "Instance register",
+      "Mapping approvals",
+      "Recovery cases"
+    ],
+    "effort_weeks": [
+      10,
+      14
+    ],
+    "cost": {
+      "pilot_usd_month": [
+        20,
+        50
+      ],
+      "fits_bootstrap": true,
+      "assumptions": "Three teams, one hundred instances, metadata only; no hosted execution. Labor, acquisition, payment fees and taxes excluded.",
+      "drivers": "Event volume and connector upkeep; use daily summaries, not payload streams.",
+      "revenue_stage": "Up to $300 after revenue funds backups and measured capacity; preserve usage caps."
+    },
+    "integrations": [
+      "CSV manifests",
+      "Signed callbacks later"
+    ],
+    "risks": [
+      "iPaaS already owns deployment/support.",
+      "Scripts and existing issue boards may suffice."
+    ],
+    "global_limits": "Redact credentials and payloads; isolate customer records and offer explicit deletion.",
+    "validation": "Ten interviews, five failure walkthroughs; three $149/month commitments after two change cycles.",
+    "kill_gate": "Stop if buyers require a full integration runtime before paying for lifecycle ownership.",
+    "scores": {
+      "pain": 4,
+      "recurrence": 5,
+      "budget": 4,
+      "distribution": 3,
+      "wedge": 2,
+      "feasibility": 3,
+      "global": 4,
+      "cost": 4
+    },
+    "score_rationale": "Recurring pain, but a separate control record faces incumbent bundling.",
+    "evidence_confidence": "medium; official competitor evidence only",
+    "source_limit": "Vendor offers establish alternatives, not unmet demand, our pricing, acquisition or achieved outcomes."
+  },
+  {
+    "id": "S052",
+    "name": "Migration delivery workspace",
+    "category": "Developer / data / IT operations",
+    "buyer": "Owner of a small CRM/ERP migration consultancy",
+    "job": "Deliver repeated migrations without unresolved mappings or disputed reconciliation.",
+    "current_workaround": "Workbook versions, email sign-offs and custom scripts.",
+    "record": "Migration engagement containing approved mappings, exceptions and cutover evidence.",
+    "workflow": [
+      "Inventory sources",
+      "Agree mapping",
+      "Resolve exceptions",
+      "Reconcile dry run",
+      "Approve cutover"
+    ],
+    "roles": [
+      "Migration consultant",
+      "Client data owner"
+    ],
+    "wedge": "Client acceptance across successive migrations, retaining customer-run transformation.",
+    "why_pay": "Less unpaid rework could improve project margin.",
+    "expansion": "Reusable migration playbooks and consultant portfolio planning.",
+    "competitors": [
+      {
+        "name": "Flatfile Projects",
+        "url": "https://flatfile.com/pricing",
+        "observed": "2026-10-05",
+        "facts": "Mapping, correction and collaborative approvals; pricing by project volume, not seats.",
+        "price": "Contact sales; project rate, currency and minimum term unverified.",
+        "access": "opened"
+      },
+      {
+        "name": "Dromo",
+        "url": "https://dromo.io/pricing",
+        "observed": "2026-10-05",
+        "facts": "Embedded importer, validation and private mode; Professional supports 100,000-row files.",
+        "price": "Displayed $599/month including 250 imports, then $3/import; dollar ISO code and minimum term not stated.",
+        "access": "opened"
+      }
+    ],
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 149,
+      "unit": "workspace",
+      "free_boundary": "One synthetic demonstration project.",
+      "paid_boundary": "Five active migrations and client review history.",
+      "lifetime": "No lifetime hosted collaboration; continuing security, storage and support need recurring funding."
+    },
+    "channel": "Use CRM partner directories to identify consultancies; offer a sample reconciliation clinic.",
+    "retention": "Consultancies repeat engagements; one-off customers would churn.",
+    "moat": "Approved mapping templates and exception patterns.",
+    "mvp": [
+      "Mapping versions",
+      "Exception queue",
+      "Reconciliation acceptance"
+    ],
+    "effort_weeks": [
+      8,
+      12
+    ],
+    "cost": {
+      "pilot_usd_month": [
+        20,
+        50
+      ],
+      "fits_bootstrap": true,
+      "assumptions": "Three consultancies, fifteen projects, 2GB total; transformations run locally. Labor, acquisition, payment fees and taxes excluded.",
+      "drivers": "Samples and support; bound uploads and keep complete datasets customer-side.",
+      "revenue_stage": "Up to $300 after revenue funds backups and measured capacity; preserve usage caps."
+    },
+    "integrations": [
+      "CSV/JSON evidence",
+      "Local runner output"
+    ],
+    "risks": [
+      "Flatfile already supports collaboration.",
+      "Spreadsheets are flexible and low-cost."
+    ],
+    "global_limits": "Exclude regulated production data initially; isolate clients and promptly delete samples.",
+    "validation": "Ten repeat-migration firm interviews, five artifact demos; three $149/month pilots spanning two engagements.",
+    "kill_gate": "Stop if fewer than three pay or buyers demand bespoke transformations rather than repeatable software.",
+    "scores": {
+      "pain": 4,
+      "recurrence": 4,
+      "budget": 4,
+      "distribution": 4,
+      "wedge": 3,
+      "feasibility": 4,
+      "global": 4,
+      "cost": 5
+    },
+    "score_rationale": "Reachable service buyers and bounded data help; customization threatens margins.",
+    "evidence_confidence": "medium; official competitor evidence only",
+    "source_limit": "Vendor offers establish alternatives, not unmet demand, our pricing, acquisition or achieved outcomes."
+  },
+  {
+    "id": "S053",
+    "name": "Data quality resolution workspace",
+    "category": "Developer / data / IT operations",
+    "buyer": "Data engineering manager supporting 3–15 analysts",
+    "job": "Resolve recurring data defects with accountable business acceptance.",
+    "current_workaround": "SQL test alerts, chat and disconnected tickets.",
+    "record": "Defect case linking affected datasets, repair evidence and consumer acceptance.",
+    "workflow": [
+      "Intake failures",
+      "Assess impact",
+      "Assign repair",
+      "Verify evidence",
+      "Consumer closes"
+    ],
+    "roles": [
+      "Data engineer",
+      "Business data owner"
+    ],
+    "wedge": "Resolution above existing checks, initially revenue-reporting datasets.",
+    "why_pay": "Fewer unresolved reporting failures could reduce analyst rework.",
+    "expansion": "Prevention campaigns and dataset service commitments.",
+    "competitors": [
+      {
+        "name": "Soda",
+        "url": "https://soda.io/pricing",
+        "observed": "2026-10-05",
+        "facts": "Pipeline testing and alert integrations; Team unlimited users; Enterprise collaborative contracts.",
+        "price": "Free $0/month; Team displayed $750/month plus processing-unit usage; Enterprise custom. Dollar ISO code/minimum term not stated.",
+        "access": "opened"
+      }
+    ],
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 129,
+      "unit": "workspace",
+      "free_boundary": "One dataset and ten synthetic cases.",
+      "paid_boundary": "Fifty datasets and retained resolution trails.",
+      "lifetime": "No lifetime hosted collaboration; continuing security, storage and support need recurring funding."
+    },
+    "channel": "Show dbt practitioners a case template; invite data leads to reconstruct a reporting failure.",
+    "retention": "Daily checks and reporting cycles.",
+    "moat": "Dataset-specific impact and verified repair history.",
+    "mvp": [
+      "Case intake",
+      "Ownership/impact",
+      "Consumer acceptance"
+    ],
+    "effort_weeks": [
+      8,
+      12
+    ],
+    "cost": {
+      "pilot_usd_month": [
+        20,
+        50
+      ],
+      "fits_bootstrap": true,
+      "assumptions": "Three teams, 150 datasets, 10,000 events/month; no warehouse execution. Labor, acquisition, payment fees and taxes excluded.",
+      "drivers": "Event volume; aggregate failures and reject raw row payloads.",
+      "revenue_stage": "Up to $300 after revenue funds backups and measured capacity; preserve usage caps."
+    },
+    "integrations": [
+      "SQL/dbt output",
+      "CSV asset roster"
+    ],
+    "risks": [
+      "Soda includes ticketing and remediation.",
+      "Existing trackers can own these cases."
+    ],
+    "global_limits": "Customer-controlled queries; prohibit sensitive record samples and restrict financial metadata.",
+    "validation": "Ten interviews, five reconstructions; three $129/month pilots completing two accepted repairs.",
+    "kill_gate": "Stop if engineers remain entirely in their tracker or consumers will not participate.",
+    "scores": {
+      "pain": 4,
+      "recurrence": 5,
+      "budget": 4,
+      "distribution": 3,
+      "wedge": 2,
+      "feasibility": 4,
+      "global": 4,
+      "cost": 5
+    },
+    "score_rationale": "Strong recurrence, but another incident tracker risks duplicate entry.",
+    "evidence_confidence": "medium; official competitor evidence only",
+    "source_limit": "Vendor offers establish alternatives, not unmet demand, our pricing, acquisition or achieved outcomes."
+  },
+  {
+    "id": "S054",
+    "name": "Database release coordination",
+    "category": "Developer / data / IT operations",
+    "buyer": "Engineering manager of a PostgreSQL-heavy team without dedicated DBAs",
+    "job": "Approve, schedule and verify production database changes.",
+    "current_workaround": "Pull requests, spreadsheets and manual execution logs.",
+    "record": "Change request with reviewed revision and deployment outcome.",
+    "workflow": [
+      "Propose migration",
+      "Review risk",
+      "Approve window",
+      "Customer executes",
+      "Verify outcome"
+    ],
+    "roles": [
+      "Developer",
+      "Database reviewer"
+    ],
+    "wedge": "Reviewer-friendly coordination with customer-side execution; unvalidated.",
+    "why_pay": "Avoiding a failed rollout could justify recurring spend.",
+    "expansion": "Multi-environment rollout plans and exceptions.",
+    "competitors": [
+      {
+        "name": "Bytebase",
+        "url": "https://www.bytebase.com/pricing/",
+        "observed": "2026-10-05",
+        "facts": "Database change and access governance; Community allows twenty users and ten instances.",
+        "price": "Community free; Pro displayed $20/user/month, ten instances, cancel anytime; Enterprise annual. Dollar ISO code not stated.",
+        "access": "opened"
+      },
+      {
+        "name": "GitHub",
+        "url": "https://github.com/pricing",
+        "observed": "2026-10-05",
+        "facts": "Free repositories and issue workflows; Team adds repository rules and reviewers.",
+        "price": "Free tier; Team USD 4/user/month with first-twelve-month qualifier. Later renewal and commitment unverified.",
+        "access": "opened"
+      }
+    ],
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 99,
+      "unit": "workspace",
+      "free_boundary": "One development database record.",
+      "paid_boundary": "Ten databases, reviewers and release history.",
+      "lifetime": "No lifetime hosted collaboration; continuing security, storage and support need recurring funding."
+    },
+    "channel": "Invite PostgreSQL consultancies to replay a difficult client migration.",
+    "retention": "Every schema or production-data change.",
+    "moat": "Reviewed changes tied to environment outcomes.",
+    "mvp": [
+      "Version-bound approval",
+      "Release windows",
+      "Execution evidence"
+    ],
+    "effort_weeks": [
+      10,
+      14
+    ],
+    "cost": {
+      "pilot_usd_month": [
+        20,
+        50
+      ],
+      "fits_bootstrap": true,
+      "assumptions": "Three teams, thirty databases, 20MB SQL metadata/team; no database execution. Labor, acquisition, payment fees and taxes excluded.",
+      "drivers": "Agent support and SQL storage; cap payloads and keep credentials local.",
+      "revenue_stage": "Up to $300 after revenue funds backups and measured capacity; preserve usage caps."
+    },
+    "integrations": [
+      "Pull-request links",
+      "Customer CLI results"
+    ],
+    "risks": [
+      "Bytebase Community is substantial and free.",
+      "Git reviews plus scripts may suffice."
+    ],
+    "global_limits": "SQL can expose personal data; forbid inline production values and credentials.",
+    "validation": "Ten interviews, five real-release demos; request three $99/month commitments.",
+    "kill_gate": "Stop if Bytebase free or current controls satisfy four of five demonstrations.",
+    "scores": {
+      "pain": 4,
+      "recurrence": 4,
+      "budget": 3,
+      "distribution": 3,
+      "wedge": 1,
+      "feasibility": 3,
+      "global": 4,
+      "cost": 4
+    },
+    "score_rationale": "Useful record; direct free competition leaves little defensible entry.",
+    "evidence_confidence": "medium; official competitor evidence only",
+    "source_limit": "Vendor offers establish alternatives, not unmet demand, our pricing, acquisition or achieved outcomes."
+  },
+  {
+    "id": "S055",
+    "name": "External UAT acceptance workspace",
+    "category": "Developer / data / IT operations",
+    "buyer": "Delivery director at a 5–30-person software agency",
+    "job": "Make repeated client acceptance rounds produce explicit release decisions.",
+    "current_workaround": "Test spreadsheets, screenshots and ambiguous email approval.",
+    "record": "Acceptance cycle linking business scenarios, defects and release decisions.",
+    "workflow": [
+      "Agree scenarios",
+      "Invite testers",
+      "Capture results",
+      "Retest corrections",
+      "Approve release"
+    ],
+    "roles": [
+      "Agency QA lead",
+      "Client business approver"
+    ],
+    "wedge": "Simple bounded tasks for occasional external testers rather than internal QA users.",
+    "why_pay": "Fewer disputed releases could reduce unbilled work.",
+    "expansion": "Reusable scenarios and client release portfolios.",
+    "competitors": [
+      {
+        "name": "Testmo",
+        "url": "https://www.testmo.com/pricing/",
+        "observed": "2026-10-05",
+        "facts": "Test cases, runs, milestones, results and issue-tracker integrations.",
+        "price": "USD 59/month Team including five users, monthly card billing; Business USD 249/month includes fifteen.",
+        "access": "opened"
+      },
+      {
+        "name": "Qase",
+        "url": "https://www.qase.io/pricing/",
+        "observed": "2026-10-05",
+        "facts": "Test reviews, requirements traceability and history; free tier targets learning/nonprofit uses.",
+        "price": "Displayed $35/user/month annually or $42 billed monthly; 14-day trial. Dollar ISO code/seat minimum not stated.",
+        "access": "opened"
+      }
+    ],
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 99,
+      "unit": "workspace",
+      "free_boundary": "One archived demonstration cycle.",
+      "paid_boundary": "Five active client cycles and guest approvals.",
+      "lifetime": "No lifetime hosted collaboration; continuing security, storage and support need recurring funding."
+    },
+    "channel": "Identify agencies through public directories; offer a concierge round using their existing spreadsheet.",
+    "retention": "Each client release creates another cycle.",
+    "moat": "Accepted exceptions and client-specific scenario history.",
+    "mvp": [
+      "Scenario import",
+      "Guest retest flow",
+      "Version-bound approval"
+    ],
+    "effort_weeks": [
+      6,
+      10
+    ],
+    "cost": {
+      "pilot_usd_month": [
+        20,
+        50
+      ],
+      "fits_bootstrap": true,
+      "assumptions": "Three agencies, fifteen cycles, 3GB screenshots; exclude video. Labor, acquisition, payment fees and taxes excluded.",
+      "drivers": "Attachments and guest support; cap size and retention.",
+      "revenue_stage": "Up to $300 after revenue funds backups and measured capacity; preserve usage caps."
+    },
+    "integrations": [
+      "CSV scenarios",
+      "Issue links before sync"
+    ],
+    "risks": [
+      "Testmo is inexpensive and broad.",
+      "Clients already understand spreadsheets."
+    ],
+    "global_limits": "Redact confidential screenshots, expire guest access; acceptance is not legal e-signature.",
+    "validation": "Ten interviews, five live walkthroughs; three $99/month pilots and two cycles per agency.",
+    "kill_gate": "Stop if participation stays in email or fewer than three agencies pay for the second cycle.",
+    "scores": {
+      "pain": 4,
+      "recurrence": 4,
+      "budget": 3,
+      "distribution": 4,
+      "wedge": 3,
+      "feasibility": 4,
+      "global": 5,
+      "cost": 5
+    },
+    "score_rationale": "Reachable buyers and external-role wedge; incumbent pricing constrains upside.",
+    "evidence_confidence": "medium; official competitor evidence only",
+    "source_limit": "Vendor offers establish alternatives, not unmet demand, our pricing, acquisition or achieved outcomes."
+  },
+  {
+    "id": "S056",
+    "name": "Localization release operations",
+    "category": "Developer / data / IT operations",
+    "buyer": "Product engineering lead shipping 5–20 locales",
+    "job": "Coordinate translation changes with engineering release acceptance.",
+    "current_workaround": "Translation spreadsheets, branches and translator email.",
+    "record": "Locale release bundle with key versions, reviewer decisions and shipping status.",
+    "workflow": [
+      "Import changed strings",
+      "Assign translation",
+      "Review context",
+      "Approve bundle",
+      "Track shipped revision"
+    ],
+    "roles": [
+      "Localization coordinator",
+      "Engineering release owner"
+    ],
+    "wedge": "Stale-review handling for teams already hiring translators.",
+    "why_pay": "Less coordination and fewer reverted locale releases could support payment.",
+    "expansion": "Terminology decisions and reusable release templates.",
+    "competitors": [
+      {
+        "name": "Tolgee",
+        "url": "https://tolgee.io/pricing",
+        "observed": "2026-10-05",
+        "facts": "Localization branching, tasks, permissions, unlimited seats and open-source option.",
+        "price": "Translate EUR 58/month annually; Optimise EUR 133/month annually; Manage EUR 373/month annually; 400,000 translation credits included.",
+        "access": "opened"
+      }
+    ],
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 89,
+      "unit": "workspace",
+      "free_boundary": "One locale, two hundred keys, solo.",
+      "paid_boundary": "Ten locales and reviewer history.",
+      "lifetime": "No lifetime hosted collaboration; continuing security, storage and support need recurring funding."
+    },
+    "channel": "Demonstrate rejected-string release handling in localization engineering communities; invite five teams.",
+    "retention": "Product releases and translation updates.",
+    "moat": "Terminology decisions bound to accepted revisions.",
+    "mvp": [
+      "Versioned strings",
+      "Reviewer queue",
+      "Release export"
+    ],
+    "effort_weeks": [
+      10,
+      14
+    ],
+    "cost": {
+      "pilot_usd_month": [
+        20,
+        50
+      ],
+      "fits_bootstrap": true,
+      "assumptions": "Three teams, 30,000 keys; no included machine translation. Labor, acquisition, payment fees and taxes excluded.",
+      "drivers": "History storage and translation APIs; customer-funded translation only.",
+      "revenue_stage": "Up to $300 after revenue funds backups and measured capacity; preserve usage caps."
+    },
+    "integrations": [
+      "Git/JSON localization files"
+    ],
+    "risks": [
+      "Tolgee offers mature workflows and open source.",
+      "A release add-on may not justify switching."
+    ],
+    "global_limits": "Test Unicode, plurals and RTL; translators retain content responsibility.",
+    "validation": "Ten interviews, five releases demonstrated; seek three $89/month commitments after two releases.",
+    "kill_gate": "Stop if existing translation tools handle the proposed workflow without material gaps.",
+    "scores": {
+      "pain": 3,
+      "recurrence": 5,
+      "budget": 3,
+      "distribution": 3,
+      "wedge": 2,
+      "feasibility": 3,
+      "global": 5,
+      "cost": 5
+    },
+    "score_rationale": "Frequent collaboration but crowded platforms and switching costs.",
+    "evidence_confidence": "medium; official competitor evidence only",
+    "source_limit": "Vendor offers establish alternatives, not unmet demand, our pricing, acquisition or achieved outcomes."
+  },
+  {
+    "id": "S057",
+    "name": "Accessibility remediation delivery",
+    "category": "Developer / data / IT operations",
+    "buyer": "Accessibility practice lead serving several software clients",
+    "job": "Move recurring findings through developer repair and expert retesting.",
+    "current_workaround": "Audit PDFs, tickets and clarification email.",
+    "record": "Finding lifecycle with affected journeys, repairs and retest evidence.",
+    "workflow": [
+      "Import findings",
+      "Group components",
+      "Assign repair",
+      "Record evidence",
+      "Expert retests"
+    ],
+    "roles": [
+      "Accessibility auditor",
+      "Client engineering lead"
+    ],
+    "wedge": "Cross-client acceptance of existing audits, not another scanner.",
+    "why_pay": "Less clarification and duplicate retesting could increase capacity.",
+    "expansion": "Recurring component findings and service portfolios.",
+    "competitors": [
+      {
+        "name": "Deque Axe",
+        "url": "https://www.deque.com/axe/",
+        "observed": "2026-10-05",
+        "facts": "Automated and manual accessibility testing, tracking and reports; free axe-core/extension links.",
+        "price": "Not verified; demo and trial offered, no public amount or commitment on opened page.",
+        "access": "opened"
+      }
+    ],
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 149,
+      "unit": "workspace",
+      "free_boundary": "Synthetic audit with ten findings.",
+      "paid_boundary": "Five client workspaces and retest history.",
+      "lifetime": "No lifetime hosted collaboration; continuing security, storage and support need recurring funding."
+    },
+    "channel": "Invite accessibility consultancies to replay one completed client audit handoff.",
+    "retention": "New releases introduce or reopen findings.",
+    "moat": "Auditor-approved patterns and retest evidence.",
+    "mvp": [
+      "Audit import",
+      "Developer response queue",
+      "Independent retest"
+    ],
+    "effort_weeks": [
+      8,
+      12
+    ],
+    "cost": {
+      "pilot_usd_month": [
+        20,
+        50
+      ],
+      "fits_bootstrap": true,
+      "assumptions": "Three practices, fifteen clients, 5,000 findings; no video/browser farm. Labor, acquisition, payment fees and taxes excluded.",
+      "drivers": "Attachments and specialist support; cap storage and run scans customer-side.",
+      "revenue_stage": "Up to $300 after revenue funds backups and measured capacity; preserve usage caps."
+    },
+    "integrations": [
+      "CSV findings",
+      "Issue links",
+      "axe output"
+    ],
+    "risks": [
+      "Deque already covers tracking.",
+      "Free axe-core plus issue boards compete."
+    ],
+    "global_limits": "No legal-compliance guarantee; qualified humans interpret regional standards and assistive-technology results.",
+    "validation": "Ten interviews, five real reports; three $149/month pilots completing remediation and retest.",
+    "kill_gate": "Stop if auditors cannot save coordination time or clients refuse another workspace.",
+    "scores": {
+      "pain": 4,
+      "recurrence": 4,
+      "budget": 4,
+      "distribution": 3,
+      "wedge": 3,
+      "feasibility": 3,
+      "global": 4,
+      "cost": 4
+    },
+    "score_rationale": "Professional buyers help; required expertise and installed tools reduce feasibility.",
+    "evidence_confidence": "medium; official competitor evidence only",
+    "source_limit": "Vendor offers establish alternatives, not unmet demand, our pricing, acquisition or achieved outcomes."
+  },
+  {
+    "id": "S058",
+    "name": "Dependency maintenance program",
+    "category": "Developer / data / IT operations",
+    "buyer": "Engineering manager responsible for several aging services",
+    "job": "Coordinate upgrades and accepted exceptions across service owners.",
+    "current_workaround": "Scanner alerts, bot pull requests and exception spreadsheets.",
+    "record": "Upgrade campaign with exposure, owner decisions and rollout evidence.",
+    "workflow": [
+      "Import inventory",
+      "Prioritize campaign",
+      "Review exceptions",
+      "Upgrade/test",
+      "Close exposure"
+    ],
+    "roles": [
+      "Service owner",
+      "Security reviewer"
+    ],
+    "wedge": "Campaign ownership above existing scanners, initially one runtime ecosystem.",
+    "why_pay": "Less repetitive triage and fewer forgotten upgrades could justify payment.",
+    "expansion": "End-of-support planning and reusable upgrade playbooks.",
+    "competitors": [
+      {
+        "name": "Snyk",
+        "url": "https://snyk.io/plans/",
+        "observed": "2026-10-05",
+        "facts": "Code, dependency, infrastructure and container security; Team adds Jira integration.",
+        "price": "Free $0/month; Team starts displayed $25/month billed monthly for up to ten developers. Dollar ISO code not stated.",
+        "access": "opened"
+      },
+      {
+        "name": "GitHub",
+        "url": "https://github.com/pricing",
+        "observed": "2026-10-05",
+        "facts": "Free repositories and issue workflows; Team adds repository rules and reviewers.",
+        "price": "Free tier; Team USD 4/user/month with first-twelve-month qualifier. Later renewal and commitment unverified.",
+        "access": "opened"
+      }
+    ],
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 99,
+      "unit": "workspace",
+      "free_boundary": "Three repositories and one campaign.",
+      "paid_boundary": "Thirty repositories and exception history.",
+      "lifetime": "No lifetime hosted collaboration; continuing security, storage and support need recurring funding."
+    },
+    "channel": "Offer runtime migration maintainers a campaign board for one supported-version transition.",
+    "retention": "Advisories and runtime support deadlines.",
+    "moat": "Repository-specific upgrade outcomes and exceptions.",
+    "mvp": [
+      "Inventory import",
+      "Campaign dependencies",
+      "Evidence closure"
+    ],
+    "effort_weeks": [
+      8,
+      12
+    ],
+    "cost": {
+      "pilot_usd_month": [
+        20,
+        50
+      ],
+      "fits_bootstrap": true,
+      "assumptions": "Three teams, ninety repositories; metadata only, no hosted scanning. Labor, acquisition, payment fees and taxes excluded.",
+      "drivers": "Inventory churn and integration upkeep; daily batched imports.",
+      "revenue_stage": "Up to $300 after revenue funds backups and measured capacity; preserve usage caps."
+    },
+    "integrations": [
+      "SBOM metadata",
+      "CI results"
+    ],
+    "risks": [
+      "Snyk starts cheaply and integrates Jira.",
+      "Free scanning/bot workflows are strong substitutes."
+    ],
+    "global_limits": "No completeness guarantee; source code and credentials remain local.",
+    "validation": "Ten interviews, five backlog reviews; three $99/month commitments after a multi-service campaign.",
+    "kill_gate": "Stop if buyers only want alerts or refuse to move campaign ownership.",
+    "scores": {
+      "pain": 4,
+      "recurrence": 5,
+      "budget": 3,
+      "distribution": 3,
+      "wedge": 2,
+      "feasibility": 4,
+      "global": 4,
+      "cost": 5
+    },
+    "score_rationale": "Recurring work exists; bundled and free automation narrow differentiation.",
+    "evidence_confidence": "medium; official competitor evidence only",
+    "source_limit": "Vendor offers establish alternatives, not unmet demand, our pricing, acquisition or achieved outcomes."
+  },
+  {
+    "id": "S059",
+    "name": "Software access lifecycle desk",
+    "category": "Developer / data / IT operations",
+    "buyer": "IT manager in a 30–150-person remote company",
+    "job": "Track software access from request through verified removal.",
+    "current_workaround": "Tickets, spreadsheets and app-admin console checks.",
+    "record": "Person-application entitlement with approval, fulfillment and revocation evidence.",
+    "workflow": [
+      "Request access",
+      "Approve",
+      "Admin fulfills",
+      "Review entitlement",
+      "Verify removal"
+    ],
+    "roles": [
+      "IT administrator",
+      "Application owner"
+    ],
+    "wedge": "CSV-first accountability for apps without reliable provisioning APIs; no HR system replacement.",
+    "why_pay": "Fewer missed revocations and repeated access chases could fund payment.",
+    "expansion": "Recurring reviews and carefully selected provisioning connectors.",
+    "competitors": [
+      {
+        "name": "C1 (formerly ConductorOne)",
+        "url": "https://www.c1.ai/",
+        "observed": "2026-10-05",
+        "facts": "Identity lifecycle, access requests, reviews and joiner/mover/leaver workflows.",
+        "price": "Not verified; demo-led page gives no amount, billing unit or minimum.",
+        "access": "opened"
+      }
+    ],
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 149,
+      "unit": "workspace",
+      "free_boundary": "Ten identities, solo administrator.",
+      "paid_boundary": "150 identities and app-owner lifecycle decisions.",
+      "lifetime": "No lifetime hosted collaboration; continuing security, storage and support need recurring funding."
+    },
+    "channel": "Invite remote-company IT operators to reconstruct their last contractor departure.",
+    "retention": "Joiners, role changes and departures.",
+    "moat": "Entitlement decisions and dependable app-owner mapping.",
+    "mvp": [
+      "Entitlement ledger",
+      "Fulfillment approval",
+      "Revocation evidence"
+    ],
+    "effort_weeks": [
+      10,
+      14
+    ],
+    "cost": {
+      "pilot_usd_month": [
+        20,
+        50
+      ],
+      "fits_bootstrap": true,
+      "assumptions": "Three teams, 450 identities; no passwords or automated provisioning. Labor, acquisition, payment fees and taxes excluded.",
+      "drivers": "Connector reliability and audit volume; verified manual fulfillment first.",
+      "revenue_stage": "Up to $300 after revenue funds backups and measured capacity; preserve usage caps."
+    },
+    "integrations": [
+      "CSV roster",
+      "App entitlement exports"
+    ],
+    "risks": [
+      "Identity suites bundle lifecycle.",
+      "Helpdesks and spreadsheets may suffice."
+    ],
+    "global_limits": "Sensitive identity metadata needs restricted roles, retention controls and regional data terms.",
+    "validation": "Ten interviews, five departure walkthroughs; three $149/month pilots covering two lifecycle events.",
+    "kill_gate": "Stop if reconciliation needs many privileged integrations before anyone pays.",
+    "scores": {
+      "pain": 4,
+      "recurrence": 5,
+      "budget": 4,
+      "distribution": 3,
+      "wedge": 2,
+      "feasibility": 3,
+      "global": 3,
+      "cost": 4
+    },
+    "score_rationale": "Identifiable recurring budget; trust and integration burdens are substantial.",
+    "evidence_confidence": "medium; official competitor evidence only",
+    "source_limit": "Vendor offers establish alternatives, not unmet demand, our pricing, acquisition or achieved outcomes."
+  },
+  {
+    "id": "S060",
+    "name": "SaaS license allocation operations",
+    "category": "Developer / data / IT operations",
+    "buyer": "IT operations lead managing 20–80 software applications",
+    "job": "Reconcile purchased seats and reclaim unused assignments.",
+    "current_workaround": "License spreadsheets, app exports and finance questions.",
+    "record": "License pool with assignments, usage evidence and reclamation decisions.",
+    "workflow": [
+      "Import pools",
+      "Reconcile seats",
+      "Owners confirm",
+      "Approve reclamation",
+      "Verify removal"
+    ],
+    "roles": [
+      "IT administrator",
+      "Department app owner"
+    ],
+    "wedge": "Seat operations without replacing procurement, contracts or payment cards.",
+    "why_pay": "Verified seat savings could fund the subscription.",
+    "expansion": "Department allocation and renewal utilization evidence.",
+    "competitors": [
+      {
+        "name": "Cledara",
+        "url": "https://www.cledara.com/pricing",
+        "observed": "2026-10-05",
+        "facts": "Software inventory and spending controls; Basic lists twenty applications.",
+        "price": "GBP view amounts missing. Conditional GBP 100/month card-usage note is not a verified base quote; conflicting five/ten-application wording. Minimum unverified.",
+        "access": "opened"
+      }
+    ],
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 129,
+      "unit": "workspace",
+      "free_boundary": "Five applications, manual solo ledger.",
+      "paid_boundary": "Fifty applications and owner attestation history.",
+      "lifetime": "No lifetime hosted collaboration; continuing security, storage and support need recurring funding."
+    },
+    "channel": "Offer IT consultants an anonymized seat-export audit with one client app owner.",
+    "retention": "Monthly seat changes and utilization reviews.",
+    "moat": "Verified reclamation history, contingent on reliable exports.",
+    "mvp": [
+      "Pool import",
+      "Owner attestation",
+      "Savings evidence"
+    ],
+    "effort_weeks": [
+      8,
+      12
+    ],
+    "cost": {
+      "pilot_usd_month": [
+        20,
+        50
+      ],
+      "fits_bootstrap": true,
+      "assumptions": "Three organizations, 150 apps, weekly exports; no browser surveillance. Labor, acquisition, payment fees and taxes excluded.",
+      "drivers": "API changes and reconciliation; cap connectors and start with CSV.",
+      "revenue_stage": "Up to $300 after revenue funds backups and measured capacity; preserve usage caps."
+    },
+    "integrations": [
+      "Seat/usage CSV exports"
+    ],
+    "risks": [
+      "Cledara bundles inventory and spend.",
+      "Native reports and finance spreadsheets compete."
+    ],
+    "global_limits": "Limit employee activity retention and explain purpose; prohibit covert monitoring.",
+    "validation": "Ten interviews, five seat audits; three $129/month pilots with accepted reclamations.",
+    "kill_gate": "Stop if export effort exceeds confirmed savings or automatic discovery is mandatory.",
+    "scores": {
+      "pain": 4,
+      "recurrence": 4,
+      "budget": 4,
+      "distribution": 3,
+      "wedge": 3,
+      "feasibility": 4,
+      "global": 4,
+      "cost": 5
+    },
+    "score_rationale": "Potential savings are tangible; data collection is the weak link.",
+    "evidence_confidence": "medium; official competitor evidence only",
+    "source_limit": "Vendor offers establish alternatives, not unmet demand, our pricing, acquisition or achieved outcomes."
+  },
+  {
+    "id": "S061",
+    "name": "Developer environment lifecycle service",
+    "category": "Developer / data / IT operations",
+    "buyer": "Platform lead at a 10–40-developer software company",
+    "job": "Provision and retire repeatable environments without orphaned spend.",
+    "current_workaround": "Scripts, cloud consoles and chat approvals.",
+    "record": "Environment lease with template, owner, budget and destruction receipt.",
+    "workflow": [
+      "Request template",
+      "Approve limits",
+      "Runner provisions",
+      "Track lease",
+      "Verify teardown"
+    ],
+    "roles": [
+      "Developer",
+      "Platform administrator"
+    ],
+    "wedge": "Explicit expiry and teardown evidence for one customer-cloud stack.",
+    "why_pay": "Setup savings and fewer orphaned environments could justify payment.",
+    "expansion": "Template governance and shared test-environment scheduling.",
+    "competitors": [
+      {
+        "name": "Qovery",
+        "url": "https://www.qovery.com/pricing",
+        "observed": "2026-10-05",
+        "facts": "Customer-cloud self-service environments; Team includes three users and one cluster.",
+        "price": "Displayed $299/month Team billed yearly, 3,000 deployment minutes; additional minutes $0.16; customer compute separate. Dollar ISO code not stated.",
+        "access": "opened"
+      }
+    ],
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 199,
+      "unit": "workspace",
+      "free_boundary": "Local template preview only.",
+      "paid_boundary": "Twenty active leases; customer pays workload compute.",
+      "lifetime": "No lifetime hosted collaboration; continuing security, storage and support need recurring funding."
+    },
+    "channel": "Offer a platform-engineering community teardown audit for one Terraform template.",
+    "retention": "Every development branch and environment reuse.",
+    "moat": "Tested lifecycle templates and teardown outcomes.",
+    "mvp": [
+      "Lease approvals",
+      "Customer runner",
+      "Teardown reconciliation"
+    ],
+    "effort_weeks": [
+      14,
+      20
+    ],
+    "cost": {
+      "pilot_usd_month": [
+        80,
+        200
+      ],
+      "fits_bootstrap": false,
+      "assumptions": "Safe runner testing and control plane; $50 coordination prototype omits essential execution assurance. Labor, acquisition, payment fees and taxes excluded.",
+      "drivers": "Isolation, secret handling and recovery; one cloud and capped environments.",
+      "revenue_stage": "Up to $300 after revenue funds backups and measured capacity; preserve usage caps."
+    },
+    "integrations": [
+      "Customer Terraform runner",
+      "Cloud callbacks"
+    ],
+    "risks": [
+      "Qovery already provides mature self-service.",
+      "Failed teardown causes direct financial harm."
+    ],
+    "global_limits": "Privileged runner security and regional cloud compatibility must pass review.",
+    "validation": "Ten interviews, five sandbox lifecycle demos; three $199 commitments contingent on reliable teardown.",
+    "kill_gate": "Defer if safe isolation/recovery exceeds budget or immediate multi-cloud support is required.",
+    "scores": {
+      "pain": 4,
+      "recurrence": 5,
+      "budget": 4,
+      "distribution": 2,
+      "wedge": 2,
+      "feasibility": 2,
+      "global": 4,
+      "cost": 2
+    },
+    "score_rationale": "High recurrence; control-plane security and support weaken bootstrap feasibility.",
+    "evidence_confidence": "medium; official competitor evidence only",
+    "source_limit": "Vendor offers establish alternatives, not unmet demand, our pricing, acquisition or achieved outcomes."
+  },
+  {
+    "id": "S062",
+    "name": "Incident response and improvement workspace",
+    "category": "Developer / data / IT operations",
+    "buyer": "Engineering director at a small distributed SaaS team",
+    "job": "Coordinate incidents and verify corrective actions.",
+    "current_workaround": "Chat, incident documents and forgotten follow-up tickets.",
+    "record": "Incident case with timeline, impact and verified prevention actions.",
+    "workflow": [
+      "Declare incident",
+      "Coordinate response",
+      "Confirm recovery",
+      "Review causes",
+      "Verify actions"
+    ],
+    "roles": [
+      "Incident commander",
+      "Service owner"
+    ],
+    "wedge": "Action assurance above existing paging tools; unvalidated.",
+    "why_pay": "Fewer repeated failures could justify recurring payment.",
+    "expansion": "Service learning history and recurrence reviews.",
+    "competitors": [
+      {
+        "name": "incident.io",
+        "url": "https://incident.io/pricing",
+        "observed": "2026-10-05",
+        "facts": "Basic offers response workflows, status page and single-team on-call; Pro adds post-incident processes.",
+        "price": "Basic free; Team displays $19 and annual-discount $15/user/month; on-call +$10. Toggle basis and dollar ISO code not fully verified.",
+        "access": "opened"
+      }
+    ],
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 99,
+      "unit": "workspace",
+      "free_boundary": "One team, three retained incidents.",
+      "paid_boundary": "Ten services and multi-role action verification.",
+      "lifetime": "No lifetime hosted collaboration; continuing security, storage and support need recurring funding."
+    },
+    "channel": "Offer SRE-community engineering managers structured reviews of two recent postmortems.",
+    "retention": "Incidents and corrective-action reviews.",
+    "moat": "Verified causal/action history across incidents.",
+    "mvp": [
+      "Incident timeline",
+      "Review approval",
+      "Action closure evidence"
+    ],
+    "effort_weeks": [
+      8,
+      12
+    ],
+    "cost": {
+      "pilot_usd_month": [
+        20,
+        50
+      ],
+      "fits_bootstrap": true,
+      "assumptions": "Three teams, one hundred incidents/month, text; no paging or log ingestion. Labor, acquisition, payment fees and taxes excluded.",
+      "drivers": "Notifications and availability; batch reminders and cap files.",
+      "revenue_stage": "Up to $300 after revenue funds backups and measured capacity; preserve usage caps."
+    },
+    "integrations": [
+      "Incident webhook",
+      "Issue links"
+    ],
+    "risks": [
+      "incident.io offers generous free response.",
+      "Chat and issue boards can substitute."
+    ],
+    "global_limits": "Restrict sensitive outage/customer information; no emergency paging guarantees.",
+    "validation": "Ten interviews, five postmortem reviews; three $99/month pilots completing an action cycle.",
+    "kill_gate": "Stop if teams will not pay beyond existing incident tools or actions remain unowned.",
+    "scores": {
+      "pain": 4,
+      "recurrence": 4,
+      "budget": 3,
+      "distribution": 3,
+      "wedge": 2,
+      "feasibility": 4,
+      "global": 4,
+      "cost": 5
+    },
+    "score_rationale": "Useful record; free end-to-end incumbents compress the wedge.",
+    "evidence_confidence": "medium; official competitor evidence only",
+    "source_limit": "Vendor offers establish alternatives, not unmet demand, our pricing, acquisition or achieved outcomes."
+  },
+  {
+    "id": "S063",
+    "name": "Agency website maintenance operations",
+    "category": "Developer / data / IT operations",
+    "buyer": "Technical director at an agency maintaining 20–100 client websites",
+    "job": "Deliver repeatable maintenance changes with evidence and client acceptance.",
+    "current_workaround": "CMS consoles, recurring task lists and emailed reports.",
+    "record": "Site maintenance cycle with approved changes, recovery plan and verified outcome.",
+    "workflow": [
+      "Inventory site",
+      "Plan maintenance",
+      "Approve changes",
+      "Customer executes in existing tools",
+      "Record verification and client acceptance"
+    ],
+    "roles": [
+      "Agency engineer",
+      "Client site owner"
+    ],
+    "wedge": "Mixed-stack maintenance evidence and client exceptions, starting WordPress plus manually managed static sites.",
+    "why_pay": "Less repeated coordination and fewer unsupported maintenance claims could protect retainers.",
+    "expansion": "Portfolio capacity and reusable maintenance playbooks.",
+    "competitors": [
+      {
+        "name": "ManageWP",
+        "url": "https://managewp.com/pricing/",
+        "observed": "2026-10-05",
+        "facts": "Free website management, monthly backup and reports; premium add-ons billed after use.",
+        "price": "Free core; displayed $2/site/month backup, $1/site/month advanced reports. Monthly, no long-term contract; dollar ISO code not stated.",
+        "access": "opened"
+      }
+    ],
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 99,
+      "unit": "workspace",
+      "free_boundary": "Three manually tracked sites.",
+      "paid_boundary": "Fifty sites with approvals and maintenance history.",
+      "lifetime": "No lifetime hosted collaboration; continuing security, storage and support need recurring funding."
+    },
+    "channel": "Invite WordPress agency owners to rebuild one monthly client maintenance cycle from current reports.",
+    "retention": "Monthly maintenance and urgent patch cycles.",
+    "moat": "Site-specific exception and recovery history.",
+    "mvp": [
+      "Site/change ledger",
+      "Client approvals",
+      "Import integrity-checked result receipts from customer tools",
+      "Compare receipt to approved change and collect client acceptance"
+    ],
+    "effort_weeks": [
+      8,
+      12
+    ],
+    "cost": {
+      "pilot_usd_month": [
+        20,
+        50
+      ],
+      "fits_bootstrap": true,
+      "assumptions": "Three agencies, 150 sites, metadata and 2GB images; no backups hosted. Labor, acquisition, payment fees and taxes excluded.",
+      "drivers": "Customer-tool receipt compatibility and attachments; customer infrastructure stores backups and executes all changes.",
+      "revenue_stage": "Up to $300 after revenue funds backups and measured capacity; preserve usage caps."
+    },
+    "integrations": [
+      "CSV inventory and customer-run results"
+    ],
+    "risks": [
+      "ManageWP already offers free management and reports.",
+      "A task board plus CMS tools may suffice."
+    ],
+    "global_limits": "No admin passwords or remote execution. Customer owns backup/rollback; receipts are evidence, not an independent guarantee that every change or recovery succeeded.",
+    "validation": "Ten interviews, five maintenance-cycle demos; three $99/month commitments covering two client cycles.",
+    "kill_gate": "Stop if agencies need full remote hosting/backup automation before paying for coordination.",
+    "scores": {
+      "pain": 4,
+      "recurrence": 5,
+      "budget": 3,
+      "distribution": 4,
+      "wedge": 2,
+      "feasibility": 3,
+      "global": 4,
+      "cost": 4
+    },
+    "score_rationale": "Reachable recurring buyers, but incumbent free functionality is formidable.",
+    "evidence_confidence": "medium; official competitor evidence only",
+    "source_limit": "Vendor offers establish alternatives, not unmet demand, our pricing, acquisition or achieved outcomes."
+  },
+  {
+    "id": "S064",
+    "name": "API contract lifecycle workspace",
+    "category": "Developer / data / IT operations",
+    "buyer": "API platform lead at a B2B SaaS with external developers",
+    "job": "Manage consumer-impacting API changes from proposal through retirement.",
+    "current_workaround": "OpenAPI files, mailing lists and spreadsheets of consumer exceptions.",
+    "record": "API version contract with registered consumers and migration decisions.",
+    "workflow": [
+      "Propose contract",
+      "Assess consumers",
+      "Approve change",
+      "Track migration",
+      "Retire version"
+    ],
+    "roles": [
+      "API owner",
+      "Consumer integration owner"
+    ],
+    "wedge": "Explicit consumer acceptance and retirement evidence beyond schema linting.",
+    "why_pay": "Avoiding unsupported integrations and prolonged legacy versions could fund payment.",
+    "expansion": "Compatibility commitments across related APIs and SDK releases.",
+    "competitors": [
+      {
+        "name": "Postman",
+        "url": "https://www.postman.com/pricing/",
+        "observed": "2026-10-05",
+        "facts": "API specifications, collections, mocks and team collaboration; SDK distribution included in Team.",
+        "price": "Free $0; Team displayed $19/user/month billed annually; Solo $9/month annually. Dollar ISO code/seat minimum not stated.",
+        "access": "opened"
+      },
+      {
+        "name": "GitHub",
+        "url": "https://github.com/pricing",
+        "observed": "2026-10-05",
+        "facts": "Free repositories and issue workflows; Team adds repository rules and reviewers.",
+        "price": "Free tier; Team USD 4/user/month with first-twelve-month qualifier. Later renewal and commitment unverified.",
+        "access": "opened"
+      }
+    ],
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 149,
+      "unit": "workspace",
+      "free_boundary": "One public contract and five consumers.",
+      "paid_boundary": "Ten private contracts, consumer reviews and migration history.",
+      "lifetime": "No lifetime hosted collaboration; continuing security, storage and support need recurring funding."
+    },
+    "channel": "Offer API-first SaaS teams a retrospective of one delayed deprecation through developer communities.",
+    "retention": "Each breaking change and support-window review.",
+    "moat": "Consumer-specific compatibility decisions and migration history.",
+    "mvp": [
+      "Contract versions",
+      "Consumer review portal",
+      "Retirement workflow"
+    ],
+    "effort_weeks": [
+      10,
+      14
+    ],
+    "cost": {
+      "pilot_usd_month": [
+        20,
+        50
+      ],
+      "fits_bootstrap": true,
+      "assumptions": "Three teams, thirty contracts, 500 consumers; schemas only, no API traffic. Labor, acquisition, payment fees and taxes excluded.",
+      "drivers": "Schema history and notifications; limit size and sending volume.",
+      "revenue_stage": "Up to $300 after revenue funds backups and measured capacity; preserve usage caps."
+    },
+    "integrations": [
+      "OpenAPI upload",
+      "CI contract callback"
+    ],
+    "risks": [
+      "Postman already owns team API workspaces.",
+      "Git issues and email may be sufficient."
+    ],
+    "global_limits": "Redact internal endpoints/examples; protect consumer identities and access scopes.",
+    "validation": "Ten interviews, five deprecation walkthroughs; three $149/month pilots with named external consumer participation.",
+    "kill_gate": "Stop if consumers will not acknowledge changes or providers cannot identify actual consumers.",
+    "scores": {
+      "pain": 4,
+      "recurrence": 4,
+      "budget": 4,
+      "distribution": 3,
+      "wedge": 3,
+      "feasibility": 3,
+      "global": 4,
+      "cost": 5
+    },
+    "score_rationale": "Clear persistent record; external participation and installed API tooling are hurdles.",
+    "evidence_confidence": "medium; official competitor evidence only",
+    "source_limit": "Vendor offers establish alternatives, not unmet demand, our pricing, acquisition or achieved outcomes."
+  },
+  {
+    "id": "S065",
+    "name": "Test fixture lifecycle manager",
+    "category": "Developer / data / IT operations",
+    "buyer": "QA/platform manager maintaining integration-test environments",
+    "job": "Keep approved test datasets reproducible across releases without copying production data blindly.",
+    "current_workaround": "Seed scripts, shared SQL files and undocumented fixtures.",
+    "record": "Fixture release with scenario coverage, generation recipe and environment usage.",
+    "workflow": [
+      "Specify scenario",
+      "Prepare synthetic recipe",
+      "Review safety",
+      "Publish fixture version",
+      "Track refresh and retirement"
+    ],
+    "roles": [
+      "QA engineer",
+      "Data/platform reviewer"
+    ],
+    "wedge": "Versioned, reviewed deterministic fixtures for one database stack; no hosted generative AI.",
+    "why_pay": "Less test flakiness and setup work could justify payment.",
+    "expansion": "Scenario libraries and customer-run refresh policies.",
+    "competitors": [
+      {
+        "name": "Tonic Structural",
+        "url": "https://www.tonic.ai/pricing",
+        "observed": "2026-10-05",
+        "facts": "De-identification and test-data workflows; separate Fabricate product generates synthetic data.",
+        "price": "Structural custom pricing, minimum unverified. Adjacent Fabricate Plus displayed $29/month with $25 credits and usage overage; dollar ISO code not stated.",
+        "access": "opened"
+      }
+    ],
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 129,
+      "unit": "workspace",
+      "free_boundary": "One local recipe and export.",
+      "paid_boundary": "Twenty fixture releases with reviews and usage history.",
+      "lifetime": "No lifetime hosted collaboration; continuing security, storage and support need recurring funding."
+    },
+    "channel": "Ask backend testing communities to reproduce a flaky integration test using a sanitized fixture recipe.",
+    "retention": "Schema changes and integration-test refreshes.",
+    "moat": "Reviewed domain scenarios and reproducible compatibility history.",
+    "mvp": [
+      "Recipe versioning",
+      "Safety review",
+      "Customer-run refresh evidence"
+    ],
+    "effort_weeks": [
+      10,
+      14
+    ],
+    "cost": {
+      "pilot_usd_month": [
+        20,
+        50
+      ],
+      "fits_bootstrap": true,
+      "assumptions": "Three teams, sixty recipes, metadata only; datasets generated locally. Labor, acquisition, payment fees and taxes excluded.",
+      "drivers": "Runner support and accidental sensitive uploads; forbid source datasets.",
+      "revenue_stage": "Up to $300 after revenue funds backups and measured capacity; preserve usage caps."
+    },
+    "integrations": [
+      "PostgreSQL recipe manifests",
+      "Customer CLI"
+    ],
+    "risks": [
+      "Tonic supplies mature test-data workflows.",
+      "Seed scripts and free fake-data libraries cost little."
+    ],
+    "global_limits": "No anonymization guarantee; reject production values and require user-reviewed synthetic examples.",
+    "validation": "Ten interviews, five fixture walkthroughs; three $129/month pilots maintaining fixtures through two schema changes.",
+    "kill_gate": "Stop if teams want only a generator or secure reproducibility requires taking custody of production data.",
+    "scores": {
+      "pain": 3,
+      "recurrence": 5,
+      "budget": 3,
+      "distribution": 3,
+      "wedge": 3,
+      "feasibility": 3,
+      "global": 4,
+      "cost": 5
+    },
+    "score_rationale": "Recurring record is coherent; behavior change and free code libraries constrain demand.",
+    "evidence_confidence": "medium; official competitor evidence only",
+    "source_limit": "Vendor offers establish alternatives, not unmet demand, our pricing, acquisition or achieved outcomes."
+  },
+  {
+    "id": "S066",
+    "name": "Privileged database access operations",
+    "category": "Developer / data / IT operations",
+    "buyer": "Security/platform lead at a small B2B SaaS",
+    "job": "Grant time-limited production database access and prove revocation.",
+    "current_workaround": "Admin tickets, shared credentials and manually reviewed logs.",
+    "record": "Access lease with approved purpose, enforced scope and session evidence.",
+    "workflow": [
+      "Request purpose",
+      "Approve scope",
+      "Issue lease",
+      "Record activity",
+      "Revoke and verify"
+    ],
+    "roles": [
+      "Database operator",
+      "Security approver"
+    ],
+    "wedge": "One-database-stack access with transparent customer-run enforcement; security hypothesis only.",
+    "why_pay": "Reduced standing privilege and reliable investigations could justify spend.",
+    "expansion": "Policy exceptions and controlled emergency access.",
+    "competitors": [
+      {
+        "name": "StrongDM",
+        "url": "https://www.strongdm.com/pricing",
+        "observed": "2026-10-05",
+        "facts": "Just-in-time approval, runtime authorization and access audit/session records.",
+        "price": "Contact sales; per-user single-SKU stated; amount, currency and commitment unverified.",
+        "access": "opened"
+      },
+      {
+        "name": "Bytebase",
+        "url": "https://www.bytebase.com/pricing/",
+        "observed": "2026-10-05",
+        "facts": "Database change and access governance; Community allows twenty users and ten instances.",
+        "price": "Community free; Pro displayed $20/user/month, ten instances, cancel anytime; Enterprise annual. Dollar ISO code not stated.",
+        "access": "opened"
+      }
+    ],
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 249,
+      "unit": "workspace",
+      "free_boundary": "Local policy simulation only.",
+      "paid_boundary": "Twenty named operators and enforced lease history.",
+      "lifetime": "No lifetime hosted collaboration; continuing security, storage and support need recurring funding."
+    },
+    "channel": "Offer database consultants a design review of one existing access-request process; no live credentials.",
+    "retention": "Every production investigation and access review.",
+    "moat": "Trustworthy enforcement and audit consistency, requiring substantial assurance.",
+    "mvp": [
+      "Lease state machine",
+      "Customer-side enforcement",
+      "Revocation reconciliation"
+    ],
+    "effort_weeks": [
+      18,
+      26
+    ],
+    "cost": {
+      "pilot_usd_month": [
+        120,
+        300
+      ],
+      "fits_bootstrap": false,
+      "assumptions": "Safe proxy and recovery testing exceed a metadata pilot; no claim that production assurance fits $50. Labor, acquisition, payment fees and taxes excluded.",
+      "drivers": "Security testing, high availability and session logs; capped sessions, customer-held logs.",
+      "revenue_stage": "Up to $300 after revenue funds backups and measured capacity; preserve usage caps."
+    },
+    "integrations": [
+      "Customer-controlled database proxy",
+      "Identity provider"
+    ],
+    "risks": [
+      "StrongDM and Bytebase already govern access.",
+      "Native database roles and tickets are cheaper substitutes."
+    ],
+    "global_limits": "Credential compromise and false revocation are critical risks; independent security review required.",
+    "validation": "Ten interviews and five isolated lab demos; three conditional $249/month commitments after verified failure/recovery tests.",
+    "kill_gate": "Defer unless enforcement remains safe during outages and independent review fits funded capacity.",
+    "scores": {
+      "pain": 5,
+      "recurrence": 5,
+      "budget": 4,
+      "distribution": 2,
+      "wedge": 2,
+      "feasibility": 1,
+      "global": 3,
+      "cost": 1
+    },
+    "score_rationale": "High-value pain does not offset severe security and operational entry costs.",
+    "evidence_confidence": "medium; official competitor evidence only",
+    "source_limit": "Vendor offers establish alternatives, not unmet demand, our pricing, acquisition or achieved outcomes."
+  },
+  {
+    "id": "S067",
+    "name": "Data contract change coordination",
+    "category": "Developer / data / IT operations",
+    "buyer": "Data platform lead with several producer and analytics teams",
+    "job": "Agree dataset changes before consumers lose reliable inputs.",
+    "current_workaround": "YAML schemas, chat and ownership spreadsheets.",
+    "record": "Versioned dataset contract with consumer commitments and exceptions.",
+    "workflow": [
+      "Register dataset",
+      "Agree fields and service levels",
+      "Review proposed change",
+      "Collect consumer acceptance",
+      "Publish or retire version"
+    ],
+    "roles": [
+      "Producer engineer",
+      "Analytics consumer"
+    ],
+    "wedge": "Negotiated schema/service commitments for cross-team batch datasets, above existing tests.",
+    "why_pay": "Fewer broken downstream models could reduce repair work.",
+    "expansion": "Reusable contract policies and consumer migration portfolios.",
+    "competitors": [
+      {
+        "name": "Soda",
+        "url": "https://soda.io/pricing",
+        "observed": "2026-10-05",
+        "facts": "Pipeline testing and alert integrations; Team unlimited users; Enterprise collaborative contracts.",
+        "price": "Free $0/month; Team displayed $750/month plus processing-unit usage; Enterprise custom. Dollar ISO code/minimum term not stated.",
+        "access": "opened"
+      }
+    ],
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 129,
+      "unit": "workspace",
+      "free_boundary": "Two contracts and one reviewer.",
+      "paid_boundary": "Fifty contracts and cross-team acceptance history.",
+      "lifetime": "No lifetime hosted collaboration; continuing security, storage and support need recurring funding."
+    },
+    "channel": "Invite data-contract practitioners to replay a recent producer/consumer disagreement.",
+    "retention": "Dataset releases and service-level reviews.",
+    "moat": "Accepted semantic decisions and consumer dependency history.",
+    "mvp": [
+      "Contract versions",
+      "Change reviews",
+      "Consumer acceptance"
+    ],
+    "effort_weeks": [
+      8,
+      12
+    ],
+    "cost": {
+      "pilot_usd_month": [
+        20,
+        50
+      ],
+      "fits_bootstrap": true,
+      "assumptions": "Three teams, 150 contracts; metadata only, no warehouse scans. Labor, acquisition, payment fees and taxes excluded.",
+      "drivers": "Schema/event history; cap imports and use customer checks.",
+      "revenue_stage": "Up to $300 after revenue funds backups and measured capacity; preserve usage caps."
+    },
+    "integrations": [
+      "YAML/JSON contract import",
+      "CI evidence"
+    ],
+    "risks": [
+      "Soda Enterprise includes collaborative contracts.",
+      "Open specifications plus Git reviews may suffice."
+    ],
+    "global_limits": "Business definitions can be confidential; no claim that contracts guarantee data correctness.",
+    "validation": "Ten interviews, five real changes; three $129/month pilots with both producer and consumer using two revisions.",
+    "kill_gate": "Stop if consumers will not maintain commitments or Git workflows already close the coordination gap.",
+    "scores": {
+      "pain": 4,
+      "recurrence": 4,
+      "budget": 3,
+      "distribution": 3,
+      "wedge": 2,
+      "feasibility": 4,
+      "global": 4,
+      "cost": 5
+    },
+    "score_rationale": "Cross-team recurrence exists, but standards and existing platforms limit differentiation.",
+    "evidence_confidence": "medium; official competitor evidence only",
+    "source_limit": "Vendor offers establish alternatives, not unmet demand, our pricing, acquisition or achieved outcomes."
+  },
+  {
+    "id": "S068",
+    "name": "Engineering decision governance",
+    "category": "Developer / data / IT operations",
+    "buyer": "Engineering director coordinating 4–10 software teams",
+    "job": "Resolve architectural proposals and revisit consequential decisions.",
+    "current_workaround": "Markdown ADRs, meeting notes and informal approvals.",
+    "record": "Decision record with alternatives, dissent, owner and review outcome.",
+    "workflow": [
+      "Submit proposal",
+      "Gather affected teams",
+      "Resolve objections",
+      "Accept decision",
+      "Review consequences"
+    ],
+    "roles": [
+      "Proposing engineer",
+      "Architecture reviewer"
+    ],
+    "wedge": "Time-bounded cross-team decisions and consequence reviews rather than a general wiki.",
+    "why_pay": "Avoiding repeated debates might justify payment; evidence is weak.",
+    "expansion": "Decision dependencies and exception review portfolios.",
+    "competitors": [
+      {
+        "name": "Slite",
+        "url": "https://slite.com/pricing",
+        "observed": "2026-10-05",
+        "facts": "Collaborative documents, verification, ownership, history and recurring workflows.",
+        "price": "Basic displayed $10/user/month billed yearly; Pro $20 yearly basis. Dollar ISO code/seat minimum not stated.",
+        "access": "opened"
+      },
+      {
+        "name": "GitHub",
+        "url": "https://github.com/pricing",
+        "observed": "2026-10-05",
+        "facts": "Free repositories and issue workflows; Team adds repository rules and reviewers.",
+        "price": "Free tier; Team USD 4/user/month with first-twelve-month qualifier. Later renewal and commitment unverified.",
+        "access": "opened"
+      }
+    ],
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 69,
+      "unit": "workspace",
+      "free_boundary": "Ten public decisions and solo use.",
+      "paid_boundary": "Private team reviews and complete decision history.",
+      "lifetime": "No lifetime hosted collaboration; continuing security, storage and support need recurring funding."
+    },
+    "channel": "Offer engineering leadership communities a replay of one unresolved architecture proposal.",
+    "retention": "Major changes and scheduled consequence reviews.",
+    "moat": "Linked rationale history only if teams keep using it.",
+    "mvp": [
+      "Proposal templates",
+      "Review/decision states",
+      "Consequence tracking"
+    ],
+    "effort_weeks": [
+      6,
+      9
+    ],
+    "cost": {
+      "pilot_usd_month": [
+        20,
+        50
+      ],
+      "fits_bootstrap": true,
+      "assumptions": "Three teams, 300 text decisions; attachment cap 1GB. Labor, acquisition, payment fees and taxes excluded.",
+      "drivers": "Document storage and notifications; no AI or source-code ingestion.",
+      "revenue_stage": "Up to $300 after revenue funds backups and measured capacity; preserve usage caps."
+    },
+    "integrations": [
+      "Markdown import/export",
+      "Repository links"
+    ],
+    "risks": [
+      "Slite already provides document ownership and verification.",
+      "Free repository ADRs and pull requests are strong alternatives."
+    ],
+    "global_limits": "Protect confidential plans; do not claim automated architectural correctness.",
+    "validation": "Ten interviews, five decision walkthroughs; seek three $69/month commitments and repeat usage after one month.",
+    "kill_gate": "Stop if buyers prefer wiki templates or cannot name a recurring budget owner.",
+    "scores": {
+      "pain": 2,
+      "recurrence": 3,
+      "budget": 2,
+      "distribution": 3,
+      "wedge": 2,
+      "feasibility": 5,
+      "global": 5,
+      "cost": 5
+    },
+    "score_rationale": "Easy to build but budget, urgency and differentiation are weak.",
+    "evidence_confidence": "medium; official competitor evidence only",
+    "source_limit": "Vendor offers establish alternatives, not unmet demand, our pricing, acquisition or achieved outcomes."
+  },
+  {
+    "id": "S069",
+    "name": "Cloud allocation close workspace",
+    "category": "Developer / data / IT operations",
+    "buyer": "FinOps owner at a software company with several engineering cost centers",
+    "job": "Close monthly cloud allocation disagreements with engineering evidence.",
+    "current_workaround": "Billing exports, tag spreadsheets and email disputes.",
+    "record": "Allocation period with versioned rules, disputed charges and accepted ownership.",
+    "workflow": [
+      "Import summarized spend",
+      "Apply allocation rules",
+      "Resolve exceptions",
+      "Owners approve",
+      "Close period"
+    ],
+    "roles": [
+      "FinOps analyst",
+      "Engineering cost owner"
+    ],
+    "wedge": "Engineering ownership and dispute resolution for one cloud billing format, not another chart.",
+    "why_pay": "Reduced close effort and accountable waste decisions could justify payment.",
+    "expansion": "Unit-cost policies and recurring allocation playbooks.",
+    "competitors": [
+      {
+        "name": "Vantage",
+        "url": "https://www.vantage.sh/pricing",
+        "observed": "2026-10-05",
+        "facts": "Cloud-cost allocation, reports and virtual tagging; free tier covers $2,500 tracked spend.",
+        "price": "Pro displayed $30/month up to $7,500 spend, five users; Business $200/month up to $20,000. Dollar ISO code/minimum term not stated.",
+        "access": "opened"
+      }
+    ],
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 129,
+      "unit": "workspace",
+      "free_boundary": "One historical month and solo review.",
+      "paid_boundary": "Five cost centers, approvals and allocation history.",
+      "lifetime": "No lifetime hosted collaboration; continuing security, storage and support need recurring funding."
+    },
+    "channel": "Offer FinOps community practitioners a reconciliation of one anonymized billing period.",
+    "retention": "Monthly close and changing service ownership.",
+    "moat": "Accepted allocation rules and exceptions across periods.",
+    "mvp": [
+      "Billing-summary import",
+      "Rule versions",
+      "Owner acceptance"
+    ],
+    "effort_weeks": [
+      8,
+      12
+    ],
+    "cost": {
+      "pilot_usd_month": [
+        20,
+        50
+      ],
+      "fits_bootstrap": true,
+      "assumptions": "Three customers, 100,000 summarized rows/month; no raw hourly billing lake. Labor, acquisition, payment fees and taxes excluded.",
+      "drivers": "Import size and cloud API changes; require daily/category aggregation.",
+      "revenue_stage": "Up to $300 after revenue funds backups and measured capacity; preserve usage caps."
+    },
+    "integrations": [
+      "CSV billing summaries"
+    ],
+    "risks": [
+      "Vantage starts at $30/month and supports allocation.",
+      "Native cloud reports plus spreadsheets may suffice."
+    ],
+    "global_limits": "Billing identifiers reveal architecture; customer approval required before imports; currencies remain explicit.",
+    "validation": "Ten interviews, five period walkthroughs; three $129/month pilots closing two periods with fewer unresolved allocations.",
+    "kill_gate": "Stop if native tagging/reporting solves disputes or finance will not share the close workflow.",
+    "scores": {
+      "pain": 3,
+      "recurrence": 4,
+      "budget": 4,
+      "distribution": 3,
+      "wedge": 2,
+      "feasibility": 3,
+      "global": 4,
+      "cost": 4
+    },
+    "score_rationale": "Clear repeated decision, but cheap incumbent allocation creates strong pressure.",
+    "evidence_confidence": "medium; official competitor evidence only",
+    "source_limit": "Vendor offers establish alternatives, not unmet demand, our pricing, acquisition or achieved outcomes."
+  },
+  {
+    "id": "S070",
+    "name": "Engineering escalation resolution desk",
+    "category": "Developer / data / IT operations",
+    "buyer": "Support engineering lead at a developer-facing B2B SaaS",
+    "job": "Take reproducible technical escalations through engineering fix and customer verification.",
+    "current_workaround": "Helpdesk tickets linked loosely to issue trackers and chat.",
+    "record": "Escalation case joining reproduction, affected versions, fix and verified resolution.",
+    "workflow": [
+      "Qualify reproduction",
+      "Assign engineer",
+      "Agree diagnosis",
+      "Track released fix",
+      "Customer verifies"
+    ],
+    "roles": [
+      "Support engineer",
+      "Product engineer"
+    ],
+    "wedge": "Own technical evidence and release-to-customer closure without replacing the helpdesk.",
+    "why_pay": "Less repeated context gathering and fewer prematurely closed issues could protect support capacity.",
+    "expansion": "Recurring defect patterns and supported-version knowledge.",
+    "competitors": [
+      {
+        "name": "ClearFeed Integrations",
+        "url": "https://clearfeed.ai/pricing/integrations",
+        "observed": "2026-10-05",
+        "facts": "Slack intake and two-way message/status sync across support and engineering tools.",
+        "price": "Starter displayed $49/month for 250 tickets; Professional $89/month for 250; annual 15% discount. Dollar ISO code/minimum term not stated.",
+        "access": "opened"
+      },
+      {
+        "name": "DevRev Support App",
+        "url": "https://devrev.ai/support-app",
+        "observed": "2026-10-05",
+        "facts": "Vendor describes ticket triage, routing and engineering escalation linked to product parts.",
+        "price": "Not verified; no public amount, billing unit or minimum commitment on this product page.",
+        "access": "opened"
+      }
+    ],
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 149,
+      "unit": "workspace",
+      "free_boundary": "Ten sandbox cases, no synchronization.",
+      "paid_boundary": "One support queue, three engineering projects and history.",
+      "lifetime": "No lifetime hosted collaboration; continuing security, storage and support need recurring funding."
+    },
+    "channel": "Find developer-tool support leads; offer a concierge reconstruction of five unresolved escalations.",
+    "retention": "New escalations and each corrective software release.",
+    "moat": "Verified reproduction/fix knowledge tied to product versions.",
+    "mvp": [
+      "Reproduction checklist",
+      "Issue/fix linkage",
+      "Verification closure"
+    ],
+    "effort_weeks": [
+      8,
+      12
+    ],
+    "cost": {
+      "pilot_usd_month": [
+        20,
+        50
+      ],
+      "fits_bootstrap": true,
+      "assumptions": "Three teams, 1,000 cases/month, 2GB redacted attachments; no AI ingestion. Labor, acquisition, payment fees and taxes excluded.",
+      "drivers": "Connector APIs and attachments; one helpdesk plus one tracker initially.",
+      "revenue_stage": "Up to $300 after revenue funds backups and measured capacity; preserve usage caps."
+    },
+    "integrations": [
+      "CSV/email intake first",
+      "Customer-permitted tracker API"
+    ],
+    "risks": [
+      "ClearFeed already synchronizes support and engineering.",
+      "Existing helpdesk/issue integrations may remove the need."
+    ],
+    "global_limits": "Reproduction logs can contain secrets; redact locally and enforce case-level access.",
+    "validation": "Ten interviews, five real-case demos; three $149/month pilots closing cases across two releases.",
+    "kill_gate": "Stop if simple ticket synchronization solves the problem or buyers cannot authorize required APIs.",
+    "scores": {
+      "pain": 4,
+      "recurrence": 5,
+      "budget": 4,
+      "distribution": 3,
+      "wedge": 3,
+      "feasibility": 3,
+      "global": 4,
+      "cost": 4
+    },
+    "score_rationale": "Persistent technical ownership has potential; connector maintenance and incumbent overlap matter.",
+    "evidence_confidence": "medium; official competitor evidence only",
+    "source_limit": "Vendor offers establish alternatives, not unmet demand, our pricing, acquisition or achieved outcomes."
+  },
+  {
+    "id": "S071",
+    "name": "Supported-release operations",
+    "category": "Developer / data / IT operations",
+    "buyer": "Release engineering manager at a commercial software vendor maintaining LTS branches",
+    "job": "Coordinate backports and support commitments across supported software versions.",
+    "current_workaround": "Branch spreadsheets, release tickets and customer-version notes.",
+    "record": "Supported release line with backport decisions, test matrix and retirement evidence.",
+    "workflow": [
+      "Register support matrix",
+      "Triage backport",
+      "Approve target branches",
+      "Collect validation",
+      "Publish/retire release"
+    ],
+    "roles": [
+      "Release manager",
+      "Support engineer"
+    ],
+    "wedge": "LTS branch decisions and support evidence across existing build systems.",
+    "why_pay": "Fewer missed backports and unsupported customer promises could justify payment.",
+    "expansion": "Patch portfolios and customer-version migration planning.",
+    "competitors": [
+      {
+        "name": "Octopus Deploy",
+        "url": "https://octopus.com/pricing/overview",
+        "observed": "2026-10-05",
+        "facts": "Release snapshots, runbooks, promotion and approvals; cloud and self-hosted editions.",
+        "price": "Cloud Professional default USD 4,330/year; Server USD 2,080/year; first paid size twenty projects. Free ten projects; paid annual commitment.",
+        "access": "opened"
+      },
+      {
+        "name": "GitHub",
+        "url": "https://github.com/pricing",
+        "observed": "2026-10-05",
+        "facts": "Free repositories and issue workflows; Team adds repository rules and reviewers.",
+        "price": "Free tier; Team USD 4/user/month with first-twelve-month qualifier. Later renewal and commitment unverified.",
+        "access": "opened"
+      }
+    ],
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 149,
+      "unit": "workspace",
+      "free_boundary": "One public support matrix.",
+      "paid_boundary": "Ten release lines and retained backport decisions.",
+      "lifetime": "No lifetime hosted collaboration; continuing security, storage and support need recurring funding."
+    },
+    "channel": "Invite maintainers of commercial self-hosted software to reconstruct one multi-branch security patch.",
+    "retention": "Patch releases and support-window transitions.",
+    "moat": "Historical branch compatibility and accepted backport exceptions.",
+    "mvp": [
+      "Support matrix",
+      "Backport decision queue",
+      "Branch evidence/sign-off"
+    ],
+    "effort_weeks": [
+      10,
+      14
+    ],
+    "cost": {
+      "pilot_usd_month": [
+        20,
+        50
+      ],
+      "fits_bootstrap": true,
+      "assumptions": "Three vendors, thirty release lines, 10,000 metadata events; no build hosting. Labor, acquisition, payment fees and taxes excluded.",
+      "drivers": "CI integration and logs; store result pointers rather than binaries.",
+      "revenue_stage": "Up to $300 after revenue funds backups and measured capacity; preserve usage caps."
+    },
+    "integrations": [
+      "Git tags/PR links",
+      "CI result manifests"
+    ],
+    "risks": [
+      "Octopus includes release workflow and a free tier.",
+      "GitHub issues and Actions may suffice."
+    ],
+    "global_limits": "Do not host proprietary binaries initially; support obligations remain vendor-controlled.",
+    "validation": "Ten interviews, five patch histories; three $149/month pilots coordinating two release lines.",
+    "kill_gate": "Stop if vendors support only one version or existing release tools already maintain the whole matrix.",
+    "scores": {
+      "pain": 4,
+      "recurrence": 4,
+      "budget": 4,
+      "distribution": 3,
+      "wedge": 3,
+      "feasibility": 3,
+      "global": 4,
+      "cost": 5
+    },
+    "score_rationale": "Specific buyer and recurring record; small addressable segment and build-tool overlap.",
+    "evidence_confidence": "medium; official competitor evidence only",
+    "source_limit": "Vendor offers establish alternatives, not unmet demand, our pricing, acquisition or achieved outcomes."
+  },
+  {
+    "id": "S072",
+    "name": "Developer lab cohort operations",
+    "category": "Developer / data / IT operations",
+    "buyer": "Developer education lead at a software infrastructure vendor",
+    "job": "Deliver repeatable hands-on labs and resolve learner environment failures.",
+    "current_workaround": "Lab repositories, video calls and instructor spreadsheets.",
+    "record": "Lab version/cohort record with assignments, execution evidence and assistance cases.",
+    "workflow": [
+      "Publish lab revision",
+      "Enroll cohort",
+      "Launch customer-owned environment",
+      "Track exercises",
+      "Resolve and assess"
+    ],
+    "roles": [
+      "Technical instructor",
+      "Developer learner"
+    ],
+    "wedge": "Customer-funded environments and reproducible lab versions for small technical workshops.",
+    "why_pay": "Fewer failed workshops and repeated instructor setup could justify payment.",
+    "expansion": "Instructor runbooks and reusable cohort assessments.",
+    "competitors": [
+      {
+        "name": "Instruqt",
+        "url": "https://instruqt.com/",
+        "observed": "2026-10-05",
+        "facts": "Guided sandbox lab authoring, browser delivery and outcome tracking.",
+        "price": "Not verified; demo entry points but no amount, unit or minimum on opened page.",
+        "access": "opened"
+      }
+    ],
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 149,
+      "unit": "workspace",
+      "free_boundary": "One local lab, five learners.",
+      "paid_boundary": "Three concurrent cohorts and instructor assistance history.",
+      "lifetime": "No lifetime hosted collaboration; continuing security, storage and support need recurring funding."
+    },
+    "channel": "Invite infrastructure-tool developer educators to dry-run one existing lab with five learners.",
+    "retention": "Each workshop and product-version update.",
+    "moat": "Tested exercise compatibility and recurring failure resolutions.",
+    "mvp": [
+      "Lab version manifests for one supported container runtime",
+      "Bounded customer-run launcher with preflight checks and versioned result receipts",
+      "Learner progress and exercise evidence",
+      "Instructor assistance cases and completion assessment"
+    ],
+    "effort_weeks": [
+      12,
+      18
+    ],
+    "cost": {
+      "pilot_usd_month": [
+        20,
+        50
+      ],
+      "fits_bootstrap": true,
+      "assumptions": "Three authors, sixty learners, metadata only; customer provisions/pays sandbox compute. Labor, acquisition, payment fees and taxes excluded. Maximum 1000 exercise receipts and 1GB metadata/logs, with secrets redacted; full environment images remain customer-hosted.",
+      "drivers": "Runner compatibility and support; time-box exercises and never fund learner cloud usage.",
+      "revenue_stage": "Up to $300 after revenue funds backups and measured capacity; preserve usage caps."
+    },
+    "integrations": [
+      "One supported customer-run container launcher; no general remote control",
+      "Customer sandbox account with customer-funded compute"
+    ],
+    "risks": [
+      "Instruqt already provides complete hosted labs.",
+      "Free lab repositories plus video calls compete."
+    ],
+    "global_limits": "Execution isolation, learner identity consent and cloud-cost responsibility must be explicit.",
+    "validation": "Ten interviews, five lab dry-runs; three $149/month commitments with measured setup/support reduction.",
+    "kill_gate": "Stop if buyers demand included hosted compute or reliable setup cannot work within one supported stack.",
+    "scores": {
+      "pain": 3,
+      "recurrence": 4,
+      "budget": 4,
+      "distribution": 3,
+      "wedge": 2,
+      "feasibility": 2,
+      "global": 4,
+      "cost": 3
+    },
+    "score_rationale": "Complete recurring workflow, but environment reliability and support are expensive.",
+    "evidence_confidence": "medium; official competitor evidence only",
+    "source_limit": "Vendor offers establish alternatives, not unmet demand, our pricing, acquisition or achieved outcomes."
+  },
+  {
+    "id": "S073",
+    "name": "Analytics request delivery workspace",
+    "category": "Developer / data / IT operations",
+    "buyer": "Analytics manager supporting several business departments",
+    "job": "Turn recurring analysis requests into reviewed, reusable decision evidence.",
+    "current_workaround": "Chat requests, SQL notebooks and forgotten dashboard links.",
+    "record": "Analysis engagement with question, agreed metric definitions, review and refresh responsibility.",
+    "workflow": [
+      "Clarify question",
+      "Agree definitions",
+      "Link analysis",
+      "Peer review",
+      "Publish and revisit"
+    ],
+    "roles": [
+      "Analytics engineer",
+      "Business requester"
+    ],
+    "wedge": "Request-to-accepted-answer ownership across existing query tools, initially recurring operational analyses.",
+    "why_pay": "Less duplicated analysis and ambiguous requests could free analyst time.",
+    "expansion": "Reusable definitions and decision-linked analysis portfolios.",
+    "competitors": [
+      {
+        "name": "Hex",
+        "url": "https://hex.tech/pricing/",
+        "observed": "2026-10-05",
+        "facts": "Collaborative data projects and apps; Team adds scheduled runs and version history.",
+        "price": "Professional displayed $36/editor/month; Team $75/editor/month; Community free. Billing term/dollar ISO code not stated; larger compute metered.",
+        "access": "opened"
+      }
+    ],
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 99,
+      "unit": "workspace",
+      "free_boundary": "Five public/sample requests.",
+      "paid_boundary": "Fifty active requests, peer review and refresh history.",
+      "lifetime": "No lifetime hosted collaboration; continuing security, storage and support need recurring funding."
+    },
+    "channel": "Invite analytics community leads to map five repeated requests from a recent month.",
+    "retention": "New questions and recurring analysis refreshes.",
+    "moat": "Accepted definitions and reuse history, if consumers return.",
+    "mvp": [
+      "Request scoping",
+      "Artifact/review linkage",
+      "Refresh ownership"
+    ],
+    "effort_weeks": [
+      7,
+      11
+    ],
+    "cost": {
+      "pilot_usd_month": [
+        20,
+        50
+      ],
+      "fits_bootstrap": true,
+      "assumptions": "Three teams, 150 requests, metadata and 1GB exports; customer runs queries. Labor, acquisition, payment fees and taxes excluded.",
+      "drivers": "Attachments and notebook APIs; retain links, not warehouse results.",
+      "revenue_stage": "Up to $300 after revenue funds backups and measured capacity; preserve usage caps."
+    },
+    "integrations": [
+      "Notebook/dashboard links",
+      "CSV request import"
+    ],
+    "risks": [
+      "Hex already supplies collaboration and scheduled work.",
+      "Shared task boards plus notebooks cost little."
+    ],
+    "global_limits": "Prevent sensitive dataset uploads; access to linked artifacts remains separately authorized.",
+    "validation": "Ten interviews, five request histories; three $99/month pilots showing reuse or less clarification over two cycles.",
+    "kill_gate": "Stop if analysts view the workspace as duplicate project administration or requesters do not return.",
+    "scores": {
+      "pain": 3,
+      "recurrence": 4,
+      "budget": 3,
+      "distribution": 3,
+      "wedge": 2,
+      "feasibility": 4,
+      "global": 4,
+      "cost": 5
+    },
+    "score_rationale": "Coherent record, but weak differentiation from notebook and task platforms.",
+    "evidence_confidence": "medium; official competitor evidence only",
+    "source_limit": "Vendor offers establish alternatives, not unmet demand, our pricing, acquisition or achieved outcomes."
+  },
+  {
+    "id": "S074",
+    "name": "Software entitlement operations",
+    "category": "Developer / data / IT operations",
+    "buyer": "Founder of a small commercial desktop or self-hosted developer-tool vendor",
+    "job": "Issue, renew and support software licenses reliably.",
+    "current_workaround": "Database rows, payment webhooks and manual activation support.",
+    "record": "Customer entitlement with activation leases, version rights and revocation history.",
+    "workflow": [
+      "Define license policy",
+      "Issue entitlement",
+      "Activate installation",
+      "Renew or transfer",
+      "Revoke and investigate"
+    ],
+    "roles": [
+      "Vendor operator",
+      "Customer administrator"
+    ],
+    "wedge": "Simple offline-friendly entitlement policies for one software distribution model.",
+    "why_pay": "Reliable renewals and fewer activation tickets could justify payment.",
+    "expansion": "Reseller issuance and controlled release eligibility.",
+    "competitors": [
+      {
+        "name": "Keygen",
+        "url": "https://keygen.sh/pricing/",
+        "observed": "2026-10-05",
+        "facts": "Software licensing and distribution API; volume-based cloud pricing and free self-hosted CE.",
+        "price": "Cloud amounts not verified because slider prices absent; paid EE offered, term/minimum unverified.",
+        "access": "opened"
+      }
+    ],
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 99,
+      "unit": "workspace",
+      "free_boundary": "Fifty development licenses, no production SLA.",
+      "paid_boundary": "One thousand production entitlements and operator history.",
+      "lifetime": "No lifetime hosted collaboration; continuing security, storage and support need recurring funding."
+    },
+    "channel": "Offer indie developer-tool communities a migration rehearsal from a homegrown license table.",
+    "retention": "Every activation, subscription change and support case.",
+    "moat": "Reliable policy migration and activation compatibility, not secret algorithms.",
+    "mvp": [
+      "Entitlement ledger",
+      "Signed activation policy",
+      "Renewal/revocation workflow"
+    ],
+    "effort_weeks": [
+      12,
+      18
+    ],
+    "cost": {
+      "pilot_usd_month": [
+        20,
+        50
+      ],
+      "fits_bootstrap": true,
+      "assumptions": "Three vendors, 3,000 licenses, 30,000 validations/day cap; offline grace reduces traffic. Labor, acquisition, payment fees and taxes excluded.",
+      "drivers": "Validation traffic and key security; quotas, signed offline leases and rate limits.",
+      "revenue_stage": "Up to $300 after revenue funds backups and measured capacity; preserve usage caps."
+    },
+    "integrations": [
+      "Payment event import",
+      "One client SDK"
+    ],
+    "risks": [
+      "Keygen offers a mature API and free self-hosted CE.",
+      "Custom signed keys may suffice for tiny vendors."
+    ],
+    "global_limits": "Secure signing-key custody and outage behavior require review; no payment processing or anti-piracy guarantee.",
+    "validation": "Ten interviews, five table migrations; three $99/month pilots with safe renewal and offline-grace demonstrations.",
+    "kill_gate": "Stop if vendors require many SDKs or production availability/security exceeds the bootstrap budget.",
+    "scores": {
+      "pain": 4,
+      "recurrence": 5,
+      "budget": 3,
+      "distribution": 3,
+      "wedge": 2,
+      "feasibility": 2,
+      "global": 4,
+      "cost": 3
+    },
+    "score_rationale": "Recurring operational value; security, mature incumbents and SDK support are major constraints.",
+    "evidence_confidence": "medium; official competitor evidence only",
+    "source_limit": "Vendor offers establish alternatives, not unmet demand, our pricing, acquisition or achieved outcomes."
+  },
+  {
+    "id": "S075",
+    "name": "Customer incident communication operations",
+    "category": "Developer / data / IT operations",
+    "buyer": "Support operations lead at a multi-product B2B SaaS",
+    "job": "Maintain consistent incident and maintenance communications for distinct customer audiences.",
+    "current_workaround": "Status pages, email drafts and manual audience lists.",
+    "record": "Communication incident with audience impact, approved updates and delivery history.",
+    "workflow": [
+      "Classify customer impact",
+      "Draft update",
+      "Approve audience/message",
+      "Publish with delivery record",
+      "Close and review"
+    ],
+    "roles": [
+      "Incident communicator",
+      "Technical incident owner"
+    ],
+    "wedge": "Audience-specific approval and update accountability above a customer-owned incident process.",
+    "why_pay": "Fewer inconsistent updates could reduce support load; willingness to pay is uncertain.",
+    "expansion": "Maintenance campaigns and customer communication histories.",
+    "competitors": [
+      {
+        "name": "Atlassian Statuspage",
+        "url": "https://www.atlassian.com/software/statuspage/pricing",
+        "observed": "2026-10-05",
+        "facts": "Incidents, maintenance, components and audiences; free public plan includes one hundred subscribers.",
+        "price": "Public Hobby displayed $29/month, 250 subscribers/five members; audience-specific starts $300/month. Dollar ISO code/minimum term not stated.",
+        "access": "opened"
+      },
+      {
+        "name": "Instatus",
+        "url": "https://instatus.com/pricing",
+        "observed": "2026-10-05",
+        "facts": "Free public page includes two hundred subscribers; paid tiers expand audiences and notifications.",
+        "price": "Free Starter; paid amounts unverified in dynamic table; yearly option advertises 25% discount.",
+        "access": "opened"
+      }
+    ],
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 79,
+      "unit": "workspace",
+      "free_boundary": "One public page, fifty subscribers.",
+      "paid_boundary": "Five audiences, approvals and capped email delivery.",
+      "lifetime": "No lifetime hosted collaboration; continuing security, storage and support need recurring funding."
+    },
+    "channel": "Invite B2B support operations communities to replay one incident with conflicting customer updates.",
+    "retention": "Incidents and scheduled maintenance.",
+    "moat": "Audience-impact history, conditional on accurate customer mappings.",
+    "mvp": [
+      "Impact/audience register",
+      "Message approval",
+      "Delivery and closeout"
+    ],
+    "effort_weeks": [
+      8,
+      12
+    ],
+    "cost": {
+      "pilot_usd_month": [
+        20,
+        50
+      ],
+      "fits_bootstrap": true,
+      "assumptions": "Three teams, 1,500 subscribers, 10,000 emails/month; no SMS or uptime monitoring. Labor, acquisition, payment fees and taxes excluded.",
+      "drivers": "Email delivery and incident-time load; quotas and separate delivery queue.",
+      "revenue_stage": "Up to $300 after revenue funds backups and measured capacity; preserve usage caps."
+    },
+    "integrations": [
+      "Incident webhook",
+      "Customer CSV audiences"
+    ],
+    "risks": [
+      "Statuspage and Instatus provide strong free/cheap alternatives.",
+      "Incident platforms already bundle communications."
+    ],
+    "global_limits": "Subscriber consent, deletion and regional email rules; avoid contractual emergency-delivery guarantees.",
+    "validation": "Ten interviews, five incident replays; three $79/month commitments after a complete update cycle.",
+    "kill_gate": "Stop if existing status tools solve audience approval or delivery reliability requires costs above the cap.",
+    "scores": {
+      "pain": 3,
+      "recurrence": 4,
+      "budget": 3,
+      "distribution": 2,
+      "wedge": 1,
+      "feasibility": 3,
+      "global": 4,
+      "cost": 3
+    },
+    "score_rationale": "Complete communications workflow, but weak differentiation and availability obligations.",
+    "evidence_confidence": "medium; official competitor evidence only",
+    "source_limit": "Vendor offers establish alternatives, not unmet demand, our pricing, acquisition or achieved outcomes."
+  }
+]

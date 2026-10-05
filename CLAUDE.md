@@ -46,6 +46,7 @@ docs/ (strategy, playbooks) · system/sessions/ · ideas/ · scripts/ · workben
 - **Skills** (`.claude/skills/`): `open-active` (open the working set in Rider/WebStorm) · `create-repo` (scaffold a conformant repo).
 - **Live state / roadmap:** `workbench/wow-two/wow-two.refinement`.
 - **Platform app order:** `docs/platform-apps.md` — Wheelhouse, then Secrets Vault, then the rest top down.
+- **Venture product order:** `system/planning/pln-tasks.md` § *Venture product order* — the user-set product queue toward subscription revenue (MRR), with the current product marked.
 
 ## Agentic workflow (parallel chats)
 

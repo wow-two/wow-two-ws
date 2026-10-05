@@ -1,0 +1,54 @@
+[
+  {
+    "id": "S018",
+    "name": "Private professional community operations",
+    "replacement_reason": "Remove cross-lane near-duplicate; fresh complete SaaS hypothesis, not a novelty or validation claim.",
+    "distinct_record_boundary": "Owns discussions, moderation cases and editorial knowledge lifecycle, not member dues or association governance.",
+    "proposed_scores": {
+      "pain": 3,
+      "recurrence": 5,
+      "budget": 3,
+      "distribution": 2,
+      "wedge": 1,
+      "feasibility": 3,
+      "global": 4,
+      "cost": 3
+    },
+    "proposed_base_score": 58.0,
+    "proposed_decision": "Defer",
+    "proposed_penalty": 0,
+    "penalty_reason": "Low base wedge/feasibility/cost already incorporate the observed counterarguments; avoid a second deduction for the same risks. Independent reviewer owns final decision.",
+    "strongest_counterargument": "Discourse has a free hosted tier and mature community functionality; Circle combines community, moderation and member tools at USD 89/month annually. Discussion-to-knowledge curation may be a configuration or plugin rather than an independent business.",
+    "observed": "2026-10-05",
+    "source_urls": [
+      "https://www.discourse.org/pricing",
+      "https://circle.so/pricing"
+    ]
+  },
+  {
+    "id": "S020",
+    "name": "Brand asset lifecycle operations",
+    "replacement_reason": "Remove cross-lane near-duplicate; fresh complete SaaS hypothesis, not a novelty or validation claim.",
+    "distinct_record_boundary": "Owns persistent asset versions, permitted-use metadata, distribution and retirement, not policy-control execution or agency request delivery.",
+    "proposed_scores": {
+      "pain": 4,
+      "recurrence": 4,
+      "budget": 3,
+      "distribution": 2,
+      "wedge": 1,
+      "feasibility": 2,
+      "global": 4,
+      "cost": 2
+    },
+    "proposed_base_score": 56.0,
+    "proposed_decision": "Defer",
+    "proposed_penalty": 0,
+    "penalty_reason": "Low base wedge/feasibility/cost already incorporate the observed counterarguments; avoid a second deduction for the same risks. Independent reviewer owns final decision.",
+    "strongest_counterargument": "Dash already offers version control, use windows, approval and distribution with unlimited users from GBP 79/month monthly. The proposed USD 129 product has no demonstrated advantage and must justify migration while paying file-processing costs.",
+    "observed": "2026-10-05",
+    "source_urls": [
+      "https://www.dash.app/pricing",
+      "https://www.bynder.com/en/pricing/"
+    ]
+  }
+]

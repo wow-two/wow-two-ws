@@ -1,0 +1,198 @@
+[
+  {
+    "id": "S051",
+    "penalty": 7,
+    "reason": "Metadata-only connector records can become a second issue tracker. Prismatic/Paragon already own deployment and support; prove that recurring recovery decisions remain unresolved across customer runtimes. Require a named integration consultancy/channel, one signed evidence format and renewal-linked failure examples before validating.",
+    "decision": "Reserve"
+  },
+  {
+    "id": "S052",
+    "penalty": 4,
+    "reason": "Best developer-lane test: repeat consultancy delivery supplies a budget owner and client acceptance record. Flatfile already combines correction and collaborative approval, while Dromo is an importer rather than proof of demand for a separate workspace. Require two paid engagements per firm and a measurable reduction in unpaid reconciliation; reject bespoke transformation services.",
+    "decision": "Validate",
+    "additional_sources": [
+      {
+        "name": "Flatfile Projects",
+        "url": "https://flatfile.com/pricing",
+        "observed": "2026-10-05",
+        "facts": "Independently reopened: project-volume pricing, unlimited invited users, mapping, correction and approval in collaborative workspaces. It explicitly serves NetSuite and Workday partners.",
+        "price": "Contact sales; amount, currency and minimum term not published. Projects billed by volume rather than seats.",
+        "access": "opened"
+      },
+      {
+        "name": "Dromo",
+        "url": "https://dromo.io/pricing",
+        "observed": "2026-10-05",
+        "facts": "Independently reopened: embedded/headless import, validation, mapping and private mode; adjacent to full migration engagement management.",
+        "price": "Displayed $599/month for 250 production imports, then $3/import. Explicitly month-to-month with no long-term commitment; annual option available. Dollar currency code not verified.",
+        "access": "opened"
+      }
+    ]
+  },
+  {
+    "id": "S053",
+    "penalty": 9,
+    "reason": "The defect-to-accepted-repair cycle closely resembles existing issue management and Soda remediation. High recurrence does not prove users want another operational record. Validate only if dataset/business-consumer acceptance needs persist after configuring the current tracker; prohibit raw data payloads and show authoritative ticket synchronization.",
+    "decision": "Reserve"
+  },
+  {
+    "id": "S054",
+    "penalty": 11,
+    "reason": "Bytebase Community already covers substantial database governance, and PR review plus scripts owns change approval cheaply. Removing execution protects hosting cost but also removes enforcement: uploaded execution evidence does not prove the approved SQL ran. A coordination-only paid wedge is weak until a repeat unmet decision is demonstrated.",
+    "decision": "Defer"
+  },
+  {
+    "id": "S055",
+    "penalty": 5,
+    "reason": "Occasional client testing is a plausible buyer-specific workflow, but closer competitor Marker.io already provides free accountless reporters and UAT/approval features. Testmo is also inexpensive. Validate version-bound business acceptance, not generic screenshot collection: require repeat client participation and three second-cycle payments.",
+    "decision": "Validate",
+    "additional_sources": [
+      {
+        "name": "Marker.io",
+        "url": "https://marker.io/pricing",
+        "observed": "2026-10-05",
+        "facts": "Direct external-feedback/UAT alternative: unlimited free reporters can submit and follow their issues without accounts; paid users triage and collaborate. Agency plan targets client projects.",
+        "price": "Agency offer displayed $129/month or $99/month with yearly billing, 15 members, 50 active projects and 50 guests; eligibility conditions apply. Prices exclude tax; dollar currency code not verified. Fifteen-day trial.",
+        "access": "opened"
+      }
+    ]
+  },
+  {
+    "id": "S056",
+    "penalty": 10,
+    "reason": "Stale-review handling, branching and approvals are core localization-platform functions already offered by Tolgee. This is closer to a TMS feature than an independent buying workflow unless customers will migrate the locale release record. Require a concrete unsupported lifecycle before spending on another versioned-string platform.",
+    "decision": "Defer"
+  },
+  {
+    "id": "S057",
+    "penalty": 5,
+    "reason": "Cross-client remediation and independent expert retest produce a distinct delivery record for consultancies. However, Deque and issue trackers cover much of the loop; savings must arise from developer-to-auditor handoff, not merely report import. Require two customer projects per practice and explicitly exclude compliance certification claims.",
+    "decision": "Validate"
+  },
+  {
+    "id": "S058",
+    "penalty": 9,
+    "reason": "Campaign coordination may help many-service teams, but scanners, dependency bots and existing issue trackers already create upgrades and assign owners. Replacing only ownership adds duplicate entry. Need a multi-service campaign that cannot be represented effectively by native projects, plus evidence the team will retain the new system.",
+    "decision": "Reserve"
+  },
+  {
+    "id": "S059",
+    "penalty": 7,
+    "reason": "A manual entitlement ledger cannot establish actual revocation without fresh application evidence. Identity suites and helpdesks already own access approvals; weak integrations risk a falsely reassuring record. Narrow to apps with exportable membership data and require before/after confirmation, not a checked-off task. Consider combining with S060 rather than selling both.",
+    "decision": "Reserve"
+  },
+  {
+    "id": "S060",
+    "penalty": 9,
+    "reason": "License pools and access entitlements substantially overlap S059, using the same buyer and allocation/revocation decisions. Native admin exports may already enable the savings. Treat as a separately validated spend-reclamation workflow only if verified invoices and billing periods support a distinct economic outcome; otherwise merge into access lifecycle.",
+    "decision": "Reserve"
+  },
+  {
+    "id": "S061",
+    "penalty": 9,
+    "reason": "The lane correctly marks costs above the pilot envelope. Customer-cloud execution still needs trusted agents, idempotent teardown, incident recovery and secret handling. A $50 metadata prototype cannot validate the promised lifecycle. Defer until paid commitments fund safe control-plane tests and one supported stack is accepted.",
+    "decision": "Defer"
+  },
+  {
+    "id": "S062",
+    "penalty": 10,
+    "reason": "Post-incident action assurance is commonly bundled by incident platforms and issue trackers, including free response offerings. Without owning paging or live response, the paid product risks being a postmortem template plus task list. Require observable repeat prevention decisions beyond the incumbent rather than counting incident frequency as demand.",
+    "decision": "Defer"
+  },
+  {
+    "id": "S063",
+    "penalty": 9,
+    "reason": "ManageWP free management and low-cost add-ons cover the initial WordPress buyer. Mixed static-site support expands integration burden without establishing a buyer need. Metadata-only verification cannot guarantee recovery; keep backup/rollback customer-owned and validate client acceptance disputes across genuinely mixed portfolios before building agents.",
+    "decision": "Reserve"
+  },
+  {
+    "id": "S064",
+    "penalty": 6,
+    "reason": "External API-consumer commitments can differ from internal data contracts, but a portal requiring every consumer to acknowledge changes faces adoption risk. Consumer inventories cannot rely on manually maintained lists alone. Require named external owners and actual migration evidence; schema changes and notifications alone are an API-tool feature.",
+    "decision": "Reserve"
+  },
+  {
+    "id": "S065",
+    "penalty": 8,
+    "reason": "Versioned deterministic recipes, review and retirement are already natural Git/CI workflows. The separate SaaS must own cross-environment fixture usage and accepted scenario coverage, not just wrap seed files. Customer-side generation saves infrastructure but shifts difficult reproducibility and troubleshooting into support; validate one stack through two real schema changes.",
+    "decision": "Reserve"
+  },
+  {
+    "id": "S066",
+    "penalty": 10,
+    "reason": "Correctly cost-gated. This is security enforcement, not inexpensive approval tracking: outage behavior, scope correctness and revocation need adversarial review and recovery testing. StrongDM, Bytebase and native roles make a weak feature wedge especially dangerous. Do not count conditional security demonstrations as production readiness.",
+    "decision": "Defer"
+  },
+  {
+    "id": "S067",
+    "penalty": 8,
+    "reason": "Producer/consumer change approval is coherent but overlaps S064’s versioned-contract pattern and Soda contracts. It remains distinct only when internal dataset ownership, service commitments and lineage drive decisions. Git reviews plus an open contract specification are strong substitutes; require both sides to maintain commitments for two revisions.",
+    "decision": "Reserve"
+  },
+  {
+    "id": "S068",
+    "penalty": 12,
+    "reason": "Proposal, dissent, acceptance and consequence review fit a document template plus pull request. No compelling buyer-owned operating process is established beyond architecture governance. Slite and free ADR repositories are adequate candidates to falsify the wedge; stop unless a budget owner identifies repeated measurable decision failure.",
+    "decision": "Defer"
+  },
+  {
+    "id": "S069",
+    "penalty": 8,
+    "reason": "A period-close record is more substantial than a cost chart, but Vantage and native tagging already allocate spend cheaply. Customer-side summarization may erase the detail required to resolve disputes. Require complete control totals, accepted allocation rules and finance participation before treating $20–50 hosting as evidence of feasible reconciliation.",
+    "decision": "Reserve"
+  },
+  {
+    "id": "S070",
+    "penalty": 8,
+    "reason": "Independent check found Linear’s native Zendesk integration creates/links issues and reopens customer tickets when engineering completes or cancels work. Much of the claimed release-to-customer closure is already bundled. A separate product needs verified reproductions across affected versions and customer retest acceptance beyond ticket sync, with no manual double entry.",
+    "decision": "Reserve",
+    "additional_sources": [
+      {
+        "name": "Linear Zendesk integration",
+        "url": "https://linear.app/docs/zendesk",
+        "observed": "2026-10-05",
+        "facts": "Direct workflow overlap: links support tickets and engineering issues, updates Zendesk after issue closure and reopens conversations for customer follow-up. Requires Business or Enterprise and Linear accounts for participating Zendesk agents.",
+        "price": "Integration documentation gives no price; paid plan requirement verified. See separately opened Linear pricing.",
+        "access": "opened"
+      },
+      {
+        "name": "Linear pricing",
+        "url": "https://linear.app/pricing",
+        "observed": "2026-10-05",
+        "facts": "Business includes private teams/guests and Zendesk/Intercom integrations; free plan includes two teams and 250 issues.",
+        "price": "Business displayed $16/user/month billed yearly; Basic $10/user/month billed yearly. Dollar currency code not explicit. Zendesk subscription costs separate; no minimum seat count verified.",
+        "access": "opened"
+      }
+    ]
+  },
+  {
+    "id": "S071",
+    "penalty": 5,
+    "reason": "LTS backport decisions across supported customer versions form a credible specialist record. Octopus and Git workflows still own most release execution, and many vendors maintain only one version. Prove active support obligations on at least two branches and an omitted-backport problem; keep binaries and builds outside the hosted service.",
+    "decision": "Reserve"
+  },
+  {
+    "id": "S072",
+    "penalty": 8,
+    "reason": "Distinct from general course operations only if reproducible lab versions and assistance cases are essential. Customer-funded compute addresses infrastructure cost, but heterogeneous learner machines, sandbox permissions and setup failures can dominate support. A generic cohort board does not validate the promised lab lifecycle; require one supported stack and measured setup success.",
+    "decision": "Defer"
+  },
+  {
+    "id": "S073",
+    "penalty": 10,
+    "reason": "Analysis scoping, review and refresh ownership are coherent but resemble ordinary project tracking plus notebook links. Hex already supplies collaboration/version history, and leaving data execution outside means little unique operational evidence is captured. Require business requesters to reuse accepted definitions without analyst-mediated administration.",
+    "decision": "Defer"
+  },
+  {
+    "id": "S074",
+    "penalty": 10,
+    "reason": "Even modest activation volume requires signing-key custody, rotation, replay defenses, offline grace and safe outages. Thirty thousand validations/day is only a hosting estimate, not affordable availability or security assurance. Mature Keygen/free self-hosted alternatives weaken the wedge. Secure lifecycle review and SDK support must be funded before production pilots.",
+    "decision": "Defer"
+  },
+  {
+    "id": "S075",
+    "penalty": 12,
+    "reason": "Audience approval is mostly a slice of incident communications already offered by status/incident platforms. It also overlaps S062’s incident record. Independent email delivery must remain available during customer outages; excluding monitoring/SMS does not remove delivery obligations. Defer absent repeated audience-isolation failures that incumbents cannot resolve.",
+    "decision": "Defer"
+  }
+]

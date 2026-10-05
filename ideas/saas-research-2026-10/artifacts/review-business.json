@@ -1,0 +1,184 @@
+[
+  {
+    "id": "S001",
+    "penalty": 8,
+    "reason": "Scope approval, effort and margin already sit inside general PSA products. The diagnostic-engagement label does not yet establish a separate economic record or migration benefit. First compare a configured Productive or Scoro engagement using the same historical change; kill if the outcome differs only in presentation.",
+    "decision": "Reserve"
+  },
+  {
+    "id": "S002",
+    "penalty": 8,
+    "reason": "ManyRequests already bundles the request queue, billing, client portal and proofing. A more explicit entitlement policy may be a configuration improvement rather than a standalone product. Require an actual recurring dispute that current queue settings cannot represent, plus client willingness to use the proposed portal.",
+    "decision": "Reserve"
+  },
+  {
+    "id": "S003",
+    "penalty": 6,
+    "reason": "Budget authorization is a credible recurring decision, but the pilot substitutes manual CSV receipts for the deployment evidence that creates its value. A reporting incumbent plus approval tickets may suffice. Test whether agencies pay while staff still reconcile ad platforms manually; do not count connector work as only a hosting expense.",
+    "decision": "Reserve"
+  },
+  {
+    "id": "S004",
+    "penalty": 5,
+    "reason": "The close-period record is distinct, but Financial Cents explicitly sells month-end close and request workflows. Reopening a period must reveal a reproducible incumbent gap. Redacted files establish usability only; production financial-data access and integration expectations remain separate adoption gates.",
+    "decision": "Reserve"
+  },
+  {
+    "id": "S005",
+    "penalty": 6,
+    "reason": "The honest cash estimate exceeds the bootstrap cap before serving confidential evidence. Excluding statutory work reduces obligations but also weakens the budget inference from a full audit platform. Defer until a named operational-assurance niche accepts a metadata-only product and its actual security model.",
+    "decision": "Defer"
+  },
+  {
+    "id": "S006",
+    "penalty": 8,
+    "reason": "This is a crowded case-management workflow with its highest-value accounting and jurisdiction capabilities excluded. Advisory-only deadlines do not distinguish it from generic projects or Clio. Confidentiality acceptance and the already-failed cash gate should precede implementation, not follow a redacted demonstration.",
+    "decision": "Defer"
+  },
+  {
+    "id": "S007",
+    "penalty": 6,
+    "reason": "Candidate consent and placement guarantees are coherent records, but a low-priced ATS already covers most of the desk. Prove a guarantee or submission decision that cannot be represented with existing fields and automation. Keep it separate from retained search only if both the buyer process and switching reason differ.",
+    "decision": "Reserve"
+  },
+  {
+    "id": "S008",
+    "penalty": 6,
+    "reason": "Suitable for comparative discovery, not a build recommendation. Clockwork already describes target coverage and client calibration; Invenias independently covers executive-search research, longlists and client presentation. The boutique and bring-your-own-network wedge is not established whitespace. Require paid commitments tied to a documented decision gap after replaying identical mandates in incumbent tools.",
+    "decision": "Validate",
+    "additional_sources": [
+      {
+        "name": "Invenias by Bullhorn",
+        "url": "https://www.bullhorn.com/products/invenias-executive-search/",
+        "observed": "2026-10-05",
+        "facts": "Executive-search platform describes target-company research, candidate longlists, executive insights, client collaboration and branded candidate presentations. This is a direct workflow substitute, not evidence of unmet boutique demand.",
+        "price": "Not verified; opened product page offers a demo and pricing link but establishes no amount, currency, billing unit, commitment or minimum.",
+        "access": "opened"
+      }
+    ]
+  },
+  {
+    "id": "S009",
+    "penalty": 7,
+    "reason": "Suitable for comparative discovery because order, vendor job, rate and acceptance form a coherent financial workflow. However Protemos, Plunet and XTM already cover the proposed lifecycle, including portals and vendor management. Rate-version transparency must beat an incumbent configuration, not merely spreadsheets. Test analysis-file portability before promising a CAT-neutral system.",
+    "decision": "Validate",
+    "additional_sources": [
+      {
+        "name": "XTM Translation Business Management",
+        "url": "https://xtm.ai/en-us/lsp-tbms",
+        "observed": "2026-10-05",
+        "facts": "LSP business-management product describes project templates, routing and tracking, client quote and file portal, vendor assignment, quote and invoice generation, and payment tracking. This is direct incumbent pressure on the full proposed workflow.",
+        "price": "Not verified; opened product page establishes no amount, currency, billing unit, contract term or minimum.",
+        "access": "opened"
+      }
+    ]
+  },
+  {
+    "id": "S010",
+    "penalty": 6,
+    "reason": "The core evidence-to-claim graph is a research-repository workflow already addressed by Dovetail and Great Question. Consultancy branding and final handover are not sufficient differentiation. Prove a repeated multi-client acceptance process buyers cannot run inside their current repository; manual transcripts must not create more duplicate evidence work than they remove.",
+    "decision": "Reserve"
+  },
+  {
+    "id": "S011",
+    "penalty": 5,
+    "reason": "A supplier-owned quota ledger differs from a research repository, but panel access is the product prerequisite. Community visibility does not establish access to panel operators or their participant data. Validate replacement, over-contact and consent decisions using existing supply; abandon if recruitment sourcing or incentive financing is required.",
+    "decision": "Reserve"
+  },
+  {
+    "id": "S012",
+    "penalty": 7,
+    "reason": "The recurring campaign dossier is plausible but competes with generic agency delivery when contacts and monitoring stay elsewhere. The proposed exclusions remove much of the paid PR-platform value. Verify that claim approval and reconciliation alone command a separate subscription without duplicating outreach records.",
+    "decision": "Reserve"
+  },
+  {
+    "id": "S013",
+    "penalty": 4,
+    "reason": "The strongest business-lane discovery candidate: accepted units and rework connect operational decisions to billing. Enterprise process products already support portals, approvals and routing, so they are substitutes rather than proof of a gap. The catalog-maintenance niche must share a stable unit and exception model across three providers; reject any need for customer-specific processing engines.",
+    "decision": "Validate",
+    "additional_sources": [
+      {
+        "name": "Next Matter / DAIZY",
+        "url": "https://www.daizy.com/pricing",
+        "observed": "2026-10-05",
+        "facts": "Configurable process-orchestration alternative describes workflow branching, approvals, forms, files, guest interfaces and dashboards. Unlimited workflows and external users are listed. It is an adjacent enterprise substitute, not proof of a small-provider budget.",
+        "price": "Enterprise displays EUR 7,500 platform fee/month plus EUR 49/user/month and EUR 1/workflow run above 10,000 monthly. Billing commitment and minimum paid seats are not stated in the opened page. Custom enterprise pricing also offered.",
+        "access": "opened"
+      }
+    ]
+  },
+  {
+    "id": "S014",
+    "penalty": 6,
+    "reason": "A forecast-to-decision wrapper risks becoming a meeting log beside Fathom or spreadsheets. If it evaluates arbitrary models it becomes a materially harder financial product; if it does not, its independent budget is uncertain. Require repeated version disputes to survive a configured incumbent replay, with a paid commitment to the explicitly bounded model format.",
+    "decision": "Reserve"
+  },
+  {
+    "id": "S015",
+    "penalty": 6,
+    "reason": "The run packet is coherent, but the stated cash gate fails and payroll deadlines create support obligations that small hosting estimates do not represent. Customers may not accept a second approval record disconnected from their statutory engine. Require one-jurisdiction engine compatibility and explicit paid acceptance of the manual boundary first.",
+    "decision": "Defer"
+  },
+  {
+    "id": "S016",
+    "penalty": 5,
+    "reason": "TaxDome already combines organizers, evidence, portals and workflow without requiring this product to build a tax engine. The case-coordination wedge is therefore weak even before seasonality, identity data and the failed cash cap. Do not infer year-round subscription retention from a successful seasonal replay.",
+    "decision": "Defer"
+  },
+  {
+    "id": "S017",
+    "penalty": 7,
+    "reason": "Phase fees and acceptance resemble the general consulting PSA candidate. Issued-set lineage is the potentially distinct record, but using linked PDFs may leave the source-of-truth problem in customer storage. Require proof of controlled issue and supersession decisions across a real consultant team before treating this as an additional product.",
+    "decision": "Reserve"
+  },
+  {
+    "id": "S018",
+    "penalty": 6,
+    "reason": "The full discussion/moderation/knowledge cycle is distinct from membership dues administration, resolving the duplicate. However Discourse and Circle already cover private community operations; discussion-to-knowledge curation may only require configuration. Participation migration is an adoption risk not solved by cheaper hosting. Reopen only after existing network operators demonstrate a repeated unsupported case and accept moving discussions.",
+    "decision": "Defer",
+    "reviewer": "root; independent review of replacement authored by business agent"
+  },
+  {
+    "id": "S019",
+    "penalty": 5,
+    "reason": "Scheduled interpreting has a distinct booking and settlement record and can avoid hosting calls. Boostlingo nevertheless covers scheduling, rates and billing review. The paid wedge must be simpler scheduled-only operations, with credible agency access and no demand for on-demand interpreter supply; verify calendar collision and cancellation cases early.",
+    "decision": "Reserve"
+  },
+  {
+    "id": "S020",
+    "penalty": 6,
+    "reason": "The asset-version and distribution record is distinct from policy controls, resolving the duplicate. Dash already covers version control, usage windows and guest approvals at transparent small-business pricing. The proposed wedge must survive that direct comparison and justify asset migration; preview fidelity, egress and support exceed the cash cap. A bounded trial is not evidence of an economical production DAM business.",
+    "decision": "Defer",
+    "reviewer": "root; independent review of replacement authored by business agent"
+  },
+  {
+    "id": "S021",
+    "penalty": 6,
+    "reason": "Dradis already covers scoping, findings, review, reporting and retests, including self-hosting. The plan lacks an evidenced differentiator while handling particularly sensitive material and exceeding the cash cap. A metadata-only demonstration cannot settle deployment or assurance objections from security consultancies.",
+    "decision": "Defer"
+  },
+  {
+    "id": "S022",
+    "penalty": 6,
+    "reason": "Assignment and work-period records can differ from recruiting, but customers typically need trusted time-to-payroll reconciliation. Removing payroll processing does not remove adapter accuracy or deadline support. The declared cost gate fails; validate one external payroll handoff before splitting another staffing product from the recruitment family.",
+    "decision": "Defer"
+  },
+  {
+    "id": "S023",
+    "penalty": 7,
+    "reason": "This is a jurisdiction-specific legal case variant whose incumbent already supplies multilingual intake, forms and case tracking. Excluding maintained forms removes a major reason to switch, while confidential identity data and cost remain. Consolidate with legal case management and defer rather than counting a narrow case type as separate opportunity proof.",
+    "decision": "Defer"
+  },
+  {
+    "id": "S024",
+    "penalty": 7,
+    "reason": "Travefy offers itinerary, CRM and client presentation at a low entry price. Confirmation reconciliation could be useful, but without supplier connectivity its reliability depends on repeated manual work. The current evidence supports a feature request more than a replacement product; require a paid failed-incumbent comparison to reopen.",
+    "decision": "Defer"
+  },
+  {
+    "id": "S025",
+    "penalty": 8,
+    "reason": "The proposal exceeds both the bootstrap cap and, at its upper range, the later $300 operating allowance. Carrier interfaces and licensed forms are central to incumbent value; removing them risks generic dossier software. Budget, distribution and regulated-data access must be solved before a product pilot is credible.",
+    "decision": "Defer"
+  }
+]

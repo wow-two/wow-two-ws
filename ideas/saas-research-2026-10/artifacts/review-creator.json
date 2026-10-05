@@ -1,0 +1,197 @@
+[
+  {
+    "id": "S026",
+    "penalty": 6,
+    "reason": "Arlo already owns the commercial training cycle. A second system adds reconciliation work unless an existing LMS blocks a repeatedly valuable handoff. Do not infer a reachable budget from trainer count.",
+    "decision": "Reserve",
+    "reviewer": "root; independent of creator lane author"
+  },
+  {
+    "id": "S027",
+    "penalty": 7,
+    "reason": "Human moderation and appeals are consequential workflows. A low infrastructure bill excludes domain assurance, permissions review and specialist sales; exam software may bundle the needed stages.",
+    "decision": "Defer",
+    "reviewer": "root; independent of creator lane author"
+  },
+  {
+    "id": "S028",
+    "penalty": 9,
+    "reason": "ARMATURE is direct competition. Small voluntary accreditors remain a narrow, relationship-led segment with procedural customization and slow procurement; no low-cost acquisition evidence exists.",
+    "decision": "Defer",
+    "reviewer": "root; independent of creator lane author"
+  },
+  {
+    "id": "S029",
+    "penalty": 6,
+    "reason": "Cross-LMS contract reconciliation is unproven, while Thinkific and LearnWorlds already monetize B2B groups. Validate only publishers running multiple systems and repeated corporate renewals; single-LMS buyers do not establish this market.",
+    "decision": "Validate",
+    "reviewer": "root; independent of creator lane author"
+  },
+  {
+    "id": "S030",
+    "penalty": 7,
+    "reason": "Program outcomes may depend on facilitation and participant motivation rather than software. A subscription must survive volunteer budgets and Together existing matching/outcome features.",
+    "decision": "Reserve",
+    "reviewer": "root; independent of creator lane author"
+  },
+  {
+    "id": "S031",
+    "penalty": 7,
+    "reason": "TutorCruncher and Teachworks already own the full agency record. A disputed-lesson feature alone is too narrow; prove frequent revenue or contractor-pay reconciliation failures before replacement.",
+    "decision": "Reserve",
+    "reviewer": "root; independent of creator lane author"
+  },
+  {
+    "id": "S032",
+    "penalty": 9,
+    "reason": "Curriculum governance has country/program-specific rules and institutional procurement. Integration and migration can dominate nominal hosting cost; small catalog size does not establish easy sales.",
+    "decision": "Defer",
+    "reviewer": "root; independent of creator lane author"
+  },
+  {
+    "id": "S033",
+    "penalty": 6,
+    "reason": "The proposed software avoids the employer-marketplace value some customers buy. Paid demand requires providers with existing recurring sponsor relationships, not merely interest in experiential learning.",
+    "decision": "Reserve",
+    "reviewer": "root; independent of creator lane author"
+  },
+  {
+    "id": "S034",
+    "penalty": 12,
+    "reason": "Sensitive learner casework and mandatory SIS/LMS connections create delivery and trust requirements beyond the bootstrap envelope. The high pain score should not imply an accessible first business.",
+    "decision": "Defer",
+    "reviewer": "root; independent of creator lane author"
+  },
+  {
+    "id": "S035",
+    "penalty": 6,
+    "reason": "Adult training buyers may pay for coach expertise or proven curriculum rather than another observation record. Require recurring self-managed coaching use without founder facilitation.",
+    "decision": "Reserve",
+    "reviewer": "root; independent of creator lane author"
+  },
+  {
+    "id": "S036",
+    "penalty": 8,
+    "reason": "Commercial workflow evidence coexists with a substantial free OJS substitute. Volunteer budgets, migration and editorial support make an inexpensive general replacement unattractive.",
+    "decision": "Defer",
+    "reviewer": "root; independent of creator lane author"
+  },
+  {
+    "id": "S037",
+    "penalty": 8,
+    "reason": "The full royalty ledger qualifies as SaaS, but trust depends on exact contract interpretation, reproducible adjustments and reliable imports. Cheap Abacus weakens price differentiation; require domain expertise and exact historical reconciliation before live use.",
+    "decision": "Reserve",
+    "reviewer": "root; independent of creator lane author"
+  },
+  {
+    "id": "S038",
+    "penalty": 10,
+    "reason": "Ghost and beehiiv already combine the core workflow at low entry prices. No switching advantage is established and deliverability/migration can threaten the buyer main revenue stream.",
+    "decision": "Defer",
+    "reviewer": "root; independent of creator lane author"
+  },
+  {
+    "id": "S039",
+    "penalty": 8,
+    "reason": "Letterhead already spans inventory through proof, and Passionfroot offers a zero-subscription entry. Test only documented multi-publication make-good and billing exceptions; ordinary sponsor administration is insufficient differentiation.",
+    "decision": "Validate",
+    "reviewer": "root; independent of creator lane author"
+  },
+  {
+    "id": "S040",
+    "penalty": 5,
+    "reason": "ManyRequests bundles requests, billing, time and a client portal. Editorial commissioning merits a distinct product only if versioned brief, contributor cost and acceptance materially change margins beyond configurable project tools.",
+    "decision": "Validate",
+    "reviewer": "root; independent of creator lane author",
+    "additional_sources": [
+      {
+        "name": "ManyRequests",
+        "url": "https://www.manyrequests.com/pricing",
+        "observed": "2026-10-05",
+        "facts": "Includes client portal, requests, time tracking, billing and reporting; Pro adds workload management.",
+        "price": "Core displayed $59/month with one seat plus $20/month per extra seat; Pro $99 plus $30/extra seat. Annual toggle advertises 20% saving; currency code and active displayed billing selection not verified.",
+        "access": "opened"
+      }
+    ]
+  },
+  {
+    "id": "S041",
+    "penalty": 9,
+    "reason": "Rightsline is direct competition and rights interpretation creates legal and data-model complexity. Customer-approved fixed terms reduce scope but may leave too little paid benefit.",
+    "decision": "Defer",
+    "reviewer": "root; independent of creator lane author"
+  },
+  {
+    "id": "S042",
+    "penalty": 7,
+    "reason": "A network operating workflow is broader than hosting, but Podbean and Transistor absorb much of the budget. Require production margin/acceptance value beyond a general task board; hosting or editing demand does not validate this proposal.",
+    "decision": "Reserve",
+    "reviewer": "root; independent of creator lane author",
+    "additional_sources": [
+      {
+        "name": "Podbean",
+        "url": "https://www.podbean.com/podcast-hosting-pricing",
+        "observed": "2026-10-05",
+        "facts": "Network offers multiple shows, team roles, network statistics and monetization.",
+        "price": "Network $79/month billed yearly or $99 monthly, 50 team members, 40GB monthly uploads and 3TB monthly bandwidth; dollar currency code not explicit.",
+        "access": "opened"
+      }
+    ]
+  },
+  {
+    "id": "S043",
+    "penalty": 8,
+    "reason": "Release-to-article relationships may become one feature inside an existing knowledge platform. Importing article state creates ongoing sync work without proving a separate recurring budget.",
+    "decision": "Defer",
+    "reviewer": "root; independent of creator lane author"
+  },
+  {
+    "id": "S044",
+    "penalty": 10,
+    "reason": "Storefront incumbents own checkout and customer access while tax and distribution expectations raise cost. An entitlement feature without verified demand is insufficient reason to replace a revenue-critical storefront.",
+    "decision": "Defer",
+    "reviewer": "root; independent of creator lane author"
+  },
+  {
+    "id": "S045",
+    "penalty": 7,
+    "reason": "Join It low-price membership administration makes a general replacement weak. Reviewed professional eligibility must create frequent paid work, not an occasional application form tweak.",
+    "decision": "Reserve",
+    "reviewer": "root; independent of creator lane author"
+  },
+  {
+    "id": "S046",
+    "penalty": 6,
+    "reason": "Chapter records are distinct from member accounts, but Glue Up already offers delegated chapter administration. A buyer wanting one association suite will reject a separate governance layer.",
+    "decision": "Reserve",
+    "reviewer": "root; independent of creator lane author"
+  },
+  {
+    "id": "S047",
+    "penalty": 8,
+    "reason": "Credential lifecycle administration is distinct from exam moderation and provider accreditation, but incumbent issuance/verification lowers the available wedge. Voluntary bodies must pay for recurring renewal evidence and human appeal decisions; never infer authority to award statutory credentials.",
+    "decision": "Reserve",
+    "reviewer": "root; independent of creator lane author"
+  },
+  {
+    "id": "S048",
+    "penalty": 8,
+    "reason": "Seasonal events and free community eligibility conflict with a monthly subscription. A recurring organizer segment must be verified; a one-off event fee is revenue but not durable MRR.",
+    "decision": "Defer",
+    "reviewer": "root; independent of creator lane author"
+  },
+  {
+    "id": "S049",
+    "penalty": 10,
+    "reason": "Formal consensus depends on trusted procedure, voter eligibility and auditability. Small consortium size does not remove institutional sales or bespoke governance requirements.",
+    "decision": "Defer",
+    "reviewer": "root; independent of creator lane author"
+  },
+  {
+    "id": "S050",
+    "penalty": 7,
+    "reason": "Streaming providers already manage registrations and engagement. Cross-provider partner accountability must recur frequently enough to justify sync work and a second subscription.",
+    "decision": "Reserve",
+    "reviewer": "root; independent of creator lane author"
+  }
+]

@@ -94,6 +94,7 @@ workbench/wow-two-sdk/wow-two-sdk.language.core/CLAUDE.md   ← repo-specific ov
 
 | Doc | What it covers |
 |---|---|
+| [Active venture order](system/planning/pln-tasks.md#venture-product-order) | Current product, following products and task IDs |
 | [`wow-two-refinement.md`](docs/wow-two-refinement.md) | Vision, roadmap, current phase, task list |
 | [`branching-strategy.md`](docs/branching-strategy.md) | Trunk-based dev/main flow, CI publish channels |
 | [`versioning-strategy.md`](docs/versioning-strategy.md) | .NET-aligned versioning, pre-release suffixes |

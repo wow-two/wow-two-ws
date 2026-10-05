@@ -1,0 +1,2297 @@
+[
+  {
+    "id": "S076",
+    "name": "People operations for remote service firms",
+    "category": "Business administration and governance",
+    "buyer": "Operations lead at a 20–80-person remote firm without an HR specialist",
+    "job": "Keep employee changes, leave, documents and departures consistent",
+    "current_workaround": "Sheets, shared folders and manager email",
+    "record": "Employee lifecycle case and effective-dated personnel record",
+    "workflow": [
+      "Import roster",
+      "Collect joining documents",
+      "Approve leave and role changes",
+      "Coordinate offboarding",
+      "Export audit history"
+    ],
+    "roles": [
+      "HR administrator",
+      "Manager",
+      "Employee"
+    ],
+    "wedge": "Preconfigured approvals for firms using external payroll; no salary calculation or automated employment decisions",
+    "why_pay": "Hypothesis: Less chasing and fewer missed employee changes warrant a team subscription",
+    "expansion": "Country-specific templates only with qualified partners; payroll export adapters",
+    "competitors": [
+      {
+        "name": "Huma",
+        "url": "https://humahr.com/plans-pricing",
+        "observed": "2026-10-05",
+        "facts": "Free personnel records and documents; paid Standard adds absence, signing and onboarding workflows.",
+        "price": "Free; Standard/Premium contact sales; price depends on company size.",
+        "access": "opened"
+      }
+    ],
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 99,
+      "unit": "organization/month; proposed USD, scope-capped pilot plan",
+      "free_boundary": "14-day trial with synthetic data",
+      "paid_boundary": "Team workflows, guest collaboration, history and exports",
+      "lifetime": "No unlimited hosted lifetime plan; an offline template/export pack could be sold separately, with no MRR credit."
+    },
+    "channel": "Proposed: recruit five fractional-HR advisers from LinkedIn to replay anonymized client cases",
+    "retention": "Each hire, leave request and role change creates repeat use",
+    "moat": "Hypothesis: Adviser templates and accurate employee history, contingent on trusted migration",
+    "mvp": [
+      "Import roster",
+      "Collect joining documents",
+      "Approve leave and role changes",
+      "Coordinate offboarding",
+      "Export audit history",
+      "Roles, audit history, import/export and backup recovery"
+    ],
+    "effort_weeks": [
+      10,
+      16
+    ],
+    "cost": {
+      "pilot_usd_month": [
+        20,
+        50
+      ],
+      "fits_bootstrap": true,
+      "assumptions": "Engineering estimate for 3–5 small design-partner accounts, not a measured quote; labor, tax, payment fees, acquisition and audits excluded. Pilot quota hypothesis: maximum five organizations, 250 active cases, 10000 structured child records, 2GB aggregate attachments, 20MB per file and 2000 transactional emails/month; no bulk marketing, video or uncapped AI. Exceeding a cap pauses new imports pending repricing; these limits are not measured capacity results.",
+      "drivers": "Bound document storage, email and exports; no paid AI in core.",
+      "revenue_stage": "Up to $300/month could fund managed database/backups, monitoring and bounded integrations after paying usage; not enterprise service levels."
+    },
+    "integrations": [
+      "CSV imports",
+      "explicit email delivery"
+    ],
+    "risks": [
+      "Free HR tools and payroll suites bundle this",
+      "Sensitive employee records require strong access and deletion controls"
+    ],
+    "global_limits": "Employment templates vary by country; begin with configurable records rather than legal claims",
+    "validation": "Run one month of employee-change coordination for three firms at proposed $99/month",
+    "kill_gate": "Stop if advisers require payroll processing or no firm pays without it",
+    "scores": {
+      "pain": 4,
+      "recurrence": 5,
+      "budget": 3,
+      "distribution": 3,
+      "wedge": 2,
+      "feasibility": 3,
+      "global": 2,
+      "cost": 4
+    },
+    "score_rationale": "Analyst judgment: recurrence and budget reflect the workflow; distribution/wedge discount established alternatives. Security and integration scope constrain feasibility.",
+    "evidence_confidence": "medium: official category evidence only",
+    "source_limit": "Vendor features and price do not prove an underserved segment, our conversion, revenue, or retention."
+  },
+  {
+    "id": "S077",
+    "name": "Collaborative hiring for founder-led teams",
+    "category": "Business administration and governance",
+    "buyer": "Founder or people lead hiring 5–15 roles per year",
+    "job": "Move candidates through consistent interviews and approved offers",
+    "current_workaround": "Inbox, calendar and disconnected candidate sheets",
+    "record": "Job requisition and candidate decision trail",
+    "workflow": [
+      "Approve requisition",
+      "Collect consented applications",
+      "Schedule structured interviews",
+      "Compare human scorecards",
+      "Approve offer and archive"
+    ],
+    "roles": [
+      "Recruiter",
+      "Hiring manager",
+      "Interviewer"
+    ],
+    "wedge": "Transparent team pricing for first-time hiring teams; human decisions and clear retention settings",
+    "why_pay": "Hypothesis: Reduce coordinator work and lost candidates across active hiring cycles",
+    "expansion": "Agency intake, referral tracking and onboarding handover without scraping candidate data",
+    "competitors": [
+      {
+        "name": "Manatal",
+        "url": "https://www.manatal.com/pricing",
+        "observed": "2026-10-05",
+        "facts": "ATS includes customizable pipelines, scorecards and guest hiring managers.",
+        "price": "Professional USD15/user/month annual or USD19 monthly; up to15 jobs and10000 candidates.",
+        "access": "opened"
+      }
+    ],
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 79,
+      "unit": "organization/month; proposed USD, scope-capped pilot plan",
+      "free_boundary": "14-day trial with synthetic data",
+      "paid_boundary": "Team workflows, guest collaboration, history and exports",
+      "lifetime": "No unlimited hosted lifetime plan; an offline template/export pack could be sold separately, with no MRR credit."
+    },
+    "channel": "Proposed: founder communities and fractional recruiters; compare live hiring boards during discovery",
+    "retention": "Multiple concurrent vacancies and reusable interview records",
+    "moat": "Hypothesis: Hiring workflow templates; weak moat against inexpensive incumbents",
+    "mvp": [
+      "Approve requisition",
+      "Collect consented applications",
+      "Schedule structured interviews",
+      "Compare human scorecards",
+      "Approve offer and archive",
+      "Roles, audit history, import/export and backup recovery"
+    ],
+    "effort_weeks": [
+      10,
+      16
+    ],
+    "cost": {
+      "pilot_usd_month": [
+        20,
+        50
+      ],
+      "fits_bootstrap": true,
+      "assumptions": "Engineering estimate for 3–5 small design-partner accounts, not a measured quote; labor, tax, payment fees, acquisition and audits excluded. Pilot quota hypothesis: maximum five organizations, 250 active cases, 10000 structured child records, 2GB aggregate attachments, 20MB per file and 2000 transactional emails/month; no bulk marketing, video or uncapped AI. Exceeding a cap pauses new imports pending repricing; these limits are not measured capacity results.",
+      "drivers": "Bound document storage, email and exports; no paid AI in core.",
+      "revenue_stage": "Up to $300/month could fund managed database/backups, monitoring and bounded integrations after paying usage; not enterprise service levels."
+    },
+    "integrations": [
+      "CSV imports",
+      "explicit email delivery"
+    ],
+    "risks": [
+      "Cheap mature ATS competitors",
+      "Calendar and job-board integrations expected",
+      "Applicant privacy and fairness obligations"
+    ],
+    "global_limits": "Local hiring law and candidate retention vary; no automated eligibility scoring",
+    "validation": "Concierge-run two vacancies each at five teams; ask three for $79 recurring commitment",
+    "kill_gate": "Stop if native job-board integrations are mandatory before payment",
+    "scores": {
+      "pain": 4,
+      "recurrence": 4,
+      "budget": 3,
+      "distribution": 3,
+      "wedge": 2,
+      "feasibility": 3,
+      "global": 2,
+      "cost": 4
+    },
+    "score_rationale": "Analyst judgment: recurrence and budget reflect the workflow; distribution/wedge discount established alternatives. Security and integration scope constrain feasibility.",
+    "evidence_confidence": "medium: official category evidence only",
+    "source_limit": "Vendor features and price do not prove an underserved segment, our conversion, revenue, or retention."
+  },
+  {
+    "id": "S078",
+    "name": "Manager performance and development cycles",
+    "category": "Business administration and governance",
+    "buyer": "People lead at a 30–150-person professional-services firm",
+    "job": "Turn reviews into owned development actions rather than annual paperwork",
+    "current_workaround": "Review documents, sheets and one-to-one notes",
+    "record": "Review cycle, competency rubric and employee development plan",
+    "workflow": [
+      "Set role expectations",
+      "Collect employee and peer input",
+      "Calibrate human reviews",
+      "Agree development plan",
+      "Track follow-through"
+    ],
+    "roles": [
+      "People lead",
+      "Manager",
+      "Employee"
+    ],
+    "wedge": "Simple manager-led quarterly cycles without AI-generated ratings",
+    "why_pay": "Hypothesis: Save review coordination time and make development commitments visible",
+    "expansion": "Promotion evidence and skill progression while keeping compensation decisions external",
+    "competitors": [
+      {
+        "name": "15Five",
+        "url": "https://www.15five.com/pricing",
+        "observed": "2026-10-05",
+        "facts": "Perform includes reviews, goals, feedback and career plans.",
+        "price": "Perform $11/user/month billed annually; Total Platform $16; currency symbol shown, USD assumption requires vendor confirmation.",
+        "access": "opened"
+      }
+    ],
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 149,
+      "unit": "organization/month; proposed USD, scope-capped pilot plan",
+      "free_boundary": "14-day trial with synthetic data",
+      "paid_boundary": "Team workflows, guest collaboration, history and exports",
+      "lifetime": "No unlimited hosted lifetime plan; an offline template/export pack could be sold separately, with no MRR credit."
+    },
+    "channel": "Proposed: people-operations consultants demonstrate one cycle to their existing client segment",
+    "retention": "Quarterly reviews plus monthly plan follow-through",
+    "moat": "Hypothesis: Organization-specific rubrics and longitudinal records",
+    "mvp": [
+      "Set role expectations",
+      "Collect employee and peer input",
+      "Calibrate human reviews",
+      "Agree development plan",
+      "Track follow-through",
+      "Roles, audit history, import/export and backup recovery"
+    ],
+    "effort_weeks": [
+      10,
+      16
+    ],
+    "cost": {
+      "pilot_usd_month": [
+        20,
+        50
+      ],
+      "fits_bootstrap": true,
+      "assumptions": "Engineering estimate for 3–5 small design-partner accounts, not a measured quote; labor, tax, payment fees, acquisition and audits excluded. Pilot quota hypothesis: maximum five organizations, 250 active cases, 10000 structured child records, 2GB aggregate attachments, 20MB per file and 2000 transactional emails/month; no bulk marketing, video or uncapped AI. Exceeding a cap pauses new imports pending repricing; these limits are not measured capacity results.",
+      "drivers": "Bound document storage, email and exports; no paid AI in core.",
+      "revenue_stage": "Up to $300/month could fund managed database/backups, monitoring and bounded integrations after paying usage; not enterprise service levels."
+    },
+    "integrations": [
+      "CSV imports",
+      "explicit email delivery"
+    ],
+    "risks": [
+      "Employees may resist another tool",
+      "Incumbents include more capabilities",
+      "Performance data is sensitive"
+    ],
+    "global_limits": "Local employment and works-council requirements can affect rollout",
+    "validation": "Run a ten-manager review cycle; test $149/month and measure completed follow-through",
+    "kill_gate": "Stop if use stops after review season or manager adoption stays below agreed pilot target",
+    "scores": {
+      "pain": 3,
+      "recurrence": 4,
+      "budget": 3,
+      "distribution": 2,
+      "wedge": 2,
+      "feasibility": 3,
+      "global": 2,
+      "cost": 4
+    },
+    "score_rationale": "Analyst judgment: recurrence and budget reflect the workflow; distribution/wedge discount established alternatives. Security and integration scope constrain feasibility.",
+    "evidence_confidence": "medium: official category evidence only",
+    "source_limit": "Vendor features and price do not prove an underserved segment, our conversion, revenue, or retention."
+  },
+  {
+    "id": "S079",
+    "name": "Compensation review planning",
+    "category": "Business administration and governance",
+    "buyer": "Finance/HR pair at a 100–400-person international software firm",
+    "job": "Approve budget-constrained pay changes with traceable decisions",
+    "current_workaround": "Versioned salary spreadsheets and private emails",
+    "record": "Compensation cycle with proposed awards and approval versions",
+    "workflow": [
+      "Import pay bands",
+      "Allocate review budgets",
+      "Collect manager proposals",
+      "Model scenarios and approve",
+      "Export letters and payroll changes"
+    ],
+    "roles": [
+      "Compensation owner",
+      "Finance approver",
+      "Manager"
+    ],
+    "wedge": "Bring-your-own salary bands; deterministic review planning without buying benchmark datasets",
+    "why_pay": "Hypothesis: Reduce spreadsheet errors and repeated finance reconciliation",
+    "expansion": "Equity-grant planning metadata and total-reward statements, without issuing securities",
+    "competitors": [
+      {
+        "name": "Pave",
+        "url": "https://www.pave.com/pricing",
+        "observed": "2026-10-05",
+        "facts": "Pave lists compensation planning and total-rewards modules alongside market-data offerings.",
+        "price": "Market Data Lite free; paid packages quote-based; no verified numeric planning price.",
+        "access": "opened"
+      }
+    ],
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 249,
+      "unit": "organization/month; proposed USD, scope-capped pilot plan",
+      "free_boundary": "14-day trial with synthetic data",
+      "paid_boundary": "Team workflows, guest collaboration, history and exports",
+      "lifetime": "No unlimited hosted lifetime plan; an offline template/export pack could be sold separately, with no MRR credit."
+    },
+    "channel": "Proposed: compensation consultants and CFO networks; run an anonymized review spreadsheet workshop",
+    "retention": "Quarterly changes and annual compensation cycles",
+    "moat": "Hypothesis: Trusted cycle audit trail; incumbents own data advantage",
+    "mvp": [
+      "Import pay bands",
+      "Allocate review budgets",
+      "Collect manager proposals",
+      "Model scenarios and approve",
+      "Export letters and payroll changes",
+      "Roles, audit history, import/export and backup recovery"
+    ],
+    "effort_weeks": [
+      12,
+      20
+    ],
+    "cost": {
+      "pilot_usd_month": [
+        50,
+        120
+      ],
+      "fits_bootstrap": false,
+      "assumptions": "Engineering estimate for 3–5 small design-partner accounts, not a measured quote; labor, tax, payment fees, acquisition and audits excluded. Pilot quota hypothesis: maximum five organizations, 250 active cases, 10000 structured child records, 2GB aggregate attachments, 20MB per file and 2000 transactional emails/month; no bulk marketing, video or uncapped AI. Exceeding a cap pauses new imports pending repricing; these limits are not measured capacity results.",
+      "drivers": "Sensitive records require hardened access, independent review and monitoring; these costs exceed baseline assumptions.",
+      "revenue_stage": "Up to $300/month could fund managed database/backups, monitoring and bounded integrations after paying usage; not enterprise service levels."
+    },
+    "integrations": [
+      "CSV imports",
+      "explicit email delivery"
+    ],
+    "risks": [
+      "Seasonal demand",
+      "Extremely sensitive salaries",
+      "Customers may require benchmark data and enterprise security"
+    ],
+    "global_limits": "Currency, labor rules and pay-equity reporting vary; no compliance guarantee",
+    "validation": "Pilot one budget cycle with synthetic then approved anonymized data; test annual equivalent of $249/month",
+    "kill_gate": "Stop if purchase depends on licensed salary benchmarks or security certification beyond budget",
+    "scores": {
+      "pain": 4,
+      "recurrence": 3,
+      "budget": 4,
+      "distribution": 2,
+      "wedge": 2,
+      "feasibility": 2,
+      "global": 2,
+      "cost": 2
+    },
+    "score_rationale": "Analyst judgment: recurrence and budget reflect the workflow; distribution/wedge discount established alternatives. Security and integration scope constrain feasibility.",
+    "evidence_confidence": "medium: official category evidence only",
+    "source_limit": "Vendor features and price do not prove an underserved segment, our conversion, revenue, or retention."
+  },
+  {
+    "id": "S080",
+    "name": "Policy and control operations for small B2B firms",
+    "category": "Business administration and governance",
+    "buyer": "Operations director at a 30–150-person client-audited service firm",
+    "job": "Keep policies, recurring control execution and exceptions connected",
+    "current_workaround": "Wiki plus sign-off spreadsheets and scattered evidence",
+    "record": "Versioned policy linked to control runs and exceptions",
+    "workflow": [
+      "Draft and approve policy",
+      "Assign acknowledgements",
+      "Run recurring controls",
+      "Investigate exceptions",
+      "Produce evidence bundle"
+    ],
+    "roles": [
+      "Policy owner",
+      "Control operator",
+      "Reviewer"
+    ],
+    "wedge": "Evidence lineage from a policy version to actual control execution; no certification promise",
+    "why_pay": "Hypothesis: Reduce recurring evidence collection and expose unowned control work",
+    "expansion": "Client-specific control mappings and delegated reviewer portals",
+    "competitors": [
+      {
+        "name": "SweetProcess",
+        "url": "https://www.sweetprocess.com/",
+        "observed": "2026-10-05",
+        "facts": "Platform connects policies, procedures, tasks, manager approval and version history.",
+        "price": "Page shows $82.50/month billed yearly for up to10 members and $4.17/additional member; currency code not explicit.",
+        "access": "opened"
+      }
+    ],
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 129,
+      "unit": "organization/month; proposed USD, scope-capped pilot plan",
+      "free_boundary": "14-day trial with synthetic data",
+      "paid_boundary": "Team workflows, guest collaboration, history and exports",
+      "lifetime": "No unlimited hosted lifetime plan; an offline template/export pack could be sold separately, with no MRR credit."
+    },
+    "channel": "Proposed: small ISO implementation consultants show an evidence-to-policy demo to existing clients",
+    "retention": "Scheduled controls, staff changes and client audits",
+    "moat": "Hypothesis: Customer-specific policy/control/evidence graph",
+    "mvp": [
+      "Draft and approve policy",
+      "Assign acknowledgements",
+      "Run recurring controls",
+      "Investigate exceptions",
+      "Produce evidence bundle",
+      "Roles, audit history, import/export and backup recovery"
+    ],
+    "effort_weeks": [
+      8,
+      14
+    ],
+    "cost": {
+      "pilot_usd_month": [
+        20,
+        50
+      ],
+      "fits_bootstrap": true,
+      "assumptions": "Engineering estimate for 3–5 small design-partner accounts, not a measured quote; labor, tax, payment fees, acquisition and audits excluded. Pilot quota hypothesis: maximum five organizations, 250 active cases, 10000 structured child records, 2GB aggregate attachments, 20MB per file and 2000 transactional emails/month; no bulk marketing, video or uncapped AI. Exceeding a cap pauses new imports pending repricing; these limits are not measured capacity results.",
+      "drivers": "Bound document storage, email and exports; no paid AI in core.",
+      "revenue_stage": "Up to $300/month could fund managed database/backups, monitoring and bounded integrations after paying usage; not enterprise service levels."
+    },
+    "integrations": [
+      "CSV imports",
+      "explicit email delivery"
+    ],
+    "risks": [
+      "Procedures and audit suites already overlap this workflow",
+      "Onboarding could become consulting-heavy"
+    ],
+    "global_limits": "Framework mapping must be customer-approved; no automated legal or audit determinations",
+    "validation": "Replay one recent client evidence request; charge $129/month for three recurring control cycles",
+    "kill_gate": "Stop if teams only need a static policy library or cannot distinguish this from their wiki",
+    "scores": {
+      "pain": 4,
+      "recurrence": 5,
+      "budget": 4,
+      "distribution": 3,
+      "wedge": 3,
+      "feasibility": 4,
+      "global": 4,
+      "cost": 4
+    },
+    "score_rationale": "Analyst judgment: recurrence and budget reflect the workflow; distribution/wedge discount established alternatives. Security and integration scope constrain feasibility.",
+    "evidence_confidence": "medium: official category evidence only",
+    "source_limit": "Vendor features and price do not prove an underserved segment, our conversion, revenue, or retention."
+  },
+  {
+    "id": "S081",
+    "name": "Service purchasing and approval operations",
+    "category": "Business administration and governance",
+    "buyer": "Finance lead at a 30–200-person company buying recurring services",
+    "job": "Control commitments before invoices arrive",
+    "current_workaround": "Email approvals, spreadsheets and accounting after-the-fact",
+    "record": "Purchase request, service commitment and matched invoice",
+    "workflow": [
+      "Request service",
+      "Compare quotations",
+      "Approve budget and vendor",
+      "Track service acceptance",
+      "Match invoice and export"
+    ],
+    "roles": [
+      "Requester",
+      "Budget owner",
+      "Finance operator"
+    ],
+    "wedge": "Services-only purchasing with milestones and renewals; no inventory or payment custody",
+    "why_pay": "Hypothesis: Reduce surprise spend and reconciliation work across departments",
+    "expansion": "Budget scenarios and approved-vendor catalogs with one accounting adapter",
+    "competitors": [
+      {
+        "name": "ProcurementExpress",
+        "url": "https://www.procurementexpress.com/pricing/",
+        "observed": "2026-10-05",
+        "facts": "Purchase approvals and budget records; Basic supports one organization and QuickBooks integration.",
+        "price": "Basic $415/month, one organization, up to$10k/month managed spend; dollar currency and annual commitment not explicit.",
+        "access": "opened"
+      }
+    ],
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 149,
+      "unit": "organization/month; proposed USD, scope-capped pilot plan",
+      "free_boundary": "14-day trial with synthetic data",
+      "paid_boundary": "Team workflows, guest collaboration, history and exports",
+      "lifetime": "No unlimited hosted lifetime plan; an offline template/export pack could be sold separately, with no MRR credit."
+    },
+    "channel": "Proposed: QuickBooks/Xero advisory firms; demonstrate a service-purchase approval cycle",
+    "retention": "Every purchase and monthly invoice reconciliation",
+    "moat": "Hypothesis: Approval configurations and historical commitment-to-invoice matching",
+    "mvp": [
+      "Request service",
+      "Compare quotations",
+      "Approve budget and vendor",
+      "Track service acceptance",
+      "Match invoice and export",
+      "Roles, audit history, import/export and backup recovery"
+    ],
+    "effort_weeks": [
+      10,
+      16
+    ],
+    "cost": {
+      "pilot_usd_month": [
+        20,
+        50
+      ],
+      "fits_bootstrap": true,
+      "assumptions": "Engineering estimate for 3–5 small design-partner accounts, not a measured quote; labor, tax, payment fees, acquisition and audits excluded. Pilot quota hypothesis: maximum five organizations, 250 active cases, 10000 structured child records, 2GB aggregate attachments, 20MB per file and 2000 transactional emails/month; no bulk marketing, video or uncapped AI. Exceeding a cap pauses new imports pending repricing; these limits are not measured capacity results.",
+      "drivers": "Bound document storage, email and exports; no paid AI in core.",
+      "revenue_stage": "Up to $300/month could fund managed database/backups, monitoring and bounded integrations after paying usage; not enterprise service levels."
+    },
+    "integrations": [
+      "CSV imports",
+      "explicit email delivery"
+    ],
+    "risks": [
+      "Accounting platforms can bundle approvals",
+      "Integration support can overwhelm a solo founder"
+    ],
+    "global_limits": "Tax accounting and payment execution stay external; currency metadata only",
+    "validation": "Run 30 service invoices through a concierge approval register; test three $149/month commitments",
+    "kill_gate": "Stop if no one pays without full ERP write-back or physical inventory",
+    "scores": {
+      "pain": 4,
+      "recurrence": 5,
+      "budget": 4,
+      "distribution": 3,
+      "wedge": 3,
+      "feasibility": 3,
+      "global": 4,
+      "cost": 4
+    },
+    "score_rationale": "Analyst judgment: recurrence and budget reflect the workflow; distribution/wedge discount established alternatives. Security and integration scope constrain feasibility.",
+    "evidence_confidence": "medium: official category evidence only",
+    "source_limit": "Vendor features and price do not prove an underserved segment, our conversion, revenue, or retention."
+  },
+  {
+    "id": "S082",
+    "name": "Contract lifecycle for growing B2B teams",
+    "category": "Business administration and governance",
+    "buyer": "Operations/legal lead at a 20–100-person B2B company",
+    "job": "Maintain approved contract versions, obligations and renewals",
+    "current_workaround": "Email attachments, e-sign tool and renewal sheet",
+    "record": "Contract dossier with versions, approvals and obligations",
+    "workflow": [
+      "Request contract",
+      "Route template and redlines",
+      "Collect human approval",
+      "Record signature evidence",
+      "Track obligations and renewals"
+    ],
+    "roles": [
+      "Business requester",
+      "Legal reviewer",
+      "Obligation owner"
+    ],
+    "wedge": "Customer-supplied templates and obligation ownership; no AI legal advice",
+    "why_pay": "Hypothesis: Avoid lost approvals and forgotten commercial obligations",
+    "expansion": "Counterparty portal, clause library and e-sign connectors",
+    "competitors": [
+      {
+        "name": "Juro",
+        "url": "https://juro.com/pricing-new",
+        "observed": "2026-10-05",
+        "facts": "Juro covers agreeing and managing contracts; pricing is contract-volume/integration based with unlimited users.",
+        "price": "Custom quote; USD/GBP/EUR available; deeper integrations can cost extra.",
+        "access": "opened"
+      }
+    ],
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 149,
+      "unit": "organization/month; proposed USD, scope-capped pilot plan",
+      "free_boundary": "14-day trial with synthetic data",
+      "paid_boundary": "Team workflows, guest collaboration, history and exports",
+      "lifetime": "No unlimited hosted lifetime plan; an offline template/export pack could be sold separately, with no MRR credit."
+    },
+    "channel": "Proposed: fractional general counsel networks; migrate 20 completed contracts as a sample",
+    "retention": "New deals, obligations and renewals",
+    "moat": "Hypothesis: Structured obligation history; legal trust remains a substantial entry barrier",
+    "mvp": [
+      "Request contract",
+      "Route template and redlines",
+      "Collect human approval",
+      "Record signature evidence",
+      "Track obligations and renewals",
+      "Roles, audit history, import/export and backup recovery"
+    ],
+    "effort_weeks": [
+      12,
+      20
+    ],
+    "cost": {
+      "pilot_usd_month": [
+        30,
+        80
+      ],
+      "fits_bootstrap": false,
+      "assumptions": "Engineering estimate for 3–5 small design-partner accounts, not a measured quote; labor, tax, payment fees, acquisition and audits excluded. Pilot quota hypothesis: maximum five organizations, 250 active cases, 10000 structured child records, 2GB aggregate attachments, 20MB per file and 2000 transactional emails/month; no bulk marketing, video or uncapped AI. Exceeding a cap pauses new imports pending repricing; these limits are not measured capacity results.",
+      "drivers": "Document conversion, e-sign API and secure audit storage; cap files and use customer e-sign accounts.",
+      "revenue_stage": "Up to $300/month could fund managed database/backups, monitoring and bounded integrations after paying usage; not enterprise service levels."
+    },
+    "integrations": [
+      "CSV imports",
+      "explicit email delivery"
+    ],
+    "risks": [
+      "Mature CLM competition",
+      "E-signature and Word roundtrip expected",
+      "Confidential agreements demand strong controls"
+    ],
+    "global_limits": "Jurisdiction-specific legality remains counsel-owned",
+    "validation": "Concierge-track 30 agreements and a renewal cycle; seek three $149/month pilots",
+    "kill_gate": "Stop if full legal drafting or jurisdiction-specific compliance is required",
+    "scores": {
+      "pain": 4,
+      "recurrence": 4,
+      "budget": 4,
+      "distribution": 2,
+      "wedge": 2,
+      "feasibility": 2,
+      "global": 2,
+      "cost": 3
+    },
+    "score_rationale": "Analyst judgment: recurrence and budget reflect the workflow; distribution/wedge discount established alternatives. Security and integration scope constrain feasibility.",
+    "evidence_confidence": "medium: official category evidence only",
+    "source_limit": "Vendor features and price do not prove an underserved segment, our conversion, revenue, or retention."
+  },
+  {
+    "id": "S083",
+    "name": "B2B customer implementation operations",
+    "category": "Business administration and governance",
+    "buyer": "Head of implementation at a 10–50-person SaaS vendor",
+    "job": "Get customers from signed order to accepted go-live",
+    "current_workaround": "Shared spreadsheets, email and internal project tools",
+    "record": "Customer implementation plan with dependencies and acceptance evidence",
+    "workflow": [
+      "Convert sales handoff",
+      "Agree success criteria",
+      "Collect customer prerequisites",
+      "Coordinate go-live milestones",
+      "Accept and hand over"
+    ],
+    "roles": [
+      "Implementation manager",
+      "Customer owner",
+      "Technical specialist"
+    ],
+    "wedge": "Fixed-repeatable implementations for small vendors needing customer-side accountability",
+    "why_pay": "Hypothesis: Shorter coordination delays may release delivery capacity and accelerate customer value",
+    "expansion": "Template playbooks, effort forecasting and renewal handover",
+    "competitors": [
+      {
+        "name": "Rocketlane",
+        "url": "https://www.rocketlane.com/pricing",
+        "observed": "2026-10-05",
+        "facts": "Includes customer portals, approvals, project management and unlimited customer members.",
+        "price": "Standard $49/team member/month billed annually; minimum5 members, $245/month equivalent; currency code not explicit.",
+        "access": "opened"
+      }
+    ],
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 149,
+      "unit": "organization/month; proposed USD, scope-capped pilot plan",
+      "free_boundary": "14-day trial with synthetic data",
+      "paid_boundary": "Team workflows, guest collaboration, history and exports",
+      "lifetime": "No unlimited hosted lifetime plan; an offline template/export pack could be sold separately, with no MRR credit."
+    },
+    "channel": "Proposed: customer-onboarding communities and SaaS implementation consultants; replay stalled projects",
+    "retention": "Every new implementation and recurring handover",
+    "moat": "Hypothesis: Reusable customer-specific implementation templates and completion evidence",
+    "mvp": [
+      "Convert sales handoff",
+      "Agree success criteria",
+      "Collect customer prerequisites",
+      "Coordinate go-live milestones",
+      "Accept and hand over",
+      "Roles, audit history, import/export and backup recovery"
+    ],
+    "effort_weeks": [
+      8,
+      14
+    ],
+    "cost": {
+      "pilot_usd_month": [
+        20,
+        50
+      ],
+      "fits_bootstrap": true,
+      "assumptions": "Engineering estimate for 3–5 small design-partner accounts, not a measured quote; labor, tax, payment fees, acquisition and audits excluded. Pilot quota hypothesis: maximum five organizations, 250 active cases, 10000 structured child records, 2GB aggregate attachments, 20MB per file and 2000 transactional emails/month; no bulk marketing, video or uncapped AI. Exceeding a cap pauses new imports pending repricing; these limits are not measured capacity results.",
+      "drivers": "Bound document storage, email and exports; no paid AI in core.",
+      "revenue_stage": "Up to $300/month could fund managed database/backups, monitoring and bounded integrations after paying usage; not enterprise service levels."
+    },
+    "integrations": [
+      "CSV imports",
+      "explicit email delivery"
+    ],
+    "risks": [
+      "Rocketlane already provides a broad suite",
+      "Customers may prefer existing project tools",
+      "Guest adoption determines value"
+    ],
+    "global_limits": "Global remote workflow; timezone and data-processing agreements still matter",
+    "validation": "Run three customer implementations manually through the workflow; seek three $149/month commitments",
+    "kill_gate": "Stop if customer guests refuse participation or no measurable coordination time falls",
+    "scores": {
+      "pain": 4,
+      "recurrence": 5,
+      "budget": 4,
+      "distribution": 3,
+      "wedge": 3,
+      "feasibility": 4,
+      "global": 5,
+      "cost": 4
+    },
+    "score_rationale": "Analyst judgment: recurrence and budget reflect the workflow; distribution/wedge discount established alternatives. Security and integration scope constrain feasibility.",
+    "evidence_confidence": "medium: official category evidence only",
+    "source_limit": "Vendor features and price do not prove an underserved segment, our conversion, revenue, or retention."
+  },
+  {
+    "id": "S084",
+    "name": "Renewal-led customer success operations",
+    "category": "Business administration and governance",
+    "buyer": "First customer-success manager at a B2B SaaS firm with50–200 accounts",
+    "job": "Connect adoption concerns, promised outcomes and renewal decisions",
+    "current_workaround": "CRM notes, ticket exports and account spreadsheets",
+    "record": "Account success plan linked to risks, stakeholders and renewal",
+    "workflow": [
+      "Import customer portfolio",
+      "Agree outcome plan",
+      "Review adoption and risks",
+      "Assign interventions",
+      "Prepare renewal evidence"
+    ],
+    "roles": [
+      "CS manager",
+      "Account executive",
+      "Customer champion"
+    ],
+    "wedge": "Manual-quality-first health assessments for low-volume high-touch accounts; no predictive AI promise",
+    "why_pay": "Hypothesis: Avoid missed renewal work and make account handoffs reliable",
+    "expansion": "Usage adapters, expansion signals and customer success portals",
+    "competitors": [
+      {
+        "name": "Vitally",
+        "url": "https://www.vitally.io/pricing",
+        "observed": "2026-10-05",
+        "facts": "Offers tech-touch, hybrid-touch and high-touch plans with core features, integrations and automations.",
+        "price": "Request pricing; no public numeric amount verified.",
+        "access": "opened"
+      }
+    ],
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 199,
+      "unit": "organization/month; proposed USD, scope-capped pilot plan",
+      "free_boundary": "14-day trial with synthetic data",
+      "paid_boundary": "Team workflows, guest collaboration, history and exports",
+      "lifetime": "No unlimited hosted lifetime plan; an offline template/export pack could be sold separately, with no MRR credit."
+    },
+    "channel": "Proposed: Customer Success Collective discussions and fractional CS consultants; offer account-book cleanup",
+    "retention": "Weekly risk reviews and monthly renewals",
+    "moat": "Hypothesis: Historical stakeholder relationships and intervention outcomes",
+    "mvp": [
+      "Import customer portfolio",
+      "Agree outcome plan",
+      "Review adoption and risks",
+      "Assign interventions",
+      "Prepare renewal evidence",
+      "Roles, audit history, import/export and backup recovery"
+    ],
+    "effort_weeks": [
+      10,
+      16
+    ],
+    "cost": {
+      "pilot_usd_month": [
+        20,
+        50
+      ],
+      "fits_bootstrap": true,
+      "assumptions": "Engineering estimate for 3–5 small design-partner accounts, not a measured quote; labor, tax, payment fees, acquisition and audits excluded. Pilot quota hypothesis: maximum five organizations, 250 active cases, 10000 structured child records, 2GB aggregate attachments, 20MB per file and 2000 transactional emails/month; no bulk marketing, video or uncapped AI. Exceeding a cap pauses new imports pending repricing; these limits are not measured capacity results.",
+      "drivers": "Bound document storage, email and exports; no paid AI in core.",
+      "revenue_stage": "Up to $300/month could fund managed database/backups, monitoring and bounded integrations after paying usage; not enterprise service levels."
+    },
+    "integrations": [
+      "CSV imports",
+      "explicit email delivery"
+    ],
+    "risks": [
+      "CRM and CS incumbents bundle this",
+      "Bad imported usage makes health misleading"
+    ],
+    "global_limits": "Data-source access, consent and contract restrictions vary",
+    "validation": "Concierge-manage20 accounts for a month; ask three buyers to pay$199/month",
+    "kill_gate": "Stop if value requires numerous paid analytics integrations before use",
+    "scores": {
+      "pain": 4,
+      "recurrence": 5,
+      "budget": 4,
+      "distribution": 3,
+      "wedge": 2,
+      "feasibility": 3,
+      "global": 4,
+      "cost": 4
+    },
+    "score_rationale": "Analyst judgment: recurrence and budget reflect the workflow; distribution/wedge discount established alternatives. Security and integration scope constrain feasibility.",
+    "evidence_confidence": "medium: official category evidence only",
+    "source_limit": "Vendor features and price do not prove an underserved segment, our conversion, revenue, or retention."
+  },
+  {
+    "id": "S085",
+    "name": "Channel-partner operations for niche B2B software",
+    "category": "Business administration and governance",
+    "buyer": "Partnership lead managing10–100 existing resellers or referral partners",
+    "job": "Track partner activation, registered deals and commission approvals",
+    "current_workaround": "CRM custom fields and payout spreadsheets",
+    "record": "Partner agreement and deal-registration ledger",
+    "workflow": [
+      "Onboard approved partner",
+      "Publish enablement tasks",
+      "Register and resolve deal conflicts",
+      "Approve earned commission",
+      "Review partner performance"
+    ],
+    "roles": [
+      "Partner manager",
+      "Partner seller",
+      "Finance reviewer"
+    ],
+    "wedge": "Private existing-partner programs; no marketplace acquisition promise or payout custody",
+    "why_pay": "Hypothesis: Reduce disputed attribution and partner administration",
+    "expansion": "Co-selling plans, MDF approval and accounting exports",
+    "competitors": [
+      {
+        "name": "PartnerStack",
+        "url": "https://partnerstack.com/pricing",
+        "observed": "2026-10-05",
+        "facts": "Launch includes lead/deal registration, onboarding, CRM integration and partner payments; pricing is customized.",
+        "price": "Quote based on program size, features and support; no verified public amount.",
+        "access": "opened"
+      }
+    ],
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 199,
+      "unit": "organization/month; proposed USD, scope-capped pilot plan",
+      "free_boundary": "14-day trial with synthetic data",
+      "paid_boundary": "Team workflows, guest collaboration, history and exports",
+      "lifetime": "No unlimited hosted lifetime plan; an offline template/export pack could be sold separately, with no MRR credit."
+    },
+    "channel": "Proposed: PartnerHacker community and integration-agency partners; replay real deal-conflict cases",
+    "retention": "Registered deals, partner onboarding and monthly commission cycles",
+    "moat": "Hypothesis: Partner-specific commercial rules and historical attribution",
+    "mvp": [
+      "Onboard approved partner",
+      "Publish enablement tasks",
+      "Register and resolve deal conflicts",
+      "Approve earned commission",
+      "Review partner performance",
+      "Roles, audit history, import/export and backup recovery"
+    ],
+    "effort_weeks": [
+      10,
+      18
+    ],
+    "cost": {
+      "pilot_usd_month": [
+        20,
+        50
+      ],
+      "fits_bootstrap": true,
+      "assumptions": "Engineering estimate for 3–5 small design-partner accounts, not a measured quote; labor, tax, payment fees, acquisition and audits excluded. Pilot quota hypothesis: maximum five organizations, 250 active cases, 10000 structured child records, 2GB aggregate attachments, 20MB per file and 2000 transactional emails/month; no bulk marketing, video or uncapped AI. Exceeding a cap pauses new imports pending repricing; these limits are not measured capacity results.",
+      "drivers": "Bound document storage, email and exports; no paid AI in core.",
+      "revenue_stage": "Up to $300/month could fund managed database/backups, monitoring and bounded integrations after paying usage; not enterprise service levels."
+    },
+    "integrations": [
+      "CSV imports",
+      "explicit email delivery"
+    ],
+    "risks": [
+      "Marketplace reach is a major incumbent advantage",
+      "Attribution depends on CRM accuracy"
+    ],
+    "global_limits": "Tax reporting, payout and partner contracts stay external",
+    "validation": "Run an existing20-partner program for one month; test$199/month with approved commission export",
+    "kill_gate": "Stop if buyers mainly want partner recruitment rather than managing existing relationships",
+    "scores": {
+      "pain": 4,
+      "recurrence": 4,
+      "budget": 4,
+      "distribution": 3,
+      "wedge": 3,
+      "feasibility": 3,
+      "global": 4,
+      "cost": 4
+    },
+    "score_rationale": "Analyst judgment: recurrence and budget reflect the workflow; distribution/wedge discount established alternatives. Security and integration scope constrain feasibility.",
+    "evidence_confidence": "medium: official category evidence only",
+    "source_limit": "Vendor features and price do not prove an underserved segment, our conversion, revenue, or retention."
+  },
+  {
+    "id": "S086",
+    "name": "Grant portfolio operations for small nonprofits",
+    "category": "Business administration and governance",
+    "buyer": "Grants manager at a nonprofit managing10–40 active applications and awards",
+    "job": "Carry commitments from proposal through reporting and closeout",
+    "current_workaround": "Funding spreadsheets, shared narrative documents and finance exports",
+    "record": "Grant application and awarded-obligation record",
+    "workflow": [
+      "Import chosen opportunities",
+      "Assign proposal evidence",
+      "Approve submission packet",
+      "Track award commitments and spend",
+      "Prepare funder reports"
+    ],
+    "roles": [
+      "Grant writer",
+      "Program lead",
+      "Finance reviewer"
+    ],
+    "wedge": "Bring-your-own funding sources; emphasize post-award responsibility without paid discovery data",
+    "why_pay": "Hypothesis: Reduce repeated reporting assembly and missed award commitments",
+    "expansion": "Funder relationship history, reusable outcomes and accounting imports",
+    "competitors": [
+      {
+        "name": "Instrumentl",
+        "url": "https://www.instrumentl.com/pricing",
+        "observed": "2026-10-05",
+        "facts": "Full-cycle grant platform spans discovery, applications and post-award management.",
+        "price": "Discover $299/month annual or$326 monthly for3users; Full Lifecycle $999 annual-equivalent or$1159 monthly for15users; dollar currency code not explicit.",
+        "access": "opened"
+      }
+    ],
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 129,
+      "unit": "organization/month; proposed USD, scope-capped pilot plan",
+      "free_boundary": "14-day trial with synthetic data",
+      "paid_boundary": "Team workflows, guest collaboration, history and exports",
+      "lifetime": "No unlimited hosted lifetime plan; an offline template/export pack could be sold separately, with no MRR credit."
+    },
+    "channel": "Proposed: grant-writing consultants and nonprofit finance networks; analyze awarded-grant reporting calendars",
+    "retention": "Applications plus monthly spend and quarterly reporting",
+    "moat": "Hypothesis: Reusable funder narrative/evidence and linked program outcomes",
+    "mvp": [
+      "Import chosen opportunities",
+      "Assign proposal evidence",
+      "Approve submission packet",
+      "Track award commitments and spend",
+      "Prepare funder reports",
+      "Roles, audit history, import/export and backup recovery"
+    ],
+    "effort_weeks": [
+      10,
+      16
+    ],
+    "cost": {
+      "pilot_usd_month": [
+        20,
+        50
+      ],
+      "fits_bootstrap": true,
+      "assumptions": "Engineering estimate for 3–5 small design-partner accounts, not a measured quote; labor, tax, payment fees, acquisition and audits excluded. Pilot quota hypothesis: maximum five organizations, 250 active cases, 10000 structured child records, 2GB aggregate attachments, 20MB per file and 2000 transactional emails/month; no bulk marketing, video or uncapped AI. Exceeding a cap pauses new imports pending repricing; these limits are not measured capacity results.",
+      "drivers": "Bound document storage, email and exports; no paid AI in core.",
+      "revenue_stage": "Up to $300/month could fund managed database/backups, monitoring and bounded integrations after paying usage; not enterprise service levels."
+    },
+    "integrations": [
+      "CSV imports",
+      "explicit email delivery"
+    ],
+    "risks": [
+      "Many customers buy primarily for a funding database",
+      "Small nonprofits may have weak software budgets"
+    ],
+    "global_limits": "Grant conditions vary; no eligibility/funding guarantee or legal compliance claim",
+    "validation": "Manage five awarded grants across three nonprofits; ask for$129/month after one reporting cycle",
+    "kill_gate": "Stop if willingness to pay depends on a licensed funder database",
+    "scores": {
+      "pain": 4,
+      "recurrence": 5,
+      "budget": 3,
+      "distribution": 4,
+      "wedge": 3,
+      "feasibility": 4,
+      "global": 4,
+      "cost": 4
+    },
+    "score_rationale": "Analyst judgment: recurrence and budget reflect the workflow; distribution/wedge discount established alternatives. Security and integration scope constrain feasibility.",
+    "evidence_confidence": "medium: official category evidence only",
+    "source_limit": "Vendor features and price do not prove an underserved segment, our conversion, revenue, or retention."
+  },
+  {
+    "id": "S087",
+    "name": "Small grantmaker program operations",
+    "category": "Business administration and governance",
+    "buyer": "Program director at an independent foundation running several annual calls",
+    "job": "Coordinate applications, review conflicts, awards and follow-up",
+    "current_workaround": "Forms, reviewer emails and separate reporting trackers",
+    "record": "Funding call with application, adjudication and award milestones",
+    "workflow": [
+      "Publish application requirements",
+      "Collect submissions",
+      "Assign conflict-aware reviewers",
+      "Record human award decisions",
+      "Track milestones and reports"
+    ],
+    "roles": [
+      "Program administrator",
+      "Reviewer",
+      "Applicant"
+    ],
+    "wedge": "Small repeated grant programs with transparent applicant progress and reusable review rounds",
+    "why_pay": "Hypothesis: Reduce coordinator work and maintain defensible decision history",
+    "expansion": "Repeat-award management, reviewer pools and program impact reports",
+    "competitors": [
+      {
+        "name": "Submittable",
+        "url": "https://www.submittable.com/solutions/nonprofits",
+        "observed": "2026-10-05",
+        "facts": "Nonprofit offering includes forms, review workflows and grant lifecycle reporting.",
+        "price": "Contact provider for pricing; no numeric public price verified.",
+        "access": "opened"
+      }
+    ],
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 249,
+      "unit": "organization/month; proposed USD, scope-capped pilot plan",
+      "free_boundary": "14-day trial with synthetic data",
+      "paid_boundary": "Team workflows, guest collaboration, history and exports",
+      "lifetime": "No unlimited hosted lifetime plan; an offline template/export pack could be sold separately, with no MRR credit."
+    },
+    "channel": "Proposed: independent foundation associations and grant-program consultants; review one closed selection round",
+    "retention": "Repeated calls and post-award reporting",
+    "moat": "Hypothesis: Program-specific review rubrics and award history",
+    "mvp": [
+      "Publish application requirements",
+      "Collect submissions",
+      "Assign conflict-aware reviewers",
+      "Record human award decisions",
+      "Track milestones and reports",
+      "Roles, audit history, import/export and backup recovery"
+    ],
+    "effort_weeks": [
+      12,
+      20
+    ],
+    "cost": {
+      "pilot_usd_month": [
+        30,
+        80
+      ],
+      "fits_bootstrap": false,
+      "assumptions": "Engineering estimate for 3–5 small design-partner accounts, not a measured quote; labor, tax, payment fees, acquisition and audits excluded. Pilot quota hypothesis: maximum five organizations, 250 active cases, 10000 structured child records, 2GB aggregate attachments, 20MB per file and 2000 transactional emails/month; no bulk marketing, video or uncapped AI. Exceeding a cap pauses new imports pending repricing; these limits are not measured capacity results.",
+      "drivers": "Submission storage, accessibility testing and seasonal traffic; cap attachments and concurrency.",
+      "revenue_stage": "Up to $300/month could fund managed database/backups, monitoring and bounded integrations after paying usage; not enterprise service levels."
+    },
+    "integrations": [
+      "CSV imports",
+      "explicit email delivery"
+    ],
+    "risks": [
+      "Applicant support and accessibility burden",
+      "Trust and procurement cycles",
+      "Seasonal buying"
+    ],
+    "global_limits": "Funding and eligibility decisions remain human; regional grant administration differs",
+    "validation": "Replay a completed50-application program; seek three$249/month paid pilot commitments",
+    "kill_gate": "Stop if only one annual call exists or provider needs to disburse funds",
+    "scores": {
+      "pain": 4,
+      "recurrence": 4,
+      "budget": 4,
+      "distribution": 2,
+      "wedge": 3,
+      "feasibility": 3,
+      "global": 3,
+      "cost": 3
+    },
+    "score_rationale": "Analyst judgment: recurrence and budget reflect the workflow; distribution/wedge discount established alternatives. Security and integration scope constrain feasibility.",
+    "evidence_confidence": "medium: official category evidence only",
+    "source_limit": "Vendor features and price do not prove an underserved segment, our conversion, revenue, or retention."
+  },
+  {
+    "id": "S088",
+    "name": "Donor relationship and stewardship operations",
+    "category": "Business administration and governance",
+    "buyer": "Fundraising lead at a small nonprofit with recurring donors",
+    "job": "Turn donations into accurate stewardship and renewal work",
+    "current_workaround": "Donation processor exports and an email list",
+    "record": "Donor relationship with gift restrictions and stewardship commitments",
+    "workflow": [
+      "Import settled donations",
+      "Segment by supporter intent",
+      "Assign acknowledgement tasks",
+      "Track restricted-gift reporting",
+      "Plan repeat-giving outreach"
+    ],
+    "roles": [
+      "Fundraising lead",
+      "Stewardship coordinator",
+      "Finance reviewer"
+    ],
+    "wedge": "Processor-neutral stewardship for nonprofits with multiple donation sources; no payment custody",
+    "why_pay": "Hypothesis: Reduce missed follow-ups and duplicate donor administration",
+    "expansion": "Campaign attribution and major-gift relationship planning",
+    "competitors": [
+      {
+        "name": "Donorbox",
+        "url": "https://donorbox.org/pricing",
+        "observed": "2026-10-05",
+        "facts": "Standard and Pro provide fundraising tools; Pro adds analytics/API and reduced platform fees.",
+        "price": "Standard $0/month plus2.95–3.95% platform fees; Pro $150/month plus1.75–2% and separate payment fees; currency code not explicit.",
+        "access": "opened"
+      }
+    ],
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 79,
+      "unit": "organization/month; proposed USD, scope-capped pilot plan",
+      "free_boundary": "14-day trial with synthetic data",
+      "paid_boundary": "Team workflows, guest collaboration, history and exports",
+      "lifetime": "No unlimited hosted lifetime plan; an offline template/export pack could be sold separately, with no MRR credit."
+    },
+    "channel": "Proposed: nonprofit CRM migration consultants and fundraisers; reconcile anonymized donor exports",
+    "retention": "Donations, acknowledgements and recurring stewardship commitments",
+    "moat": "Hypothesis: Clean merged donor history and organization-specific stewardship plans",
+    "mvp": [
+      "Import settled donations",
+      "Segment by supporter intent",
+      "Assign acknowledgement tasks",
+      "Track restricted-gift reporting",
+      "Plan repeat-giving outreach",
+      "Roles, audit history, import/export and backup recovery"
+    ],
+    "effort_weeks": [
+      10,
+      16
+    ],
+    "cost": {
+      "pilot_usd_month": [
+        20,
+        50
+      ],
+      "fits_bootstrap": true,
+      "assumptions": "Engineering estimate for 3–5 small design-partner accounts, not a measured quote; labor, tax, payment fees, acquisition and audits excluded. Pilot quota hypothesis: maximum five organizations, 250 active cases, 10000 structured child records, 2GB aggregate attachments, 20MB per file and 2000 transactional emails/month; no bulk marketing, video or uncapped AI. Exceeding a cap pauses new imports pending repricing; these limits are not measured capacity results.",
+      "drivers": "Bound document storage, email and exports; no paid AI in core.",
+      "revenue_stage": "Up to $300/month could fund managed database/backups, monitoring and bounded integrations after paying usage; not enterprise service levels."
+    },
+    "integrations": [
+      "CSV imports",
+      "explicit email delivery"
+    ],
+    "risks": [
+      "Free and transaction-funded alternatives",
+      "Migration/data hygiene labor",
+      "Email reputation and donor privacy"
+    ],
+    "global_limits": "Tax receipts and donation processing stay with existing providers",
+    "validation": "Run a30-day stewardship calendar for three charities; test$79/month",
+    "kill_gate": "Stop if processor-native donor features already satisfy every interviewed team",
+    "scores": {
+      "pain": 3,
+      "recurrence": 5,
+      "budget": 3,
+      "distribution": 3,
+      "wedge": 2,
+      "feasibility": 3,
+      "global": 3,
+      "cost": 4
+    },
+    "score_rationale": "Analyst judgment: recurrence and budget reflect the workflow; distribution/wedge discount established alternatives. Security and integration scope constrain feasibility.",
+    "evidence_confidence": "medium: official category evidence only",
+    "source_limit": "Vendor features and price do not prove an underserved segment, our conversion, revenue, or retention."
+  },
+  {
+    "id": "S089",
+    "name": "Supplier sustainability evidence operations",
+    "category": "Business administration and governance",
+    "buyer": "Procurement lead at a 50–300-person business with customer reporting demands",
+    "job": "Collect supplier declarations and close evidence gaps across renewal cycles",
+    "current_workaround": "Supplier questionnaires in email and scattered certifications",
+    "record": "Supplier assessment with evidence validity and remediation commitments",
+    "workflow": [
+      "Segment suppliers",
+      "Request evidence and consent",
+      "Review declarations",
+      "Assign corrective actions",
+      "Reassess at renewal"
+    ],
+    "roles": [
+      "Procurement owner",
+      "Supplier contact",
+      "Internal reviewer"
+    ],
+    "wedge": "Bring-your-own questionnaires and transparent evidence expiry; no sustainability rating or certification",
+    "why_pay": "Hypothesis: Reduce repetitive supplier chasing and preserve review history",
+    "expansion": "Customer-specific questionnaires and supplier risk review boards",
+    "competitors": [
+      {
+        "name": "EcoVadis",
+        "url": "https://ecovadis.com/plans-pricing/",
+        "observed": "2026-10-05",
+        "facts": "Enterprise sustainability platform lists supplier engagement and assessments with unlimited users and suppliers.",
+        "price": "Annual subscription quote; amount depends on company size; no numeric public amount verified.",
+        "access": "opened"
+      }
+    ],
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 249,
+      "unit": "organization/month; proposed USD, scope-capped pilot plan",
+      "free_boundary": "14-day trial with synthetic data",
+      "paid_boundary": "Team workflows, guest collaboration, history and exports",
+      "lifetime": "No unlimited hosted lifetime plan; an offline template/export pack could be sold separately, with no MRR credit."
+    },
+    "channel": "Proposed: independent procurement consultants serving export-oriented service firms",
+    "retention": "Supplier changes, expiring evidence and annual customer requests",
+    "moat": "Hypothesis: Accepted supplier evidence and review decisions, requiring cross-company trust",
+    "mvp": [
+      "Segment suppliers",
+      "Request evidence and consent",
+      "Review declarations",
+      "Assign corrective actions",
+      "Reassess at renewal",
+      "Roles, audit history, import/export and backup recovery"
+    ],
+    "effort_weeks": [
+      12,
+      20
+    ],
+    "cost": {
+      "pilot_usd_month": [
+        40,
+        100
+      ],
+      "fits_bootstrap": false,
+      "assumptions": "Engineering estimate for 3–5 small design-partner accounts, not a measured quote; labor, tax, payment fees, acquisition and audits excluded. Pilot quota hypothesis: maximum five organizations, 250 active cases, 10000 structured child records, 2GB aggregate attachments, 20MB per file and 2000 transactional emails/month; no bulk marketing, video or uncapped AI. Exceeding a cap pauses new imports pending repricing; these limits are not measured capacity results.",
+      "drivers": "External-user access, document retention and security review; limited volume pilot only.",
+      "revenue_stage": "Up to $300/month could fund managed database/backups, monitoring and bounded integrations after paying usage; not enterprise service levels."
+    },
+    "integrations": [
+      "CSV imports",
+      "explicit email delivery"
+    ],
+    "risks": [
+      "Supplier participation is hard",
+      "Buyers may demand recognized external ratings",
+      "Data verification can turn into consulting"
+    ],
+    "global_limits": "Regulatory statements require buyer counsel; no certification or authoritative sustainability score",
+    "validation": "Replay one supplier review cycle using customer-provided documents; test three $249/month pilots",
+    "kill_gate": "Stop if customers pay only for recognized ratings or authoritative regulatory compliance",
+    "scores": {
+      "pain": 4,
+      "recurrence": 4,
+      "budget": 4,
+      "distribution": 2,
+      "wedge": 2,
+      "feasibility": 2,
+      "global": 2,
+      "cost": 3
+    },
+    "score_rationale": "Analyst judgment: recurrence and budget reflect the workflow; distribution/wedge discount established alternatives. Security and integration scope constrain feasibility.",
+    "evidence_confidence": "medium: official category evidence only",
+    "source_limit": "Vendor features and price do not prove an underserved segment, our conversion, revenue, or retention."
+  },
+  {
+    "id": "S090",
+    "name": "RFP and bid response operations",
+    "category": "Business administration and governance",
+    "buyer": "Bid lead at a B2B service company submitting 5–20 complex bids per quarter",
+    "job": "Coordinate qualified opportunities, approved answers and complete submissions",
+    "current_workaround": "Word files, shared answer folders and email requests to experts",
+    "record": "Bid with requirement matrix, approved answer versions and decision trail",
+    "workflow": [
+      "Qualify opportunity",
+      "Import requirements and owners",
+      "Draft from approved evidence",
+      "Review exceptions and approvals",
+      "Assemble submission and record outcome"
+    ],
+    "roles": [
+      "Bid manager",
+      "Subject expert",
+      "Commercial approver"
+    ],
+    "wedge": "Evidence freshness and exception approvals for repeat service bids; deterministic workflow before AI writing",
+    "why_pay": "Hypothesis: Reduce missed requirements and expert coordination across concurrent bids",
+    "expansion": "Account-specific answer libraries and win/loss review",
+    "competitors": [
+      {
+        "name": "Loopio",
+        "url": "https://loopio.com/pricing/",
+        "observed": "2026-10-05",
+        "facts": "Foundations lists 10 seats, unlimited projects and library entries, review workflows and role controls.",
+        "price": "Custom quote; no numeric public subscription price verified.",
+        "access": "opened"
+      }
+    ],
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 199,
+      "unit": "organization/month; proposed USD, scope-capped pilot plan",
+      "free_boundary": "14-day trial with synthetic data",
+      "paid_boundary": "Team workflows, guest collaboration, history and exports",
+      "lifetime": "No unlimited hosted lifetime plan; an offline template/export pack could be sold separately, with no MRR credit."
+    },
+    "channel": "Proposed: bid-writing consultants and proposal-management communities; inspect redacted bid workbooks",
+    "retention": "Repeated bids and answer-review expiry cycles",
+    "moat": "Hypothesis: Approved answer provenance and customer-specific exception history",
+    "mvp": [
+      "Qualify opportunity",
+      "Import requirements and owners",
+      "Draft from approved evidence",
+      "Review exceptions and approvals",
+      "Assemble submission and record outcome",
+      "Roles, audit history, import/export and backup recovery"
+    ],
+    "effort_weeks": [
+      10,
+      16
+    ],
+    "cost": {
+      "pilot_usd_month": [
+        20,
+        50
+      ],
+      "fits_bootstrap": true,
+      "assumptions": "Engineering estimate for 3–5 small design-partner accounts, not a measured quote; labor, tax, payment fees, acquisition and audits excluded. Pilot quota hypothesis: maximum five organizations, 250 active cases, 10000 structured child records, 2GB aggregate attachments, 20MB per file and 2000 transactional emails/month; no bulk marketing, video or uncapped AI. Exceeding a cap pauses new imports pending repricing; these limits are not measured capacity results.",
+      "drivers": "Bound document storage, email and exports; no paid AI in core.",
+      "revenue_stage": "Up to $300/month could fund managed database/backups, monitoring and bounded integrations after paying usage; not enterprise service levels."
+    },
+    "integrations": [
+      "CSV imports",
+      "explicit email delivery"
+    ],
+    "risks": [
+      "Incumbents offer broad response suites",
+      "AI tools lower drafting willingness to pay",
+      "Document formats vary"
+    ],
+    "global_limits": "Export restrictions and sensitive bid information require organization-specific controls",
+    "validation": "Concierge-coordinate two concurrent real bids; ask three firms for $199/month",
+    "kill_gate": "Stop if buyers value draft generation only or require bespoke document parsing per bid",
+    "scores": {
+      "pain": 4,
+      "recurrence": 4,
+      "budget": 4,
+      "distribution": 3,
+      "wedge": 3,
+      "feasibility": 3,
+      "global": 4,
+      "cost": 4
+    },
+    "score_rationale": "Analyst judgment: recurrence and budget reflect the workflow; distribution/wedge discount established alternatives. Security and integration scope constrain feasibility.",
+    "evidence_confidence": "medium: official category evidence only",
+    "source_limit": "Vendor features and price do not prove an underserved segment, our conversion, revenue, or retention."
+  },
+  {
+    "id": "S091",
+    "name": "B2B customer support operations",
+    "category": "Business administration and governance",
+    "buyer": "Support lead at a 10–60-person B2B SaaS company",
+    "job": "Resolve contracted customer requests through a shared support lifecycle",
+    "current_workaround": "Shared mailbox, account spreadsheet and scattered help articles",
+    "record": "Support conversation linked to company entitlement, response commitments and resolution knowledge",
+    "workflow": [
+      "Receive and identify customer",
+      "Check contracted support terms",
+      "Assign and collaborate on response",
+      "Confirm customer resolution",
+      "Update reusable knowledge and service report"
+    ],
+    "roles": [
+      "Support agent",
+      "Account owner",
+      "Customer requester"
+    ],
+    "wedge": "Contract-aware service queues for small vendors; email-first and human resolution without metered AI in core",
+    "why_pay": "Hypothesis: Prevent missed customer commitments and reduce duplicate handling across a team",
+    "expansion": "Self-service portal, knowledge publication and account service reviews",
+    "competitors": [
+      {
+        "name": "Help Scout",
+        "url": "https://www.helpscout.com/pricing/",
+        "observed": "2026-10-05",
+        "facts": "Free offers five users, one inbox and one Docs site; paid plans add workflow, SLA and company-level support features.",
+        "price": "Standard displays $25/user/month, Plus $45 and Pro $75; page has monthly/annual toggle but displayed selection and currency code not verified. Pro minimum ten users; free has 100 monthly contacts.",
+        "access": "opened"
+      }
+    ],
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 99,
+      "unit": "organization/month; proposed USD, scope-capped pilot plan",
+      "free_boundary": "Sample-data sandbox; trial capped at 100 imported conversations",
+      "paid_boundary": "Team workflows, guest collaboration, history and exports",
+      "lifetime": "No unlimited hosted lifetime plan; an offline template/export pack could be sold separately, with no MRR credit."
+    },
+    "channel": "Proposed: support-lead communities and fractional customer-support consultants; inspect anonymized queue handoffs",
+    "retention": "Daily customer conversations and accumulating resolution knowledge",
+    "moat": "Hypothesis: Customer support history and approved answers; mature incumbents have the same advantage",
+    "mvp": [
+      "Receive and identify customer",
+      "Check contracted support terms",
+      "Assign and collaborate on response",
+      "Confirm customer resolution",
+      "Update reusable knowledge and service report",
+      "Roles, audit history, import/export and backup recovery"
+    ],
+    "effort_weeks": [
+      12,
+      18
+    ],
+    "cost": {
+      "pilot_usd_month": [
+        30,
+        80
+      ],
+      "fits_bootstrap": false,
+      "assumptions": "Engineering estimate for 3–5 small design-partner accounts, not a measured quote; labor, tax, payment fees, acquisition and audits excluded. Pilot quota hypothesis: maximum five organizations, 250 active cases, 10000 structured child records, 2GB aggregate attachments, 20MB per file and 2000 transactional emails/month; no bulk marketing, video or uncapped AI. Exceeding a cap pauses new imports pending repricing; these limits are not measured capacity results.",
+      "drivers": "Reliable inbound/outbound email, searchable history and attachment storage; limited contacts and no voice/SMS/AI hosting.",
+      "revenue_stage": "Up to $300/month could fund managed database/backups, monitoring and bounded integrations after paying usage; not enterprise service levels."
+    },
+    "integrations": [
+      "CSV imports",
+      "explicit email delivery"
+    ],
+    "risks": [
+      "Strong free and mature paid incumbents",
+      "Reliable email threading and delivery are hard",
+      "Migration risks lost customer messages"
+    ],
+    "global_limits": "Global remote support; regional data transfers and consent rules apply, no automatic eligibility decisions",
+    "validation": "Replay one week of support with five teams; test three $99/month paid continuations tied to contract-specific needs",
+    "kill_gate": "Stop if configuring Help Scout satisfies the contract workflow or buyers primarily want cheap autonomous AI",
+    "scores": {
+      "pain": 4,
+      "recurrence": 5,
+      "budget": 3,
+      "distribution": 3,
+      "wedge": 1,
+      "feasibility": 2,
+      "global": 4,
+      "cost": 3
+    },
+    "score_rationale": "Analyst judgment: recurrence and budget reflect the workflow; distribution/wedge discount established alternatives. Security and integration scope constrain feasibility.",
+    "evidence_confidence": "medium: official category evidence only",
+    "source_limit": "Vendor features and price do not prove an underserved segment, our conversion, revenue, or retention."
+  },
+  {
+    "id": "S092",
+    "name": "Product discovery and feedback operations",
+    "category": "Business administration and governance",
+    "buyer": "Product lead at a small B2B software vendor",
+    "job": "Turn customer requests into investigated opportunities and communicated decisions",
+    "current_workaround": "CRM exports, issue trackers and a public voting board",
+    "record": "Opportunity linked to customer evidence, decisions and delivery outcomes",
+    "workflow": [
+      "Collect customer requests",
+      "Group evidence and define opportunity",
+      "Run discovery checks",
+      "Approve priorities and hand off",
+      "Close feedback with stakeholders"
+    ],
+    "roles": [
+      "Product manager",
+      "Support lead",
+      "Engineering owner"
+    ],
+    "wedge": "Account-revenue context and evidence-linked decisions for high-touch B2B software",
+    "why_pay": "Hypothesis: Reduce repeated request triage and promises lost between support and engineering",
+    "expansion": "Portfolio objectives and closed-loop outcome evaluation",
+    "competitors": [
+      {
+        "name": "Productboard",
+        "url": "https://www.productboard.com/pricing/",
+        "observed": "2026-10-05",
+        "facts": "Free includes 500 feedback notes; paid tiers connect feedback, prioritization and customer communication.",
+        "price": "Plus $19/maker/month annual or $25 monthly; Business $59 annual or $75 monthly, minimum two makers; dollar currency code not explicit.",
+        "access": "opened"
+      }
+    ],
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 79,
+      "unit": "organization/month; proposed USD, scope-capped pilot plan",
+      "free_boundary": "One product and 25 customer requests; paid team decision workflow",
+      "paid_boundary": "Team workflows, guest collaboration, history and exports",
+      "lifetime": "No unlimited hosted lifetime plan; an offline template/export pack could be sold separately, with no MRR credit."
+    },
+    "channel": "Proposed: B2B product communities and product-consultant referrals",
+    "retention": "Weekly customer feedback and planning cycles",
+    "moat": "Hypothesis: Evidence-to-outcome history, with limited defensibility against incumbents",
+    "mvp": [
+      "Collect customer requests",
+      "Group evidence and define opportunity",
+      "Run discovery checks",
+      "Approve priorities and hand off",
+      "Close feedback with stakeholders",
+      "Roles, audit history, import/export and backup recovery"
+    ],
+    "effort_weeks": [
+      10,
+      16
+    ],
+    "cost": {
+      "pilot_usd_month": [
+        20,
+        50
+      ],
+      "fits_bootstrap": true,
+      "assumptions": "Engineering estimate for 3–5 small design-partner accounts, not a measured quote; labor, tax, payment fees, acquisition and audits excluded. Pilot quota hypothesis: maximum five organizations, 250 active cases, 10000 structured child records, 2GB aggregate attachments, 20MB per file and 2000 transactional emails/month; no bulk marketing, video or uncapped AI. Exceeding a cap pauses new imports pending repricing; these limits are not measured capacity results.",
+      "drivers": "Bound document storage, email and exports; no paid AI in core.",
+      "revenue_stage": "Up to $300/month could fund managed database/backups, monitoring and bounded integrations after paying usage; not enterprise service levels."
+    },
+    "integrations": [
+      "CSV imports",
+      "explicit email delivery"
+    ],
+    "risks": [
+      "Free incumbent features absorb entry use",
+      "Issue trackers already own execution",
+      "Founder may be the sole user"
+    ],
+    "global_limits": "Global workflow with customer privacy and region-aware storage requirements",
+    "validation": "Track 50 requests through one planning cycle; seek three $79/month continuations",
+    "kill_gate": "Stop if buyers only need voting or can reproduce the whole workflow in their tracker",
+    "scores": {
+      "pain": 3,
+      "recurrence": 5,
+      "budget": 3,
+      "distribution": 3,
+      "wedge": 2,
+      "feasibility": 3,
+      "global": 4,
+      "cost": 4
+    },
+    "score_rationale": "Analyst judgment: recurrence and budget reflect the workflow; distribution/wedge discount established alternatives. Security and integration scope constrain feasibility.",
+    "evidence_confidence": "medium: official category evidence only",
+    "source_limit": "Vendor features and price do not prove an underserved segment, our conversion, revenue, or retention."
+  },
+  {
+    "id": "S093",
+    "name": "Expense approval and reimbursement operations",
+    "category": "Business administration and governance",
+    "buyer": "Finance lead at a remote 20–100-person services firm",
+    "job": "Close employee expense claims with reliable policy and approval evidence",
+    "current_workaround": "Receipt email, spreadsheet approvals and bank-payment lists",
+    "record": "Expense claim linked to policy version and reimbursement status",
+    "workflow": [
+      "Import receipts and claimant details",
+      "Check explicit policy rules",
+      "Route human approvals",
+      "Export approved reimbursement batch",
+      "Reconcile settled status"
+    ],
+    "roles": [
+      "Employee",
+      "Manager approver",
+      "Finance reviewer"
+    ],
+    "wedge": "Works with existing bank/payment providers and manually entered receipts; no corporate card",
+    "why_pay": "Hypothesis: Reduce receipt chasing and rework at monthly close",
+    "expansion": "Project allocation and multi-entity approval exports",
+    "competitors": [
+      {
+        "name": "Expensify",
+        "url": "https://help.expensify.com/articles/new-expensify/billing-and-subscriptions/explore-plans-subscriptions-and-pricing/Understand-Expensify-Pricing",
+        "observed": "2026-10-05",
+        "facts": "Collect bills unique active members; Control has annual commitments or pay-per-use pricing and conditional card discounts.",
+        "price": "Collect USD5/active member/month; Control USD18/member/month annual commitment, USD36 overage or pay-per-use before qualifying discounts.",
+        "access": "opened"
+      }
+    ],
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 99,
+      "unit": "organization/month; proposed USD, scope-capped pilot plan",
+      "free_boundary": "14-day trial with synthetic data",
+      "paid_boundary": "Team workflows, guest collaboration, history and exports",
+      "lifetime": "No unlimited hosted lifetime plan; an offline template/export pack could be sold separately, with no MRR credit."
+    },
+    "channel": "Proposed: bookkeeping advisers serving remote agencies",
+    "retention": "Monthly reimbursement and close cycles",
+    "moat": "Hypothesis: Accepted expense rules and approval history; weak standalone differentiation",
+    "mvp": [
+      "Import receipts and claimant details",
+      "Check explicit policy rules",
+      "Route human approvals",
+      "Export approved reimbursement batch",
+      "Reconcile settled status",
+      "Roles, audit history, import/export and backup recovery"
+    ],
+    "effort_weeks": [
+      10,
+      16
+    ],
+    "cost": {
+      "pilot_usd_month": [
+        30,
+        80
+      ],
+      "fits_bootstrap": false,
+      "assumptions": "Engineering estimate for 3–5 small design-partner accounts, not a measured quote; labor, tax, payment fees, acquisition and audits excluded. Pilot quota hypothesis: maximum five organizations, 250 active cases, 10000 structured child records, 2GB aggregate attachments, 20MB per file and 2000 transactional emails/month; no bulk marketing, video or uncapped AI. Exceeding a cap pauses new imports pending repricing; these limits are not measured capacity results.",
+      "drivers": "Receipt storage and optional OCR grow with claims; manual entry required for low-cost pilot.",
+      "revenue_stage": "Up to $300/month could fund managed database/backups, monitoring and bounded integrations after paying usage; not enterprise service levels."
+    },
+    "integrations": [
+      "CSV imports",
+      "explicit email delivery"
+    ],
+    "risks": [
+      "Low-price incumbents",
+      "OCR and bank sync expected",
+      "Country-specific receipts and taxes"
+    ],
+    "global_limits": "No card issuance, funds custody or tax calculation; employer owns policy validity",
+    "validation": "Replay a monthly expense batch with three firms and test $99/month",
+    "kill_gate": "Stop if any buyer requires cards, automatic tax recovery or uncapped OCR to pay",
+    "scores": {
+      "pain": 4,
+      "recurrence": 5,
+      "budget": 3,
+      "distribution": 3,
+      "wedge": 2,
+      "feasibility": 2,
+      "global": 2,
+      "cost": 3
+    },
+    "score_rationale": "Analyst judgment: recurrence and budget reflect the workflow; distribution/wedge discount established alternatives. Security and integration scope constrain feasibility.",
+    "evidence_confidence": "medium: official category evidence only",
+    "source_limit": "Vendor features and price do not prove an underserved segment, our conversion, revenue, or retention."
+  },
+  {
+    "id": "S094",
+    "name": "B2B receivables and dispute operations",
+    "category": "Business administration and governance",
+    "buyer": "Finance manager at a 10–100-person B2B agency or consultancy",
+    "job": "Resolve reasons invoices remain unpaid and keep agreed payment actions visible",
+    "current_workaround": "Accounting aging report, inbox and promise-to-pay spreadsheet",
+    "record": "Invoice dispute case with commitments, approvals and settlement evidence",
+    "workflow": [
+      "Import open invoices",
+      "Triage disputes and missing evidence",
+      "Assign client/internal actions",
+      "Approve follow-up and payment plan",
+      "Reconcile receipts and close cases"
+    ],
+    "roles": [
+      "Finance owner",
+      "Account manager",
+      "Customer finance contact"
+    ],
+    "wedge": "Dispute resolution and account-manager accountability for service invoices; no outsourced collections",
+    "why_pay": "Hypothesis: Reduce repeated chasing and time spent reconstructing invoice disputes",
+    "expansion": "Portfolio cash-risk views and accountant multi-client workspaces",
+    "competitors": [
+      {
+        "name": "Chaser",
+        "url": "https://www.chaserhq.com/chaser-pricing",
+        "observed": "2026-10-05",
+        "facts": "Compact supports receivables workflows and four users; Care adds human collection services separately.",
+        "price": "Compact from GBP199/month or GBP179/month equivalent with annual savings; revenue ceiling GBP4m; four users. Confirm term at checkout.",
+        "access": "opened"
+      }
+    ],
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 149,
+      "unit": "organization/month; proposed USD, scope-capped pilot plan",
+      "free_boundary": "14-day trial with synthetic data",
+      "paid_boundary": "Team workflows, guest collaboration, history and exports",
+      "lifetime": "No unlimited hosted lifetime plan; an offline template/export pack could be sold separately, with no MRR credit."
+    },
+    "channel": "Proposed: accountant/bookkeeper referral partners; inspect aged invoices with permission",
+    "retention": "Weekly receivables review and recurring billing disputes",
+    "moat": "Hypothesis: Case resolution history and customer-specific payment commitments",
+    "mvp": [
+      "Import open invoices",
+      "Triage disputes and missing evidence",
+      "Assign client/internal actions",
+      "Approve follow-up and payment plan",
+      "Reconcile receipts and close cases",
+      "Roles, audit history, import/export and backup recovery"
+    ],
+    "effort_weeks": [
+      10,
+      16
+    ],
+    "cost": {
+      "pilot_usd_month": [
+        20,
+        50
+      ],
+      "fits_bootstrap": true,
+      "assumptions": "Engineering estimate for 3–5 small design-partner accounts, not a measured quote; labor, tax, payment fees, acquisition and audits excluded. Pilot quota hypothesis: maximum five organizations, 250 active cases, 10000 structured child records, 2GB aggregate attachments, 20MB per file and 2000 transactional emails/month; no bulk marketing, video or uncapped AI. Exceeding a cap pauses new imports pending repricing; these limits are not measured capacity results.",
+      "drivers": "Bound document storage, email and exports; no paid AI in core.",
+      "revenue_stage": "Up to $300/month could fund managed database/backups, monitoring and bounded integrations after paying usage; not enterprise service levels."
+    },
+    "integrations": [
+      "Accounting CSV import/export first",
+      "one read-only accounting connector only after repeated paid demand",
+      "customer-approved email delivery"
+    ],
+    "risks": [
+      "Accounting suites include reminders",
+      "Sync errors can damage client relationships",
+      "Buyers may want human collection services"
+    ],
+    "global_limits": "No funds custody, legal threats or credit decisions; local collection and messaging rules remain customer responsibilities",
+    "validation": "Concierge-resolve 20 overdue service invoices across three firms; ask $149/month for repeated case workflow",
+    "kill_gate": "Stop if reminder automation alone is valued or mandatory integrations exceed first-cohort demand",
+    "scores": {
+      "pain": 5,
+      "recurrence": 5,
+      "budget": 4,
+      "distribution": 4,
+      "wedge": 3,
+      "feasibility": 3,
+      "global": 3,
+      "cost": 4
+    },
+    "score_rationale": "Analyst judgment: recurrence and budget reflect the workflow; distribution/wedge discount established alternatives. Security and integration scope constrain feasibility.",
+    "evidence_confidence": "medium: official category evidence only",
+    "source_limit": "Vendor features and price do not prove an underserved segment, our conversion, revenue, or retention."
+  },
+  {
+    "id": "S095",
+    "name": "Usage-based billing operations",
+    "category": "Business administration and governance",
+    "buyer": "Finance/engineering pair at a B2B API company introducing metered pricing",
+    "job": "Turn auditable usage and versioned customer terms into approved invoices and adjustment history",
+    "current_workaround": "Usage SQL, pricing spreadsheets and manually assembled invoices",
+    "record": "Billing period ledger linking deduplicated usage, contract version, invoice lines and credits",
+    "workflow": [
+      "Import bounded usage ledger",
+      "Apply versioned customer terms",
+      "Reconcile draft invoice",
+      "Approve and export invoice",
+      "Record corrections and close period"
+    ],
+    "roles": [
+      "Billing engineer",
+      "Finance reviewer",
+      "Customer billing contact"
+    ],
+    "wedge": "Low-volume API businesses needing explainable batch reconciliation; no real-time high-volume metering or funds custody",
+    "why_pay": "Hypothesis: Reduce repeated billing reconciliation and make price changes auditable",
+    "expansion": "Versioned rate plans, customer cost preview and revenue-close exports",
+    "competitors": [
+      {
+        "name": "Orb",
+        "url": "https://www.withorb.com/pricing",
+        "observed": "2026-10-05",
+        "facts": "Orb Core includes event ingestion, hybrid/usage billing, price changes and invoicing; higher tiers add ERP/CRM and warehouse features.",
+        "price": "Core, Advanced and Enterprise all use custom pricing; no public numeric amount verified.",
+        "access": "opened"
+      }
+    ],
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 249,
+      "unit": "organization/month; proposed USD, scope-capped pilot plan",
+      "free_boundary": "14-day trial with synthetic data",
+      "paid_boundary": "Team workflows, guest collaboration, history and exports",
+      "lifetime": "No unlimited hosted lifetime plan; an offline template/export pack could be sold separately, with no MRR credit."
+    },
+    "channel": "Proposed: API-founder communities and fractional SaaS finance advisers; reproduce historical invoice periods",
+    "retention": "Monthly invoicing, pricing changes and credit adjustments",
+    "moat": "Hypothesis: Trusted deterministic billing ledger, requiring very high correctness and migration confidence",
+    "mvp": [
+      "Import bounded usage ledger",
+      "Apply versioned customer terms",
+      "Reconcile draft invoice",
+      "Approve and export invoice",
+      "Record corrections and close period",
+      "Roles, audit history, import/export and backup recovery"
+    ],
+    "effort_weeks": [
+      16,
+      26
+    ],
+    "cost": {
+      "pilot_usd_month": [
+        60,
+        150
+      ],
+      "fits_bootstrap": false,
+      "assumptions": "Engineering estimate for 3–5 small design-partner accounts, not a measured quote; labor, tax, payment fees, acquisition and audits excluded. Pilot quota hypothesis: maximum five organizations, 250 active cases, 10000 structured child records, 2GB aggregate attachments, 20MB per file and 2000 transactional emails/month; no bulk marketing, video or uncapped AI. Exceeding a cap pauses new imports pending repricing; these limits are not measured capacity results.",
+      "drivers": "Idempotent event storage, reconciliation, backup recovery and monitoring; security/correctness review costs excluded and must be separately funded.",
+      "revenue_stage": "Up to $300/month could fund managed database/backups, monitoring and bounded integrations after paying usage; not enterprise service levels."
+    },
+    "integrations": [
+      "CSV imports",
+      "explicit email delivery"
+    ],
+    "risks": [
+      "Billing errors directly harm revenue and trust",
+      "Orb and Metronome already cover the full cycle",
+      "Customers may require production metering and enterprise support"
+    ],
+    "global_limits": "No payment processing, tax engine or accounting opinion; external providers handle regulated financial actions",
+    "validation": "Reproduce three historical billing periods exactly with customer-approved edge cases; seek paid pilots only after independent correctness review",
+    "kill_gate": "Defer if any unreconciled difference remains or required usage scale exceeds bounded batch processing",
+    "scores": {
+      "pain": 5,
+      "recurrence": 5,
+      "budget": 4,
+      "distribution": 2,
+      "wedge": 2,
+      "feasibility": 1,
+      "global": 3,
+      "cost": 2
+    },
+    "score_rationale": "Analyst judgment: recurrence and budget reflect the workflow; distribution/wedge discount established alternatives. Security and integration scope constrain feasibility.",
+    "evidence_confidence": "medium: official category evidence only",
+    "source_limit": "Vendor features and price do not prove an underserved segment, our conversion, revenue, or retention."
+  },
+  {
+    "id": "S096",
+    "name": "Privacy request and data-owner operations",
+    "category": "Business administration and governance",
+    "buyer": "Privacy lead at a 50–300-person B2B technology company",
+    "job": "Coordinate identity-reviewed requests with data owners and documented closure",
+    "current_workaround": "Shared inbox, legal spreadsheets and engineer tickets",
+    "record": "Privacy request with identity check, data-source tasks and approved response",
+    "workflow": [
+      "Receive and verify request",
+      "Assign data-source owners",
+      "Collect response evidence",
+      "Obtain legal review",
+      "Respond and track retention"
+    ],
+    "roles": [
+      "Privacy coordinator",
+      "System owner",
+      "Legal reviewer"
+    ],
+    "wedge": "Manual owner-led orchestration for known systems; no automatic deletion or compliance guarantees",
+    "why_pay": "Hypothesis: Reduce cross-team coordination and preserve response accountability",
+    "expansion": "Data inventory and request trend reports",
+    "competitors": [
+      {
+        "name": "DataGrail",
+        "url": "https://www.datagrail.io/",
+        "observed": "2026-10-05",
+        "facts": "Platform includes Request Manager, data mapping, assessments and integrations.",
+        "price": "Demo/quote; no numeric public subscription amount verified.",
+        "access": "opened"
+      }
+    ],
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 299,
+      "unit": "organization/month; proposed USD, scope-capped pilot plan",
+      "free_boundary": "14-day trial with synthetic data",
+      "paid_boundary": "Team workflows, guest collaboration, history and exports",
+      "lifetime": "No unlimited hosted lifetime plan; an offline template/export pack could be sold separately, with no MRR credit."
+    },
+    "channel": "Proposed: privacy consultancies with established client relationships",
+    "retention": "Recurring requests plus periodic inventory ownership review",
+    "moat": "Hypothesis: Verified source-owner map and response history",
+    "mvp": [
+      "Receive and verify request",
+      "Assign data-source owners",
+      "Collect response evidence",
+      "Obtain legal review",
+      "Respond and track retention",
+      "Roles, audit history, import/export and backup recovery"
+    ],
+    "effort_weeks": [
+      14,
+      24
+    ],
+    "cost": {
+      "pilot_usd_month": [
+        80,
+        200
+      ],
+      "fits_bootstrap": false,
+      "assumptions": "Engineering estimate for 3–5 small design-partner accounts, not a measured quote; labor, tax, payment fees, acquisition and audits excluded. Pilot quota hypothesis: maximum five organizations, 250 active cases, 10000 structured child records, 2GB aggregate attachments, 20MB per file and 2000 transactional emails/month; no bulk marketing, video or uncapped AI. Exceeding a cap pauses new imports pending repricing; these limits are not measured capacity results.",
+      "drivers": "Security reviews, audited access, incident planning and legal support exceed bootstrap envelope; audits excluded from cash estimate.",
+      "revenue_stage": "Up to $300/month could fund managed database/backups, monitoring and bounded integrations after paying usage; not enterprise service levels."
+    },
+    "integrations": [
+      "CSV imports",
+      "explicit email delivery"
+    ],
+    "risks": [
+      "Sensitive identity and personal information",
+      "Connector breadth is expected",
+      "Buyer procurement and legal review are slow"
+    ],
+    "global_limits": "Country-specific rights, verification and deadlines require qualified legal review",
+    "validation": "Use synthetic data to replay five request types; secure three conditional paid pilots only after security review",
+    "kill_gate": "Stop if automatic system-wide discovery or deletion is prerequisite to purchase",
+    "scores": {
+      "pain": 5,
+      "recurrence": 4,
+      "budget": 4,
+      "distribution": 2,
+      "wedge": 2,
+      "feasibility": 1,
+      "global": 1,
+      "cost": 1
+    },
+    "score_rationale": "Analyst judgment: recurrence and budget reflect the workflow; distribution/wedge discount established alternatives. Security and integration scope constrain feasibility.",
+    "evidence_confidence": "medium: official category evidence only",
+    "source_limit": "Vendor features and price do not prove an underserved segment, our conversion, revenue, or retention."
+  },
+  {
+    "id": "S097",
+    "name": "Confidential reporting and investigation operations",
+    "category": "Business administration and governance",
+    "buyer": "People/legal lead at a 100–500-person multinational employer",
+    "job": "Protect confidential reports while coordinating impartial case handling",
+    "current_workaround": "Hotline vendor plus private documents and email",
+    "record": "Confidential report with access-separated investigation and closure record",
+    "workflow": [
+      "Receive report securely",
+      "Check conflicts and assign investigator",
+      "Collect authorized evidence",
+      "Review findings and response",
+      "Close with controlled follow-up"
+    ],
+    "roles": [
+      "Reporter",
+      "Independent investigator",
+      "Authorized reviewer"
+    ],
+    "wedge": "Case workflow for organizations bringing an existing confidential intake provider; no unproven anonymity promise",
+    "why_pay": "Hypothesis: Reduce access mistakes and preserve investigation accountability",
+    "expansion": "Policy remediation and aggregate trend reporting without exposing reporters",
+    "competitors": [
+      {
+        "name": "FaceUp",
+        "url": "https://www.faceup.com/en/pricing",
+        "observed": "2026-10-05",
+        "facts": "Offers anonymous reporting and investigation/case-management capabilities with configurable packages.",
+        "price": "Request pricing; no numeric public price verified.",
+        "access": "opened"
+      }
+    ],
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 299,
+      "unit": "organization/month; proposed USD, scope-capped pilot plan",
+      "free_boundary": "14-day trial with synthetic data",
+      "paid_boundary": "Team workflows, guest collaboration, history and exports",
+      "lifetime": "No unlimited hosted lifetime plan; an offline template/export pack could be sold separately, with no MRR credit."
+    },
+    "channel": "Proposed: independent workplace investigation firms; synthetic case demonstrations only initially",
+    "retention": "Reports, investigation tasks and controlled retention reviews",
+    "moat": "Hypothesis: Trust and case handling controls; high barrier for a new vendor",
+    "mvp": [
+      "Receive report securely",
+      "Check conflicts and assign investigator",
+      "Collect authorized evidence",
+      "Review findings and response",
+      "Close with controlled follow-up",
+      "Roles, audit history, import/export and backup recovery"
+    ],
+    "effort_weeks": [
+      16,
+      26
+    ],
+    "cost": {
+      "pilot_usd_month": [
+        100,
+        250
+      ],
+      "fits_bootstrap": false,
+      "assumptions": "Engineering estimate for 3–5 small design-partner accounts, not a measured quote; labor, tax, payment fees, acquisition and audits excluded. Pilot quota hypothesis: maximum five organizations, 250 active cases, 10000 structured child records, 2GB aggregate attachments, 20MB per file and 2000 transactional emails/month; no bulk marketing, video or uncapped AI. Exceeding a cap pauses new imports pending repricing; these limits are not measured capacity results.",
+      "drivers": "Independent security work and incident response exceed normal infrastructure; pilot estimate excludes those professional fees.",
+      "revenue_stage": "Up to $300/month could fund managed database/backups, monitoring and bounded integrations after paying usage; not enterprise service levels."
+    },
+    "integrations": [
+      "CSV imports",
+      "explicit email delivery"
+    ],
+    "risks": [
+      "Any confidentiality failure is severe",
+      "Established secure providers",
+      "Local whistleblowing and labor rules"
+    ],
+    "global_limits": "Legal counsel must approve workflow; do not claim anonymity or jurisdiction-wide compliance",
+    "validation": "Test threat model and permissions using synthetic cases before any real information; seek paid design partners only after review",
+    "kill_gate": "Defer until independent security review and trustworthy confidential-channel integration are funded",
+    "scores": {
+      "pain": 5,
+      "recurrence": 4,
+      "budget": 4,
+      "distribution": 2,
+      "wedge": 1,
+      "feasibility": 1,
+      "global": 1,
+      "cost": 1
+    },
+    "score_rationale": "Analyst judgment: recurrence and budget reflect the workflow; distribution/wedge discount established alternatives. Security and integration scope constrain feasibility.",
+    "evidence_confidence": "medium: official category evidence only",
+    "source_limit": "Vendor features and price do not prove an underserved segment, our conversion, revenue, or retention."
+  },
+  {
+    "id": "S098",
+    "name": "Board and committee governance operations",
+    "category": "Business administration and governance",
+    "buyer": "Company secretary at a small nonprofit or private company with repeated committees",
+    "job": "Carry meeting decisions into approved minutes and completed actions",
+    "current_workaround": "Email board packs, document folders and action spreadsheets",
+    "record": "Meeting with agenda, approved minutes, decisions and action register",
+    "workflow": [
+      "Collect agenda proposals",
+      "Distribute controlled board pack",
+      "Record interests and decisions",
+      "Approve minutes",
+      "Track actions into next meeting"
+    ],
+    "roles": [
+      "Secretary",
+      "Chair",
+      "Board member"
+    ],
+    "wedge": "Action continuity across small committees, with straightforward guest access and export",
+    "why_pay": "Hypothesis: Reduce pack preparation and lost decisions across recurring meetings",
+    "expansion": "Committee portfolio, governance calendar and member onboarding",
+    "competitors": [
+      {
+        "name": "BoardPro",
+        "url": "https://www.boardpro.com/pricing",
+        "observed": "2026-10-05",
+        "facts": "Essentials includes agenda, board packs, minutes, decisions, interests and action tracking with unlimited users.",
+        "price": "Essentials USD165/board/month or USD1650/year; subcommittees USD82.50/month or USD825/year.",
+        "access": "opened"
+      }
+    ],
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 99,
+      "unit": "organization/month; proposed USD, scope-capped pilot plan",
+      "free_boundary": "14-day trial with synthetic data",
+      "paid_boundary": "Team workflows, guest collaboration, history and exports",
+      "lifetime": "No unlimited hosted lifetime plan; an offline template/export pack could be sold separately, with no MRR credit."
+    },
+    "channel": "Proposed: independent company secretaries and nonprofit governance advisers",
+    "retention": "Monthly or quarterly meeting cycles and continuing action follow-up",
+    "moat": "Hypothesis: Approved governance history and organization-specific templates",
+    "mvp": [
+      "Collect agenda proposals",
+      "Distribute controlled board pack",
+      "Record interests and decisions",
+      "Approve minutes",
+      "Track actions into next meeting",
+      "Roles, audit history, import/export and backup recovery"
+    ],
+    "effort_weeks": [
+      10,
+      16
+    ],
+    "cost": {
+      "pilot_usd_month": [
+        20,
+        50
+      ],
+      "fits_bootstrap": true,
+      "assumptions": "Engineering estimate for 3–5 small design-partner accounts, not a measured quote; labor, tax, payment fees, acquisition and audits excluded. Pilot quota hypothesis: maximum five organizations, 250 active cases, 10000 structured child records, 2GB aggregate attachments, 20MB per file and 2000 transactional emails/month; no bulk marketing, video or uncapped AI. Exceeding a cap pauses new imports pending repricing; these limits are not measured capacity results.",
+      "drivers": "Bound document storage, email and exports; no paid AI in core.",
+      "revenue_stage": "Up to $300/month could fund managed database/backups, monitoring and bounded integrations after paying usage; not enterprise service levels."
+    },
+    "integrations": [
+      "CSV imports",
+      "explicit email delivery"
+    ],
+    "risks": [
+      "BoardPro already supplies entire proposed workflow",
+      "Low-frequency users resist login",
+      "Confidential papers create trust requirements"
+    ],
+    "global_limits": "Voting and minutes validity depend on local rules and constitutions; records only",
+    "validation": "Run one board and two committees through a full meeting/action cycle; test $99/month",
+    "kill_gate": "Stop if advisers cannot identify a specific missing workflow beyond lower price",
+    "scores": {
+      "pain": 3,
+      "recurrence": 4,
+      "budget": 3,
+      "distribution": 3,
+      "wedge": 2,
+      "feasibility": 3,
+      "global": 3,
+      "cost": 4
+    },
+    "score_rationale": "Analyst judgment: recurrence and budget reflect the workflow; distribution/wedge discount established alternatives. Security and integration scope constrain feasibility.",
+    "evidence_confidence": "medium: official category evidence only",
+    "source_limit": "Vendor features and price do not prove an underserved segment, our conversion, revenue, or retention."
+  },
+  {
+    "id": "S099",
+    "name": "Internal innovation portfolio operations",
+    "category": "Business administration and governance",
+    "buyer": "Innovation director at a 200–2000-person professional-services company",
+    "job": "Turn employee proposals into funded, measured experiments and portfolio decisions",
+    "current_workaround": "Idea forms, slides and separate project trackers",
+    "record": "Experiment portfolio with hypothesis, budget and outcome decisions",
+    "workflow": [
+      "Launch focused challenge",
+      "Review proposals",
+      "Approve experiment budget",
+      "Track evidence and cost",
+      "Decide continue, stop or scale"
+    ],
+    "roles": [
+      "Program owner",
+      "Employee proposer",
+      "Budget sponsor"
+    ],
+    "wedge": "Explicit experiment evidence and follow-through rather than popularity-ranked idea collection",
+    "why_pay": "Hypothesis: Make funded experiments accountable and reduce forgotten initiatives",
+    "expansion": "Cross-division portfolio and partner innovation programs",
+    "competitors": [
+      {
+        "name": "Brightidea",
+        "url": "https://www.brightidea.com/",
+        "observed": "2026-10-05",
+        "facts": "Innovation software spans challenges, idea evaluation and portfolio outcomes.",
+        "price": "No numeric public subscription price verified; sales-led offering.",
+        "access": "opened"
+      }
+    ],
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 299,
+      "unit": "organization/month; proposed USD, scope-capped pilot plan",
+      "free_boundary": "14-day trial with synthetic data",
+      "paid_boundary": "Team workflows, guest collaboration, history and exports",
+      "lifetime": "No unlimited hosted lifetime plan; an offline template/export pack could be sold separately, with no MRR credit."
+    },
+    "channel": "Proposed: innovation consultants already running corporate programs",
+    "retention": "Program cycles and funded experiment reviews",
+    "moat": "Hypothesis: Organization-specific outcome history, contingent on sustained sponsorship",
+    "mvp": [
+      "Launch focused challenge",
+      "Review proposals",
+      "Approve experiment budget",
+      "Track evidence and cost",
+      "Decide continue, stop or scale",
+      "Roles, audit history, import/export and backup recovery"
+    ],
+    "effort_weeks": [
+      12,
+      18
+    ],
+    "cost": {
+      "pilot_usd_month": [
+        20,
+        50
+      ],
+      "fits_bootstrap": true,
+      "assumptions": "Engineering estimate for 3–5 small design-partner accounts, not a measured quote; labor, tax, payment fees, acquisition and audits excluded. Pilot quota hypothesis: maximum five organizations, 250 active cases, 10000 structured child records, 2GB aggregate attachments, 20MB per file and 2000 transactional emails/month; no bulk marketing, video or uncapped AI. Exceeding a cap pauses new imports pending repricing; these limits are not measured capacity results.",
+      "drivers": "Bound document storage, email and exports; no paid AI in core.",
+      "revenue_stage": "Up to $300/month could fund managed database/backups, monitoring and bounded integrations after paying usage; not enterprise service levels."
+    },
+    "integrations": [
+      "CSV imports",
+      "explicit email delivery"
+    ],
+    "risks": [
+      "Discretionary budget",
+      "Large-company sales requirements",
+      "Generic project tools suffice without a durable program"
+    ],
+    "global_limits": "Global workflow; employee participation rules and confidential IP vary",
+    "validation": "Replay a completed program and ask three sponsors to fund the next cycle at $299/month",
+    "kill_gate": "Stop if no sustained program owner or recurring budget exists",
+    "scores": {
+      "pain": 3,
+      "recurrence": 3,
+      "budget": 4,
+      "distribution": 2,
+      "wedge": 2,
+      "feasibility": 3,
+      "global": 4,
+      "cost": 4
+    },
+    "score_rationale": "Analyst judgment: recurrence and budget reflect the workflow; distribution/wedge discount established alternatives. Security and integration scope constrain feasibility.",
+    "evidence_confidence": "medium: official category evidence only",
+    "source_limit": "Vendor features and price do not prove an underserved segment, our conversion, revenue, or retention."
+  },
+  {
+    "id": "S100",
+    "name": "Deal due-diligence workspaces",
+    "category": "Business administration and governance",
+    "buyer": "Boutique transaction adviser managing several overlapping company sales",
+    "job": "Coordinate controlled diligence requests, document versions and review decisions",
+    "current_workaround": "Virtual data room plus email and a request spreadsheet",
+    "record": "Transaction diligence request linked to controlled documents and Q&A",
+    "workflow": [
+      "Define diligence checklist",
+      "Invite authorized parties",
+      "Collect and version evidence",
+      "Resolve controlled Q&A",
+      "Approve closure and export archive"
+    ],
+    "roles": [
+      "Deal coordinator",
+      "Seller document owner",
+      "Buyer reviewer"
+    ],
+    "wedge": "Advisor-led request workflow layered over customer-owned secure storage; no transaction marketplace",
+    "why_pay": "Hypothesis: Reduce repeated document chasing across active transactions",
+    "expansion": "Reusable diligence templates and adviser portfolio coordination",
+    "competitors": [
+      {
+        "name": "Ideals",
+        "url": "https://www.idealsvdr.com/",
+        "observed": "2026-10-05",
+        "facts": "Virtual data room includes diligence checklists, document controls and Q&A; capabilities depend on plan.",
+        "price": "Request pricing; no numeric public amount verified.",
+        "access": "opened"
+      }
+    ],
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 249,
+      "unit": "organization/month; proposed USD, scope-capped pilot plan",
+      "free_boundary": "14-day trial with synthetic data",
+      "paid_boundary": "Team workflows, guest collaboration, history and exports",
+      "lifetime": "No unlimited hosted lifetime plan; an offline template/export pack could be sold separately, with no MRR credit."
+    },
+    "channel": "Proposed: boutique M&A advisers using approved synthetic transaction packs",
+    "retention": "Overlapping transactions, though a single company may buy only once",
+    "moat": "Hypothesis: Request and diligence evidence history; strong existing secure-room competitors",
+    "mvp": [
+      "Define diligence checklist",
+      "Invite authorized parties",
+      "Collect and version evidence",
+      "Resolve controlled Q&A",
+      "Approve closure and export archive",
+      "Roles, audit history, import/export and backup recovery"
+    ],
+    "effort_weeks": [
+      14,
+      22
+    ],
+    "cost": {
+      "pilot_usd_month": [
+        60,
+        150
+      ],
+      "fits_bootstrap": false,
+      "assumptions": "Engineering estimate for 3–5 small design-partner accounts, not a measured quote; labor, tax, payment fees, acquisition and audits excluded. Pilot quota hypothesis: maximum five organizations, 250 active cases, 10000 structured child records, 2GB aggregate attachments, 20MB per file and 2000 transactional emails/month; no bulk marketing, video or uncapped AI. Exceeding a cap pauses new imports pending repricing; these limits are not measured capacity results.",
+      "drivers": "Controlled access, storage and independent security review; prefer existing customer storage, professional reviews excluded.",
+      "revenue_stage": "Up to $300/month could fund managed database/backups, monitoring and bounded integrations after paying usage; not enterprise service levels."
+    },
+    "integrations": [
+      "CSV imports",
+      "explicit email delivery"
+    ],
+    "risks": [
+      "Event-driven revenue at end buyer",
+      "Enterprise security expectations",
+      "Established data rooms bundle workflows"
+    ],
+    "global_limits": "No legal or investment advice; data residency, transaction confidentiality and competition restrictions vary",
+    "validation": "Replay one anonymized closed deal; test an adviser-level multi-deal subscription",
+    "kill_gate": "Stop if demand is only one-time rooms or certified secure storage must be supplied by us",
+    "scores": {
+      "pain": 4,
+      "recurrence": 3,
+      "budget": 4,
+      "distribution": 2,
+      "wedge": 2,
+      "feasibility": 2,
+      "global": 2,
+      "cost": 2
+    },
+    "score_rationale": "Analyst judgment: recurrence and budget reflect the workflow; distribution/wedge discount established alternatives. Security and integration scope constrain feasibility.",
+    "evidence_confidence": "medium: official category evidence only",
+    "source_limit": "Vendor features and price do not prove an underserved segment, our conversion, revenue, or retention."
+  }
+]

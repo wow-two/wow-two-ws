@@ -1,0 +1,232 @@
+[
+  {
+    "id": "S076",
+    "penalty": 0,
+    "reason": "The free personnel-record substitute and weak wedge are already reflected in base scores, so no second deduction. Configurable approvals are not yet a reason to migrate sensitive records. Fractional HR advisers are a reachable-channel hypothesis, not demonstrated access. Require one approved roster migration and paid continuation after an offboarding cycle; a synthetic one-month demo does not establish willingness to entrust real employee documents.",
+    "decision": "Reserve"
+  },
+  {
+    "id": "S077",
+    "penalty": 5,
+    "reason": "The segment hires only 5–15 roles annually, which may not create continuous concurrent use. That weakens the recurrence assumption beyond ordinary ATS competition already scored. Flat team pricing and human decisions do not establish superiority over Manatal. Require buyers with consistently overlapping vacancies and paid continuation between hiring rounds; avoid treating founder-community membership as a distribution advantage.",
+    "decision": "Defer"
+  },
+  {
+    "id": "S078",
+    "penalty": 0,
+    "reason": "Base scores already capture sensitive records, weak wedge and adoption friction; no additional deduction. Quarterly manager-led reviews are a mature workflow, and avoiding AI ratings is not by itself a switching reason. Observe whether development actions actually recur between review rounds. Ten participating managers are not ten budget owners, and consultant enthusiasm cannot substitute for an employer commitment.",
+    "decision": "Defer"
+  },
+  {
+    "id": "S079",
+    "penalty": 0,
+    "reason": "Sensitive pay data, seasonal demand and security constraints already lower feasibility and cost. No extra penalty. A 100–400-person international company may require SSO, granular visibility and integration assurance before a pilot; the stated cash range excludes independent review. Synthetic planning proves calculation behavior only. Require acceptable procurement terms and demonstrated paid annual usage before treating this as bootstrap-feasible.",
+    "decision": "Defer"
+  },
+  {
+    "id": "S080",
+    "penalty": 5,
+    "reason": "A worthwhile validation candidate, but Process Street already combines policy/document control with workflow execution, approvals and permissions. This new comparison weakens the claimed policy-to-execution distinction. Test three concrete recurring controls and evidence lineage against configured incumbents, not a static wiki. Consultant introductions remain unverified; consultant setup labor must be separated from software value. Validate means discovery and paid-pilot testing, not build approval.",
+    "decision": "Validate",
+    "additional_sources": [
+      {
+        "name": "Process Street",
+        "url": "https://www.process.st/pricing/",
+        "observed": "2026-10-05",
+        "facts": "Lists document/policy control and workflow operations, with approvals, enforced task order, role assignments, scheduled workflows and workflow revisions.",
+        "price": "contact sales for Startup, Pro and Enterprise; Startup lists five users and ten guests. Currency, billing commitment and monetary minimum not verified.",
+        "access": "opened"
+      }
+    ]
+  },
+  {
+    "id": "S081",
+    "penalty": 0,
+    "reason": "The service-specific commitment and acceptance record is coherent, but Procurify already links purchasing, contract spend and invoice exceptions. No extra penalty: accounting integration and bundled approval concerns are already scored. Demand must come from repeated service acceptance problems rather than general spreadsheet dislike. QuickBooks/Xero advisers are a channel hypothesis and may expect native synchronization. Prove a CSV workflow remains useful through two purchase cycles before funding adapters.",
+    "decision": "Reserve",
+    "additional_sources": [
+      {
+        "name": "Procurify",
+        "url": "https://www.procurify.com/pricing/",
+        "observed": "2026-10-05",
+        "facts": "Base purchasing includes requests, orders, vendors, approvals, budgets and accounting integrations. AP invoice matching and contracts are separate add-ons; Basic requesting/receiving users are unlimited.",
+        "price": "contact sales; quotes depend on products, add-ons, Pro users and integrations. Currency, monetary price, billing commitment and minimum Pro seats not verified.",
+        "access": "opened"
+      }
+    ]
+  },
+  {
+    "id": "S082",
+    "penalty": 0,
+    "reason": "Document redlines, version fidelity, signature evidence and confidential access create a much deeper product than a contract tracker. These burdens are already reflected in feasibility and cost, so no additional penalty. Customer-owned templates avoid legal-content production but do not remove Word/e-sign interoperability. A fractional counsel channel remains a hypothesis and may favor a trusted existing CLM.",
+    "decision": "Defer"
+  },
+  {
+    "id": "S083",
+    "penalty": 5,
+    "reason": "Rocketlane and Dock already offer customer portals and free external collaboration, so customer-side accountability is direct parity. This independent comparison weakens the claimed wedge beyond a single incumbent. Identify a missing decision or materially easier adoption path; lower total price alone is fragile. The complete MVP loop is now included. Run prerequisite-to-acceptance cycles with customer guests and test whether manual sales handoffs remain acceptable after setup.",
+    "decision": "Reserve",
+    "additional_sources": [
+      {
+        "name": "Dock",
+        "url": "https://www.dock.us/pricing",
+        "observed": "2026-10-05",
+        "facts": "Offers customer onboarding/client portals, shared workspaces and free external collaborators. Standard includes five internal users, unlimited workspaces and Salesforce/HubSpot integrations; Free lists ten workspaces.",
+        "price": "Standard displays $350/month for five internal users and $50/month extra seats; currency and Standard billing commitment not verified. Premium displays $1,000/month billed annually, ten users. Free internal-user entitlement is unclear in the table.",
+        "access": "opened"
+      }
+    ]
+  },
+  {
+    "id": "S084",
+    "penalty": 0,
+    "reason": "Manual health assessments reduce initial integration expense, but do not establish a differentiated customer-success business. Weak wedge and integration risk are already scored; no second penalty. Observe whether the first CS manager maintains account evidence without continuous paid assistance. Account cleanup is a one-time service; the recurring purchase must survive renewal preparation and subsequent intervention cycles. Final source check: Custify explicitly supports staff-defined health ratings; a manual-first health model is incumbent parity, leaving migration and workflow simplicity unproved.",
+    "decision": "Reserve",
+    "additional_sources": [
+      {
+        "name": "Custify",
+        "url": "https://www.custify.com/pricing",
+        "observed": "2026-10-05",
+        "facts": "Offers customer lifecycle tracking, staff-defined health ratings, playbooks and customer collaboration.",
+        "price": "Contact provider; no numeric amount or minimum commitment verified. Page states no setup fee.",
+        "access": "opened"
+      }
+    ]
+  },
+  {
+    "id": "S085",
+    "penalty": 0,
+    "reason": "Deal registration and commission approvals form a durable record; existing-network focus avoids a marketplace dependency. No additional penalty beyond incumbent and integration concerns already scored. Confirm commission reversals, duplicate registrations and delayed outcomes can be represented without payment custody. PartnerHacker is a possible place to seek permission for research, not evidence of reachable buyers or economical acquisition. Final source check: Kiflo directly covers the small active-partner program, so avoiding a marketplace is not itself a unique segment.",
+    "decision": "Reserve",
+    "additional_sources": [
+      {
+        "name": "Kiflo",
+        "url": "https://www.kiflo.com/pricing",
+        "observed": "2026-10-05",
+        "facts": "Core includes a partner portal, deal registration, CRM synchronization and commission calculation.",
+        "price": "Core displayed $399/month for 25 active partners and three partner managers; up to50 partners at scaled price. Monthly/yearly plans available, annual discount10%; dollar currency code not explicit.",
+        "access": "opened"
+      }
+    ]
+  },
+  {
+    "id": "S086",
+    "penalty": 5,
+    "reason": "New low-end competitor evidence materially weakens the Instrumentl-only price comparison: Grantseeker Classic lists grant tracking, budgeting, report series and timelines at a displayed $19.99/month. The proposed $129 must therefore win a specific post-award responsibility workflow, not merely tracking without discovery. Require paid use after a real funder report. Distribution score four is not customer-validated; grant consultants may sell services rather than software.",
+    "decision": "Reserve",
+    "additional_sources": [
+      {
+        "name": "Grantseeker",
+        "url": "https://grantseeker.io/pricing?lg_redirect=1",
+        "observed": "2026-10-05",
+        "facts": "Classic Premium lists grant tracking, program budgeting, document storage, report series, grant timelines and Excel export. Pro adds configurable workflows, permissions and account integrations.",
+        "price": "Premium displays $19.99/month and Prospecting $51.99/month; currency, seat minimum and selected annual/monthly toggle basis not verified. Pro uses custom formula-based pricing.",
+        "access": "opened"
+      }
+    ]
+  },
+  {
+    "id": "S087",
+    "penalty": 0,
+    "reason": "The grantmaker workflow is distinct from grantseeker operations, but several annual calls may still be episodic rather than continuous. Cost and distribution constraints are already acknowledged. Accessibility, conflict separation and reviewer permissions must work before real applications enter. A 50-application replay proves workflow coverage, not grantmaker procurement speed or recurring willingness to pay.",
+    "decision": "Defer"
+  },
+  {
+    "id": "S088",
+    "penalty": 5,
+    "reason": "Donorbox is primarily fundraising-platform evidence; the record lacks a direct donor-CRM comparison covering restricted gifts and stewardship. That evidence gap leaves the stated processor-neutral wedge untested. Cross-source identity matching and restriction history are central, not incidental imports. Seek organizations with several actual donation systems and recurring donor obligations; general fundraising consultants are not yet a proven referral channel.",
+    "decision": "Reserve"
+  },
+  {
+    "id": "S089",
+    "penalty": 0,
+    "reason": "The distinction from recognized sustainability ratings is explicit, but the buyer may pay precisely for standardized accepted evidence rather than another collection workflow. Base scores already capture weak wedge, localization and cost; no second deduction. Require a customer reporting obligation that accepts customer-defined questionnaires. Otherwise this is a supplier document portal with no proven standalone budget.",
+    "decision": "Defer"
+  },
+  {
+    "id": "S090",
+    "penalty": 0,
+    "reason": "A reasonable discovery candidate because recurring bids create a clear owner, reusable evidence and expensive coordination. The second source confirms formidable direct competition: Responsive sells centralized content and collaboration even to emerging proposal teams. No extra penalty beyond the existing wedge/feasibility discount. A pilot must include document roundtrip, exception approval and final submission assembly, and quantify reduced review work rather than AI draft volume.",
+    "decision": "Validate",
+    "additional_sources": [
+      {
+        "name": "Responsive",
+        "url": "https://www.responsive.io/pricing",
+        "observed": "2026-10-05",
+        "facts": "Emerging edition lists unlimited response projects, content/collaboration, integrations and access controls. Platform subscription is annual; user licenses and add-ons are separate components.",
+        "price": "Starting amount displays $10,000, but currency and the exact scope/unit of that starting amount are not verified. Platform fee is annual; minimum user licenses not stated.",
+        "access": "opened"
+      }
+    ]
+  },
+  {
+    "id": "S091",
+    "penalty": 0,
+    "reason": "Re-reviewed the new B2B support candidate; it is distinct from research evidence. Help Scout already offers a free inbox/docs tier and paid SLA/company capabilities, while email threading, entitlement identity and message retention require dependable operation. Those risks are already reflected in wedge one and low feasibility, so no additional deduction. The replay should test actual contract exceptions and paid continuation, not simply demonstrate a shared inbox. CSV plus outbound email does not yet specify reliable inbound synchronization.",
+    "decision": "Defer"
+  },
+  {
+    "id": "S092",
+    "penalty": 0,
+    "reason": "Productboard offers an inexpensive and broad feedback/prioritization alternative, already reflected in wedge two. No additional deduction. Account-revenue context requires reliable customer identity and CRM/billing inputs; manual entry can erase the benefit. Community reach is unverified, and closing 50 requests in a concierge service does not prove users will keep this separate from their existing tracker.",
+    "decision": "Defer"
+  },
+  {
+    "id": "S093",
+    "penalty": 0,
+    "reason": "The expense record is valid, but manual receipt entry weakens the proposed product against low-price mature expense systems. The original feasibility/cost/global scores already account for this, so no additional penalty. Employer policy configuration is not a replacement for local receipt requirements. Validate willingness to use manual entry before testing a price; otherwise the low-cost pilot tests a product buyers do not want.",
+    "decision": "Defer"
+  },
+  {
+    "id": "S094",
+    "penalty": 5,
+    "reason": "Strong discovery candidate with identifiable finance ownership, but concierge resolution can confound software value with collection labor. Require enough recurring disputed invoices and measure owner follow-through and reconciliation, not recovered cash alone. Upflow also provides AR collaboration, integrations and free insights, further narrowing the entry. The distribution score four is ahead of evidence: accountants are a proposed channel with no demonstrated referrals. No automated outreach should occur in this research.",
+    "decision": "Validate",
+    "additional_sources": [
+      {
+        "name": "Upflow",
+        "url": "https://upflow.io/pricing",
+        "observed": "2026-10-05",
+        "facts": "Starter includes collections communication, analytics, accounting integrations and unlimited seats. Discover provides free AR dashboards; paid plans scale by gross invoice value and invoice volume.",
+        "price": "contact sales; paid plans have yearly commitments and invoice/GIV limits with unlimited user seats. Currency and monetary amount not verified; payment products and custom integrations may cost extra.",
+        "access": "opened"
+      }
+    ]
+  },
+  {
+    "id": "S095",
+    "penalty": 0,
+    "reason": "Re-reviewed the new usage-based billing candidate; it is distinct from CFO planning. Bounded batches avoid real-time ingestion scale but still require deduplication, late-event corrections, price-effective versions and invoice reconciliation. These correctness costs are already heavily discounted, so no additional penalty. Proposed $249 must justify replacing scripts despite Orb and other mature billing systems. The pilot needs exact historical reproduction with documented edge cases; $300 infrastructure does not fund independent correctness review or production support.",
+    "decision": "Defer"
+  },
+  {
+    "id": "S096",
+    "penalty": 0,
+    "reason": "The security, integration and legal burden is already heavily discounted; no additional penalty. The initial B2B segment may receive too few requests for sustained workflow value, while higher-volume buyers expect discovery/connectors. Manual ownership mapping is not proof of complete responses. The $300 later envelope cannot be interpreted as funding independent security review or jurisdiction-specific legal maintenance.",
+    "decision": "Defer"
+  },
+  {
+    "id": "S097",
+    "penalty": 0,
+    "reason": "Correctly a later-stage candidate: confidential intake and access-separated investigations require assurance beyond ordinary hosting. Risks are already reflected in minimum feasibility/cost scores. Bringing an intake provider still creates sensitive integration and metadata exposure. Synthetic case tests are necessary but not evidence that reporters or employers should trust the service; the funded independent review gate must remain binding.",
+    "decision": "Defer"
+  },
+  {
+    "id": "S098",
+    "penalty": 0,
+    "reason": "The record is coherent and advisers may offer a channel, but BoardPro already covers every named stage. Weak wedge is already scored; no extra penalty. An organization-level price needs explicit limits for boards, committees and guests. Test one specific handover or action-continuity problem that survives comparison with the incumbent, including low-frequency board-member adoption.",
+    "decision": "Reserve"
+  },
+  {
+    "id": "S099",
+    "penalty": 0,
+    "reason": "The existing scores already discount discretionary budgets and weak differentiation. No extra penalty. A 200–2000-person organization may impose enterprise onboarding despite low infrastructure cost, and consultants may deliver the value themselves. Recurring funded experiments and a continuing sponsor must exist before software scope is justified; idea collection without measured stop/continue decisions does not satisfy this product thesis.",
+    "decision": "Defer"
+  },
+  {
+    "id": "S100",
+    "penalty": 0,
+    "reason": "Existing VDRs already bundle request workflows, and base scores capture trust, episodic demand and weak acquisition. No extra deduction. Customer-owned storage reduces custody but does not solve permission drift, document-version references or Q&A visibility. An adviser-level portfolio is the plausible recurring buyer; one successful deal replay cannot establish adviser retention or acceptable procurement/security requirements.",
+    "decision": "Defer"
+  }
+]

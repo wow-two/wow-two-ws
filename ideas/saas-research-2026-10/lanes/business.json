@@ -1,0 +1,2276 @@
+[
+  {
+    "id": "S001",
+    "name": "Fixed-fee consulting engagement operations",
+    "category": "Professional services / consultancy delivery",
+    "buyer": "Managing partner, 3–15-person strategy consultancies",
+    "job": "Protect fixed-fee margins while keeping client decisions and delivery synchronized.",
+    "current_workaround": "Spreadsheets, shared documents and a general task board.",
+    "record": "Engagement baseline with work packages, capacity commitments, approved changes and accepted deliverables.",
+    "workflow": [
+      "Baseline scope and fee",
+      "Allocate consultant capacity",
+      "Review work and scope changes",
+      "Accept deliverables and reconcile margin"
+    ],
+    "roles": [
+      "Partner",
+      "Engagement manager",
+      "Client sponsor"
+    ],
+    "wedge": "Start with repeatable diagnostic engagements; approval changes must update remaining effort and delivery commitments.",
+    "why_pay": "Less unrecoverable consultant time could justify payment.",
+    "expansion": "Portfolio staffing and reusable engagement economics.",
+    "competitors": [
+      {
+        "name": "Productive",
+        "url": "https://productive.io/pricing/",
+        "observed": "2026-10-05",
+        "facts": "Lists budgeting, resource planning, tasks, time tracking, expenses and reporting.",
+        "price": "not verified: extracted dynamic calculator totals conflict with displayed per-user amounts; currency and final commitment require confirmation.",
+        "access": "opened"
+      },
+      {
+        "name": "Scoro",
+        "url": "https://www.scoro.com/pricing/",
+        "observed": "2026-10-05",
+        "facts": "Combines work and financial apps; minimum five seats and two included core apps.",
+        "price": "EUR 15/user/month starting price; minimum five users. Billing commitment and final app combination price not verified.",
+        "access": "opened"
+      }
+    ],
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 149,
+      "unit": "firm workspace; proposed monthly USD price",
+      "free_boundary": "14-day capped trial; no permanent hosted collaboration tier",
+      "paid_boundary": "Persistent workflow, external collaboration, history and exports",
+      "lifetime": "Unsuitable for ongoing hosting, support and security obligations"
+    },
+    "channel": "Hypothesis: offer a consent-based workflow clinic through Consulting Success community organizers; recruit partners with a live fixed-fee project.",
+    "retention": "Weekly staffing decisions and accumulated estimate-versus-actual history.",
+    "moat": "Potential advantage is imported engagement history, not a generic dashboard.",
+    "mvp": [
+      "Versioned engagement baseline",
+      "Capacity and time ledger",
+      "Client acceptance and margin close"
+    ],
+    "effort_weeks": [
+      12,
+      18
+    ],
+    "cost": {
+      "pilot_usd_month": [
+        20,
+        50
+      ],
+      "fits_bootstrap": true,
+      "assumptions": "Three firms, 30 active engagements, 2 GB attachments; estimates exclude engineering, support, acquisition, taxes and payment fees.",
+      "drivers": "Database and files; cap uploads, no AI processing",
+      "revenue_stage": "Up to $300 supports backups, monitoring and more file capacity"
+    },
+    "integrations": [
+      "CSV time import",
+      "Accounting export, no payment execution"
+    ],
+    "risks": [
+      "Productive and Scoro already connect money and delivery; another PSA may add migration work.",
+      "Implementation consulting can erase subscription margins."
+    ],
+    "global_limits": "Currencies are labels; tax and invoicing remain in customer accounting systems.",
+    "validation": "With five firms, replay one completed project and shadow a live one; seek three $149 monthly commitments tied to fewer unapproved hours.",
+    "kill_gate": "Stop if firms require replacing their accounting system or see no advantage over configuring their PSA.",
+    "scores": {
+      "pain": 4,
+      "recurrence": 4,
+      "budget": 4,
+      "distribution": 2,
+      "wedge": 2,
+      "feasibility": 3,
+      "global": 4,
+      "cost": 4
+    },
+    "score_rationale": "Commercial job is clear; weak differentiation and difficult switching keep priority moderate.",
+    "evidence_confidence": "medium; official competitor evidence only",
+    "source_limit": "Sources establish available alternatives, not unmet demand, customer willingness to switch, acquisition economics or our proposed price."
+  },
+  {
+    "id": "S002",
+    "name": "Design subscription agency operations",
+    "category": "Professional services / creative service delivery",
+    "buyer": "Owner, 2–10-person design subscription agencies",
+    "job": "Deliver recurring creative requests within purchased capacity without losing revision or acceptance history.",
+    "current_workaround": "Trello queues, Stripe records, Figma links and email.",
+    "record": "Client subscription entitlement linked to queued briefs, asset revisions, approvals and capacity consumption.",
+    "workflow": [
+      "Set service entitlement",
+      "Triage and schedule briefs",
+      "Produce and review revisions",
+      "Accept delivery and reset allowance"
+    ],
+    "roles": [
+      "Agency owner",
+      "Designer",
+      "Client approver"
+    ],
+    "wedge": "Own queue policy and entitlement decisions across the full delivery cycle for asynchronous brand-design teams.",
+    "why_pay": "Recovering scheduling time and controlling revision work may justify a firm subscription.",
+    "expansion": "Multiple service lanes and contractor allocation.",
+    "competitors": [
+      {
+        "name": "ManyRequests",
+        "url": "https://www.manyrequests.com/pricing",
+        "observed": "2026-10-05",
+        "facts": "Includes client portal, requests, billing, CRM, reporting, time tracking and design/video proofing.",
+        "price": "not verified: page displays Core $59/month, but currency and toggle-specific billing basis are not explicit in extracted text; every plan includes one seat.",
+        "access": "opened"
+      },
+      {
+        "name": "Filestage",
+        "url": "https://filestage.io/pricing/",
+        "observed": "2026-10-05",
+        "facts": "Adjacent proofing alternative offers version comparison, review links and reminders. Free tier has one active project and five new files monthly.",
+        "price": "Starter EUR 199/month includes ten seats; billing commitment not verified; extra seats sold in bundles of five.",
+        "access": "opened"
+      }
+    ],
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 99,
+      "unit": "firm workspace; proposed monthly USD price",
+      "free_boundary": "14-day capped trial; no permanent hosted collaboration tier",
+      "paid_boundary": "Persistent workflow, external collaboration, history and exports",
+      "lifetime": "Unsuitable for ongoing hosting, support and security obligations"
+    },
+    "channel": "Hypothesis: publish a queue-policy teardown in permissioned design-agency founder communities; invite owners to test their existing subscription rules.",
+    "retention": "Daily request queues and retained brand/revision decisions.",
+    "moat": "Client-specific delivery history could become useful; portability remains mandatory.",
+    "mvp": [
+      "Subscription entitlement ledger",
+      "Request queue and revision trail",
+      "Client acceptance and cycle report"
+    ],
+    "effort_weeks": [
+      10,
+      16
+    ],
+    "cost": {
+      "pilot_usd_month": [
+        20,
+        50
+      ],
+      "fits_bootstrap": true,
+      "assumptions": "Three agencies, 100 requests and 5 GB files; estimates exclude engineering, support, acquisition, taxes and payment fees.",
+      "drivers": "Large assets and previews; use customer Figma links, cap files, no video transcoding",
+      "revenue_stage": "Up to $300 adds storage, backup copies and worker isolation"
+    },
+    "integrations": [
+      "CSV subscription import",
+      "Customer-owned Figma links"
+    ],
+    "risks": [
+      "ManyRequests already owns nearly this entire workflow: do not build merely for lower price.",
+      "A usable proofing experience can exceed the estimated effort."
+    ],
+    "global_limits": "English-first; currency display and time zones needed; no design labor supplied.",
+    "validation": "Shadow three agencies for two billing cycles; test entitlement disputes against ManyRequests and seek three $99 monthly commitments.",
+    "kill_gate": "Stop if existing queue settings solve the problem or clients refuse another portal.",
+    "scores": {
+      "pain": 4,
+      "recurrence": 5,
+      "budget": 3,
+      "distribution": 3,
+      "wedge": 2,
+      "feasibility": 4,
+      "global": 5,
+      "cost": 4
+    },
+    "score_rationale": "Frequent visible work and bounded pilot costs help; direct competition makes the wedge weak.",
+    "evidence_confidence": "medium; official competitor evidence only",
+    "source_limit": "Sources establish available alternatives, not unmet demand, customer willingness to switch, acquisition economics or our proposed price."
+  },
+  {
+    "id": "S003",
+    "name": "Performance marketing campaign operations",
+    "category": "Professional services / marketing agency operations",
+    "buyer": "Delivery director, paid-media agencies serving 10–40 clients",
+    "job": "Coordinate campaign budgets, creative approvals, launch checks and recurring optimization decisions.",
+    "current_workaround": "Ads managers, spreadsheets, reporting dashboards and Slack.",
+    "record": "Campaign plan linking budget authority, creative versions, deployment receipts and optimization decisions.",
+    "workflow": [
+      "Approve plan and budget",
+      "Review launch assets",
+      "Record launch and checks",
+      "Review results and authorize changes"
+    ],
+    "roles": [
+      "Account strategist",
+      "Media buyer",
+      "Client budget approver"
+    ],
+    "wedge": "Start with client-authorized budget changes and evidence of actual deployment across a complete campaign cycle.",
+    "why_pay": "Avoided approval confusion and reporting assembly could fund the subscription.",
+    "expansion": "Experiment libraries and cross-client delivery capacity.",
+    "competitors": [
+      {
+        "name": "AgencyAnalytics",
+        "url": "https://agencyanalytics.com/pricing",
+        "observed": "2026-10-05",
+        "facts": "Offers reporting dashboards, data-source integrations, unlimited staff accounts and client access; adjacent to execution coordination.",
+        "price": "USD 20 per client/month billed annually is displayed; minimum client commitment not verified.",
+        "access": "opened"
+      }
+    ],
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 129,
+      "unit": "firm workspace; proposed monthly USD price",
+      "free_boundary": "14-day capped trial; no permanent hosted collaboration tier",
+      "paid_boundary": "Persistent workflow, external collaboration, history and exports",
+      "lifetime": "Unsuitable for ongoing hosting, support and security obligations"
+    },
+    "channel": "Hypothesis: agency operations consultants can host a campaign handoff workshop; request anonymized launch packets before offering a pilot.",
+    "retention": "Weekly optimization and monthly campaign decisions accumulate context.",
+    "moat": "Reusable decision history may help; advertising connectors alone are replicable.",
+    "mvp": [
+      "Campaign register and budget authority",
+      "Creative approval and launch checklist",
+      "Results import and decision log"
+    ],
+    "effort_weeks": [
+      12,
+      20
+    ],
+    "cost": {
+      "pilot_usd_month": [
+        20,
+        50
+      ],
+      "fits_bootstrap": true,
+      "assumptions": "Three agencies, 60 campaigns, CSV reporting; estimates exclude engineering, support, acquisition, taxes and payment fees.",
+      "drivers": "Ad API maintenance and media storage; postpone write access and use external assets",
+      "revenue_stage": "Up to $300 funds bounded connectors, monitoring and imports"
+    },
+    "integrations": [
+      "CSV metrics first",
+      "Read-only ad connectors only after demand"
+    ],
+    "risks": [
+      "AgencyAnalytics plus existing boards may suffice.",
+      "Without automatic metrics imports, duplicate entry may destroy adoption."
+    ],
+    "global_limits": "Platform permissions and advertising policies vary; no autonomous campaign spending.",
+    "validation": "Run one monthly cycle for five agencies; measure duplicated work and seek three $129 commitments without ad-write automation.",
+    "kill_gate": "Stop if buyers only value a reporting dashboard or require many live ad connectors immediately.",
+    "scores": {
+      "pain": 4,
+      "recurrence": 5,
+      "budget": 4,
+      "distribution": 3,
+      "wedge": 2,
+      "feasibility": 2,
+      "global": 4,
+      "cost": 3
+    },
+    "score_rationale": "Budget and recurrence are plausible; connector burden and incumbent reporting weaken feasibility.",
+    "evidence_confidence": "medium; official competitor evidence only",
+    "source_limit": "Sources establish available alternatives, not unmet demand, customer willingness to switch, acquisition economics or our proposed price."
+  },
+  {
+    "id": "S004",
+    "name": "Bookkeeping practice close operations",
+    "category": "Professional services / accounting practice operations",
+    "buyer": "Practice owner, 3–12-person outsourced bookkeeping firms",
+    "job": "Move each client through document collection, exception resolution, reviewer approval and monthly close.",
+    "current_workaround": "Accounting ledger plus email, recurring checklists and shared folders.",
+    "record": "Client-period close file with source requests, unresolved transactions, reviewer decisions and release state.",
+    "workflow": [
+      "Open client period",
+      "Collect and resolve exceptions",
+      "Review reconciliations",
+      "Release close pack and roll forward"
+    ],
+    "roles": [
+      "Bookkeeper",
+      "Reviewer",
+      "Client contact"
+    ],
+    "wedge": "A close-first workspace for firms using multiple ledger products, with explicit reopened-period handling.",
+    "why_pay": "Reduced rework and fewer stalled closes may support recurring spend.",
+    "expansion": "Annual handover packs and capacity planning.",
+    "competitors": [
+      {
+        "name": "Financial Cents",
+        "url": "https://financial-cents.com/pricing/",
+        "observed": "2026-10-05",
+        "facts": "Offers workflow automation, client requests, file sharing, time tracking and month-end close as an add-on.",
+        "price": "Team displays $49/user/month annually; monthly billing requires five users and all plans state a 12-month agreement. Currency not verified. Close add-on displays $5/client/month annually.",
+        "access": "opened"
+      },
+      {
+        "name": "Content Snare",
+        "url": "https://contentsnare.com/pricing/",
+        "observed": "2026-10-05",
+        "facts": "Adjacent intake product includes client requests, reminders, approvals and templates.",
+        "price": "Basic USD 35/month billed annually or USD 42/month monthly; 20 active requests and two users included.",
+        "access": "opened"
+      }
+    ],
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 149,
+      "unit": "firm workspace; proposed monthly USD price",
+      "free_boundary": "14-day capped trial; no permanent hosted collaboration tier",
+      "paid_boundary": "Persistent workflow, external collaboration, history and exports",
+      "lifetime": "Unsuitable for ongoing hosting, support and security obligations"
+    },
+    "channel": "Hypothesis: partner with independent bookkeeping workflow trainers; offer a redacted close-file review through their opt-in audience.",
+    "retention": "Monthly close recurrence and carried-forward exception history.",
+    "moat": "Cross-ledger close history is a possible advantage, not proven defensibility.",
+    "mvp": [
+      "Period templates and requests",
+      "Exception resolution with reviewer gates",
+      "Locked close and controlled reopening"
+    ],
+    "effort_weeks": [
+      12,
+      18
+    ],
+    "cost": {
+      "pilot_usd_month": [
+        20,
+        50
+      ],
+      "fits_bootstrap": true,
+      "assumptions": "Three firms, 60 client periods, 2 GB redacted files; estimates exclude engineering, support, acquisition, taxes and payment fees.",
+      "drivers": "Sensitive files, retention and accounting APIs; start with CSV and capped storage",
+      "revenue_stage": "Up to $300 supports stronger backups and one validated ledger connector"
+    },
+    "integrations": [
+      "CSV client and transaction import",
+      "Customer-owned ledger remains authoritative"
+    ],
+    "risks": [
+      "Financial Cents already offers the proposed core; configuring it may be superior.",
+      "Security review and ledger synchronization raise switching costs."
+    ],
+    "global_limits": "No bookkeeping advice or ledger posting; local financial-data retention requirements remain customer-specific.",
+    "validation": "Replay five redacted close files, then run a monthly cycle; require three $149 commitments and demonstrated reduction in repeated requests.",
+    "kill_gate": "Stop if ledger-specific integrations are mandatory before value or existing close tools cover the gap.",
+    "scores": {
+      "pain": 4,
+      "recurrence": 5,
+      "budget": 4,
+      "distribution": 3,
+      "wedge": 2,
+      "feasibility": 3,
+      "global": 3,
+      "cost": 3
+    },
+    "score_rationale": "High recurrence, but strong direct overlap and sensitive data constrain the case.",
+    "evidence_confidence": "medium; official competitor evidence only",
+    "source_limit": "Sources establish available alternatives, not unmet demand, customer willingness to switch, acquisition economics or our proposed price."
+  },
+  {
+    "id": "S005",
+    "name": "Independent audit engagement workspace",
+    "category": "Professional services / assurance practice operations",
+    "buyer": "Audit partner, small independent assurance firms",
+    "job": "Coordinate evidence requests, testing, review notes and controlled engagement completion.",
+    "current_workaround": "Audit spreadsheets, document portals and Word workpapers.",
+    "record": "Engagement file linking audit procedures, supplied evidence, preparer conclusions and reviewer sign-off.",
+    "workflow": [
+      "Plan engagement and evidence requests",
+      "Assign procedures and document tests",
+      "Resolve reviewer notes",
+      "Freeze file and manage subsequent evidence"
+    ],
+    "roles": [
+      "Audit manager",
+      "Preparer",
+      "Reviewer",
+      "Client evidence owner"
+    ],
+    "wedge": "Start with non-statutory operational assurance engagements using the firm’s own methodology.",
+    "why_pay": "Less evidence chasing and clearer review ownership could justify payment.",
+    "expansion": "Reusable procedure libraries and portfolio scheduling.",
+    "competitors": [
+      {
+        "name": "Suralink",
+        "url": "https://www.suralink.com/",
+        "observed": "2026-10-05",
+        "facts": "Markets request-to-review accounting workflows: document request tracking, workpaper preparation, review collaboration and secure file sharing.",
+        "price": "contact sales; currency, unit, billing commitment and minimum seats not verified.",
+        "access": "opened"
+      }
+    ],
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 199,
+      "unit": "firm workspace; proposed monthly USD price",
+      "free_boundary": "14-day capped trial; no permanent hosted collaboration tier",
+      "paid_boundary": "Persistent workflow, external collaboration, history and exports",
+      "lifetime": "Unsuitable for ongoing hosting, support and security obligations"
+    },
+    "channel": "Hypothesis: independent assurance trainers can convene an opt-in workpaper review clinic; request redacted operational audits.",
+    "retention": "Each engagement creates review history and reusable procedures.",
+    "moat": "Firm-specific evidence lineage may matter; methodology expertise must remain with practitioners.",
+    "mvp": [
+      "Evidence request register",
+      "Procedure workpapers and review notes",
+      "Sign-off, freeze and export"
+    ],
+    "effort_weeks": [
+      16,
+      24
+    ],
+    "cost": {
+      "pilot_usd_month": [
+        60,
+        150
+      ],
+      "fits_bootstrap": false,
+      "assumptions": "Three redacted pilot engagements; estimates exclude engineering, support, acquisition, taxes and payment fees.",
+      "drivers": "Confidential evidence, access assurance and backup requirements exceed basic hosting alone",
+      "revenue_stage": "Up to $300 permits isolated storage and monitoring, not certification"
+    },
+    "integrations": [
+      "Document import and export",
+      "No statutory filing integration"
+    ],
+    "risks": [
+      "Suralink already connects requests to reviews.",
+      "Professional confidentiality and irreversible file-finalization expectations create substantial assurance demands."
+    ],
+    "global_limits": "Methodology and retention obligations differ; software provides no audit opinion.",
+    "validation": "Walk through five closed operational audits with managers; seek three $199 conditional pilots after acceptable security review.",
+    "kill_gate": "Defer if statutory methodology licensing or formal security attestations are prerequisites.",
+    "scores": {
+      "pain": 4,
+      "recurrence": 4,
+      "budget": 4,
+      "distribution": 2,
+      "wedge": 2,
+      "feasibility": 2,
+      "global": 2,
+      "cost": 2
+    },
+    "score_rationale": "Budget exists in the category; trust, localization and deep incumbent workflows impede bootstrap entry.",
+    "evidence_confidence": "medium; official competitor evidence only",
+    "source_limit": "Sources establish available alternatives, not unmet demand, customer willingness to switch, acquisition economics or our proposed price."
+  },
+  {
+    "id": "S006",
+    "name": "Boutique legal matter operations",
+    "category": "Professional services / legal practice operations",
+    "buyer": "Managing partner, small advisory law firms",
+    "job": "Manage instructions, matter documents, internal review, client decisions and matter closure.",
+    "current_workaround": "Email, folders, calendars and separate billing software.",
+    "record": "Matter file with authorized instructions, parties, task dependencies, document versions and closure record.",
+    "workflow": [
+      "Accept instructions and record parties",
+      "Plan matter work",
+      "Review documents and obtain decisions",
+      "Close matter and retain record"
+    ],
+    "roles": [
+      "Partner",
+      "Paralegal",
+      "Client contact"
+    ],
+    "wedge": "Initially advisory matters with customer-defined deadlines; no court rules or trust accounting.",
+    "why_pay": "A complete matter trail may reduce coordination time.",
+    "expansion": "Reusable matter playbooks and workload allocation.",
+    "competitors": [
+      {
+        "name": "Clio",
+        "url": "https://www.clio.com/pricing/",
+        "observed": "2026-10-05",
+        "facts": "Lists case management, collaboration, document storage and e-signature; FAQ states accounting is included across plans.",
+        "price": "Starts at USD 49/user/month; billing basis and minimum seats not verified in opened FAQ.",
+        "access": "opened"
+      }
+    ],
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 129,
+      "unit": "firm workspace; proposed monthly USD price",
+      "free_boundary": "14-day capped trial; no permanent hosted collaboration tier",
+      "paid_boundary": "Persistent workflow, external collaboration, history and exports",
+      "lifetime": "Unsuitable for ongoing hosting, support and security obligations"
+    },
+    "channel": "Hypothesis: legal operations consultants can recruit opt-in boutique firms for a matter-process workshop.",
+    "retention": "Active matters and retained instruction history.",
+    "moat": "Practice-specific templates might help, but Clio’s ecosystem is a stronger incumbent asset.",
+    "mvp": [
+      "Matter and party register",
+      "Document review and client decisions",
+      "Deadline ownership and matter export"
+    ],
+    "effort_weeks": [
+      16,
+      24
+    ],
+    "cost": {
+      "pilot_usd_month": [
+        60,
+        120
+      ],
+      "fits_bootstrap": false,
+      "assumptions": "Three firms using redacted advisory matters; estimates exclude engineering, support, acquisition, taxes and payment fees.",
+      "drivers": "Confidentiality, retention and security assurance; no automated legal research",
+      "revenue_stage": "Up to $300 strengthens isolation and backups, not legal compliance"
+    },
+    "integrations": [
+      "CSV matters",
+      "Customer billing system remains separate"
+    ],
+    "risks": [
+      "Clio is affordable and substantially broader.",
+      "Conflict checking, trust accounts and court calendars may be required to switch."
+    ],
+    "global_limits": "Jurisdiction-specific duties and data handling; no legal advice or automatically calculated statutory deadlines.",
+    "validation": "Demonstrate five redacted matters; require three $129 pilots that accept the defined scope and security controls.",
+    "kill_gate": "Defer if buyers need jurisdiction rules or trust accounting before adoption.",
+    "scores": {
+      "pain": 4,
+      "recurrence": 4,
+      "budget": 4,
+      "distribution": 2,
+      "wedge": 1,
+      "feasibility": 2,
+      "global": 2,
+      "cost": 2
+    },
+    "score_rationale": "Important job but weak wedge and high trust burden make this a poor first build.",
+    "evidence_confidence": "medium; official competitor evidence only",
+    "source_limit": "Sources establish available alternatives, not unmet demand, customer willingness to switch, acquisition economics or our proposed price."
+  },
+  {
+    "id": "S007",
+    "name": "Specialist permanent recruitment desk",
+    "category": "Professional services / recruitment agency operations",
+    "buyer": "Owner, 2–8-person permanent-placement agencies",
+    "job": "Turn client vacancies into consented candidate submissions, interviews, offers and guarantee follow-through.",
+    "current_workaround": "ATS spreadsheets, inboxes and separate client lists.",
+    "record": "Vacancy mandate linked to candidate consent, submissions, interview decisions, placement and guarantee window.",
+    "workflow": [
+      "Qualify vacancy and terms",
+      "Source and approve submissions",
+      "Coordinate interview and offer decisions",
+      "Confirm placement and track guarantee"
+    ],
+    "roles": [
+      "Recruiter",
+      "Client hiring manager",
+      "Agency owner"
+    ],
+    "wedge": "Focus on candidate-controlled submissions and post-placement guarantees within one specialist desk.",
+    "why_pay": "Recovering recruiter coordination time and avoiding duplicate submissions might justify spend.",
+    "expansion": "Reusable candidate relationships and multi-desk permissions.",
+    "competitors": [
+      {
+        "name": "Manatal",
+        "url": "https://www.manatal.com/pricing",
+        "observed": "2026-10-05",
+        "facts": "Supports jobs, candidate pipelines, client records and CSV/JSON imports; workflow automation appears in higher tiers.",
+        "price": "Professional USD 15/user/month billed annually, 15 jobs and 10,000 candidates; minimum seats not stated. Enterprise USD 35/user/month annually.",
+        "access": "opened"
+      }
+    ],
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 99,
+      "unit": "firm workspace; proposed monthly USD price",
+      "free_boundary": "14-day capped trial; no permanent hosted collaboration tier",
+      "paid_boundary": "Persistent workflow, external collaboration, history and exports",
+      "lifetime": "Unsuitable for ongoing hosting, support and security obligations"
+    },
+    "channel": "Hypothesis: seek community-admin permission in specialist recruitment founder groups to run a vacancy handoff clinic.",
+    "retention": "New vacancies and placements renew candidate/client history.",
+    "moat": "Consent and guarantee records could retain users; candidate sourcing is not supplied.",
+    "mvp": [
+      "Vacancy and consent records",
+      "Client submission and interview workflow",
+      "Placement guarantee ledger"
+    ],
+    "effort_weeks": [
+      12,
+      18
+    ],
+    "cost": {
+      "pilot_usd_month": [
+        20,
+        50
+      ],
+      "fits_bootstrap": true,
+      "assumptions": "Three agencies, 5,000 candidate records; estimates exclude engineering, support, acquisition, taxes and payment fees.",
+      "drivers": "Resume storage and outbound mail; cap attachments and avoid enrichment databases",
+      "revenue_stage": "Up to $300 adds email integration and storage"
+    },
+    "integrations": [
+      "CSV ATS import",
+      "Calendar links, no job-board aggregation"
+    ],
+    "risks": [
+      "Manatal already offers inexpensive ATS functionality.",
+      "Client adoption and candidate privacy may outweigh any savings."
+    ],
+    "global_limits": "Consent, deletion and employment rules vary; no automated candidate rejection or scoring.",
+    "validation": "Replay five completed placements and test two live vacancies per firm; seek three $99 commitments.",
+    "kill_gate": "Stop if the only requested advantage is cheaper ATS seats or bundled sourcing data.",
+    "scores": {
+      "pain": 4,
+      "recurrence": 5,
+      "budget": 3,
+      "distribution": 3,
+      "wedge": 2,
+      "feasibility": 3,
+      "global": 4,
+      "cost": 4
+    },
+    "score_rationale": "Recurring workflow is real; low-cost incumbents sharply weaken differentiation.",
+    "evidence_confidence": "medium; official competitor evidence only",
+    "source_limit": "Sources establish available alternatives, not unmet demand, customer willingness to switch, acquisition economics or our proposed price."
+  },
+  {
+    "id": "S008",
+    "name": "Retained executive search operations",
+    "category": "Professional services / executive search delivery",
+    "buyer": "Managing partner, 2–10-person retained-search boutiques",
+    "job": "Run confidential mandates with research coverage, off-limits rules, client calibration and staged placement decisions.",
+    "current_workaround": "Private talent spreadsheets, presentation decks and email.",
+    "record": "Search mandate with target-company map, relationship restrictions, candidate evidence and client decision history.",
+    "workflow": [
+      "Agree mandate and target universe",
+      "Map coverage and contact permissions",
+      "Calibrate longlist and interviews",
+      "Record offer, placement and mandate review"
+    ],
+    "roles": [
+      "Search partner",
+      "Research associate",
+      "Client sponsor"
+    ],
+    "wedge": "Own mandate-specific research coverage and client calibration for boutiques that bring their own candidate network.",
+    "why_pay": "Faster partner review and defensible client progress reporting may fund the subscription.",
+    "expansion": "Cross-mandate relationship intelligence and research staffing.",
+    "competitors": [
+      {
+        "name": "Clockwork",
+        "url": "https://www.clockworkrecruiting.com/platform-pricing",
+        "observed": "2026-10-05",
+        "facts": "Offers target-company lists, research coverage reporting, client feedback and collaborative longlists alongside recruiting CRM.",
+        "price": "Displays $149/user/month with annual/monthly toggle; currency and selected billing commitment not verified.",
+        "access": "opened"
+      },
+      {
+        "name": "Loxo",
+        "url": "https://loxo.co/pricing",
+        "observed": "2026-10-05",
+        "facts": "Core includes ATS, recruiting CRM, pipelines, reporting and email/calendar sync.",
+        "price": "Core starts at $149/user/month billed annually and paid upfront; currency and minimum seats not verified.",
+        "access": "opened"
+      }
+    ],
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 199,
+      "unit": "firm workspace; proposed monthly USD price",
+      "free_boundary": "14-day capped trial; no permanent hosted collaboration tier",
+      "paid_boundary": "Persistent workflow, external collaboration, history and exports",
+      "lifetime": "Unsuitable for ongoing hosting, support and security obligations"
+    },
+    "channel": "Hypothesis: independent executive-search coaches can introduce an opt-in mandate retrospective; demonstrate with anonymized research maps.",
+    "retention": "Multi-month mandates and reusable relationship restrictions.",
+    "moat": "Permissioned research history may compound; proprietary talent data is not assumed.",
+    "mvp": [
+      "Mandate and target-company map",
+      "Restricted candidate evidence and client calibration",
+      "Placement and engagement close"
+    ],
+    "effort_weeks": [
+      12,
+      20
+    ],
+    "cost": {
+      "pilot_usd_month": [
+        20,
+        50
+      ],
+      "fits_bootstrap": true,
+      "assumptions": "Three firms, 5,000 contacts and 20 mandates; estimates exclude engineering, support, acquisition, taxes and payment fees.",
+      "drivers": "Candidate data and documents; no purchased enrichment or autonomous outreach",
+      "revenue_stage": "Up to $300 adds backups, calendar sync and regional hosting"
+    },
+    "integrations": [
+      "CSV research import",
+      "Customer-owned contact data"
+    ],
+    "risks": [
+      "Clockwork already matches the wedge closely; a cheaper clone is insufficient.",
+      "Partners may require expensive enrichment and migration services."
+    ],
+    "global_limits": "Cross-border candidate consent and confidentiality controls; human selection decisions only.",
+    "validation": "Compare five past mandates against Clockwork; shadow three live searches and seek three $199 monthly commitments for demonstrably better calibration.",
+    "kill_gate": "Stop if partners cannot identify a missing decision workflow or insist on bundled talent sourcing.",
+    "scores": {
+      "pain": 4,
+      "recurrence": 4,
+      "budget": 4,
+      "distribution": 3,
+      "wedge": 3,
+      "feasibility": 3,
+      "global": 4,
+      "cost": 4
+    },
+    "score_rationale": "Narrow buyer and valuable mandate records make validation plausible, but incumbent parity is a hard gate.",
+    "evidence_confidence": "medium; official competitor evidence only",
+    "source_limit": "Sources establish available alternatives, not unmet demand, customer willingness to switch, acquisition economics or our proposed price."
+  },
+  {
+    "id": "S009",
+    "name": "Localization agency production operations",
+    "category": "Professional services / language service operations",
+    "buyer": "Operations owner, 2–8-manager translation agencies",
+    "job": "Quote multilingual work, assign linguists, control review, deliver files and reconcile vendor costs.",
+    "current_workaround": "CAT tools plus spreadsheets, email assignments and accounting exports.",
+    "record": "Localization order containing language-pair jobs, word-count basis, rate versions, reviewer acceptance and vendor payable status.",
+    "workflow": [
+      "Approve quote and source package",
+      "Assign translation and review jobs",
+      "Resolve quality issues and release delivery",
+      "Reconcile costs and client acceptance"
+    ],
+    "roles": [
+      "Project manager",
+      "Linguist",
+      "Reviewer",
+      "Client approver"
+    ],
+    "wedge": "Start with recurring document localization and transparent rate/version handling across customer-owned CAT tools.",
+    "why_pay": "Lower scheduling and reconciliation effort may support firm pricing.",
+    "expansion": "Vendor performance history and reusable client pricing rules.",
+    "competitors": [
+      {
+        "name": "Protemos",
+        "url": "https://protemos.com/prices.html",
+        "observed": "2026-10-05",
+        "facts": "Agency pricing is per concurrent manager; unlimited manager, client and vendor accounts can be created.",
+        "price": "EUR 249 per manager for three months or EUR 899 per manager annually; one-month trial; no additional seat minimum stated.",
+        "access": "opened"
+      },
+      {
+        "name": "Protemos features",
+        "url": "https://protemos.com/features.html",
+        "observed": "2026-10-05",
+        "facts": "Lists client prices, vendor rates, assigned jobs, deadlines, invoices, multi-currency and spreadsheet exports.",
+        "price": "not verified on feature page; pricing source recorded separately.",
+        "access": "opened"
+      },
+      {
+        "name": "Plunet",
+        "url": "https://www.plunet.com/en/pricing/",
+        "observed": "2026-10-05",
+        "facts": "AgencyStart starts with two full users and 50 concurrent freelancer/client licenses; higher plans offer CAT interfaces.",
+        "price": "contact sales; AgencyStart minimum two full-user licenses; currency and billing commitment not verified.",
+        "access": "opened"
+      }
+    ],
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 149,
+      "unit": "firm workspace; proposed monthly USD price",
+      "free_boundary": "14-day capped trial; no permanent hosted collaboration tier",
+      "paid_boundary": "Persistent workflow, external collaboration, history and exports",
+      "lifetime": "Unsuitable for ongoing hosting, support and security obligations"
+    },
+    "channel": "Hypothesis: permissioned ProZ agency discussions or localization operations consultants can recruit firms for an order-cost reconciliation clinic.",
+    "retention": "Daily jobs, repeat client rate cards and vendor history.",
+    "moat": "Accurate rate and quality history could become useful operational memory.",
+    "mvp": [
+      "Order and rate calculation",
+      "Linguist/reviewer job workflow",
+      "Delivery acceptance and cost export"
+    ],
+    "effort_weeks": [
+      14,
+      22
+    ],
+    "cost": {
+      "pilot_usd_month": [
+        20,
+        50
+      ],
+      "fits_bootstrap": true,
+      "assumptions": "Three agencies, 200 jobs monthly, 5 GB files; estimates exclude engineering, support, acquisition, taxes and payment fees.",
+      "drivers": "Document storage and CAT integrations; import analysis files, never host translation engines",
+      "revenue_stage": "Up to $300 adds storage and one proven CAT connector"
+    },
+    "integrations": [
+      "CAT analysis CSV",
+      "Accounting CSV export"
+    ],
+    "risks": [
+      "Protemos already implements most proposed stages at transparent pricing.",
+      "CAT compatibility and edge-case rates can consume support."
+    ],
+    "global_limits": "Language scripts, currencies and withholding practices differ; no translation labor marketplace.",
+    "validation": "Replay 20 completed orders at five firms, then seek three $149 pilots that resolve a specific rate or review failure.",
+    "kill_gate": "Stop if Protemos configuration resolves the issue or buyers require several live CAT connectors first.",
+    "scores": {
+      "pain": 4,
+      "recurrence": 5,
+      "budget": 4,
+      "distribution": 3,
+      "wedge": 3,
+      "feasibility": 3,
+      "global": 4,
+      "cost": 4
+    },
+    "score_rationale": "Concrete multi-role production records and bounded initial integrations merit validation; no unmet need is established.",
+    "evidence_confidence": "medium; official competitor evidence only",
+    "source_limit": "Sources establish available alternatives, not unmet demand, customer willingness to switch, acquisition economics or our proposed price."
+  },
+  {
+    "id": "S010",
+    "name": "Qualitative research consultancy delivery",
+    "category": "Professional services / research consulting operations",
+    "buyer": "Research director, 3–15-person qualitative consultancies",
+    "job": "Turn research briefs into traceable findings and client-approved recommendations across repeated studies.",
+    "current_workaround": "Interview folders, spreadsheets, qualitative analysis tools and presentation decks.",
+    "record": "Study evidence graph linking questions, sessions, coded excerpts, interpretations, review decisions and final claims.",
+    "workflow": [
+      "Agree study questions and protocol",
+      "Collect consented session evidence",
+      "Code and peer-review findings",
+      "Publish evidence-linked client recommendations"
+    ],
+    "roles": [
+      "Research lead",
+      "Analyst",
+      "Client stakeholder"
+    ],
+    "wedge": "Own consultancy handover and claim review across studies; customer provides transcripts initially.",
+    "why_pay": "Reduced synthesis rework and easier evidence review may justify recurring spend.",
+    "expansion": "Cross-study learning with explicit client confidentiality boundaries.",
+    "competitors": [
+      {
+        "name": "Dovetail",
+        "url": "https://dovetail.com/pricing/",
+        "observed": "2026-10-05",
+        "facts": "Free plan contains one project and one channel; Enterprise offers repository governance, analysis and integrations.",
+        "price": "Free USD 0; Enterprise contact sales, with minimum seats and contract commitment not verified.",
+        "access": "opened"
+      },
+      {
+        "name": "Great Question",
+        "url": "https://www.greatquestion.com/pricing",
+        "observed": "2026-10-05",
+        "facts": "Combines study methods, participant management and a research repository.",
+        "price": "Self-serve displays $129/seat/month or $1,290/seat/year, up to five seats; currency not verified; incentives and external recruitment cost extra.",
+        "access": "opened"
+      }
+    ],
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 129,
+      "unit": "firm workspace; proposed monthly USD price",
+      "free_boundary": "14-day capped trial; no permanent hosted collaboration tier",
+      "paid_boundary": "Persistent workflow, external collaboration, history and exports",
+      "lifetime": "Unsuitable for ongoing hosting, support and security obligations"
+    },
+    "channel": "Hypothesis: ResearchOps community organizers could permit an evidence-handover workshop with consultancy leads.",
+    "retention": "Repeated studies and reusable coding decisions.",
+    "moat": "Evidence lineage may help; avoid pooling confidential client research.",
+    "mvp": [
+      "Study protocol and consent references",
+      "Coding and reviewer decisions",
+      "Claim-linked client delivery"
+    ],
+    "effort_weeks": [
+      12,
+      20
+    ],
+    "cost": {
+      "pilot_usd_month": [
+        20,
+        50
+      ],
+      "fits_bootstrap": true,
+      "assumptions": "Three teams, text transcripts, 2 GB evidence; estimates exclude engineering, support, acquisition, taxes and payment fees.",
+      "drivers": "Recording/transcription costs; external links and manual transcripts initially",
+      "revenue_stage": "Up to $300 adds bounded transcription only when paid usage supports it"
+    },
+    "integrations": [
+      "Transcript import",
+      "Export to slides/document tools"
+    ],
+    "risks": [
+      "Dovetail and Great Question already cover analysis and collaboration.",
+      "A handover-only tool risks becoming an isolated feature."
+    ],
+    "global_limits": "Consent, data residency and deletion across studies require careful controls.",
+    "validation": "Replay five studies through brief-to-handover; seek three $129 commitments for fewer unsupported or repeatedly revised claims.",
+    "kill_gate": "Stop if teams only want transcription or will not move study evidence from their repository.",
+    "scores": {
+      "pain": 4,
+      "recurrence": 4,
+      "budget": 3,
+      "distribution": 3,
+      "wedge": 2,
+      "feasibility": 3,
+      "global": 4,
+      "cost": 4
+    },
+    "score_rationale": "Research delivery is durable, but established repositories and migration friction weaken the entry case.",
+    "evidence_confidence": "medium; official competitor evidence only",
+    "source_limit": "Sources establish available alternatives, not unmet demand, customer willingness to switch, acquisition economics or our proposed price."
+  },
+  {
+    "id": "S011",
+    "name": "Research participant supplier operations",
+    "category": "Professional services / research recruitment services",
+    "buyer": "Operations owner, participant recruitment boutiques with an existing consented panel",
+    "job": "Fill client research quotas while respecting participant consent, eligibility, attendance and incentive obligations.",
+    "current_workaround": "Panel spreadsheets, screener forms, calendar tools and payment records.",
+    "record": "Recruitment order with quotas, screener versions, consented panel profiles, participation history and incentive settlement.",
+    "workflow": [
+      "Define quota and screener",
+      "Invite eligible panel members",
+      "Confirm attendance and replacements",
+      "Reconcile incentives and refresh consent"
+    ],
+    "roles": [
+      "Recruitment coordinator",
+      "Client researcher",
+      "Participant"
+    ],
+    "wedge": "Own multi-client quota fulfillment and participant over-contact controls; customers bring panel supply.",
+    "why_pay": "Less duplicate screening and fewer avoidable replacements could justify payment.",
+    "expansion": "Panel-quality review and repeat-client quota templates.",
+    "competitors": [
+      {
+        "name": "Great Question",
+        "url": "https://www.greatquestion.com/pricing",
+        "observed": "2026-10-05",
+        "facts": "Offers participant panels, eligibility rules, scheduling, incentives and study tools; this is adjacent to a specialist supplier operating across clients.",
+        "price": "Self-serve displays $129/seat/month or $1,290/seat/year, maximum five seats; currency not verified. Enterprise has five-seat minimum and custom annual pricing; incentives extra.",
+        "access": "opened"
+      }
+    ],
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 149,
+      "unit": "firm workspace; proposed monthly USD price",
+      "free_boundary": "14-day capped trial; no permanent hosted collaboration tier",
+      "paid_boundary": "Persistent workflow, external collaboration, history and exports",
+      "lifetime": "Unsuitable for ongoing hosting, support and security obligations"
+    },
+    "channel": "Hypothesis: ask ResearchOps and qualitative-recruiter community organizers to permit a quota-planning clinic with established panel owners.",
+    "retention": "Repeated recruitment orders and consent/contact history.",
+    "moat": "Reliable permissioned panel history may retain customers; no proprietary participant network is assumed.",
+    "mvp": [
+      "Quota order and screener versioning",
+      "Eligibility, invitations and replacements",
+      "Attendance and incentive reconciliation"
+    ],
+    "effort_weeks": [
+      14,
+      22
+    ],
+    "cost": {
+      "pilot_usd_month": [
+        20,
+        50
+      ],
+      "fits_bootstrap": true,
+      "assumptions": "Three suppliers, 5,000 profiles, 500 invitations monthly; estimates exclude engineering, support, acquisition, taxes and payment fees.",
+      "drivers": "Email and incentives; cap messaging, customer pays incentives directly",
+      "revenue_stage": "Up to $300 supports message processing and audit storage"
+    },
+    "integrations": [
+      "CSV panel import",
+      "Customer incentive-provider receipt import"
+    ],
+    "risks": [
+      "Great Question already covers much of this workflow.",
+      "Fraud checks and recruitment supply can become an expensive service business."
+    ],
+    "global_limits": "Consent, sensitive screening data and incentive rules vary; avoid minors and medical studies initially.",
+    "validation": "Replay five recruitment orders, then shadow live quotas; seek three $149 pilots with fewer avoidable replacement decisions.",
+    "kill_gate": "Stop if value depends on us sourcing participants or financing incentives.",
+    "scores": {
+      "pain": 4,
+      "recurrence": 5,
+      "budget": 4,
+      "distribution": 2,
+      "wedge": 3,
+      "feasibility": 3,
+      "global": 3,
+      "cost": 3
+    },
+    "score_rationale": "Durable operational record, but distribution and sensitive participant data remain difficult.",
+    "evidence_confidence": "medium; official competitor evidence only",
+    "source_limit": "Sources establish available alternatives, not unmet demand, customer willingness to switch, acquisition economics or our proposed price."
+  },
+  {
+    "id": "S012",
+    "name": "Boutique PR agency campaign operations",
+    "category": "Professional services / media relations services",
+    "buyer": "Agency principal, 3–15-person PR firms with their own media relationships",
+    "job": "Coordinate client narratives, approved pitches, journalist interactions, coverage and recurring account reviews.",
+    "current_workaround": "Media database subscriptions, email, shared pitch trackers and clippings decks.",
+    "record": "Campaign dossier linking approved claims, media contacts, outreach decisions, responses and coverage evidence.",
+    "workflow": [
+      "Approve narrative and media targets",
+      "Prepare and authorize pitches",
+      "Track responses and coordinate opportunities",
+      "Verify coverage and review campaign"
+    ],
+    "roles": [
+      "Account director",
+      "Publicist",
+      "Client spokesperson"
+    ],
+    "wedge": "Campaign execution and claim approval for firms already owning media contacts and monitoring subscriptions.",
+    "why_pay": "Reduced reporting assembly and contradictory outreach might justify a subscription.",
+    "expansion": "Reusable relationship context and client service planning.",
+    "competitors": [
+      {
+        "name": "Semrush AI PR Toolkit / Prowly",
+        "url": "https://prowly.com/",
+        "observed": "2026-10-05",
+        "facts": "Prowly now identifies as Semrush AI PR Toolkit; page lists media research, outreach analytics, media monitoring and benchmarking.",
+        "price": "not verified: opened page does not provide currency, unit, billing commitment or minimum seats.",
+        "access": "opened"
+      }
+    ],
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 129,
+      "unit": "firm workspace; proposed monthly USD price",
+      "free_boundary": "14-day capped trial; no permanent hosted collaboration tier",
+      "paid_boundary": "Persistent workflow, external collaboration, history and exports",
+      "lifetime": "Unsuitable for ongoing hosting, support and security obligations"
+    },
+    "channel": "Hypothesis: an opt-in PR agency operations roundtable via independent PR consultants can recruit account directors with recent campaign files.",
+    "retention": "Weekly pitches and monthly client reporting retain campaign context.",
+    "moat": "Relationship and approval history may help; no media database moat is assumed.",
+    "mvp": [
+      "Campaign claims and target lists",
+      "Approved outreach log and responses",
+      "Coverage evidence and client review"
+    ],
+    "effort_weeks": [
+      12,
+      20
+    ],
+    "cost": {
+      "pilot_usd_month": [
+        20,
+        50
+      ],
+      "fits_bootstrap": true,
+      "assumptions": "Three agencies, 30 campaigns, link-based clippings; estimates exclude engineering, support, acquisition, taxes and payment fees.",
+      "drivers": "Email deliverability and licensed monitoring; clients retain paid subscriptions",
+      "revenue_stage": "Up to $300 supports bounded email sync, not a global news index"
+    },
+    "integrations": [
+      "CSV media lists",
+      "Customer-owned monitoring exports"
+    ],
+    "risks": [
+      "Semrush bundles discovery through impact tracking.",
+      "Without licensed data and monitoring, coordination alone may not displace existing tools."
+    ],
+    "global_limits": "Journalist privacy, copyright and unsolicited-marketing rules differ; no scraped contact database.",
+    "validation": "Walk through five campaign dossiers and pilot one reporting cycle; seek three $129 commitments for measurable coordination savings.",
+    "kill_gate": "Stop if buyers only pay for media contact data or automated news coverage.",
+    "scores": {
+      "pain": 3,
+      "recurrence": 4,
+      "budget": 3,
+      "distribution": 3,
+      "wedge": 2,
+      "feasibility": 3,
+      "global": 4,
+      "cost": 3
+    },
+    "score_rationale": "Reachable professional niche, but existing suites and licensed-data expectations restrict the wedge.",
+    "evidence_confidence": "medium; official competitor evidence only",
+    "source_limit": "Sources establish available alternatives, not unmet demand, customer willingness to switch, acquisition economics or our proposed price."
+  },
+  {
+    "id": "S013",
+    "name": "Remote back-office service operations",
+    "category": "Professional services / outsourced business processing",
+    "buyer": "Operations director, 5–30-person remote data-processing service firms",
+    "job": "Deliver contracted recurring work queues with consistent quality, turnaround commitments and accepted billable units.",
+    "current_workaround": "Shared inboxes, task boards, sampling spreadsheets and client delivery folders.",
+    "record": "Service order and work-item ledger with input version, processing result, QA sample, rework reason and accepted unit count.",
+    "workflow": [
+      "Configure client service rules",
+      "Intake and assign batches",
+      "Process, sample and resolve rework",
+      "Client acceptance and period reconciliation"
+    ],
+    "roles": [
+      "Service manager",
+      "Processor",
+      "Quality reviewer",
+      "Client approver"
+    ],
+    "wedge": "Start with catalog-data maintenance services; own exception, rework and accepted-unit accounting across the entire service cycle.",
+    "why_pay": "Less unbilled rework and clearer client acceptance could justify firm pricing.",
+    "expansion": "Quality trend analysis and cross-client capacity planning.",
+    "competitors": [
+      {
+        "name": "Moxo",
+        "url": "https://www.moxo.com/pricing",
+        "observed": "2026-10-05",
+        "facts": "Offers workflow builder, milestones, approvals, forms, decisions and file requests; adjacent configurable workflow substitute.",
+        "price": "Team displays $5,000/year for 100 flows/year and unlimited seats; currency not verified. Scale is custom quote.",
+        "access": "opened"
+      },
+      {
+        "name": "Process Street",
+        "url": "https://www.process.st/pricing/",
+        "observed": "2026-10-05",
+        "facts": "Offers workflow runs, forms, approvals, enforced task order and role assignments; configurable substitute.",
+        "price": "contact sales for Startup, Pro and Enterprise; Startup lists five users and ten guests; currency and billing minimum not verified.",
+        "access": "opened"
+      }
+    ],
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 199,
+      "unit": "firm workspace; proposed monthly USD price",
+      "free_boundary": "14-day capped trial; no permanent hosted collaboration tier",
+      "paid_boundary": "Persistent workflow, external collaboration, history and exports",
+      "lifetime": "Unsuitable for ongoing hosting, support and security obligations"
+    },
+    "channel": "Hypothesis: offer an opt-in batch-quality clinic through remote operations consultants serving established outsourcing firms.",
+    "retention": "Daily queues and monthly accepted-unit reconciliation.",
+    "moat": "Client-specific exception and quality history may compound without requiring AI.",
+    "mvp": [
+      "Versioned service rules and batch intake",
+      "Processing queue with sampled QA",
+      "Acceptance, rework and unit reconciliation"
+    ],
+    "effort_weeks": [
+      14,
+      22
+    ],
+    "cost": {
+      "pilot_usd_month": [
+        20,
+        50
+      ],
+      "fits_bootstrap": true,
+      "assumptions": "Three providers, 20,000 text work items monthly, 2 GB files; estimates exclude engineering, support, acquisition, taxes and payment fees.",
+      "drivers": "Batch growth and attachments; limits, background imports, no browser automation",
+      "revenue_stage": "Up to $300 adds workers, isolation and longer audit retention"
+    },
+    "integrations": [
+      "CSV batches and results",
+      "Client-owned source systems remain authoritative"
+    ],
+    "risks": [
+      "Configuring Moxo or Process Street may already suffice; test against that option.",
+      "Custom client workflows could turn this into bespoke development."
+    ],
+    "global_limits": "Initially nonsensitive catalog data; regulated processing and strict residency are separate gates.",
+    "validation": "Replay five real service batches; shadow three providers and seek three $199 commitments tied to reduced rework reconciliation.",
+    "kill_gate": "Stop if each buyer requires a different processing engine or the team must perform the outsourced work.",
+    "scores": {
+      "pain": 4,
+      "recurrence": 5,
+      "budget": 4,
+      "distribution": 2,
+      "wedge": 3,
+      "feasibility": 3,
+      "global": 4,
+      "cost": 4
+    },
+    "score_rationale": "Concrete recurring unit economics and modest compute are attractive; unproven distribution is the main weakness.",
+    "evidence_confidence": "medium; official competitor evidence only",
+    "source_limit": "Sources establish available alternatives, not unmet demand, customer willingness to switch, acquisition economics or our proposed price."
+  },
+  {
+    "id": "S014",
+    "name": "Virtual CFO engagement operations",
+    "category": "Professional services / financial advisory practice operations",
+    "buyer": "Partner, small outsourced CFO firms serving recurring business clients",
+    "job": "Maintain approved financial assumptions, rolling scenarios and accountable management decisions across clients.",
+    "current_workaround": "Ledger exports, spreadsheets, presentation packs and meeting notes.",
+    "record": "Client planning cycle with versioned assumptions, scenarios, actuals mapping, reviewed forecasts and action commitments.",
+    "workflow": [
+      "Import approved actuals",
+      "Revise assumptions and scenarios",
+      "Review forecast with client management",
+      "Record decisions and compare subsequent actuals"
+    ],
+    "roles": [
+      "CFO adviser",
+      "Analyst",
+      "Client finance owner"
+    ],
+    "wedge": "Link customer-authored forecasts to management decisions; no autonomous financial recommendations or ledger replacement.",
+    "why_pay": "Less spreadsheet-version confusion and repeated pack preparation may justify payment.",
+    "expansion": "Reusable sector planning models and multi-entity engagements.",
+    "competitors": [
+      {
+        "name": "Fathom",
+        "url": "https://www.fathomhq.com/pricing",
+        "observed": "2026-10-05",
+        "facts": "Offers branded reports, three-way forecasts, scenarios, consolidations and portfolio analysis.",
+        "price": "not verified: dynamic currency selector is unresolved; rendered Gold example shows $450/month for 25 companies plus $17 each, but currency/final selected configuration is unclear.",
+        "access": "opened"
+      }
+    ],
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 179,
+      "unit": "firm workspace; proposed monthly USD price",
+      "free_boundary": "14-day capped trial; no permanent hosted collaboration tier",
+      "paid_boundary": "Persistent workflow, external collaboration, history and exports",
+      "lifetime": "Unsuitable for ongoing hosting, support and security obligations"
+    },
+    "channel": "Hypothesis: fractional-CFO communities may permit a forecast-version clinic with practitioners using recurring management meetings.",
+    "retention": "Monthly actuals and assumption revisions create longitudinal decision context.",
+    "moat": "Client-specific planning history could retain accounts; spreadsheet import quality is crucial.",
+    "mvp": [
+      "Versioned assumptions and actuals import",
+      "Scenario comparison and human review",
+      "Meeting decisions and next-cycle reconciliation"
+    ],
+    "effort_weeks": [
+      16,
+      24
+    ],
+    "cost": {
+      "pilot_usd_month": [
+        20,
+        50
+      ],
+      "fits_bootstrap": true,
+      "assumptions": "Three firms, 30 clients, bounded spreadsheet models; estimates exclude engineering, support, acquisition, taxes and payment fees.",
+      "drivers": "Model evaluation and import complexity; support only defined CSV schemas initially",
+      "revenue_stage": "Up to $300 supports scheduled imports and audit retention"
+    },
+    "integrations": [
+      "CSV actuals",
+      "Customer forecasts imported through explicit schemas"
+    ],
+    "risks": [
+      "Fathom already provides sophisticated forecasting and reporting.",
+      "A thin meeting layer may be insufficient without comparable modeling."
+    ],
+    "global_limits": "Accounting conventions and currencies vary; qualified customer owns all financial judgments.",
+    "validation": "Replay five forecast cycles, then shadow a monthly review; seek three $179 pilots for fewer version disputes.",
+    "kill_gate": "Stop if value requires a full accounting engine or bespoke models for every client.",
+    "scores": {
+      "pain": 4,
+      "recurrence": 4,
+      "budget": 4,
+      "distribution": 2,
+      "wedge": 2,
+      "feasibility": 2,
+      "global": 3,
+      "cost": 4
+    },
+    "score_rationale": "Recurring budget is plausible, but modeling depth and incumbent functionality lower feasibility.",
+    "evidence_confidence": "medium; official competitor evidence only",
+    "source_limit": "Sources establish available alternatives, not unmet demand, customer willingness to switch, acquisition economics or our proposed price."
+  },
+  {
+    "id": "S015",
+    "name": "Payroll bureau run operations",
+    "category": "Professional services / payroll service administration",
+    "buyer": "Bureau owner, outsourced payroll teams handling many employer accounts",
+    "job": "Collect changes, obtain employer approval, reconcile engine outputs and close each payroll run reliably.",
+    "current_workaround": "Payroll engine, spreadsheets, emailed changes and separate approval records.",
+    "record": "Employer payroll-run packet with input versions, approvals, engine-output references, exceptions and completion receipt.",
+    "workflow": [
+      "Collect employer changes",
+      "Validate completeness and approve inputs",
+      "Import engine results and review exceptions",
+      "Authorize release externally and archive run"
+    ],
+    "roles": [
+      "Payroll processor",
+      "Bureau reviewer",
+      "Employer approver"
+    ],
+    "wedge": "Own cross-client run coordination while licensed customer software performs payroll calculations and filing.",
+    "why_pay": "Fewer late changes and approval ambiguities may justify recurring spend.",
+    "expansion": "Employer service schedules and exception trend analysis.",
+    "competitors": [
+      {
+        "name": "BrightPay",
+        "url": "https://brightsg.com/brightpay-cloud-payroll-software/",
+        "observed": "2026-10-05",
+        "facts": "Describes cloud payroll processing, automated calculations, legislative updates, multi-user collaboration and bureau workflows.",
+        "price": "not verified: product page requires a configured price.",
+        "access": "opened"
+      },
+      {
+        "name": "BrightPay pricing FAQ",
+        "url": "https://payrollsupport.uk.brightsg.com/hc/en-gb/articles/36947262528017-FAQs-Pricing",
+        "observed": "2026-10-05",
+        "facts": "Pricing uses peak employer and employee counts; monthly arrears or annual advance billing is available.",
+        "price": "not verified: amount/currency require calculator configuration; annual option prepays twelve months, excess usage charged separately.",
+        "access": "opened"
+      }
+    ],
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 199,
+      "unit": "firm workspace; proposed monthly USD price",
+      "free_boundary": "14-day capped trial; no permanent hosted collaboration tier",
+      "paid_boundary": "Persistent workflow, external collaboration, history and exports",
+      "lifetime": "Unsuitable for ongoing hosting, support and security obligations"
+    },
+    "channel": "Hypothesis: payroll process consultants can recruit opt-in bureau managers for a redacted run-retrospective workshop.",
+    "retention": "Weekly/monthly runs and employer change histories.",
+    "moat": "Consistent approval lineage could retain firms; payroll engine integrations dominate switching.",
+    "mvp": [
+      "Run calendar and change intake",
+      "Input/output approval gates",
+      "Exception and release-receipt archive"
+    ],
+    "effort_weeks": [
+      18,
+      28
+    ],
+    "cost": {
+      "pilot_usd_month": [
+        75,
+        200
+      ],
+      "fits_bootstrap": false,
+      "assumptions": "Three bureaus with redacted run metadata; estimates exclude engineering, support, acquisition, taxes and payment fees.",
+      "drivers": "Sensitive salary data, assurance and engine adapters; minimize personal fields",
+      "revenue_stage": "Up to $300 improves isolation and adapters, not payroll certification"
+    },
+    "integrations": [
+      "Licensed payroll engine required, customer funded",
+      "Controlled CSV, no bank-file execution"
+    ],
+    "risks": [
+      "BrightPay already includes bureau collaboration.",
+      "Reliable engine adapters and urgent payroll support may overwhelm a small team."
+    ],
+    "global_limits": "Country-specific payroll engines, data privacy and deadlines make global rollout difficult.",
+    "validation": "Replay five redacted payroll runs in one jurisdiction; require three $199 pilots accepting no calculation or filing service.",
+    "kill_gate": "Defer if bureaus require native engine synchronization, bank release or statutory calculations before payment.",
+    "scores": {
+      "pain": 5,
+      "recurrence": 5,
+      "budget": 4,
+      "distribution": 2,
+      "wedge": 2,
+      "feasibility": 1,
+      "global": 1,
+      "cost": 2
+    },
+    "score_rationale": "High operational pain does not overcome localization, support and security constraints.",
+    "evidence_confidence": "medium; official competitor evidence only",
+    "source_limit": "Sources establish available alternatives, not unmet demand, customer willingness to switch, acquisition economics or our proposed price."
+  },
+  {
+    "id": "S016",
+    "name": "Tax practice case operations",
+    "category": "Professional services / tax practitioner administration",
+    "buyer": "Practice owner, small firms managing individual and business tax cases",
+    "job": "Move recurring tax cases through organizer intake, missing evidence, preparer review, signature and filing receipt tracking.",
+    "current_workaround": "Tax preparation package plus folders, spreadsheets and client email.",
+    "record": "Tax-year case linking organizer answers, evidence, review exceptions, client authorization and external filing receipts.",
+    "workflow": [
+      "Open case and request organizer",
+      "Resolve missing documents",
+      "Prepare externally and review",
+      "Record authorization, receipt and amendments"
+    ],
+    "roles": [
+      "Preparer",
+      "Reviewer",
+      "Client taxpayer"
+    ],
+    "wedge": "Own family/entity case coordination and amendment history; tax calculations stay in the licensed customer engine.",
+    "why_pay": "Fewer incomplete handoffs may save seasonal reviewer capacity.",
+    "expansion": "Year-to-year carry-forward records and workload planning.",
+    "competitors": [
+      {
+        "name": "TaxDome",
+        "url": "https://taxdome.com/pricing",
+        "observed": "2026-10-05",
+        "facts": "Offers tax organizers, documents, client portal, workflow automation, proposals and payments.",
+        "price": "US page displays Essentials $800/seat/year with one-year commitment, solo only; Pro $1,000/seat/year. All plans upfront; currency appears as $ on US page, explicit currency confirmation not verified.",
+        "access": "opened"
+      }
+    ],
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 149,
+      "unit": "firm workspace; proposed monthly USD price",
+      "free_boundary": "14-day capped trial; no permanent hosted collaboration tier",
+      "paid_boundary": "Persistent workflow, external collaboration, history and exports",
+      "lifetime": "Unsuitable for ongoing hosting, support and security obligations"
+    },
+    "channel": "Hypothesis: independent tax-practice trainers can host an opt-in intake-to-review workshop using redacted prior-season cases.",
+    "retention": "Annual cases plus amendments; seasonality weakens steady monthly use.",
+    "moat": "Accurate household/entity carry-forward history could help, but migration is costly.",
+    "mvp": [
+      "Case and organizer versioning",
+      "Evidence requests and reviewer exceptions",
+      "Authorization and filing-receipt archive"
+    ],
+    "effort_weeks": [
+      16,
+      24
+    ],
+    "cost": {
+      "pilot_usd_month": [
+        60,
+        150
+      ],
+      "fits_bootstrap": false,
+      "assumptions": "Three firms with redacted case metadata; estimates exclude engineering, support, acquisition, taxes and payment fees.",
+      "drivers": "Sensitive identifiers, evidence storage and seasonal load; avoid storing identity documents initially",
+      "revenue_stage": "Up to $300 supports storage and backups, not tax preparation software"
+    },
+    "integrations": [
+      "Customer tax-preparation engine required",
+      "CSV and document references"
+    ],
+    "risks": [
+      "TaxDome already owns the proposed lifecycle.",
+      "Avoiding sensitive documents may remove much of the value."
+    ],
+    "global_limits": "Country forms, deadlines and retention vary; no tax advice or filing execution.",
+    "validation": "Replay five cases including one amendment; seek three $149 commitments covering an entire season and off-season access.",
+    "kill_gate": "Defer if buyers demand tax calculation, identity verification or government filing integrations.",
+    "scores": {
+      "pain": 4,
+      "recurrence": 3,
+      "budget": 4,
+      "distribution": 2,
+      "wedge": 1,
+      "feasibility": 2,
+      "global": 1,
+      "cost": 2
+    },
+    "score_rationale": "Large existing category, but weak differentiation, seasonality and jurisdiction dependence hurt fit.",
+    "evidence_confidence": "medium; official competitor evidence only",
+    "source_limit": "Sources establish available alternatives, not unmet demand, customer willingness to switch, acquisition economics or our proposed price."
+  },
+  {
+    "id": "S017",
+    "name": "Remote architecture design practice operations",
+    "category": "Professional services / professional design practice",
+    "buyer": "Practice principal, small architectural visualization and design-document teams",
+    "job": "Keep design phases, issue sets, client decisions and consultant effort aligned with agreed fees.",
+    "current_workaround": "Project folders, PDF markups, spreadsheets and email transmittals.",
+    "record": "Design commission with phase budgets, issued document sets, design decisions and consultant responsibilities.",
+    "workflow": [
+      "Define commission phases and fee",
+      "Allocate consultants and plan issues",
+      "Review design changes and issue sets",
+      "Accept phase and reconcile effort"
+    ],
+    "roles": [
+      "Principal",
+      "Project architect",
+      "Consultant",
+      "Client representative"
+    ],
+    "wedge": "Target remote design-document production; own phase acceptance and issued-set history without construction-site operations.",
+    "why_pay": "Less rework on superseded documents and clearer phase economics may justify payment.",
+    "expansion": "Reusable phase budgets and design-decision libraries.",
+    "competitors": [
+      {
+        "name": "Monograph",
+        "url": "https://monograph.com/pricing",
+        "observed": "2026-10-05",
+        "facts": "Lists project accounting, unlimited projects and reports for architecture/engineering firms.",
+        "price": "not verified: calculator renders $45–$490/month without an unambiguous selected plan, currency or billing commitment; ROI figures are vendor claims, not used.",
+        "access": "opened"
+      }
+    ],
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 149,
+      "unit": "firm workspace; proposed monthly USD price",
+      "free_boundary": "14-day capped trial; no permanent hosted collaboration tier",
+      "paid_boundary": "Persistent workflow, external collaboration, history and exports",
+      "lifetime": "Unsuitable for ongoing hosting, support and security obligations"
+    },
+    "channel": "Hypothesis: architecture practice-management advisers can invite principals to an opt-in phase-budget retrospective.",
+    "retention": "Long-running commissions and repeated document issue cycles.",
+    "moat": "Linked issued-set and fee history may help; CAD file hosting is not the moat.",
+    "mvp": [
+      "Commission phase budget",
+      "Issue-set and decision register",
+      "Consultant effort and phase acceptance"
+    ],
+    "effort_weeks": [
+      14,
+      22
+    ],
+    "cost": {
+      "pilot_usd_month": [
+        20,
+        50
+      ],
+      "fits_bootstrap": true,
+      "assumptions": "Three practices, 30 commissions, PDF references; estimates exclude engineering, support, acquisition, taxes and payment fees.",
+      "drivers": "Large drawings; use customer storage links and cap uploaded PDFs",
+      "revenue_stage": "Up to $300 adds document preview workers and storage"
+    },
+    "integrations": [
+      "PDF/link references",
+      "CSV time and accounting exports"
+    ],
+    "risks": [
+      "Monograph plus existing document management may suffice.",
+      "BIM/CAD integration or construction administration could expand scope drastically."
+    ],
+    "global_limits": "Professional liability and local design standards remain with clients; no engineering calculations.",
+    "validation": "Replay five completed phases and test one live issue cycle; seek three $149 commitments based on fewer superseded-set errors.",
+    "kill_gate": "Stop if buyer value depends on BIM authoring, site inspections or local compliance calculations.",
+    "scores": {
+      "pain": 4,
+      "recurrence": 4,
+      "budget": 4,
+      "distribution": 2,
+      "wedge": 2,
+      "feasibility": 3,
+      "global": 3,
+      "cost": 3
+    },
+    "score_rationale": "Durable phase economics, but professional trust and incumbent accounting weaken the first-entry case.",
+    "evidence_confidence": "medium; official competitor evidence only",
+    "source_limit": "Sources establish available alternatives, not unmet demand, customer willingness to switch, acquisition economics or our proposed price."
+  },
+  {
+    "id": "S018",
+    "name": "Private professional community operations",
+    "category": "Professional services / community operations",
+    "buyer": "Community director, independent professional networks with 200–2,000 existing members",
+    "job": "Turn recurring professional discussions into moderated participation and maintained reusable knowledge.",
+    "current_workaround": "Private chat groups, member spreadsheets and a separate knowledge wiki.",
+    "record": "Community space linking member access, discussion threads, moderation decisions and approved knowledge articles.",
+    "workflow": [
+      "Approve member access and orientation",
+      "Route discussions into appropriate groups",
+      "Moderate reports and resolve cases",
+      "Curate reviewed answers into knowledge",
+      "Review access, retire stale knowledge and export history"
+    ],
+    "roles": [
+      "Community manager",
+      "Moderator",
+      "Member",
+      "Knowledge editor"
+    ],
+    "wedge": "Professional peer networks needing traceable discussion-to-knowledge curation, without courses, dues accounting or a supplied audience.",
+    "why_pay": "Less repeated answering and fragmented moderation may justify hosted software spend.",
+    "expansion": "Multiple private groups and editorial review queues within the same network.",
+    "competitors": [
+      {
+        "name": "Discourse",
+        "url": "https://www.discourse.org/pricing",
+        "observed": "2026-10-05",
+        "facts": "Hosted plans include members, chat, categories and groups. Free has two staff seats; Pro includes five staff seats, private categories, custom domain and API access.",
+        "price": "Pro USD 100/month; Business USD 500/month. Free plan available. Pro includes five staff seats; annual commitment not stated on opened page.",
+        "access": "opened"
+      },
+      {
+        "name": "Circle",
+        "url": "https://circle.so/pricing",
+        "observed": "2026-10-05",
+        "facts": "Lists private spaces, moderation, member profiles, group chat, notifications and digests; Business adds workflows and APIs.",
+        "price": "Professional USD 89/month based on annual billing, three admins and ten moderators; Business USD 199/month annually, five admins and fifteen moderators. Taxes excluded; transaction fees apply to payments.",
+        "access": "opened"
+      }
+    ],
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 79,
+      "unit": "community workspace; proposed monthly USD price",
+      "free_boundary": "14-day private trial capped at 50 members",
+      "paid_boundary": "Discussion groups, moderation, knowledge lifecycle and retained history",
+      "lifetime": "Unsuitable for recurring hosting, notifications and abuse-response obligations"
+    },
+    "channel": "Hypothesis: professional-community consultants could host an opt-in moderation and knowledge-handover clinic with existing network operators.",
+    "retention": "Daily discussions and recurring moderation/editorial reviews preserve community context.",
+    "moat": "Permissioned discussion history may retain customers; the audience belongs to the operator.",
+    "mvp": [
+      "Member access and orientation",
+      "Private discussion groups and moderation cases",
+      "Reviewed knowledge publishing, retirement and export"
+    ],
+    "effort_weeks": [
+      14,
+      22
+    ],
+    "cost": {
+      "pilot_usd_month": [
+        20,
+        50
+      ],
+      "fits_bootstrap": true,
+      "assumptions": "Three communities, 500 total active members, 2 GB uploads and capped digests; estimates exclude engineering, support, moderation labor, acquisition, taxes and payment fees.",
+      "drivers": "Search indexing, notifications and abuse handling; text-first, no video hosting or paid AI. Customer supplies moderators.",
+      "revenue_stage": "Up to $300 supports search workers, backups and email capacity; it does not fund human community management."
+    },
+    "integrations": [
+      "CSV member import",
+      "Email digests; no mandatory chat-platform migration connector"
+    ],
+    "risks": [
+      "Discourse and Circle already provide mature communities and moderation; a configured incumbent may solve the entire problem.",
+      "Switching can destroy participation; operating the community ourselves would change the business."
+    ],
+    "global_limits": "Language moderation, privacy and content policies vary; start with adult professional groups and operator-owned rules.",
+    "validation": "Replay five moderation and knowledge cases, then run one opt-in group for a month; seek three $79 commitments without supplying engagement labor.",
+    "kill_gate": "Stop if configured Discourse solves the workflow or members will not move discussions.",
+    "scores": {
+      "pain": 3,
+      "recurrence": 5,
+      "budget": 3,
+      "distribution": 2,
+      "wedge": 1,
+      "feasibility": 3,
+      "global": 4,
+      "cost": 3
+    },
+    "score_rationale": "Recurring participation supports retention, but mature free/paid substitutes and migration risk make this a low-priority hypothesis.",
+    "evidence_confidence": "medium; official competitor evidence only",
+    "source_limit": "Sources establish available alternatives, not unmet demand, customer willingness to switch, acquisition economics or our proposed price."
+  },
+  {
+    "id": "S019",
+    "name": "Remote interpreting agency operations",
+    "category": "Professional services / language service scheduling",
+    "buyer": "Operations owner, scheduled remote-interpreting agencies with their own linguist roster",
+    "job": "Fill language-qualified appointments, handle substitutions and reconcile billable duration against interpreter compensation.",
+    "current_workaround": "Calendar tools, spreadsheets, video links and emailed timesheets.",
+    "record": "Interpretation booking with language/credential requirements, roster acceptance, attendance, cancellation terms and approved charges.",
+    "workflow": [
+      "Receive booking and verify requirements",
+      "Offer and confirm qualified interpreter",
+      "Manage substitutions and attendance",
+      "Approve duration and reconcile charges"
+    ],
+    "roles": [
+      "Dispatcher",
+      "Interpreter",
+      "Client coordinator"
+    ],
+    "wedge": "Scheduled business interpreting through customer video tools; own booking-to-settlement without supplying interpreters.",
+    "why_pay": "Fewer scheduling errors and rate disputes may justify a monthly subscription.",
+    "expansion": "Capacity planning and qualification renewal history.",
+    "competitors": [
+      {
+        "name": "Boostlingo IMS",
+        "url": "https://boostlingo.com/solutions/interpretation-management-system/",
+        "observed": "2026-10-05",
+        "facts": "Offers scheduling, interpreter routing, rate cards, billing review and utilization reporting for language services.",
+        "price": "contact sales; quoted factors include users, languages, session frequency/duration and support; currency, commitment and minimum not verified.",
+        "access": "opened"
+      }
+    ],
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 149,
+      "unit": "firm workspace; proposed monthly USD price",
+      "free_boundary": "14-day capped trial; no permanent hosted collaboration tier",
+      "paid_boundary": "Persistent workflow, external collaboration, history and exports",
+      "lifetime": "Unsuitable for ongoing hosting, support and security obligations"
+    },
+    "channel": "Hypothesis: independent language-service operations consultants can recruit opt-in agency dispatchers for a booking retrospective.",
+    "retention": "Daily bookings and recurring client/interpreter rate agreements.",
+    "moat": "Roster reliability and rate exception history may improve decisions.",
+    "mvp": [
+      "Booking and qualification matching",
+      "Confirmation, substitution and attendance",
+      "Duration approval and payable export"
+    ],
+    "effort_weeks": [
+      14,
+      22
+    ],
+    "cost": {
+      "pilot_usd_month": [
+        20,
+        50
+      ],
+      "fits_bootstrap": true,
+      "assumptions": "Three agencies, 500 scheduled bookings monthly; estimates exclude engineering, support, acquisition, taxes and payment fees.",
+      "drivers": "Calendar notifications; customer video accounts, no hosted calls or recordings",
+      "revenue_stage": "Up to $300 adds calendar sync and worker redundancy"
+    },
+    "integrations": [
+      "Calendar export",
+      "Customer-owned video links",
+      "Accounting CSV"
+    ],
+    "risks": [
+      "Boostlingo already covers the full lifecycle.",
+      "Buyers may require on-demand dispatch or our interpreter supply."
+    ],
+    "global_limits": "Time zones and local interpreting credentials vary; start outside medical and court settings.",
+    "validation": "Replay 30 bookings at five agencies, including cancellations; seek three $149 pilots reducing manual rate corrections.",
+    "kill_gate": "Stop if scheduled-only workflow cannot command payment without telephony or marketplace supply.",
+    "scores": {
+      "pain": 4,
+      "recurrence": 5,
+      "budget": 4,
+      "distribution": 2,
+      "wedge": 3,
+      "feasibility": 3,
+      "global": 3,
+      "cost": 4
+    },
+    "score_rationale": "Specific records and bounded video dependency help, but niche acquisition and incumbent depth remain unproven.",
+    "evidence_confidence": "medium; official competitor evidence only",
+    "source_limit": "Sources establish available alternatives, not unmet demand, customer willingness to switch, acquisition economics or our proposed price."
+  },
+  {
+    "id": "S020",
+    "name": "Brand asset lifecycle operations",
+    "category": "Professional services / digital asset management",
+    "buyer": "Brand operations lead, small multi-brand service firms distributing assets to external partners",
+    "job": "Keep approved brand assets, permitted uses and current distribution versions synchronized.",
+    "current_workaround": "Cloud folders, approval emails and manually maintained brand portals.",
+    "record": "Asset lineage with source file, reviewed versions, usage constraints, distribution permissions and retirement history.",
+    "workflow": [
+      "Ingest asset and identify owner",
+      "Review versions and approve release",
+      "Record usage windows and partner permissions",
+      "Distribute controlled collections",
+      "Retire superseded assets and audit access"
+    ],
+    "roles": [
+      "Brand manager",
+      "Creative contributor",
+      "Approver",
+      "External partner"
+    ],
+    "wedge": "Text and image brand libraries where permission expiry and replacement ownership matter across external distribution.",
+    "why_pay": "Fewer wrong-version requests and stale partner downloads might justify a subscription.",
+    "expansion": "Multiple brands, reusable usage rules and controlled partner portals.",
+    "competitors": [
+      {
+        "name": "Dash",
+        "url": "https://www.dash.app/pricing",
+        "observed": "2026-10-05",
+        "facts": "Includes version control, expiry/usage windows, guest-upload approval, metadata, collections and full exports. All features and unlimited users are included across plans.",
+        "price": "Start Up GBP 79/month billed monthly, 10 GB storage and 250 monthly downloads; annual payment saves 10%. Extra storage GBP 25/month per 10 GB. Higher-tier calculator renderings are inconsistent, so not quoted.",
+        "access": "opened"
+      },
+      {
+        "name": "Bynder",
+        "url": "https://www.bynder.com/en/pricing/",
+        "observed": "2026-10-05",
+        "facts": "Offers digital asset management, asset approval workflows and distribution integrations; quotes depend on users, storage, usage, products and support.",
+        "price": "contact sales; custom package. Currency, unit amounts, billing commitment and minimum seats not verified.",
+        "access": "opened"
+      }
+    ],
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 129,
+      "unit": "brand workspace; proposed monthly USD price",
+      "free_boundary": "14-day trial capped at 100 assets and 1 GB",
+      "paid_boundary": "Version review, usage permissions, distribution, retirement and exports",
+      "lifetime": "Unsuitable for ongoing storage, delivery, security and preview processing"
+    },
+    "channel": "Hypothesis: independent brand-management consultants could recruit opt-in teams for an expired-asset and partner-handover audit.",
+    "retention": "New campaigns, brand revisions and usage expiries recur across the retained library.",
+    "moat": "Accurate asset and permission lineage may improve trust; storage alone is not defensible.",
+    "mvp": [
+      "Asset ingest, metadata and version review",
+      "Usage constraints and controlled distribution",
+      "Retirement, replacement notices and full export"
+    ],
+    "effort_weeks": [
+      16,
+      24
+    ],
+    "cost": {
+      "pilot_usd_month": [
+        40,
+        100
+      ],
+      "fits_bootstrap": false,
+      "assumptions": "Three brands, 10 GB total images/documents and bounded downloads; estimates exclude engineering, support, acquisition, taxes and payment fees.",
+      "drivers": "Object storage, backups, safe file previews and egress; exclude video transcoding, public CDN scale and automatic image generation.",
+      "revenue_stage": "Up to $300 supports bounded preview workers, storage and monitoring; large video libraries need usage-priced plans."
+    },
+    "integrations": [
+      "Bulk file/metadata import",
+      "Downloadable collections; design-tool connectors deferred"
+    ],
+    "risks": [
+      "Dash already covers the proposed lifecycle at transparent small-business pricing.",
+      "Asset migration, preview fidelity and external download adoption can exceed the planned effort."
+    ],
+    "global_limits": "Copyright and permitted-use interpretation remain customer-owned; privacy, retention and cross-border storage vary.",
+    "validation": "Replay 100 assets through review, distribution and retirement at five teams; seek three $129 commitments for a specific failure existing DAM settings cannot resolve.",
+    "kill_gate": "Stop if Dash configuration solves the issue or value requires video processing and many publishing integrations.",
+    "scores": {
+      "pain": 4,
+      "recurrence": 4,
+      "budget": 3,
+      "distribution": 2,
+      "wedge": 1,
+      "feasibility": 2,
+      "global": 4,
+      "cost": 2
+    },
+    "score_rationale": "A durable asset record qualifies as SaaS, but direct incumbent parity and file-processing costs warrant low priority.",
+    "evidence_confidence": "medium; official competitor evidence only",
+    "source_limit": "Sources establish available alternatives, not unmet demand, customer willingness to switch, acquisition economics or our proposed price."
+  },
+  {
+    "id": "S021",
+    "name": "Security assessment consultancy operations",
+    "category": "Professional services / security services delivery",
+    "buyer": "Managing director, boutique authorized security-assessment firms",
+    "job": "Coordinate agreed assessment scope, test coverage, finding review, client delivery and retesting.",
+    "current_workaround": "Scoping documents, issue trackers and report templates.",
+    "record": "Authorized engagement with scope versions, test coverage, evidence-linked findings, reviewer approval and retest outcomes.",
+    "workflow": [
+      "Approve scope and authorization",
+      "Assign coverage and collect findings",
+      "Peer-review and deliver report",
+      "Track remediation and retest"
+    ],
+    "roles": [
+      "Engagement lead",
+      "Security tester",
+      "Reviewer",
+      "Client owner"
+    ],
+    "wedge": "Own engagement governance and retest continuity; no scanning engine or exploit automation.",
+    "why_pay": "Less report rework and repeated client clarification may support subscription spend.",
+    "expansion": "Reusable finding guidance and longitudinal client remediation records.",
+    "competitors": [
+      {
+        "name": "Dradis",
+        "url": "https://dradis.com/",
+        "observed": "2026-10-05",
+        "facts": "Self-hosted platform describes scoping, scanner imports, collaborative finding reviews, client portal, reporting and retesting.",
+        "price": "not verified: opened product page does not establish currency, billing unit, commitment or seat minimum.",
+        "access": "opened"
+      }
+    ],
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 199,
+      "unit": "firm workspace; proposed monthly USD price",
+      "free_boundary": "14-day capped trial; no permanent hosted collaboration tier",
+      "paid_boundary": "Persistent workflow, external collaboration, history and exports",
+      "lifetime": "Unsuitable for ongoing hosting, support and security obligations"
+    },
+    "channel": "Hypothesis: authorized assessment firms in OWASP chapter networks could join an opt-in reporting workflow clinic.",
+    "retention": "Repeated assessments and retests accumulate sensitive evidence.",
+    "moat": "Curated review history might compound; generic finding libraries are not proprietary.",
+    "mvp": [
+      "Scope authorization and coverage register",
+      "Finding evidence and peer review",
+      "Client delivery and retest state"
+    ],
+    "effort_weeks": [
+      18,
+      28
+    ],
+    "cost": {
+      "pilot_usd_month": [
+        75,
+        200
+      ],
+      "fits_bootstrap": false,
+      "assumptions": "Three firms, redacted metadata-only assessment pilots; estimates exclude engineering, support, acquisition, taxes and payment fees.",
+      "drivers": "Sensitive exploit evidence, security assurance and deployment isolation",
+      "revenue_stage": "Up to $300 funds isolated hosting and backups, not independent certification"
+    },
+    "integrations": [
+      "Scanner CSV imports",
+      "No active scanning or target access"
+    ],
+    "risks": [
+      "Dradis already covers the proposed workflow and offers customer-controlled hosting.",
+      "Confidential evidence may make hosted adoption unacceptable."
+    ],
+    "global_limits": "Customer authorization, data residency and confidentiality govern every engagement; no offensive execution supplied.",
+    "validation": "Replay five redacted reports including retests; seek three $199 conditional pilots after security review.",
+    "kill_gate": "Defer if credible demand requires air-gapped installs or independent attestations before revenue.",
+    "scores": {
+      "pain": 4,
+      "recurrence": 4,
+      "budget": 4,
+      "distribution": 2,
+      "wedge": 1,
+      "feasibility": 2,
+      "global": 3,
+      "cost": 2
+    },
+    "score_rationale": "Commercially important but direct mature competition and severe trust requirements make entry unattractive.",
+    "evidence_confidence": "medium; official competitor evidence only",
+    "source_limit": "Sources establish available alternatives, not unmet demand, customer willingness to switch, acquisition economics or our proposed price."
+  },
+  {
+    "id": "S022",
+    "name": "Remote contract staffing operations",
+    "category": "Professional services / staffing agency back office",
+    "buyer": "Agency owner, small firms placing remote contractors with business clients",
+    "job": "Maintain assignments, approved hours, rate changes, extensions and reconciled payroll-provider handoff.",
+    "current_workaround": "ATS, timesheet spreadsheets and payroll/accounting exports.",
+    "record": "Contract assignment ledger linking worker/client terms, approved time, rate-effective dates, extensions and settlement status.",
+    "workflow": [
+      "Confirm assignment and rate terms",
+      "Collect and approve work periods",
+      "Resolve time/rate exceptions",
+      "Export settlement and extend or close assignment"
+    ],
+    "roles": [
+      "Recruiter",
+      "Account manager",
+      "Contractor",
+      "Client approver"
+    ],
+    "wedge": "Remote professional contractors only; own assignment administration after placement without becoming employer or payroll processor.",
+    "why_pay": "Fewer rate errors and unapproved hours may justify payment.",
+    "expansion": "Assignment margin trends and extension planning.",
+    "competitors": [
+      {
+        "name": "Bullhorn",
+        "url": "https://www.bullhorn.com/products/applicant-tracking-crm/",
+        "observed": "2026-10-05",
+        "facts": "Offers staffing ATS/CRM, candidate and client records, placement workflows and ecosystem integrations; site also lists middle-office and time/expense products.",
+        "price": "not verified: opened product page links pricing but gives no currency, billing unit, commitment or minimum seats.",
+        "access": "opened"
+      }
+    ],
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 199,
+      "unit": "firm workspace; proposed monthly USD price",
+      "free_boundary": "14-day capped trial; no permanent hosted collaboration tier",
+      "paid_boundary": "Persistent workflow, external collaboration, history and exports",
+      "lifetime": "Unsuitable for ongoing hosting, support and security obligations"
+    },
+    "channel": "Hypothesis: staffing back-office consultants can host a permissioned assignment-margin clinic for remote-contract agencies.",
+    "retention": "Weekly timesheets and recurring contract extensions.",
+    "moat": "Rate and exception histories may be valuable; payroll integrations remain external.",
+    "mvp": [
+      "Assignment and rate-effective ledger",
+      "Time approval and exceptions",
+      "Settlement export and extension workflow"
+    ],
+    "effort_weeks": [
+      18,
+      26
+    ],
+    "cost": {
+      "pilot_usd_month": [
+        60,
+        150
+      ],
+      "fits_bootstrap": false,
+      "assumptions": "Three agencies with redacted assignment/time metadata; estimates exclude engineering, support, acquisition, taxes and payment fees.",
+      "drivers": "Payroll adapter accuracy, sensitive worker data and deadline support",
+      "revenue_stage": "Up to $300 supports adapters and backups, not employer-of-record services"
+    },
+    "integrations": [
+      "Customer payroll provider required",
+      "CSV time and settlement files"
+    ],
+    "risks": [
+      "Bullhorn’s middle-office ecosystem may solve the job already.",
+      "Country worker rules and accounting adapters create ongoing maintenance."
+    ],
+    "global_limits": "Employment, taxation and contractor classification remain qualified customer responsibilities.",
+    "validation": "Replay five assignments through a month-end and extension; seek three $199 pilots that accept external payroll.",
+    "kill_gate": "Defer if payment requires statutory payroll, worker classification or employer-of-record responsibility.",
+    "scores": {
+      "pain": 5,
+      "recurrence": 5,
+      "budget": 4,
+      "distribution": 2,
+      "wedge": 2,
+      "feasibility": 1,
+      "global": 1,
+      "cost": 2
+    },
+    "score_rationale": "High recurrence and error cost, but integration and jurisdiction burdens dominate.",
+    "evidence_confidence": "medium; official competitor evidence only",
+    "source_limit": "Sources establish available alternatives, not unmet demand, customer willingness to switch, acquisition economics or our proposed price."
+  },
+  {
+    "id": "S023",
+    "name": "Immigration practice case operations",
+    "category": "Professional services / immigration practitioner administration",
+    "buyer": "Practice owner, small licensed immigration firms in one initial jurisdiction",
+    "job": "Coordinate applicant evidence, family relationships, practitioner review, submission receipts and subsequent requests.",
+    "current_workaround": "Case-management package, questionnaires, folders and government portals.",
+    "record": "Application case with family/entity relationships, evidence versions, practitioner decisions, receipt identifiers and follow-up requests.",
+    "workflow": [
+      "Collect applicant circumstances and documents",
+      "Review completeness with practitioner",
+      "Record authorized submission externally",
+      "Track receipts, requests and case outcome"
+    ],
+    "roles": [
+      "Practitioner",
+      "Caseworker",
+      "Applicant"
+    ],
+    "wedge": "Start with practice-authored workflows for one case type; no eligibility advice or government-form autofiling.",
+    "why_pay": "Less duplicated evidence collection may justify a subscription.",
+    "expansion": "Related-case reuse and practitioner workload planning.",
+    "competitors": [
+      {
+        "name": "Docketwise",
+        "url": "https://www.docketwise.com/pricing/",
+        "observed": "2026-10-05",
+        "facts": "Offers immigration forms, multilingual intake, case/priority-date tracking, document requests and client portal; Pro adds e-filing.",
+        "price": "Basic displays $80/user/month in yearly section and $90/user/month monthly; currency and minimum seats not verified; annual commitment inferred from section, not quoted as confirmed.",
+        "access": "opened"
+      }
+    ],
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 149,
+      "unit": "firm workspace; proposed monthly USD price",
+      "free_boundary": "14-day capped trial; no permanent hosted collaboration tier",
+      "paid_boundary": "Persistent workflow, external collaboration, history and exports",
+      "lifetime": "Unsuitable for ongoing hosting, support and security obligations"
+    },
+    "channel": "Hypothesis: immigration practice-management trainers can invite licensed practitioners to an opt-in redacted case workshop.",
+    "retention": "Cases continue through repeated evidence requests and future applications.",
+    "moat": "Permissioned family evidence lineage may help; jurisdiction knowledge is a major dependency.",
+    "mvp": [
+      "Applicant/case relationships",
+      "Evidence and practitioner review",
+      "External receipt and follow-up tracking"
+    ],
+    "effort_weeks": [
+      18,
+      28
+    ],
+    "cost": {
+      "pilot_usd_month": [
+        75,
+        200
+      ],
+      "fits_bootstrap": false,
+      "assumptions": "Three practices using redacted metadata; estimates exclude engineering, support, acquisition, taxes and payment fees.",
+      "drivers": "Identity documents, security assurance and changing government processes",
+      "revenue_stage": "Up to $300 improves secure storage, not legal content maintenance"
+    },
+    "integrations": [
+      "Customer government portal remains external",
+      "CSV and document references"
+    ],
+    "risks": [
+      "Docketwise already implements intake through filing.",
+      "Avoiding forms and government integrations may eliminate switching value."
+    ],
+    "global_limits": "Highly jurisdiction-specific; translation, immigration advice and statutory deadlines remain practitioner-owned.",
+    "validation": "Replay five closed cases with follow-up requests; seek three $149 pilots for reduced repeated document work.",
+    "kill_gate": "Defer if customer demand requires eligibility advice, maintained official forms or filing automation.",
+    "scores": {
+      "pain": 4,
+      "recurrence": 4,
+      "budget": 4,
+      "distribution": 2,
+      "wedge": 1,
+      "feasibility": 1,
+      "global": 1,
+      "cost": 2
+    },
+    "score_rationale": "Persistent high-value cases, but global fit, trust and incumbent parity are poor.",
+    "evidence_confidence": "medium; official competitor evidence only",
+    "source_limit": "Sources establish available alternatives, not unmet demand, customer willingness to switch, acquisition economics or our proposed price."
+  },
+  {
+    "id": "S024",
+    "name": "Travel advisory agency operations",
+    "category": "Professional services / travel professional services",
+    "buyer": "Agency owner, small custom-travel advisory teams",
+    "job": "Turn traveler briefs into approved itineraries, supplier confirmations, changes and completed-trip records.",
+    "current_workaround": "CRM, itinerary builder, supplier emails and spreadsheets.",
+    "record": "Trip dossier with traveler preferences, itinerary versions, quoted components, confirmation references and change approvals.",
+    "workflow": [
+      "Capture trip brief and propose options",
+      "Approve itinerary and budget",
+      "Record external supplier confirmations",
+      "Manage changes and close trip"
+    ],
+    "roles": [
+      "Travel adviser",
+      "Agency assistant",
+      "Traveler approver"
+    ],
+    "wedge": "Own multi-adviser itinerary decisions and confirmation reconciliation; all booking and travel delivery remain with the agency.",
+    "why_pay": "Less missed confirmation work and duplicated itinerary editing may justify subscription spend.",
+    "expansion": "Reusable supplier knowledge and repeat-traveler preferences.",
+    "competitors": [
+      {
+        "name": "Travefy",
+        "url": "https://travefy.com/plans/pricing",
+        "observed": "2026-10-05",
+        "facts": "Core includes itinerary builder, CRM, website tools and mobile apps; annual team pricing distinguishes first and additional seats.",
+        "price": "Core displays $39/month first seat on annual plan, $20/month additional seats; Premium $59 and $39 respectively. Currency not verified.",
+        "access": "opened"
+      }
+    ],
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 99,
+      "unit": "firm workspace; proposed monthly USD price",
+      "free_boundary": "14-day capped trial; no permanent hosted collaboration tier",
+      "paid_boundary": "Persistent workflow, external collaboration, history and exports",
+      "lifetime": "Unsuitable for ongoing hosting, support and security obligations"
+    },
+    "channel": "Hypothesis: independent travel-agency operations coaches can run an opt-in trip-file retrospective with adviser teams.",
+    "retention": "Active trips and repeat-traveler preference history.",
+    "moat": "Verified supplier/decision history might help; destination content is not proprietary.",
+    "mvp": [
+      "Trip brief and itinerary versions",
+      "Approval and confirmation register",
+      "Change handling and trip archive"
+    ],
+    "effort_weeks": [
+      14,
+      22
+    ],
+    "cost": {
+      "pilot_usd_month": [
+        20,
+        50
+      ],
+      "fits_bootstrap": true,
+      "assumptions": "Three agencies, 100 active trips, linked documents; estimates exclude engineering, support, acquisition, taxes and payment fees.",
+      "drivers": "Sensitive traveler data and destination content; omit passport storage, customer supplier accounts",
+      "revenue_stage": "Up to $300 supports calendar/email sync and storage"
+    },
+    "integrations": [
+      "CSV client import",
+      "Supplier confirmations entered by agency; no GDS integration"
+    ],
+    "risks": [
+      "Travefy is inexpensive and broad.",
+      "Agencies may require booking inventory and commission automation before switching."
+    ],
+    "global_limits": "Consumer protection and travel rules vary; software never books, collects trip funds or fulfills travel.",
+    "validation": "Replay five trips with changes; seek three $99 pilots demonstrating fewer unmatched confirmation records.",
+    "kill_gate": "Stop if value depends on inventory access, travel fulfillment or replacing GDS tools.",
+    "scores": {
+      "pain": 3,
+      "recurrence": 4,
+      "budget": 3,
+      "distribution": 3,
+      "wedge": 1,
+      "feasibility": 3,
+      "global": 3,
+      "cost": 4
+    },
+    "score_rationale": "Software delivery fits the model, but incumbent value and supplier dependencies weaken the wedge.",
+    "evidence_confidence": "medium; official competitor evidence only",
+    "source_limit": "Sources establish available alternatives, not unmet demand, customer willingness to switch, acquisition economics or our proposed price."
+  },
+  {
+    "id": "S025",
+    "name": "Independent insurance brokerage operations",
+    "category": "Professional services / brokerage administration",
+    "buyer": "Operations head, small commercial insurance brokerages in one jurisdiction",
+    "job": "Coordinate customer risk information, insurer submissions, quote decisions, endorsements and renewal records.",
+    "current_workaround": "Agency management system, carrier portals and spreadsheets.",
+    "record": "Policy placement dossier linking submitted risk facts, insurer terms, client instruction, bound-policy reference and endorsements.",
+    "workflow": [
+      "Collect broker-reviewed risk information",
+      "Track insurer submissions and quotes",
+      "Record client instruction and external binding",
+      "Reconcile endorsements and prepare renewal"
+    ],
+    "roles": [
+      "Broker",
+      "Account handler",
+      "Client representative"
+    ],
+    "wedge": "Initially one commercial line with customer-defined forms; administrative workflow without advice, pricing or binding authority.",
+    "why_pay": "Less repeated rekeying and missed endorsement follow-through may justify recurring fees.",
+    "expansion": "Historical placement evidence and carrier-specific workflows.",
+    "competitors": [
+      {
+        "name": "Applied Epic",
+        "url": "https://www1.appliedsystems.com/en-us/solutions/for-agents/agency-management-system/applied-epic/",
+        "observed": "2026-10-05",
+        "facts": "Describes prospecting, submissions, quoting, policy management, accounting and insurer connectivity across the policy lifecycle.",
+        "price": "not verified: product page does not publish currency, billing unit, commitment or minimum seats.",
+        "access": "opened"
+      }
+    ],
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 249,
+      "unit": "firm workspace; proposed monthly USD price",
+      "free_boundary": "14-day capped trial; no permanent hosted collaboration tier",
+      "paid_boundary": "Persistent workflow, external collaboration, history and exports",
+      "lifetime": "Unsuitable for ongoing hosting, support and security obligations"
+    },
+    "channel": "Hypothesis: independent brokerage operations consultants can recruit opt-in account handlers for redacted placement reviews.",
+    "retention": "Annual renewals and ongoing endorsements create durable records.",
+    "moat": "Permissioned policy history may retain users; carrier connectivity is the incumbent advantage.",
+    "mvp": [
+      "Placement dossier and quote comparison",
+      "Client instruction and external policy receipt",
+      "Endorsement and renewal workflow"
+    ],
+    "effort_weeks": [
+      24,
+      36
+    ],
+    "cost": {
+      "pilot_usd_month": [
+        150,
+        400
+      ],
+      "fits_bootstrap": false,
+      "assumptions": "Three brokerages, redacted placement metadata only; estimates exclude engineering, support, acquisition, taxes and payment fees.",
+      "drivers": "Security assurance, licensed forms, carrier interfaces and specialist support",
+      "revenue_stage": "Up to $300 may cover hosting, but not required carrier integration or compliance costs"
+    },
+    "integrations": [
+      "Carrier portals and licensed forms remain customer-owned",
+      "CSV only until integration terms are verified"
+    ],
+    "risks": [
+      "Applied Epic already embeds the entire policy lifecycle.",
+      "A useful replacement likely needs carrier downloads, accounting and regulated-data controls."
+    ],
+    "global_limits": "Insurance licensing, forms and data rules are jurisdiction-specific; no recommendations or binding execution.",
+    "validation": "Review five placement/endorsement files with licensed brokers; seek three $249 conditional pilots without carrier integrations.",
+    "kill_gate": "Defer if broker value depends on carrier connectivity, licensed forms or regulated transaction execution.",
+    "scores": {
+      "pain": 4,
+      "recurrence": 5,
+      "budget": 4,
+      "distribution": 1,
+      "wedge": 1,
+      "feasibility": 1,
+      "global": 1,
+      "cost": 1
+    },
+    "score_rationale": "Commercially durable, but acquisition, integration and operating cost fit are poor.",
+    "evidence_confidence": "medium; official competitor evidence only",
+    "source_limit": "Sources establish available alternatives, not unmet demand, customer willingness to switch, acquisition economics or our proposed price."
+  }
+]

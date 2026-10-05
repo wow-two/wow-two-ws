@@ -1,0 +1,2241 @@
+[
+  {
+    "id": "S026",
+    "name": "Independent training-provider operations",
+    "category": "Education / delivery operations",
+    "buyer": "Owner of an adult online training firm with 3–15 trainers.",
+    "job": "Close recurring corporate training orders without losing delivery or invoicing evidence.",
+    "current_workaround": "Sheets, calendar invitations, an LMS and invoice software.",
+    "record": "Training order linked to cohort, trainer allocation, attendance and accepted deliverables.",
+    "workflow": [
+      "Agree order and delivery scope",
+      "Allocate trainers and enroll learners",
+      "Deliver sessions and assess completion",
+      "Resolve exceptions and approve client invoice"
+    ],
+    "roles": [
+      "Delivery coordinator",
+      "Trainer",
+      "Client training manager"
+    ],
+    "wedge": "Order-to-client-acceptance traceability for firms retaining their existing LMS; Arlo already covers much of this.",
+    "why_pay": "Avoid unreconciled delivery and delayed billing; savings must exceed another system’s cost.",
+    "expansion": "Trainer utilization, reusable client agreements and multi-program reporting.",
+    "competitors": [
+      {
+        "name": "Arlo",
+        "url": "https://www.arlo.co/pricing",
+        "observed": "2026-10-05",
+        "facts": "Direct training-operations competitor: course scheduling, registrations, CRM and customer/instructor portals appear in its plan comparison.",
+        "price": "Simple displayed $118 per administrator/month billed annually, with $132 alternate monthly display; currency not verified. Paid registration $2.15 and free registration $1.07 displayed; implementation minimum not verified.",
+        "access": "opened"
+      },
+      {
+        "name": "Teachfloor",
+        "url": "https://www.teachfloor.com/pricing",
+        "observed": "2026-10-05",
+        "facts": "Direct cohort-learning alternative with courses, peer/group review and discussions.",
+        "price": "Startup starts at $89/month; currency and minimum billing commitment not verified from opened page.",
+        "access": "opened"
+      }
+    ],
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 149,
+      "unit": "workspace per month",
+      "free_boundary": "14-day trial with sample data; no permanent hosted team tier.",
+      "paid_boundary": "Persistent workflow, permissions, history and operational exports.",
+      "lifetime": "Unsuitable for continuing hosted collaboration and support; setup fees would not count as MRR."
+    },
+    "channel": "Training Industry supplier directory: propose artifact walkthroughs to owner-led providers; access and conversion remain untested.",
+    "retention": "New cohorts reuse client terms, trainer availability and completion history.",
+    "moat": "Reusable mappings between client deliverables and actual training evidence, if customers retain them.",
+    "mvp": [
+      "Order/cohort registry",
+      "Trainer allocation and delivery log",
+      "Client acceptance and invoice CSV"
+    ],
+    "effort_weeks": [
+      10,
+      16
+    ],
+    "cost": {
+      "pilot_usd_month": [
+        25,
+        45
+      ],
+      "fits_bootstrap": true,
+      "assumptions": "Three firms, 300 learners, text records and 1GB attachments; customers retain video/LMS subscriptions. Cash operating estimate; excludes engineering, support, acquisition, tax and payment fees.",
+      "drivers": "Attachments and transactional email; no streaming or content authoring.",
+      "revenue_stage": "Up to $300/month after revenue for monitored backups, queues and measured usage; expand caps only after margins are observed."
+    },
+    "integrations": [
+      "CSV LMS completion import",
+      "Calendar export",
+      "Invoice CSV"
+    ],
+    "risks": [
+      "Against building: Arlo already bundles registrations, CRM and portals.",
+      "Calendar complexity and duplicate LMS entry may outweigh value."
+    ],
+    "global_limits": "Adult-only pilot; time zones, invoice conventions and learner privacy need localization.",
+    "validation": "With ten providers, reconstruct five completed orders; seek three $149/month commitments where reconciliation time falls by half.",
+    "kill_gate": "Stop if three of five can reproduce the complete flow in Arlo without a material gap.",
+    "scores": {
+      "pain": 4,
+      "recurrence": 5,
+      "budget": 4,
+      "distribution": 3,
+      "wedge": 2,
+      "feasibility": 3,
+      "global": 4,
+      "cost": 5
+    },
+    "score_rationale": "Frequent paid delivery supports recurrence; mature integrated incumbents constrain differentiation.",
+    "evidence_confidence": "medium; official competitor evidence only, customer demand unvalidated",
+    "source_limit": "Official descriptions establish category coverage, not dissatisfaction, switching demand or willingness to pay our proposed price. No customer interviews or paid pilots conducted."
+  },
+  {
+    "id": "S027",
+    "name": "Independent assessment-provider moderation",
+    "category": "Education / assessment operations",
+    "buyer": "Assessment director at a small professional examination provider.",
+    "job": "Release defensible assessment decisions across multiple assessors and appeals.",
+    "current_workaround": "Forms, shared rubrics, emailed marks and locked spreadsheets.",
+    "record": "Candidate assessment case with rubric version, independent marks, moderation and appeal history.",
+    "workflow": [
+      "Register case and freeze rubric",
+      "Allocate independent assessors",
+      "Reconcile discrepancies with moderator",
+      "Approve result and resolve appeals"
+    ],
+    "roles": [
+      "Assessment administrator",
+      "Assessor",
+      "Moderator"
+    ],
+    "wedge": "Moderation and appeal continuity across imported assignments, without building an exam-delivery engine.",
+    "why_pay": "Reduce re-marking administration and lost decision evidence.",
+    "expansion": "Assessor calibration, panel capacity and longitudinal rubric quality.",
+    "competitors": [
+      {
+        "name": "TestInvite",
+        "url": "https://www.testinvite.com/lang/en/pricing.html",
+        "observed": "2026-10-05",
+        "facts": "Direct assessment platform: Advanced includes rubrics, multiple assessment stages and audit logs; Essential includes manual evaluation and controlled result release.",
+        "price": "Advanced displayed $2,900/year for 500 testing credits and 10 teammates; annual basis. Currency not explicitly verified; overage and minimum additional credits not verified.",
+        "access": "opened"
+      }
+    ],
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 199,
+      "unit": "workspace per month",
+      "free_boundary": "14-day trial with sample data; no permanent hosted team tier.",
+      "paid_boundary": "Persistent workflow, permissions, history and operational exports.",
+      "lifetime": "Unsuitable for continuing hosted collaboration and support; setup fees would not count as MRR."
+    },
+    "channel": "Association of Test Publishers public member directory: identify small assessment providers for a moderation demonstration.",
+    "retention": "Each assessment cycle adds candidate cases and reusable calibration decisions.",
+    "moat": "Consistent decision provenance and accepted rubric migration, rather than proprietary scoring.",
+    "mvp": [
+      "Case/rubric versioning",
+      "Blind assessment and moderation",
+      "Appeal and release records"
+    ],
+    "effort_weeks": [
+      12,
+      20
+    ],
+    "cost": {
+      "pilot_usd_month": [
+        25,
+        45
+      ],
+      "fits_bootstrap": true,
+      "assumptions": "Two providers and 200 de-identified low-stakes cases; no proctoring or identity verification. Cash operating estimate; excludes engineering, support, acquisition, tax and payment fees.",
+      "drivers": "Encrypted evidence and restricted access; video submissions remain external.",
+      "revenue_stage": "Up to $300/month after revenue for monitored backups, queues and measured usage; expand caps only after margins are observed."
+    },
+    "integrations": [
+      "Bounded CSV marks import",
+      "Customer-controlled evidence links"
+    ],
+    "risks": [
+      "TestInvite already offers rubrics and staged assessments.",
+      "Consequential decisions require human authority and security review."
+    ],
+    "global_limits": "Start with voluntary adult professional assessments; jurisdiction-specific accreditation remains outside scope.",
+    "validation": "Replay five past moderation cases with ten administrators; require three $199 pilots and agreement that provenance improves.",
+    "kill_gate": "Stop if live use requires biometric proctoring, statutory certification or a full exam engine.",
+    "scores": {
+      "pain": 4,
+      "recurrence": 4,
+      "budget": 4,
+      "distribution": 2,
+      "wedge": 3,
+      "feasibility": 2,
+      "global": 3,
+      "cost": 4
+    },
+    "score_rationale": "Real decision complexity supports payment; trust and procurement reduce feasible initial reach.",
+    "evidence_confidence": "medium; official competitor evidence only, customer demand unvalidated",
+    "source_limit": "Official descriptions establish category coverage, not dissatisfaction, switching demand or willingness to pay our proposed price. No customer interviews or paid pilots conducted."
+  },
+  {
+    "id": "S028",
+    "name": "Accrediting-body provider approvals",
+    "category": "Education / provider accreditation",
+    "buyer": "Operations head at a voluntary professional accrediting body.",
+    "job": "Maintain provider approval and renewal evidence consistently across reviewers.",
+    "current_workaround": "Email applications, standards spreadsheets and document folders.",
+    "record": "Provider accreditation case linking standard versions, findings, corrective actions and panel decision.",
+    "workflow": [
+      "Receive provider application",
+      "Map evidence to standards and assign reviewers",
+      "Resolve corrective actions",
+      "Record panel approval and renewal conditions"
+    ],
+    "roles": [
+      "Accreditation coordinator",
+      "External reviewer",
+      "Provider representative"
+    ],
+    "wedge": "Small voluntary accreditors with repeat provider reviews and modest document volumes.",
+    "why_pay": "Reduce reviewer coordination and reconstruct renewal decisions reliably.",
+    "expansion": "Reviewer conflict handling, standards transition programs and provider portfolios.",
+    "competitors": [
+      {
+        "name": "ARMATURE",
+        "url": "https://armaturecorp.com/",
+        "observed": "2026-10-05",
+        "facts": "Direct accreditation/certification platform with evidence collection, issue handling and stakeholder workflows for accrediting organizations.",
+        "price": "Contact sales; amount, currency, billing unit and minimum commitment not verified.",
+        "access": "opened"
+      }
+    ],
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 249,
+      "unit": "workspace per month",
+      "free_boundary": "14-day trial with sample data; no permanent hosted team tier.",
+      "paid_boundary": "Persistent workflow, permissions, history and operational exports.",
+      "lifetime": "Unsuitable for continuing hosted collaboration and support; setup fees would not count as MRR."
+    },
+    "channel": "Institute for Credentialing Excellence public directories: research voluntary bodies for case-based interviews; no outreach performed.",
+    "retention": "Approved providers return for renewals and standards changes.",
+    "moat": "Migrated standards/evidence relationships may create useful continuity, subject to exportability.",
+    "mvp": [
+      "Versioned standards and applications",
+      "Reviewer findings and responses",
+      "Panel decision and renewal register"
+    ],
+    "effort_weeks": [
+      14,
+      22
+    ],
+    "cost": {
+      "pilot_usd_month": [
+        25,
+        45
+      ],
+      "fits_bootstrap": true,
+      "assumptions": "Two bodies, 50 synthetic or consented cases; no regulated accreditation claims. Cash operating estimate; excludes engineering, support, acquisition, tax and payment fees.",
+      "drivers": "Sensitive attachments, data residency and contractual security can exceed the envelope.",
+      "revenue_stage": "Up to $300/month after revenue for monitored backups, queues and measured usage; expand caps only after margins are observed."
+    },
+    "integrations": [
+      "CSV provider import",
+      "Document export"
+    ],
+    "risks": [
+      "ARMATURE directly serves this workflow.",
+      "Procurement and liability can make small contracts uneconomic."
+    ],
+    "global_limits": "Voluntary schemes only initially; accreditation rules and reviewer conflicts vary globally.",
+    "validation": "Ten body interviews, five historical renewals; seek three $249 commitments contingent on a documented security review.",
+    "kill_gate": "Stop if all qualified buyers require independent certification or custom hosting before a pilot.",
+    "scores": {
+      "pain": 4,
+      "recurrence": 4,
+      "budget": 4,
+      "distribution": 2,
+      "wedge": 2,
+      "feasibility": 2,
+      "global": 2,
+      "cost": 3
+    },
+    "score_rationale": "Durable records have value, but institution-specific rules and trust burden make this a reserve.",
+    "evidence_confidence": "medium; official competitor evidence only, customer demand unvalidated",
+    "source_limit": "Official descriptions establish category coverage, not dissatisfaction, switching demand or willingness to pay our proposed price. No customer interviews or paid pilots conducted."
+  },
+  {
+    "id": "S029",
+    "name": "B2B course-license account operations",
+    "category": "Education / commercial licensing",
+    "buyer": "Owner or account director of an established course publisher selling to employers.",
+    "job": "Renew corporate licenses with reliable seat allocation and delivery evidence across learning platforms.",
+    "current_workaround": "CRM deals, LMS groups, seat spreadsheets and manually assembled renewal reports.",
+    "record": "Corporate learning agreement with entitlements, allocations, completion snapshots and renewal decision.",
+    "workflow": [
+      "Agree client license terms",
+      "Allocate seats through employer administrator",
+      "Reconcile LMS usage and unused entitlements",
+      "Approve renewal or license changes"
+    ],
+    "roles": [
+      "Publisher account manager",
+      "Employer learning administrator",
+      "Learner"
+    ],
+    "wedge": "Portable contract-and-entitlement record across two existing LMSs; not another course host.",
+    "why_pay": "Hypothesis: fewer underbilled renewals and less account servicing justify $199/month.",
+    "expansion": "Partner resellers, enterprise billing exports and delegated client portfolios.",
+    "competitors": [
+      {
+        "name": "Thinkific",
+        "url": "https://www.thinkific.com/pricing/",
+        "observed": "2026-10-05",
+        "facts": "Direct B2B course-selling competitor: Grow includes group orders, bulk seat purchases, invoicing, API/webhooks and engagement tools.",
+        "price": "Grow displayed $219/month on monthly billing or $164/month billed annually. Currency not explicitly verified; standard workspace plan, annual option requires annual billing.",
+        "access": "opened"
+      },
+      {
+        "name": "LearnWorlds",
+        "url": "https://www.learnworlds.com/pricing/",
+        "observed": "2026-10-05",
+        "facts": "Direct competitor: Learning Center supports ten client groups, scheduled reports and white labeling; Corporate offers larger groups and flexible invoicing.",
+        "price": "Learning Center lists 299/month or 249/month billed annually, excluding VAT, with temporary discount also displayed. Currency not verified from extracted plan headings; minimum one chosen billing term.",
+        "access": "opened"
+      }
+    ],
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 199,
+      "unit": "workspace per month",
+      "free_boundary": "14-day trial with sample data; no permanent hosted team tier.",
+      "paid_boundary": "Persistent workflow, permissions, history and operational exports.",
+      "lifetime": "Unsuitable for continuing hosted collaboration and support; setup fees would not count as MRR."
+    },
+    "channel": "LearnWorlds expert directory and Thinkific partner ecosystem: recruit implementation consultants for five customer-artifact demonstrations.",
+    "retention": "License changes and quarterly renewal discussions reuse entitlement and usage history.",
+    "moat": "Trusted cross-platform import mappings and commercial account history, if migration is cheap enough.",
+    "mvp": [
+      "Agreement and entitlement registry",
+      "Delegated seat allocation",
+      "Usage reconciliation and renewal packet"
+    ],
+    "effort_weeks": [
+      8,
+      14
+    ],
+    "cost": {
+      "pilot_usd_month": [
+        25,
+        45
+      ],
+      "fits_bootstrap": true,
+      "assumptions": "Three publishers, 20 employer accounts and 1,000 learner metadata rows; existing LMS hosts content. Cash operating estimate; excludes engineering, support, acquisition, tax and payment fees.",
+      "drivers": "Integration maintenance and identity mapping; CSV first, no course/video storage.",
+      "revenue_stage": "Up to $300/month after revenue for monitored backups, queues and measured usage; expand caps only after margins are observed."
+    },
+    "integrations": [
+      "Thinkific or LearnWorlds CSV export",
+      "Invoice CSV"
+    ],
+    "risks": [
+      "Against building: both incumbents already sell B2B groups and reports.",
+      "Customers may prefer one LMS rather than paying for an extra reconciliation layer."
+    ],
+    "global_limits": "Employer-controlled learner access, data deletion and regional tax documents require clear boundaries.",
+    "validation": "Show ten publishers a cross-LMS renewal packet using five real agreements; seek three $199 pilots and measurable monthly reconciliation savings.",
+    "kill_gate": "Stop if fewer than three prospects actually use multiple systems or incumbents already reconcile their contract terms.",
+    "scores": {
+      "pain": 4,
+      "recurrence": 5,
+      "budget": 4,
+      "distribution": 3,
+      "wedge": 3,
+      "feasibility": 3,
+      "global": 4,
+      "cost": 5
+    },
+    "score_rationale": "Renewal economics and bounded metadata cost are attractive; cross-LMS pain remains a hypothesis, not an observed gap.",
+    "evidence_confidence": "medium; official competitor evidence only, customer demand unvalidated",
+    "source_limit": "Official descriptions establish category coverage, not dissatisfaction, switching demand or willingness to pay our proposed price. No customer interviews or paid pilots conducted."
+  },
+  {
+    "id": "S030",
+    "name": "Mentorship program operations",
+    "category": "Education / relationship programs",
+    "buyer": "Program manager at a professional community running recurring adult mentoring programs.",
+    "job": "Keep mentor relationships progressing after initial matching.",
+    "current_workaround": "Forms, matching spreadsheets, meeting links and quarterly surveys.",
+    "record": "Mentorship relationship with goals, mutual acceptance, sessions, interventions and closure.",
+    "workflow": [
+      "Enroll existing members and collect goals",
+      "Propose and accept matches",
+      "Record progress and coordinator interventions",
+      "Close, rematch or renew relationships"
+    ],
+    "roles": [
+      "Program coordinator",
+      "Mentor",
+      "Mentee"
+    ],
+    "wedge": "Small professional communities that need relationship continuity without an enterprise HR deployment.",
+    "why_pay": "Less coordinator follow-up and fewer abandoned matches could support a recurring program budget.",
+    "expansion": "Alumni mentoring, group mentoring and recurring program comparisons.",
+    "competitors": [
+      {
+        "name": "Together",
+        "url": "https://www.togetherplatform.com/pricing",
+        "observed": "2026-10-05",
+        "facts": "Direct mentorship-program platform with matching using goals, skills and interests, templates and outcome reporting.",
+        "price": "Contact sales; customized pricing, amount/currency/unit/term not verified. Page says no initiation fees.",
+        "access": "opened"
+      }
+    ],
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 99,
+      "unit": "workspace per month",
+      "free_boundary": "14-day trial with sample data; no permanent hosted team tier.",
+      "paid_boundary": "Persistent workflow, permissions, history and operational exports.",
+      "lifetime": "Unsuitable for continuing hosted collaboration and support; setup fees would not count as MRR."
+    },
+    "channel": "European Mentoring and Coaching Council public community channels: offer a program-retrospective template and opt-in demonstration.",
+    "retention": "Relationship cycles and returning mentors create reusable history.",
+    "moat": "Program-specific matching preferences and intervention practices, with explicit participant consent.",
+    "mvp": [
+      "Participant/goal registry",
+      "Mutual match acceptance and progress log",
+      "Coordinator interventions and closure"
+    ],
+    "effort_weeks": [
+      8,
+      12
+    ],
+    "cost": {
+      "pilot_usd_month": [
+        25,
+        45
+      ],
+      "fits_bootstrap": true,
+      "assumptions": "Three programs, 300 adults; text records, no call recording. Cash operating estimate; excludes engineering, support, acquisition, tax and payment fees.",
+      "drivers": "Notification volume and sensitive relationship notes; restrict retention and staff visibility.",
+      "revenue_stage": "Up to $300/month after revenue for monitored backups, queues and measured usage; expand caps only after margins are observed."
+    },
+    "integrations": [
+      "CSV roster import",
+      "Calendar links"
+    ],
+    "risks": [
+      "Together already covers matching and outcomes.",
+      "Volunteer programs may lack budget or require continuous service support."
+    ],
+    "global_limits": "Exclude minors and employment evaluation; consent and access expectations differ.",
+    "validation": "Ten program managers review five completed cycles; seek three $99 commitments and lower coordinator handling time in one cycle.",
+    "kill_gate": "Stop if engagement depends mainly on human facilitation rather than missing workflow infrastructure.",
+    "scores": {
+      "pain": 3,
+      "recurrence": 4,
+      "budget": 3,
+      "distribution": 3,
+      "wedge": 2,
+      "feasibility": 4,
+      "global": 4,
+      "cost": 5
+    },
+    "score_rationale": "Buildable and recurring, but budget and behavior-change value are weaker than revenue-linked workflows.",
+    "evidence_confidence": "medium; official competitor evidence only, customer demand unvalidated",
+    "source_limit": "Official descriptions establish category coverage, not dissatisfaction, switching demand or willingness to pay our proposed price. No customer interviews or paid pilots conducted."
+  },
+  {
+    "id": "S031",
+    "name": "Remote tutoring agency operations",
+    "category": "Education / tutoring businesses",
+    "buyer": "Owner of a remote adult-language tutoring agency with 10–40 contractors.",
+    "job": "Reconcile lesson delivery, client balances and tutor pay across recurring arrangements.",
+    "current_workaround": "Calendars, prepaid-balance sheets, video links and accounting exports.",
+    "record": "Learning service agreement linking learner, tutor, lesson ledger, balance and approved compensation.",
+    "workflow": [
+      "Agree learning package and tutor assignment",
+      "Schedule and record lesson outcome",
+      "Apply cancellation rules and reconcile balances",
+      "Approve client invoice and tutor-pay export"
+    ],
+    "roles": [
+      "Agency coordinator",
+      "Tutor",
+      "Client account owner"
+    ],
+    "wedge": "Explicit disputed-lesson resolution for agencies selling corporate language packages.",
+    "why_pay": "Reduce balance disputes and unapproved compensation; proposed value must beat inexpensive incumbents.",
+    "expansion": "Corporate account hierarchies and substitute-tutor handovers.",
+    "competitors": [
+      {
+        "name": "TutorCruncher",
+        "url": "https://tutorcruncher.com/pricing",
+        "observed": "2026-10-05",
+        "facts": "Direct tutoring business competitor; opened page links tutor, client and student management, billing/payroll and scheduling.",
+        "price": "Not verified: pricing page opened but dynamic prices were not exposed. Currency, unit and minimum commitment unconfirmed.",
+        "access": "opened"
+      },
+      {
+        "name": "Teachworks",
+        "url": "https://www.teachworks.com/pricing",
+        "observed": "2026-10-05",
+        "facts": "Direct competitor links scheduling, billing, payroll and package balances; lesson charges count each attending student separately.",
+        "price": "USD explicitly stated. Top Starter table shows $16.49/month plus $0.320/student lesson, billed after each month; a second rendered table shows $15 plus $0.25. Conflicting page rates require vendor confirmation. No setup/cancellation fees stated.",
+        "access": "opened"
+      }
+    ],
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 129,
+      "unit": "workspace per month",
+      "free_boundary": "14-day trial with sample data; no permanent hosted team tier.",
+      "paid_boundary": "Persistent workflow, permissions, history and operational exports.",
+      "lifetime": "Unsuitable for continuing hosted collaboration and support; setup fees would not count as MRR."
+    },
+    "channel": "The Tutors’ Association public member listings: identify remote agencies and offer one anonymized monthly-close reconstruction.",
+    "retention": "Weekly lessons and monthly pay approval retain the ledger.",
+    "moat": "Accurate imported balances and agreed exception policies, without locking data in.",
+    "mvp": [
+      "Agreement and lesson ledger",
+      "Cancellation/dispute workflow",
+      "Approved billing and pay CSV"
+    ],
+    "effort_weeks": [
+      10,
+      16
+    ],
+    "cost": {
+      "pilot_usd_month": [
+        25,
+        45
+      ],
+      "fits_bootstrap": true,
+      "assumptions": "Three agencies and 1,000 lessons/month; customer-owned meeting tools, adults only. Cash operating estimate; excludes engineering, support, acquisition, tax and payment fees.",
+      "drivers": "Calendar synchronization, notifications and payment support; no payroll execution.",
+      "revenue_stage": "Up to $300/month after revenue for monitored backups, queues and measured usage; expand caps only after margins are observed."
+    },
+    "integrations": [
+      "Calendar ICS",
+      "Invoice and compensation CSV"
+    ],
+    "risks": [
+      "Against building: Teachworks and TutorCruncher already cover this business broadly.",
+      "Low competitor pricing weakens a generic replacement."
+    ],
+    "global_limits": "Time-zone changes, contractor classification and invoices vary; product records decisions without giving legal advice.",
+    "validation": "Reconcile five real closes across ten agencies; require three $129 pilots and unresolved incumbent-specific exception pain.",
+    "kill_gate": "Stop if disputed lessons are rare or implementation costs exceed three months of subscription.",
+    "scores": {
+      "pain": 4,
+      "recurrence": 5,
+      "budget": 3,
+      "distribution": 4,
+      "wedge": 2,
+      "feasibility": 3,
+      "global": 4,
+      "cost": 5
+    },
+    "score_rationale": "Clear recurring money workflow; strong existing low-cost software keeps wedge score low.",
+    "evidence_confidence": "medium; official competitor evidence only, customer demand unvalidated",
+    "source_limit": "Official descriptions establish category coverage, not dissatisfaction, switching demand or willingness to pay our proposed price. No customer interviews or paid pilots conducted."
+  },
+  {
+    "id": "S032",
+    "name": "Curriculum governance for online colleges",
+    "category": "Education / academic operations",
+    "buyer": "Academic director at a small independent adult vocational college.",
+    "job": "Publish consistent course/program changes without losing approval and dependency history.",
+    "current_workaround": "Word proposals, committee emails and catalog spreadsheets.",
+    "record": "Versioned curriculum graph connecting courses, prerequisites, program requirements and approvals.",
+    "workflow": [
+      "Propose curriculum change",
+      "Assess dependent courses and programs",
+      "Route faculty and committee approvals",
+      "Publish approved catalog version"
+    ],
+    "roles": [
+      "Curriculum coordinator",
+      "Faculty proposer",
+      "Committee approver"
+    ],
+    "wedge": "Compact governance for small online colleges with a limited program catalog.",
+    "why_pay": "Reduce incorrect program requirements and manual catalog reconciliation.",
+    "expansion": "Syllabus synchronization and scheduled teach-out transitions.",
+    "competitors": [
+      {
+        "name": "Kuali Curriculum Management",
+        "url": "https://kuali-ccm.zendesk.com/hc/en-us/articles/360003358014-Overview",
+        "observed": "2026-10-05",
+        "facts": "Direct competitor maintains canonical program/course versions and routes proposals through customized approvals.",
+        "price": "Not verified: official product documentation publishes no amount, currency, billing unit or minimum term.",
+        "access": "opened"
+      }
+    ],
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 199,
+      "unit": "workspace per month",
+      "free_boundary": "14-day trial with sample data; no permanent hosted team tier.",
+      "paid_boundary": "Persistent workflow, permissions, history and operational exports.",
+      "lifetime": "Unsuitable for continuing hosted collaboration and support; setup fees would not count as MRR."
+    },
+    "channel": "Association for Learning Technology community: research small provider curriculum teams for artifact-based interviews.",
+    "retention": "Every academic revision depends on prior approved versions.",
+    "moat": "Institution-specific dependency histories and reliable release semantics.",
+    "mvp": [
+      "Course/program version graph",
+      "Proposal and approval routing",
+      "Catalog export and change log"
+    ],
+    "effort_weeks": [
+      12,
+      20
+    ],
+    "cost": {
+      "pilot_usd_month": [
+        25,
+        45
+      ],
+      "fits_bootstrap": true,
+      "assumptions": "Two colleges, 300 curriculum records, no student transcripts or hosted courses. Cash operating estimate; excludes engineering, support, acquisition, tax and payment fees.",
+      "drivers": "Complex dependency migrations and institution-specific approval rules dominate cost beyond hosting.",
+      "revenue_stage": "Up to $300/month after revenue for monitored backups, queues and measured usage; expand caps only after margins are observed."
+    },
+    "integrations": [
+      "CSV catalog import",
+      "Static catalog export"
+    ],
+    "risks": [
+      "Kuali already maintains canonical versions and approvals.",
+      "Academic procurement and custom rules challenge a small team."
+    ],
+    "global_limits": "Qualification frameworks and catalog obligations differ; no accreditation guarantees.",
+    "validation": "Use five historical catalog changes from ten directors; seek three $199 commitments and prove all downstream changes remain visible.",
+    "kill_gate": "Stop if useful adoption requires replacing the student information system.",
+    "scores": {
+      "pain": 4,
+      "recurrence": 4,
+      "budget": 3,
+      "distribution": 2,
+      "wedge": 2,
+      "feasibility": 2,
+      "global": 2,
+      "cost": 5
+    },
+    "score_rationale": "A substantial record exists; switching, approval variability and difficult access reduce attractiveness.",
+    "evidence_confidence": "medium; official competitor evidence only, customer demand unvalidated",
+    "source_limit": "Official descriptions establish category coverage, not dissatisfaction, switching demand or willingness to pay our proposed price. No customer interviews or paid pilots conducted."
+  },
+  {
+    "id": "S033",
+    "name": "Sponsored remote experiential-project programs",
+    "category": "Education / project-based learning",
+    "buyer": "Experiential learning director at an adult online education provider.",
+    "job": "Deliver repeat sponsor projects with coherent learner evidence and manageable coordinator workload.",
+    "current_workaround": "Project briefs, LMS groups, team chats and emailed sponsor evaluations.",
+    "record": "Program project linking sponsor brief, learner team, milestones, feedback and competency evidence.",
+    "workflow": [
+      "Scope sponsor project",
+      "Allocate existing learner teams",
+      "Review deliverables with sponsor and mentor",
+      "Approve evidence and close project"
+    ],
+    "roles": [
+      "Program coordinator",
+      "Sponsor reviewer",
+      "Learner team lead"
+    ],
+    "wedge": "Providers already possessing employer partners; structured remote delivery without supplying projects or a marketplace.",
+    "why_pay": "Reduce coordination across repeated sponsored programs and preserve usable outcome evidence.",
+    "expansion": "Reusable sponsor portfolios and competency mapping across programs.",
+    "competitors": [
+      {
+        "name": "Practera",
+        "url": "https://practera.com/how-it-works/",
+        "observed": "2026-10-05",
+        "facts": "Direct experiential-learning platform supports program design, learner/mentor project feedback and coordinator analytics. It also offers employer projects, which this proposal would not supply.",
+        "price": "Contact sales/demo; amount, currency, billing unit and minimum commitment not verified.",
+        "access": "opened"
+      }
+    ],
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 179,
+      "unit": "workspace per month",
+      "free_boundary": "14-day trial with sample data; no permanent hosted team tier.",
+      "paid_boundary": "Persistent workflow, permissions, history and operational exports.",
+      "lifetime": "Unsuitable for continuing hosted collaboration and support; setup fees would not count as MRR."
+    },
+    "channel": "CEWIL Canada public experiential-learning network: test remote-program briefs with coordinators, subject to community permission.",
+    "retention": "New terms reuse sponsor agreements and project patterns.",
+    "moat": "Accepted sponsor-review structures and longitudinal delivery records.",
+    "mvp": [
+      "Project/role registry",
+      "Milestones and feedback rounds",
+      "Evidence portfolio and closeout"
+    ],
+    "effort_weeks": [
+      10,
+      16
+    ],
+    "cost": {
+      "pilot_usd_month": [
+        25,
+        45
+      ],
+      "fits_bootstrap": true,
+      "assumptions": "Two programs, 100 adult learners, linked deliverables rather than large uploads. Cash operating estimate; excludes engineering, support, acquisition, tax and payment fees.",
+      "drivers": "File volume and mentor invitations; no matching marketplace or video hosting.",
+      "revenue_stage": "Up to $300/month after revenue for monitored backups, queues and measured usage; expand caps only after margins are observed."
+    },
+    "integrations": [
+      "CSV learner roster",
+      "Customer-owned drive links"
+    ],
+    "risks": [
+      "Practera directly offers program workflows and support.",
+      "Providers may buy employer access rather than software."
+    ],
+    "global_limits": "Student data and sponsor confidentiality require institution approval.",
+    "validation": "Ten coordinators, five completed projects; request three $179 pilots with sponsors supplied by the customer.",
+    "kill_gate": "Stop if fewer than three buyers can supply repeat projects and partners themselves.",
+    "scores": {
+      "pain": 3,
+      "recurrence": 4,
+      "budget": 3,
+      "distribution": 2,
+      "wedge": 3,
+      "feasibility": 3,
+      "global": 4,
+      "cost": 5
+    },
+    "score_rationale": "Independent operational cycle qualifies; partner dependence and education budgets weaken near-term distribution.",
+    "evidence_confidence": "medium; official competitor evidence only, customer demand unvalidated",
+    "source_limit": "Official descriptions establish category coverage, not dissatisfaction, switching demand or willingness to pay our proposed price. No customer interviews or paid pilots conducted."
+  },
+  {
+    "id": "S034",
+    "name": "Adult learner progression casework",
+    "category": "Education / learner support",
+    "buyer": "Student-success head at a fee-funded adult online college.",
+    "job": "Coordinate learner barriers, interventions and progression decisions across advisors.",
+    "current_workaround": "LMS alerts, confidential advisor spreadsheets and scattered case emails.",
+    "record": "Learner progression case with agreed goals, consented support actions, owner and outcomes.",
+    "workflow": [
+      "Receive learner or instructor referral",
+      "Agree support plan",
+      "Coordinate advisor actions and progress",
+      "Close case or revise learning pathway"
+    ],
+    "roles": [
+      "Advisor",
+      "Learner",
+      "Program coordinator"
+    ],
+    "wedge": "Small adult programs needing transparent human case coordination; no predictive risk scoring.",
+    "why_pay": "Potentially reduce duplicated advising and missed progression handoffs, not promise retention gains.",
+    "expansion": "Re-enrollment workflows and aggregated program improvement evidence.",
+    "competitors": [
+      {
+        "name": "Watermark Student Success & Engagement",
+        "url": "https://www.watermarkinsights.com/solutions/student-success/",
+        "observed": "2026-10-05",
+        "facts": "Direct competitor combines learner pathways, interventions, milestones and SIS/LMS integrations. Outcome improvement claims on this page are vendor claims, not independent evidence.",
+        "price": "Get a quote; amount, currency, billing unit and minimum commitment not verified.",
+        "access": "opened"
+      }
+    ],
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 199,
+      "unit": "workspace per month",
+      "free_boundary": "14-day trial with sample data; no permanent hosted team tier.",
+      "paid_boundary": "Persistent workflow, permissions, history and operational exports.",
+      "lifetime": "Unsuitable for continuing hosted collaboration and support; setup fees would not count as MRR."
+    },
+    "channel": "NACADA professional community: seek voluntary adult-program workflow interviews, without assuming institutional access.",
+    "retention": "Ongoing cases and subsequent terms rely on intervention history.",
+    "moat": "Consented continuity and clear handoff policies rather than opaque algorithms.",
+    "mvp": [
+      "Consent and restricted case register",
+      "Support plan and handoffs",
+      "Outcome and deletion controls"
+    ],
+    "effort_weeks": [
+      14,
+      22
+    ],
+    "cost": {
+      "pilot_usd_month": [
+        80,
+        150
+      ],
+      "fits_bootstrap": false,
+      "assumptions": "Institution-approved isolated pilot with restricted records; $80–150 estimated monthly security/backup allocation. Cash operating estimate; excludes engineering, support, acquisition, tax and payment fees.",
+      "drivers": "Access control, sensitive-data operations and contractual requirements exceed a casual shared-host pilot.",
+      "revenue_stage": "Up to $300/month after revenue for monitored backups, queues and measured usage; expand caps only after margins are observed."
+    },
+    "integrations": [
+      "Manual de-identified roster import first"
+    ],
+    "risks": [
+      "Watermark integrates deeply into SIS/LMS systems.",
+      "Sensitive information and procurement may prevent low-cost pilots."
+    ],
+    "global_limits": "No health diagnoses, disability documents or minors initially; data-residency requirements remain a gate.",
+    "validation": "Ten program managers review five de-identified cases; three $199 conditional pilots require an approved data-handling design.",
+    "kill_gate": "Stop if real workflow requires sensitive clinical records or mandatory integrations before value.",
+    "scores": {
+      "pain": 5,
+      "recurrence": 5,
+      "budget": 4,
+      "distribution": 1,
+      "wedge": 2,
+      "feasibility": 2,
+      "global": 2,
+      "cost": 2
+    },
+    "score_rationale": "Serious pain and recurrence, but this is a poor bootstrap-first fit.",
+    "evidence_confidence": "medium; official competitor evidence only, customer demand unvalidated",
+    "source_limit": "Official descriptions establish category coverage, not dissatisfaction, switching demand or willingness to pay our proposed price. No customer interviews or paid pilots conducted."
+  },
+  {
+    "id": "S035",
+    "name": "Instructional coaching observation programs",
+    "category": "Education / instructor development",
+    "buyer": "Teaching-quality lead at an adult online training organization.",
+    "job": "Run repeat observation-to-improvement cycles without losing agreed teaching goals.",
+    "current_workaround": "Observation forms, shared documents and private coach notes.",
+    "record": "Coaching cycle linking observation evidence, instructor goal, practice plan and follow-up.",
+    "workflow": [
+      "Plan observation with instructor",
+      "Record evidence and agree improvement goal",
+      "Review practice and coach feedback",
+      "Re-observe and close or renew cycle"
+    ],
+    "roles": [
+      "Coach",
+      "Instructor",
+      "Program lead"
+    ],
+    "wedge": "Adult remote instructors using structured written evidence without purchasing school content libraries.",
+    "why_pay": "Reduce fragmented coaching administration and show completed improvement cycles.",
+    "expansion": "Coach calibration and program-level development planning.",
+    "competitors": [
+      {
+        "name": "Steplab",
+        "url": "https://steplab.co/us/book-a-demo",
+        "observed": "2026-10-05",
+        "facts": "Direct instructional-coaching competitor with goal/progress analytics, coaching frameworks and video annotation.",
+        "price": "US page displays yearly school subscriptions: $192/user for 4–25 users and $4,992/school for 26+. Currency not explicitly named; annual commitment and minimum four users shown.",
+        "access": "opened"
+      }
+    ],
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 99,
+      "unit": "workspace per month",
+      "free_boundary": "14-day trial with sample data; no permanent hosted team tier.",
+      "paid_boundary": "Persistent workflow, permissions, history and operational exports.",
+      "lifetime": "Unsuitable for continuing hosted collaboration and support; setup fees would not count as MRR."
+    },
+    "channel": "Learning and Performance Institute public network: demonstrate an anonymized coaching-cycle reconstruction to provider quality leads.",
+    "retention": "Each follow-up uses prior goals and evidence.",
+    "moat": "Organization-approved coaching frameworks and trust in access boundaries.",
+    "mvp": [
+      "Observation/goal records",
+      "Private feedback and practice tasks",
+      "Follow-up and aggregate reporting"
+    ],
+    "effort_weeks": [
+      8,
+      12
+    ],
+    "cost": {
+      "pilot_usd_month": [
+        25,
+        45
+      ],
+      "fits_bootstrap": true,
+      "assumptions": "Three programs, 100 instructors, text evidence and external video links only. Cash operating estimate; excludes engineering, support, acquisition, tax and payment fees.",
+      "drivers": "Video would break storage economics; coaching notes require explicit visibility rules.",
+      "revenue_stage": "Up to $300/month after revenue for monitored backups, queues and measured usage; expand caps only after margins are observed."
+    },
+    "integrations": [
+      "CSV instructor import",
+      "External meeting/video links"
+    ],
+    "risks": [
+      "Steplab already connects coaching goals and analytics.",
+      "Demand may be primarily for coaching expertise and content."
+    ],
+    "global_limits": "Adult instructors only; separate development notes from employment appraisal.",
+    "validation": "Ten quality leads inspect five past cycles; seek three $99 pilots and evidence of less coordinator re-entry.",
+    "kill_gate": "Stop if buyers value proprietary coaching content rather than workflow continuity.",
+    "scores": {
+      "pain": 3,
+      "recurrence": 4,
+      "budget": 3,
+      "distribution": 3,
+      "wedge": 3,
+      "feasibility": 4,
+      "global": 4,
+      "cost": 5
+    },
+    "score_rationale": "Feasible bounded workflow, but indirect economic benefit limits budget certainty.",
+    "evidence_confidence": "medium; official competitor evidence only, customer demand unvalidated",
+    "source_limit": "Official descriptions establish category coverage, not dissatisfaction, switching demand or willingness to pay our proposed price. No customer interviews or paid pilots conducted."
+  },
+  {
+    "id": "S036",
+    "name": "Independent journal editorial operations",
+    "category": "Publishing / scholarly editorial",
+    "buyer": "Managing editor of a small independent open-access journal portfolio.",
+    "job": "Move manuscripts through review, revisions and publication decisions without losing versions or conflicts.",
+    "current_workaround": "Email, submission forms, shared folders or a locally maintained OJS installation.",
+    "record": "Manuscript case with versions, reviewer assignments, conflict declarations and editorial decisions.",
+    "workflow": [
+      "Receive and screen submission",
+      "Assign reviewers and record conflicts",
+      "Manage revisions and editorial decision",
+      "Transfer approved version to production"
+    ],
+    "roles": [
+      "Managing editor",
+      "Reviewer",
+      "Author"
+    ],
+    "wedge": "Small multi-journal editorial teams needing dependable managed operations and transparent migration.",
+    "why_pay": "Reduce editorial coordination and avoid maintaining their own server; budget is uncertain.",
+    "expansion": "Portfolio workload allocation and production handoffs.",
+    "competitors": [
+      {
+        "name": "Scholastica",
+        "url": "https://scholasticahq.com/pricing/",
+        "observed": "2026-10-05",
+        "facts": "Direct journal platform with manuscript assignment, versioning, anonymization and peer-review communication; publishing services priced separately.",
+        "price": "Peer review displayed $10/submission plus $500/year; submissions billed monthly, annual fee yearly. Currency not explicitly named; page says no contracts/setup fees. Volume discounts separate.",
+        "access": "opened"
+      }
+    ],
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 149,
+      "unit": "workspace per month",
+      "free_boundary": "14-day trial with sample data; no permanent hosted team tier.",
+      "paid_boundary": "Persistent workflow, permissions, history and operational exports.",
+      "lifetime": "Unsuitable for continuing hosted collaboration and support; setup fees would not count as MRR."
+    },
+    "channel": "Directory of Open Access Journals publisher listings: identify independent editorial teams for opt-in workflow interviews.",
+    "retention": "Each manuscript remains active through several rounds and the decision archive persists.",
+    "moat": "Reliable migrated review history and editorial service quality, not a novel workflow.",
+    "mvp": [
+      "Submission/version register",
+      "Reviewer assignment and decisions",
+      "Production export"
+    ],
+    "effort_weeks": [
+      12,
+      20
+    ],
+    "cost": {
+      "pilot_usd_month": [
+        25,
+        45
+      ],
+      "fits_bootstrap": true,
+      "assumptions": "Two journals, 100 active manuscripts and 2GB documents; no typesetting or plagiarism service bundled. Cash operating estimate; excludes engineering, support, acquisition, tax and payment fees.",
+      "drivers": "Document retention and editor support; third-party checks require customer contracts.",
+      "revenue_stage": "Up to $300/month after revenue for monitored backups, queues and measured usage; expand caps only after margins are observed."
+    },
+    "integrations": [
+      "CSV submission import",
+      "Document bundle export"
+    ],
+    "risks": [
+      "Scholastica already offers this cycle; OJS is a substantial open-source substitute.",
+      "Volunteer journals may prioritize zero cash cost."
+    ],
+    "global_limits": "Publication ethics, anonymity and data retention need explicit policies.",
+    "validation": "Ten editors reconstruct five recent manuscripts; seek three $149 pilots with a migration owner identified.",
+    "kill_gate": "Stop if budgets cannot fund migration or free OJS already satisfies the workflow.",
+    "scores": {
+      "pain": 3,
+      "recurrence": 4,
+      "budget": 2,
+      "distribution": 2,
+      "wedge": 2,
+      "feasibility": 2,
+      "global": 4,
+      "cost": 4
+    },
+    "score_rationale": "A complete product category, but limited budgets and mature alternatives make it low priority.",
+    "evidence_confidence": "medium; official competitor evidence only, customer demand unvalidated",
+    "source_limit": "Scholastica pricing was opened; OJS is a named substitute requiring separate current deployment/pricing verification, not a newly verified source."
+  },
+  {
+    "id": "S037",
+    "name": "Small digital-publisher royalty operations",
+    "category": "Publishing / royalty accounting",
+    "buyer": "Finance lead or owner of an ebook publisher with 50–300 active titles.",
+    "job": "Close royalty periods reproducibly across retailer files, contract variations and author disputes.",
+    "current_workaround": "Retailer CSVs, contract folders, complex spreadsheets and emailed statements.",
+    "record": "Royalty period ledger linking immutable sales lines, contract versions, adjustments and approved statements.",
+    "workflow": [
+      "Import sales and reconcile exceptions",
+      "Apply approved contract terms",
+      "Review author balances and adjustments",
+      "Approve statements and export payment instructions"
+    ],
+    "roles": [
+      "Royalty administrator",
+      "Finance approver",
+      "Author"
+    ],
+    "wedge": "Transparent exception resolution and reproducible restatements across mixed retailer formats.",
+    "why_pay": "Hypothesis: avoid rework and statement disputes worth more than $149/month.",
+    "expansion": "Rights-deal income, reserves and accountant-reviewed multi-imprint consolidation.",
+    "competitors": [
+      {
+        "name": "PublishDrive Abacus",
+        "url": "https://publishdrive.com/pricing.html",
+        "observed": "2026-10-05",
+        "facts": "Direct royalty-management competitor calculates contributor royalties; offered separately from distribution plans.",
+        "price": "Starts at $1.49/title/month billed monthly; first title free. Currency not explicitly named; larger/custom usage quoted separately.",
+        "access": "opened"
+      },
+      {
+        "name": "Consonance",
+        "url": "https://docs.consonance.app/pricing/",
+        "observed": "2026-10-05",
+        "facts": "Direct publishing business platform links contracts, rights and royalty channels; all features included in the standard application price.",
+        "price": "GBP75/named user/month excluding VAT, minimum eight users (GBP600/month). Monthly or annual billing by agreement. Standard eight-user implementation GBP2,500 excluding VAT; royalty migration quoted separately.",
+        "access": "opened"
+      }
+    ],
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 149,
+      "unit": "workspace per month",
+      "free_boundary": "14-day trial with sample data; no permanent hosted team tier.",
+      "paid_boundary": "Persistent workflow, permissions, history and operational exports.",
+      "lifetime": "Unsuitable for continuing hosted collaboration and support; setup fees would not count as MRR."
+    },
+    "channel": "Independent Book Publishers Association supplier and publisher directories: propose a historical-close comparison with specialist bookkeepers.",
+    "retention": "Every reporting period reuses contracts, carry-forwards and reconciled mappings.",
+    "moat": "Verified import/contract mappings and auditable corrections, not secret calculations.",
+    "mvp": [
+      "Bounded retailer CSV import",
+      "Versioned rules and exception ledger",
+      "Approved statements and payment CSV"
+    ],
+    "effort_weeks": [
+      12,
+      20
+    ],
+    "cost": {
+      "pilot_usd_month": [
+        25,
+        45
+      ],
+      "fits_bootstrap": true,
+      "assumptions": "Three publishers, 100,000 sales lines/month, text ledgers and small statement files; no money movement. Cash operating estimate; excludes engineering, support, acquisition, tax and payment fees.",
+      "drivers": "Parser maintenance and financial support dominate labor; storage and batch jobs are bounded.",
+      "revenue_stage": "Up to $300/month after revenue for monitored backups, queues and measured usage; expand caps only after margins are observed."
+    },
+    "integrations": [
+      "Retailer CSV files",
+      "Accountant-reviewed payment export"
+    ],
+    "risks": [
+      "Against building: Abacus is inexpensive and Consonance is comprehensive.",
+      "Incorrect rules or rounding can destroy trust; contracts require human interpretation."
+    ],
+    "global_limits": "Start single-currency contracts; tax withholding, legal interpretation and cross-border payouts excluded.",
+    "validation": "Re-run five historical closes for ten publishers; require exact reconciled totals, half the handling time and three $149 commitments.",
+    "kill_gate": "Stop if discrepancies cannot be explained deterministically or Abacus solves the proposed exception workflow.",
+    "scores": {
+      "pain": 5,
+      "recurrence": 4,
+      "budget": 4,
+      "distribution": 3,
+      "wedge": 3,
+      "feasibility": 3,
+      "global": 4,
+      "cost": 5
+    },
+    "score_rationale": "Money-linked recurring work merits testing; calculation correctness and cheap competition are material limits.",
+    "evidence_confidence": "medium; official competitor evidence only, customer demand unvalidated",
+    "source_limit": "Official descriptions establish category coverage, not dissatisfaction, switching demand or willingness to pay our proposed price. No customer interviews or paid pilots conducted."
+  },
+  {
+    "id": "S038",
+    "name": "Paid newsletter publication business",
+    "category": "Publishing / subscription media",
+    "buyer": "Owner-editor of an established specialist paid newsletter with an assistant.",
+    "job": "Coordinate editorial output, subscriber entitlements and subscription retention.",
+    "current_workaround": "Ghost or beehiiv plus analytics and editorial spreadsheets.",
+    "record": "Publication issue linked to editorial assignments, membership access and subscription cohort history.",
+    "workflow": [
+      "Plan and approve issue",
+      "Publish to entitled subscribers",
+      "Handle access and billing exceptions",
+      "Review renewal cohorts and revise publishing plan"
+    ],
+    "roles": [
+      "Editor",
+      "Publishing assistant",
+      "Subscriber"
+    ],
+    "wedge": "Proposed multi-editor niche publication workflow; no established differentiation from current platforms.",
+    "why_pay": "Customers would need measurable operating savings beyond included incumbent features.",
+    "expansion": "Multi-publication subscriptions and editorial profitability analysis.",
+    "competitors": [
+      {
+        "name": "Ghost",
+        "url": "https://ghost.org/pricing/",
+        "observed": "2026-10-05",
+        "facts": "Direct publication platform combines newsletters, member access and paid subscriptions with staff roles.",
+        "price": "Publisher USD29/month billed yearly for 1,000 members and three staff users; annual commitment. Starter USD18/month billed yearly lacks paid subscriptions.",
+        "access": "opened"
+      },
+      {
+        "name": "beehiiv",
+        "url": "https://www.beehiiv.com/pricing",
+        "observed": "2026-10-05",
+        "facts": "Direct newsletter platform with publishing, paid subscriptions, automation and monetization features.",
+        "price": "Free $0; Lite displayed $49/month billed yearly, Pro $95/month billed yearly. Currency and subscriber-selector basis not explicitly verified; annual paid commitment.",
+        "access": "opened"
+      }
+    ],
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 59,
+      "unit": "workspace per month",
+      "free_boundary": "14-day trial with sample data; no permanent hosted team tier.",
+      "paid_boundary": "Persistent workflow, permissions, history and operational exports.",
+      "lifetime": "Unsuitable for continuing hosted collaboration and support; setup fees would not count as MRR."
+    },
+    "channel": "Newsletter Operator community: test a migration demo with established paid publishers, not aspiring creators.",
+    "retention": "Publication cadence and subscriber history recur weekly and monthly.",
+    "moat": "Potential migration reliability and editorial habit; currently weak against established ecosystems.",
+    "mvp": [
+      "Editorial issue workflow",
+      "Membership entitlement ledger",
+      "Billing exceptions and cohort export"
+    ],
+    "effort_weeks": [
+      14,
+      22
+    ],
+    "cost": {
+      "pilot_usd_month": [
+        25,
+        45
+      ],
+      "fits_bootstrap": true,
+      "assumptions": "Two small publications; customer-owned email provider, 1,000 recipient cap each. Cash operating estimate; excludes engineering, support, acquisition, tax and payment fees.",
+      "drivers": "Deliverability, abuse and audience-volume costs; email sending is customer-paid.",
+      "revenue_stage": "Up to $300/month after revenue for monitored backups, queues and measured usage; expand caps only after margins are observed."
+    },
+    "integrations": [
+      "Customer-owned ESP",
+      "Payment-provider webhook"
+    ],
+    "risks": [
+      "Against building: Ghost and beehiiv already combine publishing and monetization cheaply.",
+      "A migration can threaten the customer’s main revenue stream."
+    ],
+    "global_limits": "Consent, subscription taxes and payment availability vary; merchant-of-record duties excluded.",
+    "validation": "Ten established publishers compare five full editorial/billing cycles; seek three $59 pilots with a real switching reason.",
+    "kill_gate": "Stop if demand is only cheaper pricing or AI writing, or no publisher accepts a reversible migration.",
+    "scores": {
+      "pain": 3,
+      "recurrence": 4,
+      "budget": 2,
+      "distribution": 2,
+      "wedge": 1,
+      "feasibility": 2,
+      "global": 5,
+      "cost": 3
+    },
+    "score_rationale": "Crowded full-platform replacement has weak differentiation and significant operational support.",
+    "evidence_confidence": "medium; official competitor evidence only, customer demand unvalidated",
+    "source_limit": "Official descriptions establish category coverage, not dissatisfaction, switching demand or willingness to pay our proposed price. No customer interviews or paid pilots conducted."
+  },
+  {
+    "id": "S039",
+    "name": "Newsletter sponsorship revenue operations",
+    "category": "Publishing / advertising operations",
+    "buyer": "Publisher revenue lead running 3–10 newsletters with direct sponsor relationships.",
+    "job": "Sell, fulfill and reconcile recurring sponsorship packages without missed placements or disputed invoices.",
+    "current_workaround": "Sales CRM, inventory spreadsheets, email approvals and manual proof reports.",
+    "record": "Sponsor campaign contract linking reserved placements, approved creative, delivery proof and billing adjustments.",
+    "workflow": [
+      "Reserve inventory and approve proposal",
+      "Collect and approve creative",
+      "Record publication proof and exceptions",
+      "Approve invoice and renew campaign"
+    ],
+    "roles": [
+      "Sales operator",
+      "Editorial producer",
+      "Sponsor approver"
+    ],
+    "wedge": "Make-goods and cross-publication package reconciliation while retaining the current email provider.",
+    "why_pay": "A recovered missed placement or faster campaign close could justify $149/month; unproven.",
+    "expansion": "Agency account portfolios, recurring packages and revenue forecasting.",
+    "competitors": [
+      {
+        "name": "Passionfroot",
+        "url": "https://www.passionfroot.me/creator-pricing",
+        "observed": "2026-10-05",
+        "facts": "Direct creator-sponsorship alternative provides a booking and collaboration workflow; marketplace sourcing is optional to the competitor model.",
+        "price": "Creator software $0; 2% transaction fee paid by brand. Platform-matched deals carry 15% including payment fees. No upfront subscription; currency is immaterial to percentage fees.",
+        "access": "opened"
+      },
+      {
+        "name": "Letterhead Studio Revenue",
+        "url": "https://www.tryletterhead.com/revenue.html",
+        "observed": "2026-10-05",
+        "facts": "Direct competitor already supplies sponsorship inventory, scheduled placements, per-send revenue and proof-of-publication reports over existing email providers.",
+        "price": "Not published on this product page; see separately opened Studio pricing page. No amount or minimum verified.",
+        "access": "opened"
+      },
+      {
+        "name": "Letterhead Studio pricing",
+        "url": "https://www.tryletterhead.com/studio-pricing.html",
+        "observed": "2026-10-05",
+        "facts": "Pricing form uses newsletter count and audience size, establishing quoted portfolio pricing rather than a public flat tier.",
+        "price": "Contact sales; amount, currency, billing basis and minimum commitment not verified.",
+        "access": "opened"
+      }
+    ],
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 149,
+      "unit": "workspace per month",
+      "free_boundary": "14-day trial with sample data; no permanent hosted team tier.",
+      "paid_boundary": "Persistent workflow, permissions, history and operational exports.",
+      "lifetime": "Unsuitable for continuing hosted collaboration and support; setup fees would not count as MRR."
+    },
+    "channel": "Who Sponsors Stuff publisher network and public newsletter media kits: recruit direct-sales publishers for an artifact audit; no outreach performed.",
+    "retention": "Weekly placements and sponsor renewals accumulate commercial history.",
+    "moat": "Reliable package-to-delivery reconciliation and advertiser-approved evidence.",
+    "mvp": [
+      "Inventory and campaign contracts",
+      "Creative approval and fulfillment ledger",
+      "Make-good and invoice reconciliation"
+    ],
+    "effort_weeks": [
+      8,
+      14
+    ],
+    "cost": {
+      "pilot_usd_month": [
+        25,
+        45
+      ],
+      "fits_bootstrap": true,
+      "assumptions": "Three publishers, 100 campaigns/month and 1GB creatives; no email sending, ad serving or sponsor sourcing. Cash operating estimate; excludes engineering, support, acquisition, tax and payment fees.",
+      "drivers": "File storage and proof ingestion; manual imports before ESP integrations.",
+      "revenue_stage": "Up to $300/month after revenue for monitored backups, queues and measured usage; expand caps only after margins are observed."
+    },
+    "integrations": [
+      "ESP campaign export",
+      "Invoice CSV"
+    ],
+    "risks": [
+      "Against building: Letterhead already supports an ESP-independent inventory-to-proof workflow; Passionfroot is free to creators.",
+      "A narrow exception wedge may not justify another subscription."
+    ],
+    "global_limits": "Advertiser confidentiality, tax documents and email-tracking consent vary.",
+    "validation": "Compare five completed campaigns from ten publishers against Letterhead/Passionfroot; seek three $149 pilots with repeated make-good reconciliation pain.",
+    "kill_gate": "Stop if existing vendors handle exceptions adequately or prospects need us to source advertisers.",
+    "scores": {
+      "pain": 4,
+      "recurrence": 5,
+      "budget": 4,
+      "distribution": 4,
+      "wedge": 2,
+      "feasibility": 4,
+      "global": 5,
+      "cost": 5
+    },
+    "score_rationale": "Revenue cadence and identifiable buyers help; directly covered incumbent workflows keep wedge score at two.",
+    "evidence_confidence": "medium; official competitor evidence only, customer demand unvalidated",
+    "source_limit": "Official descriptions establish category coverage, not dissatisfaction, switching demand or willingness to pay our proposed price. No customer interviews or paid pilots conducted."
+  },
+  {
+    "id": "S040",
+    "name": "Editorial commissioning for content agencies",
+    "category": "Publishing / outsourced editorial",
+    "buyer": "Managing editor of a 5–20-person content agency using freelance contributors.",
+    "job": "Deliver client content profitably while controlling brief changes, commissions and approvals.",
+    "current_workaround": "Project boards, documents, freelance invoices and approval emails.",
+    "record": "Editorial commission linking client brief version, contributor agreement, revisions, acceptance and margin.",
+    "workflow": [
+      "Approve brief and commission budget",
+      "Assign contributor and draft",
+      "Resolve editor/client revisions",
+      "Accept deliverable and reconcile contributor cost"
+    ],
+    "roles": [
+      "Commissioning editor",
+      "Freelance contributor",
+      "Client reviewer"
+    ],
+    "wedge": "Cost and scope continuity across revision rounds for editorial retainers.",
+    "why_pay": "Reduce unbilled revision work and disputes over accepted delivery.",
+    "expansion": "Contributor capacity, retainer allowances and publication handoffs.",
+    "competitors": [
+      {
+        "name": "Bynder Content Workflow",
+        "url": "https://support.bynder.com/hc/en-us/articles/14788733803922-Get-Started-with-Content-Workflow",
+        "observed": "2026-10-05",
+        "facts": "Direct editorial alternative structures projects, content items, templates, roles and configurable draft-to-publication workflows; supports content exports.",
+        "price": "Contact Customer Success for access and associated costs; no amount, currency, unit or minimum commitment verified.",
+        "access": "opened"
+      }
+    ],
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 129,
+      "unit": "workspace per month",
+      "free_boundary": "14-day trial with sample data; no permanent hosted team tier.",
+      "paid_boundary": "Persistent workflow, permissions, history and operational exports.",
+      "lifetime": "Unsuitable for continuing hosted collaboration and support; setup fees would not count as MRR."
+    },
+    "channel": "Content Marketing Institute community and Clutch content-agency listings: offer a commission-to-margin reconstruction.",
+    "retention": "Retainer cycles reuse client rules, contributors and acceptance history.",
+    "moat": "Accepted brief/revision histories and contributor operating relationships.",
+    "mvp": [
+      "Commission and budget registry",
+      "Versioned review with scope changes",
+      "Acceptance and cost export"
+    ],
+    "effort_weeks": [
+      8,
+      14
+    ],
+    "cost": {
+      "pilot_usd_month": [
+        25,
+        45
+      ],
+      "fits_bootstrap": true,
+      "assumptions": "Three agencies, 200 commissions/month, text and 2GB documents; no media rendering. Cash operating estimate; excludes engineering, support, acquisition, tax and payment fees.",
+      "drivers": "Attachment storage and external reviewer email; cap both and use customer drive links.",
+      "revenue_stage": "Up to $300/month after revenue for monitored backups, queues and measured usage; expand caps only after margins are observed."
+    },
+    "integrations": [
+      "Google Docs links",
+      "Accounting CSV"
+    ],
+    "risks": [
+      "Bynder already offers structured editorial workflows.",
+      "Generic project tools plus documents may be sufficient."
+    ],
+    "global_limits": "Contributor privacy, copyright assignments and invoicing differ; avoid automated legal conclusions.",
+    "validation": "Ten editors demonstrate five recent commissions; seek three $129 pilots and fewer unpriced revision rounds.",
+    "kill_gate": "Stop if agencies cannot link approval/scope failures to margin loss.",
+    "scores": {
+      "pain": 4,
+      "recurrence": 5,
+      "budget": 3,
+      "distribution": 3,
+      "wedge": 3,
+      "feasibility": 4,
+      "global": 5,
+      "cost": 5
+    },
+    "score_rationale": "Frequent work and bounded implementation are attractive; willingness to replace project boards is uncertain.",
+    "evidence_confidence": "medium; official competitor evidence only, customer demand unvalidated",
+    "source_limit": "Official descriptions establish category coverage, not dissatisfaction, switching demand or willingness to pay our proposed price. No customer interviews or paid pilots conducted."
+  },
+  {
+    "id": "S041",
+    "name": "Digital content rights licensing operations",
+    "category": "Publishing / intellectual property licensing",
+    "buyer": "Rights manager at a small image, research-content or digital-media publisher.",
+    "job": "License existing digital assets without conflicting territories, terms or allowed uses.",
+    "current_workaround": "Rights spreadsheets, contracts, email negotiations and delivery folders.",
+    "record": "Asset-rights inventory connected to availability, license contract, delivery and usage declarations.",
+    "workflow": [
+      "Register asset rights and restrictions",
+      "Evaluate incoming license request",
+      "Approve terms and deliver authorized assets",
+      "Reconcile declared usage and renew license"
+    ],
+    "roles": [
+      "Rights manager",
+      "Contract approver",
+      "Licensee"
+    ],
+    "wedge": "Readable availability and renewal operations for publishers with narrow, repeatable licensing terms.",
+    "why_pay": "Prevent avoidable rights conflicts and reduce contract administration; legal review remains human.",
+    "expansion": "Sub-licenses, minimum guarantees and connection to royalty accounting.",
+    "competitors": [
+      {
+        "name": "Rightsline",
+        "url": "https://www.rightsline.com/",
+        "observed": "2026-10-05",
+        "facts": "Direct rights-business platform tracks owned/licensed IP, acquisition/distribution workflows, contract financial status and royalties.",
+        "price": "Not verified: opened product page exposes no price, currency, billing unit or minimum commitment.",
+        "access": "opened"
+      }
+    ],
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 249,
+      "unit": "workspace per month",
+      "free_boundary": "14-day trial with sample data; no permanent hosted team tier.",
+      "paid_boundary": "Persistent workflow, permissions, history and operational exports.",
+      "lifetime": "Unsuitable for continuing hosted collaboration and support; setup fees would not count as MRR."
+    },
+    "channel": "Association of Learned and Professional Society Publishers network: test with small licensing teams using existing buyers.",
+    "retention": "Each new license depends on continuing rights and prior grants.",
+    "moat": "Verified rights lineage and customer-approved contract templates.",
+    "mvp": [
+      "Rights inventory and restrictions",
+      "License request/approval workflow",
+      "Delivery and usage ledger"
+    ],
+    "effort_weeks": [
+      14,
+      24
+    ],
+    "cost": {
+      "pilot_usd_month": [
+        25,
+        45
+      ],
+      "fits_bootstrap": true,
+      "assumptions": "Two publishers, 1,000 asset metadata records; original content stays in customer storage. Cash operating estimate; excludes engineering, support, acquisition, tax and payment fees.",
+      "drivers": "Contract complexity and confidentiality exceed ordinary CRUD; no unrestricted legal-document extraction.",
+      "revenue_stage": "Up to $300/month after revenue for monitored backups, queues and measured usage; expand caps only after margins are observed."
+    },
+    "integrations": [
+      "CSV rights import",
+      "Signed-contract references"
+    ],
+    "risks": [
+      "Rightsline covers the full rights business.",
+      "Rights interpretation errors may create disproportionate liability."
+    ],
+    "global_limits": "Territory, term and copyright rules differ; customer counsel must approve semantics.",
+    "validation": "Ten rights managers replay five completed licenses; seek three $249 pilots after human-reviewed availability matches.",
+    "kill_gate": "Stop if useful coverage requires interpreting arbitrary legal text or negotiating rights autonomously.",
+    "scores": {
+      "pain": 4,
+      "recurrence": 5,
+      "budget": 4,
+      "distribution": 2,
+      "wedge": 2,
+      "feasibility": 2,
+      "global": 2,
+      "cost": 4
+    },
+    "score_rationale": "High-value recurring record, offset by liability, complex migration and limited initial reach.",
+    "evidence_confidence": "medium; official competitor evidence only, customer demand unvalidated",
+    "source_limit": "Official descriptions establish category coverage, not dissatisfaction, switching demand or willingness to pay our proposed price. No customer interviews or paid pilots conducted."
+  },
+  {
+    "id": "S042",
+    "name": "Podcast network production operations",
+    "category": "Publishing / audio business operations",
+    "buyer": "Operations manager of a remote network producing 5–20 recurring shows.",
+    "job": "Coordinate production commitments, approvals and per-show economics across editors and clients.",
+    "current_workaround": "Notion boards, shared drives, hosting dashboards and contractor invoices.",
+    "record": "Episode production order linking show/season, assignments, version approvals, publication and costs.",
+    "workflow": [
+      "Plan season and commission episode",
+      "Collect guest/editor assets and produce",
+      "Approve final version and host handoff",
+      "Close sponsor obligations and production costs"
+    ],
+    "roles": [
+      "Executive producer",
+      "Audio editor",
+      "Show owner"
+    ],
+    "wedge": "Production acceptance and unit economics across an existing multi-host network.",
+    "why_pay": "Reduce missed handoffs and understand episode margins without replacing audio tools.",
+    "expansion": "Freelancer capacity, client retainers and seasonal budget planning.",
+    "competitors": [
+      {
+        "name": "Transistor",
+        "url": "https://transistor.fm/pricing/",
+        "observed": "2026-10-05",
+        "facts": "Adjacent hosting alternative already supports unlimited shows/collaborators, network websites, API access and higher-tier dynamic ads; full production-cost management was not established.",
+        "price": "Explicit USD: Starter $19/month, Professional $49/month, Business $99/month, with 20k/100k/250k monthly downloads respectively. Yearly billing gives 12 months for ten; no annual requirement on monthly option.",
+        "access": "opened"
+      }
+    ],
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 129,
+      "unit": "workspace per month",
+      "free_boundary": "14-day trial with sample data; no permanent hosted team tier.",
+      "paid_boundary": "Persistent workflow, permissions, history and operational exports.",
+      "lifetime": "Unsuitable for continuing hosted collaboration and support; setup fees would not count as MRR."
+    },
+    "channel": "Podcast Movement community and public production-agency portfolios: run historical episode closeout demonstrations.",
+    "retention": "Weekly production reuses show standards, contributors and cost history.",
+    "moat": "Trusted per-show production templates and accepted cost/approval records.",
+    "mvp": [
+      "Season/episode order board",
+      "Versioned approvals and handoff",
+      "Episode-cost and obligation closeout"
+    ],
+    "effort_weeks": [
+      8,
+      14
+    ],
+    "cost": {
+      "pilot_usd_month": [
+        25,
+        45
+      ],
+      "fits_bootstrap": true,
+      "assumptions": "Three networks, 100 episodes/month, metadata and linked audio only. Cash operating estimate; excludes engineering, support, acquisition, tax and payment fees.",
+      "drivers": "Audio storage/transcoding would exceed envelope; retain customer hosting and editing tools.",
+      "revenue_stage": "Up to $300/month after revenue for monitored backups, queues and measured usage; expand caps only after margins are observed."
+    },
+    "integrations": [
+      "Podcast host API or CSV",
+      "Customer-owned drive links"
+    ],
+    "risks": [
+      "Transistor already solves inexpensive multi-show hosting and collaboration.",
+      "Generic boards may adequately manage the remaining production workflow."
+    ],
+    "global_limits": "Guest permissions and music rights require explicit customer decisions; no rights certification.",
+    "validation": "Ten network operators reconstruct five episodes; seek three $129 pilots with measurable approval/cost reconciliation savings.",
+    "kill_gate": "Stop if required value is primarily editing, hosting or automated transcription.",
+    "scores": {
+      "pain": 4,
+      "recurrence": 5,
+      "budget": 3,
+      "distribution": 3,
+      "wedge": 3,
+      "feasibility": 4,
+      "global": 5,
+      "cost": 5
+    },
+    "score_rationale": "Recurring agency economics are promising, but direct evidence for production-specific payment is limited.",
+    "evidence_confidence": "medium; official competitor evidence only, customer demand unvalidated",
+    "source_limit": "Transistor is adjacent hosting evidence, not proof that producers buy this proposed operating layer."
+  },
+  {
+    "id": "S043",
+    "name": "Customer knowledge publication lifecycle",
+    "category": "Publishing / technical knowledge operations",
+    "buyer": "Documentation lead at a small B2B software company with several products.",
+    "job": "Keep published help content aligned with releases and accountable owners.",
+    "current_workaround": "Help-center CMS, issue tracker, documents and a stale-content spreadsheet.",
+    "record": "Knowledge article version linked to product release, reviewer approval, publication and retirement.",
+    "workflow": [
+      "Register release impact and assign articles",
+      "Draft and review revised content",
+      "Publish approved version",
+      "Resolve feedback and retire obsolete content"
+    ],
+    "roles": [
+      "Documentation editor",
+      "Product reviewer",
+      "Support lead"
+    ],
+    "wedge": "Release-to-article dependency tracking across an existing help center.",
+    "why_pay": "Reduce repeated support explanations and unclear ownership; impact must be demonstrated.",
+    "expansion": "Localized releases and partner documentation portfolios.",
+    "competitors": [
+      {
+        "name": "Document360",
+        "url": "https://document360.com/pricing/",
+        "observed": "2026-10-05",
+        "facts": "Direct knowledge-publishing competitor with editor/reviewer roles, custom assignment/review workflows, collaborative editing and publication approvals.",
+        "price": "Customized quote; amount, currency, billing unit and minimum term not verified.",
+        "access": "opened"
+      }
+    ],
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 99,
+      "unit": "workspace per month",
+      "free_boundary": "14-day trial with sample data; no permanent hosted team tier.",
+      "paid_boundary": "Persistent workflow, permissions, history and operational exports.",
+      "lifetime": "Unsuitable for continuing hosted collaboration and support; setup fees would not count as MRR."
+    },
+    "channel": "Write the Docs community: propose an opt-in release-documentation clinic under community rules.",
+    "retention": "Every product release revisits dependencies and ownership.",
+    "moat": "Maintained release/article relationships, provided integration does not become manual duplicate work.",
+    "mvp": [
+      "Article/dependency inventory",
+      "Reviewer workflow",
+      "Publication and retirement record"
+    ],
+    "effort_weeks": [
+      10,
+      16
+    ],
+    "cost": {
+      "pilot_usd_month": [
+        25,
+        45
+      ],
+      "fits_bootstrap": true,
+      "assumptions": "Three teams, 2,000 article metadata records; published content remains in the existing CMS. Cash operating estimate; excludes engineering, support, acquisition, tax and payment fees.",
+      "drivers": "Search indexing and CMS connector maintenance; no full content hosting initially.",
+      "revenue_stage": "Up to $300/month after revenue for monitored backups, queues and measured usage; expand caps only after margins are observed."
+    },
+    "integrations": [
+      "Help-center CSV/API",
+      "Issue tracker links"
+    ],
+    "risks": [
+      "Document360 already provides review and publication workflows.",
+      "A CMS feature may eliminate the entire wedge."
+    ],
+    "global_limits": "Content confidentiality, accessibility and multilingual ownership need clear handling.",
+    "validation": "Ten documentation leads replay five releases; seek three $99 pilots and reduced missed article updates.",
+    "kill_gate": "Stop if dependencies are too sparse or existing CMS workflows solve the problem.",
+    "scores": {
+      "pain": 3,
+      "recurrence": 5,
+      "budget": 3,
+      "distribution": 3,
+      "wedge": 2,
+      "feasibility": 4,
+      "global": 5,
+      "cost": 5
+    },
+    "score_rationale": "Recurring ownership is clear; crowded category and feature-level entry risk constrain priority.",
+    "evidence_confidence": "medium; official competitor evidence only, customer demand unvalidated",
+    "source_limit": "Official descriptions establish category coverage, not dissatisfaction, switching demand or willingness to pay our proposed price. No customer interviews or paid pilots conducted."
+  },
+  {
+    "id": "S044",
+    "name": "Digital-product storefront business operations",
+    "category": "Creators / digital commerce",
+    "buyer": "Established small seller of reusable design templates and downloadable learning assets.",
+    "job": "Manage product releases, buyer entitlements and support across repeat sales.",
+    "current_workaround": "Podia or similar storefront, file folders, payment exports and support email.",
+    "record": "Digital product edition linked to license tier, buyer entitlement, refund and update history.",
+    "workflow": [
+      "Approve product edition and license",
+      "Sell through connected checkout",
+      "Deliver entitlement and resolve access/refund cases",
+      "Release updates and manage renewals"
+    ],
+    "roles": [
+      "Seller/operator",
+      "Product collaborator",
+      "Customer"
+    ],
+    "wedge": "Explicit version entitlement for multi-contributor digital catalogs; no verified gap yet.",
+    "why_pay": "Would need lower support burden or incremental renewal revenue beyond existing storefronts.",
+    "expansion": "Team licenses and reseller entitlements.",
+    "competitors": [
+      {
+        "name": "Podia",
+        "url": "https://www.podia.com/pricing",
+        "observed": "2026-10-05",
+        "facts": "Direct digital-business competitor sells courses/downloads, hosts content and offers customer/community tools; higher plans add affiliate selling and assistants.",
+        "price": "Mover displayed $42/month billed $504/year plus 5% transaction fee; Shaker $84/month billed $1,008/year with no platform fee. Currency not explicitly named; annual basis, processor fees separate.",
+        "access": "opened"
+      }
+    ],
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 49,
+      "unit": "workspace per month",
+      "free_boundary": "14-day trial with sample data; no permanent hosted team tier.",
+      "paid_boundary": "Persistent workflow, permissions, history and operational exports.",
+      "lifetime": "Unsuitable for continuing hosted collaboration and support; setup fees would not count as MRR."
+    },
+    "channel": "Creative Market seller communities and public independent storefronts: test edition/entitlement workflows with established sellers, respecting platform rules.",
+    "retention": "Catalog updates and continuing customer access generate repeat use.",
+    "moat": "Portable entitlement history is a possible asset; distribution remains incumbent-controlled.",
+    "mvp": [
+      "Edition/license registry",
+      "Purchase-to-entitlement workflow",
+      "Support and update release ledger"
+    ],
+    "effort_weeks": [
+      12,
+      20
+    ],
+    "cost": {
+      "pilot_usd_month": [
+        25,
+        45
+      ],
+      "fits_bootstrap": true,
+      "assumptions": "Two sellers, 500 buyer records and 2GB files; customer retains checkout, taxation and download delivery. Cash operating estimate; excludes engineering, support, acquisition, tax and payment fees.",
+      "drivers": "Bandwidth, fraud and payment disputes become costly if checkout or hosting is brought in-house.",
+      "revenue_stage": "Up to $300/month after revenue for monitored backups, queues and measured usage; expand caps only after margins are observed."
+    },
+    "integrations": [
+      "Existing storefront order export",
+      "Customer-owned delivery links"
+    ],
+    "risks": [
+      "Podia already combines sales and customer tools.",
+      "Sellers may prefer platform discovery and tax handling to an extra system."
+    ],
+    "global_limits": "Tax, consumer refunds and payment availability differ; no merchant-of-record service proposed.",
+    "validation": "Ten sellers show five update/refund cases; seek three $49 pilots with demonstrable entitlement errors.",
+    "kill_gate": "Stop if demand requires marketplace traffic, tax remittance or unlimited download hosting.",
+    "scores": {
+      "pain": 3,
+      "recurrence": 4,
+      "budget": 2,
+      "distribution": 2,
+      "wedge": 1,
+      "feasibility": 2,
+      "global": 3,
+      "cost": 3
+    },
+    "score_rationale": "Low price and broad support burden make this weaker than focused B2B operations.",
+    "evidence_confidence": "medium; official competitor evidence only, customer demand unvalidated",
+    "source_limit": "Official descriptions establish category coverage, not dissatisfaction, switching demand or willingness to pay our proposed price. No customer interviews or paid pilots conducted."
+  },
+  {
+    "id": "S045",
+    "name": "Professional association membership operations",
+    "category": "Associations / membership business",
+    "buyer": "Executive administrator of a small professional association with paid adult members.",
+    "job": "Maintain member eligibility, dues and benefits through recurring renewal cycles.",
+    "current_workaround": "Member spreadsheets, payment links, event lists and email segments.",
+    "record": "Membership account linking application decision, dues status, benefit eligibility and renewal history.",
+    "workflow": [
+      "Review member application",
+      "Activate paid membership and benefits",
+      "Record member participation and service requests",
+      "Resolve renewal exceptions or lapse account"
+    ],
+    "roles": [
+      "Association administrator",
+      "Treasurer",
+      "Member"
+    ],
+    "wedge": "Associations with reviewed professional eligibility and corporate-paid individual memberships.",
+    "why_pay": "Reduce manual eligibility/payment reconciliation; must justify replacing low-cost incumbents.",
+    "expansion": "Corporate membership bundles and volunteer committee appointments.",
+    "competitors": [
+      {
+        "name": "Join It",
+        "url": "https://joinit.com/pricing",
+        "observed": "2026-10-05",
+        "facts": "Direct membership platform combines applications/member records, recurring dues, automations and native event registration.",
+        "price": "Starter displayed $29/month plus 3% service fee on paid transactions, three admins; currency not explicitly named. Monthly cancellable, no setup fee; Stripe processing extra. Annual option $26.10/month billed $313.20/year.",
+        "access": "opened"
+      }
+    ],
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 89,
+      "unit": "workspace per month",
+      "free_boundary": "14-day trial with sample data; no permanent hosted team tier.",
+      "paid_boundary": "Persistent workflow, permissions, history and operational exports.",
+      "lifetime": "Unsuitable for continuing hosted collaboration and support; setup fees would not count as MRR."
+    },
+    "channel": "ASAE Collaborate and association-management consultant networks: test renewal exception cases with small professional bodies.",
+    "retention": "Annual renewals and ongoing benefits preserve membership history.",
+    "moat": "Accepted eligibility rules and migrated member history, with complete export.",
+    "mvp": [
+      "Application/eligibility register",
+      "Dues reconciliation and benefit access",
+      "Renewal exception workflow"
+    ],
+    "effort_weeks": [
+      10,
+      16
+    ],
+    "cost": {
+      "pilot_usd_month": [
+        25,
+        45
+      ],
+      "fits_bootstrap": true,
+      "assumptions": "Three associations, 1,500 members, text records; payment processing and marketing email customer-funded. Cash operating estimate; excludes engineering, support, acquisition, tax and payment fees.",
+      "drivers": "Bulk mail, payment reconciliation and migration support; capped pilot uses transactional notices only.",
+      "revenue_stage": "Up to $300/month after revenue for monitored backups, queues and measured usage; expand caps only after margins are observed."
+    },
+    "integrations": [
+      "CSV roster",
+      "Payment-provider export"
+    ],
+    "risks": [
+      "Join It already offers memberships, dues and events from a low entry price.",
+      "Switching risks member confusion and revenue interruption."
+    ],
+    "global_limits": "Nonprofit status, member privacy and tax receipts vary; no donor fundraising or tax advice.",
+    "validation": "Ten administrators replay five renewals; seek three $89 pilots focused on actual eligibility/payment exceptions.",
+    "kill_gate": "Stop if standard Join It configuration satisfies reviewed-membership needs.",
+    "scores": {
+      "pain": 4,
+      "recurrence": 4,
+      "budget": 3,
+      "distribution": 3,
+      "wedge": 2,
+      "feasibility": 3,
+      "global": 4,
+      "cost": 5
+    },
+    "score_rationale": "A credible whole business workflow, but generic membership software is highly commoditized.",
+    "evidence_confidence": "medium; official competitor evidence only, customer demand unvalidated",
+    "source_limit": "Official descriptions establish category coverage, not dissatisfaction, switching demand or willingness to pay our proposed price. No customer interviews or paid pilots conducted."
+  },
+  {
+    "id": "S046",
+    "name": "Federated chapter governance operations",
+    "category": "Associations / federated organizations",
+    "buyer": "Headquarters operations director of a professional federation with 10–60 chapters.",
+    "job": "Maintain chapter authority, reporting and affiliation across rotating volunteer officers.",
+    "current_workaround": "Shared-drive charters, annual forms, spreadsheets and chapter email chains.",
+    "record": "Chapter affiliation record linking charter, authorized officers, delegated budget and annual obligations.",
+    "workflow": [
+      "Approve chapter charter and authority",
+      "Register officers and delegated responsibilities",
+      "Review chapter activity and financial declarations",
+      "Renew affiliation or track corrective actions"
+    ],
+    "roles": [
+      "Headquarters coordinator",
+      "Chapter officer",
+      "Finance reviewer"
+    ],
+    "wedge": "Charter-to-affiliation accountability for federations retaining existing member databases.",
+    "why_pay": "Reduce annual officer-transition confusion and missing chapter reports.",
+    "expansion": "Delegated event approvals and chapter support portfolios.",
+    "competitors": [
+      {
+        "name": "Glue Up Chapter Management",
+        "url": "https://www.glueup.com/chapter-management",
+        "observed": "2026-10-05",
+        "facts": "Direct competitor supports chapter autonomy, shared membership workflows, permissions, leadership transitions and consolidated financial reporting.",
+        "price": "Custom chapter pricing; amount, currency, billing basis and minimum commitment not verified on opened page.",
+        "access": "opened"
+      }
+    ],
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 199,
+      "unit": "workspace per month",
+      "free_boundary": "14-day trial with sample data; no permanent hosted team tier.",
+      "paid_boundary": "Persistent workflow, permissions, history and operational exports.",
+      "lifetime": "Unsuitable for continuing hosted collaboration and support; setup fees would not count as MRR."
+    },
+    "channel": "ASAE chapter-relations community: demonstrate a chapter-year closeout with federation staff; acquisition remains untested.",
+    "retention": "Officer transitions and annual reporting reuse long-lived chapter records.",
+    "moat": "Accurate delegated-authority history and adopted chapter reporting structures.",
+    "mvp": [
+      "Chapter/charter registry",
+      "Officer roles and report submissions",
+      "Affiliation review and corrective actions"
+    ],
+    "effort_weeks": [
+      10,
+      18
+    ],
+    "cost": {
+      "pilot_usd_month": [
+        25,
+        45
+      ],
+      "fits_bootstrap": true,
+      "assumptions": "Two federations, 40 chapters, 2GB document cap; no central payment splitting. Cash operating estimate; excludes engineering, support, acquisition, tax and payment fees.",
+      "drivers": "Hierarchy permissions and document retention; migration may require paid services.",
+      "revenue_stage": "Up to $300/month after revenue for monitored backups, queues and measured usage; expand caps only after margins are observed."
+    },
+    "integrations": [
+      "Existing member CRM CSV",
+      "Document bundle export"
+    ],
+    "risks": [
+      "Glue Up already supports chapter permissions, transitions and consolidated reporting.",
+      "HQ may demand a full association suite, collapsing the standalone wedge."
+    ],
+    "global_limits": "Federation bylaws and chapter legal independence vary; no automated legal determinations.",
+    "validation": "Ten headquarters teams demonstrate five chapter transitions; seek three $199 pilots without replacing member CRM.",
+    "kill_gate": "Stop if useful adoption requires money movement or migrating all chapter membership systems.",
+    "scores": {
+      "pain": 4,
+      "recurrence": 4,
+      "budget": 4,
+      "distribution": 2,
+      "wedge": 3,
+      "feasibility": 3,
+      "global": 3,
+      "cost": 5
+    },
+    "score_rationale": "Distinct authority record supports product shape; access to federations and suite competition reduce priority.",
+    "evidence_confidence": "medium; official competitor evidence only, customer demand unvalidated",
+    "source_limit": "Official descriptions establish category coverage, not dissatisfaction, switching demand or willingness to pay our proposed price. No customer interviews or paid pilots conducted."
+  },
+  {
+    "id": "S047",
+    "name": "Professional credential lifecycle registry",
+    "category": "Associations / voluntary professional credentials",
+    "buyer": "Credential-program director at a voluntary professional body awarding non-statutory adult credentials.",
+    "job": "Maintain defensible applicant eligibility, award status and renewal decisions across a member career.",
+    "current_workaround": "Application forms, committee email, credential PDFs and continuing-development spreadsheets.",
+    "record": "Person-credential record linking eligibility evidence, human award, public status, development credits and appeals.",
+    "workflow": [
+      "Collect applicant evidence and review eligibility",
+      "Human panel approves award and verification status",
+      "Member submits continuing-development evidence",
+      "Review renewal or suspend status with appeal rights"
+    ],
+    "roles": [
+      "Credential administrator",
+      "Human reviewer",
+      "Credential holder"
+    ],
+    "wedge": "Small voluntary bodies needing one evidence-to-renewal record while retaining their existing examination process.",
+    "why_pay": "Reduce fragmented renewal reviews and conflicting credential status; demand for a separate platform remains unverified.",
+    "expansion": "Multiple credential pathways, reviewer calibration and consented verification APIs.",
+    "competitors": [
+      {
+        "name": "Certemy Credential Engine",
+        "url": "https://certemy.com/solutions/credential-engine/",
+        "observed": "2026-10-05",
+        "facts": "Direct competitor supplies configurable application/renewal gates, credential identifiers/statuses and document wallets.",
+        "price": "Credential-engine price not verified; contact sales. Workforce tracking prices are not assumed applicable to credential-awarding bodies.",
+        "access": "opened"
+      },
+      {
+        "name": "Accredible",
+        "url": "https://www.accredible.com/pricing",
+        "observed": "2026-10-05",
+        "facts": "Adjacent digital credential issuance competitor prices by unique recipients rather than number of credentials; supports credential communications.",
+        "price": "Launch displayed $45/month with a 12-month term billed monthly; 50 annual recipients. Currency not explicitly named. This is issuance pricing, not verified full eligibility/renewal operations.",
+        "access": "opened"
+      }
+    ],
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 149,
+      "unit": "workspace per month",
+      "free_boundary": "14-day trial with sample data; no permanent hosted team tier.",
+      "paid_boundary": "Persistent workflow, permissions, history and operational exports.",
+      "lifetime": "Unsuitable for continuing hosted collaboration and support; setup fees would not count as MRR."
+    },
+    "channel": "Institute for Credentialing Excellence public network: seek voluntary credential administrators for historical renewal walkthroughs; channel untested.",
+    "retention": "Recurring development submissions, renewals and status changes preserve long-lived credential history.",
+    "moat": "Accepted evidence mappings and reliable status provenance, with portable exports.",
+    "mvp": [
+      "Eligibility application and human decision",
+      "Consent-aware verification status registry",
+      "Development evidence, renewal and appeal workflow"
+    ],
+    "effort_weeks": [
+      12,
+      18
+    ],
+    "cost": {
+      "pilot_usd_month": [
+        25,
+        45
+      ],
+      "fits_bootstrap": true,
+      "assumptions": "Two voluntary bodies, 500 adult credential holders, 2GB evidence cap; no identity/proctoring service. Cash estimate excludes engineering, support, acquisition, tax and payment fees.",
+      "drivers": "Restricted evidence storage, member verification and status correctness; limit public fields and retain human decisions.",
+      "revenue_stage": "Up to $300/month after revenue for monitored backups, queues and measured usage; expand caps only after margins are observed."
+    },
+    "integrations": [
+      "CSV applicant and award import",
+      "External examination result references"
+    ],
+    "risks": [
+      "Certemy already supports the full award/renewal cycle.",
+      "Credential status mistakes and migration can damage member trust."
+    ],
+    "global_limits": "Voluntary adult credentials only; no statutory licensing, competency guarantee or automated adverse decisions.",
+    "validation": "Ten program directors replay five renewals and one appeal; seek three $149/month commitments after correct status and evidence reconstruction.",
+    "kill_gate": "Stop if buyers require statutory credentialing, clinical verification or custom legal decision rules before a pilot.",
+    "scores": {
+      "pain": 4,
+      "recurrence": 4,
+      "budget": 3,
+      "distribution": 2,
+      "wedge": 2,
+      "feasibility": 3,
+      "global": 3,
+      "cost": 4
+    },
+    "score_rationale": "Complete recurring credential record qualifies; direct competition, sensitive status and institutional procurement limit the wedge.",
+    "evidence_confidence": "medium; official competitor evidence only, customer demand unvalidated",
+    "source_limit": "Certemy establishes direct workflow coverage; Accredible establishes adjacent issuance pricing. Neither establishes unmet demand or our proposed willingness to pay."
+  },
+  {
+    "id": "S048",
+    "name": "Online conference program committee operations",
+    "category": "Associations / program production",
+    "buyer": "Program director organizing several paid online conferences annually.",
+    "job": "Convert session proposals into a reviewed, feasible program with complete speaker handoffs.",
+    "current_workaround": "Proposal forms, review sheets, scheduler boards and speaker emails.",
+    "record": "Conference program cycle linking proposals, conflicts, review decisions, session slots and speaker assets.",
+    "workflow": [
+      "Receive proposals and conflicts",
+      "Assign reviewers and approve program",
+      "Schedule sessions and resolve clashes",
+      "Collect final speaker assets and publish program"
+    ],
+    "roles": [
+      "Program chair",
+      "Reviewer",
+      "Speaker coordinator"
+    ],
+    "wedge": "Organizations running repeat events with cross-event reviewer and speaker continuity.",
+    "why_pay": "Reduce repeated setup and scheduling reconciliation across a paid event portfolio.",
+    "expansion": "Track portfolios, volunteer reviewer development and repeat-speaker operations.",
+    "competitors": [
+      {
+        "name": "Sessionize",
+        "url": "https://sessionize.com/pricing",
+        "observed": "2026-10-05",
+        "facts": "Direct conference-program competitor offers all features per event, with community-event and commercial licensing.",
+        "price": "Commercial event USD499 plus tax per event occurrence; free for eligible community events without participation fees. Recurring organizer pricing requires contact; no monthly equivalent inferred.",
+        "access": "opened"
+      }
+    ],
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 99,
+      "unit": "workspace per month",
+      "free_boundary": "14-day trial with sample data; no permanent hosted team tier.",
+      "paid_boundary": "Persistent workflow, permissions, history and operational exports.",
+      "lifetime": "Unsuitable for continuing hosted collaboration and support; setup fees would not count as MRR."
+    },
+    "channel": "PCMA and public conference organizer directories: demonstrate a repeat-event handoff, not event promotion.",
+    "retention": "Several annual programs could retain reviewer history; single-event customers are seasonal.",
+    "moat": "Trusted review history and organizer-specific scheduling constraints.",
+    "mvp": [
+      "Proposal/conflict registry",
+      "Review decisions and scheduling",
+      "Speaker asset handoff and program export"
+    ],
+    "effort_weeks": [
+      10,
+      16
+    ],
+    "cost": {
+      "pilot_usd_month": [
+        25,
+        45
+      ],
+      "fits_bootstrap": true,
+      "assumptions": "Three organizers, six events/year and 2,000 proposals; customer hosts broadcasts and registrations. Cash operating estimate; excludes engineering, support, acquisition, tax and payment fees.",
+      "drivers": "Burst uploads and notifications; freeze closed cycles and cap attachment sizes.",
+      "revenue_stage": "Up to $300/month after revenue for monitored backups, queues and measured usage; expand caps only after margins are observed."
+    },
+    "integrations": [
+      "CSV submissions",
+      "Program JSON/CSV export"
+    ],
+    "risks": [
+      "Sessionize charges once per event and is free for eligible communities.",
+      "Annual subscriptions may lose to seasonal purchasing."
+    ],
+    "global_limits": "Reviewer conflicts, accessibility and time zones need configuration; no ticketing tax handling.",
+    "validation": "Ten repeat organizers reconstruct five programs; seek three $99 monthly commitments lasting across an off-season.",
+    "kill_gate": "Stop if most qualified organizers prefer per-event buying or free community eligibility.",
+    "scores": {
+      "pain": 3,
+      "recurrence": 3,
+      "budget": 3,
+      "distribution": 3,
+      "wedge": 2,
+      "feasibility": 3,
+      "global": 4,
+      "cost": 5
+    },
+    "score_rationale": "Real multi-stage work, but seasonality and strong per-event alternatives weaken MRR.",
+    "evidence_confidence": "medium; official competitor evidence only, customer demand unvalidated",
+    "source_limit": "Official descriptions establish category coverage, not dissatisfaction, switching demand or willingness to pay our proposed price. No customer interviews or paid pilots conducted."
+  },
+  {
+    "id": "S049",
+    "name": "Standards-development consensus operations",
+    "category": "Associations / technical working groups",
+    "buyer": "Secretariat director of a small industry standards consortium.",
+    "job": "Carry technical specifications through comments, consensus and ratified releases with traceable decisions.",
+    "current_workaround": "Document revisions, issue trackers, email ballots and spreadsheet voting rosters.",
+    "record": "Standards revision dossier linking clauses, comments, dispositions, eligible voters and ratification.",
+    "workflow": [
+      "Propose revision and register working group",
+      "Collect comments and agree dispositions",
+      "Conduct controlled ballot and resolve objections",
+      "Ratify version and publish decision history"
+    ],
+    "roles": [
+      "Secretariat coordinator",
+      "Working-group editor",
+      "Voting member"
+    ],
+    "wedge": "Small voluntary consortia needing clause-to-ballot traceability while retaining their document editor.",
+    "why_pay": "Reduce secretariat reconstruction work and contested process records.",
+    "expansion": "Parallel standards portfolios and scheduled revision maintenance.",
+    "competitors": [
+      {
+        "name": "Higher Logic Thrive Community Workspace",
+        "url": "https://support.higherlogic.com/hc/en-us/articles/360033057331-Workspace-Overview",
+        "observed": "2026-10-05",
+        "facts": "Direct working-group and standards-development software includes document collaboration, permissions, participation tracking, ballots and traceable workflows.",
+        "price": "Not verified: official overview exposes no price, currency, billing unit or minimum commitment.",
+        "access": "opened"
+      }
+    ],
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 249,
+      "unit": "workspace per month",
+      "free_boundary": "14-day trial with sample data; no permanent hosted team tier.",
+      "paid_boundary": "Persistent workflow, permissions, history and operational exports.",
+      "lifetime": "Unsuitable for continuing hosted collaboration and support; setup fees would not count as MRR."
+    },
+    "channel": "ANSI public member and standards-developer listings: identify voluntary consortia for process walkthroughs without claiming access.",
+    "retention": "Long revision cycles and recurring ballots create durable institutional memory.",
+    "moat": "Accepted clause/disposition history and carefully verified ballot semantics.",
+    "mvp": [
+      "Revision/comment registry",
+      "Disposition workflow and voting roster",
+      "Human-approved ballot and ratification packet"
+    ],
+    "effort_weeks": [
+      14,
+      24
+    ],
+    "cost": {
+      "pilot_usd_month": [
+        25,
+        45
+      ],
+      "fits_bootstrap": true,
+      "assumptions": "Two voluntary groups, 100 participants, external drafting files; security review required before live ballots. Cash operating estimate; excludes engineering, support, acquisition, tax and payment fees.",
+      "drivers": "Permission correctness, formal ballot rules and enterprise identity may exceed basic hosting.",
+      "revenue_stage": "Up to $300/month after revenue for monitored backups, queues and measured usage; expand caps only after margins are observed."
+    },
+    "integrations": [
+      "Document version references",
+      "Ballot/archive export"
+    ],
+    "risks": [
+      "Higher Logic Workspace directly addresses standards committees and ballots.",
+      "Buyers may require audited governance controls and bespoke procedural rules."
+    ],
+    "global_limits": "IP disclosure, voting eligibility and standards accreditation differ; software cannot certify consensus validity.",
+    "validation": "Ten secretariats replay five completed ballots; seek three $249 pilots only after exact roster and disposition reconstruction.",
+    "kill_gate": "Stop if participation depends on formal accreditation, audited voting infrastructure or custom legal process automation.",
+    "scores": {
+      "pain": 4,
+      "recurrence": 4,
+      "budget": 4,
+      "distribution": 1,
+      "wedge": 3,
+      "feasibility": 2,
+      "global": 2,
+      "cost": 3
+    },
+    "score_rationale": "Substantial operating system with real records; procurement and governance correctness limit bootstrap suitability.",
+    "evidence_confidence": "medium; official competitor evidence only, customer demand unvalidated",
+    "source_limit": "Official descriptions establish category coverage, not dissatisfaction, switching demand or willingness to pay our proposed price. No customer interviews or paid pilots conducted."
+  },
+  {
+    "id": "S050",
+    "name": "Recurring webinar program operations",
+    "category": "Creators / online program businesses",
+    "buyer": "Webinar program manager at a small professional education publisher.",
+    "job": "Run recurring partner-led webinar series from topic selection to attendee handoff and replay retirement.",
+    "current_workaround": "Calendars, speaker email, webinar provider dashboards and CRM spreadsheets.",
+    "record": "Webinar series record linking episode brief, partner obligations, registration consent, attendance and follow-up disposition.",
+    "workflow": [
+      "Approve topic and partner brief",
+      "Coordinate speakers and registration",
+      "Deliver through customer webinar provider",
+      "Reconcile attendance, handoff and replay lifecycle"
+    ],
+    "roles": [
+      "Program producer",
+      "Partner/speaker",
+      "Audience operations lead"
+    ],
+    "wedge": "Cross-provider series continuity and partner deliverable accountability, without hosting video.",
+    "why_pay": "Reduce duplicate production work and unfulfilled partner commitments across a recurring series.",
+    "expansion": "Series budgets, replay entitlements and partner portfolios.",
+    "competitors": [
+      {
+        "name": "Demio",
+        "url": "https://www.demio.com/pricing",
+        "observed": "2026-10-05",
+        "facts": "Direct webinar alternative includes event-series delivery and engagement tools; streaming is part of its offer and excluded from the proposed software.",
+        "price": "Starter displayed $63/month paid monthly or $45/month paid yearly, one host and 50-attendee room. Currency not explicitly named; larger plan selectors were incomplete.",
+        "access": "opened"
+      }
+    ],
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 99,
+      "unit": "workspace per month",
+      "free_boundary": "14-day trial with sample data; no permanent hosted team tier.",
+      "paid_boundary": "Persistent workflow, permissions, history and operational exports.",
+      "lifetime": "Unsuitable for continuing hosted collaboration and support; setup fees would not count as MRR."
+    },
+    "channel": "CMX community and public association webinar calendars: invite program managers to a series-retrospective demonstration.",
+    "retention": "Recurring episodes reuse partners, consent rules and attendance mappings.",
+    "moat": "Reliable partner/series history across provider changes; limited moat if APIs remain generic.",
+    "mvp": [
+      "Series and speaker brief registry",
+      "Production/registration workflow",
+      "Attendance reconciliation and handoff"
+    ],
+    "effort_weeks": [
+      8,
+      14
+    ],
+    "cost": {
+      "pilot_usd_month": [
+        25,
+        45
+      ],
+      "fits_bootstrap": true,
+      "assumptions": "Three publishers and 30 webinars/month; all streaming, recordings and marketing sends remain customer-funded. Cash operating estimate; excludes engineering, support, acquisition, tax and payment fees.",
+      "drivers": "Provider connectors and consent reconciliation; no broadcast infrastructure or audience acquisition.",
+      "revenue_stage": "Up to $300/month after revenue for monitored backups, queues and measured usage; expand caps only after margins are observed."
+    },
+    "integrations": [
+      "Webinar attendance CSV",
+      "CRM export"
+    ],
+    "risks": [
+      "Demio already combines series delivery and engagement tools.",
+      "Another operating layer may duplicate provider features."
+    ],
+    "global_limits": "Consent, promotional email rules and recording permissions vary by country.",
+    "validation": "Ten producers replay five webinars; seek three $99 pilots and reduced partner/attendance reconciliation time.",
+    "kill_gate": "Stop if customers require us to supply streaming or contacts to obtain value.",
+    "scores": {
+      "pain": 3,
+      "recurrence": 4,
+      "budget": 3,
+      "distribution": 3,
+      "wedge": 2,
+      "feasibility": 4,
+      "global": 4,
+      "cost": 5
+    },
+    "score_rationale": "Low hosting cost is possible only with customer-owned delivery; incumbent overlap is considerable.",
+    "evidence_confidence": "medium; official competitor evidence only, customer demand unvalidated",
+    "source_limit": "Official descriptions establish category coverage, not dissatisfaction, switching demand or willingness to pay our proposed price. No customer interviews or paid pilots conducted."
+  }
+]
