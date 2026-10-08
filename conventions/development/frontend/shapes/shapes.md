@@ -1,6 +1,6 @@
 # Shapes
 
-*Last updated: 2026-08-24*
+*Last updated: 2026-10-01*
 
 > What differs by **deliverable** — the kind of thing being built, not how far a rule reaches.
 > Purpose — an app and a component library share every naming, kind and notation rule, and almost no structure.
@@ -54,6 +54,9 @@ A shape is cut by vector, the same way a domain is. Each answers one question ab
 | `platform/` | how it is built, styled, served and previewed |
 | `routing/` | how a place becomes a URL, and what owns the router |
 | `delivery/` | how it is packaged and published — a `dist`, an `exports` map, a version |
+| `responsive/` | which screens it serves, and how a layout adapts between them |
+| `shell/` | what frames every place — the bar, the navigation, the page heading |
+| `testing/` | the verification the deliverable earns |
 
 - must give a vector its own folder, even when it holds one doc.
 - must leave a vector absent rather than empty — a library has no `routing/`, so it has no `routing/` folder.

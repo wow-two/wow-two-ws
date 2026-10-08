@@ -1,6 +1,6 @@
 # App
 
-*Last updated: 2026-09-28*
+*Last updated: 2026-10-01*
 
 > A product frontend a browser loads — a composition root, routed places, a build, a dev server.
 > Purpose — the shape we ship today, and the only one whose vectors are written out.
@@ -15,6 +15,7 @@
 | [routing](routing/routing.md) | how a place becomes a URL, and what owns the router | written |
 | [delivery](delivery/delivery.md) | build inputs, hosting, caching and verification | written |
 | [responsive](responsive/responsive.md) | device targets, screen classes and how layouts adapt between them | written |
+| [shell](shell/shell.md) | the frame every place renders inside — bar, navigation, account menu, page heading | written |
 
 - must take every naming, kind, notation and domain rule from [core](../../core/core.md) unchanged.
 - must answer **where a folder is created** here — a kind doc names `overlays/`, this shape says the layer and

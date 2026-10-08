@@ -1,6 +1,6 @@
 # Conventions — Development — Frontend
 
-*Last updated: 2026-09-26*
+*Last updated: 2026-10-01*
 
 > Conventions for every frontend under `wow-two-ws/`. Lookup table — open a file when the task
 > touches it; do not pre-read. The tree splits twice, and the cuts are orthogonal.
@@ -131,7 +131,8 @@ The lead is [mla](core/mla/mla.md) — the three buckets, SDK boundary and the s
 
 ### `core/mla/domains/` — a capability, its contract and its providers
 
-One row per domain → [domains](core/mla/domains/domains.md). The four with the most surface:
+One row per domain → [domains](core/mla/domains/domains.md). The product icon set →
+[lucide](core/mla/domains/icons/lucide/lucide.md). The four with the most surface:
 [data](core/mla/domains/data/state-and-data.md) (the `/api` client, `Result`, server vs UI state) ·
 [forms](core/mla/domains/forms/forms.md) (engine pin, values, schema, field chrome) ·
 [submission](core/mla/domains/forms/submission.md) (submit path, field errors, validation timing) ·
@@ -161,9 +162,14 @@ The lead is [app](shapes/app/app.md) — its vectors and their status.
 | [workspace](shapes/app/architecture/workspace.md) | pnpm root, `apps/web`, optional packages, build ownership |
 | [boundaries](shapes/app/architecture/boundaries.md) | In-app restraint and package/SDK extraction triggers |
 | [platform](shapes/app/platform/platform.md) | The vector lead over the styling and dev-server wiring |
-| [styling](shapes/app/platform/styling.md) | The `index.css` entry, `@source` depth, brand tokens, dark mode |
+| [styling](shapes/app/platform/styling.md) | The `index.css` entry, `@source` depth, brand tokens, colour mode |
 | [dev-server](shapes/app/platform/dev-server.md) | HTTPS through mkcert, the `/api` proxy, previewing a route |
+| [document](shapes/app/platform/document.md) | The `index.html` head, app icons, pre-paint theme, splash twin |
+| [assets](shapes/app/platform/assets.md) | Images, fonts and public files |
 | [routing](shapes/app/routing/routing.md) | `createAppRouter`, the `AppRoute` model, places vs actions |
+| [shell](shapes/app/shell/shell.md) | The frame: bar, navigation, account menu, page heading |
+| [responsive](shapes/app/responsive/responsive.md) | Device targets, screen classes, layout rules |
+| [delivery](shapes/app/delivery/delivery.md) | Hosting, reproducible builds, caching, verification |
 
 ### `shapes/library/` — a package another frontend imports
 

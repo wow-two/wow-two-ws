@@ -38,3 +38,20 @@
 | [TypingIndicator](typingIndicator.md) | someone is composing a message right now |
 | [UndoBar](undoBar.md) | a destructive act stays reversible for a few seconds |
 
+---
+
+## Loading
+
+Which surface answers which wait; the linked owner states the values.
+
+| The wait | Surface | Owner |
+|---|---|---|
+| the app's first load, before the shell renders | `SplashScreen` | [SplashScreen](splashScreen.md) |
+| a route's chunk loading | the router's loading outcome | [routing](../../../../shapes/app/routing/routing.md#places) |
+| a region's first load, shape known | `SkeletonState` | [loading](../../domains/data/state-and-data.md#loading) |
+| a region's first load, shape unknown | `LoadingState` | [LoadingState](loadingState.md) |
+| a refresh the user asked for | `SkeletonStateGroup` + `useRefresh` | [loading](../../domains/data/state-and-data.md#loading) |
+| a background refetch or poll | none — content stays, freshness shows | [loading](../../domains/data/state-and-data.md#loading) |
+| one command in flight | `Button` `isLoading` | [Button](../actions/button.md) |
+| a busy mark inside a row or a sentence | `InlineSpinner` | [InlineSpinner](inlineSpinner.md) |
+| a long task that must not be repeated or interleaved | `LoadingOverlay` | [LoadingOverlay](loadingOverlay.md) |

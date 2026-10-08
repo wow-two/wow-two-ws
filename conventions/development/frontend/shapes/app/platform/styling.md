@@ -1,6 +1,6 @@
 # Styling
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-10-01*
 
 > How an app wires Tailwind v4 — the `index.css` entry, the plugin, the token import, and the theme switch.
 > Purpose — a wrong `@source` depth silently drops the library's utility classes and raises no build error.
@@ -55,11 +55,13 @@ compiled output so the utility classes its components emit are generated — Tai
 
 ---
 
-## Dark mode
+## Colour mode
 
-- must switch themes by toggling the class on `document.documentElement`, which is the app's element to own.
-- must drive that toggle through the shared theme hook (`useTheme`), never an ad-hoc `localStorage` read in a
-  component.
+- must wrap the app once in the SDK `ColorModeProvider`; it owns the `dark` class and `color-scheme` on `<html>`.
+- must read and change the mode through `useColorMode`, never an ad-hoc `localStorage` read or a class toggle.
+- must keep the provider's `system` default, so an app with no stored choice follows the OS preference.
+- must apply the stored mode before first paint from a script file that reads the provider's `storageKey`
+  ([document](document.md#first-paint)).
 - the `dark:` variant itself is [variants](../../../core/lla/constructs/tailwind/variants.md).
 
 ---

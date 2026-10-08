@@ -43,7 +43,7 @@
 | [flags](flags/flags.md) | total flag evaluation |
 | [forms](forms/forms.md) | editing, parsing and field binding |
 | [i18n](i18n/i18n.md) | locale, messages and formatting |
-| [icons](icons/icons.md) | decorative and semantic glyphs |
+| [icons](icons/icons.md) | decorative and semantic glyphs, and the product icon set |
 | [observability](observability/observability.md) | structured local records |
 | [reporting](reporting/reporting.md) | the user's trail and one-click incident reports |
 | [storage](storage/storage.md) | small synchronous persistence |

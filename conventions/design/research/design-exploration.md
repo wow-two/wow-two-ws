@@ -1,6 +1,6 @@
 # Design exploration
 
-*Last updated: 2026-06-24*
+*Last updated: 2026-10-01*
 
 > What — how we arrive at product UI: render a few in-context variants per decision, pick + lock, cascade into the next round, persist to a per-app spec.
 > The method, not the visual style (that lives in each app's design spec).
@@ -60,8 +60,8 @@
 
 ## Persisting the spec
 
-- one per-app spec md — `workbench/{repo}/platform/research/design-research/design-research.md` (or the repo's analogue).
-- super-compact — token tables (light + dark) · semantic→`@wow-two-beta/ui` mapping · type · layout/shape · component rules · usage don'ts · iterate-next.
+- one per-app spec — its path and shape → [design conventions](../design-conventions.md#per-app-specs).
+- super-compact — token tables (light + dark) · semantic→`@wow-two-beta/ui-vue` mapping · type · layout/shape · component rules · usage don'ts · iterate-next.
 - append per iteration; this doc is what the code / SDK-mapping step consumes.
 
 ---

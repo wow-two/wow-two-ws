@@ -45,21 +45,28 @@ background refetch. The user must always be able to tell that an asked-for refre
 - must render a first load as a skeleton shaped like the loaded region; a spinner only where that shape is unknown.
 - must swap a region to its skeleton for a user-requested refresh and back, even when the values come back unchanged.
 - must hold that skeleton for a minimum duration, 400 ms by default, through the SDK `useRefresh`.
-- must keep labels, headings and actions visible during a refresh; only values turn into placeholders (`Skeleton.Slot`).
+- must keep labels, headings and actions visible during a refresh; only values turn into placeholders
+  (`SkeletonStateSlot`).
 - must keep identities (names, ids, paths) through a refresh; they turn into placeholders on a first load only.
 - must keep content on screen during background refetches and polling; show freshness with a timestamp or `fetching`.
 - must replace a failed first load with a stable unavailable/retry surface; keep last good values when a refresh fails. Request failure text belongs to the toast host.
-- must announce loading once per region through `Skeleton.Group`; the skeleton shapes stay decorative.
+- must announce loading once per region through `SkeletonStateGroup`; the skeleton shapes stay decorative.
 - must show a running refresh on its control through `Button` `isLoading`: the icon turns into a spinner, the label
   stays and the control dims; it keeps focus, and overlapping requests share one pending state.
 
-```tsx
+```vue
+<script setup lang="ts">
 const vitals = useFleetVitals();
 const { refresh, refreshing } = useRefresh(vitals.refetch);
-<Skeleton.Group loading={vitals.loading || refreshing}>
-  <span>Memory</span> <Skeleton.Slot>{percent}%</Skeleton.Slot>
-</Skeleton.Group>
+</script>
+<template>
+  <SkeletonStateGroup :is-loading="vitals.loading || refreshing">
+    <span>Memory</span> <SkeletonStateSlot>{{ percent }}%</SkeletonStateSlot>
+  </SkeletonStateGroup>
+</template>
 ```
+
+- which surface answers which wait → [feedback](../../components/feedback/feedback.md#loading).
 
 ---
 

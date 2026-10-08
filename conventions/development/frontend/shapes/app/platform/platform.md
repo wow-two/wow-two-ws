@@ -1,6 +1,6 @@
 # Platform
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-10-01*
 
 > How an app is built, styled, served and previewed — everything between the source tree and a loaded page.
 > Purpose — a package has none of this, so none of it may sink into `core/`.
@@ -13,6 +13,7 @@
 | [styling](styling.md) | the Tailwind v4 wiring in `index.css`, brand tokens, the dark-mode switch |
 | [dev-server](dev-server.md) | HTTPS through mkcert, the `/api` proxy, previewing a route |
 | [assets](assets.md) | images, fonts and public files |
+| [document](document.md) | the `index.html` head, the app icons and the first paint |
 | [delivery](../delivery/delivery.md) | reproducible builds, host handoff and caching |
 
 - must take the utility, token and variant rules themselves from `core/` — this vector wires them, and states

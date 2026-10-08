@@ -1,6 +1,6 @@
 # Icons
 
-*Last updated: 2026-09-10*
+*Last updated: 2026-10-01*
 
 > The icon component contract an app satisfies, and the wrapper that gives every glyph its accessibility posture.
 > Purpose — one wrapper decides decorative versus semantic, so no call site hand-wires the hidden state.
@@ -27,6 +27,8 @@
 | SVG component adapter | the declared numeric-size and SVG attribute contract | an app-selected icon set |
 | a custom component | the adapter shape, hand-written over an SVG | a brand mark, or a glyph the set lacks |
 | the spinner | a fixed spinning glyph sized by class | a busy indicator, which is not an app-chosen icon |
+
+- a product frontend selects [lucide](lucide/lucide.md) as its set; the contract itself still names none.
 
 ---
 
