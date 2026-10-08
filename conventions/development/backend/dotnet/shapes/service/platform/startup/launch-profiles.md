@@ -1,6 +1,6 @@
 # Backend — Launch Profiles
 
-*Last updated: 2026-06-19*
+*Last updated: 2026-10-01*
 
 > ASP.NET Core run configuration; ports tracked in [ports.md](../../../../../../../deployment/hosting/ports.md).
 > Dev runs HTTPS — TLS terminates upstream in prod — so `Secure` cookies + secure-context behaviour match prod.
@@ -15,7 +15,7 @@
 - must set `ASPNETCORE_ENVIRONMENT` to `Development`
 - must trust the dev cert once per machine — `dotnet dev-certs https --trust`
 - the Vite dev server proxies `/api` to the even (HTTPS) port with `secure: false`
-  ([state and data](../../../../../../frontend/core/mla/domains/data/state-and-data.md))
+  ([dev server](../../../../../../frontend/shapes/app/platform/dev-server.md))
 
 ### Example
 

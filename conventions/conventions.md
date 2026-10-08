@@ -1,6 +1,6 @@
 # Conventions — wow-two
 
-*Last updated: 2026-09-29*
+*Last updated: 2026-10-01*
 
 > **The single index to every convention.** When a task touches *how we build* — code, repo structure,
 > naming, versioning — search HERE first, then open only the file(s) you need. Lookup table,
@@ -54,9 +54,10 @@ Rules:
 - **Description** — **one line**: **What** it governs + the scope boundary. Add **Purpose** (*why*) / **Use case** (*when*) only when they aren't obvious from What — and never restate a fact (e.g. a path) in both the description and the body. Not "Conventions for X" filler.
 - **Budget — the rule that makes the rest measurable.** A line is **≤120 characters**, **75 preferred**; over 120 is an exception a claim earns by keeping its scope, causality or negation words. No cap on a doc's length — a doc is as long as its rules, and padding is caught by compaction, not by a line count.
 - **Compaction — every rule earns its characters.** Cut a line the reader already believes; cut a line that changes nothing they do next; cut the motive clause unless it changes the action. Prefer the verb to its nominalization, and the actor as the subject. A rule that survives all three cuts is the rule; anything else was commentary.
-  doc is carrying something that is not a rule — split it or move it (→ *Rationale lives elsewhere*). Check with
-  `wc -l` and `expr $(wc -w < f) / $(wc -l < f)`; a words-per-line above ~8 means the bullets have become sentences. `controllers.md` sits at ~4.6.
-  Exempt: this file and the `{area}-conventions.md` indexes — an index is a lookup table, and its length tracks the tree, not its own verbosity.
+- **Measure** — check with `wc -l` and `expr $(wc -w < f) / $(wc -l < f)`; a words-per-line above ~8 means the
+  bullets have become sentences and the doc carries something that is not a rule — split it or move it
+  (→ *Rationale lives elsewhere*). `controller.md` sits at ~4.6. Exempt: this file and the
+  `{area}-conventions.md` indexes — an index is a lookup table, and its length tracks the tree.
 - **One owner per rule.** A rule is stated in exactly **one** doc — the one whose scope owns it — and every other doc links to it (`→ [x](y) § Section`). Two docs stating the same obligation drift into a contradiction, so the restatement is the defect even while the two still agree. Before adding a rule, grep its identifier across the tree; if it is already stated, link instead of restating. A sweep checks for restated rules, not only for conflicting ones.
 - **The unit is the rule, not the topic.** Two docs covering naming is fine; two docs stating the same obligation is the defect. `service.md` saying `*Service` and `hosted-service.md` saying `*HostedService` are two rules, each owned where it belongs — both saying "suffix with `Service`" is one rule duplicated, and it extracts. Ask whether the sentences could ever disagree; if they could not, they are one rule.
 - **Vectors do not share owners.** The same obligation stated once in the backend conventions and once in the frontend's is not a duplicate — each vector owns its own. Only a repeat *inside* one vector is the defect.
@@ -75,9 +76,8 @@ Rules:
   before a bullet list, and an RFC keyword before a verb phrase.
 - **Directive rules** — write each rule as `- must {action}` / `- must not {action}` / `- may {action}`: one atomic rule per bullet, the exact action, no rationale unless it changes what's done. Turn a description ("the latest folder is active") into a directive ("must treat the latest folder as active").
 - **Plain-noun headers** — section headers are flat nouns (`Scope`, `Invariant`, `Naming`, `Lifecycle`), never narrative phrases (`The wall`).
-- **Hard wrap** — wrap prose at **150 cols** (the editor's setting).
-- **Tables vs bullets** — tables only for narrow 3+-item × 2+-col data that fits inside 150 cols. If any row would exceed the 150-col hard wrap,
-  convert that table to bullet points — a wrapped wide table is unreadable.
+- **Tables vs bullets** — tables only for narrow 3+-item × 2+-col data; a row past the line budget turns the table
+  into bullets (→ *A table degrades to bullets*).
 - **Citation** — concrete symbols (`IKeyedEntity<TId>`, `AddDatabaseBespokeMigrations`) + file paths, **never namespaces** (they go stale — grep the
   symbol). Verify a symbol exists in source before citing; examples come from real code.
 - **No duplication** — reference another convention inline; don't restate it. Supersede a stale note in place rather than stacking.
@@ -94,8 +94,8 @@ Rules:
 - **A table degrades to bullets** — if any row would exceed 120 characters, the table becomes bullet points. A wrapped cell is unreadable, and the wrap is the signal that the rows carry sentences rather than fields.
 - **No files beside folders** — once a folder holds a sub-folder, every other doc in it gets its own folder too. The folder's own lead doc (`{folder}.md`) is the single exception.
 - **A folder earns a lead doc at two docs** — `{folder}.md` says what the folder covers and indexes its contents. A folder holding exactly one doc needs none: that doc is its own lead, and a second file announcing the first is padding.
-- **Bullet case** — a bullet is a **lowercase fragment**, not a sentence (capitalize only an identifier / proper noun that opens it). Terse `key - detail` fragments; `controllers.md` is the reference.
-- **Order is normative** — list sections and their bullets in the **order they're applied**; readers + adopters follow that order unless a special case is called out (e.g. the attribute order, the doc-block order in `controllers.md`).
+- **Bullet case** — a bullet is a **lowercase fragment**, not a sentence (capitalize only an identifier / proper noun that opens it). Terse `key - detail` fragments; `controller.md` is the reference.
+- **Order is normative** — list sections and their bullets in the **order they're applied**; readers + adopters follow that order unless a special case is called out (e.g. the attribute order, the doc-block order in `controller.md`).
 
 ---
 
@@ -136,7 +136,7 @@ Rules every product obeys, whatever the stack. A convention that touches one lin
 | **planning** (below) | how we plan — version docs (grows over time) | Active |
 | **agentic-workflow** (below) | how parallel chats / agents share a repo — lanes · no-revert · scope containment | Active |
 | **marketing** (below) | how we name, brand & go to market — naming/domains · GTM · channels · SEO · content formats | Active |
-| **design** (below) | how we design — variant-driven exploration · per-app specs · light/dark parity | Active |
+| **design** (below) | how we design — variant-driven exploration · per-app specs · UI copy · logo system | Active |
 | **deployment** (below) | how we ship & host — single-host serving · dev-port ledger · deployment descriptor, per-service builds and versions | Active |
 | security | secrets handling, auth patterns, threat model | Planned |
 
@@ -146,13 +146,15 @@ Rules every product obeys, whatever the stack. A convention that touches one lin
 
 Cross-area: **[dev-cycle.md](development/dev-cycle.md)** — 2-cycle app↔SDK maturation (implement in-app → extract to SDK + conventions → adopt across the named active apps).
 Cross-area: **[swappable-modules.md](development/swappable-modules.md)** — engine-wrapping SDK modules: house contract + adapter subpaths (optional peers) + one shared conformance suite + app-side one-line engine pin.
+Cross-area: **[sdk-extraction.md](development/sdk-extraction.md)** — extract, keep or remove: generic goes to the SDK, app-bound stays, a wrapper for DRY alone is removed.
 
 ### repo/ — repo shape & setup · [repo-conventions.md](development/repo/repo-conventions.md)
 
 | Need | File |
 |---|---|
-| Repo layout (product / venture) · `product/` + `engineering/` · code under `engineering/codebase/{slug}.{backend,frontend}-services` · naming · folder-docs (no README below root) · archetypes · **image-publish contract** (§13) · **audit** | [development/repo/structure/repo-structure.md](development/repo/structure/repo-structure.md) |
-| App and service versions · `<Version>` in `Directory.Build.props` and `version` in `package.json` · status endpoint · shown in the app · stamped on migrations · release tags | [development/repo/versioning/versioning.md](development/repo/versioning/versioning.md) |
+| Repo layout (product / venture) · `product/` + `engineering/` · code under `engineering/codebase/{slug}.{backend,frontend}-services` · slug · lead docs (no README below root) · naming · tests · deployment files | [development/repo/structure/repo-structure.md](development/repo/structure/repo-structure.md) |
+| Product conformance — every check a product repo owes, each linked to its owning convention | [development/repo/structure/product-conformance.md](development/repo/structure/product-conformance.md) |
+| App and service versions · `X.Y` from the version track, `Z` from CI · injected at build · status endpoint · shown in the app · stamped on migrations · release tags | [development/repo/versioning/versioning.md](development/repo/versioning/versioning.md) |
 | SDK / library repo shape · `engineering/` + npm package under `engineering/codebase/{slug}/` · `src/` source-only + `tests/{unit,stories}` · config repoint · dist-only publish | [development/repo/structure/sdk-structure.md](development/repo/structure/sdk-structure.md) |
 | Commit messages · scoped index handover · independent repository Git flags · LFS, gitignore and large-file recovery | [development/repo/version-control/git.md](development/repo/version-control/git.md) |
 
@@ -187,7 +189,7 @@ Two orthogonal cuts: **scope** — how far a rule reaches; **shape** — what is
 | `core/lla/` | one symbol — constructs per platform · a form end to end · naming · docs · style |
 | `core/mla/` | one app — the kinds we declare · which to reach for · domains · framework deltas |
 | `core/hla/` | between our own frontends — **empty by design** |
-| `shapes/app/` | a product frontend — architecture · platform (styling, dev server) · routing · responsive (device targets, screen classes) |
+| `shapes/app/` | a product frontend — architecture · platform (styling, dev server, document head) · routing · shell · responsive · delivery |
 | `shapes/library/` | a package another frontend imports — kind-grouped layout, capability modules |
 
 **Routing.** A kind you declare → `core/mla/constructs/` · which one, with what values →
@@ -198,6 +200,17 @@ and ships → `shapes/{app,library}/`.
 Product frontend projects and shared packages →
 [frontend workspace](development/frontend/shapes/app/architecture/workspace.md).
 
+Product UI standards, by need:
+
+| Need | File |
+|---|---|
+| The app frame — bar, navigation, account menu, page heading | [shell](development/frontend/shapes/app/shell/shell.md) |
+| `index.html` — head, favicon and app icons, pre-paint theme, splash twin | [document](development/frontend/shapes/app/platform/document.md) |
+| Icons — the one icon set, imports, sizes | [lucide](development/frontend/core/mla/domains/icons/lucide/lucide.md) |
+| Loading — which surface answers which wait | [feedback](development/frontend/core/mla/components/feedback/feedback.md#loading) |
+| Colour mode, brand tokens, the stylesheet entry | [styling](development/frontend/shapes/app/platform/styling.md) |
+| Screens — device targets, screen classes | [responsive](development/frontend/shapes/app/responsive/responsive.md) |
+
 ---
 
 ## planning — [planning/version-track/version-track.md](planning/version-track/version-track.md)
@@ -205,7 +218,7 @@ Product frontend projects and shared packages →
 | Area | File |
 |---|---|
 | The only planning convention — `engineering/planning/backlog.md` + `version-track/v{X.Y}/v{X.Y}.md` · backlog groups + `Features` group · version types · Polish iterations · task form · lifecycle + templates | [planning/version-track/version-track.md](planning/version-track/version-track.md) |
-| Handoff docs — write-once, read-once, delete | [agentic-workflow/agentic-workflow.md](agentic-workflow/agentic-workflow.md#handoff-docs--write-once-read-once-delete) |
+| Handoff docs — write-once, read-once, delete | [agentic-workflow/agentic-workflow.md](agentic-workflow/agentic-workflow.md#handoff-docs--write-once-read-once-delete-required) |
 
 ---
 
@@ -235,6 +248,8 @@ Product frontend projects and shared packages →
 | Need | File |
 |---|---|
 | Design exploration — variant-driven (a few in-context options → pick → lock → cascade → spec) · other modes · mode-selection · per-app spec shape | [design/research/design-exploration.md](design/research/design-exploration.md) |
+| UI copy — how many words a screen carries · sign-in, empty, confirm and loading text | [design/content/ui-copy.md](design/content/ui-copy.md) |
+| Per-app design spec — its path in the product repo and its shape | [design/design-conventions.md](design/design-conventions.md#per-app-specs) |
 | Logo system — WoW2 family scope · compositions · exact parent endorsement · masters · export verification | [design/identity/logo-system.md](design/identity/logo-system.md) |
 
 ---

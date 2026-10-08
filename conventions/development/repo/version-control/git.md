@@ -1,6 +1,6 @@
 # Git
 
-*Last updated: 2026-09-29*
+*Last updated: 2026-10-01*
 
 > Commit-message format **and** the agent⇄human commit protocol, for every repo under `wow-two-ws/`.
 > Purpose — a uniform, scannable history whose subject reads as *what changed* (past tense); and one unambiguous rule for who publishes (the repository push flag decides).
@@ -55,7 +55,7 @@ Repairing a binary already in pushed history:
 - **must not** ever run a risky command that is rarely needed: forcing, deleting or mirror pushes, `reset --hard`, worktree `restore`, `checkout -- <path>`, `clean`, `config` and `remote` writes, ref surgery, `gh repo delete`; no flag unlocks them.
 - **may** run `git add`, unforced `git mv` / `git rm`, `git apply`, `git pull`, `git stash`, branch create / switch, `git fetch`, and every read-only git.
 - **must** request the exact `~git_on <kind> <repo>` directive when a task needs a gated command whose flag is `OFF`; never infer a flag from prose.
-- **lane check** — `pull` and `stash push` stop once, naming the files, when the tree carries modified / staged paths this session never wrote. That is probably a parallel chat's in-flight work. Ask the developer *is another lane working right now?*; if none is, the dirt is completed-but-uncommitted work and the retry goes through. The hook knows "this session wrote it" from the ledger `.claude/hooks/track-touch.py` keeps.
+- **lane check** — `commit`, `pull` and `stash push` stop once, naming the files, when the tree carries modified / staged paths this session never wrote. That is probably a parallel chat's in-flight work. Ask the developer *is another lane working right now?*; if none is, the dirt is completed-but-uncommitted work and the retry goes through. The hook knows "this session wrote it" from the ledger `.claude/hooks/track-touch.py` keeps.
 - may stage and unstage explicit task paths; prefer `git restore --staged -- <paths>`. Index-only path resets and cached patches/removals are permitted.
 - must follow the authorized task scope and handover cadence; an agreed batch iteration does not require repeated staging approval.
 - must prepare the scoped staged set and message; execute only while the repository commit flag is `ON`.

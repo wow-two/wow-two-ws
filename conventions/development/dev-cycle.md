@@ -1,6 +1,6 @@
 # Development cycle
 
-*Last updated: 2026-09-29*
+*Last updated: 2026-10-01*
 
 > Two cycles per active app — implement a version in-app, then extract its stable blocks to the SDK + conventions and adopt across the active apps.
 > Purpose — mature the apps and the shared SDK in parallel: ship fast in one product, harden once, propagate everywhere — never in isolation.
@@ -17,8 +17,10 @@
 ## Cycle 1 — implement (in-app)
 
 - build the version's scope inside the app; iterate in sub-cycles until it ships.
-- a product holds **business logic only**; cross-cutting infrastructure (migrations, auth, hosting, result/mediator plumbing) is built **inline** in the app to move fast.
-- don't pre-extract — a block earns extraction by proving itself in a real product first.
+- a product holds **business logic only**; everything cross-cutting belongs to the SDK.
+- must adopt the SDK capability where one exists, and fix a missing or wrong API there (§ *SDK change loop*).
+- may build a capability the SDK lacks inline to ship the version; its extraction is the next version's scope.
+- which piece is generic → [extract / keep / remove](sdk-extraction.md).
 - track the version in the app's planning per [version-track.md](../planning/version-track/version-track.md).
 
 ---
@@ -38,7 +40,9 @@
 The defining rule of cycle 2. A known domain (forms, validation, auth, tables, storage) is built to completeness, proactively — the cost that kills velocity is **integration** with the rest of the component set, not invention; pay it once, in the SDK, fully.
 
 - must treat the triggering product's need as the **trigger** to build the vector, not its **scope** — ship that product's essential slice, then complete the vector
-- must, before building the completion, inventory every capability the vector integrates — a `docs/analysis/{vector}-*.md` completeness map enumerating all, each with a verdict: ship-now / defer-with-named-trigger / skip-with-reason
+- must, before building the completion, inventory every capability the vector integrates — an
+  `engineering/research/{vector}-completeness.md` map, each capability with a verdict: ship-now /
+  defer-with-named-trigger / skip-with-reason
 - must complete the vector in a dedicated follow-up pass (its own chat) after the triggering product ships — so the **second** product finds the capability already present, never re-triggers the question
 - must not gate a vector **capability** on "a consumer asked" — proactive to completeness is the default
 - may gate an alternative **engine adapter** (a 2nd/3rd wrapping of the same capability, e.g. RHF beside TanStack) on preference/trigger once swap-freedom exists (≥2 adapters) — that is the lone exception, not a capability gap

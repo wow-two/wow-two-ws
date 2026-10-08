@@ -135,4 +135,4 @@ for e in els:
 - must name the file for **what it shows**, not for the ticket or the sprint — `bake-to-render.excalidraw`
 - must keep the generator beside its output, under the flow's own `scripts/` — a diagram whose script lives elsewhere is redrawn by hand the next time
 - must number the folders in reading order — a reader takes them in sequence, and the number is the order
-- must not put a `README.md` below a repo root — the folder's lead doc is `{folder}.md` (`../../repo/structure/repo-structure.md` §3)
+- must not put a `README.md` below a repo root — the folder's lead doc is `{folder}.md` ([repo structure](../repo/structure/repo-structure.md#documents))

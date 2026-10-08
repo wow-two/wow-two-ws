@@ -1,6 +1,6 @@
 # Agentic workflow
 
-*Last updated: 2026-09-29*
+*Last updated: 2026-10-01*
 
 > How parallel Claude chats / agents share one repo without clobbering each other — lane discipline, no-revert, scope containment.
 > Purpose — multiple chats edit the same working tree at once; a wrong "cleanup" silently destroys another lane's uncommitted work.
@@ -50,8 +50,10 @@ Distinguish it from the version-track's **transient iteration plan** (`v{X.Y}/{i
 
 ## Commit discipline
 
-- Commits follow the [Git permission protocol](../development/repo/version-control/git.md); agents stage, and the developer always publishes.
-- **The index is shared, one per repo — not per lane.** Two agents staging at once produce one index holding both. Stage and unstage only within the authorized task scope; an agreed batch iteration remains authorized.
-- A pathless `git add -A` / `-u` / `.` is fine — staging only copies into the index and is trivially reversible; it changes no working-tree content. The hazard is the **commit** after it, which would ship another lane's work under this lane's message. The `guard-git` lane check stops `commit` / `pull` / `stash push` and names the foreign files before that happens; answer its question and re-run.
-- Unstage task-owned paths with `git restore --staged -- <paths>` when needed. Foreign paths already staged → report and preserve unless the user authorizes changing them.
-- Large uncommitted work in a shared tree is **fragile** — flag it for the human to commit so a later agent (or a careless revert) can't lose it.
+- must stage, commit and push per [git](../development/repo/version-control/git.md) § *Protocol*; the repository
+  git flags decide who commits and who publishes.
+- must treat the index as shared — one per repo, not per lane; two agents staging at once produce one index
+  holding both.
+- must report foreign staged paths and preserve them; the lane check and the unstaging rules are
+  [git](../development/repo/version-control/git.md) § *Discipline*.
+- must flag large uncommitted work in a shared tree for a commit — a later agent or a careless revert can lose it.

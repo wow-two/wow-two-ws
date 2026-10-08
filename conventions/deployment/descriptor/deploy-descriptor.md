@@ -1,26 +1,13 @@
-# Deployment Descriptor — `deploy.yml`
+# Deployment descriptor
 
-*Last updated: 2026-09-29*
+*Last updated: 2026-10-01*
 
-> **What** — one file per product repo, `engineering/deployment/deploy.yml`, declaring the product's deployable services:
-> how each one builds, which paths change it, how it runs, which sites it serves and what it needs.
-> **Purpose** — one source for CI (what to build), the release generator (the bundle Wheelhouse deploys) and
-> Wheelhouse (sites and service versions). Environments, hosts and secrets stay out of it.
-> **Use case** — every product repo deployed through Wheelhouse. The product template ships one; `create-repo` rebrands it.
+> One file per product repo, `engineering/deployment/deploy.yml`, declaring its deployable services: how each
+> builds, which paths change it, how it runs, which sites it serves and what it needs.
+> Purpose — one source for CI, the release generator and Wheelhouse; environments, hosts and secrets stay out.
+> Use case — every product repo deployed through Wheelhouse; the product template ships one.
 
-## Why a custom format
-
-| Format | Covers | Misses for us |
-|---|---|---|
-| Docker Compose (+ `x-` keys) | Service runtime, builds, volumes, networks | Change paths, named sites, versions; mixes local-only concerns |
-| Kamal `deploy.yml` | Builder, proxy host and port, accessories | One app image per file; hosts and secrets live in the same file |
-| Render `render.yaml` | Many services, build filter paths, health path, domains | Platform-specific runtime; domains live beside the code |
-| Fly `fly.toml` | Build, internal port, checks, mounts | One app per file |
-| Score `score.yaml` | Platform-neutral workload and resource dependencies | One workload per file; no builds or change paths |
-
-The descriptor takes the per-service build recipe from Kamal, change paths from Render's build filters,
-declared dependencies from Score and the runtime vocabulary from Compose. The generator writes Compose from it,
-so products never hand-write the deployed `compose.json`.
+Why a custom format → [rationale](deploy-descriptor-rationale.md).
 
 ---
 
@@ -29,9 +16,13 @@ so products never hand-write the deployed `compose.json`.
 - must place the file at `engineering/deployment/deploy.yml`, one per product repo.
 - must hold only product-owned facts. Hostnames, secrets, servers and environments belong to Wheelhouse targets.
 - must build every image environment-free: no environment values at build time.
-- must let an SPA read its public settings at runtime (`/api/runtime-config`), never from build-time variables.
+- must let an SPA read its public settings at runtime, never from build-time variables
+  ([known endpoints](../../development/backend/dotnet/shapes/service/platform/responses/known-endpoints.md)
+  § *Runtime config*).
 - a settings change is a commit, so it builds a new image; an operator setting changes only the target.
 - must give every service a health check; the runner refuses a service without one.
+- must point a backend service's health check at the boot bundle's `/health`
+  ([startup defaults](../../development/backend/dotnet/shapes/service/platform/startup/startup-defaults.md#health)).
 - must list the paths that change each service; a `shared` path rebuilds every service.
 - must declare public entry points as named `sites`; every other port stays internal.
 - must not publish host ports; the ingress routes each site by hostname.
@@ -63,7 +54,7 @@ services:
     paths:
       - codebase/haven.backend-services/Haven.Auth/**
     port: 8080                        # default 8080
-    health: /api/system/status        # HTTP path probed with curl inside the container
+    health: /health                   # HTTP path probed with curl inside the container
     memory: 512m                      # default 512m
     stopGrace: 30s                    # default 30s
     settings:                         # the service's private settings file, filled per environment
@@ -132,11 +123,13 @@ version in which it last changed, so services version independently and an old v
   runs; Wheelhouse records that, and deploys only digest-pinned images.
 - dev, test and prod are environments; `dev` and `test` branches are optional, and a product without them builds
   every other branch as a candidate.
-- The release generator is `release.py`; it needs Python 3.9+ with PyYAML, Git and Docker Buildx. It moves from
-  Wheelhouse's `wheelhouse.runner-services` into `wow-two-platform.pipelines` with the shared workflow; until then
-  product CI fetches it from Wheelhouse by git blob SHA, which survives history rewrites, and checks its SHA-256.
-- `release.py plan` prints what builds and every service's version; `release.py build` builds, pushes and writes the bundle.
+- The release generator is `generator/release.py` in `wow-two-platform.pipelines`; it needs Python 3.9+ with
+  PyYAML, Git and Docker Buildx.
+- `release.py plan` prints what builds and every service's version; `release.py build` builds, pushes and writes
+  the bundle.
 - CI checks out the full history (`fetch-depth: 0`), so the generator can diff against the previous release.
+
+---
 
 ## Artifacts and retention
 
@@ -148,15 +141,26 @@ version in which it last changed, so services version independently and an old v
 - Keep only the newest `dev` and `test` builds; other candidates expire after 14 days.
 - Wheelhouse owns deletion, because only it knows what each target runs.
 
+---
+
 ## CI workflow
 
-`.github/workflows/publish-docker-image.yml` stays the marker file. It calls the shared publish workflow in
-`wow-two-platform.pipelines`, pinned to a tag, which:
+- must keep `.github/workflows/publish-docker-image.yml` as the marker file Wheelhouse detects.
+- must call the shared `publish.yml` workflow of `wow-two-platform.pipelines` from it, pinned to a tag.
+- must trigger it on every push and on `workflow_dispatch` with a `commit` input.
+- must not copy the publish steps or the release generator into a product repo.
+
+```yaml
+jobs:
+  publish:
+    uses: wow-two-platform/wow-two-platform.pipelines/.github/workflows/publish.yml@v0.1.0
+    with:
+      commit: ${{ inputs.commit }}
+```
+
+The shared workflow:
 
 - builds on every push: `main` releases, `dev` and `test` replace their builds, other branches build candidates;
 - builds a dispatched commit that has no build yet (Wheelhouse's Build action);
 - builds each changed service from `deploy.yml`, whatever its Dockerfile, target, arguments or build contexts;
 - tags and publishes images and the bundle per the table above, and moves the branch's tag last.
-
-The workflow Wheelhouse and ForeverPin run today (candidate on push, release on a published GitHub release) is the
-shape the shared workflow replaces.

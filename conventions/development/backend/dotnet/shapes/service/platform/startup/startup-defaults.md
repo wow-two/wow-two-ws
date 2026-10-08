@@ -1,6 +1,6 @@
 # Startup defaults
 
-*Last updated: 2026-09-10*
+*Last updated: 2026-10-01*
 
 > The shared API boot bundle and its host-owned opt-ins.
 
@@ -36,3 +36,15 @@ app.UseApiDefaults(pipeline =>
 - must raise a missing composition seam in the SDK instead of forking the bundle in the product.
 - must follow [middleware dependencies](host-configuration.md#middleware) for auth and metadata-dependent additions.
 - must place auth in the `UseApiDefaults` callback when limiter or cache policies depend on identity.
+
+---
+
+## Health
+
+- must take the health endpoint from the bundle — `UseApiDefaults()` maps `ApiDefaultsOptions.HealthEndpointPath`,
+  `/health` by default, anonymous.
+- must not hand-write a health or readiness route — no `MapGet("/health")`, no readiness action on a controller.
+- must register a readiness check on the health-check builder for each required dependency —
+  `AddDatabaseReadinessCheck<TContext>()` for the database.
+- must point the deployment health check at that path
+  ([deploy descriptor](../../../../../../../deployment/descriptor/deploy-descriptor.md#rules)).

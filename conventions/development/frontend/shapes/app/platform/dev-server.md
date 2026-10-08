@@ -1,6 +1,6 @@
 # Dev server
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-10-01*
 
 > How an app is served in development — the Vite config, its HTTPS certificate, and the `/api` proxy.
 > Purpose — the frontend reaches the backend over the same origin in dev as in production, so no code branches.
@@ -11,7 +11,7 @@
 - must serve HTTPS through `vite-plugin-mkcert`, on an even port
   (ledger: [ports](../../../../../deployment/hosting/ports.md)).
 - must gate mkcert behind `VITE_HTTPS=false` for a headless HTTP fallback, with a matching `*-http` launch
-  config; normal dev stays HTTPS.
+  config in the workspace's `.claude/launch.json`; normal dev stays HTTPS.
 
 ---
 

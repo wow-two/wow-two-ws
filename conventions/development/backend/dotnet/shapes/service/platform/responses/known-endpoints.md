@@ -1,9 +1,9 @@
 # Controller known endpoints
 
-*Last updated: 2026-09-10*
+*Last updated: 2026-10-01*
 
-> Identity and system endpoints whose controller, route, action and path are fixed across every app —
-> `api/identity/*`, `api/system/status`.
+> Identity, system and runtime-config endpoints whose controller, route, action and path are fixed across every
+> app — `api/identity/*`, `api/system/status`, `api/runtime-config`.
 > Purpose — one identity surface per product; a frontend targets the same paths everywhere, not
 > `auth/login` here and `admin/session` there.
 > Use case — adding or renaming a sign-in, sign-out, current-user, guest or status endpoint, or aligning
@@ -45,8 +45,24 @@
 - must expose `Status` at `GET api/system/status` — liveness, service identity, any app-specific
   health fact such as the vault's seal state.
 - must mark `Status` `[AllowAnonymous]` — the sign-in screen hits it pre-auth.
+- must return the informational version from `Status`
+  ([versioning](../../../../../../repo/versioning/versioning.md#reporting)).
 - must keep the `Status` action summary abstract, never the payload shape — `Reports service liveness.`,
   `Reports the vault's seal state.`
+- must leave health probing to the boot bundle's `/health`, never a `Ready` action here
+  ([startup defaults](../startup/startup-defaults.md#health)).
+
+---
+
+## Runtime config — `RuntimeConfigController` @ `api/runtime-config`
+
+- must declare `sealed RuntimeConfigController` with `[Route("api/runtime-config")]` when the SPA reads a
+  per-environment public setting; omit the controller otherwise.
+- must summarize it `Exposes public runtime settings over HTTP.`
+- must expose `Get` at `GET api/runtime-config`, `[AllowAnonymous]`, answered `no-store`.
+- must return public values only — an OAuth client id, a public origin — never a secret.
+- must let the SPA feed the response to its
+  [config](../../../../../../frontend/core/mla/domains/config/config.md) seam as a source; no build-time copy exists.
 
 ---
 

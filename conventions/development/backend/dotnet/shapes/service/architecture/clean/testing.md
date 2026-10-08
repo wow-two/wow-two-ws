@@ -42,7 +42,7 @@
 - must group test projects in the virtual `Tests/` solution folder from [solution organization](../architecture.md).
 - must keep any physical test directory distinct from its virtual solution-folder name.
 - must document prerequisites and suite coverage in the project's folder lead document.
-- must apply the [repository document rule](../../../../../../repo/structure/repo-structure.md#3-doc-rule--no-readme-below-root).
+- must apply the [repository document rule](../../../../../../repo/structure/repo-structure.md#documents).
 
 ---
 

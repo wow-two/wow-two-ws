@@ -1,6 +1,6 @@
 # Versioning
 
-*Last updated: 2026-09-29*
+*Last updated: 2026-10-01*
 
 > Where a product's version is declared, how builds stamp it, and how running services and apps report it.
 > Purpose — one version answers "what is running" in the API, the UI, the database history and the image tag.
@@ -23,8 +23,9 @@
 
 ## Reporting
 
-- must report the running version from each backend service — the status endpoint returns the informational version.
-- must inject the frontend version at build time (`define: { __APP_VERSION__ }` from `package.json`).
+- must report the running version from each backend service — `GET api/system/status` returns the informational
+  version ([known endpoints](../../backend/dotnet/shapes/service/platform/responses/known-endpoints.md) § *System*).
+- must define the frontend version at build time — `define: { __APP_VERSION__ }` from `APP_VERSION`, `dev` when unset.
 - must show every frontend's app version at the top of the app, beside its name in the top bar.
 - must show each backend service's version, with its commit, in the account menu or a settings About section.
 - must stamp applied migrations with the product version (`MigrationOptions.Version`).
@@ -34,7 +35,7 @@
 ## Releases
 
 - must release from `main` only: CI tags `vX.Y.Z` and names the changed images `X.Y.Z`
-  ([repo structure](../structure/repo-structure.md) § *Image publishing*).
+  ([deploy descriptor](../../../deployment/descriptor/deploy-descriptor.md) § *Builds and versions*).
 - must version a `dev`, `test` or other branch build as a pre-release of the next patch (`X.Y.(Z+1)-<branch>.<n>`);
   environments never appear in a version.
 - must keep a service's last-changed version in a multi-service product

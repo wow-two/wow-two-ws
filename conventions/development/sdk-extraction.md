@@ -1,56 +1,53 @@
-# Extract / Keep / Remove
+# Extract, keep, remove
 
-*Last updated: 2026-07-11*
+*Last updated: 2026-10-01*
 
-> For any component / helper / module — already built or being built — decide: **extract to a shared SDK**, **keep in the app**, or **remove it**. Applies to both SDKs (frontend `@wow-two-beta/ui`, backend beta) and to app code. Complements [dev-cycle.md](dev-cycle.md) (the extract→adopt rhythm) and [swappable-modules.md](swappable-modules.md) (engine-wrapping modules); this doc is the **decision**.
+> Where a component, helper or module lives — a shared SDK, the app, or nowhere.
+> Use case — judging a piece already built or about to be built, in app code or in either SDK.
 
-## The two questions
+## Decision
 
-1. **Generic or app-bound?** A reusable primitive any product could want, or does it carry *this* app's domain / business logic?
-2. **Does it justify existing?** For an app-local piece — especially a low-level one wrapping an SDK primitive — *why* is it there? "To avoid duplication" / "to extend a prop" / "to restyle" is a **red flag**, not a reason.
-
-> **Logic amount does not decide.** A label-only `Field` has almost no logic yet belongs in the SDK; `ContentView` has plenty yet stays in the app. Genericness decides *where*; the red-flag check decides *whether it should exist at all*.
-
----
-
-## Extract → SDK
-
-Generic / reusable, not tied to this app's domain. Extract **even if**:
-
-- it carries little logic — a `Field` (label + control) is still an SDK primitive; and
-- only one app uses it today — `DateTimeField`: build it once, the next product finds it there.
-
-An **atom** (lowest-level input / control) that's generic is *always* SDK, never app-local.
+- must ask whether the piece is generic or carries this app's domain logic; that decides where it lives.
+- must ask why an app-local piece over an SDK primitive exists; avoiding duplication, extending a prop and restyling
+  are not reasons.
+- must not decide by the amount of logic — a label-only `Field` is SDK, a logic-heavy `ContentView` stays in the app.
 
 ---
 
-## Keep in the app
+## Extract
 
-It carries **app-bound** (domain / business) logic. Keep it as a component for **encapsulation, separation, and readability** — a good reason on its own, not only DRY. E.g. `ContentView` (builds the app's content panel from app rules).
+- must extract a generic piece to the SDK — `@wow-two-beta/ui-vue` or `WoW2.Sdk.Backend.Beta`.
+- must extract it even when it carries little logic, and even when one app uses it today.
+- must treat a generic atom — the lowest-level input or control — as SDK, never app-local.
+- must build a missing generic primitive in the SDK first, mirroring its nearest sibling, then consume it.
+- must schedule a larger extraction through the [dev cycle](dev-cycle.md); an engine-wrapping module follows
+  [swappable modules](swappable-modules.md).
+
+---
+
+## Keep
+
+- must keep a piece carrying app-bound logic in the app.
+- may keep it as its own component for encapsulation and readability, not only to avoid duplication.
 
 ---
 
 ## Remove
 
-An app-local piece whose only reason to exist is **DRY, a prop-extend, or a restyle** over an SDK primitive. Don't let it linger — resolve it:
-
-- the extension is generic → **extract** it into the SDK (the primitive gains the prop / variant), then use the SDK version;
-- the SDK already covers it → **delete** and use the SDK primitive directly.
-
-Duplicating an SDK-primitive composition across call sites is fine — **never** wrap it in an app-local component just for DRY.
-
----
-
-## Worked calls
-
-- `Field` (label + control, ~no logic) → **extract → SDK** — generic primitive; no app wrapper to "save duplication"
-- `DateTimeField` (Temporal + a11y logic) → **extract → SDK** — generic; extract even though only this app uses it
-- `ContentView` (app content panel) → **keep in app** — app-bound logic; earns its place by encapsulation, not DRY
-- `SelectField` (app-local, wraps SDK `Select`) → **investigate** — why does it exist? generic extension → extract to SDK; else the SDK covers it → delete + use `Select` directly
+- must remove an app-local piece whose only reason is DRY, a prop extension or a restyle over an SDK primitive.
+- must extract the extension into the SDK when it is generic, then use the SDK version.
+- must delete the wrapper and use the SDK primitive directly when the SDK already covers it.
+- may repeat an SDK-primitive composition across call sites; never wrap it in an app-local component for DRY.
+- must re-decide a primitive built in the app before the call was clear; a working app-local primitive is not a
+  resting state.
 
 ---
 
-## Mechanics
+## Examples
 
-- missing a generic primitive → build it in the SDK first (mirror the nearest sibling), publish, consume it — don't grow it in the app "to move fast" and leave it
-- built it in the app before the call was clear? re-decide against the two questions and extract or delete — a working app-local primitive is not a resting state
+| Piece | Verdict | Because |
+|---|---|---|
+| `Field` — label and control, almost no logic | extract | a generic primitive |
+| `DateTimeField` — Temporal and accessibility logic | extract | generic, though one app uses it |
+| `ContentView` — the app's content panel | keep | app-bound logic |
+| `SelectField` — app-local, wraps the SDK select | remove | extract a generic extension, else delete it |

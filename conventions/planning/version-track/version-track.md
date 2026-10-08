@@ -163,7 +163,7 @@ The task-form rules govern task lines. This governs everything else on the page,
 ## Rules
 
 - must write a transient plan at `engineering/planning/version-track/v{X.Y}/{iter-slug}.md` at iteration start (what + how), review before implementing, delete when done
-- a handoff between chats follows the handoff rule in [agentic-workflow.md](../../agentic-workflow/agentic-workflow.md#handoff-docs--write-once-read-once-delete); the version doc outranks it
+- a handoff between chats follows the handoff rule in [agentic-workflow.md](../../agentic-workflow/agentic-workflow.md#handoff-docs--write-once-read-once-delete-required); the version doc outranks it
 - must record green (build / test counts) only in the `Verification` iteration — never on a build iteration
 - must not put a status emoji on an iteration heading — the `[ ]` / `[x]` checkboxes carry done-state
 - must keep the iteration heading a **bare name** — just the focus noun; no trailing `(done)` / `(final)` / parenthetical / status / version tag
