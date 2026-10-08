@@ -1,4 +1,4 @@
-*Last updated: 2026-10-05*
+*Last updated: 2026-10-06*
 
 # Tasks
 
@@ -19,13 +19,15 @@ Categories: `sdk` · `plt` · `app` · `ven` · `con` · `ws`
 | Position | Product | Task | Outcome |
 |---|---|---|---|
 | 1 — current | [ForeverPin](../../workbench/ventures/10x-venture-forever-pin/) | `ven-t-006` | Complete a reliable release and verify the paid subscription path |
-| 2 — queued | [Pose Coach](../../workbench/ventures/ventures.pose-coach/) | `ven-t-009` | Validate the photo-director experience and deliver a paid release |
-| 3 — queued | [Transcript Forge](../../workbench/ventures/10x-ventures-transcript-forge/) | `ven-t-010` | Deliver a paid transcript workflow for repeat users |
-| 4 — queued | [Hijinx](../../workbench/ventures/ventures.hijinx/) | `ven-t-011` | Validate repeat host use and deliver a paid release |
+| 2 — local changes ready for review | [Pose Coach](../../workbench/ventures/ventures.pose-coach/) | `ven-t-009` | Validate the photo-director experience and deliver a paid release |
+| 3 — local changes ready for review | [Transcript Forge](../../workbench/ventures/10x-ventures-transcript-forge/) | `ven-t-010` | Deliver a paid transcript workflow for repeat users |
+| 4 — local changes ready for review | [Hijinx](../../workbench/ventures/ventures.hijinx/) | `ven-t-011` | Validate repeat host use and deliver a paid release |
 
 This is the execution order for venture product work, including consumer and entertainment products, ordered to reach subscription revenue (MRR) sooner. The [subscription-speed assessment](../../ideas/saas-research-2026-10/subscription-speed.md) holds each product's remaining path and what blocks charging. Continue the current product until its release outcome is complete or the user explicitly parks it; the next queued product becomes current. Each repository's `engineering/planning/` owns its implementation breakdown and release evidence. Dates are unassigned.
 
 The [100-product research](../../ideas/saas-research-2026-10/decision-report.md) remains an options catalog; its research ranking does not replace this order. Existing platform-app and SDK work remains in its own track, with concrete dependencies resolved when they block the current product.
+
+**Parallel preparation, authorized `2026-10-06`:** ForeverPin is handled in a separate chat. The initial implementation sweep and expanded feature increment are complete for local review: Pose Coach live framing/voice and 15 languages; Transcript Forge persistent queue controls; Hijinx 15-language UI, translated starter content and reusable host playlists. [Outcomes, checks and running review targets](../sessions/saas-research-2026-10/implementation-review.md). Their release priority stays as listed; physical-device, native editorial, provider and paid-release acceptance remain open. This preparation does not establish paid launch or release completion.
 
 ---
 
@@ -49,9 +51,9 @@ The [100-product research](../../ideas/saas-research-2026-10/decision-report.md)
 | `ven-t-005` | Complete the Mintrans integration | `-` | `high` | `todo` | `ventures.tnis-mintrans` | Deadline removed `2026-09-29`: the hackathon was paid, so finishing is the user's call; deferred with `ven-t-002`. Added `2026-08-17`. Breakdown belongs in the repo’s `engineering/planning/`, not here |
 | `ven-t-006` | Finish forever-pin for a reliable release | `-` | `high` | `wip` | `forever-pin` | Current product in the [venture product order](#venture-product-order), confirmed `2026-10-05`; includes verifying its paid subscription path. Breakdown in its `engineering/planning/`. Platform release work remains under `app-t-001` and `app-t-002` |
 | `ven-t-007` | Complete the ForeverPin rebrand | `-` | normal | `done` | `forever-pin` | Local source, projects, docs, product/promo folders renamed 2026-09-13. Full suites pass. GitHub rename and both remote URLs verified. Corrected hero still/video exported under native approval. Product rebrand, verification tooling, and docs committed. |
-| `ven-t-009` | Deliver a paid Pose Coach release | `-` | `high` | `todo` | `ventures.pose-coach` | Queued by the user `2026-10-05`; position follows the [venture product order](#venture-product-order). Real-device validation and implementation belong in its `engineering/planning/` |
-| `ven-t-010` | Deliver a paid Transcript Forge release | `-` | normal | `todo` | `10x-ventures-transcript-forge` | Queued by the user `2026-10-05`; position follows the [venture product order](#venture-product-order). Repeat-use scope and implementation belong in its `engineering/planning/` |
-| `ven-t-011` | Deliver a paid Hijinx release | `-` | normal | `todo` | `ventures.hijinx` | Queued by the user `2026-10-05`; position follows the [venture product order](#venture-product-order). Repeat-host validation and implementation belong in its `engineering/planning/` |
+| `ven-t-009` | Deliver a paid Pose Coach release | `-` | `high` | `wip` | `ventures.pose-coach` | Live framing/voice and 15-language increment locally implemented `2026-10-06`; physical camera/speech and paid-release acceptance remain open. The [venture product order](#venture-product-order) retains release priority; details belong in its `engineering/planning/` |
+| `ven-t-010` | Deliver a paid Transcript Forge release | `-` | normal | `wip` | `10x-ventures-transcript-forge` | Persistent project queue controls locally implemented `2026-10-06`; reliable local Release 1 and provider acceptance precede hosted billing. Details belong in its `engineering/planning/` |
+| `ven-t-011` | Deliver a paid Hijinx release | `-` | normal | `wip` | `ventures.hijinx` | Host playlists and 15-language UI/starter-content increment locally implemented `2026-10-06`; native editorial/device and paid-release acceptance remain open. Details belong in its `engineering/planning/` |
 
 ---
 

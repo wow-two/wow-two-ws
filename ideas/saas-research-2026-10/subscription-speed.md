@@ -2,6 +2,8 @@
 
 Assessment: 2026-10-05. Scope: the ten SaaS finalists plus ForeverPin, Pose Coach, Transcript Forge and Hijinx. Consumer and entertainment products are included. Evidence consists of current source inspection, repository verification records and official competitor offers; no customer demand, payments or production deployments were verified in this assessment.
 
+Implementation follow-up, 2026-10-06: the separately authorized [three-product sweep](../../system/sessions/saas-research-2026-10/implementation-review.md) records subsequent changes and verification for Pose Coach, Transcript Forge and Hijinx. The source-state observations and effort estimates below remain the October 5 assessment. ForeverPin implementation is owned by another chat.
+
 ## Decision
 
 **ForeverPin has the shortest technical path to a subscription release.** It already has the product core and billing integration, although subscription entitlements and real payment flows need correction and verification. Actual time to a paying, renewing customer remains unknown for every candidate.
