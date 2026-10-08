@@ -1,6 +1,6 @@
 # Imports
 
-*Last updated: 2026-09-10*
+*Last updated: 2026-10-01*
 
 > How to order and write `import` statements in `.ts`, `.tsx` and Vue script blocks — group order, sort, and
 > the `type`-import form.
@@ -17,7 +17,7 @@
 | # | Group | Matches | Example specifier |
 |---|---|---|---|
 | 1 | Side-effect | bare `import "…"`, no bindings | `"@fontsource-variable/geist"` · `"./index.css"` |
-| 2 | Third-party | bare specifiers outside the SDK namespace | `react` · `vue` · `lucide-react` |
+| 2 | Third-party | bare specifiers outside the SDK namespace | `vue` · `vue-router` · `lucide-vue-next` |
 | 3 | SDK | `@wow-two-beta/*` roots and subpaths | `@wow-two-beta/ui-vue/presentation/actions` |
 | 4 | `@/` alias | app-internal absolute imports | `@/domain/codes/core` |
 | 5 | Relative | `../` then `./` | `./gradient` |
@@ -31,16 +31,16 @@
 // ✅ five groups, one blank line each
 import "@fontsource-variable/geist";
 
-import { useEffect, useState } from "react";
-import { ArrowRight } from "lucide-react";
+import { computed, ref } from "vue";
+import { ArrowRight } from "lucide-vue-next";
 
-import { Button } from "@wow-two-beta/ui/presentation/actions";
-import { Stack } from "@wow-two-beta/ui/presentation/layout";
+import { Button } from "@wow-two-beta/ui-vue/presentation/actions";
+import { StackLayout } from "@wow-two-beta/ui-vue/presentation/layout";
 
 import { UserKind, type Me } from "@/domain/identity";
 import { getMe } from "@/integration/identity";
 
-import { AppLayout } from "./AppLayout";
+import AppLayout from "./AppLayout.vue";
 ```
 
 ---
@@ -78,7 +78,7 @@ import type { Gradient } from "@/domain/codes/core";      // ❌ split — fold 
 ## 4. Rules
 
 - React bindings → [JSX](../../constructs/react/jsx.md) § *React types — import named, never the UMD namespace*.
-- must import the SDK through its published subpath (`@wow-two-beta/ui/presentation/forms`), never a deep
+- must import the SDK through its published subpath (`@wow-two-beta/ui-vue/presentation/forms`), never a deep
   path into the package's `src` or `dist`.
 - app aliases and source placement → [app architecture](../../../../shapes/app/architecture/architecture.md).
 - library source aliases and declaration safety → [delivery](../../../../shapes/library/delivery/delivery.md).

@@ -1,6 +1,6 @@
 # MLA — one app
 
-*Last updated: 2026-09-10*
+*Last updated: 2026-10-01*
 
 > Mid-level architecture: every rule that needs an app around it to mean anything.
 > Purpose — keep app-shaped decisions out of `lla/`, where they would read as language rules.
@@ -32,7 +32,7 @@ TypeScript or a framework defines, which is why they land at this level however 
   fixes values, and one component's own props and slots live in its `{Component}.spec.md` in the SDK repo.
   Registers cut a kind in half; `lla` / `mla` / `hla` are the **layers**, and cut by reach.
 - **A third party is a member of the domain that consumes it**, never its own axis.
-- **The SDK boundary.** *How to use* and *what to use* from `@wow-two-beta/ui` is a convention and lives here; the
+- **The SDK boundary.** *How to use* and *what to use* from `@wow-two-beta/ui-vue` is a convention and lives here; the
   SDK's own internals live in the SDK's docs. The scope follows the component, not the package.
 - **Where a thing is placed is not here.** A doc names the folder — `overlays/`, `pages/` — and the deliverable
   says which tree that folder is created in ([shapes](../../shapes/shapes.md) § *The test*).

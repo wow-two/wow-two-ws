@@ -1,6 +1,6 @@
 # HTML
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-10-01*
 
 > Every HTML element we may write, what each one is for, and the elements banned outright.
 > Purpose — the element carries the accessibility semantics; the wrong one costs a `role`, a `tabindex`, a handler.
@@ -29,7 +29,7 @@
 - must let the element supply focusability, keyboard activation and the accessibility role before adding any by hand.
 - must keep a native attribute's exact HTML spelling on a prop that forwards it
   ([naming](../../notation/naming/naming.md)).
-- must reach for a `@wow-two-beta/ui` component before a raw element — the library already made the choice
+- must reach for a `@wow-two-beta/ui-vue` component before a raw element — the library already made the choice
   ([constructs](../../../mla/constructs/constructs.md) · [visual kinds](../../../mla/constructs/visual/visual.md)).
 - must not gate on lint: no `jsx-a11y` / `vue-a11y` plugin is installed, so these rules are review-enforced.
 

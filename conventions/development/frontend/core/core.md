@@ -1,6 +1,6 @@
 # Core
 
-*Last updated: 2026-09-10*
+*Last updated: 2026-10-01*
 
 > What holds in every frontend deliverable we build — the language forms, the roles we declare, the things
 > complete on their own, and the capabilities a codebase reaches for.
@@ -56,7 +56,7 @@ Full boundary → [mla](mla/mla.md).
 
 - **A third party is a member of the domain that consumes it**, never its own axis. If the app cannot render
   without it, it is a provider, whoever wrote it.
-- **The SDK boundary.** *How to use* and *what to use* from `@wow-two-beta/ui` is a convention and lives here;
+- **The SDK boundary.** *How to use* and *what to use* from `@wow-two-beta/ui-vue` is a convention and lives here;
   the SDK's own internals live in the SDK's docs. The scope follows the component, not the package.
 
 ### `hla/` — between our own frontends

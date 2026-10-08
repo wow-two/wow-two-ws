@@ -1,6 +1,6 @@
 # Boundaries
 
-*Last updated: 2026-09-26*
+*Last updated: 2026-10-01*
 
 > The app's outer edge — what stays inside it, what extracts to a package, and how the repo is shaped.
 > Purpose — in-app reuse and SDK reuse run on opposite triggers, and mixing them strands generic code.
@@ -19,7 +19,7 @@
 The trigger is genericness, not consumer count — the SDK is shared across the portfolio, so the second
 consumer is a matter of time, not of chance.
 
-- must extract a surface to `@wow-two-beta/ui` (or `ui-vue`) as soon as it is generic — one consumer is enough.
+- must extract a surface to `@wow-two-beta/ui-vue` as soon as it is generic — one consumer is enough.
 - must not wait for a second app; "no other app uses it yet" is not a reason to keep it in the product.
 - must extract at the earliest point it is generic — a later extraction pays migration in every app that
   copied it meanwhile.
@@ -39,7 +39,7 @@ Project layout and package boundaries → [frontend workspace](workspace.md).
 - must extract to a repo-local package only once two apps in that repo need it.
 - must leave shared packages absent until that extraction is needed.
 - must keep only **product-specific** components in a repo's `@{brand}/ui` — a generic one goes upstream to
-  `@wow-two-beta/ui` immediately.
+  `@wow-two-beta/ui-vue` immediately.
 
 ---
 

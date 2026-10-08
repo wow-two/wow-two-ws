@@ -1,6 +1,6 @@
 # Authoring
 
-*Last updated: 2026-09-10*
+*Last updated: 2026-10-01*
 
 > The at-rules Tailwind adds to CSS for extending itself, and the ones that reopen the configuration it replaced.
 > Purpose — these five are the whole seam between our theme and the framework, so what goes through them is the API.
@@ -11,7 +11,7 @@
 | At-rule | Declares | Verdict |
 |---|---|---|
 | `@import 'tailwindcss'` | the framework, first line of the stylesheet | `use` |
-| `@import '@wow-two-beta/ui/styles.css'` | the library's tokens, before any override | `use` |
+| `@import '@wow-two-beta/ui-vue/styles.css'` | the library's tokens, before any override | `use` |
 | `@theme` | the token block every utility is generated from | `use` |
 | `@theme inline` | tokens emitted without their variable indirection | `use with care` |
 | `@source` | an extra path the class scanner must read | `use` |
@@ -49,8 +49,8 @@
 ```css
 /* ✅ the whole seam: framework, library tokens, scan path, variant, overrides */
 @import 'tailwindcss';
-@import '@wow-two-beta/ui/styles.css';
-@source '../../node_modules/@wow-two-beta/ui/dist';
+@import '@wow-two-beta/ui-vue/styles.css';
+@source '../../node_modules/@wow-two-beta/ui-vue/dist';
 @custom-variant dark (&:where(.dark, .dark *));
 @theme {
   --color-primary: #7c3aed;
