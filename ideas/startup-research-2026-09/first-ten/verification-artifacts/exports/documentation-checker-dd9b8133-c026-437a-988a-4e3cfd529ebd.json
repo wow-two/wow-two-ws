@@ -1,0 +1,58 @@
+{
+  "projects": [
+    {
+      "id": "35918755-f6ca-444c-9c0c-24db18f5a7f4",
+      "workspaceId": "dd9b8133-c026-437a-988a-4e3cfd529ebd",
+      "name": "QA API Handbook",
+      "repository": "qa/api-handbook",
+      "createdUtc": 1790644287636,
+      "version": 1
+    }
+  ],
+  "runs": [
+    {
+      "id": "abc58f50-fb1f-407d-b40b-07e872c13f4a",
+      "workspaceId": "dd9b8133-c026-437a-988a-4e3cfd529ebd",
+      "projectId": "35918755-f6ca-444c-9c0c-24db18f5a7f4",
+      "externalId": "qa-ci-002",
+      "commit": "qa-fixed",
+      "digest": "cafff09c94e2d1d4281b9a46c5409b271766b2e672a248e8427634d1e9af5dd8",
+      "createdUtc": 1790644325168
+    },
+    {
+      "id": "c16f4936-d34e-4e10-8aac-61427bfef7c5",
+      "workspaceId": "dd9b8133-c026-437a-988a-4e3cfd529ebd",
+      "projectId": "35918755-f6ca-444c-9c0c-24db18f5a7f4",
+      "externalId": "qa-ci-001",
+      "commit": "qa-fixture",
+      "digest": "dd24623929e0962ee559f80a32bd90df06109701209aea69666ef63615d32450",
+      "createdUtc": 1790644311058
+    }
+  ],
+  "checks": [
+    {
+      "id": "20178ead-2a48-4a13-97ae-34006c22b296",
+      "workspaceId": "dd9b8133-c026-437a-988a-4e3cfd529ebd",
+      "runId": "abc58f50-fb1f-407d-b40b-07e872c13f4a",
+      "path": "getting-started.md",
+      "line": 12,
+      "language": "javascript",
+      "status": "passed",
+      "diagnostic": "",
+      "owner": "QA Docs Owner",
+      "version": 2
+    },
+    {
+      "id": "49ba08c2-cbb5-4fb6-a65c-89a4785d3816",
+      "workspaceId": "dd9b8133-c026-437a-988a-4e3cfd529ebd",
+      "runId": "c16f4936-d34e-4e10-8aac-61427bfef7c5",
+      "path": "getting-started.md",
+      "line": 12,
+      "language": "javascript",
+      "status": "failed",
+      "diagnostic": "Synthetic syntax failure; inspect the local fixture.",
+      "owner": "QA Docs Owner",
+      "version": 2
+    }
+  ]
+}

@@ -1,0 +1,53 @@
+{
+  "version": 4,
+  "today": "2026-09-29",
+  "externalSubscriptionChanged": false,
+  "procedures": [
+    {
+      "id": "f08f992e-fa7c-45fb-9a25-bd827f86d615",
+      "createdAtUtc": "2026-09-29T01:05:39.990359",
+      "title": "QA client handoff procedure",
+      "sourceUrl": "https://example.test/procedures/handoff",
+      "sourceVersion": "v1",
+      "excerpt": "Synthetic QA procedure: check deliverables and record customer acceptance.",
+      "cadenceDays": 30,
+      "dueDate": "2026-10-29",
+      "status": "current",
+      "ownerAcknowledged": true
+    }
+  ],
+  "reviews": [
+    {
+      "id": "d72e8b04-c68b-4947-805e-27e6c515795e",
+      "createdAtUtc": "2026-09-29T01:05:45.232679",
+      "procedureId": "f08f992e-fa7c-45fb-9a25-bd827f86d615",
+      "sourceVersion": "v1",
+      "status": "attested",
+      "evidence": "Synthetic QA review: source version and checklist agree.",
+      "expiresOn": "2026-10-29"
+    }
+  ],
+  "revisions": [],
+  "audits": [
+    {
+      "createdAtUtc": "2026-09-29T01:05:54.975538",
+      "action": "AttestReview (f08f992e-fa7c-45fb-9a25-bd827f86d615)",
+      "version": 4
+    },
+    {
+      "createdAtUtc": "2026-09-29T01:05:45.232679",
+      "action": "OpenReview (f08f992e-fa7c-45fb-9a25-bd827f86d615)",
+      "version": 3
+    },
+    {
+      "createdAtUtc": "2026-09-29T01:05:44.969698",
+      "action": "AcknowledgeOwnership (f08f992e-fa7c-45fb-9a25-bd827f86d615)",
+      "version": 2
+    },
+    {
+      "createdAtUtc": "2026-09-29T01:05:39.990359",
+      "action": "RegisterProcedure",
+      "version": 1
+    }
+  ]
+}

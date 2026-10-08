@@ -1,0 +1,33 @@
+{
+  "serverUtc": 1790644908176,
+  "feeds": [
+    {
+      "id": "3fbe2739-3e22-4f6e-a9f1-dcd4ef2795ed",
+      "workspaceId": "4b9e983a-d90f-484f-8c68-1fd772f7f9c6",
+      "name": "QA Partner Orders",
+      "prefix": "qa_orders_",
+      "dueTimeUtc": "09:00",
+      "graceMinutes": 30,
+      "active": true,
+      "createdUtc": 1790644377968,
+      "scheduleStartUtc": 1790644377968,
+      "lastHeartbeatUtc": null,
+      "version": 2
+    }
+  ],
+  "occurrences": [
+    {
+      "version": 2,
+      "id": "e4528164-6e44-4bb2-b15c-badf4ab9cdf5",
+      "workspaceId": "4b9e983a-d90f-484f-8c68-1fd772f7f9c6",
+      "feedId": "3fbe2739-3e22-4f6e-a9f1-dcd4ef2795ed",
+      "date": "2026-09-29",
+      "dueUtc": 1790672400000,
+      "deadlineUtc": 1790674200000,
+      "receivedUtc": null,
+      "status": "excepted",
+      "exceptionReason": "Synthetic QA partner holiday"
+    }
+  ],
+  "receipts": []
+}

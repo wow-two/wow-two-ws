@@ -1,0 +1,18 @@
+{
+  "accountId": "b94677f8-01a3-4078-a809-45e1d7430696",
+  "account": "QA Customer One",
+  "CreatedAt": "2026-09-29T01:15:58.2963770\u002B00:00",
+  "ApprovedAt": "2026-09-29T01:16:05.8483080\u002B00:00",
+  "status": "Approved; not sent",
+  "commitments": [
+    {
+      "id": "0c7652f6-1ddf-42ff-a1db-edb3413de8fc",
+      "title": "QA deliver onboarding guide",
+      "owner": "QA Owner",
+      "dueDate": "2026-10-08",
+      "status": "In progress",
+      "revision": 3,
+      "update": "Draft guide is ready for the scheduled customer review."
+    }
+  ]
+}

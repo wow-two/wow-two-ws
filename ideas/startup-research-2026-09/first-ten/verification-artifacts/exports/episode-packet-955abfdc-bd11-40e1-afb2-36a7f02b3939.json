@@ -1,0 +1,33 @@
+{
+  "episode": {
+    "Id": "955abfdc-bd11-40e1-afb2-36a7f02b3939",
+    "Revision": 4,
+    "ShowName": "QA Builder Conversations",
+    "Title": "QA thoughtful launches",
+    "GuestName": "QA Guest",
+    "GuestEmail": "guest@example.test",
+    "RecordingUtc": "2026-09-29T10:00Z",
+    "ParticipationInformation": "Synthetic QA rehearsal: discuss software launches; this test records no media and sends no messages.",
+    "ParticipationVersion": 1,
+    "Biography": "Synthetic QA guest studies practical software delivery and thoughtful product launches.",
+    "Pronunciation": "",
+    "AssetReference": "qa-guest.jpg",
+    "GuestSubmittedAt": "2026-09-29T01:17:22.2155220\u002B00:00",
+    "AcknowledgedVersion": 1,
+    "TechnicalCheckedAt": "2026-09-29T01:17:34.4479800\u002B00:00",
+    "TechnicalEvidence": "Synthetic QA: microphone, connection, and recording environment checked.",
+    "RecordedAt": "",
+    "status": "Ready",
+    "missing": [],
+    "invitations": [
+      {
+        "Id": "9ea577ee-216a-4b04-a27e-3bf8ffa94e56",
+        "CreatedAt": "2026-09-29T01:16:46.8974730\u002B00:00",
+        "ExpiresAt": "2026-10-06T01:16:46.8855420\u002B00:00",
+        "RevokedAt": ""
+      }
+    ],
+    "reminders": []
+  },
+  "note": "Producer coordination record. No media recording, legal signature or reminder delivery is asserted."
+}

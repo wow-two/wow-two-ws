@@ -1,0 +1,38 @@
+{
+  "left": {
+    "id": "f0aaf440-dc21-4b8c-ba56-bc2cdce65f07",
+    "workspaceId": "7a1f95f5-f4c7-437c-816a-158870e8c3d2",
+    "projectId": "a6458af6-5d29-43c6-ba28-48c570c83cc2",
+    "externalId": "qa-production-001",
+    "environment": "production",
+    "keyNamespace": "qa-release",
+    "keyVersion": "v1",
+    "capturedUtc": 1790644464123,
+    "importedUtc": 1790644480460,
+    "digest": "ac0fd9776149b4b7e0ffc1560028623af4db70a083d50898db9a5a73b79844b5"
+  },
+  "right": {
+    "id": "50be505a-d077-4b5f-b539-41371a395805",
+    "workspaceId": "7a1f95f5-f4c7-437c-816a-158870e8c3d2",
+    "projectId": "a6458af6-5d29-43c6-ba28-48c570c83cc2",
+    "externalId": "qa-staging-001",
+    "environment": "staging",
+    "keyNamespace": "qa-release",
+    "keyVersion": "v1",
+    "capturedUtc": 1790644464097,
+    "importedUtc": 1790644471375,
+    "digest": "1a66de7b32fac8553754523c7c058199600614f1aefcc4e184c2ec006dda0192"
+  },
+  "compatible": true,
+  "fresh": true,
+  "rows": [
+    {
+      "name": "API_REGION",
+      "leftFingerprint": "a42d89337cb6a6a464b6d191fb95117b9ab3b7b6e0ab98c0cef4cbf5e28951c3",
+      "rightFingerprint": "bc9db07e4473d5881f963b44687288f89acd972bb73146f8dda86b0651df5abd",
+      "status": "approved",
+      "approvalId": "a09ab8d4-7dcc-43ed-a842-744539d20f83"
+    }
+  ],
+  "projectVersion": 4
+}

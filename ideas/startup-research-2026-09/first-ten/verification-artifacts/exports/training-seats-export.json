@@ -1,0 +1,112 @@
+{
+  "version": 8,
+  "today": "2026-09-29",
+  "externalSubscriptionChanged": false,
+  "agreements": [
+    {
+      "id": "c0cabd32-2b73-4f66-ad4c-3274845b5f7f",
+      "createdAtUtc": "2026-09-29T01:07:31.199447",
+      "sponsor": "QA Learning Co",
+      "reference": "QA-AGREEMENT-01",
+      "purchased": 12
+    }
+  ],
+  "cohorts": [
+    {
+      "id": "f23b581a-71a0-40ed-9b4c-8651a70bada1",
+      "createdAtUtc": "2026-09-29T01:07:31.463385",
+      "title": "QA onboarding cohort",
+      "date": "2026-10-12",
+      "capacity": 8
+    },
+    {
+      "id": "1fdbabd4-3a60-4084-ae67-7f98f558b91c",
+      "createdAtUtc": "2026-09-29T01:08:27.683535",
+      "title": "QA completed cohort",
+      "date": "2026-09-28",
+      "capacity": 8
+    }
+  ],
+  "allocations": [
+    {
+      "id": "c5b7b058-25dc-468f-b283-3524f0a2948c",
+      "createdAtUtc": "2026-09-29T01:07:40.48552",
+      "agreementId": "c0cabd32-2b73-4f66-ad4c-3274845b5f7f",
+      "cohortId": "f23b581a-71a0-40ed-9b4c-8651a70bada1",
+      "learner": "QA Learner",
+      "email": "learner@example.test",
+      "status": "reserved",
+      "replacesId": null,
+      "reason": ""
+    },
+    {
+      "id": "3570dfd2-1ef5-47cf-b007-69ae007ff3cb",
+      "createdAtUtc": "2026-09-29T01:08:36.231144",
+      "agreementId": "c0cabd32-2b73-4f66-ad4c-3274845b5f7f",
+      "cohortId": "1fdbabd4-3a60-4084-ae67-7f98f558b91c",
+      "learner": "QA Attendee",
+      "email": "attendee@example.test",
+      "status": "attended",
+      "replacesId": null,
+      "reason": "Synthetic QA attendance confirmed on completed cohort."
+    }
+  ],
+  "statements": [
+    {
+      "id": "7a9acf45-848e-4273-bacb-1f2b35545264",
+      "createdAtUtc": "2026-09-29T01:07:57.333923",
+      "agreementId": "c0cabd32-2b73-4f66-ad4c-3274845b5f7f",
+      "sourceVersion": 3,
+      "snapshotJson": "{\u0022Sponsor\u0022:\u0022QA Learning Co\u0022,\u0022Reference\u0022:\u0022QA-AGREEMENT-01\u0022,\u0022Purchased\u0022:12,\u0022Reserved\u0022:1,\u0022Attended\u0022:0,\u0022Available\u0022:11,\u0022Allocations\u0022:[{\u0022Id\u0022:\u0022c5b7b058-25dc-468f-b283-3524f0a2948c\u0022,\u0022CohortId\u0022:\u0022f23b581a-71a0-40ed-9b4c-8651a70bada1\u0022,\u0022Learner\u0022:\u0022QA Learner\u0022,\u0022Email\u0022:\u0022learner@example.test\u0022,\u0022Status\u0022:\u0022reserved\u0022,\u0022ReplacesId\u0022:null,\u0022Reason\u0022:\u0022\u0022}]}"
+    },
+    {
+      "id": "8c5dd21b-a44f-406d-a209-ec37aa6105c4",
+      "createdAtUtc": "2026-09-29T01:08:46.353005",
+      "agreementId": "c0cabd32-2b73-4f66-ad4c-3274845b5f7f",
+      "sourceVersion": 7,
+      "snapshotJson": "{\u0022Sponsor\u0022:\u0022QA Learning Co\u0022,\u0022Reference\u0022:\u0022QA-AGREEMENT-01\u0022,\u0022Purchased\u0022:12,\u0022Reserved\u0022:1,\u0022Attended\u0022:1,\u0022Available\u0022:10,\u0022Allocations\u0022:[{\u0022Id\u0022:\u0022c5b7b058-25dc-468f-b283-3524f0a2948c\u0022,\u0022CohortId\u0022:\u0022f23b581a-71a0-40ed-9b4c-8651a70bada1\u0022,\u0022Learner\u0022:\u0022QA Learner\u0022,\u0022Email\u0022:\u0022learner@example.test\u0022,\u0022Status\u0022:\u0022reserved\u0022,\u0022ReplacesId\u0022:null,\u0022Reason\u0022:\u0022\u0022},{\u0022Id\u0022:\u00223570dfd2-1ef5-47cf-b007-69ae007ff3cb\u0022,\u0022CohortId\u0022:\u00221fdbabd4-3a60-4084-ae67-7f98f558b91c\u0022,\u0022Learner\u0022:\u0022QA Attendee\u0022,\u0022Email\u0022:\u0022attendee@example.test\u0022,\u0022Status\u0022:\u0022attended\u0022,\u0022ReplacesId\u0022:null,\u0022Reason\u0022:\u0022Synthetic QA attendance confirmed on completed cohort.\u0022}]}"
+    }
+  ],
+  "audits": [
+    {
+      "createdAtUtc": "2026-09-29T01:08:46.353005",
+      "action": "PublishStatement (c0cabd32-2b73-4f66-ad4c-3274845b5f7f)",
+      "version": 8
+    },
+    {
+      "createdAtUtc": "2026-09-29T01:08:46.093398",
+      "action": "RecordAttendance (3570dfd2-1ef5-47cf-b007-69ae007ff3cb)",
+      "version": 7
+    },
+    {
+      "createdAtUtc": "2026-09-29T01:08:36.231144",
+      "action": "ReserveSeat (c0cabd32-2b73-4f66-ad4c-3274845b5f7f)",
+      "version": 6
+    },
+    {
+      "createdAtUtc": "2026-09-29T01:08:27.683535",
+      "action": "CreateCohort",
+      "version": 5
+    },
+    {
+      "createdAtUtc": "2026-09-29T01:07:57.333923",
+      "action": "PublishStatement (c0cabd32-2b73-4f66-ad4c-3274845b5f7f)",
+      "version": 4
+    },
+    {
+      "createdAtUtc": "2026-09-29T01:07:40.48552",
+      "action": "ReserveSeat (c0cabd32-2b73-4f66-ad4c-3274845b5f7f)",
+      "version": 3
+    },
+    {
+      "createdAtUtc": "2026-09-29T01:07:31.463385",
+      "action": "CreateCohort",
+      "version": 2
+    },
+    {
+      "createdAtUtc": "2026-09-29T01:07:31.199447",
+      "action": "CreateAgreement",
+      "version": 1
+    }
+  ]
+}

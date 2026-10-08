@@ -1,0 +1,68 @@
+{
+  "publication": "QA Accessible Handbook",
+  "client": "Synthetic QA Press",
+  "proof": "Proof 01",
+  "reportSha256": "0DD0D92ED64CF9128CD73001B3C0A6C102A80616204A686E9C73E6E41874128F",
+  "findings": [
+    {
+      "id": "485a6eb2-e66b-495f-88b8-0576dd388499",
+      "rule": "manual",
+      "title": "Review reading order with the agreed reading method",
+      "location": "Whole publication",
+      "source": "Human check",
+      "owner": "QA Reviewer",
+      "resolved": true,
+      "evidence": [
+        {
+          "id": "eacccef8-8a2f-4d66-a5b7-b9e50bd4faf0",
+          "findingId": "485a6eb2-e66b-495f-88b8-0576dd388499",
+          "note": "Synthetic fixture review: heading hierarchy checked manually.",
+          "actor": "18635aa0-58e9-4b6b-8aca-4f12c4a067e5",
+          "createdAt": "2026-09-29T00:59:26.5368590\u002B00:00",
+          "resolved": true
+        }
+      ]
+    },
+    {
+      "id": "5511c7cb-3f01-4802-8ee6-bedfbfc2c819",
+      "rule": "image-alt",
+      "title": "Missing alternative",
+      "location": "chapter.xhtml {\u0022css\u0022:[\u0022img\u0022]}",
+      "source": "Ace report",
+      "owner": "QA Reviewer",
+      "resolved": true,
+      "evidence": [
+        {
+          "id": "a6c2f480-289c-47f3-b7eb-90a5b19c8b5d",
+          "findingId": "5511c7cb-3f01-4802-8ee6-bedfbfc2c819",
+          "note": "Synthetic fixture: reviewed the alternative text against the illustration.",
+          "actor": "18635aa0-58e9-4b6b-8aca-4f12c4a067e5",
+          "createdAt": "2026-09-29T00:59:39.2244920\u002B00:00",
+          "resolved": true
+        }
+      ]
+    },
+    {
+      "id": "f905b09f-c53a-421c-bde6-a8d928ad89ba",
+      "rule": "manual",
+      "title": "Review heading hierarchy in context",
+      "location": "Whole publication",
+      "source": "Human check",
+      "owner": "QA Reviewer",
+      "resolved": true,
+      "evidence": [
+        {
+          "id": "bbb49df5-5140-47ae-b5c1-e158f51168a3",
+          "findingId": "f905b09f-c53a-421c-bde6-a8d928ad89ba",
+          "note": "Synthetic fixture: verified sequential heading levels through every chapter.",
+          "actor": "18635aa0-58e9-4b6b-8aca-4f12c4a067e5",
+          "createdAt": "2026-09-29T00:59:47.1647470\u002B00:00",
+          "resolved": true
+        }
+      ]
+    }
+  ],
+  "disclaimer": "Review evidence for this proof; not an accessibility certification.",
+  "reviewer": "QA Reviewer",
+  "reviewNote": "Synthetic QA run of Ace import and manual reading checks; no certification."
+}

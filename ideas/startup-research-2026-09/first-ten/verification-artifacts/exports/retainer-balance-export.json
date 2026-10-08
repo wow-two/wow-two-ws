@@ -1,0 +1,81 @@
+{
+  "version": 6,
+  "today": "2026-09-29",
+  "externalSubscriptionChanged": false,
+  "periods": [
+    {
+      "id": "f8df424b-a5b2-4532-8744-d559ac14d691",
+      "createdAtUtc": "2026-09-29T00:54:00.60081",
+      "client": "QA Northstar Studio",
+      "label": "October 2026 QA",
+      "currency": "USD",
+      "baseMinutes": 1440,
+      "rateMinor": 9500
+    }
+  ],
+  "timeEntries": [
+    {
+      "id": "bc6908a6-55a8-462a-a845-75427c8a3dfd",
+      "createdAtUtc": "2026-09-29T00:54:13.729552",
+      "periodId": "f8df424b-a5b2-4532-8744-d559ac14d691",
+      "sourceId": "T-001",
+      "task": "Client handoff",
+      "minutes": 180,
+      "reviewed": true
+    }
+  ],
+  "allowanceRequests": [
+    {
+      "id": "a47a3342-aa02-47d5-8153-aef66a41e8f0",
+      "createdAtUtc": "2026-09-29T00:54:19.937773",
+      "periodId": "f8df424b-a5b2-4532-8744-d559ac14d691",
+      "minutes": 180,
+      "rateMinor": 9500,
+      "reason": "QA approved additional handoff documentation",
+      "status": "approved-evidence",
+      "evidence": "Synthetic test fixture QA-1: three extra hours approved for handoff.",
+      "approver": "Synthetic QA client"
+    }
+  ],
+  "statements": [
+    {
+      "id": "613d5231-fb93-4165-9232-6f9fac83ebde",
+      "createdAtUtc": "2026-09-29T00:54:28.212669",
+      "periodId": "f8df424b-a5b2-4532-8744-d559ac14d691",
+      "sourceVersion": 5,
+      "snapshotJson": "{\u0022Client\u0022:\u0022QA Northstar Studio\u0022,\u0022Label\u0022:\u0022October 2026 QA\u0022,\u0022Currency\u0022:\u0022USD\u0022,\u0022BaseMinutes\u0022:1440,\u0022ConfirmedMinutes\u0022:180,\u0022ApprovedMinutes\u0022:180,\u0022BalanceMinutes\u0022:1440,\u0022Entries\u0022:[{\u0022Id\u0022:\u0022bc6908a6-55a8-462a-a845-75427c8a3dfd\u0022,\u0022WorkspaceId\u0022:\u00222368f71e-b172-4249-976b-1dbe8a96176e\u0022,\u0022CreatedAtUtc\u0022:\u00222026-09-29T00:54:13.729552\u0022,\u0022PeriodId\u0022:\u0022f8df424b-a5b2-4532-8744-d559ac14d691\u0022,\u0022SourceId\u0022:\u0022T-001\u0022,\u0022Task\u0022:\u0022Client handoff\u0022,\u0022Minutes\u0022:180,\u0022Reviewed\u0022:true}],\u0022Decisions\u0022:[{\u0022Id\u0022:\u0022a47a3342-aa02-47d5-8153-aef66a41e8f0\u0022,\u0022WorkspaceId\u0022:\u00222368f71e-b172-4249-976b-1dbe8a96176e\u0022,\u0022CreatedAtUtc\u0022:\u00222026-09-29T00:54:19.937773\u0022,\u0022PeriodId\u0022:\u0022f8df424b-a5b2-4532-8744-d559ac14d691\u0022,\u0022Minutes\u0022:180,\u0022RateMinor\u0022:9500,\u0022Reason\u0022:\u0022QA approved additional handoff documentation\u0022,\u0022Status\u0022:\u0022approved-evidence\u0022,\u0022Evidence\u0022:\u0022Synthetic test fixture QA-1: three extra hours approved for handoff.\u0022,\u0022Approver\u0022:\u0022Synthetic QA client\u0022}],\u0022ApprovalMode\u0022:\u0022Owner-recorded external evidence; not authenticated client approval\u0022}"
+    }
+  ],
+  "audits": [
+    {
+      "createdAtUtc": "2026-09-29T00:54:28.212669",
+      "action": "PublishStatement",
+      "version": 6
+    },
+    {
+      "createdAtUtc": "2026-09-29T00:54:27.956485",
+      "action": "RecordApproval",
+      "version": 5
+    },
+    {
+      "createdAtUtc": "2026-09-29T00:54:19.937773",
+      "action": "RequestAllowance",
+      "version": 4
+    },
+    {
+      "createdAtUtc": "2026-09-29T00:54:19.664108",
+      "action": "ReconcileEntry",
+      "version": 3
+    },
+    {
+      "createdAtUtc": "2026-09-29T00:54:13.729552",
+      "action": "ImportTime",
+      "version": 2
+    },
+    {
+      "createdAtUtc": "2026-09-29T00:54:00.60081",
+      "action": "CreatePeriod",
+      "version": 1
+    }
+  ]
+}

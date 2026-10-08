@@ -1,0 +1,60 @@
+{
+  "version": 3,
+  "today": "2026-09-29",
+  "externalSubscriptionChanged": false,
+  "agreements": [
+    {
+      "noticeDeadline": "2026-10-02",
+      "id": "3501c325-6553-4c10-a0db-f7113fab4874",
+      "createdAtUtc": "2026-09-29T01:09:17.251544",
+      "vendor": "QA Design Software",
+      "currency": "USD",
+      "annualCostMinor": 120000,
+      "renewalDate": "2026-11-01",
+      "noticeDays": 30,
+      "source": "Synthetic QA agreement v1, renewal clause 4",
+      "termVersion": 1,
+      "acknowledgedTerm": 1,
+      "decision": "cancel",
+      "reason": "Synthetic QA decision: duplicate tool will be retired."
+    }
+  ],
+  "termRevisions": [
+    {
+      "id": "c57eb966-38b2-4f98-9c2f-d1b548ccb966",
+      "createdAtUtc": "2026-09-29T01:09:17.251544",
+      "agreementId": "3501c325-6553-4c10-a0db-f7113fab4874",
+      "renewalDate": "2026-11-01",
+      "noticeDays": 30,
+      "source": "Synthetic QA agreement v1, renewal clause 4",
+      "termVersion": 1
+    }
+  ],
+  "decisions": [
+    {
+      "id": "d49ef22e-b1eb-425d-857c-74bc3105c6f0",
+      "createdAtUtc": "2026-09-29T01:09:23.467536",
+      "agreementId": "3501c325-6553-4c10-a0db-f7113fab4874",
+      "termVersion": 1,
+      "intent": "cancel",
+      "reason": "Synthetic QA decision: duplicate tool will be retired."
+    }
+  ],
+  "audits": [
+    {
+      "createdAtUtc": "2026-09-29T01:09:23.467536",
+      "action": "RecordDecision (3501c325-6553-4c10-a0db-f7113fab4874)",
+      "version": 3
+    },
+    {
+      "createdAtUtc": "2026-09-29T01:09:23.195674",
+      "action": "AcknowledgeTerm (3501c325-6553-4c10-a0db-f7113fab4874)",
+      "version": 2
+    },
+    {
+      "createdAtUtc": "2026-09-29T01:09:17.251544",
+      "action": "RegisterAgreement",
+      "version": 1
+    }
+  ]
+}
