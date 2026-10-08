@@ -17,10 +17,10 @@
 
 | Reach for | When |
 |---|---|
-| [MultiSelect](multiSelect.md) | the set is long enough to need a dropdown |
-| [Listbox](listbox.md) | the options scroll in place with arrow-key movement |
-| [Checkbox](checkbox.md) | the box is one independent boolean |
-| `ToggleButtonGroup` | the choices set a mode rather than a submitted value |
+| [MultiSelectPicker](multiSelectPicker.md) | the set is long enough to need a dropdown |
+| [ListboxPicker](listboxPicker.md) | the options scroll in place with arrow-key movement |
+| [CheckboxInput](checkboxInput.md) | the box is one independent boolean |
+| `ToggleGroup` | the choices set a mode rather than a submitted value |
 
 ---
 

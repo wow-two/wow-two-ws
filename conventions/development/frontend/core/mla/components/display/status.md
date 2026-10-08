@@ -9,7 +9,7 @@
 
 - must name a live state — online, degraded, building, failed
 - must carry the word beside the dot; colour alone never carries the meaning
-- should sit in a [MetaInline](metaInline.md) row beside other meta
+- should sit in a [MetaInlineText](metaInlineText.md) row beside other meta
 
 ---
 
@@ -17,7 +17,7 @@
 
 | Reach for | When |
 |---|---|
-| [NotificationDot](notificationDot.md) | the dot stands alone with no label |
+| [NotificationIndicator](notificationIndicator.md) | the dot stands alone with no label |
 | [Badge](badge.md) | a filled pill reads better than a dot in that row |
 | `Alert` | the state needs an explanation, not a label |
 

@@ -1,6 +1,6 @@
 # Indicator
 
-*Last updated: 2026-09-10*
+*Last updated: 2026-10-01*
 
 > A small passive mark that reflects live state it does not control — presence, trend, activity, status.
 > Purpose — a mark that only reads state stays free of command and dismissal behavior.
@@ -14,7 +14,7 @@
 - must carry an accessible name, because a colour alone is not a status.
 
 ```txt
-✅ PresenceIndicator · StatusIndicator · TrendIndicator · TypingIndicator · NotificationDot · Status
+✅ PresenceIndicator · StatusIndicator · TrendIndicator · TypingIndicator · NotificationIndicator · Status
 ```
 
 ---
@@ -82,7 +82,7 @@
 - must not mount an [overlay](overlay.md); a mark that explains itself on hover gets a `Tooltip` from its parent.
 
 ```txt
-✅ DataTable → row cell → StatusIndicator     ·     NavItem → NotificationDot
+✅ DataTable → row cell → StatusIndicator     ·     NavItem → NotificationIndicator
 ❌ StatusIndicator → Tooltip → Card           (a leaf growing a surface)
 ```
 

@@ -2,7 +2,7 @@
 
 *Last updated: 2026-09-10*
 
-> The span trigger — one button for both ends, opening a [RangeCalendar](rangeCalendar.md) that closes on completion.
+> The span trigger — one button for both ends, opening a [RangeCalendarPicker](rangeCalendarPicker.md) that closes on completion.
 > What a control is → [control](../../constructs/visual/control.md).
 
 ## Reach for it when
@@ -18,7 +18,7 @@
 | Reach for | When |
 |---|---|
 | [DatePicker](datePicker.md) | one day is picked |
-| [RangeCalendar](rangeCalendar.md) | the grid should stay open on the page |
+| [RangeCalendarPicker](rangeCalendarPicker.md) | the grid should stay open on the page |
 | [DateInput](dateInput.md) | each end is typed, and they validate separately |
 
 ---

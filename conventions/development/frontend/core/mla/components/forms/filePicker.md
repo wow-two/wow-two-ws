@@ -16,7 +16,7 @@
 
 | Reach for | When |
 |---|---|
-| [FileUpload](fileUpload.md) | the whole surface takes a drop and rejects by type, size, or count |
+| [FileUploadPicker](fileUploadPicker.md) | the whole surface takes a drop and rejects by type, size, or count |
 | `Button` | the press runs a command and reads no file back |
 
 ---

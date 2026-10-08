@@ -1,6 +1,6 @@
 # Control
 
-*Last updated: 2026-09-10*
+*Last updated: 2026-10-01*
 
 > A widget editing one semantic value, which may contain several coordinated parts.
 > Purpose — a shared value contract lets a form bind simple and composite controls consistently.
@@ -31,7 +31,7 @@
 
 ```txt
 ✅ presentation/forms/currencyInput/{CurrencyInput.vue, CurrencyInput.spec.md, index.ts}
-❌ presentation/display/slider/Slider.vue      (its primary contract edits a committed value)
+❌ presentation/display/sliderInput/SliderInput.vue      (its primary contract edits a committed value)
 ```
 
 ---

@@ -19,4 +19,4 @@
 |---|---|
 | [FeatureCard](featureCard.md) | the tile explains a capability rather than selling a plan |
 | [Card](card.md) | the box is not a priced tier |
-| [DescriptionList](descriptionList.md) | the plans are compared row by row rather than side by side |
+| [DescriptionGroup](descriptionGroup.md) | the plans are compared row by row rather than side by side |

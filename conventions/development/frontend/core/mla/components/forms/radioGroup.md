@@ -18,9 +18,9 @@
 | Reach for | When |
 |---|---|
 | [CheckboxGroup](checkboxGroup.md) | more than one option may hold at a time |
-| [Select](select.md) | the set is long enough that showing it whole costs the screen |
-| `ToggleButtonGroup` | the choices are short and read better as one strip |
-| [Listbox](listbox.md) | the options scroll in place with arrow-key movement |
+| [SelectPicker](selectPicker.md) | the set is long enough that showing it whole costs the screen |
+| `ToggleGroup` | the choices are short and read better as one strip |
+| [ListboxPicker](listboxPicker.md) | the options scroll in place with arrow-key movement |
 
 ---
 

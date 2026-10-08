@@ -20,8 +20,8 @@
 | [ColorSwatchPicker](colorSwatchPicker.md) | the choice is a fixed palette, inline, with no free colour |
 | [ColorInput](colorInput.md) | the reader types a hex and needs no panel |
 | [ColorArea](colorArea.md) | you are building a bespoke panel and need only the SV square |
-| [ColorSlider](colorSlider.md) | one channel is being edited on its own |
-| [ColorSwatch](colorSwatch.md) | the colour is shown and never edited |
+| [ColorSliderInput](colorSliderInput.md) | one channel is being edited on its own |
+| [ColorSwatchPreview](colorSwatchPreview.md) | the colour is shown and never edited |
 
 ---
 

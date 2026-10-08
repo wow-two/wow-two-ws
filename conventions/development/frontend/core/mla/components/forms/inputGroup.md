@@ -8,7 +8,7 @@
 ## Reach for it when
 
 - must reach for it when adjacent controls read as one connected control
-- must keep every segment a real control — a fixed string is an [InputAddon](inputAddon.md)
+- must keep every segment a real control — a fixed string is an [InputAddonLayout](inputAddonLayout.md)
 - should reach for `orientation="vertical"` when the segments stack
 
 ---
@@ -17,7 +17,7 @@
 
 | Reach for | When |
 |---|---|
-| [InputAddon](inputAddon.md) | a segment is a fixed, uneditable string |
+| [InputAddonLayout](inputAddonLayout.md) | a segment is a fixed, uneditable string |
 | `ButtonGroup` | the segments run commands rather than hold values |
-| `Stack` | the controls stay visually separate |
-| [Fieldset](fieldset.md) | the grouping is semantic and needs one name |
+| `StackLayout` | the controls stay visually separate |
+| [FieldsetLayout](fieldsetLayout.md) | the grouping is semantic and needs one name |

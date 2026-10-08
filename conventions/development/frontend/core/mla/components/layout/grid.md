@@ -17,10 +17,10 @@
 
 | Reach for | When |
 |---|---|
-| [Stack](stack.md) | the children run down one axis only |
-| [TwoColumn](twoColumn.md) | one column is a fixed-width aside and the other flexes |
-| [Inline](inline.md) | the items wrap freely and need no column alignment |
-| [ResizablePanels](resizablePanels.md) | the reader drags the split between the tracks |
+| [StackLayout](stackLayout.md) | the children run down one axis only |
+| [TwoColumnLayout](twoColumnLayout.md) | one column is a fixed-width aside and the other flexes |
+| [InlineLayout](inlineLayout.md) | the items wrap freely and need no column alignment |
+| [ResizablePanelsLayout](resizablePanelsLayout.md) | the reader drags the split between the tracks |
 
 ---
 

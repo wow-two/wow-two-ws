@@ -8,7 +8,7 @@
 ## Reach for it when
 
 - must block interaction with a region while a long task runs
-- must keep the content behind readable — swapping it out is a [Skeleton](skeleton.md)
+- must keep the content behind readable — swapping it out is a [SkeletonState](skeletonState.md)
 - should reach for it where the region already has content
 
 ---
@@ -18,8 +18,8 @@
 | Reach for | When |
 |---|---|
 | [LoadingState](loadingState.md) | the region is empty and the report can take its place |
-| [Skeleton](skeleton.md) | the unloaded shape is worth drawing rather than dimming |
-| `Backdrop` | the scrim carries a surface of its own rather than a spinner |
+| [SkeletonState](skeletonState.md) | the unloaded shape is worth drawing rather than dimming |
+| `BackdropOverlay` | the scrim carries a surface of its own rather than a spinner |
 
 ---
 

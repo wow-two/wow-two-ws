@@ -17,7 +17,7 @@
 
 | Reach for | When |
 |---|---|
-| [ToggleButton](toggleButton.md) | the state is a mode read back as a value, not an expanded region |
+| [ToggleInput](toggleInput.md) | the state is a mode read back as a value, not an expanded region |
 | [Button](button.md) | nothing expands — the click just runs |
 
 ---

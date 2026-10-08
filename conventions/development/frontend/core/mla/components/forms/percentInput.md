@@ -19,8 +19,8 @@
 |---|---|
 | [NumberInput](numberInput.md) | the number is a count and the suffix would mislead |
 | [CurrencyInput](currencyInput.md) | the value is an amount rather than a rate |
-| [Slider](slider.md) | the reader sweeps the rate instead of typing it |
-| [Knob](knob.md) | the rate is a live parameter in a control panel |
+| [SliderInput](sliderInput.md) | the reader sweeps the rate instead of typing it |
+| [KnobInput](knobInput.md) | the rate is a live parameter in a control panel |
 
 ---
 

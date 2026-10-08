@@ -17,8 +17,8 @@
 
 | Reach for | When |
 |---|---|
-| `KeyboardShortcut` | the chord is shown beside a command, not set |
-| `Kbd` | one key is rendered inline in prose |
+| `KeyboardShortcutText` | the chord is shown beside a command, not set |
+| `KbdText` | one key is rendered inline in prose |
 | [TextInput](textInput.md) | the value is a command name rather than a chord |
 
 ---

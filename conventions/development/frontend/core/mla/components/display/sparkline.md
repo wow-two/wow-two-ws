@@ -7,7 +7,7 @@
 
 ## Reach for it when
 
-- must show a direction beside a figure — in a table cell, a card, a [Stat](stat.md)
+- must show a direction beside a figure — in a table cell, a card, a [StatCard](statCard.md)
 - must expect no axes; a reader who needs values needs a real chart
 - should colour it by inheritance where it sits inside already-toned copy
 
@@ -17,10 +17,10 @@
 
 | Reach for | When |
 |---|---|
-| [Stat](stat.md) | the endpoint is the story and the shape is not |
-| [HeatmapCalendar](heatmapCalendar.md) | the series is per-day over a year |
-| [Gantt](gantt.md) | the marks are spans on a schedule |
-| [AudioWaveform](audioWaveform.md) | the bars are audio peaks the reader seeks through |
+| [StatCard](statCard.md) | the endpoint is the story and the shape is not |
+| [HeatmapCalendarGrid](heatmapCalendarGrid.md) | the series is per-day over a year |
+| [GanttTimeline](ganttTimeline.md) | the marks are spans on a schedule |
+| [AudioWaveformPreview](audioWaveformPreview.md) | the bars are audio peaks the reader seeks through |
 
 ---
 

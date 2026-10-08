@@ -17,10 +17,10 @@
 
 | Reach for | When |
 |---|---|
-| [ChatComposer](chatComposer.md) | the text is a message with a send, not a document |
+| [ChatComposerInput](chatComposerInput.md) | the text is a message with a send, not a document |
 | [CodeEditor](codeEditor.md) | the text is source and there is nothing to preview |
 | [TextAreaInput](textAreaInput.md) | the text carries no formatting at all |
-| `Code` | the markdown is rendered read-only elsewhere |
+| `CodeText` | the markdown is rendered read-only elsewhere |
 
 ---
 

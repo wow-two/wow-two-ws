@@ -22,6 +22,6 @@
 | Reach for | When |
 |---|---|
 | [Navbar](navbar.md) | a header bar is the whole frame the page needs |
-| [TwoColumn](twoColumn.md) | the frame is an aside and a main column, nothing more |
+| [TwoColumnLayout](twoColumnLayout.md) | the frame is an aside and a main column, nothing more |
 | `Drawer` | the panel is an overlay, not a region of the frame |
 | [Section](section.md) | the page is bands of content rather than an app frame |

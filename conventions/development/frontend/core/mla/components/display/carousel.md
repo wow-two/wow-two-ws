@@ -17,9 +17,9 @@
 
 | Reach for | When |
 |---|---|
-| [Tabs](tabs.md) | the panels are named alternatives rather than an ordered run |
-| [Marquee](marquee.md) | the strip scrolls itself and is never stepped |
-| [List](list.md) | every item should be visible at once |
+| [TabsGroup](tabsGroup.md) | the panels are named alternatives rather than an ordered run |
+| [MarqueeGroup](marqueeGroup.md) | the strip scrolls itself and is never stepped |
+| [ListGroup](listGroup.md) | every item should be visible at once |
 
 ---
 

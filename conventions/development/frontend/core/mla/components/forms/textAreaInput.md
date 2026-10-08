@@ -8,7 +8,7 @@
 ## Reach for it when
 
 - must collect text that runs past one line — a note, a description, a reason
-- should pair it with [CharacterCount](characterCount.md) wherever a cap is enforced
+- should pair it with [CharacterCountCallout](characterCountCallout.md) wherever a cap is enforced
 
 ---
 
@@ -18,7 +18,7 @@
 |---|---|
 | [TextInput](textInput.md) | the value is a single line and Enter should submit |
 | [MarkdownEditor](markdownEditor.md) | the text carries formatting and wants a preview |
-| [ChatComposer](chatComposer.md) | the text is a message and the box owns the send |
+| [ChatComposerInput](chatComposerInput.md) | the text is a message and the box owns the send |
 | [CodeEditor](codeEditor.md) | the text is source and needs a gutter and Tab handling |
 
 ---

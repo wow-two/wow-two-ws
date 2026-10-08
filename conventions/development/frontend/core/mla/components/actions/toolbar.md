@@ -9,8 +9,8 @@
 
 - must reach for it for an editor toolbar, action bar, or formatting strip
 - must reach for it when tabbing past the strip costs one stop, not one per button
-- must not nest a [ToggleButtonGroup](toggleButtonGroup.md) in it — items are flat, roving is not shared
-- should compose an existing [Button](button.md) or [ToggleButton](toggleButton.md) through the item's `asChild`
+- must not nest a [ToggleGroup](toggleGroup.md) in it — items are flat, roving is not shared
+- should compose an existing [Button](button.md) or [ToggleInput](toggleInput.md) through the item's `asChild`
 
 ---
 
@@ -19,9 +19,9 @@
 | Reach for | When |
 |---|---|
 | [ButtonGroup](buttonGroup.md) | the buttons only need to look connected, each keeping its tab stop |
-| [ToggleButtonGroup](toggleButtonGroup.md) | the strip owns a selected value |
+| [ToggleGroup](toggleGroup.md) | the strip owns a selected value |
 | `Menubar` | the items open menus rather than run commands → [nav](../../constructs/visual/nav.md) |
-| [SpeedDial](speedDial.md) | the commands float over the content |
+| [SpeedDialGroup](speedDialGroup.md) | the commands float over the content |
 
 ---
 

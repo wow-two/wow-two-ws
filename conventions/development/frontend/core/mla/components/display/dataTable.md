@@ -18,9 +18,9 @@
 | Reach for | When |
 |---|---|
 | [Table](table.md) | the cells are too irregular for a column descriptor |
-| [DataGrid](dataGrid.md) | the reader edits cells rather than reading them |
+| [DataGridEditor](dataGridEditor.md) | the reader edits cells rather than reading them |
 | `Pagination` | the set is paged — the table sorts, it does not page |
-| [Sortable](sortable.md) | rows are dragged into a new order rather than sorted by a column |
+| [SortableGroup](sortableGroup.md) | rows are dragged into a new order rather than sorted by a column |
 
 ---
 

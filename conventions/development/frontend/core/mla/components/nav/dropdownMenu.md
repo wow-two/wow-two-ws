@@ -21,7 +21,7 @@
 | [ContextMenu](contextMenu.md) | the gesture is a right-click over a region, not a button |
 | [Menubar](menubar.md) | several triggers share one strip and one open slot |
 | [NavigationMenu](navigationMenu.md) | the trigger drops a rich panel, not a list of rows |
-| [CommandPalette](commandPalette.md) | the list is long and the reader would rather search it |
+| [CommandPaletteModal](commandPaletteModal.md) | the list is long and the reader would rather search it |
 
 ---
 

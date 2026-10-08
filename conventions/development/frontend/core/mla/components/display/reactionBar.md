@@ -18,7 +18,7 @@
 |---|---|
 | [Tag](tag.md) | the pills are labels the reader removes |
 | [AvatarGroup](avatarGroup.md) | the strip counts people rather than reactions |
-| `ToggleButtonGroup` | the row owns one selection rather than many counts |
+| `ToggleGroup` | the row owns one selection rather than many counts |
 
 ---
 

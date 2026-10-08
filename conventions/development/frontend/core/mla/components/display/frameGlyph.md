@@ -9,7 +9,7 @@
 
 - must preview a QR eye, a scanner corner, or a viewfinder in a preset picker
 - must drive it from the numbers the real render uses, never set by eye
-- should mount it inside an `OptionTile` when it labels a choice
+- should mount it inside an `OptionTilePicker` when it labels a choice
 
 ---
 

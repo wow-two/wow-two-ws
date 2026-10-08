@@ -8,7 +8,7 @@
 ## Reach for it when
 
 - must reach for it when the toggle applies at once, with no submit behind it
-- must reach for it whenever a bare [Switch](switch.md) needs a visible label
+- must reach for it whenever a bare [SwitchInput](switchInput.md) needs a visible label
 - should set `side="right"` for a settings row — label leading, switch trailing
 
 ---
@@ -17,6 +17,6 @@
 
 | Reach for | When |
 |---|---|
-| [Switch](switch.md) | a surrounding [Field](field.md) supplies the label |
+| [SwitchInput](switchInput.md) | a surrounding [Field](field.md) supplies the label |
 | [CheckboxField](checkboxField.md) | the value is posted with a form rather than applied at once |
-| `ToggleButton` | the press is a toolbar mode, not a stored setting |
+| `ToggleInput` | the press is a toolbar mode, not a stored setting |

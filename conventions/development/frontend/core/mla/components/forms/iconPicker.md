@@ -20,7 +20,7 @@
 | [EmojiPicker](emojiPicker.md) | the glyphs are emoji, and the catalogue is the whole point |
 | [ColorSwatchPicker](colorSwatchPicker.md) | the grid holds colours rather than glyphs |
 | [FontPicker](fontPicker.md) | the choice is a typeface |
-| [Select](select.md) | the options read better as labels than as a grid |
+| [SelectPicker](selectPicker.md) | the options read better as labels than as a grid |
 
 ---
 

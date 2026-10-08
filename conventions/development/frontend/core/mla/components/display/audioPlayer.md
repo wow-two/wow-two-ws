@@ -17,7 +17,7 @@
 
 | Reach for | When |
 |---|---|
-| [AudioWaveform](audioWaveform.md) | only the waveform is wanted, with no transport |
+| [AudioWaveformPreview](audioWaveformPreview.md) | only the waveform is wanted, with no transport |
 | [VideoPlayer](videoPlayer.md) | the media has picture as well as sound |
 | `<audio controls>` | the browser's own chrome is acceptable |
 

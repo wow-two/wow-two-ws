@@ -22,7 +22,7 @@
 | [AppShell](appShell.md) | the frame also owns a sidebar, a main column and a footer |
 | [Section](section.md) | the band is page content rather than a header |
 | `Toolbar` | the strip is commands sharing one tab stop |
-| [Container](container.md) | no band, height or border is wanted |
+| [ContainerLayout](containerLayout.md) | no band, height or border is wanted |
 
 ---
 

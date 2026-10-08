@@ -17,11 +17,11 @@
 
 | Reach for | When |
 |---|---|
-| [Fab](fab.md) | the floating button runs a real command rather than scrolling |
-| [SpeedDial](speedDial.md) | more than one command needs the same floating anchor |
+| [FabButton](fabButton.md) | the floating button runs a real command rather than scrolling |
+| [SpeedDialGroup](speedDialGroup.md) | more than one command needs the same floating anchor |
 
 ---
 
 ## Values
 
-- should keep the `bottom-right` anchor; move it only when it collides with a [Fab](fab.md)
+- should keep the `bottom-right` anchor; move it only when it collides with a [FabButton](fabButton.md)

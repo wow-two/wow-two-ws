@@ -16,9 +16,9 @@
 
 | Reach for | When |
 |---|---|
-| [Image](image.md) | the file is a picture rather than a paged document |
+| [ImagePreview](imagePreview.md) | the file is a picture rather than a paged document |
 | [DiffViewer](diffViewer.md) | two texts are compared rather than one read |
-| `Link` | the document should open in its own tab |
+| `LinkItem` | the document should open in its own tab |
 
 ---
 

@@ -17,8 +17,8 @@
 
 | Reach for | When |
 |---|---|
-| [Combobox](combobox.md) | the typing narrows options and one of them becomes the value |
-| `CommandPalette` | the query runs commands rather than filters content |
+| [ComboboxPicker](comboboxPicker.md) | the typing narrows options and one of them becomes the value |
+| `CommandPaletteModal` | the query runs commands rather than filters content |
 | [TextInput](textInput.md) | the value is stored rather than searched with |
 
 ---

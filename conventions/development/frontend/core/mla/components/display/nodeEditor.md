@@ -16,8 +16,8 @@
 
 | Reach for | When |
 |---|---|
-| [Tree](tree.md) | the graph is a hierarchy with one parent per node |
-| [Gantt](gantt.md) | the nodes are dated tasks and the edges are dependencies |
+| [TreeViewer](treeViewer.md) | the graph is a hierarchy with one parent per node |
+| [GanttTimeline](ganttTimeline.md) | the nodes are dated tasks and the edges are dependencies |
 | [Timeline](timeline.md) | the nodes sit in one order on one rail |
 
 ---

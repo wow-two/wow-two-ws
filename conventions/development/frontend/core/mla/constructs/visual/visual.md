@@ -1,6 +1,6 @@
 # Visual constructs
 
-*Last updated: 2026-09-10*
+*Last updated: 2026-10-01*
 
 > The index of the **kinds that render** — what each kind is, what it composes with, what it is for.
 > Purpose — pick the kind before the name; the kind fixes the suffix, the group folder, and the contract shape.
@@ -127,8 +127,8 @@ admits it; none owns it, so the reader takes the kind from the folder and the do
 - must keep primitives independent of styled components and domain capabilities.
 
 ```txt
-✅ Tabs → TabsPanel → ContentView; JsonEditor → mode view → TextAreaInput
-❌ DataTable → product API client; TabsPanel → its own Tabs root
+✅ TabsGroup → TabsGroupPanel → ContentView; JsonEditor → mode view → TextAreaInput
+❌ DataTable → product API client; TabsGroupPanel → its own TabsGroup root
 ```
 
 ---

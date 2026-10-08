@@ -17,10 +17,10 @@
 
 | Reach for | When |
 |---|---|
-| [ActivityFeed](activityFeed.md) | the entries are actor-verb-target sentences with avatars |
+| [ActivityTimeline](activityTimeline.md) | the entries are actor-verb-target sentences with avatars |
 | [StepCard](stepCard.md) | the steps are instructions in a row rather than events on a rail |
-| [Gantt](gantt.md) | each entry spans a range and the ranges are compared |
-| [List](list.md) | the order carries no time |
+| [GanttTimeline](ganttTimeline.md) | each entry spans a range and the ranges are compared |
+| [ListGroup](listGroup.md) | the order carries no time |
 
 ---
 

@@ -19,7 +19,7 @@
 |---|---|
 | [Heading](heading.md) | the line is the section's outline entry |
 | [Text](text.md) | a single `color` role already says what the copy means |
-| [Mark](mark.md) | the tint marks a match rather than decorating a headline |
+| [MarkText](markText.md) | the tint marks a match rather than decorating a headline |
 
 ---
 

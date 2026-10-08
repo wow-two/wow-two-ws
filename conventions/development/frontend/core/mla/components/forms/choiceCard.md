@@ -17,9 +17,9 @@
 
 | Reach for | When |
 |---|---|
-| [Radio](radio.md) | the option is a bare label with nothing to explain |
-| `OptionTile` | the tile runs a command instead of setting a value |
-| `ToggleButtonGroup` | the choices are short and fit one strip |
+| [RadioInput](radioInput.md) | the option is a bare label with nothing to explain |
+| `OptionTilePicker` | the tile runs a command instead of setting a value |
+| `ToggleGroup` | the choices are short and fit one strip |
 | `Card` | the card is content and nothing is being chosen |
 
 ---

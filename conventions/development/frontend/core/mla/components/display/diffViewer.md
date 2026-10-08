@@ -16,6 +16,6 @@
 
 | Reach for | When |
 |---|---|
-| [Code](code.md) | one version is shown and nothing is compared |
+| [CodeText](codeText.md) | one version is shown and nothing is compared |
 | [Table](table.md) | the changes are rows of fields rather than lines of text |
 | [Timeline](timeline.md) | the story is the sequence of revisions, not one comparison |

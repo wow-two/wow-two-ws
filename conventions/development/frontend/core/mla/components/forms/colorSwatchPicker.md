@@ -18,7 +18,7 @@
 | Reach for | When |
 |---|---|
 | [ColorPicker](colorPicker.md) | any colour is allowed, not only the palette |
-| [ColorSwatch](colorSwatch.md) | one chip is shown and nothing is chosen |
+| [ColorSwatchPreview](colorSwatchPreview.md) | one chip is shown and nothing is chosen |
 | [RadioGroup](radioGroup.md) | the options carry labels and the colour is decoration |
 | [ChoiceCard](choiceCard.md) | each option needs a title and description |
 

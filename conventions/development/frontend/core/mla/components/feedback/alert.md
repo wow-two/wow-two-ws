@@ -21,7 +21,7 @@
 | [Banner](banner.md) | the condition is app-wide and the strip pins across the top |
 | [Callout](callout.md) | the note is a doc-style aside inside prose |
 | [Toast](toast.md) | the note is transient and follows an action just taken |
-| `FormErrorMessage` | the message belongs to one field |
+| `FieldErrorCallout` | the message belongs to one field |
 
 ---
 

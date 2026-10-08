@@ -20,7 +20,7 @@
 | [FeedbackToastHost](feedbackToastHost.md) | notices are published headlessly through `notify()` |
 | [UndoBar](undoBar.md) | the report is one reversible act with a countdown |
 | [Banner](banner.md) | the condition persists and must not scroll away |
-| [NotificationCenter](notificationCenter.md) | the notices are browsed later rather than caught live |
+| [NotificationCenterGroup](notificationCenterGroup.md) | the notices are browsed later rather than caught live |
 
 ---
 

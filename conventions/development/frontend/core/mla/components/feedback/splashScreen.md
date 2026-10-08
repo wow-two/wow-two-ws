@@ -19,7 +19,7 @@
 |---|---|
 | [LoadingState](loadingState.md) | one section, not the whole app, is waiting |
 | [LoadingOverlay](loadingOverlay.md) | a running app blocks a region during a long task |
-| [Skeleton](skeleton.md) | the shell is up and only its data is loading |
+| [SkeletonState](skeletonState.md) | the shell is up and only its data is loading |
 
 ---
 

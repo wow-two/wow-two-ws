@@ -18,5 +18,5 @@
 | Reach for | When |
 |---|---|
 | [AppShell](appShell.md) | the scrolling region is the shell's own content area |
-| [Box](box.md) | the overflow classes are written directly |
-| [PullToRefresh](pullToRefresh.md) | the scrolling region also refreshes on a drag |
+| [BoxLayout](boxLayout.md) | the overflow classes are written directly |
+| [PullToRefreshLayout](pullToRefreshLayout.md) | the scrolling region also refreshes on a drag |

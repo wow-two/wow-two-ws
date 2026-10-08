@@ -18,5 +18,5 @@
 | Reach for | When |
 |---|---|
 | [StatusIndicator](statusIndicator.md) | the subject is a service and the report carries copy |
-| `NotificationDot` | the dot marks unread content rather than a person |
+| `NotificationIndicator` | the dot marks unread content rather than a person |
 | [TypingIndicator](typingIndicator.md) | the person is composing right now |

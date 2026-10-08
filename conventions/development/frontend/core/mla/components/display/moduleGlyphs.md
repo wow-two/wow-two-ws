@@ -9,7 +9,7 @@
 
 - must preview a module shape in a picker — the QR fill styles, side by side
 - must pick the glyph that names the shape; each is its own component, not a variant
-- should mount them in an `OptionTileGroup` grid
+- should mount them in an `OptionTileGroupField` grid
 
 ---
 

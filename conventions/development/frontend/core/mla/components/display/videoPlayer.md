@@ -18,5 +18,5 @@
 | Reach for | When |
 |---|---|
 | [AudioPlayer](audioPlayer.md) | the media is sound only |
-| [Image](image.md) | a still frame is enough |
+| [ImagePreview](imagePreview.md) | a still frame is enough |
 | `<iframe>` | the video is hosted and played by a third party |

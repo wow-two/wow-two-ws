@@ -17,8 +17,8 @@
 
 | Reach for | When |
 |---|---|
-| [MultiSelect](multiSelect.md) | the values come from a known set the reader picks from |
-| [Combobox](combobox.md) | the reader types to narrow a list and picks exactly one |
+| [MultiSelectPicker](multiSelectPicker.md) | the values come from a known set the reader picks from |
+| [ComboboxPicker](comboboxPicker.md) | the reader types to narrow a list and picks exactly one |
 | [CheckboxGroup](checkboxGroup.md) | the set is short, fixed, and better shown unfolded |
 | `Tag` | the chips are rendered read-only |
 

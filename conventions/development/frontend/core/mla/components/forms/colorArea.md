@@ -17,6 +17,6 @@
 | Reach for | When |
 |---|---|
 | [ColorPicker](colorPicker.md) | the whole colour is being picked, panel and trigger included |
-| [ColorWheel](colorWheel.md) | the axis being edited is hue, on a ring |
-| [ColorSlider](colorSlider.md) | one channel is edited on a strip, hue included |
+| [ColorWheelInput](colorWheelInput.md) | the axis being edited is hue, on a ring |
+| [ColorSliderInput](colorSliderInput.md) | one channel is edited on a strip, hue included |
 | [ColorSwatchPicker](colorSwatchPicker.md) | the palette is fixed and the axes never move |

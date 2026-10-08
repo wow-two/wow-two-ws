@@ -1,6 +1,6 @@
 # Display
 
-*Last updated: 2026-09-10*
+*Last updated: 2026-10-01*
 
 > A render of content the component does not own — it shows what it is given and changes nothing.
 > Purpose — the largest kind gets one rule set: take data in, render it, emit intent, never mutate.
@@ -89,7 +89,7 @@
 - must preserve each composed widget's semantics and avoid nested interactive elements with competing activation.
 
 ```txt
-✅ EventCalendar → MonthView; DataTable → empty row; Tabs → TabsPanel
+✅ EventCalendarViewer → MonthView; DataTable → empty row; TabsGroup → TabsGroupPanel
 ❌ DataTable → a product-specific API client
 ```
 

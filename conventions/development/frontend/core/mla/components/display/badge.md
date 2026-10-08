@@ -9,7 +9,7 @@
 
 - must label a row or a card with a state, a category, or a plan name
 - must stay inert; a pill the reader operates is a [Tag](tag.md)
-- should sit in a [MetaInline](metaInline.md) row when several share a line
+- should sit in a [MetaInlineText](metaInlineText.md) row when several share a line
 
 ---
 
@@ -20,7 +20,7 @@
 | [Tag](tag.md) | the pill can be removed, so it carries a close button |
 | [CountBadge](countBadge.md) | the pill's content is a number that caps at a maximum |
 | [Status](status.md) | a coloured dot beside a word says it better than a filled pill |
-| [MetricChip](metricChip.md) | the chip pairs a label with a value and a leading icon |
+| [MetricBadge](metricBadge.md) | the chip pairs a label with a value and a leading icon |
 | `Alert` | the message is a severity-tinted callout at paragraph scale |
 
 ---

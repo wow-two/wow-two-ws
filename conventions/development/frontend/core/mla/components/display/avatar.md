@@ -18,7 +18,7 @@
 | Reach for | When |
 |---|---|
 | [AvatarGroup](avatarGroup.md) | several avatars stack with a `+N` overflow |
-| [Image](image.md) | the picture is content rather than an identity |
+| [ImagePreview](imagePreview.md) | the picture is content rather than an identity |
 | [Badge](badge.md) | the identity is better carried by a word than a face |
 
 ---

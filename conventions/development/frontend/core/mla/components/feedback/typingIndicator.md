@@ -19,7 +19,7 @@
 |---|---|
 | [PresenceIndicator](presenceIndicator.md) | the report is the person's connection state |
 | [InlineSpinner](inlineSpinner.md) | the wait is a request, not a person |
-| [Skeleton](skeleton.md) | the incoming message's shape is already known |
+| [SkeletonState](skeletonState.md) | the incoming message's shape is already known |
 
 ---
 

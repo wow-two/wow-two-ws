@@ -19,7 +19,7 @@
 |---|---|
 | `HoverCard` | the hover previews a card of content rather than a label |
 | `Popover` | the panel holds a control the reader must reach |
-| [KeyboardShortcut](keyboardShortcut.md) | the label is only the accelerator for a command |
+| [KeyboardShortcutText](keyboardShortcutText.md) | the label is only the accelerator for a command |
 
 ---
 

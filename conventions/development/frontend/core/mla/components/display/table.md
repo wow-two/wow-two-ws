@@ -18,9 +18,9 @@
 | Reach for | When |
 |---|---|
 | [DataTable](dataTable.md) | the rows come from data and a `columns` descriptor covers them |
-| [DataGrid](dataGrid.md) | the reader edits cells in place |
-| [DescriptionList](descriptionList.md) | the table is one record's properties, not many records |
-| [List](list.md) | each row has a single field |
+| [DataGridEditor](dataGridEditor.md) | the reader edits cells in place |
+| [DescriptionGroup](descriptionGroup.md) | the table is one record's properties, not many records |
+| [ListGroup](listGroup.md) | each row has a single field |
 
 ---
 

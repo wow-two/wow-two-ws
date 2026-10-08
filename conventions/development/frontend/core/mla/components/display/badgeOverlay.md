@@ -17,7 +17,7 @@
 
 | Reach for | When |
 |---|---|
-| [NotificationDot](notificationDot.md) | the dot's own `position` already pins it to the parent |
+| [NotificationIndicator](notificationIndicator.md) | the dot's own `position` already pins it to the parent |
 | [AvatarGroup](avatarGroup.md) | the thing stacked on the avatar is another avatar |
 
 ---

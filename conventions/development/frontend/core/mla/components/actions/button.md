@@ -18,10 +18,10 @@
 
 | Reach for | When |
 |---|---|
-| [Link](link.md) | the trigger moves to a destination instead of running a command |
-| [ToggleButton](toggleButton.md) | the press state persists and is read back as a mode |
+| [LinkItem](linkItem.md) | the trigger moves to a destination instead of running a command |
+| [ToggleInput](toggleInput.md) | the press state persists and is read back as a mode |
 | [CopyButton](copyButton.md) | the command is a clipboard write |
-| [Fab](fab.md) | the command is the screen's one floating action |
+| [FabButton](fabButton.md) | the command is the screen's one floating action |
 | [Toolbar](toolbar.md) | the buttons share one tab stop with arrow-key movement |
 
 ---

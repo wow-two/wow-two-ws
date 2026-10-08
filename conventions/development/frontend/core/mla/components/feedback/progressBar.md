@@ -17,7 +17,7 @@
 
 | Reach for | When |
 |---|---|
-| [ProgressCircle](progressCircle.md) | the report has to fit a tile, a button, or an avatar |
+| [ProgressCircleIndicator](progressCircleIndicator.md) | the report has to fit a tile, a button, or an avatar |
 | [MeterBar](meterBar.md) | the number is a level with a bad zone, not a task |
-| [ProgressSteps](progressSteps.md) | the work is named stages rather than a percentage |
+| [ProgressStepsIndicator](progressStepsIndicator.md) | the work is named stages rather than a percentage |
 | [Spinner](spinner.md) | no fraction is knowable and none ever will be |

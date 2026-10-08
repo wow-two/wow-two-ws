@@ -1,6 +1,6 @@
 # Panel
 
-*Last updated: 2026-09-10*
+*Last updated: 2026-10-01*
 
 > One pane of a composite that owns it — the composite positions it and decides when it shows.
 > Purpose — a compound root keeps its regions as named parts instead of arbitrary children.
@@ -14,7 +14,7 @@
 - must be one of two or more parts, or it folds back into the root ([compound](../compound/compound.md)).
 
 ```txt
-✅ TabsPanel · StepperPanel · ResizablePanel
+✅ TabsGroupPanel · StepperGroupPanel · ResizablePanel
 ❌ FilterPanel             (usable anywhere — that is a display, or an overlay if it floats)
 ```
 
@@ -24,7 +24,7 @@
 
 ### Group
 
-- must sit in its root's folder, beside the root file — `display/tabs/TabsPanel.vue`.
+- must sit in its root's folder, beside the root file — `display/tabsGroup/TabsGroupPanel.vue`.
 - must be exported both flat and attached as `Root.Panel` ([compound](../compound/compound.md)).
 
 ### Folder
@@ -32,8 +32,8 @@
 - must not take a folder of its own — a compound subpart is not a component folder.
 
 ```txt
-✅ display/tabs/{Tabs.vue, TabsList.vue, TabsTab.vue, TabsPanel.vue, TabsContext.ts, index.ts}
-❌ display/tabsPanel/TabsPanel.vue        (a subpart split away from the root that owns it)
+✅ display/tabsGroup/{TabsGroup.vue, TabsGroupList.vue, TabsGroupTab.vue, TabsGroupPanel.vue, index.ts}
+❌ display/tabsGroupPanel/TabsGroupPanel.vue   (a subpart split away from the root that owns it)
 ```
 
 ---

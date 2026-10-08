@@ -18,7 +18,7 @@
 | [JsonEditor](jsonEditor.md) | the value is JSON and must parse before it commits |
 | [MarkdownEditor](markdownEditor.md) | the value is prose and the author wants a preview |
 | [TextAreaInput](textAreaInput.md) | the text needs no gutter and no Tab handling |
-| `Code` | the source is read and never edited |
+| `CodeText` | the source is read and never edited |
 
 ---
 

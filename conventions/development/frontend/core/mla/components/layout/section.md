@@ -9,7 +9,7 @@
 
 - must break a page into bands, each with its own vertical rhythm
 - must tint the band behind a centred column
-- should reach for it where a [Container](container.md) alone leaves the band bare
+- should reach for it where a [ContainerLayout](containerLayout.md) alone leaves the band bare
 
 ---
 
@@ -17,10 +17,10 @@
 
 | Reach for | When |
 |---|---|
-| [Container](container.md) | only the width cap is wanted, with no band behind it |
+| [ContainerLayout](containerLayout.md) | only the width cap is wanted, with no band behind it |
 | [Navbar](navbar.md) | the band is a header bar with a start, centre and end |
-| [Frame](frame.md) | the box is contained rather than edge to edge |
-| [Surface](surface.md) | the recipe wraps content that is not a page band |
+| [FrameLayout](frameLayout.md) | the box is contained rather than edge to edge |
+| [SurfaceLayout](surfaceLayout.md) | the recipe wraps content that is not a page band |
 
 ---
 

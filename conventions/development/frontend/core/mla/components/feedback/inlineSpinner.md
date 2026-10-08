@@ -19,7 +19,7 @@
 |---|---|
 | [Spinner](spinner.md) | the mark stands alone and the caller writes its own copy |
 | [LoadingState](loadingState.md) | a whole section is waiting and centres its report |
-| [Skeleton](skeleton.md) | the unloaded shape is worth drawing rather than labelling |
+| [SkeletonState](skeletonState.md) | the unloaded shape is worth drawing rather than labelling |
 | [TypingIndicator](typingIndicator.md) | a person is composing, not a request running |
 
 ---

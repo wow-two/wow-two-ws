@@ -1,6 +1,6 @@
 # Feedback
 
-*Last updated: 2026-09-10*
+*Last updated: 2026-10-01*
 
 > A report of what the system just did or is doing — the outcome of an action, not the content of a page.
 > Purpose — outcome reporting is one kind, so severity, dismissal, and live-region wiring are decided once.
@@ -18,7 +18,7 @@
 ```txt
 ✅ Alert · Banner · Callout · Toast · UndoBar
 ❌ Badge                  (a category chip on content — a display)
-❌ Skeleton               (it replaces a region's content — a state, filed in this folder by case)
+❌ SkeletonState          (it replaces a region's content — a state, filed in this folder by case)
 ❌ ProgressBar            (a bare mark with no copy — an indicator)
 ```
 

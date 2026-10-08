@@ -19,7 +19,7 @@
 |---|---|
 | [ReactionPicker](reactionPicker.md) | the row is a handful of quick reactions on a message |
 | [IconPicker](iconPicker.md) | the glyphs are UI icons rather than emoji |
-| [EmojiSizeControl](emojiSizeControl.md) | the glyph is already chosen and only its scale moves |
+| [EmojiSizePicker](emojiSizePicker.md) | the glyph is already chosen and only its scale moves |
 | `ReactionBar` | the strip counts existing reactions rather than picking one |
 
 ---

@@ -18,10 +18,10 @@
 | Reach for | When |
 |---|---|
 | [Heading](heading.md) | the line holds a position in the document outline |
-| [Quote](quote.md) | the copy is quoted from somewhere else |
-| [Code](code.md) | the run is code rather than prose |
-| [Mark](mark.md) | the run is a highlighted match inside other copy |
-| [Eyebrow](eyebrow.md) | the line is an uppercase kicker over a block |
+| [QuoteText](quoteText.md) | the copy is quoted from somewhere else |
+| [CodeText](codeText.md) | the run is code rather than prose |
+| [MarkText](markText.md) | the run is a highlighted match inside other copy |
+| [EyebrowText](eyebrowText.md) | the line is an uppercase kicker over a block |
 
 ---
 

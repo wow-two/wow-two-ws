@@ -2,7 +2,7 @@
 
 *Last updated: 2026-09-10*
 
-> The typed date — a `YYYY-MM-DD` text input with a [Calendar](calendar.md) on its trailing button.
+> The typed date — a `YYYY-MM-DD` text input with a [CalendarPicker](calendarPicker.md) on its trailing button.
 > What a control is → [control](../../constructs/visual/control.md).
 
 ## Reach for it when
@@ -20,7 +20,7 @@
 | [DatePicker](datePicker.md) | the date is browsed for, not known |
 | [DateTimeInput](dateTimeInput.md) | a time of day rides with the date |
 | [TimeInput](timeInput.md) | only the time of day is captured |
-| [Calendar](calendar.md) | the grid should stay open on the page |
+| [CalendarPicker](calendarPicker.md) | the grid should stay open on the page |
 
 ---
 

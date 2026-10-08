@@ -19,7 +19,7 @@
 | [TextInput](textInput.md) | the value is a slug, a handle, or a path fragment |
 | [EmailInput](emailInput.md) | the identifier is an address |
 | [TagsInput](tagsInput.md) | several links go into one field |
-| `Link` | the URL is rendered as a destination rather than collected |
+| `LinkItem` | the URL is rendered as a destination rather than collected |
 
 ---
 

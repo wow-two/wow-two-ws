@@ -17,7 +17,7 @@
 
 | Reach for | When |
 |---|---|
-| [Select](select.md) | the options are words and the preview buys nothing |
-| [Combobox](combobox.md) | the list is long enough to need typeahead filtering |
+| [SelectPicker](selectPicker.md) | the options are words and the preview buys nothing |
+| [ComboboxPicker](comboboxPicker.md) | the list is long enough to need typeahead filtering |
 | [IconPicker](iconPicker.md) | the choice is a glyph rather than a face |
 | [GradientPicker](gradientPicker.md) | the choice is a fill rather than a typeface |

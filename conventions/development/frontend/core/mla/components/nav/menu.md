@@ -20,7 +20,7 @@
 | [DropdownMenu](dropdownMenu.md) | a visible button opens it and takes focus back on close |
 | [ContextMenu](contextMenu.md) | a right-click or long-press opens it at the pointer |
 | [Menubar](menubar.md) | several menus share one strip and one open slot |
-| [CommandPalette](commandPalette.md) | the list is long enough that the reader would search it |
+| [CommandPaletteModal](commandPaletteModal.md) | the list is long enough that the reader would search it |
 
 ---
 

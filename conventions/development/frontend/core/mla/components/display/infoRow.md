@@ -16,9 +16,9 @@
 
 | Reach for | When |
 |---|---|
-| [DescriptionList](descriptionList.md) | there are many pairs and they want a semantic `<dl>` |
-| [MetricChip](metricChip.md) | the pair is one member of an inline stat strip |
-| [Stat](stat.md) | the value is a headline metric with its own tile |
+| [DescriptionGroup](descriptionGroup.md) | there are many pairs and they want a semantic `<dl>` |
+| [MetricBadge](metricBadge.md) | the pair is one member of an inline stat strip |
+| [StatCard](statCard.md) | the value is a headline metric with its own tile |
 | [Table](table.md) | the pairs repeat per record and want columns |
 
 ---

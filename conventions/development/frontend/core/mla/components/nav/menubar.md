@@ -19,7 +19,7 @@
 |---|---|
 | [DropdownMenu](dropdownMenu.md) | one trigger owns the only menu |
 | [NavigationMenu](navigationMenu.md) | the strip leads to places and opens content panels |
-| [CommandPalette](commandPalette.md) | the same commands are found faster by typing |
+| [CommandPaletteModal](commandPaletteModal.md) | the same commands are found faster by typing |
 
 ---
 

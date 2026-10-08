@@ -20,7 +20,7 @@
 | [CronInput](cronInput.md) | the reader writes cron, and the consumer is a job runner |
 | [DateRangePicker](dateRangePicker.md) | the value is one span, not a repetition |
 | [DateTimeInput](dateTimeInput.md) | the value is a single moment |
-| `EventCalendar` | occurrences are read rather than defined |
+| `EventCalendarViewer` | occurrences are read rather than defined |
 
 ---
 

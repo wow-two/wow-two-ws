@@ -17,9 +17,9 @@
 
 | Reach for | When |
 |---|---|
-| [NotificationDot](notificationDot.md) | only the fact that something is new matters, not how many |
+| [NotificationIndicator](notificationIndicator.md) | only the fact that something is new matters, not how many |
 | [Badge](badge.md) | the pill's content is a word rather than a count |
-| [Stat](stat.md) | the number is a headline metric rather than a marker |
+| [StatCard](statCard.md) | the number is a headline metric rather than a marker |
 
 ---
 

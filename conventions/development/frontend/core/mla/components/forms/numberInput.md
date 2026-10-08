@@ -18,8 +18,8 @@
 
 | Reach for | When |
 |---|---|
-| [Slider](slider.md) | the value is approximate and the range matters more than the digits |
-| [Knob](knob.md) | the parameter is continuous and sits in a dense control panel |
+| [SliderInput](sliderInput.md) | the value is approximate and the range matters more than the digits |
+| [KnobInput](knobInput.md) | the parameter is continuous and sits in a dense control panel |
 | [CurrencyInput](currencyInput.md) | the number is money and needs a symbol |
 | [PercentInput](percentInput.md) | the number is a rate and needs a `%` |
 | [PinInput](pinInput.md) | the digits are a code, not a quantity |

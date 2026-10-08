@@ -17,7 +17,7 @@
 
 | Reach for | When |
 |---|---|
-| `Stat` | the figure itself is the subject and the delta rides inside it |
+| `StatCard` | the figure itself is the subject and the delta rides inside it |
 | `Sparkline` | the shape of the series matters, not one delta |
 | [MeterBar](meterBar.md) | the value is a level against a threshold |
 

@@ -16,8 +16,8 @@
 
 | Reach for | When |
 |---|---|
-| [EventCalendar](eventCalendar.md) | the reader browses dates rather than resources |
-| [Gantt](gantt.md) | the axis spans days and the bars carry dependencies |
+| [EventCalendarViewer](eventCalendarViewer.md) | the reader browses dates rather than resources |
+| [GanttTimeline](ganttTimeline.md) | the axis spans days and the bars carry dependencies |
 | [Table](table.md) | the bookings are read as rows rather than placed on an axis |
 
 ---

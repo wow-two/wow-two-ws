@@ -18,4 +18,4 @@
 |---|---|
 | [FeatureCard](featureCard.md) | the tiles are unordered capabilities |
 | [Timeline](timeline.md) | the steps are events on a rail, not tiles in a row |
-| `Stepper` | the reader is moving through the steps rather than reading them |
+| `StepperGroup` | the reader is moving through the steps rather than reading them |

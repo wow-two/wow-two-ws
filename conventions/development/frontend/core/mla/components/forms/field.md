@@ -22,5 +22,5 @@
 | [CheckboxField](checkboxField.md) | the control is a checkbox and the label sits beside the box |
 | [RadioField](radioField.md) | the control is a radio inside a [RadioGroup](radioGroup.md) |
 | [SwitchField](switchField.md) | the toggle applies at once instead of on submit |
-| [Fieldset](fieldset.md) + [Legend](legend.md) | several fields answer to one name |
-| [Label](label.md) alone | a compact row wants the name and no helper or error slot |
+| [FieldsetLayout](fieldsetLayout.md) + [LegendText](legendText.md) | several fields answer to one name |
+| [LabelText](labelText.md) alone | a compact row wants the name and no helper or error slot |

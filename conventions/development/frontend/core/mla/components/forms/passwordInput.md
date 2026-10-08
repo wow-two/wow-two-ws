@@ -8,7 +8,7 @@
 ## Reach for it when
 
 - must collect a secret the reader types — a password, a token, an API key
-- should pair it with [PasswordStrength](passwordStrength.md) on a create or reset flow
+- should pair it with [PasswordStrengthCallout](passwordStrengthCallout.md) on a create or reset flow
 
 ---
 
@@ -18,7 +18,7 @@
 |---|---|
 | [TextInput](textInput.md) | the value is not secret and needs no masking |
 | [PinInput](pinInput.md) | the secret is a short code entered one character per box |
-| `Snippet` | the secret is shown to be copied, not typed |
+| `SnippetText` | the secret is shown to be copied, not typed |
 
 ---
 

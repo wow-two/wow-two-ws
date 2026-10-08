@@ -19,4 +19,4 @@
 |---|---|
 | [ColorPicker](colorPicker.md) | the fill is one flat colour |
 | [ColorSwatchPicker](colorSwatchPicker.md) | the fill comes off a fixed palette |
-| [ColorSlider](colorSlider.md) | one channel of one colour is being edited |
+| [ColorSliderInput](colorSliderInput.md) | one channel of one colour is being edited |

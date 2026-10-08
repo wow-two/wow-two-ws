@@ -19,7 +19,7 @@
 |---|---|
 | [Avatar](avatar.md) | one identity is shown |
 | [ReactionBar](reactionBar.md) | the strip counts reactions rather than people |
-| [DescriptionList](descriptionList.md) | the people are listed with roles, not stacked |
+| [DescriptionGroup](descriptionGroup.md) | the people are listed with roles, not stacked |
 
 ---
 

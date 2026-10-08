@@ -19,4 +19,4 @@
 |---|---|
 | [EmojiPicker](emojiPicker.md) | any emoji is fair game, and search matters |
 | `ReactionBar` | the strip reports existing reactions and their counts |
-| `ToggleButtonGroup` | the row owns one selection rather than many independent ones |
+| `ToggleGroup` | the row owns one selection rather than many independent ones |

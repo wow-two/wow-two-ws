@@ -16,8 +16,8 @@
 
 | Reach for | When |
 |---|---|
-| [MessageList](messageList.md) | the surface is the main conversation, not one thread off it |
-| [CommentThread](commentThread.md) | the replies nest more than one level |
+| [MessageGroup](messageGroup.md) | the surface is the main conversation, not one thread off it |
+| [CommentThreadGroup](commentThreadGroup.md) | the replies nest more than one level |
 | `Drawer` | the panel should float over the page rather than sit beside it |
 
 ---

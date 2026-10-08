@@ -20,8 +20,8 @@
 | [FeatureCard](featureCard.md) | the box is a marketing feature tile with a tinted icon |
 | [PricingCard](pricingCard.md) | the box is a pricing tier with features and a call to action |
 | [StepCard](stepCard.md) | the box is a numbered step in a how-it-works row |
-| [Frame](../layout/frame.md) | the wrapper is reusable chrome rather than a content box |
-| [SectionHeader](sectionHeader.md) | the block needs a header without a box around it |
+| [FrameLayout](../layout/frameLayout.md) | the wrapper is reusable chrome rather than a content box |
+| [SectionHeading](sectionHeading.md) | the block needs a header without a box around it |
 
 ---
 

@@ -17,8 +17,8 @@
 
 | Reach for | When |
 |---|---|
-| [SectionHeader](sectionHeader.md) | the title arrives with a description and an actions row |
-| [Eyebrow](eyebrow.md) | the label is a tiny uppercase kicker above a block |
+| [SectionHeading](sectionHeading.md) | the title arrives with a description and an actions row |
+| [EyebrowText](eyebrowText.md) | the label is a tiny uppercase kicker above a block |
 | [Text](text.md) | the line is body copy and holds no outline position |
 | [GradientText](gradientText.md) | the words are a decorative display line, not an outline entry |
 

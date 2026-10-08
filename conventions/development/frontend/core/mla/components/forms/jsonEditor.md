@@ -19,7 +19,7 @@
 |---|---|
 | [CodeEditor](codeEditor.md) | the text is source and need not parse to commit |
 | [TextAreaInput](textAreaInput.md) | the value is free text that happens to look structured |
-| `Tree` | the structure is read and never edited |
+| `TreeViewer` | the structure is read and never edited |
 | `DiffViewer` | two versions are compared rather than edited |
 
 ---

@@ -19,7 +19,7 @@
 |---|---|
 | [ColorPicker](colorPicker.md) | the colour is dragged out of a panel rather than typed |
 | [ColorSwatchPicker](colorSwatchPicker.md) | the choice is a fixed palette |
-| [ColorSwatch](colorSwatch.md) | the hex is displayed and never edited |
+| [ColorSwatchPreview](colorSwatchPreview.md) | the hex is displayed and never edited |
 | [TextInput](textInput.md) | the string is not a colour and needs no swatch or parse |
 
 ---

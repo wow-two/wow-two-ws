@@ -18,7 +18,7 @@
 | Reach for | When |
 |---|---|
 | [Badge](badge.md) | the pill is inert and nothing removes it |
-| `ToggleButton` | the pill toggles a selection instead of being removed |
+| `ToggleInput` | the pill toggles a selection instead of being removed |
 | [ReactionBar](reactionBar.md) | the pills are emoji reactions with counts |
 
 ---

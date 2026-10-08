@@ -1,6 +1,6 @@
 # Constructs
 
-*Last updated: 2026-09-10*
+*Last updated: 2026-10-01*
 
 > What each role a frontend declares **is** — the role, the suffix it takes, the shape of its contract.
 > Purpose — the definition register; which one to reach for and with what values is
@@ -80,8 +80,8 @@ A name is built from three independent slots. Each answers a different question,
 - must coin a suffix only through the gate below (§ *Adding a new suffix*).
 
 ```txt
-✅ CodesListPage · AppShell · MonthView · TabsPanel · BottomSheet · JsonEditor · MeterBar
-✅ SelectInput · StackLayout · FabButton     (a known word still takes its kind)
+✅ CodesListPage · AppShell · MonthView · TabsGroupPanel · BottomSheet · JsonEditor · MeterBar
+✅ SelectPicker · StackLayout · FabButton    (a known word still takes its kind)
 ✅ BadgeOverlay · LoadingOverlay        (the component IS an overlay, so Overlay trails)
 ❌ CodesListContainer · DeleteDialog · ColorSelector · StatusIcon · EmptyPlaceholder
 ❌ Select · Stack · Fab                      (bare — the kind is unreadable)
@@ -97,7 +97,7 @@ A name is built from three independent slots. Each answers a different question,
 - compound subpart naming and export → [compound](compound/compound.md).
 
 ```txt
-✅ AlertSimple · BannerSimple · AccordionItem · MenuItem · AppShell · AppErrorBoundary
+✅ AlertSimple · BannerSimple · AccordionGroupItem · MenuItem · AppShell · AppErrorBoundary
 ❌ SimpleAlert · CompactNavItem · ItemMenu     (the modifier follows the complete root name)
 ```
 
@@ -187,7 +187,7 @@ freely — a bar, a card, a group, an area is a shape any kind can take, so it r
 
 ```txt
 ✅ ProgressBar (indicator) · UndoBar (feedback) · Toolbar (action)   (one shape, three kinds)
-✅ TextInput · SelectInput · NumberInput          (one relation, one kind — the suffix routes)
+✅ TextInput · SliderInput · NumberInput          (one relation, one kind — the suffix routes)
 ❌ `*Bar` listed as the indicator's suffix        (it names the strip, never what the strip does)
 ```
 
