@@ -1,6 +1,6 @@
 # Product conventions sweep
 
-*Last updated: 2026-10-01*
+*Last updated: 2026-10-08*
 
 ## Scope
 
@@ -15,8 +15,7 @@
 ## State
 
 - Phase 1, conventions: first pass complete on 2026-10-01 — 17 fixes, 7 additions, 12 applied defaults.
-- Phase 1 is uncommitted. The tree holds another lane's staged `.claude/launch.json` and
-  `conventions/deployment/hosting/ports.md`, so the commit waits for the developer's answer to the lane check.
+- Phase 1 committed 2026-10-08 as `07876ec` (component renames), `445c72e`, `67b2fc0`, `db6e859` and `c24a765`.
 - Phase 2, products: `ventures.tnis` audited and fixed in place on 2026-10-01, uncommitted — evidence in its
   `engineering/architecture/research/project-audit.md` § *Conformance*, open rows in its backlog's *Shell & design*
   and *Repo & delivery* groups. Every other product: not started; the matrix is the starting evidence.
@@ -26,6 +25,5 @@
 ## Resume
 
 1. Settle the open points in [analysis](analysis.md) § *Open* with the developer, one batch per reply.
-2. Commit phase 1 once the lane question is answered — `conventions/`, `CLAUDE.md` and this session folder only.
-3. Start phase 2 with the product template and the `create-repo` skill, then the platform apps, then ventures.
-4. Audit each repo against the conformance list; a matrix cell is a lead, not a verdict.
+2. Start phase 2 with the product template and the `create-repo` skill, then the platform apps, then ventures.
+3. Audit each repo against the conformance list; a matrix cell is a lead, not a verdict.
