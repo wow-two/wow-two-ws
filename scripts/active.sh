@@ -50,7 +50,7 @@ PROJECTS=(
   "prism|-|ventures/10x-ventures-prism/engineering/codebase/prism.frontend-services"
   "arcade|ventures/ventures.arcade/engineering/codebase/arcade.backend-services/Arcade.sln|ventures/ventures.arcade/engineering/codebase/arcade.frontend-services"
   "museums-gallery|ventures/ventures.museums-gallery/engineering/codebase/museums-gallery.backend-services/MuseumsGallery.sln|ventures/ventures.museums-gallery/engineering/codebase/museums-gallery.frontend-services"
-  "tnis|ventures/ventures.tnis/engineering/codebase/tnis.backend-services/tnis.backend-services.slnx|ventures/ventures.tnis/engineering/codebase/tnis.frontend-services"
+  "tnis|ventures/ventures.tnis/engineering/codebase/tnis.backend-services/Tnis.BackendServices.slnx|ventures/ventures.tnis/engineering/codebase/tnis.frontend-services"
   "tnis-mintrans|ventures/ventures.tnis-mintrans/engineering/codebase/tnis-mintrans.backend-services/TnisMintrans.sln|ventures/ventures.tnis-mintrans/engineering/codebase/tnis-mintrans.frontend-services"
   "listing-shelf|ventures/ventures.listing-shelf/engineering/codebase/listing-shelf.backend-services/ListingShelf.BackendServices.slnx|ventures/ventures.listing-shelf/engineering/codebase/listing-shelf.frontend-services"
   "pose-coach|ventures/ventures.pose-coach/engineering/codebase/pose-coach.backend-services/PoseCoach.BackendServices.slnx|ventures/ventures.pose-coach/engineering/codebase/pose-coach.frontend-services"

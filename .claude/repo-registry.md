@@ -126,7 +126,7 @@ Org: [github.com/wow-two-apps](https://github.com/wow-two-apps) — no public re
 |---|---|---|
 | `sulton-max/10x-venture-forever-pin` · `ventures/10x-venture-forever-pin` | ForeverPin QR and programmable links | Active, v0.9 |
 | `ventures.listing-shelf` · `workbench/ventures/ventures.listing-shelf` | ListingShelf: listing/post crawler and archive; OLX and Domtut initial adapters, no social media | v0.2 built (Vue shelf console, SDK 10.0.59); verification pending |
-| `ventures.pose-coach` · `workbench/ventures/ventures.pose-coach` | PoseCoach: iPhone photo director (Swift/SwiftUI) with a .NET API and Vue console | Pattern menu, camera and API built locally; collage layouts next |
+| `ventures.pose-coach` · `workbench/ventures/ventures.pose-coach` | PoseCoach: iPhone photo director (Swift/SwiftUI) with a .NET API and Vue console | v0.1 duo collage flow built locally (pattern check, alignment, collage, eye screens); iPhone verification pending |
 | `ventures.retainer-balance` · `workbench/ventures/ventures.retainer-balance` | Retainer Balance — first-ten SaaS pilot | Local v0.1 implemented and tested; authenticated Vue/.NET pilot; launch gates remain |
 | `ventures.documentation-checker` · `workbench/ventures/ventures.documentation-checker` | Documentation Checker — first-ten SaaS pilot | Local v0.1 implemented and tested; authenticated Vue/.NET pilot; launch gates remain |
 | `ventures.file-watch` · `workbench/ventures/ventures.file-watch` | File Watch — first-ten SaaS pilot | Local v0.1 implemented and tested; authenticated Vue/.NET pilot; launch gates remain |
