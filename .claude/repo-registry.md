@@ -113,6 +113,11 @@ Org: [github.com/wow-two-kb](https://github.com/wow-two-kb) — code samples, ru
 
 Org: [github.com/wow-two-apps](https://github.com/wow-two-apps) — no public repos yet.
 
+| Repo / local folder | Purpose | Status |
+|---|---|---|
+| `wow-two-apps.med-text-fab` | DS3-150 bandage machine parameter analysis and Vue/.NET educational 3D simulator | Local repository; uncalibrated model; no version track |
+| `wow-two-apps.home-atlas` | Private home reference mapping and layered Vue/.NET 3D renovation workbench | Local repository; mapping under review; no version track |
+
 > **Note**: Apps like Feedback.Analyzer, DDLParser, StudyMate etc. are still in the old `WoW-2-0-Projects` org and haven't been migrated yet.
 
 ## Ventures — product repositories

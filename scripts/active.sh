@@ -72,6 +72,8 @@ PROJECTS=(
   "vendor-renewals|ventures/ventures.vendor-renewals/engineering/codebase/vendor-renewals.backend-services/VendorRenewals.slnx|ventures/ventures.vendor-renewals/engineering/codebase/vendor-renewals.frontend-services"
   "config-checker|ventures/ventures.config-checker/engineering/codebase/config-checker.backend-services/ConfigChecker.slnx|ventures/ventures.config-checker/engineering/codebase/config-checker.frontend-services"
   "podcast-readiness|ventures/ventures.podcast-readiness/engineering/codebase/podcast-readiness.backend-services/PodcastReadiness.slnx|ventures/ventures.podcast-readiness/engineering/codebase/podcast-readiness.frontend-services"
+  "med-text-fab|wow-two-apps/wow-two-apps.med-text-fab/engineering/codebase/med-text-fab.backend-services/MedTextFab.slnx|wow-two-apps/wow-two-apps.med-text-fab/engineering/codebase/med-text-fab.frontend-services"
+  "home-atlas|wow-two-apps/wow-two-apps.home-atlas/engineering/codebase/home-atlas.backend-services/HomeAtlas.BackendServices.slnx|wow-two-apps/wow-two-apps.home-atlas/engineering/codebase/home-atlas.frontend-services"
 )
 
 MODE="both"     # both | backend | frontend

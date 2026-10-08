@@ -50,6 +50,8 @@
 | vendor-renewals | API · Vite | 8320 https / 8321 http · 8322 |
 | config-checker | API · Vite | 8324 https / 8325 http · 8326 |
 | podcast-readiness | API · Vite | 8328 https / 8329 http · 8330 |
+| med-text-fab | API · Vite | 8362 https / 8363 http · 8242 |
+| home-atlas | API · Vite | 8364 https / 8365 http · 8266 |
 
 | transportbrain (hackathon Track 2 submission) | API | 8246 https / 8247 http |
 | tbs.demo | demo — jury-facing solution page, own repo + Vercel (Vite) | 8248 |
@@ -71,7 +73,7 @@
 | ocharo-marketing review | isolated Marketing API | 8354 https / 8355 http |
 | ocharo-platform image worker review | private loopback HTTP worker | 8360 |
 
-**Next free backend even port: 8362.** Append a row whenever you allocate.
+**Next free backend even port: 8366.** Append a row whenever you allocate.
 
 Ocharo Marketing Vite moved from the duplicate `8242` allocation to `8358` on 2026-09-29.
 Port `8242` remains owned by the nth26 operator console. Isolated review uses `8344`.
