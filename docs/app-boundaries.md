@@ -1,6 +1,6 @@
 # WoW 2.0 — App boundaries
 
-*Last updated: 2026-09-29*
+*Last updated: 2026-09-30*
 
 > Where each capability lives as the platform grows: its own app, a project in a shared repository, or a service
 > inside another app, so later apps plug in without an extraction. Analysis pool, queued behind the
@@ -23,7 +23,8 @@
 
 - [ ] B1 — Unit of separation: repository, project in a shared repository, or service inside an app
 - [ ] B2 — Instance model per app: one shared instance, one per product, or one per environment
-- [ ] B3 — Product catalog: which app owns product identity, and how the others read it
+- [x] B3 — Product catalog: Wheelhouse owns identity in code (runner `catalog.py`); other apps read
+  `/api/products` with a scoped integration key (built 2026-09-30)
 - [ ] B4 — Issues hub: the GitHub projects dashboard, label automation and AI triage, and its line with Feedbacks
 - [ ] B5 — Feedback intake: product report → Feedbacks → GitHub issue, and who owns the issue
 - [ ] B6 — Sign-in across internal apps: the Identity app or per-app GitHub OAuth
