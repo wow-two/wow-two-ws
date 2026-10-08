@@ -1,6 +1,6 @@
 # Controllers
 
-*Last updated: 2026-09-10*
+*Last updated: 2026-10-02*
 
 > The HTTP delivery surface for one resource — a thin dispatcher, holding no logic of its own.
 > Purpose — the edge binds, maps and returns; everything it would otherwise decide belongs behind the mediator.
@@ -50,3 +50,11 @@ public class ProductsController(IProductRepository repository) : ControllerBase
 
 ### Type name
 - must suffix with `Controller`, prefixed by a plural resource or process noun — `ProductsController`.
+
+---
+
+## Member content
+
+- must use block bodies for controller methods and implemented property/indexer accessors, including private helpers.
+- may use lambda expressions inside member bodies; this rule governs member declarations, not delegates.
+- body layout → [style](../../../lla/notation/style/style.md#the-body).

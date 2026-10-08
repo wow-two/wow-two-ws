@@ -1,6 +1,6 @@
 # Host configuration
 
-*Last updated: 2026-09-10*
+*Last updated: 2026-10-02*
 
 > Product composition in the host; reusable registration contracts in the SDK.
 
@@ -60,7 +60,7 @@ public partial class Program;
 - must use `Add{Domain}` for a domain's vertical, such as `AddCodes`.
 - must use `Add{Resource}` for shared resources, such as `AddPostgresDatabase`.
 - must use `Add{Surface}` for delivery surfaces, such as `AddControllers`.
-- must not use `AddApplicationServices`, `AddInfrastructure`, `AddPersistence` or `AddDomain`.
+- must not use `AddApplicationServices`, `AddApplicationLayer`, `AddInfrastructure`, `AddInfrastructureLayer`, `AddPersistence`, `AddPersistenceLayer` or `AddDomain`.
 - must not append `Services` when the domain name already states the subject.
 - must give every documented product registration a concrete method body.
 
@@ -68,7 +68,7 @@ public partial class Program;
 
 ## Domain registration
 
-- must register a domain's services, settings, options and adapters in its own `Add{Domain}` method.
+- must group a domain's related services, settings, options and adapters in its `Add{Domain}` method, including registrations whose types live in different project layers.
 - may split registration by subdomain once the domain itself has subdomains.
 - must register shared resources once, outside any domain that merely consumes them.
 - must reserve `AddSettings` for host-wide settings not owned by one domain.

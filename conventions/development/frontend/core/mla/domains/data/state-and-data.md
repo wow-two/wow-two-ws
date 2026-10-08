@@ -1,6 +1,6 @@
 # State and data
 
-*Last updated: 2026-09-29*
+*Last updated: 2026-10-02*
 
 > Request outcomes, server caches and local state across frontend frameworks.
 
@@ -48,7 +48,7 @@ background refetch. The user must always be able to tell that an asked-for refre
 - must keep labels, headings and actions visible during a refresh; only values turn into placeholders (`Skeleton.Slot`).
 - must keep identities (names, ids, paths) through a refresh; they turn into placeholders on a first load only.
 - must keep content on screen during background refetches and polling; show freshness with a timestamp or `fetching`.
-- must replace a failed first load with the failure surface and a retry action; keep last good values when a refresh fails.
+- must replace a failed first load with a stable unavailable/retry surface; keep last good values when a refresh fails. Request failure text belongs to the toast host.
 - must announce loading once per region through `Skeleton.Group`; the skeleton shapes stay decorative.
 - must show a running refresh on its control through `Button` `isLoading`: the icon turns into a spinner, the label
   stays and the control dims; it keeps focus, and overlapping requests share one pending state.
@@ -65,8 +65,16 @@ const { refresh, refreshing } = useRefresh(vitals.refetch);
 
 ## Mutations
 
-- must reflect only backend-confirmed state; do not pre-write cache entries from mutation input.
-- must reconcile success through the returned value or invalidate the affected query keys.
+- must not use optimistic persisted updates: never change confirmed rows, counts, status flags, caches or navigation outcomes before mutation acknowledgement.
+- must keep the form, editor and confirmed content in place while a mutation runs; use loading/disabled action controls for that pending state.
+- must distinguish unsaved local drafts, previews and recovery from confirmed server state; those local editing interactions remain immediate.
+- must await mutation success before closing its form, removing its row or refreshing affected query keys.
+- must refresh each affected grid or editor through its independent read projection after success; that explicit refresh may replace query values with skeletons.
+- must consume a command acknowledgement separately from the read result; returned resource data is not an implicit replacement for a different projection.
+- may consume an operation's immediate result where that result is the workflow's actual content, such as a generated download or upload acknowledgement.
+- must keep a successful write acknowledged if its following read fails; report the refresh failure without inviting duplicate creation.
+- must guard overlapping submissions and preserve confirmed content and unsaved input on failure.
+- command response shape → [API commands and reads](../../../../../backend/dotnet/core/mla/domains/api/api.md#commands-and-reads).
 - must leave confirmed cache values intact on failure and expose the failure to the caller.
 - must keep mutation retries off by default; retry only an operation with a declared idempotency contract.
 - must distinguish a transport cancellation from proof the server did not commit a mutation.
@@ -79,5 +87,12 @@ const { refresh, refreshing } = useRefresh(vitals.refetch);
 - must translate a failed public `Result` into a vendor rejection inside a query adapter when the engine requires it.
 - must translate that rejection back into the public failure/lifecycle state at the adapter boundary.
 - must keep vendor errors and result containers out of the app contract.
+- must report page-load and API failures, including HTTP 500, through the app toast host using display-safe localized wording.
+- must not place request error messages, HTTP status text or raw backend bodies in ordinary page, grid or card content.
+- may render field validation beside its field and error records in a component whose actual purpose is displaying errors; neither exception permits a generic request failure banner.
+- must provide a neutral unavailable/retry state or retain last good content when a query fails; a completed failure must not leave skeletons running.
+- must deduplicate notices for the same failure episode across retries and overlapping subscribers; a later distinct failure may notify again.
+- must retain a stable unavailable state with retry after failed first load, and preserve last good content and unsaved edits after refresh or mutation failure.
+- must keep field validation beside its field; request failure toasts do not replace actionable validation.
 - must prevent duplicate notices when both a form and a global query error subscriber handle the same failure.
 - must test retry, cancellation and cache behavior against each adapter, not only resolved values.

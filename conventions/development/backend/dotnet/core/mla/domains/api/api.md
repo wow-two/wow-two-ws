@@ -1,6 +1,6 @@
 # Api
 
-*Last updated: 2026-09-10*
+*Last updated: 2026-10-02*
 
 > The HTTP surface a service exposes — what a client may send, and what it reads back.
 > Purpose — the wire is a contract with a client, so it changes on the client's schedule, not the domain's.
@@ -38,7 +38,7 @@
 ## Action attributes
 
 - must declare the success response type matching the actual body; no envelope type for a stream or `204`.
-- must carry `[ProducesResponseType(status)]` per failure it returns, with no payload type.
+- must declare `ProblemDetails` or the actual `ValidationProblemDetails` schema for each supported failure status; the runtime must satisfy the [error contract](../../../../shapes/service/platform/responses/problem-details.md#wire-contract).
 - may carry `[Consumes(mediaType)]` to constrain a non-JSON body.
 - may carry `[Tags]`, `[EndpointSummary]` or `[EndpointDescription]` when the generated spec text needs help.
 
@@ -47,7 +47,7 @@
 ## Action content
 
 - must return `Task<IActionResult>` unless the response is a stream.
-- must use a block body from the start — an action binds, dispatches and maps, three steps minimum.
+- action body → [controller member content](../../constructs/behavior/controller.md#member-content).
 - must use the [request/body rule](api-messages.md#requests) when binding a payload.
 - must read the actor through `ICurrentUser` → [api context](api-context-building.md).
 - must reach for `User` or `HttpContext` only for a fact `ICurrentUser` does not expose.
@@ -67,7 +67,7 @@
 | Outcome | Return |
 |---|---|
 | list or single read | `Ok(ApiResponse<T>.Ok(dto))` |
-| created, resource has an id | `CreatedAtAction(nameof(GetById), new { id }, ApiResponse<T>.Ok(dto))` |
+| created, resource has an id | `CreatedAtAction(nameof(GetById), new { id }, value: null)` or a minimal command acknowledgement |
 | mutated, no body | `NoContent()` |
 | binary or stream | `File(bytes, contentType)` |
 
@@ -79,12 +79,26 @@ var result = await sender.SendAsync(command, ct);
 
 return result.Match<IActionResult>(
     ok => CreatedAtAction(nameof(GetById), new { id = ok.Data.Product.Id },
-        ApiResponse<ProductDto>.Ok(ok.Data.Product.ToDto())),
+        value: null),
     fail => Problem(detail: fail.Error.Message, statusCode: statusMapper.ToStatusCode(fail.Error)));
 // ❌ try/catch at the edge, raw body, bare status
 try { return Ok(await sender.SendAsync(command, ct)); }
 catch (NotFoundException) { return NotFound(); }
 ```
+
+---
+
+## Commands and reads
+
+- must complete validation and durable persistence before acknowledging a synchronous mutation; neither backend nor frontend may present an optimistic persisted result.
+- must use `202 Accepted` only for explicitly accepted asynchronous work, with a queryable operation state rather than a completed-resource claim.
+- should acknowledge creation through `201` and `Location`, adding an id or revision receipt only when the caller needs it.
+- should acknowledge a bodyless update or delete through `204`; retain an operation report when that report is the command's meaningful result.
+- must keep grid, list and editor projections in independent read requests; a command does not choose a consumer's query projection.
+- may return a created resource when the workflow requires that response, but must not treat it as every grid's complete projection.
+- must retain existing documented success contracts during adoption until consumers are migrated together.
+- must use query-specific endpoints or explicit projection options when reads need different fields; do not add GraphQL solely to refresh a grid.
+- frontend acknowledgement and refresh lifecycle → [state and data](../../../../../../frontend/core/mla/domains/data/state-and-data.md#mutations).
 
 ---
 
