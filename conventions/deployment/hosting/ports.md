@@ -69,8 +69,9 @@
 | ocharo-studio review | isolated API · frontend | 8348 https / 8349 http · 8356 |
 | ocharo-marketing review | isolated Editorial API · editor frontend | 8350 https / 8351 http · 8352 |
 | ocharo-marketing review | isolated Marketing API | 8354 https / 8355 http |
+| ocharo-platform image worker review | private loopback HTTP worker | 8360 |
 
-**Next free backend even port: 8360.** Append a row whenever you allocate.
+**Next free backend even port: 8362.** Append a row whenever you allocate.
 
 Ocharo Marketing Vite moved from the duplicate `8242` allocation to `8358` on 2026-09-29.
 Port `8242` remains owned by the nth26 operator console. Isolated review uses `8344`.

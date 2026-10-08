@@ -450,9 +450,9 @@
     },
     {
       "name": "ocharo-studio-web",
-      "runtimeExecutable": "npm",
+      "runtimeExecutable": "pnpm",
       "runtimeArgs": [
-        "--prefix",
+        "--dir",
         "/Users/max/Projects/10x-ws/workbench/career/engineering/wow-two/wow-two-ws/workbench/ocharo-hq/ocharo-ws/workbench/ocharo-studio/engineering/codebase/ocharo-studio.frontend-services",
         "run",
         "dev"
