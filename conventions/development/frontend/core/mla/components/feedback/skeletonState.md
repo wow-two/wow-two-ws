@@ -7,7 +7,7 @@
 
 ## Reach for it when
 
-- must stand in for content whose layout is already known
+- must stand in for loading route and section content; use a generic structural shape when the exact layout is unknown
 - must be reached for where a spinner would let the layout shift on arrival
 - should be repeated to sketch a list or a card, one node per line of real content
 - must stand in for a region's values during a user-requested refresh — the [loading pattern](../../domains/data/state-and-data.md#loading)
@@ -18,7 +18,7 @@
 
 | Reach for | When |
 |---|---|
-| [LoadingState](loadingState.md) | the incoming shape is unknown, or the whole route is waiting |
+| `Button` `isLoading` | an action is pending; keep its label and focus |
 | [InlineSpinner](inlineSpinner.md) | the row keeps its content and only an action is busy |
 | [LoadingOverlay](loadingOverlay.md) | content is already on screen and only needs blocking |
 

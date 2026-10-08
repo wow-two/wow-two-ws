@@ -1,6 +1,6 @@
 # Document
 
-*Last updated: 2026-10-01*
+*Last updated: 2026-10-02*
 
 > The app's `index.html` — its head, its app icons, and what shows before the first script runs.
 > Purpose — the first paint is the one render no component controls.
@@ -38,6 +38,9 @@
 ## First paint
 
 - must apply the stored colour mode from `public/theme.js`, loaded in the head ahead of every stylesheet.
+- must set both `html` and `body` backgrounds and `color-scheme` in the early external stylesheet, matching mounted light/dark tokens.
+- must resolve an absent, blocked or `system` preference through `prefers-color-scheme`; refresh must not reveal the browser's default white canvas.
+- must keep the early mode key and selector synchronized with the mounted colour-mode provider.
 - must read the `ColorModeProvider` storage key there, treating `system` and a blocked storage as no choice
   ([styling](styling.md#colour-mode)).
 - must render the splash's static twin inside the mount node, styled by `public/boot-splash.css`

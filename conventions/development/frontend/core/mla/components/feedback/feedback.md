@@ -19,7 +19,7 @@
 | [InlineSpinner](inlineSpinner.md) | a busy mark sits mid-flow with a word beside it |
 | [LiveCursorIndicator](liveCursorIndicator.md) | a collaborator's pointer is drawn on a shared surface |
 | [LoadingOverlay](loadingOverlay.md) | a region stays visible but must stop answering |
-| [LoadingState](loadingState.md) | a whole section is waiting and centres its report |
+| [LoadingState](loadingState.md) | a legacy busy report; app content uses skeletons |
 | [MeterBar](meterBar.md) | a level changes tone as it crosses its thresholds |
 | [NotificationCenterGroup](notificationCenterGroup.md) | past notices are browsed in a panel |
 | [OnboardingChecklistCard](onboardingChecklistCard.md) | first-run tasks are tracked to completion |
@@ -49,7 +49,7 @@ Which surface answers which wait; the linked owner states the values.
 | the app's first load, before the shell renders | `SplashScreen` | [SplashScreen](splashScreen.md) |
 | a route's chunk loading | the router's loading outcome | [routing](../../../../shapes/app/routing/routing.md#places) |
 | a region's first load, shape known | `SkeletonState` | [loading](../../domains/data/state-and-data.md#loading) |
-| a region's first load, shape unknown | `LoadingState` | [LoadingState](loadingState.md) |
+| a region's first load, shape unknown | a generic structural `SkeletonState` | [loading](../../domains/data/state-and-data.md#loading) |
 | a refresh the user asked for | `SkeletonStateGroup` + `useRefresh` | [loading](../../domains/data/state-and-data.md#loading) |
 | a background refetch or poll | none — content stays, freshness shows | [loading](../../domains/data/state-and-data.md#loading) |
 | one command in flight | `Button` `isLoading` | [Button](../actions/button.md) |

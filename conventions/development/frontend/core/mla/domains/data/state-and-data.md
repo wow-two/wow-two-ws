@@ -42,14 +42,24 @@
 A data region answers three loading moments differently: the first load, a refresh the user asked for, and a
 background refetch. The user must always be able to tell that an asked-for refresh ran.
 
-- must render a first load as a skeleton shaped like the loaded region; a spinner only where that shape is unknown.
-- must swap a region to its skeleton for a user-requested refresh and back, even when the values come back unchanged.
+- must render a first load as a skeleton shaped like the loaded region; use a generic structural skeleton when that shape is unknown.
+- must not show a visible `Loading…` paragraph instead of loading content; a single screen-reader announcement remains appropriate.
+- must replace existing values with their matched skeletons during a user-requested refresh.
+- must retain a known empty region during refresh; must not invent populated grid geometry.
 - must hold that skeleton for a minimum duration, 400 ms by default, through the SDK `useRefresh`.
 - must keep labels, headings and actions visible during a refresh; only values turn into placeholders
   (`SkeletonStateSlot`).
 - must keep identities (names, ids, paths) through a refresh; they turn into placeholders on a first load only.
 - must keep content on screen during background refetches and polling; show freshness with a timestamp or `fetching`.
-- must replace a failed first load with a stable unavailable/retry surface; keep last good values when a refresh fails. Request failure text belongs to the toast host.
+- must settle a failed first load into neutral plain copy; request failure text belongs to the toast host.
+- must keep last good values when a refresh fails.
+- must keep refresh in the page or region toolbar across loading, content, empty and unavailable outcomes.
+- must not put retry buttons or failure cards inside an ordinary collection result.
+- must render table skeletons within the existing rows and columns, keeping its heading visible.
+- must reserve the collection region through loading and empty outcomes without adding an empty-state card.
+- may crossfade skeleton and result opacity; must not animate layout height or reorder surrounding content.
+- must honor `prefers-reduced-motion` for placeholder animation and result transitions.
+- empty collection geometry → [EmptyState](../../components/display/emptyState.md#values).
 - must announce loading once per region through `SkeletonStateGroup`; the skeleton shapes stay decorative.
 - must show a running refresh on its control through `Button` `isLoading`: the icon turns into a spinner, the label
   stays and the control dims; it keeps focus, and overlapping requests share one pending state.
@@ -97,9 +107,9 @@ const { refresh, refreshing } = useRefresh(vitals.refetch);
 - must report page-load and API failures, including HTTP 500, through the app toast host using display-safe localized wording.
 - must not place request error messages, HTTP status text or raw backend bodies in ordinary page, grid or card content.
 - may render field validation beside its field and error records in a component whose actual purpose is displaying errors; neither exception permits a generic request failure banner.
-- must provide a neutral unavailable/retry state or retain last good content when a query fails; a completed failure must not leave skeletons running.
+- must settle query failures through the [loading lifecycle](#loading); a failure must not leave skeletons running.
 - must deduplicate notices for the same failure episode across retries and overlapping subscribers; a later distinct failure may notify again.
-- must retain a stable unavailable state with retry after failed first load, and preserve last good content and unsaved edits after refresh or mutation failure.
+- must preserve unsaved edits after refresh or mutation failure.
 - must keep field validation beside its field; request failure toasts do not replace actionable validation.
 - must prevent duplicate notices when both a form and a global query error subscriber handle the same failure.
 - must test retry, cancellation and cache behavior against each adapter, not only resolved values.
