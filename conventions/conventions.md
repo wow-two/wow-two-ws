@@ -1,6 +1,6 @@
 # Conventions — wow-two
 
-*Last updated: 2026-10-01*
+*Last updated: 2026-10-09*
 
 > **The single index to every convention.** When a task touches *how we build* — code, repo structure,
 > naming, versioning — search HERE first, then open only the file(s) you need. Lookup table,
@@ -138,7 +138,7 @@ Rules every product obeys, whatever the stack. A convention that touches one lin
 | **marketing** (below) | how we name, brand & go to market — naming/domains · GTM · channels · SEO · content formats | Active |
 | **design** (below) | how we design — variant-driven exploration · per-app specs · UI copy · logo system | Active |
 | **deployment** (below) | how we ship & host — single-host serving · dev-port ledger · deployment descriptor, per-service builds and versions | Active |
-| security | secrets handling, auth patterns, threat model | Planned |
+| **security** (below) | how we keep secrets — what never enters a repo · where credentials live | Active |
 
 ---
 
@@ -261,6 +261,14 @@ Product UI standards, by need:
 | Single-host serving (product / venture) — SPA baked into the backend `wwwroot` (vite `outDir` + static-serve + `BuildSpa` target + dev proxy) · CORS posture | [deployment/hosting/single-host-serving.md](deployment/hosting/single-host-serving.md) |
 | Port ledger — allocated dev ports | [deployment/hosting/ports.md](deployment/hosting/ports.md) |
 | Deployment descriptor — `engineering/deployment/deploy.yml`: services, per-service builds and change paths, sites (public ports), settings, needs · service versions · candidate builds · CI shape · JSON Schema | [deployment/descriptor/deploy-descriptor.md](deployment/descriptor/deploy-descriptor.md) |
+
+---
+
+## security — index: [security/security-conventions.md](security/security-conventions.md)
+
+| Need | File |
+|---|---|
+| Secrets — what never enters a repository (credentials, host addresses, account IDs) · NordPass as the store · host files and CI secrets | [security/secrets/secrets.md](security/secrets/secrets.md) |
 
 ---
 
