@@ -67,6 +67,7 @@ The [five-product analysis](../../ideas/self-serve-research-2026-10/self-serve-r
 |---|---|---|---|---|---|---|
 | `app-t-001` | Finish wheelhouse for a reliable release | `-` | `high` | `todo` | `wow-two-platform.wheelhouse` | Added `2026-09-29`: first release target, with `app-t-002` and `ven-t-006`, ahead of TNIS. Breakdown in the repo's `engineering/planning/` |
 | `app-t-002` | Finish secrets-vault for a reliable release | `-` | `high` | `todo` | `wow-two-platform.secrets-vault` | Added `2026-09-29`: same release push as `app-t-001` and `ven-t-006` |
+| `app-t-003` | Set up a reliable off-provider backup flow for the platform VPS | `-` | `high` | `todo` | `wow-two-platform.wheelhouse` | Added `2026-10-14` by the user: encrypted backups of both Wheelhouse databases, cookie keys, runner state and host config, with a tested restore; OVH's daily backup is the only copy today. Multi-cloud replication is on the table. Breakdown in the Wheelhouse backlog § Hosting |
 
 ---
 
