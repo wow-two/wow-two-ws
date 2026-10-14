@@ -1,6 +1,6 @@
 # Port Ledger
 
-*Last updated: 2026-09-29*
+*Last updated: 2026-10-09*
 
 > Single source of truth for allocated dev ports — **check here before picking one** to avoid collisions.
 > Backend rule: a **single `https` profile** binds two ports per service — **HTTPS on the even port, HTTP on the adjacent odd port** (`even`, `even + 1`); TLS terminated upstream in prod — see [backend/launch-profiles.md](../../development/backend/dotnet/shapes/service/platform/startup/launch-profiles.md). Frontend (Vite) = an **even** port (HTTPS via mkcert).
@@ -52,6 +52,8 @@
 | podcast-readiness | API · Vite | 8328 https / 8329 http · 8330 |
 | med-text-fab | API · Vite | 8362 https / 8363 http · 8242 |
 | home-atlas | API · Vite | 8364 https / 8365 http · 8266 |
+| surface-pattern | API · Vite | 8368 https / 8369 http · 8268 |
+| wheelhouse-canary | API · Vite · local PostgreSQL | 8370 https / 8371 http · 8372 · 8374 |
 
 | transportbrain (hackathon Track 2 submission) | API | 8246 https / 8247 http |
 | tbs.demo | demo — jury-facing solution page, own repo + Vercel (Vite) | 8248 |
@@ -61,7 +63,7 @@
 | listing-shelf | API · Vite | 8254 https / 8255 http · 8256 |
 
 | brand-workspace | API · Vite · Compose API · PostgreSQL | 8264 https / 8265 http · 8266 · 8268 http / 8269 https · 8270 |
-| hijinx | frontend-only static SPA — Vite dev · preview (Playwright) | 5186 · 5187 |
+| hijinx | API · Vite dev · preview (Playwright) | 8366 https / 8367 http · 5186 · 5187 |
 
 | ocharo-platform review | isolated API · Desk frontend | 8340 https / 8341 http · 8342 |
 | ocharo-marketing review | operator frontend | 8344 |
@@ -73,7 +75,7 @@
 | ocharo-marketing review | isolated Marketing API | 8354 https / 8355 http |
 | ocharo-platform image worker review | private loopback HTTP worker | 8360 |
 
-**Next free backend even port: 8366.** Append a row whenever you allocate.
+**Next free backend even port: 8376.** Append a row whenever you allocate.
 
 Ocharo Marketing Vite moved from the duplicate `8242` allocation to `8358` on 2026-09-29.
 Port `8242` remains owned by the nth26 operator console. Isolated review uses `8344`.

@@ -74,6 +74,8 @@ PROJECTS=(
   "podcast-readiness|ventures/ventures.podcast-readiness/engineering/codebase/podcast-readiness.backend-services/PodcastReadiness.slnx|ventures/ventures.podcast-readiness/engineering/codebase/podcast-readiness.frontend-services"
   "med-text-fab|wow-two-apps/wow-two-apps.med-text-fab/engineering/codebase/med-text-fab.backend-services/MedTextFab.slnx|wow-two-apps/wow-two-apps.med-text-fab/engineering/codebase/med-text-fab.frontend-services"
   "home-atlas|wow-two-apps/wow-two-apps.home-atlas/engineering/codebase/home-atlas.backend-services/HomeAtlas.BackendServices.slnx|wow-two-apps/wow-two-apps.home-atlas/engineering/codebase/home-atlas.frontend-services"
+  "surface-pattern|ventures/ventures.surface-pattern/engineering/codebase/surface-pattern.backend-services/SurfacePattern.BackendServices.slnx|ventures/ventures.surface-pattern/engineering/codebase/surface-pattern.frontend-services"
+  "wheelhouse-canary|wow-two-platform/wow-two-platform.wheelhouse-canary/engineering/codebase/wheelhouse-canary.backend-services/WheelhouseCanary.BackendServices.slnx|wow-two-platform/wow-two-platform.wheelhouse-canary/engineering/codebase/wheelhouse-canary.frontend-services"
 )
 
 MODE="both"     # both | backend | frontend

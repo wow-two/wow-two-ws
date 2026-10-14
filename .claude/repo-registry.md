@@ -55,6 +55,7 @@ Org: [github.com/wow-two-platform](https://github.com/wow-two-platform) — pipe
 | `wow-two-platform.contrimap` | POCO mapping | POC |
 | `wow-two-platform.wheelhouse` | Product ops & deploy control plane (Clean-Arch .NET 10 + Vue) | Active |
 | `wow-two-platform.secrets-vault` | Secrets vault — envelope-encrypted store + management UI | Active |
+| `wow-two-platform.wheelhouse-canary` | Sample Vue + .NET + PostgreSQL app Wheelhouse deploys to dev, test and prod to prove every deployment flow | v0.1 built; awaiting first deploy |
 | `.github` | Org-wide GitHub config | Active |
 
 ## wow-two-sdk (public libs & tools)
@@ -125,6 +126,7 @@ Org: [github.com/wow-two-apps](https://github.com/wow-two-apps) — no public re
 | Repo / local folder | Purpose | Status |
 |---|---|---|
 | `sulton-max/10x-venture-forever-pin` · `ventures/10x-venture-forever-pin` | ForeverPin QR and programmable links | Active, v0.9 |
+| `ventures.surface-pattern` · `workbench/ventures/ventures.surface-pattern` | Surface Pattern: local repeat-pattern studio, surface previews and print exports | v0.1 local studio built; demand and physical print validation pending |
 | `ventures.listing-shelf` · `workbench/ventures/ventures.listing-shelf` | ListingShelf: listing/post crawler and archive; OLX and Domtut initial adapters, no social media | v0.2 built (Vue shelf console, SDK 10.0.59); verification pending |
 | `ventures.pose-coach` · `workbench/ventures/ventures.pose-coach` | PoseCoach: iPhone photo director (Swift/SwiftUI) with a .NET API and Vue console | v0.1 duo collage flow built locally (pattern check, alignment, collage, eye screens); iPhone verification pending |
 | `ventures.retainer-balance` · `workbench/ventures/ventures.retainer-balance` | Retainer Balance — first-ten SaaS pilot | Local v0.1 implemented and tested; authenticated Vue/.NET pilot; launch gates remain |
