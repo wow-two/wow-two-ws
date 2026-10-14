@@ -1,6 +1,6 @@
 # Bespoke migrations
 
-*Last updated: 2026-09-10*
+*Last updated: 2026-10-14*
 
 > SQL-owned schema evolution through ordered Apply/Rollback pairs and a checksum journal.
 
@@ -29,7 +29,10 @@
 ## Rollback
 
 - must retain a `Rollback.sql` file even for an irreversible operation.
+- must write a real inverse in every `Rollback.sql` that has one.
+- must split a data-destroying step into its own migration, so only that migration lacks an inverse.
 - must make that file an explicit no-op with an explanation when no inverse exists.
+- must run Apply → Rollback → Apply for every migration in the migrations test tier.
 - must not describe a no-op as restoring the original schema or data.
 - must enable rollback or repair only for the guarded operation.
 - must use the resolved target confirmation in [tooling](migration-tooling.md#destructive-operations).
