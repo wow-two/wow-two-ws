@@ -1,4 +1,4 @@
-*Last updated: 2026-10-08*
+*Last updated: 2026-10-09*
 
 # Tasks
 
@@ -22,10 +22,38 @@ Categories: `sdk` · `plt` · `app` · `ven` · `con` · `ws`
 | 2 — local changes ready for review | [Pose Coach](../../workbench/ventures/ventures.pose-coach/) | `ven-t-009` | Validate the photo-director experience and deliver a paid release |
 | 3 — local changes ready for review | [Transcript Forge](../../workbench/ventures/10x-ventures-transcript-forge/) | `ven-t-010` | Deliver a paid transcript workflow for repeat users |
 | 4 — local changes ready for review | [Hijinx](../../workbench/ventures/ventures.hijinx/) | `ven-t-011` | Validate repeat host use and deliver a paid release |
+| 5 — selected, definition pending | Kids Curiosity | `ven-t-013` | Deliver a guided question-to-discovery experience with repeat family use and a tested paid boundary |
 
-This is the execution order for venture product work, including consumer and entertainment products, ordered to reach subscription revenue (MRR) sooner. The [subscription-speed assessment](../../ideas/saas-research-2026-10/subscription-speed.md) holds each product's remaining path and what blocks charging. Continue the current product until its release outcome is complete or the user explicitly parks it; the next queued product becomes current. Each repository's `engineering/planning/` owns its implementation breakdown and release evidence. Dates are unassigned.
+This is the execution order for venture product work, including consumer and entertainment products, ordered to reach subscription revenue (MRR) sooner. The [subscription-speed assessment](../../ideas/saas-research-2026-10/subscription-speed.md) holds each product's remaining path and what blocks charging. Continue the current product until its release outcome is complete or the user explicitly parks it; the next queued product becomes current. Each repository's `engineering/planning/` owns its implementation breakdown and release evidence. Explicit user targets are recorded in the task deadlines below.
 
-The [100-product research](../../ideas/saas-research-2026-10/decision-report.md) remains an options catalog; its research ranking does not replace this order. Existing platform-app and SDK work remains in its own track, with concrete dependencies resolved when they block the current product.
+**Parallel release work, authorized `2026-10-09`:** ForeverPin and Pose Coach remain in their existing chats.
+The next two products are Transcript Forge and Hijinx; this lane prioritizes Hijinx's web/mobile reliability,
+game rules and UI, alongside Transcript Forge's workflow reliability. The user targets `2026-10-31`.
+Hijinx's first realtime mode is confirmed: one same-room host screen with player phones. The room service
+and client are implemented; all 48 multi-device browser scenarios passed. Installed offline
+acceptance passed on iOS and Android.
+This target is not a paid-launch guarantee: realtime acceptance, payment acceptance, native distribution and
+repeat-user validation remain explicit release gates. Repository backlogs and active version tracks own the work.
+Both products share browser scenarios across phone, tablet and desktop layouts; `pnpm verify:release` repeats
+their local quality checks. [Hijinx verification](../../workbench/ventures/ventures.hijinx/engineering/research/release-readiness-2026-10.md#verification)
+and [Transcript Forge verification](../../workbench/ventures/10x-ventures-transcript-forge/engineering/research/release-readiness-2026-10.md#verification)
+separate automated coverage from remaining device, provider and release acceptance.
+
+The [October 5 B2B research](../../ideas/saas-research-2026-10/decision-report.md) remains an options catalog; its research ranking does not replace this order. On `2026-10-09`, the user selected Kids Curiosity. The [rebuilt self-serve 100-candidate assessment](../../ideas/self-serve-research-2026-10/self-serve-research-2026-10.md) confirms that the previous catalog's multi-role business-workflow requirement excluded the preferred product shape. Kids Curiosity is the next selected additional product. Existing platform-app and SDK work remains in its own track, with concrete dependencies resolved when they block the current product.
+
+**Additional-product research priorities, `2026-10-09`:** these prepare options beyond the four active releases; Kids Curiosity remains selected. On `2026-10-10`, the user accepted Fiction Scene and Continuity for later work and selected Surface Pattern for immediate venture analysis and implementation. The other entries remain research recommendations. All proposed prices and recurring demand remain unvalidated.
+
+| Research priority | Product | Decision to prove |
+|---|---|---|
+| 1 — user-selected | Kids Curiosity (`E001`) | Families independently complete and revisit reviewed investigations, with a useful paid continuation |
+| 2 — recommended | Formula Drill Gym (`E002`) | Error-based practice earns paid returns rather than only a finite course purchase |
+| 3 — accepted, deferred | Fiction Scene and Continuity Studio (`E040`) | Writers repeatedly resume real scenes more effectively than in existing tools |
+| 4 — selected, implementation active | Surface-Pattern Studio (`E031`) | Regular makers prefer and pay for repeated collection production over existing tools |
+| 5 — recommended | Hifz Revision Companion (`E003`) | Trusted self-assessed revision remains useful through missed days and earns payment |
+
+**Surface Pattern implementation, authorized `2026-10-10`:** `ven-t-014` owns the new [venture](../../workbench/ventures/ventures.surface-pattern/). Its first increment is a guided repeat studio, physical-scale surface previews, browser collections and SVG/PNG exports. This is additional local implementation; existing release chats retain their ownership. Paid demand, personal-artwork workflow and physical print acceptance remain unverified.
+
+The [five-product analysis](../../ideas/self-serve-research-2026-10/self-serve-research-2026-10.md#five-research-priorities) records competitors, content/compute burdens and stop rules. Guided Drawing is the nearest reserve; Arcade's current cosmetic transactions, finite courses and packs contribute no assumed subscription MRR.
 
 **Haven** joins after venture revenue reaches a stable $2K MRR; it takes no queue position before then (user, `2026-10-08`).
 
@@ -54,9 +82,12 @@ The [100-product research](../../ideas/saas-research-2026-10/decision-report.md)
 | `ven-t-006` | Finish forever-pin for a reliable release | `-` | `high` | `wip` | `forever-pin` | Current product in the [venture product order](#venture-product-order), confirmed `2026-10-05`; includes verifying its paid subscription path. Breakdown in its `engineering/planning/`. Platform release work remains under `app-t-001` and `app-t-002`. Live Stripe billing depends on `ven-t-012` |
 | `ven-t-007` | Complete the ForeverPin rebrand | `-` | normal | `done` | `forever-pin` | Local source, projects, docs, product/promo folders renamed 2026-09-13. Full suites pass. GitHub rename and both remote URLs verified. Corrected hero still/video exported under native approval. Product rebrand, verification tooling, and docs committed. |
 | `ven-t-009` | Deliver a paid Pose Coach release | `-` | `high` | `wip` | `ventures.pose-coach` | Live framing/voice and 15-language increment locally implemented `2026-10-06`; physical camera/speech and paid-release acceptance remain open. The [venture product order](#venture-product-order) retains release priority; details belong in its `engineering/planning/` |
-| `ven-t-010` | Deliver a paid Transcript Forge release | `-` | normal | `wip` | `10x-ventures-transcript-forge` | Persistent project queue controls locally implemented `2026-10-06`; reliable local Release 1 and provider acceptance precede hosted billing. Details belong in its `engineering/planning/` |
-| `ven-t-011` | Deliver a paid Hijinx release | `-` | normal | `wip` | `ventures.hijinx` | Host playlists and 15-language UI/starter-content increment locally implemented `2026-10-06`; native editorial/device and paid-release acceptance remain open. Details belong in its `engineering/planning/` |
+| `ven-t-010` | Deliver a paid Transcript Forge release | `2026-10-31` | `high` | `wip` | `10x-ventures-transcript-forge` | User target `2026-10-09`; draft/retry and provider-cost reliability fixes passed local verification. Reliable local Release 1 and provider acceptance precede hosted billing. Details belong in its `engineering/planning/` |
+| `ven-t-011` | Deliver a paid Hijinx release | `2026-10-31` | `high` | `wip` | `ventures.hijinx` | User target `2026-10-09`; offline browser and installed iOS/Android game checks passed. Selected same-room host/player mode is implemented with all 48 multi-device browser scenarios passing; physical-device/editorial acceptance and paid-release gates remain open. Details belong in its `engineering/planning/` |
 | `ven-t-012` | Set up the parent company for Stripe and app-store sales | `-` | `high` | `todo` | `-` | Added `2026-10-08`: Stripe does not onboard Uzbekistan sellers, so ForeverPin's live billing needs a Stripe-supported entity; the user wants one parent company to serve every later product. [Structure analysis](../../ideas/parent-company-2026-10/parent-company-2026-10.md). Gates live billing under `ven-t-006` |
+| `ven-t-013` | Define and deliver Kids Curiosity as a self-serve learning product | `-` | `high` | `todo` | `-` | Selected by the user `2026-10-09`; predict → explore a reviewed investigation → explain. Start one coherent question cluster; qualified content review, family repeat use and a tested paid boundary precede release. No repository or implementation is created by the research task. [Selection and gates](../../ideas/self-serve-research-2026-10/self-serve-research-2026-10.md#kids-curiosity-selected-with-an-editorial-gate) |
+
+| `ven-t-014` | Build and validate Surface Pattern as a maker venture | `-` | `high` | `wip` | `ventures.surface-pattern` | Selected `2026-10-10`; WOW2 Vue/.NET studio with deterministic repeats, surface previews and print exports. Local implementation and verification in [v0.1](../../workbench/ventures/ventures.surface-pattern/engineering/planning/version-track/v0.1/v0.1.md); recurring demand and physical print acceptance remain open. |
 
 ---
 
@@ -73,6 +104,8 @@ The [100-product research](../../ideas/saas-research-2026-10/decision-report.md)
 | `con-t-007` | Adopt confirmed mutation and independent read lifecycles across remaining products | `-` | `high` | `todo` | `wow-two-ws` | Non-Ocharo frontend/backend products; pending controls before acknowledgement, durable backend completion, separate projection refresh after success, no optimistic persisted updates. Migrate success contracts with consumers. Rules: [commands and reads](../../conventions/development/backend/dotnet/core/mla/domains/api/api.md#commands-and-reads), [mutations](../../conventions/development/frontend/core/mla/domains/data/state-and-data.md#mutations). |
 | `con-t-008` | Adopt shared notification lifecycles across remaining products | `-` | normal | `todo` | `wow-two-ws` | Non-Ocharo frontends; top-right severity toasts, explicit retained history, close/delete distinction and typed actions. Rules: [toast viewport](../../conventions/development/frontend/core/mla/components/feedback/toastHost.md#values), [notification center](../../conventions/development/frontend/core/mla/components/feedback/notificationCenterGroup.md#values). |
 | `con-t-009` | Group remaining product host configuration by capability | `-` | normal | `todo` | `wow-two-ws` | Non-Ocharo APIs and workers; host-owned capability registrations, shared resources, explicit assembly anchors and awaited initialization. Preserve lifetimes, configuration precedence and middleware order. Rule: [domain registration](../../conventions/development/backend/dotnet/shapes/service/platform/startup/host-configuration.md#domain-registration). |
+| `con-t-010` | Settle repository license conventions | `-` | normal | `todo` | `wow-two-ws` | Added `2026-10-14` by the user: analyze license options, choose our templates and write the exact conditions for picking one when a repo is created |
+| `con-t-011` | Require an app icon, version tag and environment tag in every app | `-` | normal | `todo` | `wow-two-ws` | Added `2026-10-14`: the design is proved in Wheelhouse first (a separate env pill beside the version; try a vertical stack on desktop), then fixed as a convention |
 
 ---
 
@@ -80,7 +113,7 @@ The [100-product research](../../ideas/saas-research-2026-10/decision-report.md)
 
 | Task ID | Task | Deadline | Priority | Status | Repo | Notes |
 |---|---|---|---|---|---|---|
-| — | — | — | — | — | — | — |
+| `wks-t-001` | Give every app a correct public identity: logo, description and homepage | `-` | normal | `todo` | `-` | Added `2026-10-13` by the user. Covers each product and platform app, its GitHub repository About, packages and GitHub OAuth/GitHub App registrations (first: Wheelhouse's `wheelhouse-dev` OAuth app). Inventory every surface, then fix per app |
 
 ---
 
