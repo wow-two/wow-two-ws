@@ -568,6 +568,30 @@
         "dev:http"
       ],
       "port": 8298
+    },
+    {
+      "name": "nasiya-metan-backend",
+      "runtimeExecutable": "/bin/sh",
+      "runtimeArgs": [
+        "-c",
+        "cd /Users/max/Projects/10x-ws/workbench/career/engineering/wow-two/wow-two-ws/workbench/projects/nasiya-finance/nasiya-finance-ws/workbench/MetanServiceBackend && venv/bin/python -m uvicorn app.main:app --port 8000"
+      ],
+      "port": 8000
+    },
+    {
+      "name": "nasiya-metan-frontend",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": [
+        "--prefix",
+        "/Users/max/Projects/10x-ws/workbench/career/engineering/wow-two/wow-two-ws/workbench/projects/nasiya-finance/nasiya-finance-ws/workbench/MetanServiceFrontend",
+        "run",
+        "dev",
+        "--",
+        "--port",
+        "3000",
+        "--strictPort"
+      ],
+      "port": 3000
     }
   ]
 }
