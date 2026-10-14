@@ -1,0 +1,1623 @@
+[
+  {
+    "id": "E001",
+    "name": "Kids Curiosity",
+    "family": "learning",
+    "origin": "Existing idea P140; explicitly selected by the user, independently of ranking",
+    "user": "A parent pays for a child aged roughly 6–10; they explore together initially.",
+    "first_result": "The child predicts an answer to a why-question, manipulates a simple demonstration, and explains the result.",
+    "loop": [
+      "Choose a reviewed why-question",
+      "Predict and explore one interactive explanation",
+      "Check the prediction and explain what changed",
+      "Return to a saved follow-up question or next short investigation"
+    ],
+    "return_trigger": "New child questions and a family discovery ritual; sustained return remains a hypothesis.",
+    "paid_value": "An expanding, reviewed library of connected investigations and remembered interests, with useful follow-up questions.",
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 6,
+      "annual_usd": null,
+      "basis": "Hypothesis: USD6/month; no observed willingness to pay.",
+      "free": "Three complete investigations without an account.",
+      "paid": "Full reviewed library, saved paths and new investigation releases."
+    },
+    "dependencies": [
+      "Primary-age science educator review",
+      "Illustration/audio rights and factual source review",
+      "Parent-controlled account and age-appropriate data handling"
+    ],
+    "compute": "Curated explanations and local interactive diagrams; no live generative chat. Pilot library capped at 20 investigations and no per-session model calls.",
+    "content_burden": "High: explanations, misconceptions, narration and usable interactions require review. Start one coherent question cluster; do not promise encyclopedic coverage.",
+    "first_scope": [
+      "Question shelf covering a single everyday-science cluster",
+      "Predict–explore–explain interaction with narrated text",
+      "Saved follow-ups and a parent recap"
+    ],
+    "acquisition": "Test a publicly shareable one-question demonstration with parent audiences; access and acquisition cost are unverified.",
+    "competitors": [
+      {
+        "name": "Mystery Science",
+        "url": "https://mysteryscience.com/",
+        "accessed": "2026-10-09",
+        "relation": "adjacent",
+        "facts": "Elementary science curriculum combines question-led lessons, investigations and activities; the site offers a free trial.",
+        "price": "Paid price not verified."
+      },
+      {
+        "name": "Science for Kids by Tappity",
+        "url": "https://apps.apple.com/us/app/science-for-kids-by-tappity/id1265019371",
+        "accessed": "2026-10-09",
+        "relation": "direct",
+        "facts": "Developer listing describes interactive, narrated science lessons, daily challenges, offline use and parent discussion prompts.",
+        "price": "US App Store lists multiple subscription SKUs; a single currently offered checkout price was not verified."
+      }
+    ],
+    "difference": "Test a tightly connected predict–explore–explain path around a child's question, with a visible end. Tappity already serves curiosity; this is a UX hypothesis, not an empty market.",
+    "risk": "Incumbents already supply interactive answers and recurring lessons. Editorial production can dominate software costs, while a generic chatbot is a free substitute.",
+    "experiment": "Give parents one complete unaided investigation; observe whether the child explains it and chooses another later without researcher prompting; then offer a clearly priced reviewed collection.",
+    "stop_rule": "Pause expansion if children only consume narration, parents must teach the interface, or returning families decline paid access in favor of existing resources.",
+    "overlap": "Other STEM entries teach specific subject skills; this serves family why-questions. Do not split topic packs into separate products. Excludes Pose Coach and Hijinx.",
+    "scores": {
+      "activation": 4,
+      "recurrence": 4,
+      "independence": 4,
+      "demonstrability": 5,
+      "paid_value": 3,
+      "differentiation": 2,
+      "feasibility": 3
+    },
+    "rationale": "Immediate demonstration and repeat curiosity fit the brief; paid retention and differentiation are unproven. User selection does not raise the score.",
+    "disposition": "shortlist",
+    "confidence": "low; competitor evidence only, user selection is not demand validation"
+  },
+  {
+    "id": "E002",
+    "name": "Formula Drill Gym",
+    "family": "learning",
+    "origin": "Existing idea P037, narrowed to independent browser practice",
+    "user": "An individual spreadsheet user pays to become reliable with formulas without connecting a workplace workbook.",
+    "first_result": "Solve a small spreadsheet task and see why a formula succeeds or fails on unseen rows.",
+    "loop": [
+      "Choose a concrete spreadsheet outcome",
+      "Write a formula in a small browser grid",
+      "Inspect result differences and targeted hints",
+      "Revisit a weak skill through a new dataset"
+    ],
+    "return_trigger": "Recurring spreadsheet use and spaced practice; upskilling may instead be a finite course purchase.",
+    "paid_value": "Diagnostic exercises, varied test data, error explanations and a maintained practice path beyond reference documentation.",
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 6,
+      "annual_usd": null,
+      "basis": "Hypothesis: USD6/month; test against a one-time course because completion churn is plausible.",
+      "free": "A complete beginner diagnostic and its correction exercises.",
+      "paid": "Full practice paths, error history and fresh mixed-skill challenges."
+    },
+    "dependencies": [
+      "Licensed or compatible spreadsheet formula engine",
+      "Spreadsheet educator review and cross-engine semantics checks"
+    ],
+    "compute": "Local formula evaluation on synthetic sheets capped at 200 cells per exercise; no uploaded workbooks or AI calls.",
+    "content_burden": "Moderate: author realistic datasets, accepted equivalent answers, edge cases and hints. Choose one formula dialect first.",
+    "first_scope": [
+      "Browser grid with a small supported formula set",
+      "Hidden-case grading with readable counterexamples",
+      "Weak-skill revisit queue"
+    ],
+    "acquisition": "Publish an ungated formula challenge with its error explanation; measure qualified practice starts from spreadsheet tutorial audiences. No audience access established.",
+    "competitors": [
+      {
+        "name": "Excel Exercises",
+        "url": "https://excelexercises.com/premium.html",
+        "accessed": "2026-10-09",
+        "relation": "direct",
+        "facts": "Paid practice includes interactive tutorials, exercises, assessments and downloadable data.",
+        "price": "Page displays $19.99/month, $59.99 billed yearly, and $199 lifetime; dollar currency code is not shown."
+      },
+      {
+        "name": "Excel Practice Online",
+        "url": "https://excel-practice-online.com/",
+        "accessed": "2026-10-09",
+        "relation": "direct",
+        "facts": "Provides free browser-based Excel practice across beginner and advanced topics.",
+        "price": "Free practice is advertised; no paid price verified."
+      }
+    ],
+    "difference": "Test feedback showing the smallest failing data example and resurfacing that error later. Interactive spreadsheet practice is already available commercially and free.",
+    "risk": "A one-time learning burst may not support MRR; mature free exercises and reference assistants already answer common formula questions.",
+    "experiment": "Offer a complete formula diagnostic without setup; watch a later unprompted mixed exercise; compare actual purchase of monthly practice with a clearly bounded course offer.",
+    "stop_rule": "Reject subscription if learners finish their immediate gap and do not return, or if they prefer free practice after trying the distinctive feedback.",
+    "overlap": "E024 teaches database querying; E016 teaches interpretation. No workplace import, team dashboard or custom workbook service.",
+    "scores": {
+      "activation": 5,
+      "recurrence": 3,
+      "independence": 5,
+      "demonstrability": 5,
+      "paid_value": 3,
+      "differentiation": 2,
+      "feasibility": 4
+    },
+    "rationale": "Excellent immediate browser value and bounded compute; recurrence and novelty are materially weaker than implementation feasibility.",
+    "disposition": "shortlist",
+    "confidence": "low; competitor evidence only"
+  },
+  {
+    "id": "E003",
+    "name": "Hifz Revision Companion",
+    "family": "learning",
+    "origin": "Existing idea P057; remove teacher-management workflow from initial scope",
+    "user": "An independent Quran memorizer pays for sustainable revision of passages already learned.",
+    "first_result": "Mark familiar passages and complete a short recall session that creates tomorrow's revision queue.",
+    "loop": [
+      "Choose memorized portions and available revision time",
+      "Recall from concealed text and mark hesitation",
+      "Compare against the licensed text and record self-assessed difficulty",
+      "Return when specific passages are due"
+    ],
+    "return_trigger": "Maintaining memorized material requires continuing revision; adoption of this particular scheduler is unverified.",
+    "paid_value": "A flexible revision schedule, mistake-location history and recovery after missed days without manually rebuilding a plan.",
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 4,
+      "annual_usd": null,
+      "basis": "Hypothesis: USD4/month; no observed willingness to pay.",
+      "free": "One memorized section with a working revision loop.",
+      "paid": "Larger revision library, flexible scheduling and history across devices."
+    },
+    "dependencies": [
+      "Verified Quran text and permitted recitation assets if included",
+      "Hifz practitioner review of scheduling and presentation",
+      "Access to independent memorizers for validation is not established"
+    ],
+    "compute": "Local scheduling and text conceal/reveal; no automated recitation recognition in the pilot. Cap optional downloaded audio to selected sections.",
+    "content_burden": "Moderate specialist burden: accurate text mapping, respectful presentation, revision methods and accessibility; no generated religious interpretation.",
+    "first_scope": [
+      "Memorized-portion setup",
+      "Concealed-text recall and hesitation markers",
+      "Adaptive self-rated review queue with missed-day recovery"
+    ],
+    "acquisition": "Demonstrate recovery from an overloaded revision queue to independent memorizer communities; distribution permission and access are unverified.",
+    "competitors": [
+      {
+        "name": "Tarteel Premium",
+        "url": "https://support.tarteel.ai/en/articles/12414387-what-s-tarteel-premium",
+        "accessed": "2026-10-09",
+        "relation": "direct",
+        "facts": "Premium includes memorization mistake detection, planning, historical mistakes and peeking; monthly and yearly renewals are described.",
+        "price": "Premium amount not verified."
+      },
+      {
+        "name": "Quranly",
+        "url": "https://www.quranly.app/",
+        "accessed": "2026-10-09",
+        "relation": "adjacent",
+        "facts": "Provides reading goals, progress tracking, daily streaks and optional friend/family participation.",
+        "price": "Site offers free starting access; paid plan price not verified."
+      }
+    ],
+    "difference": "Test a quiet self-assessed revision queue designed around missed-day recovery. Tarteel already combines planning and mistake history; superiority is unproven.",
+    "risk": "Tarteel offers more capable recitation feedback, and a notebook or free scheduler may be sufficient. Religious expertise and trusted distribution cannot be replaced by code.",
+    "experiment": "Let existing memorizers configure real known passages unaided, use the due queue through a missed day, then choose whether to buy ongoing scheduling at the stated price.",
+    "stop_rule": "Stop if learners cannot trust self-assessment, require speech correction to find value, or return to their existing revision routine despite successful onboarding.",
+    "overlap": "E022 serves arbitrary study notes; this handles passage continuity and memorization maintenance. Not a mosque/teacher administration product.",
+    "scores": {
+      "activation": 4,
+      "recurrence": 5,
+      "independence": 4,
+      "demonstrability": 3,
+      "paid_value": 3,
+      "differentiation": 2,
+      "feasibility": 4
+    },
+    "rationale": "Natural continuing revision is stronger than a finite course; competition, trust and unverified buyer access restrain the opportunity.",
+    "disposition": "shortlist",
+    "confidence": "low; competitor evidence only"
+  },
+  {
+    "id": "E004",
+    "name": "Phonics-to-Reading Path",
+    "family": "learning",
+    "origin": "New research proposal",
+    "user": "A parent of an early reader pays for structured decoding practice at home.",
+    "first_result": "A child blends a taught sound pattern and independently decodes a short matching sentence.",
+    "loop": [
+      "Check a small set of known sounds",
+      "Blend and read decodable words",
+      "Hear the model and retry a missed pattern",
+      "Unlock a short text using retained patterns"
+    ],
+    "return_trigger": "Regular reading development during a finite learning stage; long-term subscription retention is not assumed.",
+    "paid_value": "A coherent, reviewed decoding sequence and texts that match the child's taught patterns.",
+    "pricing": {
+      "model": "one-time",
+      "monthly_usd": null,
+      "annual_usd": null,
+      "basis": "Hypothesis: USD25 per complete beginner course; zero subscription MRR.",
+      "free": "One sound-pattern lesson and matching story.",
+      "paid": "A finite sequenced decoding course with progress storage."
+    },
+    "dependencies": [
+      "Qualified early-literacy curriculum author",
+      "Narration and text rights",
+      "Parent supervision appropriate to age"
+    ],
+    "compute": "Pre-recorded audio and local interaction; no voice diagnosis. Cap first course at one progression of sound patterns.",
+    "content_burden": "High: phonics sequence, decodability, accents and accessibility require careful expert review.",
+    "first_scope": [
+      "Sound-blending interaction",
+      "Matched decodable sentences",
+      "Simple parent progress view"
+    ],
+    "acquisition": "Offer a complete parent-child decoding sample to early-reading audiences; acquisition and trust are unverified.",
+    "competitors": [
+      {
+        "name": "Reading Eggs",
+        "url": "https://readingeggs.com.au/",
+        "accessed": "2026-10-09",
+        "relation": "direct",
+        "facts": "Offers interactive reading lessons, phonics activities, games and a digital book library for home learning.",
+        "price": "Free trial advertised; paid price not verified."
+      }
+    ],
+    "difference": "Test a small, transparent course where each story shows the sound patterns it practices. No claim that established curricula lack this.",
+    "risk": "A well-known curriculum with a broad library is easier for parents to trust; pedagogy and content production are harder than the app.",
+    "experiment": "Observe a parent starting the sample without training, the child using a new sentence later, and an actual decision to buy the bounded course.",
+    "stop_rule": "Defer if expert review cannot be secured, children guess from pictures instead of decoding, or parents choose an existing curriculum after the sample.",
+    "overlap": "E023 targets comprehension conversations with fluent-enough readers; E004 teaches decoding. Not a generalized child tutor.",
+    "scores": {
+      "activation": 4,
+      "recurrence": 3,
+      "independence": 3,
+      "demonstrability": 4,
+      "paid_value": 3,
+      "differentiation": 2,
+      "feasibility": 2
+    },
+    "rationale": "Clear observable outcome but high specialist burden and crowded paid alternatives; honest finite-course pricing.",
+    "disposition": "defer",
+    "confidence": "low; competitor evidence only"
+  },
+  {
+    "id": "E005",
+    "name": "Fraction Sense Lab",
+    "family": "learning",
+    "origin": "New research proposal",
+    "user": "A parent or self-directed learner pays to understand fraction magnitude and operations visually.",
+    "first_result": "Construct two equivalent fractions and explain why their sizes match.",
+    "loop": [
+      "Make a prediction about a fraction relationship",
+      "Manipulate area and number-line models",
+      "Compare the visual result with the numerical answer",
+      "Revisit a misconception in a different representation"
+    ],
+    "return_trigger": "A finite sequence of misconceptions plus review before later mathematics; not an endless-content assumption.",
+    "paid_value": "A complete conceptual progression linking fractions to magnitude, equivalence and operations.",
+    "pricing": {
+      "model": "one-time",
+      "monthly_usd": null,
+      "annual_usd": null,
+      "basis": "Hypothesis: USD15 for the complete fraction course; zero subscription MRR.",
+      "free": "One equivalence investigation.",
+      "paid": "Full fraction progression and mixed review."
+    },
+    "dependencies": [
+      "Mathematics educator review",
+      "Accessibility review of visual manipulations"
+    ],
+    "compute": "Local geometry and exact rational arithmetic; bounded authored problems, no generative grading.",
+    "content_burden": "Moderate: carefully chosen misconception examples, transfer questions and explanatory visuals.",
+    "first_scope": [
+      "Area and number-line manipulatives",
+      "Prediction before calculation",
+      "Misconception-specific review"
+    ],
+    "acquisition": "Share a visual fraction misconception challenge with parents searching for a concrete explanation; channel access unverified.",
+    "competitors": [
+      {
+        "name": "Math Makers",
+        "url": "https://ululab.com/math-makers/",
+        "accessed": "2026-10-09",
+        "relation": "direct",
+        "facts": "Uses physics-based puzzles to teach mathematics including fractions and offers family membership.",
+        "price": "Membership amount not verified."
+      }
+    ],
+    "difference": "Test explicit transfer between a manipulated model and a symbolic explanation; an unvalidated instructional emphasis, not a claim of unique fraction games.",
+    "risk": "A narrow topic finishes quickly and competes with free lessons plus polished games; playful success may not transfer to actual reasoning.",
+    "experiment": "Give the first lesson unaided, check a different representation in a later session, then offer the completed course for purchase.",
+    "stop_rule": "Stop if learners solve the game but cannot transfer the concept, or if interested parents will only use free samples.",
+    "overlap": "A coherent conceptual course rather than another generic drill bank; topic packs are not separate candidate products.",
+    "scores": {
+      "activation": 4,
+      "recurrence": 3,
+      "independence": 4,
+      "demonstrability": 5,
+      "paid_value": 2,
+      "differentiation": 2,
+      "feasibility": 3
+    },
+    "rationale": "Demonstrable and inexpensive to run; limited duration and curriculum quality constrain revenue and feasibility.",
+    "disposition": "reserve",
+    "confidence": "low; competitor evidence only"
+  },
+  {
+    "id": "E006",
+    "name": "Programming Puzzle Workshop",
+    "family": "learning",
+    "origin": "New research proposal",
+    "user": "A beginner learner or parent pays for a first coding course that produces working behaviors in a browser.",
+    "first_result": "Write a short program that changes a visible simulation and repair one failing case.",
+    "loop": [
+      "Choose a behavior to create",
+      "Edit a small program and run it",
+      "Inspect execution and a failing example",
+      "Apply the concept to a new behavior"
+    ],
+    "return_trigger": "A structured beginner course followed by optional new project packs; not indefinite drill retention.",
+    "paid_value": "A reliable progression from sequences to functions, with visual execution and testable small creations.",
+    "pricing": {
+      "model": "one-time",
+      "monthly_usd": null,
+      "annual_usd": null,
+      "basis": "Hypothesis: USD25 per beginner course; zero subscription MRR.",
+      "free": "A complete sequence-and-loop mini-project.",
+      "paid": "Full introductory course and project exports."
+    },
+    "dependencies": [
+      "Safe browser execution environment",
+      "Programming educator review",
+      "Accessible editor and keyboard support"
+    ],
+    "compute": "Run a restricted language locally with execution-step and memory caps; no cloud execution or model hints.",
+    "content_burden": "Moderate to high: projects, test cases, trace explanations and frustration management.",
+    "first_scope": [
+      "Small local code editor and runner",
+      "Visible execution trace",
+      "Three connected projects using the same concepts"
+    ],
+    "acquisition": "Demonstrate a learner changing a simulation with five lines of code; test starts from beginner-coding audiences.",
+    "competitors": [
+      {
+        "name": "CodeCombat",
+        "url": "https://codecombat.com/features/",
+        "accessed": "2026-10-09",
+        "relation": "direct",
+        "facts": "Premium adds characters, scripting/game-building features and AI hints; the page describes a daily hint allowance.",
+        "price": "Paid price not verified."
+      }
+    ],
+    "difference": "Test debugging through a visible failing execution trace, with tiny creations rather than a large game world. Similar teaching mechanics may already exist.",
+    "risk": "Free coding education and polished game-based incumbents set a high bar; motivation can collapse as puzzles become syntax-heavy.",
+    "experiment": "Observe a learner creating and debugging the free project unaided, returning for a second project, and purchasing the complete course.",
+    "stop_rule": "Stop if meaningful completion repeatedly needs live tutoring or learners can follow instructions but cannot modify a new behavior.",
+    "overlap": "E024 teaches relational data reasoning, not general programming. Excludes job interview preparation and creative game-making platforms.",
+    "scores": {
+      "activation": 4,
+      "recurrence": 3,
+      "independence": 4,
+      "demonstrability": 5,
+      "paid_value": 3,
+      "differentiation": 2,
+      "feasibility": 3
+    },
+    "rationale": "Bounded computation and visible output fit self-serve adoption; content and differentiation remain substantial work.",
+    "disposition": "reserve",
+    "confidence": "low; competitor evidence only"
+  },
+  {
+    "id": "E007",
+    "name": "Household Science Simulator",
+    "family": "learning",
+    "origin": "New research proposal",
+    "user": "A parent or curious learner pays for guided virtual experiments about everyday physical phenomena.",
+    "first_result": "Change one variable in a simulated experiment and identify its effect from observed measurements.",
+    "loop": [
+      "Form a prediction from a specific question",
+      "Change a controlled variable",
+      "Read a measurement and revise the explanation",
+      "Try a transfer investigation using the same principle"
+    ],
+    "return_trigger": "A series of investigations during a science-learning phase; new packs need genuine new concepts.",
+    "paid_value": "Coherent guided experiment packs with misconceptions, measurements and clear explanations.",
+    "pricing": {
+      "model": "one-time",
+      "monthly_usd": null,
+      "annual_usd": null,
+      "basis": "Hypothesis: USD18 per reviewed experiment pack; zero subscription MRR.",
+      "free": "One complete controlled-variable investigation.",
+      "paid": "A connected pack with replayable measurement tasks."
+    },
+    "dependencies": [
+      "Science educator and simulation-validity review",
+      "Illustration rights"
+    ],
+    "compute": "Local simplified physics models with explicitly stated assumptions; fixed scenes and no generative video.",
+    "content_burden": "High: simulations must be educationally honest and explanations must distinguish a model from reality.",
+    "first_scope": [
+      "A small heat/light or force investigation set",
+      "Prediction and measurement notebook",
+      "Transfer questions with reviewed explanations"
+    ],
+    "acquisition": "Publish one surprising predict-then-test interaction; assess whether families choose a connected paid pack.",
+    "competitors": [
+      {
+        "name": "PhET Interactive Simulations",
+        "url": "https://phet.colorado.edu/en/about",
+        "accessed": "2026-10-09",
+        "relation": "direct",
+        "facts": "University of Colorado Boulder provides free research-based interactive science and mathematics simulations, usable online or by download.",
+        "price": "Free simulations are explicitly described."
+      }
+    ],
+    "difference": "Test a short guided home-learning sequence around a single principle. Free PhET activities already provide strong interactive alternatives.",
+    "risk": "Free, research-based simulations may be better than a solo builder can produce; this can collapse into a topic pack of Kids Curiosity.",
+    "experiment": "Test whether learners complete a measurement investigation unaided and later use the principle in a different case before buying the full pack.",
+    "stop_rule": "Consolidate into E001 if users perceive only another curiosity topic; stop if models need continual explanation by an adult.",
+    "overlap": "Explicit consolidation candidate with E001. Keep separate only if measured experimentation, not question discovery, drives purchase.",
+    "scores": {
+      "activation": 4,
+      "recurrence": 2,
+      "independence": 4,
+      "demonstrability": 5,
+      "paid_value": 2,
+      "differentiation": 2,
+      "feasibility": 2
+    },
+    "rationale": "Attractive demonstration but weak subscription logic, free alternatives and substantial overlap.",
+    "disposition": "defer",
+    "confidence": "low; competitor evidence only"
+  },
+  {
+    "id": "E008",
+    "name": "Pronunciation Practice Lab",
+    "family": "learning",
+    "origin": "New research proposal",
+    "user": "An adult language learner pays to distinguish and produce a small set of difficult speech sounds.",
+    "first_result": "Hear a minimal-pair contrast, record both sounds, and identify the difference against a reviewed model.",
+    "loop": [
+      "Choose a sound contrast from a short diagnostic",
+      "Listen, discriminate and record fixed phrases",
+      "Compare playback with annotated model audio",
+      "Revisit weak contrasts through new fixed phrases"
+    ],
+    "return_trigger": "Repeated practice while improving intelligibility; long-term usage beyond a pronunciation course is uncertain.",
+    "paid_value": "Expert-selected contrasts, high-quality model audio and a structured listening-to-production progression.",
+    "pricing": {
+      "model": "one-time",
+      "monthly_usd": null,
+      "annual_usd": null,
+      "basis": "Hypothesis: USD20 per language-specific pronunciation course; zero subscription MRR.",
+      "free": "One complete contrast with listening and recording.",
+      "paid": "A reviewed course with a personal replay history."
+    },
+    "dependencies": [
+      "Phonetics or language-teaching reviewer",
+      "Consented native-speaker recordings",
+      "Microphone access"
+    ],
+    "compute": "Record and replay locally; fixed audio assets. No claimed accent scoring or automatic correctness in the pilot; recordings remain bounded to selected exercises.",
+    "content_burden": "High: language-specific contrasts, accents, models and clear mouth-position instruction require expertise.",
+    "first_scope": [
+      "Minimal-pair discrimination",
+      "Local recording comparison",
+      "Scheduled review of self-rated weak contrasts"
+    ],
+    "acquisition": "Demonstrate an easy-to-hear contrast to language-learning audiences; test completion without teacher assistance.",
+    "competitors": [
+      {
+        "name": "ELSA Speak",
+        "url": "https://elsaspeak.com/en",
+        "accessed": "2026-10-09",
+        "relation": "direct",
+        "facts": "Offers personalized English practice, feedback, learning paths, roleplay and progress tracking.",
+        "price": "Free starting access is advertised; paid price not verified."
+      }
+    ],
+    "difference": "Test a tightly bounded listening-and-production course with transparent audio comparison. ELSA already offers much richer feedback.",
+    "risk": "Without trustworthy automatic feedback, users may prefer free audio or a teacher; adding speech scoring creates cost and accuracy risk.",
+    "experiment": "Have learners finish a contrast exercise unaided, repeat it independently later, and purchase a course only if the comparison helps them self-correct.",
+    "stop_rule": "Stop if learners cannot judge their own improvement or demand automated scoring before they find the product useful.",
+    "overlap": "Root's speaking rehearsal covers presentations/conversations. This teaches foreign-language phonemes, not public speaking or Pose Coach.",
+    "scores": {
+      "activation": 3,
+      "recurrence": 3,
+      "independence": 3,
+      "demonstrability": 4,
+      "paid_value": 3,
+      "differentiation": 2,
+      "feasibility": 2
+    },
+    "rationale": "Clear skill outcome but expert content and feedback quality are central; a cheap audio wrapper is insufficient.",
+    "disposition": "defer",
+    "confidence": "low; competitor evidence only"
+  },
+  {
+    "id": "E009",
+    "name": "Graded Reading Language Club",
+    "family": "learning",
+    "origin": "New research proposal",
+    "user": "An intermediate language learner pays to finish enjoyable reading at an appropriate difficulty.",
+    "first_result": "Finish a short graded chapter, understand its main event and retain several useful phrases.",
+    "loop": [
+      "Choose a story at a tested reading level",
+      "Read with optional reviewed audio and selective glosses",
+      "Check understanding and retrieve useful phrases",
+      "Return for the next chapter and spaced phrase review"
+    ],
+    "return_trigger": "Continuing stories and repeated exposure to a language; ongoing demand for this catalogue is unverified.",
+    "paid_value": "A consistent stream of enjoyable, level-controlled stories with audio and purposeful phrase review.",
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 7,
+      "annual_usd": null,
+      "basis": "Hypothesis: USD7/month; no observed willingness to pay.",
+      "free": "One complete short story with audio and review.",
+      "paid": "Full serial catalogue, new chapters and cross-story review."
+    },
+    "dependencies": [
+      "Language teacher/editor",
+      "Original or licensed fiction and narration",
+      "One starting language and level"
+    ],
+    "compute": "Local reader and review scheduling with cached audio; no live translation or generated stories. Bound the pilot to one completed serial.",
+    "content_burden": "High ongoing editorial and narration work; quality, natural language and level consistency are the product.",
+    "first_scope": [
+      "A complete graded serial",
+      "Tap-to-gloss with reviewed definitions",
+      "Chapter comprehension and phrase retrieval"
+    ],
+    "acquisition": "Release one satisfying story with a shareable first chapter through language-learning audiences; audience access is unverified.",
+    "competitors": [
+      {
+        "name": "LingQ",
+        "url": "https://www.lingq.com/en/",
+        "accessed": "2026-10-09",
+        "relation": "direct",
+        "facts": "Combines reading/listening, imported or library content, vocabulary progress and AI-supported language tools.",
+        "price": "Free signup is offered; paid price not verified."
+      }
+    ],
+    "difference": "Test a deliberately small, editor-authored serial with a clear next episode and limited glossing. Existing readers already offer extensive libraries.",
+    "risk": "Free native content and established readers dwarf a small catalogue; constant publishing may cost more than the app can support.",
+    "experiment": "Let learners complete a free story unaided, return for a later chapter, and buy access to the finished serial at the stated subscription price.",
+    "stop_rule": "Switch to finite story packs or stop if readers binge once, do not return for vocabulary, or mainly want arbitrary content imports.",
+    "overlap": "E023 is parent-child first-language comprehension; this serves adult second-language reading. No separate product per language.",
+    "scores": {
+      "activation": 4,
+      "recurrence": 4,
+      "independence": 4,
+      "demonstrability": 4,
+      "paid_value": 3,
+      "differentiation": 2,
+      "feasibility": 2
+    },
+    "rationale": "A plausible serial habit, but editorial throughput and a crowded category limit solo-builder appeal.",
+    "disposition": "reserve",
+    "confidence": "low; competitor evidence only"
+  },
+  {
+    "id": "E010",
+    "name": "Sign-Language Practice Path",
+    "family": "learning",
+    "origin": "New research proposal",
+    "user": "A hearing beginner pays to learn introductory signs for everyday communication with a specific signing community.",
+    "first_result": "Recognize a short signed exchange and reproduce a small set of signs against a video model.",
+    "loop": [
+      "Start a situation-led lesson in one sign language",
+      "Watch, recognize and reproduce signs",
+      "Compare recording with signer-led guidance",
+      "Review and combine signs in a later exchange"
+    ],
+    "return_trigger": "Practice during a finite beginner course and real communication opportunities; learning one course need not recur indefinitely.",
+    "paid_value": "A coherent Deaf-led introduction with authentic examples, slow playback and structured review.",
+    "pricing": {
+      "model": "one-time",
+      "monthly_usd": null,
+      "annual_usd": null,
+      "basis": "Hypothesis: USD30 for a reviewed beginner course; zero subscription MRR.",
+      "free": "One complete introductory exchange.",
+      "paid": "A bounded course with signed dialogues and review."
+    },
+    "dependencies": [
+      "Paid Deaf native-signer authorship and cultural review",
+      "Rights to video recordings",
+      "Optional camera for private self-comparison"
+    ],
+    "compute": "Pre-recorded video and local optional recording; no gesture-recognition promise. Cap storage to recent practice clips.",
+    "content_burden": "Very high specialist video burden; sign languages differ and cannot be treated as simple word substitutions.",
+    "first_scope": [
+      "One language and a small real-life situation sequence",
+      "Recognition exercises and slow replay",
+      "Local side-by-side self-comparison"
+    ],
+    "acquisition": "A signer-led sample lesson can demonstrate value; access to trusted educators and communities is not established.",
+    "competitors": [
+      {
+        "name": "Lingvano",
+        "url": "https://www.lingvano.com/asl",
+        "accessed": "2026-10-09",
+        "relation": "direct",
+        "facts": "ASL lessons are taught by native Deaf signers and include dialogues, flashcards, a learning path and fingerspelling feedback.",
+        "price": "Trial advertised; paid price not verified."
+      }
+    ],
+    "difference": "Test a small situational course chosen with native signers; no claim that signer-led learning or camera feedback is new.",
+    "risk": "A mature Deaf-led incumbent already has curriculum and recognition technology; without credible authors this should not be built.",
+    "experiment": "Validate the lesson with native signers first, then observe beginner comprehension, later independent review and an actual course purchase.",
+    "stop_rule": "Defer without an accountable content partner, or if learners need live correction to benefit from the self-serve lessons.",
+    "overlap": "Distinct from spoken-language pronunciation; a complete communication course, not a theme variant of a flashcard app.",
+    "scores": {
+      "activation": 3,
+      "recurrence": 3,
+      "independence": 3,
+      "demonstrability": 4,
+      "paid_value": 3,
+      "differentiation": 2,
+      "feasibility": 1
+    },
+    "rationale": "Useful independent outcome, but video authorship, cultural credibility and competition overwhelm software simplicity.",
+    "disposition": "defer",
+    "confidence": "low; competitor evidence only"
+  },
+  {
+    "id": "E011",
+    "name": "Braille Literacy Trainer",
+    "family": "learning",
+    "origin": "New research proposal",
+    "user": "A sighted parent, helper or educator pays to learn visual braille transcription and recognition.",
+    "first_result": "Read and type a short sequence of braille cells with accurate immediate correction.",
+    "loop": [
+      "Learn a small cell pattern set",
+      "Read or chord a short phrase",
+      "Inspect cell-level corrections",
+      "Review uncertain patterns in later phrases"
+    ],
+    "return_trigger": "A finite literacy course plus occasional refresh; visual training does not establish tactile reading competence.",
+    "paid_value": "A convenient, accessible course with practice passages and error-focused review.",
+    "pricing": {
+      "model": "one-time",
+      "monthly_usd": null,
+      "annual_usd": null,
+      "basis": "Hypothesis: USD12 for a complete introductory visual course; zero subscription MRR.",
+      "free": "One alphabet-pattern lesson with correction.",
+      "paid": "Finite literacy progression and review history."
+    },
+    "dependencies": [
+      "Braille specialist review",
+      "Accessible keyboard and screen-reader testing",
+      "Accurate Unified English Braille rules"
+    ],
+    "compute": "Local symbol mapping and grading with small text passages; no hardware or AI required.",
+    "content_burden": "High correctness burden despite small software scope: contractions, ambiguity, notation and accessibility matter.",
+    "first_scope": [
+      "Six-dot keyboard chord input",
+      "Pattern-to-text and text-to-pattern practice",
+      "Error-focused lesson replay"
+    ],
+    "acquisition": "Demonstrate a complete keyboard lesson to family-support audiences; specialist-community access is unverified.",
+    "competitors": [
+      {
+        "name": "UEB Online",
+        "url": "https://uebonline.org/",
+        "accessed": "2026-10-09",
+        "relation": "direct",
+        "facts": "NextSense offers braille literacy and mathematics training with accessibility modes and saved progress; a computer is required.",
+        "price": "Courses are free; an optional completion certificate is AU$50."
+      }
+    ],
+    "difference": "Test a more convenient practice experience for sighted helpers. Do not imply it replaces tactile instruction or that established training is unavailable.",
+    "risk": "A credible free specialist provider already offers structured courses. A small convenience improvement may have no meaningful paid market.",
+    "experiment": "Have target helpers complete a lesson unaided, return for a later phrase, and choose between the proposed paid course and UEB Online.",
+    "stop_rule": "Stop if free UEB Online meets the same need or expert review finds the interface teaches misleading reading habits.",
+    "overlap": "Different sensory literacy outcome from phonics; no hardware sales or assistive-device claims.",
+    "scores": {
+      "activation": 4,
+      "recurrence": 2,
+      "independence": 4,
+      "demonstrability": 3,
+      "paid_value": 1,
+      "differentiation": 2,
+      "feasibility": 3
+    },
+    "rationale": "Bounded mechanics but finite demand, free specialist competition and a narrow unverified buyer group.",
+    "disposition": "defer",
+    "confidence": "low; competitor evidence only"
+  },
+  {
+    "id": "E012",
+    "name": "Logic and Proof Lab",
+    "family": "learning",
+    "origin": "New research proposal",
+    "user": "A mathematically curious student pays to learn how to construct and challenge valid proofs.",
+    "first_result": "Build a valid short argument and see a counterexample to an invalid inference.",
+    "loop": [
+      "Inspect a proposition and available assumptions",
+      "Assemble justified proof steps",
+      "See which inference fails or why the proof closes",
+      "Tackle a later theorem reusing learned rules"
+    ],
+    "return_trigger": "Progression through a finite reasoning course with optional harder chapters.",
+    "paid_value": "A carefully sequenced bridge from intuitive arguments to explicit proof rules.",
+    "pricing": {
+      "model": "one-time",
+      "monthly_usd": null,
+      "annual_usd": null,
+      "basis": "Hypothesis: USD20 for a foundational proof course; zero subscription MRR.",
+      "free": "A complete implication-and-counterexample chapter.",
+      "paid": "A reviewed proof progression with saved attempts."
+    },
+    "dependencies": [
+      "Mathematics/logic educator",
+      "A sound limited proof checker or licensed/open-source engine review"
+    ],
+    "compute": "Local checking in a bounded propositional or elementary-number domain; cap proof size and avoid arbitrary theorem search.",
+    "content_burden": "High: proofs, hints, counterexamples and progression need careful correctness review.",
+    "first_scope": [
+      "Readable proof-step builder",
+      "Counterexample visualization",
+      "A connected sequence of elementary propositions"
+    ],
+    "acquisition": "Publish one surprising invalid-argument puzzle and a complete correction path; test interest from self-directed mathematics learners.",
+    "competitors": [
+      {
+        "name": "Natural Number Game",
+        "url": "https://github.com/leanprover-community/NNG4",
+        "accessed": "2026-10-09",
+        "relation": "direct",
+        "facts": "The official repository implements the Natural Number Game in Lean 4 using a game engine for interactive proof learning.",
+        "price": "Source is publicly available; a paid access price is not listed on this repository."
+      }
+    ],
+    "difference": "Test an introductory visual bridge before formal syntax. Interactive proof-learning games already exist; the bridge must prove its instructional value.",
+    "risk": "Free formal-proof games and textbooks serve motivated learners; easy puzzles may fail to teach genuine proof construction.",
+    "experiment": "Observe an unaided proof, a later unfamiliar theorem using the same rule, and purchase of the complete course.",
+    "stop_rule": "Stop if learners only rearrange hints or cannot explain validity outside the interface, or prefer the free formal game.",
+    "overlap": "Not a recreational puzzle collection: success is transferable proof construction. E016 evaluates empirical data rather than deductive validity.",
+    "scores": {
+      "activation": 3,
+      "recurrence": 3,
+      "independence": 4,
+      "demonstrability": 4,
+      "paid_value": 2,
+      "differentiation": 2,
+      "feasibility": 2
+    },
+    "rationale": "Distinct educational outcome but niche reach and demanding content validation.",
+    "disposition": "reserve",
+    "confidence": "low; competitor evidence only"
+  },
+  {
+    "id": "E013",
+    "name": "Molecule Builder",
+    "family": "learning",
+    "origin": "New research proposal",
+    "user": "A chemistry learner pays to understand bonding and spatial molecular structure through construction.",
+    "first_result": "Build a target molecule that satisfies a limited bonding rule set and inspect its spatial form.",
+    "loop": [
+      "Read a structural target or constraint",
+      "Place atoms and bonds",
+      "Inspect valence feedback and a reviewed 3D model",
+      "Solve a later construction with a new constraint"
+    ],
+    "return_trigger": "A bounded chemistry-learning unit and revision before assessments.",
+    "paid_value": "Guided construction problems that connect notation, bonding constraints and spatial understanding.",
+    "pricing": {
+      "model": "one-time",
+      "monthly_usd": null,
+      "annual_usd": null,
+      "basis": "Hypothesis: USD18 for an introductory structure course; zero subscription MRR.",
+      "free": "A complete simple-molecule construction lesson.",
+      "paid": "Reviewed structure challenges and concept review."
+    },
+    "dependencies": [
+      "Chemistry educator review",
+      "Permitted molecule geometry data and rendering library"
+    ],
+    "compute": "Local graph checks and display of reviewed geometries; no quantum chemistry or arbitrary structure prediction. Limit atom types and molecule size.",
+    "content_burden": "High scientific correctness burden; simplified bonding rules must be labeled and carefully bounded.",
+    "first_scope": [
+      "Atom-and-bond construction",
+      "Explicit limited valence feedback",
+      "2D notation and reviewed 3D comparison"
+    ],
+    "acquisition": "Demonstrate how a correct flat formula can conceal a spatial misconception to chemistry-learning audiences.",
+    "competitors": [
+      {
+        "name": "MolView",
+        "url": "https://molview.org/",
+        "accessed": "2026-10-09",
+        "relation": "adjacent",
+        "facts": "Provides a molecular structure editor, interactive 3D visualization and database lookup for chemical structures.",
+        "price": "A premium version is referenced; exact pricing not verified."
+      }
+    ],
+    "difference": "Test a guided construction-and-explanation course around a bounded set of misconceptions, rather than general molecule viewing.",
+    "risk": "Free or established visualization tools plus lessons may suffice; inaccurate simplifications would undermine the educational outcome.",
+    "experiment": "Observe construction of a first molecule and a later transfer problem, then offer the completed course for actual purchase.",
+    "stop_rule": "Stop if users need arbitrary research molecules rather than the bounded course, or expert review cannot validate the feedback.",
+    "overlap": "Distinct from E007's controlled-variable experiments and E021's anatomy orientation; no research or clinical tool claims.",
+    "scores": {
+      "activation": 4,
+      "recurrence": 2,
+      "independence": 4,
+      "demonstrability": 5,
+      "paid_value": 2,
+      "differentiation": 2,
+      "feasibility": 2
+    },
+    "rationale": "Strong visual activation but finite use and demanding specialist validation.",
+    "disposition": "reserve",
+    "confidence": "low; competitor evidence only"
+  },
+  {
+    "id": "E014",
+    "name": "Geography Recall Expeditions",
+    "family": "learning",
+    "origin": "New research proposal",
+    "user": "A curious learner or parent pays for durable geographic understanding beyond isolated capital trivia.",
+    "first_result": "Reconstruct a small region on a map and explain one relationship between its terrain and settlements.",
+    "loop": [
+      "Explore a region through map layers",
+      "Rebuild missing locations and relationships",
+      "Compare against the map and explain an error",
+      "Revisit weak spatial relationships in a new route"
+    ],
+    "return_trigger": "Sequential region study and spaced spatial recall; completion is finite.",
+    "paid_value": "Coherent map-based learning journeys and a personal review path.",
+    "pricing": {
+      "model": "one-time",
+      "monthly_usd": null,
+      "annual_usd": null,
+      "basis": "Hypothesis: USD15 for a complete geography course pack; zero subscription MRR.",
+      "free": "One complete region investigation.",
+      "paid": "Connected map reconstruction journeys and review."
+    },
+    "dependencies": [
+      "Properly licensed map/boundary data",
+      "Geography educator review",
+      "Policy for disputed boundaries and changing names"
+    ],
+    "compute": "Local vector maps and answer checks; no live map API required. Cap to selected regions and reviewed datasets.",
+    "content_burden": "Moderate ongoing corrections plus authored explanations; avoid multiplying country quiz skins.",
+    "first_scope": [
+      "Map reconstruction interactions",
+      "Terrain and settlement overlays",
+      "Spaced location/relationship review"
+    ],
+    "acquisition": "Share a playable map-reconstruction challenge with a meaningful explanation; test discovery through geography-learning audiences.",
+    "competitors": [
+      {
+        "name": "Lizard Point Geography",
+        "url": "https://lizardpoint.com/geography/",
+        "accessed": "2026-10-09",
+        "relation": "direct",
+        "facts": "Offers geography quizzes covering places, flags and bodies of water, alongside free printable maps.",
+        "price": "Free printable maps are advertised; paid quiz pricing not verified."
+      }
+    ],
+    "difference": "Test spatial reconstruction linked to causal geography explanations. Map quizzes already exist in abundance.",
+    "risk": "Users may want casual free trivia rather than a paid learning path; proposed depth adds editorial work without proven willingness to pay.",
+    "experiment": "Observe an unaided map reconstruction, a later route-transfer exercise, and an actual course-pack purchase.",
+    "stop_rule": "Stop if users only replay familiar trivia or cannot transfer location knowledge to a different map view.",
+    "overlap": "Play E063 teaches navigation in the real night sky. E014 teaches terrestrial spatial geography; no travel itinerary product.",
+    "scores": {
+      "activation": 4,
+      "recurrence": 3,
+      "independence": 4,
+      "demonstrability": 4,
+      "paid_value": 2,
+      "differentiation": 2,
+      "feasibility": 3
+    },
+    "rationale": "Easy to demonstrate and cheap to run; crowded free category and finite progression weaken monetization.",
+    "disposition": "reserve",
+    "confidence": "low; competitor evidence only"
+  },
+  {
+    "id": "E015",
+    "name": "History Cause-and-Effect Atlas",
+    "family": "learning",
+    "origin": "New research proposal",
+    "user": "A curious adult or older student pays to understand the chronology and competing explanations of historical change.",
+    "first_result": "Build an evidence-linked timeline and distinguish a supported causal claim from mere sequence.",
+    "loop": [
+      "Enter a bounded historical question",
+      "Arrange events and inspect primary-source excerpts",
+      "Compare alternative causal explanations",
+      "Return for a connected episode or source challenge"
+    ],
+    "return_trigger": "Curiosity about connected periods and completion of a finite episode collection.",
+    "paid_value": "Well-edited historical investigations with source context and honest treatment of uncertainty.",
+    "pricing": {
+      "model": "one-time",
+      "monthly_usd": null,
+      "annual_usd": null,
+      "basis": "Hypothesis: USD18 per reviewed historical collection; zero subscription MRR.",
+      "free": "One complete source-and-timeline investigation.",
+      "paid": "A connected collection of investigations and maps."
+    },
+    "dependencies": [
+      "Historian/editor review",
+      "Rights and translations for source excerpts",
+      "Licensed historical map assets"
+    ],
+    "compute": "Local timelines, maps and authored branching; no generated historical claims or live fact retrieval.",
+    "content_burden": "Very high: source selection, context, translations and contested interpretations require accountable scholarship.",
+    "first_scope": [
+      "One coherent historical period",
+      "Evidence-linked causal timeline",
+      "Contrasting interpretations with source context"
+    ],
+    "acquisition": "Publish a short historical misconception investigation with visible sources; audience access is unverified.",
+    "competitors": [
+      {
+        "name": "HistoryMaps",
+        "url": "https://history-maps.com/",
+        "accessed": "2026-10-09",
+        "relation": "adjacent",
+        "facts": "Presents a visual history-learning project and a subscription supporting access for learners and educators.",
+        "price": "Subscription amount not verified."
+      }
+    ],
+    "difference": "Test a source-comparison learning path centered on causal reasoning; visual history itself is already served.",
+    "risk": "A solo engineer cannot cheaply sustain authoritative historical publishing; free articles, videos and existing visual platforms are strong substitutes.",
+    "experiment": "Have readers finish one source investigation unaided, return for its connected episode, and purchase the complete collection.",
+    "stop_rule": "Defer without qualified editorial review or if users value only passive summaries available free elsewhere.",
+    "overlap": "E017 examines modern information credibility; E015 reconstructs historical explanations using contextualized sources.",
+    "scores": {
+      "activation": 3,
+      "recurrence": 3,
+      "independence": 4,
+      "demonstrability": 4,
+      "paid_value": 2,
+      "differentiation": 2,
+      "feasibility": 1
+    },
+    "rationale": "A distinct educational product, but editorial cost and weak recurring payment logic outweigh software appeal.",
+    "disposition": "defer",
+    "confidence": "low; competitor evidence only"
+  },
+  {
+    "id": "E016",
+    "name": "Data Literacy Detective",
+    "family": "learning",
+    "origin": "New research proposal",
+    "user": "A nontechnical adult or older student pays to understand charts and numerical claims encountered in everyday reading.",
+    "first_result": "Identify a misleading chart choice, correct it and explain how the interpretation changes.",
+    "loop": [
+      "Inspect a numerical claim and its dataset",
+      "Manipulate scales, groups or denominators",
+      "Compare interpretations and identify the unsupported claim",
+      "Apply the principle to a new case"
+    ],
+    "return_trigger": "A finite foundation course followed by occasional new cases; constant subscription use is unverified.",
+    "paid_value": "A practical course in data interpretation through manipulable examples and transfer tasks.",
+    "pricing": {
+      "model": "one-time",
+      "monthly_usd": null,
+      "annual_usd": null,
+      "basis": "Hypothesis: USD20 for a foundational course; zero subscription MRR.",
+      "free": "One complete misleading-chart case.",
+      "paid": "A reviewed course spanning denominators, uncertainty, sampling and chart choices."
+    },
+    "dependencies": [
+      "Statistics/data-literacy educator review",
+      "Licensed or synthetic example datasets"
+    ],
+    "compute": "Local deterministic chart rendering and known-case feedback; no data uploads or model grading.",
+    "content_burden": "Moderate to high: examples must accurately teach uncertainty without oversimplifying statistics.",
+    "first_scope": [
+      "Manipulable chart cases",
+      "Prediction and interpretation checks",
+      "Later transfer cases with new data"
+    ],
+    "acquisition": "Share an interactive chart that changes the apparent conclusion when corrected; test completion from numeracy audiences.",
+    "competitors": [
+      {
+        "name": "DataCamp Introduction to Data Literacy",
+        "url": "https://www.datacamp.com/courses/introduction-to-data-literacy",
+        "accessed": "2026-10-09",
+        "relation": "direct",
+        "facts": "A nontechnical course covers data quality, sources, bias, chart choice and communicating data through interactive exercises.",
+        "price": "Free course start advertised; full paid access price not verified."
+      }
+    ],
+    "difference": "Test short adversarial chart investigations for everyday readers. Existing data-literacy courses already teach these concepts.",
+    "risk": "Strong free explanations and bundled courses may remove the reason to pay separately; a few tricks do not establish data literacy.",
+    "experiment": "Observe one unaided correction and a later unfamiliar chart interpretation, followed by purchase of the complete course.",
+    "stop_rule": "Stop if learners memorize visual tricks but cannot reason about a different denominator or uncertainty example.",
+    "overlap": "E002 teaches spreadsheet formulas and E024 SQL; E016 teaches interpretation without tool syntax. E017 covers broader source credibility.",
+    "scores": {
+      "activation": 4,
+      "recurrence": 3,
+      "independence": 5,
+      "demonstrability": 4,
+      "paid_value": 2,
+      "differentiation": 2,
+      "feasibility": 3
+    },
+    "rationale": "Excellent independence and bounded compute; finite course demand and limited distinctiveness keep it reserve.",
+    "disposition": "reserve",
+    "confidence": "low; competitor evidence only"
+  },
+  {
+    "id": "E017",
+    "name": "Media Literacy Detective",
+    "family": "learning",
+    "origin": "New research proposal",
+    "user": "An adult or parent of a teenager pays for practical source-evaluation learning.",
+    "first_result": "Trace a claim through a contained source packet and identify what the evidence does and does not support.",
+    "loop": [
+      "Inspect a plausible claim",
+      "Compare provenance, context and corroborating sources",
+      "Receive an evidence-based explanation",
+      "Investigate a later case using the same verification method"
+    ],
+    "return_trigger": "A finite set of literacy skills and occasional refresher cases; news consumption alone does not prove product recurrence.",
+    "paid_value": "Carefully constructed investigations that teach reusable verification habits.",
+    "pricing": {
+      "model": "one-time",
+      "monthly_usd": null,
+      "annual_usd": null,
+      "basis": "Hypothesis: USD12 for a complete investigation pack; zero subscription MRR.",
+      "free": "One complete claim-verification case.",
+      "paid": "A reviewed pack spanning source provenance, context and image reuse."
+    },
+    "dependencies": [
+      "News-literacy educator/editor",
+      "Rights to source material or clearly labeled fictional cases"
+    ],
+    "compute": "Curated static evidence packets with local branching; no live automated fact-checking or unbounded web retrieval.",
+    "content_burden": "High editorial burden: plausible evidence, balanced framing and supported explanations. Fictional cases reduce live-claim maintenance.",
+    "first_scope": [
+      "Contained claim and evidence packet",
+      "Source-tracing actions",
+      "Explanation showing remaining uncertainty"
+    ],
+    "acquisition": "Share a playable verification case through media-literacy audiences; no partner or school adoption assumed.",
+    "competitors": [
+      {
+        "name": "Checkology",
+        "url": "https://newslit.org/checkology/",
+        "accessed": "2026-10-09",
+        "relation": "direct",
+        "facts": "News Literacy Project provides interactive news-literacy lessons, including misinformation and verification activities, aimed at grades 5–12.",
+        "price": "Free account and lessons are advertised."
+      }
+    ],
+    "difference": "Test independent adult/family investigations in a compact consumer flow. Interactive news-literacy education already exists free.",
+    "risk": "A credible nonprofit supplies free lessons; buyers may see literacy education as a public service or school responsibility rather than a purchase.",
+    "experiment": "Observe an unaided case, a later novel source check and actual purchase of a finite pack after showing the free alternative.",
+    "stop_rule": "Stop if users only enjoy guessing fake headlines or cannot transfer verification behavior beyond the authored case.",
+    "overlap": "E016 isolates statistical reasoning; E025 constructs arguments. This evaluates provenance and corroboration, not political persuasion.",
+    "scores": {
+      "activation": 4,
+      "recurrence": 2,
+      "independence": 4,
+      "demonstrability": 4,
+      "paid_value": 1,
+      "differentiation": 2,
+      "feasibility": 3
+    },
+    "rationale": "Clear self-serve learning but weak paid value against free specialist alternatives.",
+    "disposition": "defer",
+    "confidence": "low; competitor evidence only"
+  },
+  {
+    "id": "E018",
+    "name": "Touch-Typing Adventure",
+    "family": "learning",
+    "origin": "New research proposal",
+    "user": "A beginner or parent pays to develop accurate touch typing through a bounded learning journey.",
+    "first_result": "Complete a short keyboard task without looking down and see which keys caused errors.",
+    "loop": [
+      "Start a brief placement exercise",
+      "Type an authored passage at a comfortable pace",
+      "Inspect accuracy and weak-key patterns",
+      "Return for a targeted passage and new story segment"
+    ],
+    "return_trigger": "Practice until usable typing proficiency; mature users may have little reason to continue paying.",
+    "paid_value": "A coherent beginner course, targeted weak-key practice and a satisfying finite story.",
+    "pricing": {
+      "model": "one-time",
+      "monthly_usd": null,
+      "annual_usd": null,
+      "basis": "Hypothesis: USD10 for the complete course; zero subscription MRR.",
+      "free": "Placement and a full first story segment.",
+      "paid": "Finite story course and personalized key review."
+    },
+    "dependencies": [
+      "Keyboard-layout data and accessible input handling",
+      "Instructional review of technique guidance"
+    ],
+    "compute": "Local key timing and deterministic exercise selection; no AI or cloud media required.",
+    "content_burden": "Moderate: graded passages, pacing, keyboard layouts and story quality.",
+    "first_scope": [
+      "Accuracy-first placement",
+      "Weak-key practice",
+      "One complete typing story"
+    ],
+    "acquisition": "Release a short playable typing story; test whether beginner families purchase after trying a free incumbent.",
+    "competitors": [
+      {
+        "name": "TypingClub",
+        "url": "https://www.typingclub.com/",
+        "accessed": "2026-10-09",
+        "relation": "direct",
+        "facts": "Free individual learning includes lessons, videos, games, stories and optional progress profiles; a paid school edition also exists.",
+        "price": "Individual use is advertised as free; school pricing not verified."
+      }
+    ],
+    "difference": "A proposed compact course emphasizing comfortable accuracy; TypingClub already has stories, games and progression, so novelty is weak.",
+    "risk": "Free incumbents already provide the proposed experience, and typing improvement eventually removes the need.",
+    "experiment": "Observe an unaided story session and later independent practice, then test an actual course purchase beside the free alternative.",
+    "stop_rule": "Stop if users choose TypingClub after comparison or the story does not improve continued practice beyond a plain free drill.",
+    "overlap": "Not a general productivity tracker or a separate product per keyboard layout. Finite skill learning is the purchase.",
+    "scores": {
+      "activation": 5,
+      "recurrence": 3,
+      "independence": 5,
+      "demonstrability": 4,
+      "paid_value": 1,
+      "differentiation": 1,
+      "feasibility": 4
+    },
+    "rationale": "Easy to activate and operate, but near-identical free alternatives make commercial differentiation very weak.",
+    "disposition": "defer",
+    "confidence": "low; competitor evidence only"
+  },
+  {
+    "id": "E019",
+    "name": "Circuit Learning Lab",
+    "family": "learning",
+    "origin": "New research proposal",
+    "user": "An electronics beginner pays to understand and diagnose simple circuits without purchasing hardware.",
+    "first_result": "Repair a simulated circuit and explain the voltage or current observation that located its fault.",
+    "loop": [
+      "Inspect a small faulty circuit and a target behavior",
+      "Measure and change a component",
+      "See the predicted electrical result and an explanation",
+      "Diagnose a later fault using the same principle"
+    ],
+    "return_trigger": "A finite foundational electronics course and optional advanced diagnostic packs.",
+    "paid_value": "A well-sequenced set of fault-finding missions with measurements and validated explanations.",
+    "pricing": {
+      "model": "one-time",
+      "monthly_usd": null,
+      "annual_usd": null,
+      "basis": "Hypothesis: USD20 for a beginner circuit course; zero subscription MRR.",
+      "free": "One complete low-voltage diagnostic mission.",
+      "paid": "A coherent progression of simulated faults and circuit concepts."
+    },
+    "dependencies": [
+      "Electronics educator review",
+      "Permitted circuit-simulation engine and numerical validation"
+    ],
+    "compute": "Local small-circuit solver; bound component count and timestep. No external hardware and no arbitrary high-voltage construction instructions.",
+    "content_burden": "High technical correctness burden: plausible faults, numerical behavior and conceptual explanations.",
+    "first_scope": [
+      "Small low-voltage circuit scenes",
+      "Voltage/current probes",
+      "Fault diagnosis and explanation"
+    ],
+    "acquisition": "Demonstrate an apparently broken circuit solved through one measurement; test learners in beginner-electronics audiences.",
+    "competitors": [
+      {
+        "name": "Falstad Circuit Simulator",
+        "url": "https://www.falstad.com/circuit/",
+        "accessed": "2026-10-09",
+        "relation": "adjacent",
+        "facts": "Provides an animated electronic-circuit simulator with current/voltage visualization, editable parameters and sample circuits.",
+        "price": "Public simulator page is accessible; no paid price is listed."
+      }
+    ],
+    "difference": "Test a diagnostic course with explicit learning goals around the simulator. General circuit simulation is already accessible.",
+    "risk": "Free simulators and tutorial videos may be sufficient; a trustworthy solver and curriculum take substantial validation.",
+    "experiment": "Observe a learner diagnose the first fault unaided, solve a different fault later, and buy the full course.",
+    "stop_rule": "Stop if learners guess component changes without using evidence or require live instruction to interpret the measurements.",
+    "overlap": "Distinct circuit diagnosis outcome from E007's everyday experiments; no engineering design service or hardware kit.",
+    "scores": {
+      "activation": 4,
+      "recurrence": 3,
+      "independence": 4,
+      "demonstrability": 5,
+      "paid_value": 2,
+      "differentiation": 2,
+      "feasibility": 2
+    },
+    "rationale": "Strong demonstration and bounded scope, but finite paid use and specialist verification remain constraints.",
+    "disposition": "reserve",
+    "confidence": "low; competitor evidence only"
+  },
+  {
+    "id": "E020",
+    "name": "Astronomy Mission Lab",
+    "family": "learning",
+    "origin": "New research proposal",
+    "user": "A curious learner or parent pays to understand orbital motion, phases and eclipses through virtual missions.",
+    "first_result": "Arrange a simplified Sun–Earth–Moon model to predict a phase and verify it from two viewpoints.",
+    "loop": [
+      "Accept a model-based astronomy question",
+      "Manipulate time and relative positions",
+      "Compare a prediction with the modeled observation",
+      "Return for a connected mission using the same model"
+    ],
+    "return_trigger": "A finite astronomy concept progression, with optional later mission packs.",
+    "paid_value": "Guided predictive missions that connect spatial models to familiar astronomical observations.",
+    "pricing": {
+      "model": "one-time",
+      "monthly_usd": null,
+      "annual_usd": null,
+      "basis": "Hypothesis: USD15 for the complete introductory mission pack; zero subscription MRR.",
+      "free": "One complete lunar-phase mission.",
+      "paid": "A connected set of phase, eclipse and orbital-motion missions."
+    },
+    "dependencies": [
+      "Astronomy educator review",
+      "Permitted astronomical data or explicitly simplified models",
+      "3D accessibility alternatives"
+    ],
+    "compute": "Local simplified orbital geometry with fixed bodies and labeled scale assumptions; no ephemeris service required for the pilot.",
+    "content_burden": "Moderate to high: camera framing, scale caveats and misconception checks must be scientifically sound.",
+    "first_scope": [
+      "Controllable Sun–Earth–Moon scene",
+      "Observer and overhead viewpoints",
+      "Prediction-led missions and explanation"
+    ],
+    "acquisition": "Share a phase prediction demonstration; test purchase intent among families already choosing space learning resources.",
+    "competitors": [
+      {
+        "name": "Solar System Scope",
+        "url": "https://www.solarsystemscope.com/",
+        "accessed": "2026-10-09",
+        "relation": "adjacent",
+        "facts": "Offers an online Solar System and night-sky model, mobile apps and an offline desktop version.",
+        "price": "Online version is free; desktop download is listed at USD9.80; mobile purchases vary."
+      }
+    ],
+    "difference": "Test guided conceptual missions rather than open-ended exploration. Existing models already cover the same subject.",
+    "risk": "A cheap desktop app and free online models may satisfy buyers; educational mission authoring adds work beyond rendering.",
+    "experiment": "Observe an unaided phase prediction, a later eclipse transfer question and actual purchase of the complete mission pack.",
+    "stop_rule": "Consolidate into E001 if families treat it only as another curiosity topic; stop if impressive graphics fail to produce correct predictions.",
+    "overlap": "Play E063 supports navigation in the actual night sky. E020 teaches modeled orbital relationships and does not identify visible stars.",
+    "scores": {
+      "activation": 4,
+      "recurrence": 2,
+      "independence": 4,
+      "demonstrability": 5,
+      "paid_value": 2,
+      "differentiation": 2,
+      "feasibility": 2
+    },
+    "rationale": "Clear visual value but finite use, free substitutes and content overlap restrain priority.",
+    "disposition": "reserve",
+    "confidence": "low; competitor evidence only"
+  },
+  {
+    "id": "E021",
+    "name": "Spatial Anatomy Learning",
+    "family": "learning",
+    "origin": "New research proposal",
+    "user": "A beginning anatomy student pays to understand spatial relationships in one body system.",
+    "first_result": "Trace a structure's route through a reviewed 3D model and correctly orient it from another view.",
+    "loop": [
+      "Choose a bounded anatomical route",
+      "Rotate, isolate and trace structures",
+      "Compare route and landmarks with reviewed guidance",
+      "Recall the route from a new viewpoint later"
+    ],
+    "return_trigger": "Repeated study during an anatomy course; use may stop after the relevant assessment.",
+    "paid_value": "A compact spatial-learning sequence with active route recall rather than passive viewing.",
+    "pricing": {
+      "model": "one-time",
+      "monthly_usd": null,
+      "annual_usd": null,
+      "basis": "Hypothesis: USD25 for a reviewed system module; zero subscription MRR.",
+      "free": "One complete route-and-orientation lesson.",
+      "paid": "One fully reviewed body-system course with recall exercises."
+    },
+    "dependencies": [
+      "Anatomy educator review",
+      "Accurate licensed 3D anatomy assets",
+      "Rendering/accessibility expertise"
+    ],
+    "compute": "Local 3D display with a fixed asset budget; no generated medical models or per-user clinical data.",
+    "content_burden": "Very high: anatomical accuracy, asset licensing, structure selection and explanatory navigation.",
+    "first_scope": [
+      "One body system",
+      "Route-tracing and landmark tasks",
+      "Viewpoint-independent recall"
+    ],
+    "acquisition": "Demonstrate one orientation problem to beginning anatomy learners; access to this audience is unverified.",
+    "competitors": [
+      {
+        "name": "Visible Body",
+        "url": "https://www.visiblebody.com/anatomy-and-physiology-apps/",
+        "accessed": "2026-10-09",
+        "relation": "direct",
+        "facts": "VB Suite combines interactive 3D anatomy models, animations, diagnostic images and physiological learning content.",
+        "price": "Current paid price not verified."
+      }
+    ],
+    "difference": "Test a narrow active-recall sequence for spatial routes. Rich interactive anatomy libraries are already established.",
+    "risk": "Asset and expert-review costs are substantial, while broad polished products may be a better purchase than one narrow module.",
+    "experiment": "Use a reviewed sample to test unaided orientation, later recall from a new angle and an actual module purchase.",
+    "stop_rule": "Defer if accurate asset licensing is impractical or if users mainly need a full reference atlas rather than the proposed recall path.",
+    "overlap": "Educational anatomy only; no diagnosis, rehabilitation or clinical guidance, and no Pose Coach feature duplication.",
+    "scores": {
+      "activation": 3,
+      "recurrence": 3,
+      "independence": 3,
+      "demonstrability": 5,
+      "paid_value": 3,
+      "differentiation": 2,
+      "feasibility": 1
+    },
+    "rationale": "Demonstrable value but expensive specialist dependencies and finite course use make this a poor first solo lane.",
+    "disposition": "defer",
+    "confidence": "low; competitor evidence only"
+  },
+  {
+    "id": "E022",
+    "name": "Personal Study Recall Studio",
+    "family": "learning",
+    "origin": "New research proposal",
+    "user": "A student pays to turn their own learning material into a sustainable retrieval-practice routine.",
+    "first_result": "Mark several claims in pasted notes, create source-linked recall prompts and complete a first review.",
+    "loop": [
+      "Paste a small set of owned study notes",
+      "Select claims and create concise recall prompts",
+      "Reveal the source and self-grade recall",
+      "Return when prompts become due and revise weak cards"
+    ],
+    "return_trigger": "New coursework and continuing retrieval review; assumes an active learner with recurring study needs.",
+    "paid_value": "A simple durable source-to-recall workflow with transparent scheduling and editable prompts.",
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 4,
+      "annual_usd": null,
+      "basis": "Hypothesis: USD4/month; no observed willingness to pay.",
+      "free": "A complete note-to-review loop with a limited card set.",
+      "paid": "Larger study library, cross-device history and exam review planning."
+    },
+    "dependencies": [
+      "User-owned or permitted text input",
+      "Reliable spaced-repetition implementation"
+    ],
+    "compute": "Local cloze generation and scheduling; pilot input capped at 10,000 characters per note. No AI-generated summaries or unlimited document processing.",
+    "content_burden": "Low library burden because users supply material, but good card-authoring guidance and onboarding are necessary.",
+    "first_scope": [
+      "Source-linked manual cloze creation",
+      "Self-graded review queue",
+      "Editable prompts and exam-date review view"
+    ],
+    "acquisition": "Demonstrate a messy paragraph becoming a useful recall session; assess starts from student study-method audiences.",
+    "competitors": [
+      {
+        "name": "RemNote",
+        "url": "https://www.remnote.com/pricing",
+        "accessed": "2026-10-09",
+        "relation": "direct",
+        "facts": "Combines notes, flashcards, spaced repetition, exam scheduling and PDF-related study tools, with free and paid plans.",
+        "price": "Pro displays $96 billed yearly ($8/month equivalent); Pro+AI $216 billed yearly ($18/month equivalent). Dollar currency code is not shown; monthly checkout not verified."
+      }
+    ],
+    "difference": "Test a deliberately constrained source-to-recall flow that reduces card-authoring friction. This is a UX distinction within an established category.",
+    "risk": "A narrower app may merely be a subset of free or paid incumbents; users must still invest effort creating accurate prompts.",
+    "experiment": "Observe students create and review real prompts unaided, return on due dates without researcher reminders, then choose paid continuation over their existing tool.",
+    "stop_rule": "Stop if users want automatic summaries rather than retrieval or if the simplified workflow does not displace their current study tool.",
+    "overlap": "E003 is specialist passage revision; E022 handles arbitrary authored study material. No school integrations or generic chat wrapper.",
+    "scores": {
+      "activation": 3,
+      "recurrence": 4,
+      "independence": 5,
+      "demonstrability": 3,
+      "paid_value": 2,
+      "differentiation": 1,
+      "feasibility": 4
+    },
+    "rationale": "Recurring learning and bounded compute are attractive, but extremely weak differentiation and input effort constrain paid value.",
+    "disposition": "reserve",
+    "confidence": "low; competitor evidence only"
+  },
+  {
+    "id": "E023",
+    "name": "Parent-Child Reading Companion",
+    "family": "learning",
+    "origin": "New research proposal",
+    "user": "A parent pays to have better comprehension conversations with a child who can follow a short story.",
+    "first_result": "Read a short story together and help the child explain a character's choice using text evidence.",
+    "loop": [
+      "Choose an age-appropriate reviewed story",
+      "Read and pause at a meaningful question",
+      "Use a short parent prompt to deepen the child's explanation",
+      "Return for the next story and a connected comprehension skill"
+    ],
+    "return_trigger": "An existing shared-reading ritual; the app must improve that ritual enough to earn repeated use.",
+    "paid_value": "A growing set of enjoyable stories with subtle, useful conversation guidance for the parent.",
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 5,
+      "annual_usd": null,
+      "basis": "Hypothesis: USD5/month; no observed willingness to pay.",
+      "free": "One complete story and parent conversation guide.",
+      "paid": "Reviewed story library, new releases and a gentle skill progression."
+    },
+    "dependencies": [
+      "Children's-literature/literacy editor",
+      "Original or licensed/public-domain stories with adaptation rights",
+      "Parent participation"
+    ],
+    "compute": "Curated text and optional cached narration; no generated child chat or voice analysis. Bound pilot to a small completed story collection.",
+    "content_burden": "High: engaging stories, age suitability, discussion prompts and narration quality are continuing editorial work.",
+    "first_scope": [
+      "A small complete short-story collection",
+      "Parent pause prompts and examples",
+      "Child-friendly recall of previous stories"
+    ],
+    "acquisition": "Publish one printable-and-browser story conversation sample through parent reading audiences; acquisition remains unverified.",
+    "competitors": [
+      {
+        "name": "Epic",
+        "url": "https://www.getepic.com/",
+        "accessed": "2026-10-09",
+        "relation": "adjacent",
+        "facts": "Provides a children's digital library with books, audiobooks and videos, family trials and educator access.",
+        "price": "Family trial and free educator access advertised; current family subscription price not verified."
+      }
+    ],
+    "difference": "Test a compact parent conversation experience around a small curated collection. This does not compete on catalogue size.",
+    "risk": "Parents already have books and free discussion advice; requiring adult participation limits convenience, while ongoing stories demand editorial effort.",
+    "experiment": "Observe a family use one guide unaided, voluntarily choose another on a later reading occasion, and buy the reviewed collection.",
+    "stop_rule": "Stop if prompts interrupt reading enjoyment or parents can easily reproduce the value with their existing books and free guidance.",
+    "overlap": "E004 teaches decoding; E023 teaches shared comprehension. Do not duplicate E001's science-question discovery or generate personalized stories.",
+    "scores": {
+      "activation": 4,
+      "recurrence": 4,
+      "independence": 3,
+      "demonstrability": 4,
+      "paid_value": 2,
+      "differentiation": 2,
+      "feasibility": 2
+    },
+    "rationale": "A real existing ritual supports recurrence, but parent effort and content economics weaken independent adoption.",
+    "disposition": "reserve",
+    "confidence": "low; competitor evidence only"
+  },
+  {
+    "id": "E024",
+    "name": "SQL Investigation Sandbox",
+    "family": "learning",
+    "origin": "New research proposal",
+    "user": "An individual beginner pays to learn reliable SQL by answering questions about a provided dataset.",
+    "first_result": "Run a query that answers a small investigation and discover an error caused by duplicate or missing data.",
+    "loop": [
+      "Read a concrete question about a synthetic dataset",
+      "Write and run a query locally",
+      "Inspect result differences and a minimal counterexample",
+      "Return for a new investigation reusing weak concepts"
+    ],
+    "return_trigger": "Course progression and occasional skill refresh; not an assumed permanent subscription.",
+    "paid_value": "A coherent practical SQL course emphasizing reliable answers and debugging, with transparent grading.",
+    "pricing": {
+      "model": "one-time",
+      "monthly_usd": null,
+      "annual_usd": null,
+      "basis": "Hypothesis: USD25 for a complete investigation course; zero subscription MRR.",
+      "free": "One complete investigation with a join or missing-data correction.",
+      "paid": "Full beginner course, error history and transfer investigations."
+    },
+    "dependencies": [
+      "Browser SQL engine",
+      "SQL educator review of equivalent queries and edge cases"
+    ],
+    "compute": "Local SQLite/WebAssembly over fixed synthetic databases with row, query-time and memory caps; no external database credentials or model calls.",
+    "content_burden": "Moderate: datasets, equivalent valid answers, counterexamples and progressively useful tasks.",
+    "first_scope": [
+      "In-browser SQL runner with a small dataset",
+      "Result-based grading and diagnostic counterexamples",
+      "A connected course from filtering to joins and aggregation"
+    ],
+    "acquisition": "Offer an ungated query mystery with a useful debugging reveal to SQL-learning audiences; channel access is unverified.",
+    "competitors": [
+      {
+        "name": "SQLBolt",
+        "url": "https://sqlbolt.com/",
+        "accessed": "2026-10-09",
+        "relation": "direct",
+        "facts": "Provides interactive browser SQL lessons and exercises covering querying, filtering, joins and aggregation.",
+        "price": "Public lesson access; no paid price listed on the opened page."
+      },
+      {
+        "name": "SQL Habit",
+        "url": "https://www.sqlhabit.com/",
+        "accessed": "2026-10-09",
+        "relation": "direct",
+        "facts": "Teaches SQL and data analysis through a fictional startup and practical business/product questions.",
+        "price": "Current paid price not verified."
+      }
+    ],
+    "difference": "Test explicit debugging of duplicates, NULLs and misleading result sets through minimal counterexamples. Story-based SQL learning already exists.",
+    "risk": "Free interactive courses and SQL Habit's established scenario approach overlap heavily; learners may finish once and leave.",
+    "experiment": "Observe an unaided query and diagnosis, a later unseen dataset task, and actual purchase of the completed course after showing free alternatives.",
+    "stop_rule": "Stop if learners mainly copy solutions, require personalized tutoring or choose free lessons after trying diagnostic feedback.",
+    "overlap": "E002 practices spreadsheet formulas; E006 teaches general programming. This is self-contained education, not a connected analytics platform.",
+    "scores": {
+      "activation": 5,
+      "recurrence": 3,
+      "independence": 5,
+      "demonstrability": 4,
+      "paid_value": 3,
+      "differentiation": 2,
+      "feasibility": 4
+    },
+    "rationale": "Very feasible and self-contained with visible value, but honest finite-course pricing and crowded alternatives keep it reserve.",
+    "disposition": "reserve",
+    "confidence": "low; competitor evidence only"
+  },
+  {
+    "id": "E025",
+    "name": "Academic Argument Lab",
+    "family": "learning",
+    "origin": "New research proposal",
+    "user": "A student pays to practice constructing evidence-backed arguments without outsourcing the writing.",
+    "first_result": "Create a claim, support it from a supplied source packet and address one serious counterargument.",
+    "loop": [
+      "Read a bounded question and source packet",
+      "Construct a claim–evidence–reasoning map",
+      "Check omissions against a rubric and revise a paragraph",
+      "Apply the method to another packet later"
+    ],
+    "return_trigger": "A finite argument-writing course and recurring assignments; direct homework import is outside the first scope.",
+    "paid_value": "Reviewed practice packets, worked examples and a progression from evidence selection to counterargument.",
+    "pricing": {
+      "model": "one-time",
+      "monthly_usd": null,
+      "annual_usd": null,
+      "basis": "Hypothesis: USD20 for a complete introductory argument course; zero subscription MRR.",
+      "free": "One complete source packet and revision exercise.",
+      "paid": "A sequence of reviewed packets with saved drafts and self-assessment."
+    },
+    "dependencies": [
+      "Writing/critical-reasoning educator",
+      "Rights to supplied sources",
+      "Rubrics tested with real learner drafts"
+    ],
+    "compute": "Local claim mapping and rubric checklists; no generated essays or unsupported automatic writing scores. Fixed source packets bound scope.",
+    "content_burden": "High: balanced prompts, source excerpts, examples and rubrics must teach actual reasoning.",
+    "first_scope": [
+      "Source-linked argument map",
+      "Counterargument and evidence checks",
+      "Draft revision with a transparent self-assessment rubric"
+    ],
+    "acquisition": "Demonstrate improvement from an unsupported claim to an evidence-backed paragraph using one free packet.",
+    "competitors": [
+      {
+        "name": "Kialo Edu",
+        "url": "https://www.kialo-edu.com/",
+        "accessed": "2026-10-09",
+        "relation": "adjacent",
+        "facts": "Free discussion mapping organizes claims and pro/con reasoning for critical thinking and written communication in education.",
+        "price": "Free use is explicitly advertised."
+      }
+    ],
+    "difference": "Test a complete independent source-packet-to-paragraph course. Structured argument maps are already available free.",
+    "risk": "Without expert feedback, self-assessment may not improve weak writing; adding per-user grading would undermine a low-cost independent product.",
+    "experiment": "Observe completion of the free packet, a later independently revised argument and actual course purchase; have an educator evaluate transfer separately.",
+    "stop_rule": "Stop if learners need individual teacher feedback to progress or polished-looking maps do not improve evidence use in a new paragraph.",
+    "overlap": "E017 evaluates source credibility; E025 constructs a written argument. Not interview coaching, essay generation or a classroom management tool.",
+    "scores": {
+      "activation": 3,
+      "recurrence": 3,
+      "independence": 4,
+      "demonstrability": 3,
+      "paid_value": 2,
+      "differentiation": 2,
+      "feasibility": 2
+    },
+    "rationale": "Meaningful distinct outcome, but the feedback gap and free alternatives make commercial validation difficult.",
+    "disposition": "reserve",
+    "confidence": "low; competitor evidence only"
+  }
+]

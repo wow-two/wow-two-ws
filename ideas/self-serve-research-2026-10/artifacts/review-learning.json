@@ -1,0 +1,230 @@
+[
+  {
+    "id": "E001",
+    "evidence_sufficient": true,
+    "overlap": "Other STEM entries teach specific subject skills; this serves family why-questions. Do not split topic packs into separate products. Excludes Pose Coach and Hijinx.",
+    "proposed_scores": {},
+    "proposed_disposition": null,
+    "verdict": "revise",
+    "rationale": "The interactive child experience already exists in Tappity. Mystery Science is adjacent classroom-oriented evidence, not a like-for-like consumer subscription. Preserve the user selection separately from the score. The first test must show a child explaining a new example, parent acceptance, and a later voluntary session; completion taps alone do not demonstrate learning or repeat value."
+  },
+  {
+    "id": "E002",
+    "evidence_sufficient": true,
+    "overlap": "E024 teaches database querying; E016 teaches interpretation. No workplace import, team dashboard or custom workbook service.",
+    "proposed_scores": {},
+    "proposed_disposition": null,
+    "verdict": "keep",
+    "rationale": "Two opened direct alternatives cover both paid and free practice. Failure-case feedback is a testable experience distinction, not an established gap. Recurrence 3 correctly reflects graduation risk. Keep a subscription hypothesis only while repeated error-based practice produces later visits; otherwise sell a finite course rather than inflate MRR."
+  },
+  {
+    "id": "E003",
+    "evidence_sufficient": true,
+    "overlap": "E022 serves arbitrary study notes; this handles passage continuity and memorization maintenance. Not a mosque/teacher administration product.",
+    "proposed_scores": {
+      "independence": 5,
+      "feasibility": 3
+    },
+    "proposed_disposition": null,
+    "verdict": "revise",
+    "rationale": "A self-assessed passage queue needs no customer-system integration or teacher administration, so adoption independence is high. Accurate text, specialist scheduling and trusted testing constrain feasibility. Tarteel already covers planning and mistake history; no speech-detection superiority should be implied. The prospective repeat occasion is strong but paid preference remains unknown."
+  },
+  {
+    "id": "E004",
+    "evidence_sufficient": true,
+    "overlap": "E023 targets comprehension conversations with fluent-enough readers; E004 teaches decoding. Not a generalized child tutor.",
+    "proposed_scores": {},
+    "proposed_disposition": null,
+    "verdict": "keep",
+    "rationale": "Decoding and parent-child comprehension E023 are different learning outcomes. A narrow app cannot substitute engineering speed for a trusted phonics sequence, recordings and decodable text. Current low feasibility and defer decision are appropriate. Parent-supervised decoding on unseen text is the relevant test, not lesson completion."
+  },
+  {
+    "id": "E005",
+    "evidence_sufficient": true,
+    "overlap": "A coherent conceptual course rather than another generic drill bank; topic packs are not separate candidate products.",
+    "proposed_scores": {},
+    "proposed_disposition": null,
+    "verdict": "keep",
+    "rationale": "Finite fraction understanding is a legitimate course but weak recurring revenue. A visual puzzle success is not proof of symbolic transfer. Keep as a finite-course reserve and test unseen fraction explanations against a free lesson before spending on a larger game world."
+  },
+  {
+    "id": "E006",
+    "evidence_sufficient": true,
+    "overlap": "E024 teaches relational data reasoning, not general programming. Excludes job interview preparation and creative game-making platforms.",
+    "proposed_scores": {},
+    "proposed_disposition": null,
+    "verdict": "keep",
+    "rationale": "Writing and debugging code has a distinct outcome from SQL or spreadsheet learning, despite shared practice infrastructure. Safe execution and instructional traces are substantive costs. The cited paid game proves an offer, not room for another one. Reserve status is appropriate until independent debugging transfer and purchase are observed."
+  },
+  {
+    "id": "E007",
+    "evidence_sufficient": true,
+    "overlap": "Explicit consolidation candidate with E001. Keep separate only if measured experimentation, not question discovery, drives purchase.",
+    "proposed_scores": {},
+    "proposed_disposition": "defer",
+    "verdict": "consolidate",
+    "rationale": "The family experiment path is too close to Kids Curiosity to justify another app. Preserve this assessed concept as a possible E001 investigation module, excluded from independent roadmap slots. PhET is a strong free reference; quantitative older-student experimentation would need its own purchase evidence before splitting it out."
+  },
+  {
+    "id": "E008",
+    "evidence_sufficient": true,
+    "overlap": "Root's speaking rehearsal covers presentations/conversations. This teaches foreign-language phonemes, not public speaking or Pose Coach.",
+    "proposed_scores": {},
+    "proposed_disposition": null,
+    "verdict": "keep",
+    "rationale": "Phoneme perception and production differ from presentation rehearsal. The proposed self-comparison avoids automatic scoring cost but may remove the paid benefit users want. Keep deferred unless a qualified reviewer can show correct independent practice without per-user tutoring; do not claim reliable accent scoring from simple transcription."
+  },
+  {
+    "id": "E009",
+    "evidence_sufficient": true,
+    "overlap": "E023 is parent-child first-language comprehension; this serves adult second-language reading. No separate product per language.",
+    "proposed_scores": {},
+    "proposed_disposition": null,
+    "verdict": "keep",
+    "rationale": "Graded reading can repeat naturally, but editorial production is the business. Strong free and paid libraries constrain a small catalog. Retain reserve with a single-language serialized test; do not count localization as new products or generic generated prose as reviewed instructional content."
+  },
+  {
+    "id": "E010",
+    "evidence_sufficient": true,
+    "overlap": "Distinct from spoken-language pronunciation; a complete communication course, not a theme variant of a flashcard app.",
+    "proposed_scores": {},
+    "proposed_disposition": null,
+    "verdict": "keep",
+    "rationale": "Native Deaf authorship and culturally correct video are prerequisites for the proposed course. Feasibility 1 and defer fit the absence of that production capability. Camera self-comparison does not establish accurate sign feedback. Do not advance from software feasibility alone."
+  },
+  {
+    "id": "E011",
+    "evidence_sufficient": true,
+    "overlap": "Different sensory literacy outcome from phonics; no hardware sales or assistive-device claims.",
+    "proposed_scores": {},
+    "proposed_disposition": null,
+    "verdict": "keep",
+    "rationale": "The named user must remain sighted helpers learning visual braille; screen interaction cannot establish tactile reading skill. The opened specialist free course directly challenges payment. Optional certificate fees are not subscription evidence. Keep deferred; accessibility itself must be verified in any later prototype."
+  },
+  {
+    "id": "E012",
+    "evidence_sufficient": true,
+    "overlap": "Not a recreational puzzle collection: success is transferable proof construction. E016 evaluates empirical data rather than deductive validity.",
+    "proposed_scores": {},
+    "proposed_disposition": "defer",
+    "verdict": "revise",
+    "rationale": "A sound checker and an effective introductory curriculum both require substantial expertise. The source is a free interactive proof-learning codebase, sufficient as an alternative but no paid demand evidence. Defer unless a complete bounded course demonstrates transfer to unseen proofs without live teaching."
+  },
+  {
+    "id": "E013",
+    "evidence_sufficient": true,
+    "overlap": "Distinct from E007's controlled-variable experiments and E021's anatomy orientation; no research or clinical tool claims.",
+    "proposed_scores": {},
+    "proposed_disposition": null,
+    "verdict": "keep",
+    "rationale": "Molecular constraint construction is distinct from changing an experimental variable; retain as a finite-course reserve. Bonding simplifications and visual success need chemistry review. MolView supplies tool evidence, not proof of demand for the proposed teaching sequence."
+  },
+  {
+    "id": "E014",
+    "evidence_sufficient": true,
+    "overlap": "Play E063 teaches navigation in the real night sky. E014 teaches terrestrial spatial geography; no travel itinerary product.",
+    "proposed_scores": {},
+    "proposed_disposition": null,
+    "verdict": "keep",
+    "rationale": "Geography reconstruction can stand apart from recall-only trivia if spatial explanation is the actual result. Existing quiz access and downloadable maps weaken the proposed paid boundary. Keep reserve with a finite learning path and do not assume geographic breadth creates recurrence."
+  },
+  {
+    "id": "E015",
+    "evidence_sufficient": true,
+    "overlap": "E017 examines modern information credibility; E015 reconstructs historical explanations using contextualized sources.",
+    "proposed_scores": {},
+    "proposed_disposition": null,
+    "verdict": "keep",
+    "rationale": "Evidence-linked historical explanation requires accountable scholarship and carefully licensed material. Current defer and feasibility 1 fit that burden. A visually impressive atlas does not prove users learn causal reasoning or will fund continued editorial production."
+  },
+  {
+    "id": "E016",
+    "evidence_sufficient": true,
+    "overlap": "E002 teaches spreadsheet formulas and E024 SQL; E016 teaches interpretation without tool syntax. E017 covers broader source credibility.",
+    "proposed_scores": {},
+    "proposed_disposition": null,
+    "verdict": "keep",
+    "rationale": "Interpreting empirical evidence differs from writing formulas or SQL, so preserve the separate course outcome. A short set of chart tricks may be a module rather than a business. Reserve is justified only for a coherent finite course tested on unfamiliar charts; no data-platform integrations are required."
+  },
+  {
+    "id": "E017",
+    "evidence_sufficient": true,
+    "overlap": "E016 isolates statistical reasoning; E025 constructs arguments. This evaluates provenance and corroboration, not political persuasion.",
+    "proposed_scores": {},
+    "proposed_disposition": null,
+    "verdict": "keep",
+    "rationale": "The nonprofit alternative directly supplies free interactive verification education. Fictional packets avoid live-news maintenance but still need editorial review. Correctly deferred; audience interest in misinformation is not a paid consumer acquisition channel."
+  },
+  {
+    "id": "E018",
+    "evidence_sufficient": true,
+    "overlap": "Not a general productivity tracker or a separate product per keyboard layout. Finite skill learning is the purchase.",
+    "proposed_scores": {},
+    "proposed_disposition": null,
+    "verdict": "keep",
+    "rationale": "The opened free incumbent already supplies stories, games, progression and profiles. High independent activation does not rescue differentiation 1 or paid value 1. Keep deferred rather than interpreting an easy implementation as a strong revenue candidate."
+  },
+  {
+    "id": "E019",
+    "evidence_sufficient": true,
+    "overlap": "Distinct circuit diagnosis outcome from E007's everyday experiments; no engineering design service or hardware kit.",
+    "proposed_scores": {},
+    "proposed_disposition": null,
+    "verdict": "keep",
+    "rationale": "Fault diagnosis is a distinct electronics-learning task, but free simulation is a substantial substitute. Reserve remains a finite educational course, not an engineering design product. Solver validation and accepted explanations must precede any claim of correct instruction."
+  },
+  {
+    "id": "E020",
+    "evidence_sufficient": true,
+    "overlap": "Play E063 supports navigation in the actual night sky. E020 teaches modeled orbital relationships and does not identify visible stars.",
+    "proposed_scores": {},
+    "proposed_disposition": null,
+    "verdict": "keep",
+    "rationale": "Predicting orbital relationships in a model differs from locating real stars in E063. Keep the finite conceptual course separate for assessment, but exclude it from current MRR priorities. The free online model and low one-time desktop comparator challenge recurring payment."
+  },
+  {
+    "id": "E021",
+    "evidence_sufficient": true,
+    "overlap": "Educational anatomy only; no diagnosis, rehabilitation or clinical guidance, and no Pose Coach feature duplication.",
+    "proposed_scores": {},
+    "proposed_disposition": null,
+    "verdict": "keep",
+    "rationale": "Verified 3D anatomy assets and expert review dominate cost and reliability. Educational framing does not remove correctness needs. Low feasibility and defer are appropriate; no medical diagnosis or treatment benefit is inferred from a learning interface."
+  },
+  {
+    "id": "E022",
+    "evidence_sufficient": true,
+    "overlap": "E003 is specialist passage revision; E022 handles arbitrary authored study material. No school integrations or generic chat wrapper.",
+    "proposed_scores": {},
+    "proposed_disposition": "defer",
+    "verdict": "revise",
+    "rationale": "RemNote already joins notes, flashcards and spaced repetition with a free tier. Manual source-linked prompt creation preserves independence but imposes effort before value. The proposed narrower flow has no evidenced paid gap. Defer until it demonstrably saves card-authoring effort without lowering accuracy."
+  },
+  {
+    "id": "E023",
+    "evidence_sufficient": true,
+    "overlap": "E004 teaches decoding; E023 teaches shared comprehension. Do not duplicate E001's science-question discovery or generate personalized stories.",
+    "proposed_scores": {},
+    "proposed_disposition": "defer",
+    "verdict": "revise",
+    "rationale": "Shared comprehension is different from phonics, but the parent supplies live interpretation while the product must continuously supply rights-cleared stories. This raises adoption and content effort relative to Kids Curiosity. Defer a separate product; discussion prompts may be tested within a selected family experience."
+  },
+  {
+    "id": "E024",
+    "evidence_sufficient": true,
+    "overlap": "E002 practices spreadsheet formulas; E006 teaches general programming. This is self-contained education, not a connected analytics platform.",
+    "proposed_scores": {},
+    "proposed_disposition": null,
+    "verdict": "keep",
+    "rationale": "Two direct alternatives support the comparison, including free SQLBolt. Finite course pricing is honest and earns reserve rather than an artificial MRR slot. Minimal failing datasets are a concrete testing angle, but not proven defensibility or a reason to split every programming subject into a company."
+  },
+  {
+    "id": "E025",
+    "evidence_sufficient": true,
+    "overlap": "E017 evaluates source credibility; E025 constructs a written argument. Not interview coaching, essay generation or a classroom management tool.",
+    "proposed_scores": {},
+    "proposed_disposition": "defer",
+    "verdict": "revise",
+    "rationale": "Structured claim mapping exists free; evidence-based writing adds uncertain grading quality and specialist content. Without live teacher feedback the proposed benefit must be demonstrated on an unseen source packet. Defer because correct self-assessment, not interface construction, is the difficult dependency."
+  }
+]

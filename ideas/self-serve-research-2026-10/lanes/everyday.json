@@ -1,0 +1,1568 @@
+[
+  {
+    "id": "E076",
+    "name": "Next Set Progression Engine",
+    "family": "everyday",
+    "origin": "existing idea I04 Next Set",
+    "user": "Recreational lifter who pays personally",
+    "first_result": "Finish one workout and receive an explained next-session target",
+    "loop": [
+      "choose reviewed plan",
+      "record completed sets",
+      "see progression decision",
+      "perform next workout"
+    ],
+    "return_trigger": "Each planned training session; continued adherence is untested",
+    "paid_value": "Progression across training blocks with history and understandable adjustments",
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 6,
+      "annual_usd": null,
+      "basis": "hypothesis; no observed willingness to pay",
+      "free": "One complete progression block",
+      "paid": "Progression across training blocks with history and understandable adjustments"
+    },
+    "dependencies": [
+      "Qualified strength-program reviewer; manual set logging"
+    ],
+    "compute": "Local rules; no video inference; cap initial supported exercises and progression schemes",
+    "content_burden": "Reviewed programming and exercise explanations; adaptations must remain bounded",
+    "first_scope": [
+      "One complete progression block",
+      "Set logging and rest timer",
+      "Next-session targets with explanation"
+    ],
+    "acquisition": "Publish a worked example showing how a missed target changes the next workout; distribution untested",
+    "competitors": [
+      {
+        "name": "Boostcamp Pro",
+        "url": "https://www.boostcamp.app/pro",
+        "accessed": "2026-10-09",
+        "relation": "direct",
+        "facts": "Free training tools plus paid programs, personalized planning and analytics.",
+        "price": "USD 14.99 monthly or USD 59.99 billed annually; annual display USD 4.99/month"
+      }
+    ],
+    "difference": "Transparent progression for one narrow training method, proposed rather than an established incumbent gap",
+    "risk": "Crowded free trackers already deliver substantial value; correct programming requires expertise",
+    "experiment": "Test self-guided workouts across two training weeks, then offer a paid continuation block",
+    "stop_rule": "Stop if users prefer their existing free tracker or need a coach to interpret adjustments",
+    "overlap": "Existing own idea I04; distinct from Pose Coach photography guidance",
+    "scores": {
+      "activation": 5,
+      "recurrence": 5,
+      "independence": 4,
+      "demonstrability": 5,
+      "paid_value": 3,
+      "differentiation": 2,
+      "feasibility": 3
+    },
+    "rationale": "Crowded free trackers already deliver substantial value; correct programming requires expertise Transparent progression for one narrow training method, proposed rather than an established incumbent gap",
+    "disposition": "reserve",
+    "confidence": "low; competitor offer evidence only; no paid demand or retention verified"
+  },
+  {
+    "id": "E077",
+    "name": "Run-Walk Progression Companion",
+    "family": "everyday",
+    "origin": "new research proposal",
+    "user": "Beginner recreational runner",
+    "first_result": "Complete a guided alternating run/walk session",
+    "loop": [
+      "select starting level",
+      "follow timed cues",
+      "record perceived effort",
+      "repeat next planned session"
+    ],
+    "return_trigger": "Repeated sessions until a finite goal is reached",
+    "paid_value": "Finite progression program; ongoing subscription not presumed",
+    "pricing": {
+      "model": "one-time",
+      "monthly_usd": null,
+      "annual_usd": null,
+      "basis": "hypothesis: USD 12 one-time; zero subscription MRR",
+      "free": "One complete starter week",
+      "paid": "Finite progression program; ongoing subscription not presumed"
+    },
+    "dependencies": [
+      "Reviewed beginner-running program; phone audio/timer"
+    ],
+    "compute": "Local timers and offline audio; no GPS required",
+    "content_burden": "Program review and voice cues; no injury diagnosis",
+    "first_scope": [
+      "One complete starter week",
+      "Effort-based repeat suggestion",
+      "Offline cues"
+    ],
+    "acquisition": "Show a single session demonstration to beginner-running communities, without contacting them in this research",
+    "competitors": [
+      {
+        "name": "NHS Couch to 5K",
+        "url": "https://www.nhs.uk/better-health/get-active/get-running-with-couch-to-5k/",
+        "accessed": "2026-10-09",
+        "relation": "direct",
+        "facts": "Official guided beginner-running plan and app are public alternatives.",
+        "price": "not verified"
+      }
+    ],
+    "difference": "A calmer offline experience with explicit repeat-week choices; differentiation untested",
+    "risk": "An established public alternative and finite graduation weaken both price and MRR",
+    "experiment": "Observe unassisted first session and week-two return; test purchase of the whole finite plan",
+    "stop_rule": "Drop if the public program satisfies participants or continued payment needs artificial new goals",
+    "overlap": "Training outcome differs from strength progression E076",
+    "scores": {
+      "activation": 4,
+      "recurrence": 3,
+      "independence": 5,
+      "demonstrability": 4,
+      "paid_value": 2,
+      "differentiation": 2,
+      "feasibility": 4
+    },
+    "rationale": "An established public alternative and finite graduation weaken both price and MRR A calmer offline experience with explicit repeat-week choices; differentiation untested",
+    "disposition": "defer",
+    "confidence": "low; competitor offer evidence only; no paid demand or retention verified"
+  },
+  {
+    "id": "E078",
+    "name": "Mobility Break Guide",
+    "family": "everyday",
+    "origin": "new research proposal",
+    "user": "Desk worker seeking brief general movement breaks",
+    "first_result": "Follow one short desk-break routine",
+    "loop": [
+      "choose available time",
+      "follow movement cues",
+      "mark completion",
+      "return during another break"
+    ],
+    "return_trigger": "Daily breaks; habit formation is a hypothesis",
+    "paid_value": "Reviewed routine rotations and progression appropriate for general movement",
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 4,
+      "annual_usd": null,
+      "basis": "hypothesis; no observed willingness to pay",
+      "free": "One short routine",
+      "paid": "Reviewed routine rotations and progression appropriate for general movement"
+    },
+    "dependencies": [
+      "Qualified movement reviewer; ordinary phone screen"
+    ],
+    "compute": "Curated video/audio delivered by CDN; cap initial library",
+    "content_burden": "Movement demonstrations, review and accessibility variants",
+    "first_scope": [
+      "One short routine",
+      "Break timer",
+      "Small reviewed routine rotation"
+    ],
+    "acquisition": "Demonstrate a silent desk-friendly routine in a short video",
+    "competitors": [
+      {
+        "name": "Bend",
+        "url": "https://bend.com/",
+        "accessed": "2026-10-09",
+        "relation": "direct",
+        "facts": "Guided stretching routines, progress tracking and custom routines are offered.",
+        "price": "not verified"
+      }
+    ],
+    "difference": "Situation-based selection with minimal setup; not a proven feature gap",
+    "risk": "Free movement videos are abundant and expertise raises production costs",
+    "experiment": "Test repeated use across a workweek and a paid routine rotation",
+    "stop_rule": "Drop if reminders rather than content are the only retained value",
+    "overlap": "No rehabilitation, diagnosis or Pose Coach photography overlap",
+    "scores": {
+      "activation": 5,
+      "recurrence": 4,
+      "independence": 4,
+      "demonstrability": 5,
+      "paid_value": 2,
+      "differentiation": 1,
+      "feasibility": 3
+    },
+    "rationale": "Free movement videos are abundant and expertise raises production costs Situation-based selection with minimal setup; not a proven feature gap",
+    "disposition": "defer",
+    "confidence": "low; competitor offer evidence only; no paid demand or retention verified"
+  },
+  {
+    "id": "E079",
+    "name": "Focus Ritual Sessions",
+    "family": "everyday",
+    "origin": "new research proposal",
+    "user": "Individual knowledge worker or student",
+    "first_result": "Complete one focused work interval",
+    "loop": [
+      "pick task",
+      "start ritual and timer",
+      "record completion",
+      "schedule next interval"
+    ],
+    "return_trigger": "Every work/study session; frequency does not prove subscription value",
+    "paid_value": "Personal ritual history, recurring sound sessions and optional cross-device continuity",
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 3,
+      "annual_usd": null,
+      "basis": "hypothesis; no observed willingness to pay",
+      "free": "One timer ritual",
+      "paid": "Personal ritual history, recurring sound sessions and optional cross-device continuity"
+    },
+    "dependencies": [
+      "Browser or device timer; original audio rights"
+    ],
+    "compute": "Local timer; pre-recorded audio; no live facilitator",
+    "content_burden": "Small original sound library and ritual prompts",
+    "first_scope": [
+      "One timer ritual",
+      "Session history",
+      "Daily start cue"
+    ],
+    "acquisition": "Show immediate timer-to-completion animation as a demo",
+    "competitors": [
+      {
+        "name": "Forest",
+        "url": "https://www.forestapp.cc/",
+        "accessed": "2026-10-09",
+        "relation": "direct",
+        "facts": "A focus timer visualizes progress as trees and offers focus features and upgrades.",
+        "price": "not verified"
+      }
+    ],
+    "difference": "Extremely short setup around repeatable start rituals; unvalidated distinction",
+    "risk": "Timers are commodities; charging for cosmetic novelty may not retain users",
+    "experiment": "Test independent use for a workweek and compare paid intent with a free timer",
+    "stop_rule": "Drop if participants keep using only the free timer",
+    "overlap": "No human accountability marketplace; unlike Arcade this serves work intervals",
+    "scores": {
+      "activation": 5,
+      "recurrence": 4,
+      "independence": 5,
+      "demonstrability": 5,
+      "paid_value": 2,
+      "differentiation": 1,
+      "feasibility": 5
+    },
+    "rationale": "Timers are commodities; charging for cosmetic novelty may not retain users Extremely short setup around repeatable start rituals; unvalidated distinction",
+    "disposition": "defer",
+    "confidence": "low; competitor offer evidence only; no paid demand or retention verified"
+  },
+  {
+    "id": "E080",
+    "name": "Sleep Wind-Down Library",
+    "family": "everyday",
+    "origin": "new research proposal",
+    "user": "Adult wanting a consistent bedtime routine",
+    "first_result": "Finish one pre-recorded wind-down",
+    "loop": [
+      "choose duration",
+      "follow audio sequence",
+      "save preferred routine",
+      "repeat at bedtime"
+    ],
+    "return_trigger": "Nightly routine; long-term use untested",
+    "paid_value": "New original audio series and a personally consistent routine",
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 5,
+      "annual_usd": null,
+      "basis": "hypothesis; no observed willingness to pay",
+      "free": "One complete audio routine",
+      "paid": "New original audio series and a personally consistent routine"
+    },
+    "dependencies": [
+      "Original audio rights; appropriate content review"
+    ],
+    "compute": "Curated compressed audio; cap downloads and initial catalog",
+    "content_burden": "Substantial narration, music licensing or production, and editorial review",
+    "first_scope": [
+      "One complete audio routine",
+      "Offline playback",
+      "Small bedtime sequence library"
+    ],
+    "acquisition": "Release a short original audio sample with the complete routine demonstrated",
+    "competitors": [
+      {
+        "name": "Headspace Sleep",
+        "url": "https://www.headspace.com/sleep",
+        "accessed": "2026-10-09",
+        "relation": "direct",
+        "facts": "Sleepcasts, soundscapes and guided wind-down content form part of the sleep offering.",
+        "price": "not verified"
+      }
+    ],
+    "difference": "Low-choice predictable sequences for users who dislike browsing; proposed distinction",
+    "risk": "Large libraries and free audio compete; content production could exceed software effort",
+    "experiment": "Test repeated bedtime playback and actual purchase of a small original series",
+    "stop_rule": "Drop if users reuse one free recording without valuing continued releases",
+    "overlap": "General relaxation, not insomnia treatment or health-outcome claims",
+    "scores": {
+      "activation": 5,
+      "recurrence": 4,
+      "independence": 5,
+      "demonstrability": 4,
+      "paid_value": 3,
+      "differentiation": 1,
+      "feasibility": 3
+    },
+    "rationale": "Large libraries and free audio compete; content production could exceed software effort Low-choice predictable sequences for users who dislike browsing; proposed distinction",
+    "disposition": "defer",
+    "confidence": "low; competitor offer evidence only; no paid demand or retention verified"
+  },
+  {
+    "id": "E081",
+    "name": "Reflective Journal Path",
+    "family": "everyday",
+    "origin": "new research proposal",
+    "user": "Adult who wants guided reflection",
+    "first_result": "Write and revisit one concrete entry",
+    "loop": [
+      "answer short prompt",
+      "write privately",
+      "review weekly theme",
+      "return for next reflection"
+    ],
+    "return_trigger": "Daily entry and weekly review are proposed habits",
+    "paid_value": "Private structured review across past entries with export and continuity",
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 4,
+      "annual_usd": null,
+      "basis": "hypothesis; no observed willingness to pay",
+      "free": "One prompt sequence",
+      "paid": "Private structured review across past entries with export and continuity"
+    },
+    "dependencies": [
+      "Sensitive personal text; local storage by default"
+    ],
+    "compute": "Local text search and templates; optional encrypted sync; no open-ended AI required",
+    "content_burden": "Original prompts and review paths; no therapy claims",
+    "first_scope": [
+      "One prompt sequence",
+      "Weekly review",
+      "Readable export"
+    ],
+    "acquisition": "Show a before/after weekly review using synthetic entries",
+    "competitors": [
+      {
+        "name": "Day One",
+        "url": "https://dayoneapp.com/plans/",
+        "accessed": "2026-10-09",
+        "relation": "direct",
+        "facts": "Free plan includes unlimited text, prompts and encryption; paid tiers add media, sync and advanced capabilities.",
+        "price": "Free Basic; exact paid pricing not verified"
+      }
+    ],
+    "difference": "A constrained question-to-weekly-action sequence; unvalidated differentiation",
+    "risk": "Free journaling already supplies prompts and privacy; a new app imposes migration costs",
+    "experiment": "Test self-guided entry, later review and a paid continuation offer",
+    "stop_rule": "Drop if templates in an existing journal work equally well",
+    "overlap": "Decision calibration E082 records forecasts and later outcomes rather than general reflection",
+    "scores": {
+      "activation": 5,
+      "recurrence": 4,
+      "independence": 5,
+      "demonstrability": 4,
+      "paid_value": 2,
+      "differentiation": 1,
+      "feasibility": 4
+    },
+    "rationale": "Free journaling already supplies prompts and privacy; a new app imposes migration costs A constrained question-to-weekly-action sequence; unvalidated differentiation",
+    "disposition": "defer",
+    "confidence": "low; competitor offer evidence only; no paid demand or retention verified"
+  },
+  {
+    "id": "E082",
+    "name": "Decision Calibration Journal",
+    "family": "everyday",
+    "origin": "new research proposal",
+    "user": "Individual making repeated personal or work decisions",
+    "first_result": "Save a decision with prediction and a review date",
+    "loop": [
+      "frame decision",
+      "record confidence and expected outcome",
+      "compare actual outcome",
+      "apply learning to next decision"
+    ],
+    "return_trigger": "Outcome review date; important decisions may be infrequent",
+    "paid_value": "Longitudinal calibration and searchable evidence of recurring judgment patterns",
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 4,
+      "annual_usd": null,
+      "basis": "hypothesis; no observed willingness to pay",
+      "free": "One decision template",
+      "paid": "Longitudinal calibration and searchable evidence of recurring judgment patterns"
+    },
+    "dependencies": [
+      "User-entered predictions and outcomes; no external account required"
+    ],
+    "compute": "Local scoring and charts; bounded optional sync",
+    "content_burden": "Example decisions and scoring explanations",
+    "first_scope": [
+      "One decision template",
+      "Scheduled review",
+      "Calibration chart"
+    ],
+    "acquisition": "Publish a worked decision review using invented non-financial examples",
+    "competitors": [
+      {
+        "name": "Decision Journal",
+        "url": "https://decisionjournalapp.com/guides/app/overview.html",
+        "accessed": "2026-10-09",
+        "relation": "direct",
+        "facts": "Drafts, scheduled and completed reviews, and review-score analysis are documented.",
+        "price": "not verified"
+      }
+    ],
+    "difference": "Make a forecast testable before saving; a proposed interaction emphasis",
+    "risk": "Users may admire the concept without reviewing outcomes; established tool already covers review loop",
+    "experiment": "Test one decision and its scheduled review, then a second decision and paid continuation",
+    "stop_rule": "Drop if reviews require founder reminders or users cannot name recurring decisions",
+    "overlap": "Separate from reflective journaling E081 and not investment advice",
+    "scores": {
+      "activation": 4,
+      "recurrence": 3,
+      "independence": 5,
+      "demonstrability": 4,
+      "paid_value": 3,
+      "differentiation": 3,
+      "feasibility": 5
+    },
+    "rationale": "Users may admire the concept without reviewing outcomes; established tool already covers review loop Make a forecast testable before saving; a proposed interaction emphasis",
+    "disposition": "reserve",
+    "confidence": "low; competitor offer evidence only; no paid demand or retention verified"
+  },
+  {
+    "id": "E083",
+    "name": "Guided Declutter Missions",
+    "family": "everyday",
+    "origin": "new research proposal",
+    "user": "Householder overwhelmed by clutter",
+    "first_result": "Complete one small area with a visible before/after",
+    "loop": [
+      "choose area",
+      "follow one bounded mission",
+      "record removed items",
+      "take next area"
+    ],
+    "return_trigger": "Repeated missions until home is manageable; finite need",
+    "paid_value": "A finite room-by-room program and progress archive",
+    "pricing": {
+      "model": "one-time",
+      "monthly_usd": null,
+      "annual_usd": null,
+      "basis": "hypothesis: USD 19 one-time; zero subscription MRR",
+      "free": "One drawer mission",
+      "paid": "A finite room-by-room program and progress archive"
+    },
+    "dependencies": [
+      "Reviewed decluttering guidance; optional private photos"
+    ],
+    "compute": "Local checklist and compressed optional photos; storage cap",
+    "content_burden": "Room-specific missions and emotionally sensitive choices; no disposal marketplace",
+    "first_scope": [
+      "One drawer mission",
+      "Room map",
+      "Completion photos and export"
+    ],
+    "acquisition": "Demonstrate a five-item decision exercise and tangible completed area",
+    "competitors": [
+      {
+        "name": "Clutterfree",
+        "url": "https://clutterfree.com/",
+        "accessed": "2026-10-09",
+        "relation": "direct",
+        "facts": "Step-by-step home decluttering plans, progress and daily challenges are offered.",
+        "price": "USD 3.99 monthly following a 14-day free trial"
+      }
+    ],
+    "difference": "Tiny completion units with explicit stopping points; distinction untested",
+    "risk": "Decluttering often ends; ongoing subscriptions can conflict with successful completion",
+    "experiment": "Test two independent missions and purchase of a complete finite program",
+    "stop_rule": "Drop if a printable checklist produces the same follow-through",
+    "overlap": "E084 maintains cleanliness; E091 handles asset maintenance; E100 coordinates relocation",
+    "scores": {
+      "activation": 5,
+      "recurrence": 2,
+      "independence": 5,
+      "demonstrability": 5,
+      "paid_value": 3,
+      "differentiation": 2,
+      "feasibility": 5
+    },
+    "rationale": "Decluttering often ends; ongoing subscriptions can conflict with successful completion Tiny completion units with explicit stopping points; distinction untested",
+    "disposition": "reserve",
+    "confidence": "low; competitor offer evidence only; no paid demand or retention verified"
+  },
+  {
+    "id": "E084",
+    "name": "Cleaning Routine Guide",
+    "family": "everyday",
+    "origin": "new research proposal",
+    "user": "Individual or household manager",
+    "first_result": "Complete a realistic first cleaning session",
+    "loop": [
+      "select rooms",
+      "follow due tasks",
+      "record completion",
+      "return when tasks become due"
+    ],
+    "return_trigger": "Naturally recurring household cleaning",
+    "paid_value": "Adaptive task frequencies, complete routine library and household continuity",
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 3,
+      "annual_usd": null,
+      "basis": "hypothesis; no observed willingness to pay",
+      "free": "One room setup",
+      "paid": "Adaptive task frequencies, complete routine library and household continuity"
+    },
+    "dependencies": [
+      "Basic room selection; sharing optional, not required"
+    ],
+    "compute": "Local interval calculations; optional sync with bounded history",
+    "content_burden": "Reviewed room/task templates and realistic durations",
+    "first_scope": [
+      "One room setup",
+      "Due-task session",
+      "Recurring schedule"
+    ],
+    "acquisition": "Demonstrate a full initial session without configuration calls",
+    "competitors": [
+      {
+        "name": "Tody",
+        "url": "https://todyapp.com/",
+        "accessed": "2026-10-09",
+        "relation": "direct",
+        "facts": "Room-based tasks, due intervals, shared plans and gamified progress are offered.",
+        "price": "not verified"
+      }
+    ],
+    "difference": "Default session by available time, avoiding full-house setup; proposed distinction",
+    "risk": "Mature apps already deliver the complete loop; users may not pay for timing convenience",
+    "experiment": "Test setup-free first cleaning and repeat due session; offer recurring plan",
+    "stop_rule": "Drop if users need custom consulting or prefer Tody/free reminders",
+    "overlap": "Distinct from finite clutter removal and home repairs; product must work for one person",
+    "scores": {
+      "activation": 5,
+      "recurrence": 5,
+      "independence": 5,
+      "demonstrability": 4,
+      "paid_value": 2,
+      "differentiation": 1,
+      "feasibility": 4
+    },
+    "rationale": "Mature apps already deliver the complete loop; users may not pay for timing convenience Default session by available time, avoiding full-house setup; proposed distinction",
+    "disposition": "reserve",
+    "confidence": "low; competitor offer evidence only; no paid demand or retention verified"
+  },
+  {
+    "id": "E085",
+    "name": "Cooking Technique Practice",
+    "family": "everyday",
+    "origin": "new research proposal",
+    "user": "Home cook wanting reliable fundamental skills",
+    "first_result": "Complete a simple technique exercise with an observable result",
+    "loop": [
+      "choose skill",
+      "follow short lesson and practice",
+      "compare result rubric",
+      "advance to next technique"
+    ],
+    "return_trigger": "Meals offer repeated practice; course completion creates churn risk",
+    "paid_value": "Finite technique courses with original demonstrations and objective self-checks",
+    "pricing": {
+      "model": "one-time",
+      "monthly_usd": null,
+      "annual_usd": null,
+      "basis": "hypothesis: USD 29 one-time; zero subscription MRR",
+      "free": "One technique lesson",
+      "paid": "Finite technique courses with original demonstrations and objective self-checks"
+    },
+    "dependencies": [
+      "Culinary expert review; original footage; user has ingredients"
+    ],
+    "compute": "Curated video; no live chef or image diagnosis; capped lesson library",
+    "content_burden": "High production and food-safety review burden",
+    "first_scope": [
+      "One technique lesson",
+      "Result comparison rubric",
+      "Short finite learning path"
+    ],
+    "acquisition": "Demonstrate one controllable cooking mistake and correction",
+    "competitors": [
+      {
+        "name": "Rouxbe Membership",
+        "url": "https://www.rouxbe.com/rouxbe/membership",
+        "accessed": "2026-10-09",
+        "relation": "direct",
+        "facts": "Membership provides culinary courses, lessons and recipes.",
+        "price": "not verified"
+      }
+    ],
+    "difference": "Narrow repeat-the-technique practice using household ingredients; proposed distinction",
+    "risk": "Free videos and extensive expert schools set a high content standard",
+    "experiment": "Test independent practice and one-week repeat with a paid finite course",
+    "stop_rule": "Drop if users need live chef feedback or recipes alone meet their need",
+    "overlap": "E086 chooses meals; E087 coordinates batch execution; this teaches transferable skill",
+    "scores": {
+      "activation": 4,
+      "recurrence": 3,
+      "independence": 4,
+      "demonstrability": 5,
+      "paid_value": 3,
+      "differentiation": 2,
+      "feasibility": 2
+    },
+    "rationale": "Free videos and extensive expert schools set a high content standard Narrow repeat-the-technique practice using household ingredients; proposed distinction",
+    "disposition": "defer",
+    "confidence": "low; competitor offer evidence only; no paid demand or retention verified"
+  },
+  {
+    "id": "E086",
+    "name": "Weekly Meal Planner",
+    "family": "everyday",
+    "origin": "new research proposal",
+    "user": "Household cook managing a weekly menu",
+    "first_result": "Generate a small menu and consolidated grocery list",
+    "loop": [
+      "select preferences",
+      "choose reusable recipes",
+      "shop and cook",
+      "adapt next week"
+    ],
+    "return_trigger": "Weekly shopping; real repeat use untested",
+    "paid_value": "Rotating tested menus and ingredient-aware shopping plans",
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 5,
+      "annual_usd": null,
+      "basis": "hypothesis; no observed willingness to pay",
+      "free": "One three-meal menu",
+      "paid": "Rotating tested menus and ingredient-aware shopping plans"
+    },
+    "dependencies": [
+      "Recipe rights and culinary review; manual pantry choices"
+    ],
+    "compute": "Local ingredient arithmetic; bounded recipe catalog; no retailer integration",
+    "content_burden": "Recipe testing, substitutions, allergens and regional ingredient coverage",
+    "first_scope": [
+      "One three-meal menu",
+      "Consolidated grocery list",
+      "Next-week reuse and swap"
+    ],
+    "acquisition": "Publish one complete menu with an interactive shopping preview",
+    "competitors": [
+      {
+        "name": "Mealime",
+        "url": "https://www.mealime.com/",
+        "accessed": "2026-10-09",
+        "relation": "direct",
+        "facts": "Meal planning, shopping lists and recipe guidance; website announces shutdown on October 21, 2026.",
+        "price": "Website calls app free; paid terms not verified"
+      },
+      {
+        "name": "Sorted Sidekick",
+        "url": "https://help.sortedfood.com/hc/en-gb/articles/4638361218706-What-is-Sidekick",
+        "accessed": "2026-10-09",
+        "relation": "direct",
+        "facts": "Recipe packs combine three recipes with one shopping list.",
+        "price": "not verified"
+      }
+    ],
+    "difference": "Small pantry-reuse menus with transparent substitutions; unvalidated difference",
+    "risk": "Recipe content is expensive; announced Mealime closure is evidence against treating category popularity as viability",
+    "experiment": "Test two weekly menus independently and offer a paid continuing rotation",
+    "stop_rule": "Drop if users mostly export a list once or menu production consumes the price margin",
+    "overlap": "Planning outcome differs from teaching techniques or parallel batch-cooking timeline",
+    "scores": {
+      "activation": 4,
+      "recurrence": 5,
+      "independence": 4,
+      "demonstrability": 4,
+      "paid_value": 3,
+      "differentiation": 2,
+      "feasibility": 3
+    },
+    "rationale": "Recipe content is expensive; announced Mealime closure is evidence against treating category popularity as viability Small pantry-reuse menus with transparent substitutions; unvalidated difference",
+    "disposition": "reserve",
+    "confidence": "low; competitor offer evidence only; no paid demand or retention verified"
+  },
+  {
+    "id": "E087",
+    "name": "Batch Cooking Session Director",
+    "family": "everyday",
+    "origin": "new research proposal",
+    "user": "Cook preparing several meals in one session",
+    "first_result": "Finish a coordinated cooking session without conflicting steps",
+    "loop": [
+      "choose tested batch",
+      "prep grouped ingredients",
+      "follow parallel timers",
+      "store portions and repeat"
+    ],
+    "return_trigger": "Weekly meal preparation for a subset of households",
+    "paid_value": "New tested batches and dependable execution timelines",
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 6,
+      "annual_usd": null,
+      "basis": "hypothesis; no observed willingness to pay",
+      "free": "One complete batch plan",
+      "paid": "New tested batches and dependable execution timelines"
+    },
+    "dependencies": [
+      "Culinary and food-storage review; kitchen equipment choices"
+    ],
+    "compute": "Local schedule graph and timers; curated recipes; no generative unsafe timings",
+    "content_burden": "Every batch must be cooked and timing-tested; high operational cost",
+    "first_scope": [
+      "One complete batch plan",
+      "Parallel task timeline",
+      "Storage labels and reheating notes"
+    ],
+    "acquisition": "Show the timeline for one real tested cooking session",
+    "competitors": [
+      {
+        "name": "Sorted Sidekick",
+        "url": "https://help.sortedfood.com/hc/en-gb/articles/4638361218706-What-is-Sidekick",
+        "accessed": "2026-10-09",
+        "relation": "adjacent",
+        "facts": "Bundled recipes and a consolidated shopping list support home cooking.",
+        "price": "not verified"
+      }
+    ],
+    "difference": "Coordinate concurrent steps during a batch; the cited alternative is adjacent, not proof of an unmet gap",
+    "risk": "Kitchen variability can turn a self-serve product into ongoing recipe troubleshooting",
+    "experiment": "Test one full batch in different ordinary kitchens, repeat independently, then offer another paid batch",
+    "stop_rule": "Drop if success needs live guidance or timelines fail across normal equipment differences",
+    "overlap": "Separate decision from choosing weekly meals; could consolidate into E086 if users buy one job",
+    "scores": {
+      "activation": 3,
+      "recurrence": 5,
+      "independence": 3,
+      "demonstrability": 5,
+      "paid_value": 3,
+      "differentiation": 3,
+      "feasibility": 2
+    },
+    "rationale": "Kitchen variability can turn a self-serve product into ongoing recipe troubleshooting Coordinate concurrent steps during a batch; the cited alternative is adjacent, not proof of an unmet gap",
+    "disposition": "reserve",
+    "confidence": "low; competitor offer evidence only; no paid demand or retention verified"
+  },
+  {
+    "id": "E088",
+    "name": "Outfit Combination Studio",
+    "family": "everyday",
+    "origin": "new research proposal",
+    "user": "Person wanting more outfits from owned clothing",
+    "first_result": "Assemble usable outfits from a small clothing capsule",
+    "loop": [
+      "add a small capsule",
+      "build combinations",
+      "save worn results",
+      "choose next outfit"
+    ],
+    "return_trigger": "Daily dressing; setup friction precedes value",
+    "paid_value": "Seasonal capsule planning and an archive of effective combinations",
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 4,
+      "annual_usd": null,
+      "basis": "hypothesis; no observed willingness to pay",
+      "free": "Small capsule import",
+      "paid": "Seasonal capsule planning and an archive of effective combinations"
+    },
+    "dependencies": [
+      "User clothing photos; background-removal model optional"
+    ],
+    "compute": "Local composition; meter photo cutouts and cap stored originals",
+    "content_burden": "Style example sets and accessible composition rules",
+    "first_scope": [
+      "Small capsule import",
+      "Outfit board",
+      "Wear-and-reuse history"
+    ],
+    "acquisition": "Demo several combinations from the same five items",
+    "competitors": [
+      {
+        "name": "Whering",
+        "url": "https://whering.co.uk/",
+        "accessed": "2026-10-09",
+        "relation": "direct",
+        "facts": "Clothing uploads, outfit suggestions, wardrobe organization, packing and wear statistics are offered.",
+        "price": "not verified"
+      }
+    ],
+    "difference": "Deliver first value from a tiny capsule rather than a complete inventory; proposed distinction",
+    "risk": "Users must photograph clothing and established products already offer rich wardrobes",
+    "experiment": "Test five-item onboarding, three later outfit choices and a paid capsule expansion",
+    "stop_rule": "Drop if uploads stall or suggestions require human styling",
+    "overlap": "Clothing choice differs from Pose Coach photo positioning; no commerce or stylist marketplace",
+    "scores": {
+      "activation": 3,
+      "recurrence": 5,
+      "independence": 4,
+      "demonstrability": 5,
+      "paid_value": 3,
+      "differentiation": 2,
+      "feasibility": 3
+    },
+    "rationale": "Users must photograph clothing and established products already offer rich wardrobes Deliver first value from a tiny capsule rather than a complete inventory; proposed distinction",
+    "disposition": "reserve",
+    "confidence": "low; competitor offer evidence only; no paid demand or retention verified"
+  },
+  {
+    "id": "E089",
+    "name": "Travel Packing Coach",
+    "family": "everyday",
+    "origin": "new research proposal",
+    "user": "Occasional traveler",
+    "first_result": "Create and use one situation-specific packing list",
+    "loop": [
+      "enter trip basics",
+      "review suggested list",
+      "pack and mark",
+      "reuse lessons for next trip"
+    ],
+    "return_trigger": "Trips are episodic; weak monthly recurrence",
+    "paid_value": "Reusable packing templates and trip histories",
+    "pricing": {
+      "model": "one-time",
+      "monthly_usd": null,
+      "annual_usd": null,
+      "basis": "hypothesis: USD 9 one-time; zero subscription MRR",
+      "free": "One packing list",
+      "paid": "Reusable packing templates and trip histories"
+    },
+    "dependencies": [
+      "User trip details; weather can be manual initially"
+    ],
+    "compute": "Local rules and offline lists; no itinerary provider required",
+    "content_burden": "Destination-neutral activity templates and baggage constraints",
+    "first_scope": [
+      "One packing list",
+      "Offline checks",
+      "Reusable custom template"
+    ],
+    "acquisition": "Show a packing list built from trip duration and activities",
+    "competitors": [
+      {
+        "name": "PackPoint",
+        "url": "https://www.packpnt.com/",
+        "accessed": "2026-10-09",
+        "relation": "direct",
+        "facts": "Lists reflect trip length, activities and weather; premium includes customization and optional TripIt linkage.",
+        "price": "not verified"
+      }
+    ],
+    "difference": "Offline templates without account linking; unvalidated distinction",
+    "risk": "Free lists and infrequent travel weaken both paid demand and subscriptions",
+    "experiment": "Test a real packing occasion and purchase of reusable templates",
+    "stop_rule": "Drop if travelers prefer their existing checklist",
+    "overlap": "Outfit planning E088 only overlaps a packing feature; not a distinct MRR priority",
+    "scores": {
+      "activation": 5,
+      "recurrence": 2,
+      "independence": 5,
+      "demonstrability": 5,
+      "paid_value": 2,
+      "differentiation": 1,
+      "feasibility": 5
+    },
+    "rationale": "Free lists and infrequent travel weaken both paid demand and subscriptions Offline templates without account linking; unvalidated distinction",
+    "disposition": "defer",
+    "confidence": "low; competitor offer evidence only; no paid demand or retention verified"
+  },
+  {
+    "id": "E090",
+    "name": "Manual Envelope Budget Guide",
+    "family": "everyday",
+    "origin": "new research proposal",
+    "user": "Individual organizing spending without bank links",
+    "first_result": "Allocate a small budget and record one transaction",
+    "loop": [
+      "allocate available money",
+      "record spending",
+      "review remaining amounts",
+      "plan next cycle"
+    ],
+    "return_trigger": "Payday and each spending decision; manual entry may fail",
+    "paid_value": "Budget history, recurring allocations and review prompts",
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 4,
+      "annual_usd": null,
+      "basis": "hypothesis; no observed willingness to pay",
+      "free": "One budget cycle",
+      "paid": "Budget history, recurring allocations and review prompts"
+    },
+    "dependencies": [
+      "Manual sensitive financial entries; no bank integration"
+    ],
+    "compute": "Local arithmetic and encrypted optional sync; no financial recommendation model",
+    "content_burden": "Clear budgeting examples and accounting edge cases",
+    "first_scope": [
+      "One budget cycle",
+      "Manual transactions",
+      "Reconciliation and export"
+    ],
+    "acquisition": "Demonstrate a complete synthetic payday budget",
+    "competitors": [
+      {
+        "name": "YNAB",
+        "url": "https://www.ynab.com/pricing",
+        "accessed": "2026-10-09",
+        "relation": "direct",
+        "facts": "Subscription budget product advertises monthly and annual options.",
+        "price": "USD 14.99 monthly or USD 109 paid annually, plus applicable tax"
+      }
+    ],
+    "difference": "A deliberate manual method with minimal account setup; unvalidated distinction",
+    "risk": "Users may demand bank syncing, recreating the integration burden this research seeks to avoid",
+    "experiment": "Test a full spending cycle without bank links and a paid second cycle",
+    "stop_rule": "Drop if participants require automatic bank import to return",
+    "overlap": "General budgeting organization; no investment, credit or debt advice",
+    "scores": {
+      "activation": 3,
+      "recurrence": 5,
+      "independence": 4,
+      "demonstrability": 3,
+      "paid_value": 4,
+      "differentiation": 2,
+      "feasibility": 4
+    },
+    "rationale": "Users may demand bank syncing, recreating the integration burden this research seeks to avoid A deliberate manual method with minimal account setup; unvalidated distinction",
+    "disposition": "reserve",
+    "confidence": "low; competitor offer evidence only; no paid demand or retention verified"
+  },
+  {
+    "id": "E091",
+    "name": "Home Maintenance Guide",
+    "family": "everyday",
+    "origin": "new research proposal",
+    "user": "Homeowner seeking routine upkeep prompts",
+    "first_result": "Create a small applicable maintenance schedule",
+    "loop": [
+      "identify major home items",
+      "follow reviewed routine task",
+      "record work",
+      "return at interval"
+    ],
+    "return_trigger": "Monthly and seasonal upkeep; interval-driven recurrence",
+    "paid_value": "Applicable schedules, asset history and reviewed guidance",
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 5,
+      "annual_usd": null,
+      "basis": "hypothesis; no observed willingness to pay",
+      "free": "Small asset setup",
+      "paid": "Applicable schedules, asset history and reviewed guidance"
+    },
+    "dependencies": [
+      "User asset identification; qualified maintenance content review"
+    ],
+    "compute": "Local schedules; bounded photo storage; no contractor integration",
+    "content_burden": "Equipment variations and safety boundaries need ongoing review",
+    "first_scope": [
+      "Small asset setup",
+      "Routine maintenance reminders",
+      "Service history export"
+    ],
+    "acquisition": "Show a sample home moving from setup to a completed upkeep record",
+    "competitors": [
+      {
+        "name": "HomeZada",
+        "url": "https://www.homezada.com/homeowners",
+        "accessed": "2026-10-09",
+        "relation": "direct",
+        "facts": "Home inventory, scheduled maintenance and home-management tools are offered.",
+        "price": "not verified"
+      }
+    ],
+    "difference": "Start with a handful of universal routine items; proposed simplification",
+    "risk": "Home variability may demand bespoke advice and initial inventory discourages activation",
+    "experiment": "Test minimal setup and a later genuine maintenance occasion; offer an annual plan",
+    "stop_rule": "Drop if useful guidance needs individual home assessment",
+    "overlap": "Home Atlas renovation planning stays separate; E084 routine cleaning is lower-risk upkeep",
+    "scores": {
+      "activation": 3,
+      "recurrence": 4,
+      "independence": 3,
+      "demonstrability": 3,
+      "paid_value": 3,
+      "differentiation": 2,
+      "feasibility": 3
+    },
+    "rationale": "Home variability may demand bespoke advice and initial inventory discourages activation Start with a handful of universal routine items; proposed simplification",
+    "disposition": "defer",
+    "confidence": "low; competitor offer evidence only; no paid demand or retention verified"
+  },
+  {
+    "id": "E092",
+    "name": "Speaking Rehearsal Studio",
+    "family": "everyday",
+    "origin": "new research proposal",
+    "user": "Individual preparing recurring presentations",
+    "first_result": "Record a short answer, identify one improvement, and retry",
+    "loop": [
+      "choose speaking prompt",
+      "record rehearsal",
+      "review concrete feedback",
+      "retry and revisit later"
+    ],
+    "return_trigger": "Repeated presentations or speaking practice; some use is event-driven",
+    "paid_value": "Metered practice feedback, saved comparisons and structured progression",
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 8,
+      "annual_usd": null,
+      "basis": "hypothesis; no observed willingness to pay",
+      "free": "One short rehearsal",
+      "paid": "Metered practice feedback, saved comparisons and structured progression"
+    },
+    "dependencies": [
+      "Speech recognition; original rubric; private audio handling"
+    ],
+    "compute": "Metered transcription plus limited text analysis; per-plan minute cap; avoid always-on video processing",
+    "content_burden": "Prompts, rubric calibration across accents and feedback evaluation",
+    "first_scope": [
+      "One short rehearsal",
+      "Evidence-linked feedback",
+      "Before/after playback"
+    ],
+    "acquisition": "Demonstrate the same short talk before and after one suggested change",
+    "competitors": [
+      {
+        "name": "Speeko",
+        "url": "https://www.speeko.co/subscriptions",
+        "accessed": "2026-10-09",
+        "relation": "direct",
+        "facts": "Speech coaching subscription has monthly, annual-display and lifetime options.",
+        "price": "Page shows $29.99/month, annual-equivalent $8.33/month and $299.99 lifetime; currency code and annual charge not explicit"
+      },
+      {
+        "name": "Yoodli",
+        "url": "https://yoodli.ai/",
+        "accessed": "2026-10-09",
+        "relation": "adjacent",
+        "facts": "AI roleplay and feedback for human communication skills are offered.",
+        "price": "not verified"
+      }
+    ],
+    "difference": "One actionable correction per retry instead of a dashboard of unexplained scores; untested gap",
+    "risk": "Large competitors and generic AI can already coach; accuracy and inference costs can undermine trust",
+    "experiment": "Compare unaided retry quality and voluntary later practice; test capped paid minutes",
+    "stop_rule": "Drop if feedback is generic, users cannot verify improvements, or repeat use vanishes after one event",
+    "overlap": "Transcript Forge may share infrastructure, but this owns rehearsal and feedback, not transcript delivery",
+    "scores": {
+      "activation": 4,
+      "recurrence": 4,
+      "independence": 4,
+      "demonstrability": 5,
+      "paid_value": 4,
+      "differentiation": 2,
+      "feasibility": 3
+    },
+    "rationale": "Large competitors and generic AI can already coach; accuracy and inference costs can undermine trust One actionable correction per retry instead of a dashboard of unexplained scores; untested gap",
+    "disposition": "reserve",
+    "confidence": "low; competitor offer evidence only; no paid demand or retention verified"
+  },
+  {
+    "id": "E093",
+    "name": "Difficult Conversation Rehearsal",
+    "family": "everyday",
+    "origin": "new research proposal",
+    "user": "Adult preparing a specific interpersonal conversation",
+    "first_result": "Practice a bounded scenario and refine wording",
+    "loop": [
+      "choose situation",
+      "rehearse response",
+      "review alternatives",
+      "retry or prepare another conversation"
+    ],
+    "return_trigger": "Occasional upcoming conversations; no natural daily requirement",
+    "paid_value": "Finite scenario packs with capped roleplay sessions",
+    "pricing": {
+      "model": "one-time",
+      "monthly_usd": null,
+      "annual_usd": null,
+      "basis": "hypothesis: USD 15 one-time; zero subscription MRR",
+      "free": "One scenario",
+      "paid": "Finite scenario packs with capped roleplay sessions"
+    },
+    "dependencies": [
+      "Language model; reviewed interpersonal scenarios; privacy controls"
+    ],
+    "compute": "Metered text roleplay; cap turns and no persistent personal profiles required",
+    "content_burden": "Scenario authorship and careful feedback boundaries; not therapy or legal advice",
+    "first_scope": [
+      "One scenario",
+      "Short roleplay",
+      "Review and retry"
+    ],
+    "acquisition": "Show an invented low-stakes boundary-setting conversation",
+    "competitors": [
+      {
+        "name": "Yoodli",
+        "url": "https://yoodli.ai/",
+        "accessed": "2026-10-09",
+        "relation": "adjacent",
+        "facts": "Configurable AI roleplays and coaching feedback are offered.",
+        "price": "not verified"
+      }
+    ],
+    "difference": "Bounded personal scenarios with user-chosen goals; adjacent evidence leaves demand uncertain",
+    "risk": "Generic chat tools cover this job; inferred social advice can be wrong and use is episodic",
+    "experiment": "Test unassisted rehearsal against generic chat, then purchase of another scenario pack",
+    "stop_rule": "Drop if generic chat is preferred or human interpretation remains essential",
+    "overlap": "Distinct interaction from monologue rehearsal E092; possible shared product module",
+    "scores": {
+      "activation": 4,
+      "recurrence": 2,
+      "independence": 4,
+      "demonstrability": 4,
+      "paid_value": 3,
+      "differentiation": 2,
+      "feasibility": 3
+    },
+    "rationale": "Generic chat tools cover this job; inferred social advice can be wrong and use is episodic Bounded personal scenarios with user-chosen goals; adjacent evidence leaves demand uncertain",
+    "disposition": "defer",
+    "confidence": "low; competitor offer evidence only; no paid demand or retention verified"
+  },
+  {
+    "id": "E094",
+    "name": "Job Interview Rehearsal",
+    "family": "everyday",
+    "origin": "new research proposal",
+    "user": "Individual with an upcoming interview",
+    "first_result": "Complete one mock answer and revise using a clear rubric",
+    "loop": [
+      "select role and question",
+      "answer aloud",
+      "review rubric evidence",
+      "retry and complete preparation plan"
+    ],
+    "return_trigger": "Intensive during job search; stops when hired",
+    "paid_value": "Finite role-specific preparation packs with bounded feedback",
+    "pricing": {
+      "model": "one-time",
+      "monthly_usd": null,
+      "annual_usd": null,
+      "basis": "hypothesis: USD 29 one-time; zero subscription MRR",
+      "free": "One mock question",
+      "paid": "Finite role-specific preparation packs with bounded feedback"
+    },
+    "dependencies": [
+      "Role-specific rubric review; metered speech recognition if audio"
+    ],
+    "compute": "Capped transcription and feedback; curated question bank",
+    "content_burden": "Role coverage and grading quality require maintenance; no claim to predict hiring outcomes",
+    "first_scope": [
+      "One mock question",
+      "Answer evidence review",
+      "Finite preparation path"
+    ],
+    "acquisition": "Demonstrate a mock answer and rubric-based retry",
+    "competitors": [
+      {
+        "name": "Aced formerly Exponent",
+        "url": "https://www.aced.io/upgrade",
+        "accessed": "2026-10-09",
+        "relation": "direct",
+        "facts": "Interview courses, peer mocks and paid tiers are offered.",
+        "price": "Free Basic shown; exact paid billing not treated as verified because extracted toggle states mix amounts"
+      }
+    ],
+    "difference": "Independent practice without peer scheduling; proposed distinction",
+    "risk": "Strong incumbents and generic AI serve the same outcome; successful customers naturally churn",
+    "experiment": "Test full solo preparation and actual purchase for an upcoming interview",
+    "stop_rule": "Drop if feedback cannot beat generic prompting or participants require expert interviews",
+    "overlap": "Separate purchase occasion from recurring speaking practice; potentially E092 pack instead of company",
+    "scores": {
+      "activation": 4,
+      "recurrence": 2,
+      "independence": 4,
+      "demonstrability": 5,
+      "paid_value": 4,
+      "differentiation": 2,
+      "feasibility": 3
+    },
+    "rationale": "Strong incumbents and generic AI serve the same outcome; successful customers naturally churn Independent practice without peer scheduling; proposed distinction",
+    "disposition": "reserve",
+    "confidence": "low; competitor offer evidence only; no paid demand or retention verified"
+  },
+  {
+    "id": "E095",
+    "name": "Dog Training Practice Path",
+    "family": "everyday",
+    "origin": "new research proposal",
+    "user": "Owner teaching basic everyday behaviors",
+    "first_result": "Complete a short reviewed exercise with the dog",
+    "loop": [
+      "choose basic skill",
+      "follow reward-based exercise",
+      "record observed response",
+      "repeat at next session"
+    ],
+    "return_trigger": "Daily practice until reliable behavior; advanced content demand unproven",
+    "paid_value": "Progressive reviewed training paths and practice records",
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 6,
+      "annual_usd": null,
+      "basis": "hypothesis; no observed willingness to pay",
+      "free": "One beginner skill",
+      "paid": "Progressive reviewed training paths and practice records"
+    },
+    "dependencies": [
+      "Qualified animal-training reviewer; owner observes actual behavior"
+    ],
+    "compute": "Curated video and local logs; no automated behavior diagnosis",
+    "content_burden": "Professional demonstrations and review; severe behavior needs are outside initial scope",
+    "first_scope": [
+      "One beginner skill",
+      "Practice timer and log",
+      "Progression criteria"
+    ],
+    "acquisition": "Demonstrate one original short training exercise",
+    "competitors": [
+      {
+        "name": "Dogo",
+        "url": "https://dogo.app/",
+        "accessed": "2026-10-09",
+        "relation": "direct",
+        "facts": "Customized training plans are offered through an onboarding survey.",
+        "price": "not verified"
+      }
+    ],
+    "difference": "Clear observable progression criteria with minimal survey setup; unvalidated difference",
+    "risk": "Dog variability can require individual advice; professional content dominates costs",
+    "experiment": "Test independent first exercise and repeat practice, followed by a paid path",
+    "stop_rule": "Drop if owners need personalized trainer correction to succeed",
+    "overlap": "No trainer marketplace or veterinary advice; product teaches owner behavior",
+    "scores": {
+      "activation": 4,
+      "recurrence": 4,
+      "independence": 3,
+      "demonstrability": 5,
+      "paid_value": 3,
+      "differentiation": 2,
+      "feasibility": 2
+    },
+    "rationale": "Dog variability can require individual advice; professional content dominates costs Clear observable progression criteria with minimal survey setup; unvalidated difference",
+    "disposition": "defer",
+    "confidence": "low; competitor offer evidence only; no paid demand or retention verified"
+  },
+  {
+    "id": "E096",
+    "name": "Houseplant Care Companion",
+    "family": "everyday",
+    "origin": "new research proposal",
+    "user": "Person caring for several ordinary houseplants",
+    "first_result": "Add a plant and complete a suitable basic care check",
+    "loop": [
+      "identify plant manually",
+      "inspect conditions",
+      "record care",
+      "return when check is due"
+    ],
+    "return_trigger": "Repeated care throughout ownership",
+    "paid_value": "Plant histories, adjusted reminders and reviewed species guides",
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 4,
+      "annual_usd": null,
+      "basis": "hypothesis; no observed willingness to pay",
+      "free": "One manual plant setup",
+      "paid": "Plant histories, adjusted reminders and reviewed species guides"
+    },
+    "dependencies": [
+      "Reviewed plant-care reference; correct user identification"
+    ],
+    "compute": "Local schedule rules; avoid image identification initially; bounded photo history",
+    "content_burden": "Species and environment variability require horticultural review",
+    "first_scope": [
+      "One manual plant setup",
+      "Condition checklist",
+      "Care history and reminders"
+    ],
+    "acquisition": "Show a complete care check for one common houseplant",
+    "competitors": [
+      {
+        "name": "Planta",
+        "url": "https://getplanta.com/",
+        "accessed": "2026-10-09",
+        "relation": "direct",
+        "facts": "Plant care reminders cover watering, fertilizing, repotting and related activities.",
+        "price": "not verified"
+      }
+    ],
+    "difference": "Observation-first reminders rather than automatic instructions to water; proposed distinction",
+    "risk": "Strong existing apps; missing environmental context can make reminders counterproductive",
+    "experiment": "Test correct setup and independent later condition checks, then paid multi-plant history",
+    "stop_rule": "Drop if useful guidance requires photo diagnosis or expert support",
+    "overlap": "Unlike vegetable planning E097, this maintains established indoor plants",
+    "scores": {
+      "activation": 4,
+      "recurrence": 5,
+      "independence": 3,
+      "demonstrability": 4,
+      "paid_value": 3,
+      "differentiation": 2,
+      "feasibility": 3
+    },
+    "rationale": "Strong existing apps; missing environmental context can make reminders counterproductive Observation-first reminders rather than automatic instructions to water; proposed distinction",
+    "disposition": "reserve",
+    "confidence": "low; competitor offer evidence only; no paid demand or retention verified"
+  },
+  {
+    "id": "E097",
+    "name": "Vegetable Garden Season Planner",
+    "family": "everyday",
+    "origin": "new research proposal",
+    "user": "Small-space vegetable gardener",
+    "first_result": "Produce a usable bed layout and seasonal task calendar",
+    "loop": [
+      "choose climate and space",
+      "lay out crops",
+      "follow seasonal tasks",
+      "record harvest and plan next cycle"
+    ],
+    "return_trigger": "Seasonal visits with gaps; annual rather than monthly behavior likely",
+    "paid_value": "Region-appropriate planning and multi-season records",
+    "pricing": {
+      "model": "one-time",
+      "monthly_usd": null,
+      "annual_usd": null,
+      "basis": "hypothesis: USD 24 one-time; zero subscription MRR",
+      "free": "One bed plan",
+      "paid": "Region-appropriate planning and multi-season records"
+    },
+    "dependencies": [
+      "Horticultural review; climate assumptions; localized crop data"
+    ],
+    "compute": "Local layout and calendar; manual frost-date input initially; no live weather required",
+    "content_burden": "Substantial regional crop calendars and growing guidance",
+    "first_scope": [
+      "One bed plan",
+      "Seasonal calendar",
+      "Harvest notes"
+    ],
+    "acquisition": "Show one small-space plan evolving through a season",
+    "competitors": [
+      {
+        "name": "GrowVeg Garden Planner",
+        "url": "https://www.growveg.com/garden-planner-intro.aspx",
+        "accessed": "2026-10-09",
+        "relation": "direct",
+        "facts": "Garden layouts, local planting calendars and garden journals are offered; seven-day trial advertised.",
+        "price": "not verified"
+      }
+    ],
+    "difference": "Very small-space complete plans with explicit assumptions; unvalidated distinction",
+    "risk": "Climate coverage and agronomic accuracy demand specialist content; existing tool is comprehensive",
+    "experiment": "Test actual planning and later task use in one region, then purchase for next season",
+    "stop_rule": "Drop if generic guides suffice or region expansion costs dominate revenue",
+    "overlap": "Houseplant care E096 is separate; no garden marketplace",
+    "scores": {
+      "activation": 3,
+      "recurrence": 3,
+      "independence": 3,
+      "demonstrability": 5,
+      "paid_value": 3,
+      "differentiation": 2,
+      "feasibility": 2
+    },
+    "rationale": "Climate coverage and agronomic accuracy demand specialist content; existing tool is comprehensive Very small-space complete plans with explicit assumptions; unvalidated distinction",
+    "disposition": "defer",
+    "confidence": "low; competitor offer evidence only; no paid demand or retention verified"
+  },
+  {
+    "id": "E098",
+    "name": "Bicycle Care Guide",
+    "family": "everyday",
+    "origin": "new research proposal",
+    "user": "Recreational cyclist handling basic upkeep",
+    "first_result": "Complete one correctly scoped basic inspection",
+    "loop": [
+      "choose bicycle category",
+      "follow inspection guide",
+      "record issue or completed upkeep",
+      "return at service interval"
+    ],
+    "return_trigger": "Periodic bicycle care; user may instead use a shop",
+    "paid_value": "Finite offline care guide and personal maintenance history",
+    "pricing": {
+      "model": "one-time",
+      "monthly_usd": null,
+      "annual_usd": null,
+      "basis": "hypothesis: USD 12 one-time; zero subscription MRR",
+      "free": "One pre-ride check",
+      "paid": "Finite offline care guide and personal maintenance history"
+    },
+    "dependencies": [
+      "Mechanic-reviewed procedures; manufacturer-specific boundaries"
+    ],
+    "compute": "Offline illustrated steps and local log; no sensor or shop integration",
+    "content_burden": "Mechanic review, original images and limits on safety-critical repairs",
+    "first_scope": [
+      "One pre-ride check",
+      "Basic care guide",
+      "Service log export"
+    ],
+    "acquisition": "Demonstrate a simple observable maintenance check",
+    "competitors": [
+      {
+        "name": "Bike Repair",
+        "url": "https://apps.apple.com/us/app/bike-repair/id382006079",
+        "accessed": "2026-10-09",
+        "relation": "direct",
+        "facts": "Developer listing describes illustrated bicycle repair and maintenance guides.",
+        "price": "not verified"
+      }
+    ],
+    "difference": "Clear stop-and-seek-service boundaries and offline log; unvalidated difference",
+    "risk": "Free guides and diverse components reduce differentiation; wrong advice carries consequences",
+    "experiment": "Test comprehension and repeat inspection with reviewed content; offer finite guide",
+    "stop_rule": "Drop if correct use requires a mechanic alongside the app",
+    "overlap": "Equipment maintenance differs from home schedule E091; no physical service business",
+    "scores": {
+      "activation": 4,
+      "recurrence": 3,
+      "independence": 3,
+      "demonstrability": 5,
+      "paid_value": 2,
+      "differentiation": 2,
+      "feasibility": 3
+    },
+    "rationale": "Free guides and diverse components reduce differentiation; wrong advice carries consequences Clear stop-and-seek-service boundaries and offline log; unvalidated difference",
+    "disposition": "defer",
+    "confidence": "low; competitor offer evidence only; no paid demand or retention verified"
+  },
+  {
+    "id": "E099",
+    "name": "Personal Photo Cleanup Studio",
+    "family": "everyday",
+    "origin": "new research proposal",
+    "user": "Phone owner with a large photo library",
+    "first_result": "Review one similar-photo group and safely keep chosen images",
+    "loop": [
+      "grant bounded photo access",
+      "review local groups",
+      "confirm changes",
+      "repeat when library grows"
+    ],
+    "return_trigger": "New photo accumulation; cleanup may be episodic",
+    "paid_value": "Local review tools and repeat library organization",
+    "pricing": {
+      "model": "one-time",
+      "monthly_usd": null,
+      "annual_usd": null,
+      "basis": "hypothesis: USD 19 one-time; zero subscription MRR",
+      "free": "Read-only duplicate preview",
+      "paid": "Local review tools and repeat library organization"
+    },
+    "dependencies": [
+      "Native photo-library permission and OS integration; user confirmation"
+    ],
+    "compute": "On-device hashing and grouping; no cloud originals; memory and battery budgets required",
+    "content_burden": "Low editorial burden but substantial device testing and deletion safety work",
+    "first_scope": [
+      "Read-only duplicate preview",
+      "User-selected keeper review",
+      "Recoverable confirmed cleanup"
+    ],
+    "acquisition": "Show a synthetic photo group moving through a reversible review",
+    "competitors": [
+      {
+        "name": "CleanMyPhone",
+        "url": "https://macpaw.com/cleanmyphone",
+        "accessed": "2026-10-09",
+        "relation": "direct",
+        "facts": "App identifies duplicates, blurred images, screenshots and large videos for user-reviewed cleanup.",
+        "price": "not verified"
+      }
+    ],
+    "difference": "Transparent grouping and visible reversibility; unvalidated incumbent gap",
+    "risk": "Native photo apps and mature cleaners compete; permissions and destructive-action trust slow activation",
+    "experiment": "Test read-only preview comprehension and repeated use; offer one-time tool purchase",
+    "stop_rule": "Drop if native tools meet the need or users cannot trust suggested groups",
+    "overlap": "No overlap with ForeverPin location records or Pose Coach shooting guidance",
+    "scores": {
+      "activation": 3,
+      "recurrence": 3,
+      "independence": 2,
+      "demonstrability": 5,
+      "paid_value": 3,
+      "differentiation": 2,
+      "feasibility": 2
+    },
+    "rationale": "Native photo apps and mature cleaners compete; permissions and destructive-action trust slow activation Transparent grouping and visible reversibility; unvalidated incumbent gap",
+    "disposition": "defer",
+    "confidence": "low; competitor offer evidence only; no paid demand or retention verified"
+  },
+  {
+    "id": "E100",
+    "name": "Moving Home Organizer",
+    "family": "everyday",
+    "origin": "new research proposal",
+    "user": "Household preparing a relocation",
+    "first_result": "Build a usable countdown and pack one tracked box",
+    "loop": [
+      "set move date",
+      "follow staged checklist",
+      "label and locate boxes",
+      "complete unpacking"
+    ],
+    "return_trigger": "One relocation lifecycle; repeat moves too infrequent for MRR",
+    "paid_value": "Finite move plan, box inventory and export",
+    "pricing": {
+      "model": "one-time",
+      "monthly_usd": null,
+      "annual_usd": null,
+      "basis": "hypothesis: USD 15 one-time; zero subscription MRR",
+      "free": "Move countdown",
+      "paid": "Finite move plan, box inventory and export"
+    },
+    "dependencies": [
+      "User move date and box labels; locale-specific checklist review"
+    ],
+    "compute": "Local checklist and optional compressed photos; no mover integration",
+    "content_burden": "Region-specific administrative suggestions without claiming universal completeness",
+    "first_scope": [
+      "Move countdown",
+      "Box labels and inventory",
+      "Unpacking checklist"
+    ],
+    "acquisition": "Show a complete sample move from date entry to first unpacked box",
+    "competitors": [
+      {
+        "name": "Home Stretch Moving Checklist",
+        "url": "https://apps.apple.com/us/app/home-stretch-moving-checklist/id6759578339",
+        "accessed": "2026-10-09",
+        "relation": "direct",
+        "facts": "Developer listing offers date-based moving tasks and premium checklist PDF export.",
+        "price": "not verified"
+      }
+    ],
+    "difference": "Tie countdown tasks to a bounded box-to-room map; unvalidated distinction",
+    "risk": "A temporary need and printable alternatives make subscription revenue implausible",
+    "experiment": "Test one move workflow and purchase of the finite organizer",
+    "stop_rule": "Drop if checklist exports provide all value without using box workflow",
+    "overlap": "Temporary relocation differs from ongoing home maintenance and decluttering",
+    "scores": {
+      "activation": 4,
+      "recurrence": 1,
+      "independence": 5,
+      "demonstrability": 4,
+      "paid_value": 3,
+      "differentiation": 2,
+      "feasibility": 4
+    },
+    "rationale": "A temporary need and printable alternatives make subscription revenue implausible Tie countdown tasks to a bounded box-to-room map; unvalidated distinction",
+    "disposition": "defer",
+    "confidence": "low; competitor offer evidence only; no paid demand or retention verified"
+  }
+]

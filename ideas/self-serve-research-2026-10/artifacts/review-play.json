@@ -1,0 +1,268 @@
+[
+  {
+    "id": "E051",
+    "evidence_sufficient": true,
+    "overlap": "Distinct from Hijinx only as solo/async play; keep all short puzzle themes consolidated here.",
+    "proposed_scores": {},
+    "proposed_disposition": null,
+    "verdict": "keep",
+    "rationale": "Developer/storefront alternatives sufficiently establish the category, not market demand. Cosmetic-only pricing honestly contributes zero subscription MRR. Existing code improves experiment speed only. Recipient completion and actual cosmetic buying are stronger discovery tests than share counts; retain reserve until both occur."
+  },
+  {
+    "id": "E052",
+    "evidence_sufficient": true,
+    "overlap": "Evidence-and-accusation interaction is sufficiently different from E053 spatial mechanisms and E054 character choices.",
+    "proposed_scores": {},
+    "proposed_disposition": null,
+    "verdict": "keep",
+    "rationale": "Developer-controlled storefronts are adequate primary alternatives. The pack model is honest and full-case playtests confront the real content bottleneck. Do not infer recurring software revenue from players wanting another authored mystery. A spoiler-free opening should test completed cases and second-case purchases, not merely views."
+  },
+  {
+    "id": "E053",
+    "evidence_sufficient": true,
+    "overlap": "Spatial manipulation and object-state puzzles are a distinct experience; room themes should remain one product.",
+    "proposed_scores": {},
+    "proposed_disposition": null,
+    "verdict": "keep",
+    "rationale": "Rusty Lake supports the alternative category and unknown prices are correctly retained. Reserve is reasonable for an original small game, with zero subscription MRR. Art, hints, accessibility and state testing are the product workload, so a polished demonstrator does not by itself establish affordable content cadence."
+  },
+  {
+    "id": "E054",
+    "evidence_sufficient": true,
+    "overlap": "Consumption of authored branching fiction is distinct from E041 authoring/debugging and E055 open-ended rule-driven play.",
+    "proposed_scores": {},
+    "proposed_disposition": null,
+    "verdict": "keep",
+    "rationale": "Choice of Games is an appropriate primary publisher source. Finished-volume sales fit the natural purchase unit. A prologue must deliver an honest complete beat rather than function only as a cliffhanger. Paid recurrence depends on specific story quality; no evidence supports a broad platform or subscription yet."
+  },
+  {
+    "id": "E055",
+    "evidence_sufficient": true,
+    "overlap": "Distinct only if player-authored choices and persistent rules genuinely exceed fixed branching routes.",
+    "proposed_scores": {
+      "paid_value": 2,
+      "differentiation": 2
+    },
+    "proposed_disposition": null,
+    "verdict": "revise",
+    "rationale": "Independently reopened Mythic publisher page supports oracle-based solo play and GBP38 physical hardback, not a software subscription. Multiple campaigns and a growing module library do not yet explain monthly value. Compare a finite paid campaign against subscription, and show why a local character sheet plus oracle book fails; do not promise endless authored modules."
+  },
+  {
+    "id": "E056",
+    "evidence_sufficient": true,
+    "overlap": "Chess-specific error diagnosis is distinct from generic Arcade games, but directly overlaps the named incumbent.",
+    "proposed_scores": {
+      "recurrence": 4,
+      "paid_value": 3
+    },
+    "proposed_disposition": "defer",
+    "verdict": "revise",
+    "rationale": "Independent Aimchess check shows its free tier already includes game analysis, weekly personalized plans and daily training. The proposed error-to-drill workflow is its explicit core promise. Repeated chess games support a plausible occasion, not guaranteed app retention. Require a demonstrable underserved decision before commissioning analysis or content."
+  },
+  {
+    "id": "E057",
+    "evidence_sufficient": true,
+    "overlap": "Rules reference for owned physical games remains distinct from Hijinx original digital party play.",
+    "proposed_scores": {},
+    "proposed_disposition": null,
+    "verdict": "keep",
+    "rationale": "Dized is directly relevant and its reported monthly/annual units are separated honestly. Deferred status correctly reflects rights, edition coverage and publisher dependence. A one-game sample may activate well while being too narrow to sell a subscription; obtain evidence of paid depth before expanding coverage."
+  },
+  {
+    "id": "E058",
+    "evidence_sufficient": true,
+    "overlap": "Contemporary card-market/variant tracking differs from E070 historical attribution, provided the pricing/history job remains central.",
+    "proposed_scores": {
+      "feasibility": 2
+    },
+    "proposed_disposition": null,
+    "verdict": "revise",
+    "rationale": "The direct Collectr record is sufficient category evidence; annualized pricing is appropriately not treated as monthly checkout. Licensed catalogs, releases, exact variants and market provenance make the initial accurate experience harder than a generic inventory. Validate data rights and error correction before interpreting scan-demo interest as a business."
+  },
+  {
+    "id": "E059",
+    "evidence_sufficient": true,
+    "overlap": "Same generic taste-log/recommendation pattern originally appeared in E060; replacement removes that internal duplication.",
+    "proposed_scores": {
+      "recurrence": 3,
+      "differentiation": 1
+    },
+    "proposed_disposition": "defer",
+    "verdict": "revise",
+    "rationale": "Independent StoryGraph check confirms mood filters, recommendations, private journals, DNF and an up-next queue in a mostly free product. These are nearly all the proposed first scope. Book completion creates a natural but slower repeat occasion; saving recommendations is not reading or paying. A narrower underserved reading decision is required before prioritizing."
+  },
+  {
+    "id": "E060",
+    "evidence_sufficient": true,
+    "overlap": "The revised active artwork-interpretation loop removes the E059 media-journal duplication and is distinct from E026 drawing production.",
+    "proposed_scores": {},
+    "proposed_disposition": null,
+    "verdict": "keep",
+    "rationale": "Independently reopened DailyArt and Google Arts & Culture support the recorded free discovery, themed exploration and detail-looking alternatives. The revised first result is self-contained, with no museum/geography dependence. Reserve status and paid-value/differentiation scores of two fit the evidence. Test active transfer to a second artwork and paid continuation; daily card consumption alone would not justify a subscription."
+  },
+  {
+    "id": "E061",
+    "evidence_sufficient": true,
+    "overlap": "Resume notes and next-action memory distinguish this from passive media recommendation; keep that interaction explicit.",
+    "proposed_scores": {},
+    "proposed_disposition": null,
+    "verdict": "keep",
+    "rationale": "GG is an adequate direct collection/discovery alternative, with price uncertainty disclosed. One-time licensing avoids fabricated MRR. The strongest experiment is whether a resume note actually changes a later play session. Broad library metadata and integration convenience should not silently replace the narrow self-serve proposition."
+  },
+  {
+    "id": "E062",
+    "evidence_sufficient": true,
+    "overlap": "Wildlife field identification is distinct from astronomy and curriculum, though the incumbent already covers the main loop.",
+    "proposed_scores": {
+      "activation": 4
+    },
+    "proposed_disposition": null,
+    "verdict": "revise",
+    "rationale": "Independently verified merlinbirds.org is a Cornell source with offline photo/sound ID, life lists and seasonal/location filters, free. This supports the defer judgment strongly. A live sighting and a usable image/audio observation impose more first-value friction than a maximum activation score implies; organization must outperform a trusted free record."
+  },
+  {
+    "id": "E063",
+    "evidence_sufficient": true,
+    "overlap": "Actual sky observation differs from conceptual astronomy simulations only while real location/time visibility stays central.",
+    "proposed_scores": {
+      "activation": 3,
+      "independence": 4,
+      "paid_value": 2
+    },
+    "proposed_disposition": null,
+    "verdict": "revise",
+    "rationale": "Stellarium is relevant primary evidence, and unverified prices are correctly not guessed. Real first value depends on location, time, weather and visibility; the record overstates immediate activation. Paid observing programs may be finite purchases rather than subscriptions. Test finding a real object and a later clear-night return before extending a catalog."
+  },
+  {
+    "id": "E064",
+    "evidence_sufficient": true,
+    "overlap": "Evidence-linked ancestry research is distinct from memoir creation or generic file storage.",
+    "proposed_scores": {},
+    "proposed_disposition": null,
+    "verdict": "keep",
+    "rationale": "Family Echo sufficiently establishes a free tree-building alternative but not an uncovered evidence-conflict niche. One-time pricing matches episodic research. Require source-conflict handling and GEDCOM portability in the first complete experience. Discovery needs a specific supported genealogy community; a generic graph demonstration does not establish switching trust."
+  },
+  {
+    "id": "E065",
+    "evidence_sufficient": true,
+    "overlap": "Personal effort/catch comparison is a distinct hobby analysis loop, but avoid becoming an ordinary location diary.",
+    "proposed_scores": {
+      "activation": 2,
+      "recurrence": 3
+    },
+    "proposed_disposition": null,
+    "verdict": "revise",
+    "rationale": "Independent ANGLR source confirms activity/trip tools and subscription links; exact price remains unknown. The proposed first result compares a prior trip, so a new user cannot obtain it from one new record without import. Seasonal trips and manual capture weaken recurrence. Test actual historical entry and unsuccessful trips before charging for descriptive comparisons."
+  },
+  {
+    "id": "E066",
+    "evidence_sufficient": true,
+    "overlap": "A physical speedcubing practice intervention is distinct from digital Arcade play; a timer alone is not a product wedge.",
+    "proposed_scores": {
+      "activation": 4,
+      "recurrence": 4,
+      "feasibility": 3
+    },
+    "proposed_disposition": "reserve",
+    "verdict": "revise",
+    "rationale": "Reopened CubeDesk exposes timing/statistics; CubeSkills provides free expert tutorials and states content production is paused. These support a practice category, not paid coaching demand. Manual stage splits and valid drill assignment introduce friction and expert work. Keep as a strong consumer experiment, but require independent drill use and purchase beyond free timing before shortlist status."
+  },
+  {
+    "id": "E067",
+    "evidence_sufficient": true,
+    "overlap": "Continuous vehicle telemetry and corner-control practice are materially different from E068 tactical replay analysis.",
+    "proposed_scores": {
+      "recurrence": 4,
+      "differentiation": 1
+    },
+    "proposed_disposition": null,
+    "verdict": "revise",
+    "rationale": "VRS and trophi.ai are appropriate primary alternatives with unknown prices disclosed. Their core telemetry/coaching overlap is substantial. Frequent simulator laps do not prove continued use of a new coach. The defer decision fits reference-lap licensing, aligned data and expert interpretation; no custom simulator setup support should be assumed away."
+  },
+  {
+    "id": "E068",
+    "evidence_sufficient": true,
+    "overlap": "Tactical match sequences differ from E067 vehicle-control traces, though both are post-session coaching.",
+    "proposed_scores": {
+      "recurrence": 4,
+      "differentiation": 1
+    },
+    "proposed_disposition": null,
+    "verdict": "revise",
+    "rationale": "Leetify is an appropriate direct source and the record properly avoids an invented premium price. A replay upload only yields first value if permitted formats and trustworthy diagnosis work. A narrower UI does not establish differentiation. Maintain defer status until a concrete game-specific error is demonstrated that the incumbent does not adequately help users practice."
+  },
+  {
+    "id": "E069",
+    "evidence_sufficient": true,
+    "overlap": "Fantasy roster research is distinct from real betting; preserve the explicit exclusion and manual input boundary.",
+    "proposed_scores": {},
+    "proposed_disposition": null,
+    "verdict": "keep",
+    "rationale": "FantasyPros is direct primary evidence, with monthly versus annualized prices appropriately distinguished. The proposed notebook relies on exactly the fresh feeds and maintained judgments the user's preferred product shape seeks to minimize. Seasonal subscription churn and source work are correctly acknowledged; defer remains warranted without requiring any outreach or integration."
+  },
+  {
+    "id": "E070",
+    "evidence_sufficient": true,
+    "overlap": "Historical attribution/provenance is sufficiently distinct from E058 dynamic card pricing when valuation stays excluded.",
+    "proposed_scores": {},
+    "proposed_disposition": null,
+    "verdict": "keep",
+    "rationale": "Coinoscope establishes an image-comparison and collection alternative; unknown Pro price is honest. Lifetime pricing avoids pretend MRR. Correct attribution, catalog/image rights and expert coverage dominate the first result. A generic scan demo cannot establish that a supported family is accurately distinguishable or economical to maintain."
+  },
+  {
+    "id": "E071",
+    "evidence_sufficient": true,
+    "overlap": "Hobby skill instruction differs from Arcade daily entertainment if unseen-clue transfer remains the success condition.",
+    "proposed_scores": {
+      "recurrence": 4,
+      "differentiation": 2
+    },
+    "proposed_disposition": "reserve",
+    "verdict": "revise",
+    "rationale": "Independent source checks confirm Minute Cryptic already offers daily clues, mini puzzles, three instructional course categories and account progress. Crossword Genius provides hints and explanations. Thus beginner-friendly progression is not established whitespace. Keep as a promising consumer experiment, but distinguish ongoing paid mixed practice from a finite introductory course and require unseen-clue transfer plus actual purchase."
+  },
+  {
+    "id": "E072",
+    "evidence_sufficient": true,
+    "overlap": "Outdoor route discovery differs from a museum directory and Hijinx party content; location-free variants would need re-evaluation.",
+    "proposed_scores": {
+      "activation": 3,
+      "independence": 3
+    },
+    "proposed_disposition": null,
+    "verdict": "revise",
+    "rationale": "Questo is a sufficient direct primary source and the record honestly separates route packs from MRR. Starting near a supported route, suitable weather and maintained public access are dependencies, so maximum activation is overstated. Field checks are recurring operations. A single locality can test paid outing value, but cannot support a global or regular-subscription claim."
+  },
+  {
+    "id": "E073",
+    "evidence_sufficient": true,
+    "overlap": "Long visual assembly with private-photo input is distinct enough from Arcade's short scored challenges; keep all image themes together.",
+    "proposed_scores": {},
+    "proposed_disposition": null,
+    "verdict": "keep",
+    "rationale": "Reopened Jigsaw Explorer confirms daily boards, own-photo play, saved puzzles and custom sharing, so the weak differentiation score is justified. Packs honestly produce zero subscription MRR. A personal-photo viral demo may attract users who never want paid art; the experiment must directly test the paid collection, not merely photo completion."
+  },
+  {
+    "id": "E074",
+    "evidence_sufficient": true,
+    "overlap": "A persistent dispatch simulation is a different game interaction from short Arcade puzzles.",
+    "proposed_scores": {
+      "differentiation": 2
+    },
+    "proposed_disposition": null,
+    "verdict": "revise",
+    "rationale": "A developer-controlled Steam listing is adequate primary product evidence, but a time-limited sale without an end date cannot be treated as durable pricing. Browser access and concise tutorials provide an unproven distinction, not a three-point advantage over established simulation games. Keep the one-time model and reserve until a complete original scenario demonstrates depth."
+  },
+  {
+    "id": "E075",
+    "evidence_sufficient": true,
+    "overlap": "A standard portable hobby log is distinct from a business CRM, but its complete proposed workflow directly matches HAMRS.",
+    "proposed_scores": {
+      "differentiation": 1
+    },
+    "proposed_disposition": "defer",
+    "verdict": "revise",
+    "rationale": "Independent HAMRS check shows offline use, cross-device sync, ADIF import/export, custom templates and a Field Day template. Those cover the proposed free and paid boundary. Recurring radio activity does not resolve switching trust or explain paying again. Defer until a distinct operator outcome is demonstrated; no mandatory rig integration is an appropriate scope limit."
+  }
+]
+

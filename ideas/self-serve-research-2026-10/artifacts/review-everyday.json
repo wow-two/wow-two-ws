@@ -1,0 +1,322 @@
+[
+  {
+    "id": "E076",
+    "evidence_sufficient": true,
+    "overlap": "Distinct from photography Pose Coach; strength progression has its own recurring purchase.",
+    "proposed_scores": {
+      "activation": 4,
+      "differentiation": 1
+    },
+    "proposed_disposition": null,
+    "verdict": "revise",
+    "rationale": "Finishing a real workout makes activation slower than an immediate in-app result. Liftosaur already exposes progression rules, free built-in programs and automatic workout adjustments, sharply weakening the transparency distinction. Keep recurrence 5 for the natural training occasion, but do not translate it into retention or paid demand. Add Liftosaur before any shortlist decision.",
+    "additional_evidence": [
+      {
+        "name": "Liftosaur",
+        "url": "https://www.liftosaur.com/",
+        "accessed": "2026-10-09",
+        "facts": "Official page offers plain-text progression rules, free built-in programs and automatic progression after completed workouts.",
+        "price": "Free built-in programs verified; full paid pricing not verified."
+      }
+    ]
+  },
+  {
+    "id": "E077",
+    "evidence_sufficient": true,
+    "overlap": "Separate running outcome from strength E076; finite course is a legitimate product.",
+    "proposed_scores": {},
+    "proposed_disposition": null,
+    "verdict": "keep",
+    "rationale": "Correctly treated as a finite one-time program with zero MRR. The official public alternative is enough for baseline evidence, but the proposed offline and repeat-week distinctions do not establish switching demand. Keep deferred until a tested beginner experience offers a concrete reason to buy."
+  },
+  {
+    "id": "E078",
+    "evidence_sufficient": true,
+    "overlap": "Independent movement routine, not photography Pose Coach.",
+    "proposed_scores": {
+      "independence": 5
+    },
+    "proposed_disposition": null,
+    "verdict": "revise",
+    "rationale": "A fixed reviewed routine does not require customer-specific discovery; specialist authorship belongs in feasibility and content costs, not adoption independence. Subscription benefit remains weak against free videos and one retained routine. Keep deferred and test payment for a finite useful library before recurring releases."
+  },
+  {
+    "id": "E079",
+    "evidence_sufficient": true,
+    "overlap": "Work timer differs from entertainment Arcade; no live accountability dependency.",
+    "proposed_scores": {},
+    "proposed_disposition": null,
+    "verdict": "keep",
+    "rationale": "High activation and feasibility are plausible for a local timer, but they do not rescue differentiation 1 or paid value 2. Recurring audio releases can create content obligations without a compelling reason to pay. Keep deferred and compare against the user's existing timer rather than only attractive demos."
+  },
+  {
+    "id": "E080",
+    "evidence_sufficient": true,
+    "overlap": "Bedtime audio is distinct from journaling or learning; no treatment proposition.",
+    "proposed_scores": {
+      "paid_value": 2
+    },
+    "proposed_disposition": null,
+    "verdict": "revise",
+    "rationale": "The stated low-choice predictable routine conflicts with a paid boundary based on continually new audio. Replaying a favorite recording is valuable usage but weak subscription value. Test purchase of a finite series first; recurring releases remain a separate hypothesis with significant production cost."
+  },
+  {
+    "id": "E081",
+    "evidence_sufficient": true,
+    "overlap": "Private reflection differs from scored decisions E082, though a shared journal foundation is possible.",
+    "proposed_scores": {},
+    "proposed_disposition": null,
+    "verdict": "keep",
+    "rationale": "The source directly supports a strong free baseline. Proposed weekly review is an interaction emphasis, not a demonstrated gap. Local storage and export are credible independent benefits, but charging monthly for static prompts remains unproven. Correctly deferred."
+  },
+  {
+    "id": "E082",
+    "evidence_sufficient": true,
+    "overlap": "Decision calibration differs from open reflection E081 only if explicit forecasts and resolved outcomes drive analysis.",
+    "proposed_scores": {
+      "differentiation": 2,
+      "paid_value": 2
+    },
+    "proposed_disposition": null,
+    "verdict": "revise",
+    "rationale": "The official alternative already schedules reviews and analyzes scores over time. A forecast-entry constraint is not yet a defensible differentiation 3. Calibration requires many resolved decisions before the most valuable feedback appears, and the proposed user remains broad. Retain as a research reserve, with a sharper repeat occasion before paying for implementation.",
+    "additional_evidence": [
+      {
+        "name": "Decision Journal",
+        "url": "https://decisionjournalapp.com/guides/app/overview.html",
+        "accessed": "2026-10-09",
+        "facts": "Official documentation describes scheduled reviews, completed decisions, searchable history and review-score analysis.",
+        "price": "Subscription management documented; exact paid amount not verified."
+      }
+    ]
+  },
+  {
+    "id": "E083",
+    "evidence_sufficient": true,
+    "overlap": "Finite decluttering differs from ongoing cleaning E084; potential cross-sell should not imply a subscription.",
+    "proposed_scores": {
+      "activation": 4
+    },
+    "proposed_disposition": null,
+    "verdict": "revise",
+    "rationale": "A real drawer completion requires physical sorting, so first value is slower than a software preview. One-time pricing correctly matches graduation. Keep as a finite-pack reserve; test whether guidance adds value beyond a printable sequence, and include content labor in costs."
+  },
+  {
+    "id": "E084",
+    "evidence_sufficient": true,
+    "overlap": "Distinct recurring housekeeping loop; some decluttering tasks overlap E083 but neither requires separate apps.",
+    "proposed_scores": {
+      "activation": 4
+    },
+    "proposed_disposition": "defer",
+    "verdict": "revise",
+    "rationale": "A completed cleaning session follows room setup and physical work. Tody now explicitly offers the core single-person plan free forever, and a focus timer in its low annual premium tier. The proposed time-bounded session is too close to that offer to prioritize without a stronger use case. Natural recurring chores alone do not establish paid retention.",
+    "additional_evidence": [
+      {
+        "name": "Tody",
+        "url": "https://todyapp.com/",
+        "accessed": "2026-10-09",
+        "facts": "Official homepage states free core single-person cleaning plan without ads; Premium adds multiple homes and Focus Timer; household sync is a separate tier.",
+        "price": "Displayed $9.99/year Premium; Premium+ from $25/year. ISO currency not explicit on opened page."
+      }
+    ]
+  },
+  {
+    "id": "E085",
+    "evidence_sufficient": true,
+    "overlap": "Technique education differs from meal selection E086 and batch execution E087.",
+    "proposed_scores": {},
+    "proposed_disposition": null,
+    "verdict": "keep",
+    "rationale": "One-time course pricing fits a finite learning outcome. Real cooking feedback is hard to validate from self-check rubrics; culinary production and ingredients increase first-session effort. Current feasibility and defer disposition already reflect this. The acquisition test should show an observable result, not only polished lesson footage."
+  },
+  {
+    "id": "E086",
+    "evidence_sufficient": true,
+    "overlap": "Weekly menus distinct from technique courses; batch execution E087 could be an extension.",
+    "proposed_scores": {},
+    "proposed_disposition": null,
+    "verdict": "keep",
+    "rationale": "The category evidence is adequate, and two direct alternatives are present. Mealime's announced closure is verified but its cause is not; retain no inference about category economics. Tested pantry-reuse menus require continuing editorial work. AnyList supplies an additional low-price utility comparison, so the paid hypothesis must sell new tested menus, not merely lists.",
+    "additional_evidence": [
+      {
+        "name": "Mealime",
+        "url": "https://www.mealime.com/",
+        "accessed": "2026-10-09",
+        "facts": "Official homepage announces shutdown on October 21, 2026 and describes meal planning and shopping lists.",
+        "price": "Homepage describes free app; current paid terms not verified."
+      },
+      {
+        "name": "AnyList",
+        "url": "https://www.anylist.com/features",
+        "accessed": "2026-10-09",
+        "facts": "Official comparison lists recipe organization, meal calendars and consolidated grocery lists, with free core list features.",
+        "price": "Displayed $9.99/year individual or $14.99/year household Complete; ISO currency not explicit on opened page."
+      }
+    ]
+  },
+  {
+    "id": "E087",
+    "evidence_sufficient": true,
+    "overlap": "A coordinated cooking timeline is a different interaction, but shares buyer, recipes and purchase with E086.",
+    "proposed_scores": {},
+    "proposed_disposition": "defer",
+    "verdict": "consolidate",
+    "rationale": "Keep the execution-timeline experiment as a possible E086 module until buyers independently choose it over a meal plan. Its only source is adjacent, and reliable concurrent cooking requires tested recipes, equipment assumptions and storage review. Counting it as another build priority would multiply the same culinary production burden."
+  },
+  {
+    "id": "E088",
+    "evidence_sufficient": true,
+    "overlap": "Wardrobe combinations are distinct from Pose Coach photography and travel lists E089.",
+    "proposed_scores": {
+      "differentiation": 1
+    },
+    "proposed_disposition": null,
+    "verdict": "revise",
+    "rationale": "Whering explicitly promises adding clothes in seconds plus daily outfit suggestions, packing and wear stats. Beginning from a tiny capsule is a narrower onboarding choice, not yet a distinct purchase reason. Daily dressing does not imply daily app consultation. Keep reserve only if the small-capsule first-result test beats the incumbent.",
+    "additional_evidence": [
+      {
+        "name": "Whering",
+        "url": "https://whering.co.uk/",
+        "accessed": "2026-10-09",
+        "facts": "Official homepage describes quick photo or catalogue wardrobe addition, daily styling suggestions, outfit planning, packing and wear statistics.",
+        "price": "Exact paid pricing not verified."
+      }
+    ]
+  },
+  {
+    "id": "E089",
+    "evidence_sufficient": true,
+    "overlap": "Packing is an episodic task distinct from daily wardrobe use E088; could become its template pack.",
+    "proposed_scores": {},
+    "proposed_disposition": null,
+    "verdict": "keep",
+    "rationale": "One-time pricing and low recurrence are honest. Offline templates are easy to ship but weak differentiation against notes and the cited incumbent. The finite task is eligible as a product, yet it is correctly deferred for this MRR-oriented portfolio."
+  },
+  {
+    "id": "E090",
+    "evidence_sufficient": true,
+    "overlap": "Independent personal budgeting, not a bank integration project or business bookkeeping workflow.",
+    "proposed_scores": {
+      "independence": 5,
+      "paid_value": 2,
+      "differentiation": 1
+    },
+    "proposed_disposition": "defer",
+    "verdict": "revise",
+    "rationale": "The proposed manual product has no runtime integration, so independence should be 5. YNAB's price does not transfer to a narrower manual tracker: Goodbudget already offers a free envelope tier with history and devices. Its paid tier includes bank sync. Keep financial-guidance claims out; defer until manual entry plus review shows paid value beyond that free tier.",
+    "additional_evidence": [
+      {
+        "name": "Goodbudget",
+        "url": "https://goodbudget.com/signup",
+        "accessed": "2026-10-09",
+        "facts": "Official pricing lists free envelope budgeting with one account, two devices and one year of history; paid plan adds unlimited envelopes/accounts and bank sync.",
+        "price": "Displayed $0 free; $10/month or $80 annually Premium. ISO currency not explicit on opened page."
+      }
+    ]
+  },
+  {
+    "id": "E091",
+    "evidence_sufficient": true,
+    "overlap": "Maintenance differs from cleaning E084, but overlaps the user's existing Home Atlas home-record surface.",
+    "proposed_scores": {},
+    "proposed_disposition": null,
+    "verdict": "keep",
+    "rationale": "The candidate honestly acknowledges setup and home variation. Generic reminders could be a Home Atlas capability rather than a new company; check that existing lane before allocating work. Qualified content review is ongoing cost, while user-specific repair interpretation would violate the self-serve thesis. Keep deferred."
+  },
+  {
+    "id": "E092",
+    "evidence_sufficient": true,
+    "overlap": "Core rehearsal engine can host E093 conversation scenarios and E094 interview packs.",
+    "proposed_scores": {
+      "paid_value": 3
+    },
+    "proposed_disposition": null,
+    "verdict": "revise",
+    "rationale": "Two alternatives establish an active offer category, not retention or willingness to pay for one-correction feedback. Some users rehearse only before events; metered audio and reliable evidence-linked feedback must justify recurring charges. Keep reserve with capped usage, comparative blind feedback quality, and actual paid returns before increasing priority."
+  },
+  {
+    "id": "E093",
+    "evidence_sufficient": true,
+    "overlap": "Scenario-pack extension of E092; E094 is another use of the same rehearsal engine.",
+    "proposed_scores": {
+      "differentiation": 1
+    },
+    "proposed_disposition": "defer",
+    "verdict": "consolidate",
+    "rationale": "Roleplay differs from a monologue, but the same user, input, feedback and retry engine support a pack within E092. Adjacent evidence and generic chat substitution are insufficient for a separate app. Finite packs are honest; keep as a later module rather than a separate build lane."
+  },
+  {
+    "id": "E094",
+    "evidence_sufficient": true,
+    "overlap": "Interview-specific purchase is distinct, but implementation belongs initially in E092 as a finite paid pack.",
+    "proposed_scores": {},
+    "proposed_disposition": "defer",
+    "verdict": "consolidate",
+    "rationale": "A hiring deadline supports a stronger one-time purchase than generic daily practice. It does not justify three separate rehearsal products. Preserve role-specific content and pricing as a pack experiment inside E092; separate only if acquisition and rubric needs prove independently valuable. Do not force subscription after the user is hired."
+  },
+  {
+    "id": "E095",
+    "evidence_sufficient": true,
+    "overlap": "Owner training is distinct from other routine trackers; no trainer marketplace.",
+    "proposed_scores": {
+      "independence": 4
+    },
+    "proposed_disposition": null,
+    "verdict": "revise",
+    "rationale": "Qualified authored demonstrations do not themselves make adoption bespoke. Bounded everyday exercises can be independent, though some owners will need trainer correction; that failure condition remains essential. Success can graduate the user from beginner content, so a finite path is a serious alternative to the proposed subscription. Keep deferred due expertise and uncertain ongoing benefit."
+  },
+  {
+    "id": "E096",
+    "evidence_sufficient": true,
+    "overlap": "Houseplant maintenance differs from edible garden layout E097.",
+    "proposed_scores": {
+      "independence": 4
+    },
+    "proposed_disposition": null,
+    "verdict": "revise",
+    "rationale": "Manual selection of a supported common species and observation checklist is ordinary setup, not customer integration. Raise independence while retaining the content and identification constraints. Reminder checking recurs, but useful paid guidance must survive environmental variation without expert diagnosis. Keep reserve, testing actual care decisions rather than reminder opens."
+  },
+  {
+    "id": "E097",
+    "evidence_sufficient": true,
+    "overlap": "A seasonal garden plan is different from indoor plant maintenance E096.",
+    "proposed_scores": {
+      "independence": 4
+    },
+    "proposed_disposition": null,
+    "verdict": "revise",
+    "rationale": "One supported region, explicit frost assumptions and manual bed layout can be genuinely self-serve. Climate and horticultural expertise reduce feasibility, not necessarily adoption independence. One-time pricing is appropriately honest, though repeated annual planning could support a future annual product only after evidence. Keep deferred for content breadth and weak differentiation."
+  },
+  {
+    "id": "E098",
+    "evidence_sufficient": true,
+    "overlap": "Bicycle upkeep is separate from home asset scheduling but uses a similar content-plus-log foundation.",
+    "proposed_scores": {
+      "independence": 4
+    },
+    "proposed_disposition": null,
+    "verdict": "revise",
+    "rationale": "A mechanic-reviewed, bounded inspection guide is self-serve for supported bicycles; creating the guide does not require customer-specific workflow discovery. Keep feasibility and paid value low because components vary and trusted free guides are strong. Finite pricing suits the job; avoid letting later repair coverage turn into support-heavy individualized advice."
+  },
+  {
+    "id": "E099",
+    "evidence_sufficient": true,
+    "overlap": "Standalone photo-library utility; no meaningful overlap with ForeverPin or Pose Coach.",
+    "proposed_scores": {
+      "independence": 4
+    },
+    "proposed_disposition": null,
+    "verdict": "revise",
+    "rationale": "Native photo permission and standard OS APIs are not bespoke integrations under the protocol. Raise independence while keeping low feasibility for device coverage, recovery and destructive-action trust. The one-time utility fits episodic cleanup and may be useful, but mature native tools and cleaners make the distinction weak."
+  },
+  {
+    "id": "E100",
+    "evidence_sufficient": true,
+    "overlap": "Relocation has a finite lifecycle distinct from ongoing home maintenance; box inventory may reuse Home Atlas infrastructure.",
+    "proposed_scores": {},
+    "proposed_disposition": null,
+    "verdict": "keep",
+    "rationale": "The one-time offer and recurrence 1 are honest. A complete move can create strong temporary usefulness without MRR; keep it eligible but deferred. Locale-specific administrative checklists must remain explicit about coverage. Test value from locating boxes, not merely downloading a printable countdown."
+  }
+]

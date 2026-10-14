@@ -1,0 +1,669 @@
+[
+  {
+    "id": "E001",
+    "name": "Kids Curiosity",
+    "family": "learning",
+    "origin": "Existing idea P140; explicitly selected by the user, independently of ranking",
+    "user": "A parent pays for a child aged roughly 6–10; they explore together initially.",
+    "first_result": "The child predicts an answer to a why-question, manipulates a simple demonstration, and explains the result.",
+    "loop": [
+      "Choose a reviewed why-question",
+      "Predict and explore one interactive explanation",
+      "Check the prediction and explain what changed",
+      "Return to a saved follow-up question or next short investigation"
+    ],
+    "return_trigger": "New child questions and a family discovery ritual; sustained return remains a hypothesis.",
+    "paid_value": "An expanding, reviewed library of connected investigations and remembered interests, with useful follow-up questions.",
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 6,
+      "annual_usd": null,
+      "basis": "Hypothesis: USD6/month; no observed willingness to pay.",
+      "free": "Three complete investigations without an account.",
+      "paid": "Full reviewed library, saved paths and new investigation releases."
+    },
+    "dependencies": [
+      "Primary-age science educator review",
+      "Illustration/audio rights and factual source review",
+      "Parent-controlled account and age-appropriate data handling"
+    ],
+    "compute": "Curated explanations and local interactive diagrams; no live generative chat. Pilot library capped at 20 investigations and no per-session model calls.",
+    "content_burden": "High: explanations, misconceptions, narration and usable interactions require review. Start one coherent question cluster; do not promise encyclopedic coverage.",
+    "first_scope": [
+      "Question shelf covering a single everyday-science cluster",
+      "Predict–explore–explain interaction with narrated text",
+      "Saved follow-ups and a parent recap"
+    ],
+    "acquisition": "Test a publicly shareable one-question demonstration with parent audiences; access and acquisition cost are unverified.",
+    "competitors": [
+      {
+        "name": "Mystery Science",
+        "url": "https://mysteryscience.com/",
+        "accessed": "2026-10-09",
+        "relation": "adjacent",
+        "facts": "Elementary science curriculum combines question-led lessons, investigations and activities; the site offers a free trial.",
+        "price": "Paid price not verified."
+      },
+      {
+        "name": "Science for Kids by Tappity",
+        "url": "https://apps.apple.com/us/app/science-for-kids-by-tappity/id1265019371",
+        "accessed": "2026-10-09",
+        "relation": "direct",
+        "facts": "Developer listing describes interactive, narrated science lessons, daily challenges, offline use and parent discussion prompts.",
+        "price": "US App Store lists multiple subscription SKUs; a single currently offered checkout price was not verified."
+      }
+    ],
+    "difference": "Test a tightly connected predict–explore–explain path around a child's question, with a visible end. Tappity already serves curiosity; this is a UX hypothesis, not an empty market.",
+    "risk": "Incumbents already supply interactive answers and recurring lessons. Editorial production can dominate software costs, while a generic chatbot is a free substitute.",
+    "experiment": "Give parents one complete unaided investigation; observe whether the child explains it and chooses another later without researcher prompting; then offer a clearly priced reviewed collection.",
+    "stop_rule": "Pause expansion if children only consume narration, parents must teach the interface, or returning families decline paid access in favor of existing resources.",
+    "overlap": "Other STEM entries teach specific subject skills; this serves family why-questions. Do not split topic packs into separate products. Excludes Pose Coach and Hijinx.",
+    "scores": {
+      "activation": 4,
+      "recurrence": 4,
+      "independence": 4,
+      "demonstrability": 5,
+      "paid_value": 3,
+      "differentiation": 2,
+      "feasibility": 3
+    },
+    "rationale": "Immediate demonstration and repeat curiosity fit the brief; paid retention and differentiation are unproven. User selection does not raise the score.",
+    "disposition": "shortlist",
+    "confidence": "low; competitor evidence only, user selection is not demand validation",
+    "author_scores": {
+      "activation": 4,
+      "recurrence": 4,
+      "independence": 4,
+      "demonstrability": 5,
+      "paid_value": 3,
+      "differentiation": 2,
+      "feasibility": 3
+    },
+    "author_disposition": "shortlist",
+    "review": {
+      "id": "E001",
+      "evidence_sufficient": true,
+      "overlap": "Other STEM entries teach specific subject skills; this serves family why-questions. Do not split topic packs into separate products. Excludes Pose Coach and Hijinx.",
+      "proposed_scores": {},
+      "proposed_disposition": null,
+      "verdict": "revise",
+      "rationale": "The interactive child experience already exists in Tappity. Mystery Science is adjacent classroom-oriented evidence, not a like-for-like consumer subscription. Preserve the user selection separately from the score. The first test must show a child explaining a new example, parent acceptance, and a later voluntary session; completion taps alone do not demonstrate learning or repeat value."
+    },
+    "adjudication": {
+      "id": "E001",
+      "reason": "Root classifies Mystery Science as adjacent school-oriented evidence; Kids Curiosity remains selected by the user independently of rank.",
+      "fields": {
+        "competitors": [
+          {
+            "name": "Mystery Science",
+            "url": "https://mysteryscience.com/",
+            "accessed": "2026-10-09",
+            "relation": "adjacent",
+            "facts": "Elementary science curriculum combines question-led lessons, investigations and activities; the site offers a free trial.",
+            "price": "Paid price not verified."
+          },
+          {
+            "name": "Science for Kids by Tappity",
+            "url": "https://apps.apple.com/us/app/science-for-kids-by-tappity/id1265019371",
+            "accessed": "2026-10-09",
+            "relation": "direct",
+            "facts": "Developer listing describes interactive, narrated science lessons, daily challenges, offline use and parent discussion prompts.",
+            "price": "US App Store lists multiple subscription SKUs; a single currently offered checkout price was not verified."
+          }
+        ],
+        "user_selected": true
+      }
+    },
+    "user_selected": true,
+    "score_totals": {
+      "base": 71.0,
+      "recurrence": 69.0,
+      "discovery": 74.0
+    },
+    "ranks": {
+      "base": 19,
+      "recurrence": 17,
+      "discovery": 24
+    },
+    "accounts_for_5000_mrr": {
+      "monthly_plan": 834,
+      "annual_plan": null
+    },
+    "roadmap_selection": {
+      "id": "E001",
+      "priority": 1,
+      "state": "user-selected",
+      "reason": "Kids Curiosity was explicitly selected; define one complete family investigation experience before expanding content."
+    }
+  },
+  {
+    "id": "E002",
+    "name": "Formula Drill Gym",
+    "family": "learning",
+    "origin": "Existing idea P037, narrowed to independent browser practice",
+    "user": "An individual spreadsheet user pays to become reliable with formulas without connecting a workplace workbook.",
+    "first_result": "Solve a small spreadsheet task and see why a formula succeeds or fails on unseen rows.",
+    "loop": [
+      "Choose a concrete spreadsheet outcome",
+      "Write a formula in a small browser grid",
+      "Inspect result differences and targeted hints",
+      "Revisit a weak skill through a new dataset"
+    ],
+    "return_trigger": "Recurring spreadsheet use and spaced practice; upskilling may instead be a finite course purchase.",
+    "paid_value": "Diagnostic exercises, varied test data, error explanations and a maintained practice path beyond reference documentation.",
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 6,
+      "annual_usd": null,
+      "basis": "Hypothesis: USD6/month; test against a one-time course because completion churn is plausible.",
+      "free": "A complete beginner diagnostic and its correction exercises.",
+      "paid": "Full practice paths, error history and fresh mixed-skill challenges."
+    },
+    "dependencies": [
+      "Licensed or compatible spreadsheet formula engine",
+      "Spreadsheet educator review and cross-engine semantics checks"
+    ],
+    "compute": "Local formula evaluation on synthetic sheets capped at 200 cells per exercise; no uploaded workbooks or AI calls.",
+    "content_burden": "Moderate: author realistic datasets, accepted equivalent answers, edge cases and hints. Choose one formula dialect first.",
+    "first_scope": [
+      "Browser grid with a small supported formula set",
+      "Hidden-case grading with readable counterexamples",
+      "Weak-skill revisit queue"
+    ],
+    "acquisition": "Publish an ungated formula challenge with its error explanation; measure qualified practice starts from spreadsheet tutorial audiences. No audience access established.",
+    "competitors": [
+      {
+        "name": "Excel Exercises",
+        "url": "https://excelexercises.com/premium.html",
+        "accessed": "2026-10-09",
+        "relation": "direct",
+        "facts": "Paid practice includes interactive tutorials, exercises, assessments and downloadable data.",
+        "price": "Page displays $19.99/month, $59.99 billed yearly, and $199 lifetime; dollar currency code is not shown."
+      },
+      {
+        "name": "Excel Practice Online",
+        "url": "https://excel-practice-online.com/",
+        "accessed": "2026-10-09",
+        "relation": "direct",
+        "facts": "Provides free browser-based Excel practice across beginner and advanced topics.",
+        "price": "Free practice is advertised; no paid price verified."
+      }
+    ],
+    "difference": "Test feedback showing the smallest failing data example and resurfacing that error later. Interactive spreadsheet practice is already available commercially and free.",
+    "risk": "A one-time learning burst may not support MRR; mature free exercises and reference assistants already answer common formula questions.",
+    "experiment": "Offer a complete formula diagnostic without setup; watch a later unprompted mixed exercise; compare actual purchase of monthly practice with a clearly bounded course offer.",
+    "stop_rule": "Reject subscription if learners finish their immediate gap and do not return, or if they prefer free practice after trying the distinctive feedback.",
+    "overlap": "E024 teaches database querying; E016 teaches interpretation. No workplace import, team dashboard or custom workbook service.",
+    "scores": {
+      "activation": 5,
+      "recurrence": 3,
+      "independence": 5,
+      "demonstrability": 5,
+      "paid_value": 3,
+      "differentiation": 2,
+      "feasibility": 4
+    },
+    "rationale": "Excellent immediate browser value and bounded compute; recurrence and novelty are materially weaker than implementation feasibility.",
+    "disposition": "shortlist",
+    "confidence": "low; competitor evidence only",
+    "author_scores": {
+      "activation": 5,
+      "recurrence": 3,
+      "independence": 5,
+      "demonstrability": 5,
+      "paid_value": 3,
+      "differentiation": 2,
+      "feasibility": 4
+    },
+    "author_disposition": "shortlist",
+    "review": {
+      "id": "E002",
+      "evidence_sufficient": true,
+      "overlap": "E024 teaches database querying; E016 teaches interpretation. No workplace import, team dashboard or custom workbook service.",
+      "proposed_scores": {},
+      "proposed_disposition": null,
+      "verdict": "keep",
+      "rationale": "Two opened direct alternatives cover both paid and free practice. Failure-case feedback is a testable experience distinction, not an established gap. Recurrence 3 correctly reflects graduation risk. Keep a subscription hypothesis only while repeated error-based practice produces later visits; otherwise sell a finite course rather than inflate MRR."
+    },
+    "adjudication": {
+      "id": "E002",
+      "reason": "Accepted the independent review; no additional root correction."
+    },
+    "score_totals": {
+      "base": 75.0,
+      "recurrence": 69.0,
+      "discovery": 81.0
+    },
+    "ranks": {
+      "base": 4,
+      "recurrence": 18,
+      "discovery": 2
+    },
+    "accounts_for_5000_mrr": {
+      "monthly_plan": 834,
+      "annual_plan": null
+    },
+    "roadmap_selection": {
+      "id": "E002",
+      "priority": 2,
+      "state": "research-priority",
+      "reason": "Formula Gym gives an objectively checkable result without workplace integration; test recurring practice against a finite course."
+    }
+  },
+  {
+    "family": "creative",
+    "origin": "new research proposal; no implementation verified",
+    "confidence": "low; competitor evidence only",
+    "id": "E040",
+    "name": "Fiction Scene and Continuity Studio",
+    "user": "Hobby or independent fiction writer paying to finish an original long-form project.",
+    "first_result": "Draft one complete scene linked to a character goal and continuity note.",
+    "loop": [
+      "Choose the next scene and its purpose",
+      "Draft in a focused editor",
+      "Record what changed in character, place and timeline",
+      "Resume the next scene with only relevant prior facts"
+    ],
+    "return_trigger": "Writing sessions across an ongoing manuscript; a new project is a separate retention question.",
+    "paid_value": "A reliable scene-linked story bible, version history and resumable drafting without scattered documents.",
+    "dependencies": [
+      "User-owned manuscript",
+      "Fiction editor to review lightweight planning prompts"
+    ],
+    "compute": "Local editor and deterministic links/search, bounded cloud backups if paid; no mandatory AI token cost.",
+    "content_burden": "Modest reusable planning prompts and original examples; user authors the content.",
+    "first_scope": [
+      "Scene list with focused prose editor",
+      "Explicit character/place/timeline fact links",
+      "Version history and portable manuscript export"
+    ],
+    "acquisition": "Give writers a usable free one-scene tool and a public original scene-to-continuity demonstration; untested.",
+    "competitors": [
+      {
+        "name": "Plottr",
+        "url": "https://plottr.com/pricing/",
+        "accessed": "2026-10-09",
+        "relation": "direct",
+        "facts": "Visual story-planning software for Windows, Mac and web; emphasizes outlining and spotting plot holes without AI.",
+        "price": "Page displays Plottr Pro $9.99/month or $99/year; base Plottr $60/year or $150 lifetime; ISO dollar currency not shown, offer may change."
+      },
+      {
+        "name": "Novlr",
+        "url": "https://www.novlr.org/",
+        "accessed": "2026-10-09",
+        "relation": "direct",
+        "facts": "Creative-writing workspace provides notes, a plot grid, focus mode, writing sprints and paid version history.",
+        "price": "Starter displayed $8/month and Studio $16/month, both billed yearly; currency and monthly checkout not verified"
+      }
+    ],
+    "difference": "Test a constrained next-scene workspace that exposes only relevant continuity; no claim that established apps lack these abilities.",
+    "risk": "Novlr, Plottr and ordinary documents already cover much of the job; switching a manuscript requires trust and the distinction may be too small.",
+    "experiment": "Writers complete one scene without coaching, voluntarily draft another on a later day, import or start a real project, then pay for continued history/organization.",
+    "stop_rule": "Consolidate or park if writers value only generic editing or prompts, export immediately, or returning users reject the paid boundary.",
+    "overlap": "Prose production rather than spoken rehearsal, transcription, E039 comic panels or E041 branching-program execution.",
+    "scores": {
+      "activation": 4,
+      "recurrence": 4,
+      "independence": 5,
+      "demonstrability": 4,
+      "paid_value": 3,
+      "differentiation": 2,
+      "feasibility": 4
+    },
+    "rationale": "Long projects supply credible recurring work and local processing keeps costs bounded; competitive overlap remains the central unresolved risk.",
+    "disposition": "shortlist",
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 9,
+      "annual_usd": null,
+      "basis": "Hypothesis; no observed willingness to pay.",
+      "free": "Draft one complete scene linked to a character goal and continuity note.",
+      "paid": "A reliable scene-linked story bible, version history and resumable drafting without scattered documents."
+    },
+    "author_scores": {
+      "activation": 4,
+      "recurrence": 4,
+      "independence": 5,
+      "demonstrability": 4,
+      "paid_value": 4,
+      "differentiation": 3,
+      "feasibility": 4
+    },
+    "author_disposition": "shortlist",
+    "review": {
+      "id": "E040",
+      "evidence_sufficient": true,
+      "overlap": "A scene-linked prose workspace is distinct from comic layout and branching-story execution.",
+      "proposed_scores": {
+        "paid_value": 3,
+        "differentiation": 2
+      },
+      "proposed_disposition": null,
+      "verdict": "revise",
+      "rationale": "Long manuscripts supply credible recurring work, but Novlr already exposes planning notes alongside writing and offers plot-grid/history tiers. Plottr sells a series bible and now displays accessible pricing. Reduce claims of paid advantage and distinctiveness; keep shortlist because the proposal can be tested with owned text and bounded compute. The test should compare resuming a real scene against the writer's current tool.",
+      "sources_checked": [
+        {
+          "url": "https://www.novlr.org/",
+          "accessed": "2026-10-09",
+          "note": "Independently reopened: Starter displayed $8/month billed yearly; Studio $16/month billed yearly; free plot grid and paid history are visible. Currency/monthly checkout unknown."
+        },
+        {
+          "url": "https://plottr.com/pricing/",
+          "accessed": "2026-10-09",
+          "note": "Independently reopened: Plottr Pro $9.99/month or $99/year; base Plottr $60/year or $150 lifetime; amounts render now, dollar currency code not shown."
+        }
+      ]
+    },
+    "adjudication": {
+      "id": "E040",
+      "reason": "Accepted lower paid-value and differentiation scores. Root reopened Plottr pricing and updated the previously unknown numeric offer without treating lifetime receipts as MRR.",
+      "fields": {
+        "competitors": [
+          {
+            "name": "Plottr",
+            "url": "https://plottr.com/pricing/",
+            "accessed": "2026-10-09",
+            "relation": "direct",
+            "facts": "Visual story-planning software for Windows, Mac and web; emphasizes outlining and spotting plot holes without AI.",
+            "price": "Page displays Plottr Pro $9.99/month or $99/year; base Plottr $60/year or $150 lifetime; ISO dollar currency not shown, offer may change."
+          },
+          {
+            "name": "Novlr",
+            "url": "https://www.novlr.org/",
+            "accessed": "2026-10-09",
+            "relation": "direct",
+            "facts": "Creative-writing workspace provides notes, a plot grid, focus mode, writing sprints and paid version history.",
+            "price": "Starter displayed $8/month and Studio $16/month, both billed yearly; currency and monthly checkout not verified"
+          }
+        ]
+      }
+    },
+    "score_totals": {
+      "base": 74.0,
+      "recurrence": 72.0,
+      "discovery": 75.0
+    },
+    "ranks": {
+      "base": 9,
+      "recurrence": 5,
+      "discovery": 22
+    },
+    "accounts_for_5000_mrr": {
+      "monthly_plan": 556,
+      "annual_plan": null
+    },
+    "roadmap_selection": {
+      "id": "E040",
+      "priority": 3,
+      "state": "research-priority",
+      "reason": "Fiction scene continuity supports ongoing user-authored projects with bounded local processing; comparative switching value remains unproven."
+    }
+  },
+  {
+    "family": "creative",
+    "origin": "new research proposal; no implementation verified",
+    "confidence": "low; competitor evidence only",
+    "id": "E031",
+    "name": "Seamless Surface-Pattern Studio",
+    "user": "Independent illustrators and repeat-pattern hobbyists using their own artwork.",
+    "first_result": "Create a seamless tile and two matching colorways with a print-scale preview.",
+    "loop": [
+      "Bring one owned motif or draw it",
+      "Arrange the repeat and adjust colors",
+      "Inspect seams and scale",
+      "Extend a coordinated pattern collection"
+    ],
+    "return_trigger": "New collections, fabric projects and original motif ideas; repeat commercial use remains a hypothesis.",
+    "paid_value": "Reusable collections, editable colorways, exact-scale exports and version history.",
+    "dependencies": [
+      "User-owned motifs",
+      "Vector/raster tiling engine",
+      "Reviewed color and print-scale examples"
+    ],
+    "compute": "Local geometry and preview generation; cap canvas/export size, with optional bounded cloud project sync.",
+    "content_burden": "Low-to-moderate original demonstrations; no need to procure endless themes or manufacture products.",
+    "first_scope": [
+      "Repeat-layout editing with seam inspection",
+      "Linked colorway variations",
+      "Scale-aware PNG/SVG exports and project persistence"
+    ],
+    "acquisition": "Show one motif becoming a coordinated collection through a free interactive example; untested.",
+    "competitors": [
+      {
+        "name": "Repper",
+        "url": "https://repper.app/en/",
+        "accessed": "2026-10-09",
+        "relation": "direct",
+        "facts": "Browser pattern creation supports image/vector inputs, tilings, collections, previews and commercial exports.",
+        "price": "Monthly and yearly membership confirmed at https://repper.app/en/pricing/; numerical price did not render, not verified"
+      },
+      {
+        "name": "Patterninja",
+        "url": "https://patterninja.com/",
+        "accessed": "2026-10-09",
+        "relation": "direct",
+        "facts": "Combines supplied or library images into repeating patterns downloadable at high resolution for print or web.",
+        "price": "not verified"
+      }
+    ],
+    "difference": "Test constraint-led collection building with visible seam and scale checks; Repper already offers collections, so superiority must be demonstrated.",
+    "risk": "Repper and Patterninja already provide much of the experience; a subscription needs measurable authoring advantage.",
+    "experiment": "Let pattern makers produce one collection unaided, return with different motifs, and choose between the proposed paid offer and existing tools.",
+    "stop_rule": "Park if creators cannot identify a repeat task made easier than Repper or refuse payment after a second collection.",
+    "overlap": "Distinct from E027 generic vector drawing and E034 counted-stitch chart production; no fabric manufacturing.",
+    "scores": {
+      "activation": 5,
+      "recurrence": 3,
+      "independence": 5,
+      "demonstrability": 5,
+      "paid_value": 3,
+      "differentiation": 2,
+      "feasibility": 4
+    },
+    "rationale": "Immediate visual output and local computation help; direct competitors and project-based demand constrain the opportunity.",
+    "disposition": "shortlist",
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 9,
+      "annual_usd": null,
+      "basis": "Hypothesis; no observed willingness to pay.",
+      "free": "Create a seamless tile and two matching colorways with a print-scale preview.",
+      "paid": "Reusable collections, editable colorways, exact-scale exports and version history."
+    },
+    "author_scores": {
+      "activation": 5,
+      "recurrence": 3,
+      "independence": 5,
+      "demonstrability": 5,
+      "paid_value": 4,
+      "differentiation": 2,
+      "feasibility": 4
+    },
+    "author_disposition": "shortlist",
+    "review": {
+      "id": "E031",
+      "evidence_sufficient": true,
+      "overlap": "Repeat collection, seams and print-scale export are distinct from general vector illustration.",
+      "proposed_scores": {
+        "paid_value": 3
+      },
+      "proposed_disposition": null,
+      "verdict": "revise",
+      "rationale": "Repper's pricing page explicitly includes collections, effects, previews, unlimited exports and monthly/yearly membership; Patterninja also produces high-resolution patterns. A real subscription category exists, but that does not justify paid-value 4 for this undifferentiated proposal. Keep shortlist for comparative authoring validation, not implementation. Require users to identify a repeatedly easier collection task.",
+      "sources_checked": [
+        {
+          "url": "https://repper.app/en/pricing/",
+          "accessed": "2026-10-09",
+          "note": "Independently reopened; monthly/yearly memberships and full app features confirmed, numerical price still not rendered."
+        },
+        {
+          "url": "https://patterninja.com/",
+          "accessed": "2026-10-09",
+          "note": "Independently reopened; own/library images and high-resolution print/web download confirmed."
+        }
+      ]
+    },
+    "adjudication": {
+      "id": "E031",
+      "reason": "Accepted the independent review; no additional root correction."
+    },
+    "score_totals": {
+      "base": 75.0,
+      "recurrence": 69.0,
+      "discovery": 81.0
+    },
+    "ranks": {
+      "base": 5,
+      "recurrence": 19,
+      "discovery": 3
+    },
+    "accounts_for_5000_mrr": {
+      "monthly_plan": 556,
+      "annual_plan": null
+    },
+    "roadmap_selection": {
+      "id": "E031",
+      "priority": 4,
+      "state": "research-priority",
+      "reason": "Surface-pattern creation produces an exportable result and repeat production; target regular collection makers rather than occasional novelty use."
+    }
+  },
+  {
+    "id": "E003",
+    "name": "Hifz Revision Companion",
+    "family": "learning",
+    "origin": "Existing idea P057; remove teacher-management workflow from initial scope",
+    "user": "An independent Quran memorizer pays for sustainable revision of passages already learned.",
+    "first_result": "Mark familiar passages and complete a short recall session that creates tomorrow's revision queue.",
+    "loop": [
+      "Choose memorized portions and available revision time",
+      "Recall from concealed text and mark hesitation",
+      "Compare against the licensed text and record self-assessed difficulty",
+      "Return when specific passages are due"
+    ],
+    "return_trigger": "Maintaining memorized material requires continuing revision; adoption of this particular scheduler is unverified.",
+    "paid_value": "A flexible revision schedule, mistake-location history and recovery after missed days without manually rebuilding a plan.",
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 4,
+      "annual_usd": null,
+      "basis": "Hypothesis: USD4/month; no observed willingness to pay.",
+      "free": "One memorized section with a working revision loop.",
+      "paid": "Larger revision library, flexible scheduling and history across devices."
+    },
+    "dependencies": [
+      "Verified Quran text and permitted recitation assets if included",
+      "Hifz practitioner review of scheduling and presentation",
+      "Access to independent memorizers for validation is not established"
+    ],
+    "compute": "Local scheduling and text conceal/reveal; no automated recitation recognition in the pilot. Cap optional downloaded audio to selected sections.",
+    "content_burden": "Moderate specialist burden: accurate text mapping, respectful presentation, revision methods and accessibility; no generated religious interpretation.",
+    "first_scope": [
+      "Memorized-portion setup",
+      "Concealed-text recall and hesitation markers",
+      "Adaptive self-rated review queue with missed-day recovery"
+    ],
+    "acquisition": "Demonstrate recovery from an overloaded revision queue to independent memorizer communities; distribution permission and access are unverified.",
+    "competitors": [
+      {
+        "name": "Tarteel Premium",
+        "url": "https://support.tarteel.ai/en/articles/12414387-what-s-tarteel-premium",
+        "accessed": "2026-10-09",
+        "relation": "direct",
+        "facts": "Premium includes memorization mistake detection, planning, historical mistakes and peeking; monthly and yearly renewals are described.",
+        "price": "Premium amount not verified."
+      },
+      {
+        "name": "Quranly",
+        "url": "https://www.quranly.app/",
+        "accessed": "2026-10-09",
+        "relation": "adjacent",
+        "facts": "Provides reading goals, progress tracking, daily streaks and optional friend/family participation.",
+        "price": "Site offers free starting access; paid plan price not verified."
+      }
+    ],
+    "difference": "Test a quiet self-assessed revision queue designed around missed-day recovery. Tarteel already combines planning and mistake history; superiority is unproven.",
+    "risk": "Tarteel offers more capable recitation feedback, and a notebook or free scheduler may be sufficient. Religious expertise and trusted distribution cannot be replaced by code.",
+    "experiment": "Let existing memorizers configure real known passages unaided, use the due queue through a missed day, then choose whether to buy ongoing scheduling at the stated price.",
+    "stop_rule": "Stop if learners cannot trust self-assessment, require speech correction to find value, or return to their existing revision routine despite successful onboarding.",
+    "overlap": "E022 serves arbitrary study notes; this handles passage continuity and memorization maintenance. Not a mosque/teacher administration product.",
+    "scores": {
+      "activation": 4,
+      "recurrence": 5,
+      "independence": 5,
+      "demonstrability": 3,
+      "paid_value": 3,
+      "differentiation": 2,
+      "feasibility": 3
+    },
+    "rationale": "Natural continuing revision is stronger than a finite course; competition, trust and unverified buyer access restrain the opportunity.",
+    "disposition": "shortlist",
+    "confidence": "low; competitor evidence only",
+    "author_scores": {
+      "activation": 4,
+      "recurrence": 5,
+      "independence": 4,
+      "demonstrability": 3,
+      "paid_value": 3,
+      "differentiation": 2,
+      "feasibility": 4
+    },
+    "author_disposition": "shortlist",
+    "review": {
+      "id": "E003",
+      "evidence_sufficient": true,
+      "overlap": "E022 serves arbitrary study notes; this handles passage continuity and memorization maintenance. Not a mosque/teacher administration product.",
+      "proposed_scores": {
+        "independence": 5,
+        "feasibility": 3
+      },
+      "proposed_disposition": null,
+      "verdict": "revise",
+      "rationale": "A self-assessed passage queue needs no customer-system integration or teacher administration, so adoption independence is high. Accurate text, specialist scheduling and trusted testing constrain feasibility. Tarteel already covers planning and mistake history; no speech-detection superiority should be implied. The prospective repeat occasion is strong but paid preference remains unknown."
+    },
+    "adjudication": {
+      "id": "E003",
+      "reason": "Accepted independence/feasibility corrections. Quranly is adjacent reading-habit evidence, not a like-for-like memorization error tool; Tarteel is direct competition.",
+      "fields": {
+        "competitors": [
+          {
+            "name": "Tarteel Premium",
+            "url": "https://support.tarteel.ai/en/articles/12414387-what-s-tarteel-premium",
+            "accessed": "2026-10-09",
+            "relation": "direct",
+            "facts": "Premium includes memorization mistake detection, planning, historical mistakes and peeking; monthly and yearly renewals are described.",
+            "price": "Premium amount not verified."
+          },
+          {
+            "name": "Quranly",
+            "url": "https://www.quranly.app/",
+            "accessed": "2026-10-09",
+            "relation": "adjacent",
+            "facts": "Provides reading goals, progress tracking, daily streaks and optional friend/family participation.",
+            "price": "Site offers free starting access; paid plan price not verified."
+          }
+        ]
+      }
+    },
+    "score_totals": {
+      "base": 74.0,
+      "recurrence": 75.0,
+      "discovery": 71.0
+    },
+    "ranks": {
+      "base": 7,
+      "recurrence": 1,
+      "discovery": 41
+    },
+    "accounts_for_5000_mrr": {
+      "monthly_plan": 1250,
+      "annual_plan": null
+    },
+    "roadmap_selection": {
+      "id": "E003",
+      "priority": 5,
+      "state": "research-priority",
+      "reason": "Hifz revision has a strong natural repeat occasion but needs trusted specialist review and a paid advantage over existing planning tools."
+    }
+  }
+]

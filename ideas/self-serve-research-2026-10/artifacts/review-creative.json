@@ -1,0 +1,345 @@
+[
+  {
+    "id": "E026",
+    "evidence_sufficient": true,
+    "overlap": "Distinct observational learning outcome; no duplication with vector-production tools.",
+    "proposed_scores": {
+      "feasibility": 3,
+      "differentiation": 2
+    },
+    "proposed_disposition": "reserve",
+    "verdict": "revise",
+    "rationale": "The two primary alternatives support the category, but Proko already includes projects, warmups and critiques at a displayed $159 one-time. Ten exercises plus comparison history do not yet establish ongoing paid value. Low compute does not make reviewed drawing curriculum cheap. Secure credible authorship and test a second paid path before treating this as an MRR priority.",
+    "sources_checked": [
+      {
+        "url": "https://line-of-action.com/",
+        "accessed": "2026-10-09",
+        "note": "Independently reopened; tutorial, recurring references and practice community supported."
+      },
+      {
+        "url": "https://www.proko.com/course/drawing-basics",
+        "accessed": "2026-10-09",
+        "note": "Independently reopened; displayed $159, course purchase rather than monthly fee. Dollar currency code not shown."
+      }
+    ]
+  },
+  {
+    "id": "E027",
+    "evidence_sufficient": true,
+    "overlap": "Production SVG output is meaningfully different from learning to observe and from repeat-pattern tiling.",
+    "proposed_scores": {},
+    "proposed_disposition": null,
+    "verdict": "keep",
+    "rationale": "A complete independent authoring experience with bounded local processing. Reserve is appropriate: advanced exports/components may sustain repeat projects, but the cited mature editor leaves a weak switching reason. The monthly offer remains a hypothesis; compare a one-time unlock during validation.",
+    "sources_checked": []
+  },
+  {
+    "id": "E028",
+    "evidence_sufficient": true,
+    "overlap": "Frame drawing for motion differs from capture-based stop motion and state-based game assets.",
+    "proposed_scores": {},
+    "proposed_disposition": null,
+    "verdict": "keep",
+    "rationale": "One-time pricing honestly matches episodic creation and the incumbent. The official Procreate Dreams price was independently confirmed as USD12.99 once. Do not move this into an MRR shortlist merely because users create multiple loops.",
+    "sources_checked": [
+      {
+        "url": "https://procreate.com/dreams",
+        "accessed": "2026-10-09",
+        "note": "Independently reopened: USD12.99 one-time, no subscription; animation, onion skins and multiple tracks confirmed."
+      }
+    ]
+  },
+  {
+    "id": "E029",
+    "evidence_sufficient": true,
+    "overlap": "Object animation is distinct from Pose Coach personal photography.",
+    "proposed_scores": {},
+    "proposed_disposition": null,
+    "verdict": "keep",
+    "rationale": "Defer is supported by physical setup and camera/export QA, despite a clear finished-scene outcome. One-time pricing avoids claiming weekend family projects sustain monthly payment. A photo capture demo alone is insufficient; the proposed second scene is the right test.",
+    "sources_checked": []
+  },
+  {
+    "id": "E030",
+    "evidence_sufficient": true,
+    "overlap": "Animation-state sprites have a distinct usable export and buyer from film animation.",
+    "proposed_scores": {},
+    "proposed_disposition": null,
+    "verdict": "keep",
+    "rationale": "The record recognizes mature Aseprite overlap and uses one-time pricing. Keep reserve; integration of the exported sheet into an actual game is necessary evidence beyond an attractive editor screenshot.",
+    "sources_checked": []
+  },
+  {
+    "id": "E031",
+    "evidence_sufficient": true,
+    "overlap": "Repeat collection, seams and print-scale export are distinct from general vector illustration.",
+    "proposed_scores": {
+      "paid_value": 3
+    },
+    "proposed_disposition": null,
+    "verdict": "revise",
+    "rationale": "Repper's pricing page explicitly includes collections, effects, previews, unlimited exports and monthly/yearly membership; Patterninja also produces high-resolution patterns. A real subscription category exists, but that does not justify paid-value 4 for this undifferentiated proposal. Keep shortlist for comparative authoring validation, not implementation. Require users to identify a repeatedly easier collection task.",
+    "sources_checked": [
+      {
+        "url": "https://repper.app/en/pricing/",
+        "accessed": "2026-10-09",
+        "note": "Independently reopened; monthly/yearly memberships and full app features confirmed, numerical price still not rendered."
+      },
+      {
+        "url": "https://patterninja.com/",
+        "accessed": "2026-10-09",
+        "note": "Independently reopened; own/library images and high-resolution print/web download confirmed."
+      }
+    ]
+  },
+  {
+    "id": "E032",
+    "evidence_sufficient": true,
+    "overlap": "Correctly consolidates existing PBN Studio rather than multiplying photo themes.",
+    "proposed_scores": {},
+    "proposed_disposition": null,
+    "verdict": "keep",
+    "rationale": "Existing source can accelerate a print-and-paint experiment without improving demand evidence. The opened Mimi Panda offer is genuinely adjacent: layered Procreate kits and manual custom-photo work, not proof that automatic generators are absent. One-time/per-kit payment is honest and should remain outside subscription MRR.",
+    "sources_checked": [
+      {
+        "url": "https://mimi-panda.com/paint-by-numbers/",
+        "accessed": "2026-10-09",
+        "note": "Independently reopened; downloadable Procreate kits and custom requests delivered in 3–5 business days confirmed. Comparable automatic-generator price remains unknown."
+      }
+    ]
+  },
+  {
+    "id": "E033",
+    "evidence_sufficient": true,
+    "overlap": "Machine-path digitizing differs from hand-stitch charts and garment calculations.",
+    "proposed_scores": {},
+    "proposed_disposition": null,
+    "verdict": "keep",
+    "rationale": "Defer is appropriate. Free Ink/Stitch is a real alternative, and valid output depends on real stitch-outs and fabric settings. Recurring authoring does not remove the specialist support risk. No commercial upgrade from generated previews alone.",
+    "sources_checked": []
+  },
+  {
+    "id": "E034",
+    "evidence_sufficient": true,
+    "overlap": "Counted-stitch chart production is not a reskin of machine embroidery.",
+    "proposed_scores": {},
+    "proposed_disposition": null,
+    "verdict": "keep",
+    "rationale": "One-time pricing and defer correctly reflect long project cycles and free FlossCross. Thread estimates and tiny isolated stitches must be tested on a physical sample; a polished chart preview is not paid-value evidence.",
+    "sources_checked": []
+  },
+  {
+    "id": "E035",
+    "evidence_sufficient": true,
+    "overlap": "Garment grading has a distinct output, but custom construction can reintroduce the rejected workflow burden.",
+    "proposed_scores": {
+      "independence": 3
+    },
+    "proposed_disposition": "defer",
+    "verdict": "revise",
+    "rationale": "The adjacent chart editor meets the minimum source contract but does not validate a paid garment-grading market or substitution. Technical editing, gauge interpretation and unsupported constructions make independent adoption less certain than 4. Before prioritization, observe unassisted use of the same supported construction across designers and find a direct grading alternative.",
+    "sources_checked": []
+  },
+  {
+    "id": "E036",
+    "evidence_sufficient": true,
+    "overlap": "Cut-and-sew geometry differs from knit stitch arithmetic.",
+    "proposed_scores": {},
+    "proposed_disposition": null,
+    "verdict": "keep",
+    "rationale": "FreeSewing is directly relevant and one-time pricing is honest. Defer is appropriate until supported-size physical fit is validated; PDF generation and accurate fit are different outcomes.",
+    "sources_checked": []
+  },
+  {
+    "id": "E037",
+    "evidence_sufficient": true,
+    "overlap": "Paper unfolding and assembly are distinct from decorative repeats or rigid laser joints.",
+    "proposed_scores": {},
+    "proposed_disposition": null,
+    "verdict": "keep",
+    "rationale": "Reserve is reasonable for a future one-time tool. A complete result requires assembling a user-created model without specialist net correction. Pepakura limits the case for building a generic replacement.",
+    "sources_checked": []
+  },
+  {
+    "id": "E038",
+    "evidence_sufficient": true,
+    "overlap": "Rigid material joints and calibration differ from paper folds.",
+    "proposed_scores": {},
+    "proposed_disposition": null,
+    "verdict": "keep",
+    "rationale": "Defer matches the user's low-dependency preference. Free Boxes.py and machine/material calibration make this a poor next lane even with deterministic low-compute generation. Existing hardware access is an adoption dependency, not an integration problem that can be ignored.",
+    "sources_checked": []
+  },
+  {
+    "id": "E039",
+    "evidence_sufficient": true,
+    "overlap": "Sequential panels and speech balloons are distinct from prose and executable branching fiction.",
+    "proposed_scores": {},
+    "proposed_disposition": null,
+    "verdict": "keep",
+    "rationale": "Reserve is appropriate. The workflow is self-defined and returns across a comic project, but creators must prefer it to existing drawing tools. Validate continued scene creation in this editor, not merely export of a free template; monthly retention beyond one project remains unknown.",
+    "sources_checked": []
+  },
+  {
+    "id": "E040",
+    "evidence_sufficient": true,
+    "overlap": "A scene-linked prose workspace is distinct from comic layout and branching-story execution.",
+    "proposed_scores": {
+      "paid_value": 3,
+      "differentiation": 2
+    },
+    "proposed_disposition": null,
+    "verdict": "revise",
+    "rationale": "Long manuscripts supply credible recurring work, but Novlr already exposes planning notes alongside writing and offers plot-grid/history tiers. Plottr sells a series bible and now displays accessible pricing. Reduce claims of paid advantage and distinctiveness; keep shortlist because the proposal can be tested with owned text and bounded compute. The test should compare resuming a real scene against the writer's current tool.",
+    "sources_checked": [
+      {
+        "url": "https://www.novlr.org/",
+        "accessed": "2026-10-09",
+        "note": "Independently reopened: Starter displayed $8/month billed yearly; Studio $16/month billed yearly; free plot grid and paid history are visible. Currency/monthly checkout unknown."
+      },
+      {
+        "url": "https://plottr.com/pricing/",
+        "accessed": "2026-10-09",
+        "note": "Independently reopened: Plottr Pro $9.99/month or $99/year; base Plottr $60/year or $150 lifetime; amounts render now, dollar currency code not shown."
+      }
+    ]
+  },
+  {
+    "id": "E041",
+    "evidence_sufficient": true,
+    "overlap": "Authoring interactive fiction is distinct from playing it, but could become a Twine extension.",
+    "proposed_scores": {},
+    "proposed_disposition": null,
+    "verdict": "keep",
+    "rationale": "The record fairly identifies a powerful free substitute and chooses one-time pricing. Keep reserve only while testing state-debugging value; a tutorial-level advantage should trigger consolidation rather than a complete replacement editor.",
+    "sources_checked": []
+  },
+  {
+    "id": "E042",
+    "evidence_sufficient": true,
+    "overlap": "Font metrics and valid font output are a distinct production outcome.",
+    "proposed_scores": {},
+    "proposed_disposition": null,
+    "verdict": "keep",
+    "rationale": "One-time pricing and reserve fit occasional font creation. Generated OTF validity, spacing and installation matter more than the initial glyph demo. Narrow script scope is necessary; importing professional font-engineering breadth would break feasibility.",
+    "sources_checked": []
+  },
+  {
+    "id": "E043",
+    "evidence_sufficient": true,
+    "overlap": "Capturing song sections is distinguishable from prose continuity but closely duplicates a named competitor.",
+    "proposed_scores": {},
+    "proposed_disposition": null,
+    "verdict": "keep",
+    "rationale": "Defer is warranted because Songcraft already combines lyrics, chords and recordings. Bounded backup alone does not establish a monthly premium over notes/recorders. An observed return to unfinished sections must reveal a specific advantage before reconsideration.",
+    "sources_checked": []
+  },
+  {
+    "id": "E044",
+    "evidence_sufficient": true,
+    "overlap": "Hearing-to-note reconstruction differs from rhythm-only and notation reading, though a shared music-practice suite may eventually fit.",
+    "proposed_scores": {
+      "paid_value": 2
+    },
+    "proposed_disposition": "defer",
+    "verdict": "revise",
+    "rationale": "Recurring practice is real in principle, but generated exercises and a personal error history do not yet justify USD6/month. An additional primary alternative, Complete Ear Trainer, has progressive drills, melodic dictation, statistics and custom practice for USD6.99/EUR5.99 once. Test a finite paid unlock before retaining a subscription proposition.",
+    "sources_checked": [
+      {
+        "url": "https://tonedear.com/",
+        "accessed": "2026-10-09",
+        "note": "Independently reopened; functional hearing and melodic dictation are already included."
+      },
+      {
+        "url": "https://completeeartrainer.com/",
+        "accessed": "2026-10-09",
+        "note": "New independently opened primary alternative: free first chapters, USD6.99/EUR5.99 one-time mobile unlock with regional/store variation; progressive drills and statistics."
+      }
+    ]
+  },
+  {
+    "id": "E045",
+    "evidence_sufficient": true,
+    "overlap": "Rhythm timing/notation is distinct from melodic hearing and keyboard pitch reading.",
+    "proposed_scores": {},
+    "proposed_disposition": null,
+    "verdict": "keep",
+    "rationale": "Strong autonomous practice mechanics but the one-time model is appropriate. Official Complete Rhythm Trainer pricing and custom/generated drills were independently confirmed. Keep reserve; calibration must be reliable enough that device lag is not mistaken for learner error.",
+    "sources_checked": [
+      {
+        "url": "https://completerhythmtrainer.com/",
+        "accessed": "2026-10-09",
+        "note": "Independently reopened: USD6.99/EUR5.99 one-time mobile full unlock; generated drills, custom programs and free first chapters."
+      }
+    ]
+  },
+  {
+    "id": "E046",
+    "evidence_sufficient": true,
+    "overlap": "Sight-reading starts from notation and requires real instrument transfer, unlike E044 audio recall.",
+    "proposed_scores": {
+      "independence": 3
+    },
+    "proposed_disposition": null,
+    "verdict": "revise",
+    "rationale": "Two relevant primary alternatives exist. Sight Reading Factory already provides generated difficulty-controlled material and assessment, and Piano Marvel supplies performance-oriented practice. Screen-keyboard activation does not establish independent physical piano use; reduce independence until supported MIDI setup and transfer work without personal support.",
+    "sources_checked": [
+      {
+        "url": "https://www.sightreadingfactory.com/",
+        "accessed": "2026-10-09",
+        "note": "Independently reopened; generated/customizable sight-reading, progress and auto-assessment are visible. Paid price unverified."
+      },
+      {
+        "url": "https://pianomarvel.com/en/",
+        "accessed": "2026-10-09",
+        "note": "Independently reopened; cross-device piano practice and free accounts supported. Paid price unverified."
+      }
+    ]
+  },
+  {
+    "id": "E047",
+    "evidence_sufficient": true,
+    "overlap": "Symbolic harmony authoring is distinct from audio-loop arrangement, but directly overlaps Hookpad.",
+    "proposed_scores": {},
+    "proposed_disposition": null,
+    "verdict": "keep",
+    "rationale": "Defer is correct. The proposed first result and paid exports are already central to a free/modestly priced competitor. Merely simplifying controls is a feature hypothesis, not enough evidence for a new subscription.",
+    "sources_checked": []
+  },
+  {
+    "id": "E048",
+    "evidence_sufficient": true,
+    "overlap": "Arranging recorded loops differs from chord theory and notation engraving.",
+    "proposed_scores": {},
+    "proposed_disposition": null,
+    "verdict": "keep",
+    "rationale": "Reserve is reasonable but not a next MRR priority. Free starts and mature audio studios challenge subscription value; continued sound-pack production is an operating cost. A second genuinely different arrangement from the same pack is a stronger validation than browsing loops.",
+    "sources_checked": []
+  },
+  {
+    "id": "E049",
+    "evidence_sufficient": true,
+    "overlap": "Harmony-part rehearsal differs from spoken rehearsal and generic ear drills.",
+    "proposed_scores": {},
+    "proposed_disposition": null,
+    "verdict": "keep",
+    "rationale": "Keep defer. The source is a real, freshly accessible historical/current-adjacent alternative whose publisher discloses phase-out and uncertain longevity. It is insufficient evidence of current paid demand. A finite library is honest; find a second active alternative before promoting this record.",
+    "sources_checked": [
+      {
+        "url": "https://www.singharmonies.com/",
+        "accessed": "2026-10-09",
+        "note": "Independently reopened; phase-out context supports caution, not an assumption of unmet profitable demand."
+      }
+    ]
+  },
+  {
+    "id": "E050",
+    "evidence_sufficient": true,
+    "overlap": "Notation engraving has a distinct output, but may be beginner guidance for an existing editor.",
+    "proposed_scores": {},
+    "proposed_disposition": null,
+    "verdict": "keep",
+    "rationale": "Defer is strongly justified by free mature MuseScore Studio and notation/export correctness burden. One-time pricing does not rescue a full replacement editor; test whether an extension or teaching path satisfies the actual need before considering a new product.",
+    "sources_checked": []
+  }
+]

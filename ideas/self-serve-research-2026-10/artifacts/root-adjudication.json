@@ -1,0 +1,138 @@
+[
+  {
+    "id": "E001",
+    "reason": "Root classifies Mystery Science as adjacent school-oriented evidence; Kids Curiosity remains selected by the user independently of rank.",
+    "fields": {
+      "competitors": [
+        {
+          "name": "Mystery Science",
+          "url": "https://mysteryscience.com/",
+          "accessed": "2026-10-09",
+          "relation": "adjacent",
+          "facts": "Elementary science curriculum combines question-led lessons, investigations and activities; the site offers a free trial.",
+          "price": "Paid price not verified."
+        },
+        {
+          "name": "Science for Kids by Tappity",
+          "url": "https://apps.apple.com/us/app/science-for-kids-by-tappity/id1265019371",
+          "accessed": "2026-10-09",
+          "relation": "direct",
+          "facts": "Developer listing describes interactive, narrated science lessons, daily challenges, offline use and parent discussion prompts.",
+          "price": "US App Store lists multiple subscription SKUs; a single currently offered checkout price was not verified."
+        }
+      ],
+      "user_selected": true
+    }
+  },
+  {
+    "id": "E040",
+    "reason": "Accepted lower paid-value and differentiation scores. Root reopened Plottr pricing and updated the previously unknown numeric offer without treating lifetime receipts as MRR.",
+    "fields": {
+      "competitors": [
+        {
+          "name": "Plottr",
+          "url": "https://plottr.com/pricing/",
+          "accessed": "2026-10-09",
+          "relation": "direct",
+          "facts": "Visual story-planning software for Windows, Mac and web; emphasizes outlining and spotting plot holes without AI.",
+          "price": "Page displays Plottr Pro $9.99/month or $99/year; base Plottr $60/year or $150 lifetime; ISO dollar currency not shown, offer may change."
+        },
+        {
+          "name": "Novlr",
+          "url": "https://www.novlr.org/",
+          "accessed": "2026-10-09",
+          "relation": "direct",
+          "facts": "Creative-writing workspace provides notes, a plot grid, focus mode, writing sprints and paid version history.",
+          "price": "Starter displayed $8/month and Studio $16/month, both billed yearly; currency and monthly checkout not verified"
+        }
+      ]
+    }
+  },
+  {
+    "id": "E044",
+    "reason": "Accepted defer recommendation and added the independently opened one-time alternative to the evidence register.",
+    "fields": {
+      "competitors": [
+        {
+          "name": "TonedEar",
+          "url": "https://tonedear.com/",
+          "accessed": "2026-10-09",
+          "relation": "direct",
+          "facts": "Interactive exercises cover intervals, chords, scales, functional hearing and melodic dictation.",
+          "price": "not verified"
+        },
+        {
+          "name": "Complete Ear Trainer",
+          "url": "https://completeeartrainer.com/",
+          "accessed": "2026-10-09",
+          "relation": "direct",
+          "facts": "Progressive ear-training drills, statistics and custom practice are offered with free introductory chapters.",
+          "price": "Reviewer opened official offer: USD 6.99 / EUR 5.99 one-time unlock, with regional/store variation."
+        }
+      ]
+    }
+  },
+  {
+    "id": "E007",
+    "reason": "Consolidate into E001 for roadmap purposes. Retained among 100 assessed candidate concepts, explicitly not another independent product priority.",
+    "fields": {
+      "consolidated_into": "E001"
+    }
+  },
+  {
+    "id": "E087",
+    "reason": "Consolidate into E086 for roadmap purposes. Retained among 100 assessed candidate concepts, explicitly not another independent product priority.",
+    "fields": {
+      "consolidated_into": "E086"
+    }
+  },
+  {
+    "id": "E093",
+    "reason": "Consolidate into E092 for roadmap purposes. Retained among 100 assessed candidate concepts, explicitly not another independent product priority.",
+    "fields": {
+      "consolidated_into": "E092"
+    }
+  },
+  {
+    "id": "E094",
+    "reason": "Consolidate into E092 for roadmap purposes. Retained among 100 assessed candidate concepts, explicitly not another independent product priority.",
+    "fields": {
+      "consolidated_into": "E092"
+    }
+  },
+  {
+    "id": "E076",
+    "reason": "Root independently reopened Liftosaur and accepted the reduced differentiation; automatic progression is already an incumbent capability."
+  },
+  {
+    "id": "E086",
+    "reason": "Mealime closure is an observed announcement. Its cause is unknown; no claim of category failure is inferred.",
+    "fields": {
+      "risk": "Recipe testing and continuing menu production are expensive. Mealime announces closure, but its reason is unknown; category popularity alone does not establish viability."
+    }
+  },
+  {
+    "id": "E003",
+    "reason": "Accepted independence/feasibility corrections. Quranly is adjacent reading-habit evidence, not a like-for-like memorization error tool; Tarteel is direct competition.",
+    "fields": {
+      "competitors": [
+        {
+          "name": "Tarteel Premium",
+          "url": "https://support.tarteel.ai/en/articles/12414387-what-s-tarteel-premium",
+          "accessed": "2026-10-09",
+          "relation": "direct",
+          "facts": "Premium includes memorization mistake detection, planning, historical mistakes and peeking; monthly and yearly renewals are described.",
+          "price": "Premium amount not verified."
+        },
+        {
+          "name": "Quranly",
+          "url": "https://www.quranly.app/",
+          "accessed": "2026-10-09",
+          "relation": "adjacent",
+          "facts": "Provides reading goals, progress tracking, daily streaks and optional friend/family participation.",
+          "price": "Site offers free starting access; paid plan price not verified."
+        }
+      ]
+    }
+  }
+]

@@ -1,0 +1,1641 @@
+[
+  {
+    "family": "play",
+    "origin": "existing repository ventures.arcade",
+    "confidence": "low; competitor evidence only",
+    "id": "E051",
+    "name": "Arcade daily solo and async skill challenges",
+    "user": "Casual players who enjoy a short challenge and optionally buy visual customization.",
+    "first_result": "Finish one solvable daily skill game and compare a shareable result.",
+    "loop": [
+      "Open today's board",
+      "Play a complete short round",
+      "See score and replay explanation",
+      "Return for a different board or a friend's challenge"
+    ],
+    "return_trigger": "Fresh daily boards and improvement are plausible return occasions; actual repeat play is unmeasured.",
+    "paid_value": "Optional cosmetic identity; cosmetics do not establish a recurring subscription benefit.",
+    "pricing": {
+      "model": "one-time",
+      "monthly_usd": null,
+      "annual_usd": null,
+      "basis": "Hypothesis: cosmetic purchases equivalent to US$2–5 through Telegram Stars; final Stars amount and payout remain unverified. Zero subscription MRR. Subscription conversion requires an explicit change to existing cosmetic-only policy.",
+      "free": "Complete games without ads or paid advantages",
+      "paid": "Optional cosmetic themes"
+    },
+    "dependencies": [
+      "Original or licensed puzzle content",
+      "Telegram Stars eligibility for intended seller",
+      "Native review of language-specific puzzles"
+    ],
+    "compute": "Local deterministic puzzles; bounded seed delivery and optional score verification. No generative inference required.",
+    "content_burden": "Maintain solvability, difficulty and original language pools; do not count machine translations as editorial acceptance.",
+    "first_scope": [
+      "One polished daily skill game",
+      "Explain results and preserve history",
+      "Async result link that works without an installed app"
+    ],
+    "acquisition": "Demonstrate a playable daily board and measure whether result recipients actually finish a round; unverified.",
+    "competitors": [
+      {
+        "name": "Puzzmo",
+        "url": "https://apps.apple.com/us/app/puzzmo-solve-smile-share/id6714482734",
+        "accessed": "2026-10-09",
+        "relation": "direct",
+        "facts": "Daily puzzle collection with paid Plus access.",
+        "price": "US App Store lists Puzzmo Plus monthly at USD3.99; another Plus SKU is USD39.99 but its term is not labeled in the IAP list."
+      },
+      {
+        "name": "Puzz.com",
+        "url": "https://puzz.com/pricing/",
+        "accessed": "2026-10-09",
+        "relation": "direct",
+        "facts": "Free daily solo puzzles and optional unlimited/ad-free premium.",
+        "price": "Plus displayed $1.99/month or $19.99/year; ISO dollar currency not specified."
+      }
+    ],
+    "difference": "A restrained, multilingual, no-ad daily experience with cosmetic-only purchases; differentiation and acquisition remain unvalidated.",
+    "risk": "Free competitors already supply daily variety; attractive play can generate no meaningful cosmetic revenue.",
+    "experiment": "Observe unaided round completion, independent return on different days, recipient play from shared results, and a real cosmetic purchase.",
+    "stop_rule": "Do not expand the roster if returning players ignore cosmetics or sharing brings no subsequent play.",
+    "overlap": "Keep party decks in Hijinx; consolidate all short solo puzzle themes here. Do not count each game as a product.",
+    "scores": {
+      "activation": 5,
+      "recurrence": 4,
+      "independence": 5,
+      "demonstrability": 5,
+      "paid_value": 2,
+      "differentiation": 2,
+      "feasibility": 4
+    },
+    "rationale": "Immediate value and independent play are strong; code reuse reduces experiment effort, not demand uncertainty. Cosmetics constrain paid value.",
+    "disposition": "reserve"
+  },
+  {
+    "family": "play",
+    "origin": "new research proposal",
+    "confidence": "low; competitor evidence only",
+    "id": "E052",
+    "name": "Interactive detective casebook",
+    "user": "Solo mystery fans purchasing complete original cases.",
+    "first_result": "Inspect evidence, form a defensible accusation and see how the clues support the solution.",
+    "loop": [
+      "Choose a case",
+      "Inspect and connect clues",
+      "Resolve the accusation with an explanation",
+      "Buy another complete case"
+    ],
+    "return_trigger": "A new authored mystery; returning for another case is plausible, not measured.",
+    "paid_value": "New fair-play mysteries with satisfying solutions; sell complete cases before promising a subscription cadence.",
+    "pricing": {
+      "model": "packs",
+      "monthly_usd": null,
+      "annual_usd": null,
+      "basis": "Hypothesis: USD5–10 per complete case. Pack sales contribute zero subscription MRR.",
+      "free": "One complete introductory case",
+      "paid": "Additional standalone cases"
+    },
+    "dependencies": [
+      "Original writing and illustration",
+      "Independent mystery playtesting"
+    ],
+    "compute": "Local branching state and evidence graph; static media with download-size limits.",
+    "content_burden": "Every case needs coherent suspects, clues, alternative hypotheses and tested solutions; creative labor dominates.",
+    "first_scope": [
+      "Evidence notebook",
+      "Clue-based accusation and staged hints",
+      "Complete case with replayable solution review"
+    ],
+    "acquisition": "A spoiler-free playable opening and deduction clip aimed at mystery-game audiences; unverified.",
+    "competitors": [
+      {
+        "name": "Duck Detective: The Secret Salami",
+        "url": "https://store.steampowered.com/app/2637990/Duck_Detective_The_Secret_Salami/",
+        "accessed": "2026-10-09",
+        "relation": "direct",
+        "facts": "Developer listing describes a short single-player mystery using interviews, evidence and fill-in deductions.",
+        "price": "Opened storefront displayed PLN35.99 for the base game."
+      },
+      {
+        "name": "The Case of the Golden Idol",
+        "url": "https://store.steampowered.com/app/1677770/The_Case_of_the_Golden_Idol/",
+        "accessed": "2026-10-09",
+        "relation": "direct",
+        "facts": "Publisher storefront for a single-player deduction game.",
+        "price": "not verified"
+      }
+    ],
+    "difference": "A compact browser case designed around explaining an accusation instead of hidden-object tapping; incumbent absence is not claimed.",
+    "risk": "Case quality and original writing, not software, decide value; each successful case creates another production obligation.",
+    "experiment": "Let players solve without facilitation, offer a second case on another day, and test a real case purchase.",
+    "stop_rule": "Stop if players need author intervention to reach a fair solution or finish the free case without wanting another.",
+    "overlap": "Separate from E053 spatial escape puzzles and E054 choice-driven stories. Not a party role-playing deck for Hijinx.",
+    "scores": {
+      "activation": 5,
+      "recurrence": 3,
+      "independence": 5,
+      "demonstrability": 5,
+      "paid_value": 3,
+      "differentiation": 3,
+      "feasibility": 3
+    },
+    "rationale": "Clear complete outcome and demonstrability; content production limits cadence and pack purchases are not MRR.",
+    "disposition": "reserve"
+  },
+  {
+    "family": "play",
+    "origin": "new research proposal",
+    "confidence": "low; competitor evidence only",
+    "id": "E053",
+    "name": "Solo escape-room adventures",
+    "user": "Players wanting a complete spatial puzzle adventure on a phone or browser.",
+    "first_result": "Manipulate objects and mechanisms to escape one self-contained room.",
+    "loop": [
+      "Enter a room",
+      "Inspect, combine and operate objects",
+      "Unlock a coherent mechanism",
+      "Continue into another authored room"
+    ],
+    "return_trigger": "New rooms and mastery of puzzle mechanics; repeat purchase is unverified.",
+    "paid_value": "Complete additional room chapters with original art and fair hints.",
+    "pricing": {
+      "model": "packs",
+      "monthly_usd": null,
+      "annual_usd": null,
+      "basis": "Hypothesis: USD4–8 per chapter; zero subscription MRR.",
+      "free": "One complete room",
+      "paid": "Additional room chapters"
+    },
+    "dependencies": [
+      "Original environment art",
+      "Puzzle author and accessibility playtesting"
+    ],
+    "compute": "Local 2D interaction engine; bundled assets and bounded downloads.",
+    "content_burden": "Mechanism design, art, hints and testing every state to prevent unwinnable sequences.",
+    "first_scope": [
+      "One room with consistent interactions",
+      "Non-spoiling hint ladder",
+      "Save/resume and satisfying ending"
+    ],
+    "acquisition": "A short interactive mechanism in a playable browser demo; unverified.",
+    "competitors": [
+      {
+        "name": "Rusty Lake",
+        "url": "https://www.rustylake.com/",
+        "accessed": "2026-10-09",
+        "relation": "direct",
+        "facts": "Studio offers Cube Escape point-and-click adventures and separate premium narrative games.",
+        "price": "Free and premium products described; exact premium prices not verified."
+      }
+    ],
+    "difference": "Short, accessible tactile puzzles with explicit recovery from mistakes; no claim this is absent elsewhere.",
+    "risk": "Polished free escape games set a high content standard; new rooms require continuous design work.",
+    "experiment": "Observe unaided escape, voluntary second-room play on another occasion and a chapter purchase.",
+    "stop_rule": "Stop if hints replace deduction or returning players prefer free alternatives over the paid chapter.",
+    "overlap": "E052 centers evidence and accusation; this centers spatial manipulation. All room themes consolidate here.",
+    "scores": {
+      "activation": 5,
+      "recurrence": 3,
+      "independence": 5,
+      "demonstrability": 5,
+      "paid_value": 3,
+      "differentiation": 2,
+      "feasibility": 2
+    },
+    "rationale": "Simple activation but significant art/state testing and weak differentiation in an established game genre.",
+    "disposition": "reserve"
+  },
+  {
+    "family": "play",
+    "origin": "new research proposal",
+    "confidence": "low; competitor evidence only",
+    "id": "E054",
+    "name": "Branching interactive fiction library",
+    "user": "Readers buying stories in which their decisions change characters and outcomes.",
+    "first_result": "Finish a short episode with meaningful consequences and a complete emotional beat.",
+    "loop": [
+      "Choose a story",
+      "Make character decisions",
+      "See consequences",
+      "Return for the next episode or another route"
+    ],
+    "return_trigger": "Story continuation and alternate routes; habitual use remains a hypothesis.",
+    "paid_value": "Edited original stories with substantive branching and complete arcs.",
+    "pricing": {
+      "model": "packs",
+      "monthly_usd": null,
+      "annual_usd": null,
+      "basis": "Hypothesis: USD6–12 per finished volume; zero subscription MRR.",
+      "free": "Complete short prologue",
+      "paid": "Full story volumes"
+    },
+    "dependencies": [
+      "Original authors and editing",
+      "Branch-state and continuity review"
+    ],
+    "compute": "Local story-state engine; no live LLM required.",
+    "content_burden": "High: original writing, meaningful branches, endings and continuity QA.",
+    "first_scope": [
+      "One finished branching novella",
+      "Accessible reading and save slots",
+      "Visible but non-spoiling outcome history"
+    ],
+    "acquisition": "Share a compelling first decision and playable chapter with fiction readers; unverified.",
+    "competitors": [
+      {
+        "name": "Choice of Games",
+        "url": "https://www.choiceofgames.com/press/",
+        "accessed": "2026-10-09",
+        "relation": "direct",
+        "facts": "Publisher describes text-based interactive novels on mobile and web, using its ChoiceScript language.",
+        "price": "not verified"
+      }
+    ],
+    "difference": "A short-volume library with transparent completion length and no per-choice currency; distinction unvalidated.",
+    "risk": "The scarce input is memorable writing; a generic AI story wrapper provides little reason to pay.",
+    "experiment": "Test unaided episode completion, return for an unresolved character arc, and a full-volume purchase.",
+    "stop_rule": "Stop if readers skip prose to outcomes or show no desire to continue a specific story.",
+    "overlap": "Reading a finished narrative, not creative-lane story-authoring tools or E055 open-ended tabletop play.",
+    "scores": {
+      "activation": 4,
+      "recurrence": 3,
+      "independence": 5,
+      "demonstrability": 4,
+      "paid_value": 3,
+      "differentiation": 2,
+      "feasibility": 3
+    },
+    "rationale": "Independent delivery is easy; sustaining differentiated story quality is harder than the engine.",
+    "disposition": "reserve"
+  },
+  {
+    "family": "play",
+    "origin": "new research proposal",
+    "confidence": "low; competitor evidence only",
+    "id": "E055",
+    "name": "Solo tabletop adventure companion",
+    "user": "Tabletop role-playing fans wanting a coherent solo session without recruiting a game master.",
+    "first_result": "Create a character, resolve a scene and save a concrete adventure consequence.",
+    "loop": [
+      "Choose a prepared scenario",
+      "Make moves and roll outcomes",
+      "Update character and world state",
+      "Resume the persistent adventure"
+    ],
+    "return_trigger": "The next scene in a continuing personal campaign; repeat use unmeasured.",
+    "paid_value": "Reviewed adventure modules, reliable rules handling and persistent campaign continuity.",
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 7,
+      "annual_usd": 60,
+      "basis": "Hypothesis; no observed willingness to pay.",
+      "free": "One complete starter adventure",
+      "paid": "Growing module library and multiple campaigns"
+    },
+    "dependencies": [
+      "Original or permissively licensed rules",
+      "RPG design expertise",
+      "Scenario review"
+    ],
+    "compute": "Local rules and random tables first; any optional generated prose metered separately with hard caps.",
+    "content_burden": "Scenario writing, encounter balance and consistent state transitions; do not promise arbitrary rules compatibility.",
+    "first_scope": [
+      "One lightweight ruleset",
+      "Character and scene state",
+      "Oracle prompts plus complete starter quest"
+    ],
+    "acquisition": "Show a complete solo encounter from start to consequence to solo-RPG audiences; unverified.",
+    "competitors": [
+      {
+        "name": "Mythic Game Master Emulator Second Edition",
+        "url": "https://modiphius.us/products/mythic-game-master-emulator-second-edition",
+        "accessed": "2026-10-09",
+        "relation": "adjacent",
+        "facts": "Official publisher describes oracle-based solo play usable alone or with other RPG systems.",
+        "price": "GBP38 for the physical hardback shown; digital-only price not verified."
+      }
+    ],
+    "difference": "A bounded digital campaign that keeps rules and consequences consistent without a live human or unrestricted chat.",
+    "risk": "Dedicated solo players may prefer a book and notebook; automation can remove the improvisation they enjoy.",
+    "experiment": "Observe a complete unaided encounter, independent campaign resumption and actual library subscription purchase.",
+    "stop_rule": "Stop if players abandon saved campaigns or repeatedly bypass the app to resolve ordinary moves.",
+    "overlap": "Different from branching fiction: persistent character rules and player-authored decisions, not fixed narrative routes.",
+    "scores": {
+      "activation": 3,
+      "recurrence": 4,
+      "independence": 5,
+      "demonstrability": 4,
+      "paid_value": 3,
+      "differentiation": 3,
+      "feasibility": 3
+    },
+    "rationale": "Strong independent-session proposition; onboarding and specialized content reduce speed and confidence.",
+    "disposition": "reserve"
+  },
+  {
+    "family": "play",
+    "origin": "new research proposal",
+    "confidence": "low; competitor evidence only",
+    "id": "E056",
+    "name": "Chess mistake-to-practice coach",
+    "user": "Amateur chess players willing to pay for practice based on their own recurring mistakes.",
+    "first_result": "Import a PGN, understand one turning point and solve a related corrective exercise.",
+    "loop": [
+      "Import a recent game",
+      "Identify a recurring decision error",
+      "Practice a matching position",
+      "Test the skill in the next game"
+    ],
+    "return_trigger": "Each played game supplies new practice evidence; use and improvement are unverified.",
+    "paid_value": "Accurate longitudinal diagnosis and focused exercises beyond raw engine lines.",
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 6,
+      "annual_usd": 48,
+      "basis": "Hypothesis; no observed willingness to pay.",
+      "free": "One game review and exercise",
+      "paid": "Bounded game analysis and evolving practice plan"
+    },
+    "dependencies": [
+      "PGN input",
+      "Chess engine license compliance",
+      "Qualified chess review"
+    ],
+    "compute": "Local engine where possible; cap server analysis by games, depth and CPU time.",
+    "content_burden": "Reviewed explanations and exercise families; avoid ungrounded LLM claims about best moves.",
+    "first_scope": [
+      "PGN import",
+      "One understandable mistake explanation",
+      "Retry exercises with spaced review"
+    ],
+    "acquisition": "Publish an interactive before/after example from an authorized game; unverified.",
+    "competitors": [
+      {
+        "name": "Aimchess",
+        "url": "https://aimchess.com/",
+        "accessed": "2026-10-09",
+        "relation": "direct",
+        "facts": "Analyzes games and builds personalized lessons, recurring-mistake exercises and weekly plans.",
+        "price": "Displayed $7.99 monthly or $57.99 annually; ISO dollar currency not specified."
+      }
+    ],
+    "difference": "A deliberately narrow error-to-drill experience with inspectable engine evidence; not an asserted missing incumbent feature.",
+    "risk": "Aimchess already expresses the core proposition, while free chess platforms provide substantial analysis.",
+    "experiment": "Observe PGN-to-exercise completion, new-game return and payment for sustained individualized practice.",
+    "stop_rule": "Stop if players cannot identify a useful distinction from their existing free analysis or Aimchess.",
+    "overlap": "Hobby-specific feedback, not Arcade puzzle entertainment or broad educational curriculum.",
+    "scores": {
+      "activation": 4,
+      "recurrence": 5,
+      "independence": 4,
+      "demonstrability": 4,
+      "paid_value": 4,
+      "differentiation": 1,
+      "feasibility": 3
+    },
+    "rationale": "Strong recurring input and established paid alternative; direct overlap makes differentiation weak.",
+    "disposition": "reserve"
+  },
+  {
+    "family": "play",
+    "origin": "new research proposal",
+    "confidence": "low; competitor evidence only",
+    "id": "E057",
+    "name": "Board-game learn-and-reference companion",
+    "user": "Board-game owners learning a supported game and resolving rules during play.",
+    "first_result": "Complete an interactive first-turn tutorial and find a rule without reading the entire manual.",
+    "loop": [
+      "Choose an owned game",
+      "Learn by an example turn",
+      "Resolve an in-play rule",
+      "Return when replaying or learning another supported game"
+    ],
+    "return_trigger": "Board-game sessions and new purchases; cadence is user-dependent.",
+    "paid_value": "Accurate interactive tutorials and fast authoritative rules references across supported games.",
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 3,
+      "annual_usd": 24,
+      "basis": "Hypothesis; no observed willingness to pay.",
+      "free": "One supported tutorial",
+      "paid": "Maintained tutorial library and saved references"
+    },
+    "dependencies": [
+      "Publisher permissions or appropriate rule-content rights",
+      "Game-specific expert review",
+      "User owns the physical game"
+    ],
+    "compute": "Curated/local search and decision trees; no live reasoning required.",
+    "content_burden": "Every supported edition and expansion requires rule verification and errata maintenance.",
+    "first_scope": [
+      "One licensed or open game",
+      "First-turn walkthrough",
+      "Searchable rule examples with source references"
+    ],
+    "acquisition": "Demonstrate setup-to-first-turn beside an existing game; unverified.",
+    "competitors": [
+      {
+        "name": "Dized",
+        "url": "https://dized.com/subscription/",
+        "accessed": "2026-10-09",
+        "relation": "direct",
+        "facts": "Provides board-game tutorials, rules, optional tools and game-specific extras.",
+        "price": "Displayed $3/month or $30/year; ISO dollar currency not specified."
+      }
+    ],
+    "difference": "Edition-specific authoritative answers surfaced in the current turn; hypothesis, not claimed market whitespace.",
+    "risk": "Dized already offers free tutorials; obtaining broad rights and accurate coverage can dominate cost.",
+    "experiment": "Test unaided first play, rule lookup on a later session and subscription purchase for another game.",
+    "stop_rule": "Stop if supported-game breadth is required before users pay or rights costs exceed a bounded pilot.",
+    "overlap": "Physical-board-game reference, not Hijinx original party games or complete digital games.",
+    "scores": {
+      "activation": 4,
+      "recurrence": 3,
+      "independence": 3,
+      "demonstrability": 4,
+      "paid_value": 3,
+      "differentiation": 2,
+      "feasibility": 3
+    },
+    "rationale": "Clear job but external rights, specialist content and established free coverage weaken independence.",
+    "disposition": "defer"
+  },
+  {
+    "family": "play",
+    "origin": "new research proposal",
+    "confidence": "low; competitor evidence only",
+    "id": "E058",
+    "name": "Trading-card collection and price notebook",
+    "user": "Active card collectors tracking variants, acquisition cost and collection changes.",
+    "first_result": "Identify a card, place it in the correct set and see a sourced market reference.",
+    "loop": [
+      "Add acquired cards",
+      "Confirm exact edition and condition",
+      "See set completion and price changes",
+      "Return after collecting or market updates"
+    ],
+    "return_trigger": "Acquisitions, trades and new releases; market attention is not proven paid retention.",
+    "paid_value": "Accurate variant matching, collection history and licensed price comparisons.",
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 5,
+      "annual_usd": 40,
+      "basis": "Hypothesis; no observed willingness to pay.",
+      "free": "Small collection and manual entry",
+      "paid": "Larger collections, history and bounded scans"
+    },
+    "dependencies": [
+      "Licensed card catalog and market data",
+      "Image rights",
+      "Variant and condition taxonomy"
+    ],
+    "compute": "Bounded scans with manual confirmation; cache licensed data and cap image processing.",
+    "content_burden": "Catalog releases, variants and price provenance; do not represent estimates as appraisals.",
+    "first_scope": [
+      "One card franchise",
+      "Variant-confirmed inventory",
+      "Set checklist and sourced price history"
+    ],
+    "acquisition": "Demonstrate a mistaken variant corrected in one scan; unverified.",
+    "competitors": [
+      {
+        "name": "Collectr",
+        "url": "https://www.getcollectr.com/",
+        "accessed": "2026-10-09",
+        "relation": "direct",
+        "facts": "Offers card scanning, collection tracking, market history and export.",
+        "price": "Displayed $7.99 if billed monthly or $4.99/month billed annually; annual checkout total and ISO currency not verified."
+      }
+    ],
+    "difference": "Provenance-first variant confirmation for a narrow supported franchise; unvalidated against established tools.",
+    "risk": "Collectors may require broad reliable market data before switching; data licensing can dominate the business.",
+    "experiment": "Test unaided correct-card entry, subsequent acquisition logging and paid history/scan use.",
+    "stop_rule": "Stop if data rights are unavailable or variant corrections require manual staff intervention.",
+    "overlap": "Distinct from E070 coin attribution: contemporary release variants and dynamic card markets, not historical object cataloguing.",
+    "scores": {
+      "activation": 4,
+      "recurrence": 4,
+      "independence": 3,
+      "demonstrability": 5,
+      "paid_value": 4,
+      "differentiation": 2,
+      "feasibility": 3
+    },
+    "rationale": "Strong visible utility and recurring collections; licensed data and exact variants reduce feasibility.",
+    "disposition": "reserve"
+  },
+  {
+    "family": "play",
+    "origin": "new research proposal",
+    "confidence": "low; competitor evidence only",
+    "id": "E059",
+    "name": "Book taste discovery and private reading journal",
+    "user": "Frequent leisure readers choosing their next book and retaining personal reactions.",
+    "first_result": "Find a plausible next book from mood and previous likes, then save a private reading note.",
+    "loop": [
+      "Choose current reading mood",
+      "Pick a book from a small explained shortlist",
+      "Record the actual experience",
+      "Refine the next recommendation"
+    ],
+    "return_trigger": "Finishing or abandoning a book; slower than daily media use.",
+    "paid_value": "Reliable personal taste memory and useful discovery without requiring a social network.",
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 3,
+      "annual_usd": 24,
+      "basis": "Hypothesis; no observed willingness to pay.",
+      "free": "Reading log and starter recommendations",
+      "paid": "Deeper taste exploration and reading-pattern tools"
+    },
+    "dependencies": [
+      "Licensed bibliographic metadata",
+      "User ratings or notes"
+    ],
+    "compute": "Catalog search and local preference matching; cap optional recommendation inference.",
+    "content_burden": "Accurate metadata, spoiler control and interpretable mood taxonomy.",
+    "first_scope": [
+      "Small explained shortlist",
+      "Private notes and DNF tracking",
+      "Taste refinement after finishing"
+    ],
+    "acquisition": "An interactive 'what should I read tonight?' example for one reading community; unverified.",
+    "competitors": [
+      {
+        "name": "The StoryGraph",
+        "url": "https://www.thestorygraph.com/",
+        "accessed": "2026-10-09",
+        "relation": "direct",
+        "facts": "Combines mood-based discovery, statistics, private journal, reading queue and an optional Plus plan.",
+        "price": "Mostly free; Plus price not verified."
+      }
+    ],
+    "difference": "Explainable small recommendations anchored in private reactions; the incumbent already overlaps materially.",
+    "risk": "Strong free products already deliver tracking and recommendations; a diary may not justify payment.",
+    "experiment": "Test a recommendation actually started, return after reading and a premium discovery purchase.",
+    "stop_rule": "Stop if readers save suggestions but do not start books or cannot name paid value beyond free alternatives.",
+    "overlap": "Leisure selection and memory, not learning-lane comprehension or creative writing.",
+    "scores": {
+      "activation": 4,
+      "recurrence": 4,
+      "independence": 4,
+      "demonstrability": 4,
+      "paid_value": 2,
+      "differentiation": 2,
+      "feasibility": 4
+    },
+    "rationale": "Low-friction independent utility but weak payment boundary and crowded direct alternatives.",
+    "disposition": "reserve"
+  },
+  {
+    "family": "play",
+    "origin": "new research proposal",
+    "confidence": "low; competitor evidence only",
+    "id": "E060",
+    "name": "Art discovery and visual literacy",
+    "user": "Curious adults who want to notice and understand art without visiting a museum.",
+    "first_result": "Inspect one artwork, notice a prompted detail and compare an initial interpretation with a reviewed explanation.",
+    "loop": [
+      "Look closely at one rights-cleared artwork",
+      "Find and explain a visual detail",
+      "Compare interpretations or a related work",
+      "Revisit the theme in a later artwork"
+    ],
+    "return_trigger": "A short daily or weekly artwork encounter and returning themes; habit and retention remain unverified.",
+    "paid_value": "Authored guided-looking sequences, comparisons and revisits that build observation skills beyond reading a daily art fact.",
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 4,
+      "annual_usd": 30,
+      "basis": "Hypothesis; no observed willingness to pay. Test finite themed packs instead if users value completion but not continuing releases; packs produce zero subscription MRR.",
+      "free": "One complete guided-looking sequence and a small sample theme",
+      "paid": "Continuing reviewed theme sequences, comparison exercises and a personal observation archive"
+    },
+    "dependencies": [
+      "Rights-cleared or verified public-domain artwork images",
+      "Qualified art-history and visual-literacy editorial review"
+    ],
+    "compute": "Curated images and deterministic interactions; compressed image delivery with bounded offline cache; no live image-generation or unrestricted interpretation model.",
+    "content_burden": "Substantial original guided-looking prompts, accurate context, comparative artwork selection, accessibility descriptions and image-rights checks. Human editorial work continues with each theme.",
+    "first_scope": [
+      "One complete themed sequence using rights-cleared works",
+      "Detail-finding and interpretation comparisons",
+      "Later revisit that transfers the same observation skill"
+    ],
+    "acquisition": "Show one surprising detail reveal followed by an independent comparison task; use the complete free sequence as the demonstration. Distribution is untested.",
+    "competitors": [
+      {
+        "name": "DailyArt",
+        "url": "https://www.getdailyart.com/",
+        "accessed": "2026-10-09",
+        "relation": "direct",
+        "facts": "Official site offers a free daily artwork with a short story, thematic collections and a wider archive. Its FAQ describes art-historian authorship and public-domain or licensed images.",
+        "price": "Daily artwork offer explicitly free; current paid subscription amount not verified."
+      },
+      {
+        "name": "Google Arts & Culture",
+        "url": "https://artsandculture.google.com/",
+        "accessed": "2026-10-09",
+        "relation": "direct",
+        "facts": "Public site provides artwork exploration, themed collections, related-work comparisons and close-looking detail explanations without requiring a physical visit.",
+        "price": "Opened public content accessible without payment; no paid price verified."
+      }
+    ],
+    "difference": "Practice noticing details and comparing interpretations before reading a reviewed explanation, then revisit the skill in another artwork. This interaction emphasis is unvalidated and does not assert competitors lack it.",
+    "risk": "Free DailyArt and Google Arts & Culture already provide compelling discovery and close-looking content. A polished daily card could retain readers without generating payment, while accurate authored sequences and image rights create continuing costs.",
+    "experiment": "Observe an unaided artwork encounter, a later comparison using the same skill, an independent return to another theme, then actual payment for the proposed continuation.",
+    "stop_rule": "Stop if participants only enjoy the free reveal, fail to transfer observations to another work, or prefer free alternatives to paid guided sequences.",
+    "overlap": "Replaces E060 film-journal duplicate of E059. This is remote art appreciation rather than a local museum directory, creative drawing instruction, general history curriculum, or a location-dependent museum guide.",
+    "scores": {
+      "activation": 5,
+      "recurrence": 4,
+      "independence": 5,
+      "demonstrability": 5,
+      "paid_value": 2,
+      "differentiation": 2,
+      "feasibility": 3
+    },
+    "rationale": "A complete first encounter is quick, visual and self-contained. Ongoing paid value and distinction remain weak against free authored alternatives, while specialist content production limits feasibility.",
+    "disposition": "reserve"
+  },
+  {
+    "family": "play",
+    "origin": "new research proposal",
+    "confidence": "low; competitor evidence only",
+    "id": "E061",
+    "name": "Video-game backlog and next-session picker",
+    "user": "Players with purchased games who struggle to choose and finish one.",
+    "first_result": "Select a realistic game for tonight and preserve a resume note.",
+    "loop": [
+      "Enter owned games and session time",
+      "Choose a fitting game",
+      "Save progress and a next-action note",
+      "Resume without re-deciding"
+    ],
+    "return_trigger": "Each gaming session and purchase; sustained logging is unverified.",
+    "paid_value": "Useful resume memory and collection planning; library size alone is not a premium benefit.",
+    "pricing": {
+      "model": "one-time",
+      "monthly_usd": null,
+      "annual_usd": null,
+      "basis": "Hypothesis: USD15 lifetime desktop/web license; zero subscription MRR.",
+      "free": "Small local backlog",
+      "paid": "Unlimited local collection and advanced planning"
+    },
+    "dependencies": [
+      "Game metadata license",
+      "Manual entry or standard user-export import"
+    ],
+    "compute": "Local collection, preference filters and small optional metadata cache.",
+    "content_burden": "Metadata quality and platform editions; avoid maintaining mandatory proprietary account integrations.",
+    "first_scope": [
+      "Owned-game list",
+      "Time-based next-session suggestion",
+      "Resume notes and completion state"
+    ],
+    "acquisition": "Show a large backlog becoming one playable evening plan; unverified.",
+    "competitors": [
+      {
+        "name": "GG",
+        "url": "https://ggapp.io/",
+        "accessed": "2026-10-09",
+        "relation": "direct",
+        "facts": "Official site describes game discovery, collection tracking and seeing friends' games.",
+        "price": "not verified"
+      }
+    ],
+    "difference": "Focus on resuming owned games and deliberate completion instead of collecting another wishlist.",
+    "risk": "A list and console's recent-games screen may solve enough of the problem for free.",
+    "experiment": "Observe a chosen session, later reuse of its resume note and a one-time upgrade purchase.",
+    "stop_rule": "Stop if users organize once and never use the session picker or resume note again.",
+    "overlap": "Gaming organization rather than E060 passive film discovery or E068 performance coaching.",
+    "scores": {
+      "activation": 4,
+      "recurrence": 3,
+      "independence": 4,
+      "demonstrability": 4,
+      "paid_value": 2,
+      "differentiation": 2,
+      "feasibility": 4
+    },
+    "rationale": "Easy to demonstrate and build locally; recurring administration and payment need proof.",
+    "disposition": "reserve"
+  },
+  {
+    "family": "play",
+    "origin": "new research proposal",
+    "confidence": "low; competitor evidence only",
+    "id": "E062",
+    "name": "Birdwatching field journal and identification companion",
+    "user": "Recreational birdwatchers recording observations and learning to recognize local birds.",
+    "first_result": "Record a sighting with candidate identification and save its evidence to a personal field journal.",
+    "loop": [
+      "Observe a bird",
+      "Compare candidate identities",
+      "Record confidence and evidence",
+      "Return for another outing and seasonal target"
+    ],
+    "return_trigger": "Birding outings and seasonal changes; geography affects frequency.",
+    "paid_value": "Personal expedition history and advanced organization, not basic identification already free elsewhere.",
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 3,
+      "annual_usd": 24,
+      "basis": "Hypothesis; no observed willingness to pay.",
+      "free": "Basic journal and manual ID",
+      "paid": "Trip organization, backup and longitudinal field analysis"
+    },
+    "dependencies": [
+      "Licensed bird reference media",
+      "Taxonomy expertise",
+      "Location privacy controls"
+    ],
+    "compute": "Local journal; bounded optional photo/audio inference with explicit uncertainty.",
+    "content_burden": "Regional species coverage, identification cues and taxonomy updates.",
+    "first_scope": [
+      "One region's reviewed guide",
+      "Evidence-preserving sighting journal",
+      "Offline trip checklist"
+    ],
+    "acquisition": "Demonstrate one observation becoming a verifiable journal entry; unverified.",
+    "competitors": [
+      {
+        "name": "Merlin Bird ID",
+        "url": "https://www.merlinbirds.org/",
+        "accessed": "2026-10-09",
+        "relation": "direct",
+        "facts": "Cornell offers offline sound/photo identification, life lists and location-season bird lists.",
+        "price": "Free."
+      }
+    ],
+    "difference": "An evidence-oriented outing journal; do not claim superior identification or infer access to Merlin's data.",
+    "risk": "A trusted free incumbent already combines most of the core experience with far richer data.",
+    "experiment": "Test unaided sighting logging, another outing and payment for organization beyond free identification.",
+    "stop_rule": "Stop if users value identification alone or cannot distinguish the journal from their existing free tools.",
+    "overlap": "Wildlife field hobby, not pet care, science curriculum or E063 night-sky observing.",
+    "scores": {
+      "activation": 5,
+      "recurrence": 4,
+      "independence": 3,
+      "demonstrability": 5,
+      "paid_value": 1,
+      "differentiation": 1,
+      "feasibility": 2
+    },
+    "rationale": "Visible delight and repeat outings; free comprehensive competition sharply weakens the paid proposition.",
+    "disposition": "defer"
+  },
+  {
+    "family": "play",
+    "origin": "new research proposal",
+    "confidence": "low; competitor evidence only",
+    "id": "E063",
+    "name": "Tonight's stargazing companion",
+    "user": "Casual stargazers seeking achievable observations with their eyes or existing binoculars.",
+    "first_result": "Find one visible object tonight and record whether it was actually seen.",
+    "loop": [
+      "Set location and available time",
+      "Follow a short observing plan",
+      "Confirm an observation with context",
+      "Return for a new sky event or seasonal object"
+    ],
+    "return_trigger": "Clear evenings and changing sky events; weather and seasonality reduce predictable cadence.",
+    "paid_value": "Maintained observing plans and personal progress tailored to available equipment.",
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 3,
+      "annual_usd": 24,
+      "basis": "Hypothesis; no observed willingness to pay.",
+      "free": "Tonight's basic sky and one target",
+      "paid": "Curated observing programs, event calendar and journal"
+    },
+    "dependencies": [
+      "Astronomical catalogs and ephemeris libraries",
+      "Accurate time/location",
+      "Optional weather data"
+    ],
+    "compute": "Local sky calculations; cache catalogs and cap weather-provider requests.",
+    "content_burden": "Reviewed observing instructions, visibility constraints and event calendars.",
+    "first_scope": [
+      "Naked-eye observing mode",
+      "Honest visibility and direction",
+      "Private observation log"
+    ],
+    "acquisition": "A shareable 'find this tonight' demonstration for one visible event; unverified.",
+    "competitors": [
+      {
+        "name": "Stellarium Mobile and Plus",
+        "url": "https://stellarium-labs.com/stellarium-mobile-plus/",
+        "accessed": "2026-10-09",
+        "relation": "direct",
+        "facts": "Shows the sky by time/location; Plus includes observation planning, event calendars and telescope tools.",
+        "price": "Free/Plus distinction observed; exact purchase price not verified."
+      }
+    ],
+    "difference": "A beginner's achievable observing session rather than a dense catalog; demand for that simplification is unverified.",
+    "risk": "Existing sky apps are capable and often inexpensive; clouds interrupt both activation and return.",
+    "experiment": "Observe a user finding a real object unaided, returning on another clear evening and buying a program.",
+    "stop_rule": "Stop if users enjoy the screen but cannot complete or do not repeat real observations.",
+    "overlap": "Actual location/time-dependent observing; learning lane E020 covers astronomy concepts and simulation.",
+    "scores": {
+      "activation": 5,
+      "recurrence": 3,
+      "independence": 5,
+      "demonstrability": 5,
+      "paid_value": 3,
+      "differentiation": 2,
+      "feasibility": 3
+    },
+    "rationale": "Immediate visible outcome when conditions cooperate; incumbent overlap and weather constrain recurring value.",
+    "disposition": "reserve"
+  },
+  {
+    "family": "play",
+    "origin": "new research proposal",
+    "confidence": "low; competitor evidence only",
+    "id": "E064",
+    "name": "Personal genealogy evidence workspace",
+    "user": "Family-history hobbyists organizing relatives, conflicting sources and research leads.",
+    "first_result": "Build a small family branch with a visible source behind each relationship.",
+    "loop": [
+      "Add a person or document",
+      "Link supported facts",
+      "Review conflicts and missing evidence",
+      "Return after the next research discovery"
+    ],
+    "return_trigger": "New family documents and research sessions; projects may pause for months.",
+    "paid_value": "Reliable source provenance, private archives and exportable research history.",
+    "pricing": {
+      "model": "one-time",
+      "monthly_usd": null,
+      "annual_usd": null,
+      "basis": "Hypothesis: USD25 desktop license; zero subscription MRR. Optional storage would be a separate later offer.",
+      "free": "Small local family branch",
+      "paid": "Full evidence workspace and export"
+    },
+    "dependencies": [
+      "User-provided family records",
+      "GEDCOM compatibility",
+      "Sensitive-data protection"
+    ],
+    "compute": "Local graph and document storage; optional bounded OCR with user confirmation.",
+    "content_burden": "Source templates and import compatibility; no paid-record database is assumed.",
+    "first_scope": [
+      "People and relationships",
+      "Source-linked assertions with conflicts",
+      "GEDCOM and human-readable export"
+    ],
+    "acquisition": "Show one ambiguous family record resolved into an explicit evidence tree; unverified.",
+    "competitors": [
+      {
+        "name": "Family Echo",
+        "url": "https://www.familyecho.com/",
+        "accessed": "2026-10-09",
+        "relation": "direct",
+        "facts": "Free private family-tree creation, GEDCOM import, photos, sharing and printing.",
+        "price": "Free service."
+      }
+    ],
+    "difference": "Make uncertain assertions and competing evidence first-class; unvalidated against specialized genealogy tools.",
+    "risk": "Without record discovery, users may see another organizer beside their existing tree; free alternatives are capable.",
+    "experiment": "Observe a sourced family branch, later evidence addition and purchase for a real research project.",
+    "stop_rule": "Stop if users require paid genealogy-database access before the workspace becomes useful.",
+    "overlap": "Evidence-based ancestry research, not creative family memoir generation or ordinary household storage.",
+    "scores": {
+      "activation": 3,
+      "recurrence": 3,
+      "independence": 4,
+      "demonstrability": 4,
+      "paid_value": 3,
+      "differentiation": 2,
+      "feasibility": 3
+    },
+    "rationale": "Independent import is possible; setup effort, episodic research and free competition limit priority.",
+    "disposition": "reserve"
+  },
+  {
+    "family": "play",
+    "origin": "new research proposal",
+    "confidence": "low; competitor evidence only",
+    "id": "E065",
+    "name": "Private fishing-session log and pattern finder",
+    "user": "Recreational anglers remembering what worked on their own waters.",
+    "first_result": "Record a trip and get an honest comparison with a previous catch or blank session.",
+    "loop": [
+      "Log conditions and effort",
+      "Record catches or no catches",
+      "Compare personal patterns",
+      "Choose what to test on the next trip"
+    ],
+    "return_trigger": "Fishing trips and seasonal changes; not an evidence-backed daily habit.",
+    "paid_value": "Reliable private history and comparisons without disclosing favorite locations.",
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 4,
+      "annual_usd": 30,
+      "basis": "Hypothesis; no observed willingness to pay.",
+      "free": "Basic trip log",
+      "paid": "Season comparisons, backup and exports"
+    },
+    "dependencies": [
+      "User trip records",
+      "Optional licensed weather history",
+      "Location privacy"
+    ],
+    "compute": "Local descriptive analysis; cap weather lookups and storage. No predictive guarantee.",
+    "content_burden": "Species/gear vocabulary and transparent explanations of small-sample limits.",
+    "first_scope": [
+      "Fast catch and blank-trip recording",
+      "Private map pins",
+      "Effort-aware trip comparison"
+    ],
+    "acquisition": "Show two trips becoming a useful personal comparison; unverified.",
+    "competitors": [
+      {
+        "name": "ANGLR",
+        "url": "https://anglr.com/",
+        "accessed": "2026-10-09",
+        "relation": "direct",
+        "facts": "Offers trip recording and fishing activity tools, with subscription and device offerings linked.",
+        "price": "not verified"
+      }
+    ],
+    "difference": "Explicitly include unsuccessful effort and private experiments, rather than promise where fish will bite.",
+    "risk": "Manual logs compete with time outdoors; a small personal dataset may produce no useful patterns.",
+    "experiment": "Observe one trip logged without help, another independently logged trip and premium comparison purchase.",
+    "stop_rule": "Stop if users omit unsuccessful sessions or need automatic hardware recording to sustain use.",
+    "overlap": "Self-serve hobby notebook, not a fishing-location marketplace or hardware product.",
+    "scores": {
+      "activation": 3,
+      "recurrence": 4,
+      "independence": 4,
+      "demonstrability": 4,
+      "paid_value": 3,
+      "differentiation": 2,
+      "feasibility": 3
+    },
+    "rationale": "Repeated real activity gives plausible value, but manual capture and weak evidence make retention uncertain.",
+    "disposition": "reserve"
+  },
+  {
+    "family": "play",
+    "origin": "new research proposal",
+    "confidence": "low; competitor evidence only",
+    "id": "E066",
+    "name": "Speedcubing practice coach",
+    "user": "Cubers with an existing cube who want to turn solve times into purposeful practice.",
+    "first_result": "Time a set of solves and receive one specific practice drill based on recorded weakness.",
+    "loop": [
+      "Run a practice set",
+      "Record timing or stage splits",
+      "Practice the weakest stage",
+      "Compare another set on a later day"
+    ],
+    "return_trigger": "Regular hobby practice; actual use of prescribed drills is unverified.",
+    "paid_value": "Reviewed progression plans and error-specific practice, not another timer.",
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 4,
+      "annual_usd": 30,
+      "basis": "Hypothesis; no observed willingness to pay.",
+      "free": "Timer, averages and starter drills",
+      "paid": "Progression plans, drill library and longitudinal diagnosis"
+    },
+    "dependencies": [
+      "User's own cube",
+      "Qualified cubing instruction",
+      "Accurate scramble generation"
+    ],
+    "compute": "Local timer, scrambles and progress statistics; manual stage marking avoids mandatory smart hardware.",
+    "content_burden": "Original or licensed drills and algorithm explanations; expert review of progression.",
+    "first_scope": [
+      "Reliable timer with standard averages",
+      "Manual stage splits",
+      "One actionable drill and later reassessment"
+    ],
+    "acquisition": "Show a real solve set becoming a short practice intervention; unverified.",
+    "competitors": [
+      {
+        "name": "CubeDesk",
+        "url": "https://www.cubedesk.io/",
+        "accessed": "2026-10-09",
+        "relation": "direct",
+        "facts": "Browser timer exposes scrambles, solve statistics and an account prompt to save solves.",
+        "price": "Demo is accessible; paid plan price not verified."
+      },
+      {
+        "name": "CubeSkills",
+        "url": "https://www.cubeskills.com/",
+        "accessed": "2026-10-09",
+        "relation": "direct",
+        "facts": "Offers speedcubing tutorials for multiple skill levels and free membership; creator states new content is currently paused.",
+        "price": "Free membership; no paid offer verified."
+      }
+    ],
+    "difference": "A progression coach joining measured stage weaknesses to reviewed drills; not an assertion current tools lack this.",
+    "risk": "Free timers and expert videos may already suffice; hobby improvement does not prove appetite for another subscription.",
+    "experiment": "Observe timer-to-drill completion, independent reassessment on another day and actual purchase of a practice program.",
+    "stop_rule": "Stop if cubers repeatedly use the timer while ignoring drills, or choose free instruction at the stated price.",
+    "overlap": "Physical puzzle skill training, distinct from Arcade digital games and general learning curriculum.",
+    "scores": {
+      "activation": 5,
+      "recurrence": 5,
+      "independence": 5,
+      "demonstrability": 5,
+      "paid_value": 2,
+      "differentiation": 2,
+      "feasibility": 4
+    },
+    "rationale": "Fast independent activation and frequent practice; free alternatives keep paid value and differentiation deliberately low.",
+    "disposition": "shortlist"
+  },
+  {
+    "family": "play",
+    "origin": "new research proposal",
+    "confidence": "low; competitor evidence only",
+    "id": "E067",
+    "name": "Sim-racing telemetry coach",
+    "user": "Simulator drivers seeking an actionable explanation of a slow corner.",
+    "first_result": "Import one supported lap and identify a specific braking or throttle difference to test.",
+    "loop": [
+      "Record a simulator session",
+      "Compare a lap with a valid reference",
+      "Practice one corner change",
+      "Upload the next lap to check improvement"
+    ],
+    "return_trigger": "Repeated simulator sessions; progression rather than social participation supplies the loop.",
+    "paid_value": "Correct actionable feedback and maintained car/track references.",
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 9,
+      "annual_usd": 72,
+      "basis": "Hypothesis; no observed willingness to pay.",
+      "free": "One supported lap comparison",
+      "paid": "Bounded telemetry analysis and reviewed practice plans"
+    },
+    "dependencies": [
+      "One simulator's standard telemetry format",
+      "Licensed reference laps",
+      "Sim-driving expertise"
+    ],
+    "compute": "Bounded file processing and local plots; cap telemetry length and retention.",
+    "content_burden": "Car/track version maintenance and coach-reviewed interpretation; no real-road driving claims.",
+    "first_scope": [
+      "One simulator format",
+      "Aligned lap comparison",
+      "One testable corner drill"
+    ],
+    "acquisition": "Demonstrate a transparent before/after telemetry segment; unverified.",
+    "competitors": [
+      {
+        "name": "VRS Tools",
+        "url": "https://vrs.racing/",
+        "accessed": "2026-10-09",
+        "relation": "direct",
+        "facts": "Official site offers simulator data packs, setups, telemetry and tutorials.",
+        "price": "not verified"
+      },
+      {
+        "name": "trophi.ai",
+        "url": "https://www.trophi.ai/",
+        "accessed": "2026-10-09",
+        "relation": "direct",
+        "facts": "Official site describes sim-racing coaching, lap analysis and telemetry features.",
+        "price": "not verified"
+      }
+    ],
+    "difference": "An inspectable after-session drill for one supported combination, without relying on live voice coaching.",
+    "risk": "Specialist accuracy and simulator updates can overwhelm a small team; mature tools already cover the central promise.",
+    "experiment": "Test unaided import, an independently repeated practice session and payment for another supported track.",
+    "stop_rule": "Stop if feedback cannot be traced to valid telemetry or requires custom support per simulator setup.",
+    "overlap": "E068 uses game tactical replays; this uses continuous vehicle telemetry. No new hardware is sold.",
+    "scores": {
+      "activation": 3,
+      "recurrence": 5,
+      "independence": 3,
+      "demonstrability": 5,
+      "paid_value": 4,
+      "differentiation": 2,
+      "feasibility": 2
+    },
+    "rationale": "A recurring skill problem with visible feedback, offset by domain depth, data and maintenance burden.",
+    "disposition": "defer"
+  },
+  {
+    "family": "play",
+    "origin": "new research proposal",
+    "confidence": "low; competitor evidence only",
+    "id": "E068",
+    "name": "Esports match-review coach",
+    "user": "Individual competitive game players reviewing their own mistakes after a match.",
+    "first_result": "Upload a supported replay and understand one repeated tactical decision to practice.",
+    "loop": [
+      "Import a replay",
+      "Inspect a concrete mistake sequence",
+      "Practice one response",
+      "Review the next match for recurrence"
+    ],
+    "return_trigger": "Competitive matches provide ongoing input; actual training follow-through remains unverified.",
+    "paid_value": "Accurate prioritized feedback grounded in replay evidence.",
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 7,
+      "annual_usd": 54,
+      "basis": "Hypothesis; no observed willingness to pay.",
+      "free": "One replay and practice target",
+      "paid": "Bounded match analysis and longitudinal mistake tracking"
+    },
+    "dependencies": [
+      "Stable game replay format and permitted access",
+      "Game-specific expert review",
+      "Patch tracking"
+    ],
+    "compute": "Metered replay parsing and derived metrics; limit file size, matches and retained video.",
+    "content_burden": "Patch-sensitive tactics, map references and review calibration.",
+    "first_scope": [
+      "One game and replay format",
+      "Time-linked error example",
+      "One practice exercise and progress view"
+    ],
+    "acquisition": "An authorized match excerpt showing a concrete actionable diagnosis; unverified.",
+    "competitors": [
+      {
+        "name": "Leetify",
+        "url": "https://leetify.com/",
+        "accessed": "2026-10-09",
+        "relation": "direct",
+        "facts": "Tracks Counter-Strike performance with automatic match reports, highlights and skill metrics.",
+        "price": "Free signup shown; premium price not verified."
+      }
+    ],
+    "difference": "A narrow evidence-to-practice sequence with fewer but explainable recommendations; gap unvalidated.",
+    "risk": "Replay access, patches and entrenched free tools can remove the wedge before monetization.",
+    "experiment": "Test unaided replay review, next-match return and payment for recurring evidence-based coaching.",
+    "stop_rule": "Stop if users cannot reproduce the claimed error or parser maintenance dominates useful improvements.",
+    "overlap": "Different from E061 game selection and E067 driving telemetry. No required team adoption.",
+    "scores": {
+      "activation": 3,
+      "recurrence": 5,
+      "independence": 2,
+      "demonstrability": 5,
+      "paid_value": 3,
+      "differentiation": 2,
+      "feasibility": 2
+    },
+    "rationale": "Frequent inputs and demonstrability; publisher-controlled formats and expert interpretation lower independence.",
+    "disposition": "defer"
+  },
+  {
+    "family": "play",
+    "origin": "new research proposal",
+    "confidence": "low; competitor evidence only",
+    "id": "E069",
+    "name": "Fantasy-sports research notebook",
+    "user": "Season-long fantasy players comparing roster choices without automated betting or wager advice.",
+    "first_result": "Compare two roster candidates with source-dated evidence and explicit assumptions.",
+    "loop": [
+      "Enter a roster choice",
+      "Compare current evidence",
+      "Record the decision",
+      "Review outcomes at the next roster deadline"
+    ],
+    "return_trigger": "Season deadlines recur; offseason churn and data maintenance are material.",
+    "paid_value": "Fresh reliable evidence and transparent comparisons for one sport.",
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 5,
+      "annual_usd": null,
+      "basis": "Hypothesis: USD5/month while in season; no annual-retention assumption or observed willingness to pay.",
+      "free": "A basic manual comparison",
+      "paid": "Maintained in-season research and history"
+    },
+    "dependencies": [
+      "Licensed current player/injury/stat data",
+      "One sport's reviewed rules",
+      "Explicit exclusion of betting products"
+    ],
+    "compute": "Cached licensed feeds and deterministic comparison; cap refresh frequency.",
+    "content_burden": "Daily source maintenance and corrections near deadlines; no guarantee of wins.",
+    "first_scope": [
+      "One sport",
+      "Manual roster input",
+      "Source-dated start/sit comparison with history"
+    ],
+    "acquisition": "Show one explainable comparison before a real roster deadline; unverified.",
+    "competitors": [
+      {
+        "name": "FantasyPros",
+        "url": "https://www.fantasypros.com/premium/plans/fp-ft/",
+        "accessed": "2026-10-09",
+        "relation": "direct",
+        "facts": "Offers start/sit, draft and waiver tools; broader plans integrate leagues and also market optional betting products.",
+        "price": "PRO displayed $11.99 monthly; $3.99/month billed annually. ISO dollar currency and annual checkout total not separately verified."
+      }
+    ],
+    "difference": "A manual transparent research notebook restricted to season-long fantasy; neither superior forecasts nor incumbent omissions are claimed.",
+    "risk": "Fresh licensed feeds, deadline support and direct incumbent overlap conflict with a low-maintenance self-contained product.",
+    "experiment": "Test unaided comparison, reuse at a later roster deadline and in-season payment without requiring league integration.",
+    "stop_rule": "Stop if useful advice requires expensive proprietary projections or users require automatic league synchronization.",
+    "overlap": "Entertainment roster research only; exclude sportsbooks, wagers, paid-entry contest optimization and custom integrations.",
+    "scores": {
+      "activation": 3,
+      "recurrence": 4,
+      "independence": 2,
+      "demonstrability": 4,
+      "paid_value": 3,
+      "differentiation": 1,
+      "feasibility": 2
+    },
+    "rationale": "Recurrence exists in season, but data dependence and weak distinction make this a low-priority fit.",
+    "disposition": "defer"
+  },
+  {
+    "family": "play",
+    "origin": "new research proposal",
+    "confidence": "low; competitor evidence only",
+    "id": "E070",
+    "name": "Coin attribution and provenance album",
+    "user": "Coin collectors cataloguing finds and recording why an identification is plausible.",
+    "first_result": "Photograph both sides, compare candidate attributions and save a confidence-labeled record.",
+    "loop": [
+      "Capture a coin",
+      "Compare inscriptions and dimensions",
+      "Save attribution with evidence",
+      "Return after another acquisition or corrected identification"
+    ],
+    "return_trigger": "Collection additions and research; frequency differs sharply between casual finders and collectors.",
+    "paid_value": "Reliable attribution support and organized provenance, without promising market appraisal.",
+    "pricing": {
+      "model": "one-time",
+      "monthly_usd": null,
+      "annual_usd": null,
+      "basis": "Hypothesis: USD20 lifetime license; optional scan credits separately priced, zero subscription MRR.",
+      "free": "Small manual album",
+      "paid": "Expanded local archive and attribution tools"
+    },
+    "dependencies": [
+      "Licensed coin reference images and catalog",
+      "Numismatic expert review",
+      "User measurements"
+    ],
+    "compute": "Local archive; tightly bounded optional image matching with candidate confirmation.",
+    "content_burden": "Historical issues, varieties, inscriptions and provenance references.",
+    "first_scope": [
+      "One bounded coin family",
+      "Two-sided photo and measurements",
+      "Candidate comparison and exportable album"
+    ],
+    "acquisition": "Demonstrate distinguishing two visually similar coins with evidence; unverified.",
+    "competitors": [
+      {
+        "name": "Coinoscope",
+        "url": "https://coinoscope.com/",
+        "accessed": "2026-10-09",
+        "relation": "direct",
+        "facts": "Uses coin photos to find similar coins and supports collection management; basic functionality is free with Pro available.",
+        "price": "Free basic tier; Pro price not verified."
+      }
+    ],
+    "difference": "Attribution evidence and provenance rather than instant unsupported valuation; gap unvalidated.",
+    "risk": "Correct attribution needs expensive reference coverage, while basic identification is available free.",
+    "experiment": "Test a correctly attributed coin, a second cataloguing occasion and paid album purchase.",
+    "stop_rule": "Stop if accurate identification requires a human specialist on each item or users only want free price estimates.",
+    "overlap": "E058 handles contemporary trading-card variants and market tracking; this preserves historical attribution/provenance.",
+    "scores": {
+      "activation": 4,
+      "recurrence": 3,
+      "independence": 3,
+      "demonstrability": 5,
+      "paid_value": 3,
+      "differentiation": 2,
+      "feasibility": 2
+    },
+    "rationale": "Strong first demonstration; reference depth and episodic use constrain sustainable paid value.",
+    "disposition": "defer"
+  },
+  {
+    "family": "play",
+    "origin": "new research proposal",
+    "confidence": "low; competitor evidence only",
+    "id": "E071",
+    "name": "Cryptic crossword solving academy",
+    "user": "Adult puzzle beginners who want to understand clue mechanisms and solve independently.",
+    "first_result": "Understand one cryptic device and solve a new clue using it without revealing the answer.",
+    "loop": [
+      "Try a diagnostic clue",
+      "Learn the missed mechanism",
+      "Solve a transfer clue",
+      "Return for spaced mixed practice"
+    ],
+    "return_trigger": "Short practice sessions and real crossword attempts; habit and skill transfer remain unmeasured.",
+    "paid_value": "Reviewed progressive instruction, adaptive practice and explanations beyond answer lookup.",
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 5,
+      "annual_usd": 40,
+      "basis": "Hypothesis; no observed willingness to pay.",
+      "free": "Introductory mechanisms and a daily exercise",
+      "paid": "Full progression, mixed practice and personal review"
+    },
+    "dependencies": [
+      "Expert cryptic setters and explanations",
+      "Original or licensed clues"
+    ],
+    "compute": "Curated deterministic feedback and spaced review; avoid paid live inference for every clue.",
+    "content_burden": "High-quality clues with valid parses, hint ladders and pedagogical sequencing.",
+    "first_scope": [
+      "A bounded beginner course",
+      "Mechanism-specific hint ladder",
+      "Transfer questions and spaced review"
+    ],
+    "acquisition": "A playable lesson that makes an intimidating clue understandable; unverified.",
+    "competitors": [
+      {
+        "name": "Crossword Genius",
+        "url": "https://www.crosswordgenius.com/",
+        "accessed": "2026-10-09",
+        "relation": "direct",
+        "facts": "Provides hints and explanations of cryptic clues, plus camera and web crossword import.",
+        "price": "not verified"
+      },
+      {
+        "name": "Minute Cryptic",
+        "url": "https://www.minutecryptic.com/",
+        "accessed": "2026-10-09",
+        "relation": "direct",
+        "facts": "Offers a daily clue, mini puzzles and letterplay/wordplay courses with account-based progress.",
+        "price": "Membership price not verified; merchandise prices are not used as subscription evidence."
+      }
+    ],
+    "difference": "Teach transfer before revealing answers, using reviewed novice sequences; the concept overlaps existing instruction and needs proof.",
+    "risk": "Minute Cryptic already combines approachable daily play and courses; free explanations may remove willingness to pay.",
+    "experiment": "Observe unaided learning and transfer, independent return for mixed practice and actual course subscription purchase.",
+    "stop_rule": "Stop if users get answers without improving on unseen clues or pay only for a finite introductory course.",
+    "overlap": "Learning a specific hobby skill, not another Arcade daily game or crossword-authoring tool.",
+    "scores": {
+      "activation": 4,
+      "recurrence": 5,
+      "independence": 5,
+      "demonstrability": 4,
+      "paid_value": 3,
+      "differentiation": 3,
+      "feasibility": 3
+    },
+    "rationale": "Independent short practice and visible understanding; editorial expertise and direct educational competitors remain constraints.",
+    "disposition": "shortlist"
+  },
+  {
+    "family": "play",
+    "origin": "new research proposal",
+    "confidence": "low; competitor evidence only",
+    "id": "E072",
+    "name": "Self-guided walking mystery adventures",
+    "user": "Individuals or companions buying an outdoor discovery activity without booking a guide.",
+    "first_result": "Follow a reviewed short route, solve environmental clues and complete a satisfying story.",
+    "loop": [
+      "Choose a route fitting location and time",
+      "Walk and solve clues",
+      "Reveal the local story",
+      "Buy another route on a later outing"
+    ],
+    "return_trigger": "Weekend outings and travel; seasonal and geographically constrained rather than daily.",
+    "paid_value": "Verified complete route experiences with current access information.",
+    "pricing": {
+      "model": "packs",
+      "monthly_usd": null,
+      "annual_usd": null,
+      "basis": "Hypothesis: USD5–10 per route; zero subscription MRR until a broad maintained library independently justifies a pass.",
+      "free": "A short complete sample route",
+      "paid": "Additional reviewed routes"
+    },
+    "dependencies": [
+      "Local route verification",
+      "Licensed map tiles",
+      "Permission/access facts for stops"
+    ],
+    "compute": "Offline route package and local progress; cap map downloads and avoid always-on tracking.",
+    "content_burden": "Field-check clues, closures, accessibility and historical claims; no automatic global rollout.",
+    "first_scope": [
+      "One verified walk",
+      "Offline clues and pause/resume",
+      "Clear finish and route feedback"
+    ],
+    "acquisition": "A playable first stop distributed near a supported route; unverified.",
+    "competitors": [
+      {
+        "name": "Questo",
+        "url": "https://questoapp.com/",
+        "accessed": "2026-10-09",
+        "relation": "direct",
+        "facts": "Sells self-guided city quests and outdoor escape adventures, plus an annually renewing all-quest pass.",
+        "price": "Page shows quests from EUR6.99/EUR9.99/EUR12.99; annual pass displayed $60 for one year on one device, dollar currency not specified."
+      }
+    ],
+    "difference": "A small trusted collection with clearly dated field checks and accessible route choices; distinction unvalidated.",
+    "risk": "Local maintenance scales city by city and return depends on location; consumer self-service does not eliminate field operations.",
+    "experiment": "Observe unaided completed walk, purchase of a different route on another occasion and actual route revenue.",
+    "stop_rule": "Stop if route maintenance or local acquisition costs exceed repeat route purchases.",
+    "overlap": "Separate from Museums Gallery's visit directory and Hijinx indoor party packs; no creator marketplace required.",
+    "scores": {
+      "activation": 5,
+      "recurrence": 2,
+      "independence": 4,
+      "demonstrability": 5,
+      "paid_value": 3,
+      "differentiation": 3,
+      "feasibility": 2
+    },
+    "rationale": "Excellent immediate demonstration; geographic operations and episodic return weaken MRR suitability.",
+    "disposition": "reserve"
+  },
+  {
+    "family": "play",
+    "origin": "new research proposal",
+    "confidence": "low; competitor evidence only",
+    "id": "E073",
+    "name": "Personal-photo and curated jigsaw player",
+    "user": "People wanting a calm visual puzzle from licensed art or their own photos.",
+    "first_result": "Turn a personal photo into a puzzle and complete a satisfying small board.",
+    "loop": [
+      "Choose a photo or collection",
+      "Assemble at a suitable difficulty",
+      "Save a finished image or progress",
+      "Return for another relaxing session"
+    ],
+    "return_trigger": "Leisure sessions and new image collections; repeat play is plausible but unmeasured.",
+    "paid_value": "High-quality licensed collections and convenient personal-photo play.",
+    "pricing": {
+      "model": "packs",
+      "monthly_usd": null,
+      "annual_usd": null,
+      "basis": "Hypothesis: USD3–6 per image collection; zero subscription MRR.",
+      "free": "Personal-photo puzzle and starter images",
+      "paid": "Licensed art collections"
+    },
+    "dependencies": [
+      "User-provided images or licensed art",
+      "Accessible interaction design"
+    ],
+    "compute": "Local image processing and puzzle state; cap photo size and avoid uploading private photos by default.",
+    "content_burden": "Image selection/licensing and difficulty review, rather than new game mechanics for each pack.",
+    "first_scope": [
+      "Local photo import",
+      "Accessible puzzle interaction and save/resume",
+      "One reviewed image collection"
+    ],
+    "acquisition": "A shareable personal-photo puzzle whose receiver can play immediately; unverified.",
+    "competitors": [
+      {
+        "name": "Jigsaw Explorer",
+        "url": "https://www.jigsawexplorer.com/",
+        "accessed": "2026-10-09",
+        "relation": "direct",
+        "facts": "Offers daily and mystery puzzles, personal-photo play and custom shareable puzzles.",
+        "price": "not verified"
+      }
+    ],
+    "difference": "Private-photo-first offline play with carefully chosen art; no unsupported claim of unique functionality.",
+    "risk": "Free services already support custom photos and daily collections; relaxing repeat use may not generate purchases.",
+    "experiment": "Observe a completed own-photo puzzle, another independent session and a licensed-pack purchase.",
+    "stop_rule": "Stop if users return exclusively for free personal photos and reject curated packs.",
+    "overlap": "Longer visual assembly experience, not short scored Arcade challenges or creative photo editing.",
+    "scores": {
+      "activation": 5,
+      "recurrence": 4,
+      "independence": 5,
+      "demonstrability": 5,
+      "paid_value": 2,
+      "differentiation": 1,
+      "feasibility": 4
+    },
+    "rationale": "Easy independent value and low compute; established free alternatives severely constrain differentiation.",
+    "disposition": "reserve"
+  },
+  {
+    "family": "play",
+    "origin": "new research proposal",
+    "confidence": "low; competitor evidence only",
+    "id": "E074",
+    "name": "Digital railway dispatcher simulator",
+    "user": "Transport-simulation fans purchasing a complete route-management game.",
+    "first_result": "Route a small timetable successfully and see the consequences of signal decisions.",
+    "loop": [
+      "Choose a timetable",
+      "Dispatch and manage conflicts",
+      "Review delays and throughput",
+      "Retry for mastery or play a new network"
+    ],
+    "return_trigger": "Mastering scenarios and expanding a network; does not require multiplayer or live transport data.",
+    "paid_value": "A polished deterministic simulator with authored scenarios and meaningful progression.",
+    "pricing": {
+      "model": "one-time",
+      "monthly_usd": null,
+      "annual_usd": null,
+      "basis": "Hypothesis: USD15–25 base game; expansion packs later. Zero subscription MRR.",
+      "free": "Complete small-network demo",
+      "paid": "Full simulator and scenario library"
+    },
+    "dependencies": [
+      "Simulation/game-design expertise",
+      "Original maps and UI art"
+    ],
+    "compute": "Local deterministic simulation; bounded map size and no live feeds.",
+    "content_burden": "Scenario balance, tutorials and believable dispatch mechanics; substantial engine QA.",
+    "first_scope": [
+      "Small deterministic network",
+      "Complete timetable with failure recovery",
+      "Post-run explanation and replay"
+    ],
+    "acquisition": "A playable congestion problem and visibly improved solution; unverified.",
+    "competitors": [
+      {
+        "name": "Rail Route",
+        "url": "https://store.steampowered.com/developer/bitrich-info",
+        "accessed": "2026-10-09",
+        "relation": "direct",
+        "facts": "Developer listing describes constructing, upgrading and automating networks and dispatching trains; a separate free story experience is listed.",
+        "price": "Opened storefront displayed USD9.99 sale against USD24.99 regular price; sale end not verified."
+      }
+    ],
+    "difference": "A concise browser-accessible dispatcher centered on understandable failures; not an assertion existing games lack tutorials.",
+    "risk": "A compelling simulation is a substantial game project; a browser port alone is not differentiation.",
+    "experiment": "Observe demo completion, voluntary retry/new-scenario play and base-game purchase.",
+    "stop_rule": "Stop if players exhaust the demo without wanting more complex scenarios or simulation depth exceeds the team's scope.",
+    "overlap": "A persistent systems-management game, not Arcade reflex games or real transport operations.",
+    "scores": {
+      "activation": 3,
+      "recurrence": 3,
+      "independence": 5,
+      "demonstrability": 5,
+      "paid_value": 3,
+      "differentiation": 3,
+      "feasibility": 2
+    },
+    "rationale": "Self-contained and demonstrable, with serious engine/content work and one-time economics.",
+    "disposition": "reserve"
+  },
+  {
+    "family": "play",
+    "origin": "new research proposal",
+    "confidence": "low; competitor evidence only",
+    "id": "E075",
+    "name": "Amateur-radio field log and awards tracker",
+    "user": "Licensed amateur-radio hobbyists organizing their own contacts and event progress.",
+    "first_result": "Log or import a contact set and produce a valid portable exchange file.",
+    "loop": [
+      "Start a field session",
+      "Record contacts",
+      "Review duplicates and award progress",
+      "Return for the next activation"
+    ],
+    "return_trigger": "Radio sessions and events; repeated within an active hobby but seasonal for some users.",
+    "paid_value": "Reliable offline logs, standard exports and maintained award/event templates.",
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 3,
+      "annual_usd": 24,
+      "basis": "Hypothesis; no observed willingness to pay.",
+      "free": "Offline log and basic export",
+      "paid": "Backup, device sync and maintained event templates"
+    },
+    "dependencies": [
+      "ADIF format compatibility",
+      "Public callsign data rights if bundled",
+      "Award rules maintenance"
+    ],
+    "compute": "Local logging and offline indexes; bounded optional sync. No hardware manufacturing or mandatory rig integration.",
+    "content_burden": "Event templates, award rules and regional reference corrections.",
+    "first_scope": [
+      "Offline session logging",
+      "ADIF import/export validation",
+      "Duplicate detection and one award checklist"
+    ],
+    "acquisition": "Demonstrate a field log surviving offline use and exporting cleanly; unverified.",
+    "competitors": [
+      {
+        "name": "HAMRS",
+        "url": "https://hamrs.app/",
+        "accessed": "2026-10-09",
+        "relation": "direct",
+        "facts": "Offers offline radio logging, ADIF import/export, cross-device sync and field-event templates.",
+        "price": "Pricing link present; exact price not verified."
+      }
+    ],
+    "difference": "A deliberately small offline workflow with visible export validation; no claim that established loggers lack reliability.",
+    "risk": "Trusted incumbent logs and free tools make switching risky; users may demand rig integration despite the bounded promise.",
+    "experiment": "Test unaided field logging, independent use on a later activation and paid backup/template purchase.",
+    "stop_rule": "Stop if operators will not entrust real logs or require bespoke hardware support before paying.",
+    "overlap": "Standard hobby contact record, not business CRM, radio hardware or license-exam curriculum.",
+    "scores": {
+      "activation": 3,
+      "recurrence": 4,
+      "independence": 4,
+      "demonstrability": 3,
+      "paid_value": 3,
+      "differentiation": 2,
+      "feasibility": 3
+    },
+    "rationale": "Natural repeated use and standard file boundaries; trust and specialized incumbent coverage limit differentiation.",
+    "disposition": "reserve"
+  }
+]

@@ -1,0 +1,1622 @@
+[
+  {
+    "family": "creative",
+    "origin": "new research proposal; no implementation verified",
+    "confidence": "low; competitor evidence only",
+    "id": "E026",
+    "name": "Guided Observational Drawing",
+    "user": "Adult beginner or returning sketcher buying structured personal practice.",
+    "first_result": "Complete a fifteen-minute still-life drawing with a worked comparison and one chosen improvement.",
+    "loop": [
+      "Choose a skill and available time",
+      "Draw through staged prompts",
+      "Compare proportions and values against a reviewed example",
+      "Repeat a related exercise and revisit the earlier drawing"
+    ],
+    "return_trigger": "Regular sketch practice; sustained weekly use is a hypothesis, not established by competitor availability.",
+    "paid_value": "Progressive original practice paths, licensed references and personal comparisons across sessions.",
+    "dependencies": [
+      "Drawing educator to review exercises",
+      "Owned or licensed still-life reference images; no model-photo scraping"
+    ],
+    "compute": "Curated content and local canvas/image tools; no required AI. Bound saved image size and initial content library.",
+    "content_burden": "High upfront: author demonstrations and honest self-review rubrics; expand only after completed exercises show return.",
+    "first_scope": [
+      "Ten staged line/shape/value exercises",
+      "Paper-photo or canvas capture with manual comparison overlay",
+      "Resumable progress and export"
+    ],
+    "acquisition": "Publish one usable free still-life lesson and a before/after walkthrough in opt-in drawing communities; untested.",
+    "competitors": [
+      {
+        "name": "Line of Action",
+        "url": "https://line-of-action.com/",
+        "accessed": "2026-10-09",
+        "relation": "direct",
+        "facts": "Offers timed drawing practice categories, a fifteen-minute tutorial, reference releases and community challenges.",
+        "price": "not verified"
+      },
+      {
+        "name": "Proko Drawing Basics",
+        "url": "https://www.proko.com/course/drawing-basics",
+        "accessed": "2026-10-09",
+        "relation": "adjacent",
+        "facts": "Structured drawing course uses projects, warmups, demos and critiques; purchase grants continuing access.",
+        "price": "Displayed $159 one-time; dollar currency not explicitly identified on opened page"
+      }
+    ],
+    "difference": "Test short guided practice ending in an explicit self-correction, rather than a large course library; incumbent absence is not asserted.",
+    "risk": "Free references and established teachers may be sufficient; automated artistic grading would be unreliable and unnecessary.",
+    "experiment": "Offer eight adult learners one unaided exercise, observe a self-initiated second session, then offer paid access to the next path.",
+    "stop_rule": "Park if users finish only when personally coached, or returners choose free references over the paid path.",
+    "overlap": "Drawing practice, not Pose Coach photography, general school education, or E027 production illustration.",
+    "scores": {
+      "activation": 4,
+      "recurrence": 4,
+      "independence": 5,
+      "demonstrability": 5,
+      "paid_value": 3,
+      "differentiation": 3,
+      "feasibility": 4
+    },
+    "rationale": "Visible first result and independent practice fit the brief; curriculum labor and established alternatives constrain paid value.",
+    "disposition": "shortlist",
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 8,
+      "annual_usd": null,
+      "basis": "Hypothesis; no observed willingness to pay.",
+      "free": "Complete a fifteen-minute still-life drawing with a worked comparison and one chosen improvement.",
+      "paid": "Progressive original practice paths, licensed references and personal comparisons across sessions."
+    }
+  },
+  {
+    "family": "creative",
+    "origin": "new research proposal; no implementation verified",
+    "confidence": "low; competitor evidence only",
+    "id": "E027",
+    "name": "Vector Illustration Builder",
+    "user": "Hobby illustrators creating original small vector artworks.",
+    "first_result": "Construct and export one original vector illustration from shapes and editable curves.",
+    "loop": [
+      "Choose a blank or guided composition",
+      "Build and recolor editable shapes",
+      "Inspect geometry and export",
+      "Start another illustration using learned construction skills"
+    ],
+    "return_trigger": "Each new illustration or creative project; a recurring creative hobby is plausible but not measured.",
+    "paid_value": "Advanced editable projects, reusable personal components and reliable high-resolution/vector exports.",
+    "dependencies": [
+      "Browser vector geometry engine",
+      "Illustrator-reviewed construction guides"
+    ],
+    "compute": "Local SVG operations; cap document complexity. Cloud sync optional and bounded.",
+    "content_burden": "Moderate original examples and geometry documentation; avoid constant themed-template production.",
+    "first_scope": [
+      "Shape union/subtraction and editable paths",
+      "Layered composition and palette controls",
+      "SVG export and local project save"
+    ],
+    "acquisition": "Show an entire illustration assembled interactively in two minutes; test self-serve trial conversion.",
+    "competitors": [
+      {
+        "name": "Linearity Curve",
+        "url": "https://www.linearity.io/curve/",
+        "accessed": "2026-10-09",
+        "relation": "direct",
+        "facts": "Vector editor includes pen and node tools, shape building, gradients, and SVG/PDF export; native Apple apps support offline work.",
+        "price": "not verified"
+      }
+    ],
+    "difference": "A construction-first beginner workspace is the proposed angle; no claim that Curve lacks beginner tools.",
+    "risk": "A narrower editor may be a worse replacement for capable free or established design tools.",
+    "experiment": "Ask illustrators to complete one original icon set unaided and later return for a second artwork before offering payment.",
+    "stop_rule": "Defer if usable output requires importing the work into another editor for routine corrections.",
+    "overlap": "Creates production vectors; E026 teaches observation, E031 manages repeat tiling, E042 builds fonts.",
+    "scores": {
+      "activation": 4,
+      "recurrence": 3,
+      "independence": 5,
+      "demonstrability": 5,
+      "paid_value": 3,
+      "differentiation": 2,
+      "feasibility": 3
+    },
+    "rationale": "Compelling demos but complex editing ergonomics and broad incumbents weaken differentiation.",
+    "disposition": "reserve",
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 7,
+      "annual_usd": null,
+      "basis": "Hypothesis; no observed willingness to pay.",
+      "free": "Construct and export one original vector illustration from shapes and editable curves.",
+      "paid": "Advanced editable projects, reusable personal components and reliable high-resolution/vector exports."
+    }
+  },
+  {
+    "family": "creative",
+    "origin": "new research proposal; no implementation verified",
+    "confidence": "low; competitor evidence only",
+    "id": "E028",
+    "name": "Frame-by-Frame Animation Notebook",
+    "user": "New animators making short original drawn loops.",
+    "first_result": "Draw and export a short bouncing-object animation using onion-skin guidance.",
+    "loop": [
+      "Choose a motion exercise",
+      "Draw key poses and intermediate frames",
+      "Play and adjust timing",
+      "Animate a more expressive loop"
+    ],
+    "return_trigger": "New animation exercises and original short films; repeat demand unvalidated.",
+    "paid_value": "Guided motion challenges, longer timelines and organized editable animation projects.",
+    "dependencies": [
+      "Local drawing and video/GIF export engine",
+      "Animator-reviewed motion examples"
+    ],
+    "compute": "Local canvas rendering; bound first scope to short low-resolution clips, avoiding server render spend.",
+    "content_burden": "Moderate authored timing exercises and technical export maintenance.",
+    "first_scope": [
+      "Frame drawing with onion skins",
+      "Timing/hold controls and playback",
+      "Editable local projects plus GIF export"
+    ],
+    "acquisition": "Free one-loop tutorial with an exported result demonstrating the product; untested.",
+    "competitors": [
+      {
+        "name": "Procreate Dreams",
+        "url": "https://procreate.com/dreams",
+        "accessed": "2026-10-09",
+        "relation": "direct",
+        "facts": "iPad animation software combines frame drawing, onion skins, multiple tracks and keyframes.",
+        "price": "USD 12.99 one-time; regional pricing may differ"
+      }
+    ],
+    "difference": "Test a browser notebook organized around learning through finished loops, not parity with a professional editor.",
+    "risk": "Procreate Dreams offers substantial animation functionality for USD 12.99 once; subscription positioning is weak.",
+    "experiment": "Observe one unaided loop and a second original loop, then test the one-time editor purchase.",
+    "stop_rule": "Park if users need full painting/video tooling before they value the focused notebook.",
+    "overlap": "Drawn motion differs from E029 photographing physical scenes and E030 constrained game sprite assets.",
+    "scores": {
+      "activation": 4,
+      "recurrence": 3,
+      "independence": 5,
+      "demonstrability": 5,
+      "paid_value": 2,
+      "differentiation": 2,
+      "feasibility": 3
+    },
+    "rationale": "Self-contained and visible, but one-time incumbent pricing and rendering scope limit an MRR contribution.",
+    "disposition": "reserve",
+    "pricing": {
+      "model": "one-time",
+      "monthly_usd": null,
+      "annual_usd": null,
+      "basis": "Hypothesis: USD 19 one-time; zero subscription MRR.",
+      "free": "Draw and export a short bouncing-object animation using onion-skin guidance.",
+      "paid": "Guided motion challenges, longer timelines and organized editable animation projects."
+    }
+  },
+  {
+    "family": "creative",
+    "origin": "new research proposal; no implementation verified",
+    "confidence": "low; competitor evidence only",
+    "id": "E029",
+    "name": "Stop-Motion Story Studio",
+    "user": "Families and hobby filmmakers animating their own physical objects with a phone.",
+    "first_result": "Capture and play a short stop-motion scene with a beginning, change and ending.",
+    "loop": [
+      "Plan three story beats",
+      "Capture aligned frames with a guide",
+      "Preview motion and fix gaps",
+      "Create another scene or continue a film"
+    ],
+    "return_trigger": "Weekend creative projects and developing a film; not assumed daily.",
+    "paid_value": "Reusable shot plans, advanced capture controls and finished-film exports.",
+    "dependencies": [
+      "Device camera permissions",
+      "User supplies objects and stable phone placement"
+    ],
+    "compute": "On-device frame storage and encoding; cap clip length and resolution; no required cloud media.",
+    "content_burden": "Original shot-planning lessons; substantial camera/device QA.",
+    "first_scope": [
+      "Three-beat storyboard",
+      "Onion-skin camera capture and frame deletion",
+      "Playback, soundtrack import and local movie export"
+    ],
+    "acquisition": "Demonstrate an ordinary household object becoming a ten-second story; untested creative-family distribution.",
+    "competitors": [
+      {
+        "name": "Stop Motion Studio",
+        "url": "https://www.stopmotionstudio.com/",
+        "accessed": "2026-10-09",
+        "relation": "direct",
+        "facts": "Official product page presents stop-motion animation software for mobile and desktop.",
+        "price": "not verified"
+      }
+    ],
+    "difference": "Storyboard-guided completion is the proposed emphasis, without asserting the incumbent lacks it.",
+    "risk": "Mature stop-motion apps already solve capture; physical setup can dominate the experience.",
+    "experiment": "Observe a family make a scene unaided and voluntarily create a second one before offering the paid unlock.",
+    "stop_rule": "Defer if camera setup or manual support prevents an independent first movie.",
+    "overlap": "Not Pose Coach selfie direction; camera records object animation, not personal photography.",
+    "scores": {
+      "activation": 3,
+      "recurrence": 2,
+      "independence": 4,
+      "demonstrability": 5,
+      "paid_value": 2,
+      "differentiation": 2,
+      "feasibility": 3
+    },
+    "rationale": "Strong demo but episodic use and physical capture friction favor a one-time product.",
+    "disposition": "defer",
+    "pricing": {
+      "model": "one-time",
+      "monthly_usd": null,
+      "annual_usd": null,
+      "basis": "Hypothesis: USD 15 one-time; zero subscription MRR.",
+      "free": "Capture and play a short stop-motion scene with a beginning, change and ending.",
+      "paid": "Reusable shot plans, advanced capture controls and finished-film exports."
+    }
+  },
+  {
+    "family": "creative",
+    "origin": "new research proposal; no implementation verified",
+    "confidence": "low; competitor evidence only",
+    "id": "E030",
+    "name": "Pixel Sprite Animation Studio",
+    "user": "Indie game hobbyists designing their own animated characters and objects.",
+    "first_result": "Create a small sprite with idle and walking states and export a usable sprite sheet.",
+    "loop": [
+      "Choose dimensions and palette",
+      "Draw states and frames",
+      "Preview animation at real game scale",
+      "Add states or create the next asset"
+    ],
+    "return_trigger": "Each new game asset and iteration; project-based recurrence.",
+    "paid_value": "Animation-state organization, palette consistency, reusable components and engine-neutral exports.",
+    "dependencies": [
+      "Local raster editor and atlas packer",
+      "Game-art examples authored or licensed"
+    ],
+    "compute": "Local bounded pixel buffers and PNG/JSON export; no AI generation or hosted rendering.",
+    "content_burden": "Small tutorial set; interoperability and keyboard/stylus ergonomics are the maintenance burden.",
+    "first_scope": [
+      "Palette-constrained drawing",
+      "Named animation states with onion skins",
+      "Sprite-sheet and state metadata export"
+    ],
+    "acquisition": "Publish a free asset-building challenge for game jams, keeping export immediately usable; untested.",
+    "competitors": [
+      {
+        "name": "Aseprite",
+        "url": "https://www.aseprite.org/",
+        "accessed": "2026-10-09",
+        "relation": "direct",
+        "facts": "Pixel-art editor supports frame animation, onion skins, palette control and PNG/JSON sprite-sheet exports.",
+        "price": "not verified"
+      }
+    ],
+    "difference": "A state-first guided asset workflow is a hypothesis, not a claim of missing Aseprite features.",
+    "risk": "Aseprite already provides mature animation and sprite export; an easier first session may not justify switching.",
+    "experiment": "Have game-jam artists finish an original sprite, integrate its export and return for another asset before a purchase test.",
+    "stop_rule": "Park if outputs require manual atlas repair or users consistently finish the same job faster in Aseprite.",
+    "overlap": "Authoring game assets, not playing or collecting games; distinct output constraints from E028 film animation.",
+    "scores": {
+      "activation": 4,
+      "recurrence": 3,
+      "independence": 5,
+      "demonstrability": 5,
+      "paid_value": 3,
+      "differentiation": 2,
+      "feasibility": 3
+    },
+    "rationale": "Clear independent result and repeat projects, tempered by mature competitor and one-time purchase economics.",
+    "disposition": "reserve",
+    "pricing": {
+      "model": "one-time",
+      "monthly_usd": null,
+      "annual_usd": null,
+      "basis": "Hypothesis: USD 25 one-time; zero subscription MRR.",
+      "free": "Create a small sprite with idle and walking states and export a usable sprite sheet.",
+      "paid": "Animation-state organization, palette consistency, reusable components and engine-neutral exports."
+    }
+  },
+  {
+    "family": "creative",
+    "origin": "new research proposal; no implementation verified",
+    "confidence": "low; competitor evidence only",
+    "id": "E031",
+    "name": "Seamless Surface-Pattern Studio",
+    "user": "Independent illustrators and repeat-pattern hobbyists using their own artwork.",
+    "first_result": "Create a seamless tile and two matching colorways with a print-scale preview.",
+    "loop": [
+      "Bring one owned motif or draw it",
+      "Arrange the repeat and adjust colors",
+      "Inspect seams and scale",
+      "Extend a coordinated pattern collection"
+    ],
+    "return_trigger": "New collections, fabric projects and original motif ideas; repeat commercial use remains a hypothesis.",
+    "paid_value": "Reusable collections, editable colorways, exact-scale exports and version history.",
+    "dependencies": [
+      "User-owned motifs",
+      "Vector/raster tiling engine",
+      "Reviewed color and print-scale examples"
+    ],
+    "compute": "Local geometry and preview generation; cap canvas/export size, with optional bounded cloud project sync.",
+    "content_burden": "Low-to-moderate original demonstrations; no need to procure endless themes or manufacture products.",
+    "first_scope": [
+      "Repeat-layout editing with seam inspection",
+      "Linked colorway variations",
+      "Scale-aware PNG/SVG exports and project persistence"
+    ],
+    "acquisition": "Show one motif becoming a coordinated collection through a free interactive example; untested.",
+    "competitors": [
+      {
+        "name": "Repper",
+        "url": "https://repper.app/en/",
+        "accessed": "2026-10-09",
+        "relation": "direct",
+        "facts": "Browser pattern creation supports image/vector inputs, tilings, collections, previews and commercial exports.",
+        "price": "Monthly and yearly membership confirmed at https://repper.app/en/pricing/; numerical price did not render, not verified"
+      },
+      {
+        "name": "Patterninja",
+        "url": "https://patterninja.com/",
+        "accessed": "2026-10-09",
+        "relation": "direct",
+        "facts": "Combines supplied or library images into repeating patterns downloadable at high resolution for print or web.",
+        "price": "not verified"
+      }
+    ],
+    "difference": "Test constraint-led collection building with visible seam and scale checks; Repper already offers collections, so superiority must be demonstrated.",
+    "risk": "Repper and Patterninja already provide much of the experience; a subscription needs measurable authoring advantage.",
+    "experiment": "Let pattern makers produce one collection unaided, return with different motifs, and choose between the proposed paid offer and existing tools.",
+    "stop_rule": "Park if creators cannot identify a repeat task made easier than Repper or refuse payment after a second collection.",
+    "overlap": "Distinct from E027 generic vector drawing and E034 counted-stitch chart production; no fabric manufacturing.",
+    "scores": {
+      "activation": 5,
+      "recurrence": 3,
+      "independence": 5,
+      "demonstrability": 5,
+      "paid_value": 4,
+      "differentiation": 2,
+      "feasibility": 4
+    },
+    "rationale": "Immediate visual output and local computation help; direct competitors and project-based demand constrain the opportunity.",
+    "disposition": "shortlist",
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 9,
+      "annual_usd": null,
+      "basis": "Hypothesis; no observed willingness to pay.",
+      "free": "Create a seamless tile and two matching colorways with a print-scale preview.",
+      "paid": "Reusable collections, editable colorways, exact-scale exports and version history."
+    }
+  },
+  {
+    "family": "creative",
+    "origin": "existing repository workbench/ventures/ventures.pbn-studio; client-side v0.1 source exists, browser/print acceptance unverified",
+    "confidence": "low; competitor evidence only",
+    "id": "E032",
+    "name": "Photo-to-Paint Kit Studio",
+    "user": "Hobby painters making personal photo-based numbered painting kits.",
+    "first_result": "Convert one photo into a numbered template, palette and printable page.",
+    "loop": [
+      "Upload a photo",
+      "Adjust colors and region size",
+      "Inspect legibility and print a kit",
+      "Return for another meaningful photo or gift project"
+    ],
+    "return_trigger": "New painting or gift project; episodic purchase is more credible than automatic monthly use.",
+    "paid_value": "High-quality printable kits with editable regions and paint-quantity guidance.",
+    "dependencies": [
+      "User-owned photo",
+      "Segmentation algorithm",
+      "Physical print and painter acceptance"
+    ],
+    "compute": "Local worker-based image processing; existing implementation accepts 8–36 colors. Bound pixels and exports; no AI required.",
+    "content_burden": "Low content volume but substantial segmentation, line and numbering quality work.",
+    "first_scope": [
+      "Readable region simplification",
+      "Numbered template and palette preview",
+      "Print-scale PDF export with sample-page check"
+    ],
+    "acquisition": "A photo-to-finished-template demonstration with a printable free sample; no physical kit sales.",
+    "competitors": [
+      {
+        "name": "Mimi Panda",
+        "url": "https://mimi-panda.com/paint-by-numbers/",
+        "accessed": "2026-10-09",
+        "relation": "adjacent",
+        "facts": "Sells downloadable paint-by-number kits with numbered layers and a walkthrough; custom-photo kits are offered as a manual service.",
+        "price": "Multiple digital-kit prices shown; exact comparable custom-photo-generator price not verified"
+      }
+    ],
+    "difference": "Immediate on-device personal-photo customization is proposed; the opened competitor offers digital kits and manual custom work.",
+    "risk": "A technically generated chart may be frustrating to paint; per-kit sales do not produce subscription MRR.",
+    "experiment": "Users create a kit unaided, print and paint a section, then independently buy a second kit.",
+    "stop_rule": "Park if printed regions are too small or users cannot finish a sample without hand-editing.",
+    "overlap": "Consolidates paint-by-numbers modes in existing PBN Studio; do not count pet/family themes as products.",
+    "scores": {
+      "activation": 5,
+      "recurrence": 2,
+      "independence": 5,
+      "demonstrability": 5,
+      "paid_value": 3,
+      "differentiation": 2,
+      "feasibility": 4
+    },
+    "rationale": "Existing source shortens validation but earns no demand bonus; the natural repeat occasion is episodic.",
+    "disposition": "reserve",
+    "pricing": {
+      "model": "one-time",
+      "monthly_usd": null,
+      "annual_usd": null,
+      "basis": "Hypothesis: USD 9 one-time; zero subscription MRR.",
+      "free": "Convert one photo into a numbered template, palette and printable page.",
+      "paid": "High-quality printable kits with editable regions and paint-quantity guidance."
+    }
+  },
+  {
+    "family": "creative",
+    "origin": "new research proposal; no implementation verified",
+    "confidence": "low; competitor evidence only",
+    "id": "E033",
+    "name": "Embroidery Digitizing Studio",
+    "user": "Home machine-embroidery owners authoring stitchable designs from their own vector artwork.",
+    "first_result": "Turn a simple two-color motif into a simulated stitch plan and machine file.",
+    "loop": [
+      "Import or draw a bounded motif",
+      "Assign stitch type and direction",
+      "Inspect travel, density and sequence",
+      "Stitch a sample and revise the design"
+    ],
+    "return_trigger": "Each embroidery design and fabric/stitch refinement; project-based recurring need.",
+    "paid_value": "Repeatable stitch planning, machine-format output and reusable digitizing settings.",
+    "dependencies": [
+      "Experienced embroidery digitizer",
+      "User-owned compatible embroidery machine for actual acceptance",
+      "Machine-format and fabric-specific testing"
+    ],
+    "compute": "Local path planning and simulation; bounded shapes and stitch counts. No remote equipment control.",
+    "content_burden": "High specialist burden: density, underlay, pull compensation and sample stitch-outs cannot be inferred from SVG appearance.",
+    "first_scope": [
+      "Running/fill stitches for simple shapes",
+      "Sequence/travel preview and bounded machine export",
+      "Save calibrated presets with explicit fabric assumptions"
+    ],
+    "acquisition": "Show a simple motif through real stitch-out with settings exposed; untested enthusiast channel.",
+    "competitors": [
+      {
+        "name": "Ink/Stitch",
+        "url": "https://inkstitch.org/",
+        "accessed": "2026-10-09",
+        "relation": "direct",
+        "facts": "Free open-source embroidery digitizing platform based on Inkscape, with stitch types, lettering, path optimization and machine-format output.",
+        "price": "Free, open-source software"
+      }
+    ],
+    "difference": "A constrained guided first stitch-out is the proposed angle; not a claim that free Ink/Stitch lacks guidance.",
+    "risk": "Incorrect digitizing wastes material; achieving predictable physical results is much harder than generating a preview.",
+    "experiment": "Observe experienced hobbyists author and stitch one motif without help, revise independently and consider paying for subsequent projects.",
+    "stop_rule": "Defer if common fabrics require bespoke digitizer intervention or free Ink/Stitch gives equivalent outcomes.",
+    "overlap": "Machine stitch-path sequencing, not E034 hand-cross-stitch grids, E035 garment math or E036 sewn pattern geometry.",
+    "scores": {
+      "activation": 2,
+      "recurrence": 3,
+      "independence": 3,
+      "demonstrability": 4,
+      "paid_value": 4,
+      "differentiation": 2,
+      "feasibility": 1
+    },
+    "rationale": "A distinct authoring job, but physical calibration and free mature software make near-term execution unfavorable.",
+    "disposition": "defer",
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 15,
+      "annual_usd": null,
+      "basis": "Hypothesis; no observed willingness to pay.",
+      "free": "Turn a simple two-color motif into a simulated stitch plan and machine file.",
+      "paid": "Repeatable stitch planning, machine-format output and reusable digitizing settings."
+    }
+  },
+  {
+    "family": "creative",
+    "origin": "new research proposal; no implementation verified",
+    "confidence": "low; competitor evidence only",
+    "id": "E034",
+    "name": "Cross-Stitch Chart Studio",
+    "user": "Hand-stitchers designing counted-thread patterns from photos or their own pixel motifs.",
+    "first_result": "Produce a chart with symbol/color mapping, thread counts and a small stitched test section.",
+    "loop": [
+      "Set fabric count and finished size",
+      "Draw or simplify a motif into counted stitches",
+      "Check readability and thread quantities",
+      "Revise or design the next chart"
+    ],
+    "return_trigger": "New stitch projects; recurring for designers, often occasional for personal stitchers.",
+    "paid_value": "Editable chart versions, controlled color reduction, supplies planning and export layouts.",
+    "dependencies": [
+      "Permitted thread-color reference data",
+      "Stitcher review of chart readability"
+    ],
+    "compute": "Local grid editing and quantization; bound grid size. No machine control or AI.",
+    "content_burden": "Thread palette accuracy and chart-layout maintenance; original patterns optional.",
+    "first_scope": [
+      "Grid and backstitch editor",
+      "Symbol legend and thread-use estimate with assumptions",
+      "Print chart export and local project save"
+    ],
+    "acquisition": "Free small-chart challenge demonstrating symbol legibility, then paid advanced export trial; untested.",
+    "competitors": [
+      {
+        "name": "FlossCross",
+        "url": "https://flosscross.com/",
+        "accessed": "2026-10-09",
+        "relation": "direct",
+        "facts": "Browser cross-stitch editor imports photos, supports DMC colors and backstitch, and exports PDF; stores patterns locally.",
+        "price": "Free without registration"
+      }
+    ],
+    "difference": "Test fewer unreadable isolated stitches and transparent supplies estimates; no unverified feature-gap claim.",
+    "risk": "FlossCross already gives a capable free local editor and PDF export, weakening payment.",
+    "experiment": "Let stitchers design and stitch a sample, return for another chart and compare the purchase with FlossCross.",
+    "stop_rule": "Park if the paid output offers no observable improvement or thread estimates repeatedly need manual correction.",
+    "overlap": "Counted hand-stitch grid authoring differs from machine embroidery and graded knitwear; no finished craft fulfillment.",
+    "scores": {
+      "activation": 4,
+      "recurrence": 2,
+      "independence": 5,
+      "demonstrability": 4,
+      "paid_value": 2,
+      "differentiation": 2,
+      "feasibility": 3
+    },
+    "rationale": "Complete local result is feasible, but direct free substitutes and long craft cycles limit recurring value.",
+    "disposition": "defer",
+    "pricing": {
+      "model": "one-time",
+      "monthly_usd": null,
+      "annual_usd": null,
+      "basis": "Hypothesis: USD 19 one-time; zero subscription MRR.",
+      "free": "Produce a chart with symbol/color mapping, thread counts and a small stitched test section.",
+      "paid": "Editable chart versions, controlled color reduction, supplies planning and export layouts."
+    }
+  },
+  {
+    "family": "creative",
+    "origin": "existing idea HD-D1 in workbench/ventures/10x-ventures/ideation-products.md:579; no implementation verified",
+    "confidence": "low; competitor evidence only",
+    "id": "E035",
+    "name": "Knitwear Pattern Grading",
+    "user": "Independent knitwear designers grading an original garment design across sizes.",
+    "first_result": "Turn a measured swatch and a simple garment specification into internally balanced row/stitch instructions.",
+    "loop": [
+      "Enter gauge and construction measurements",
+      "Set shaping constraints for several sizes",
+      "Inspect stitch conservation and dimensions",
+      "Revise after a swatch or create the next pattern"
+    ],
+    "return_trigger": "Each new design, gauge change and pattern revision; not a generic daily habit.",
+    "paid_value": "Auditable grading calculations, size-by-size instructions and reusable construction rules.",
+    "dependencies": [
+      "Experienced knitwear technical editor",
+      "User-supplied gauge and size specification",
+      "Real swatch/garment checks"
+    ],
+    "compute": "Local deterministic constraint arithmetic; explicit supported construction families, no AI-generated unverified instructions.",
+    "content_burden": "High: construction mathematics, abbreviation conventions and technically edited examples.",
+    "first_scope": [
+      "One defined sweater construction",
+      "Size/gauge calculations with visible conservation checks",
+      "Editable written instructions and PDF export"
+    ],
+    "acquisition": "Publish a worked grading example where every increase and decrease balances; untested designer channel.",
+    "competitors": [
+      {
+        "name": "Stitch Fiddle",
+        "url": "https://www.stitchfiddle.com/en",
+        "accessed": "2026-10-09",
+        "relation": "adjacent",
+        "facts": "Offers pattern-chart creation for knitting and crochet, among other crafts; grading capability was not established.",
+        "price": "Premium page opened at https://www.stitchfiddle.com/en/premium/pricing; amount did not render, not verified"
+      }
+    ],
+    "difference": "Grading garment dimensions into balanced instructions differs from chart drawing; opened competitor is adjacent, not evidence this gap is empty.",
+    "risk": "Designer-specific constructions may force bespoke support, recreating the workflow-discovery burden the user rejects.",
+    "experiment": "Designers independently grade the supported construction, verify with a technical editor and pay only after completing another design.",
+    "stop_rule": "Defer if most real patterns fall outside the supported construction or require manual mathematical repair.",
+    "overlap": "Garment construction and size arithmetic, not E034 color-chart editing or E036 cut-and-sew outlines.",
+    "scores": {
+      "activation": 3,
+      "recurrence": 3,
+      "independence": 4,
+      "demonstrability": 4,
+      "paid_value": 4,
+      "differentiation": 3,
+      "feasibility": 2
+    },
+    "rationale": "Concrete paid authoring hypothesis but only adjacent market evidence and significant specialist correctness burden.",
+    "disposition": "reserve",
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 15,
+      "annual_usd": null,
+      "basis": "Hypothesis; no observed willingness to pay.",
+      "free": "Turn a measured swatch and a simple garment specification into internally balanced row/stitch instructions.",
+      "paid": "Auditable grading calculations, size-by-size instructions and reusable construction rules."
+    }
+  },
+  {
+    "family": "creative",
+    "origin": "new research proposal; no implementation verified",
+    "confidence": "low; competitor evidence only",
+    "id": "E036",
+    "name": "Sewing Pattern Fit Studio",
+    "user": "Home garment sewer paying to draft repeatable patterns from their own measurements.",
+    "first_result": "Generate a dimensioned simple skirt pattern and print a scale-check page.",
+    "loop": [
+      "Enter measurements and select one construction",
+      "Adjust ease and inspect pattern pieces",
+      "Print, sew a test garment and record fit observations",
+      "Revise the same block for the next garment"
+    ],
+    "return_trigger": "Each garment and fit revision; activity is project-based, with subscription recurrence unproven.",
+    "paid_value": "A reusable measurement block and tested pattern variations with reliable tiled print export.",
+    "dependencies": [
+      "Garment pattern specialist",
+      "Accurate user measurements and printer; sewing materials needed to validate fit"
+    ],
+    "compute": "Local geometric drafting and PDF generation; no mandatory AI or account integration.",
+    "content_burden": "High technical burden: test size ranges, ease rules, seam allowances and print tolerances against sewn samples.",
+    "first_scope": [
+      "One skirt block with explicit supported measurement ranges",
+      "Ease and length variation",
+      "Tiled PDF with calibration and fit notes"
+    ],
+    "acquisition": "Demonstrate one pattern-to-toile fit iteration in home-sewing communities with permission; untested.",
+    "competitors": [
+      {
+        "name": "FreeSewing",
+        "url": "https://freesewing.eu/",
+        "accessed": "2026-10-09",
+        "relation": "direct",
+        "facts": "Open-source bespoke sewing-pattern software guides users through design selection, measurements and customization.",
+        "price": "Free; project states it does not sell anything"
+      }
+    ],
+    "difference": "A deliberately narrow fit-revision workflow with saved observations; free alternatives may already satisfy it.",
+    "risk": "A plausible-looking PDF can produce an unusable garment; expert validation and support can dominate development.",
+    "experiment": "Have experienced home sewers independently generate and sew the same simple block, then pay once for useful variations.",
+    "stop_rule": "Defer if fit depends on bespoke patternmaker intervention or errors persist across supported sizes.",
+    "overlap": "Unlike E035 stitch-count grading, this drafts cut fabric geometry; unlike E033 it does not control embroidery stitches.",
+    "scores": {
+      "activation": 3,
+      "recurrence": 2,
+      "independence": 3,
+      "demonstrability": 4,
+      "paid_value": 3,
+      "differentiation": 2,
+      "feasibility": 2
+    },
+    "rationale": "Self-serve software exists, but physical fit verification slows first realized value and expert rules constrain feasibility.",
+    "disposition": "defer",
+    "pricing": {
+      "model": "one-time",
+      "monthly_usd": null,
+      "annual_usd": null,
+      "basis": "Hypothesis: USD 29 one-time; zero subscription MRR.",
+      "free": "Generate a dimensioned simple skirt pattern and print a scale-check page.",
+      "paid": "A reusable measurement block and tested pattern variations with reliable tiled print export."
+    }
+  },
+  {
+    "family": "creative",
+    "origin": "new research proposal; no implementation verified",
+    "confidence": "low; competitor evidence only",
+    "id": "E037",
+    "name": "Papercraft Model Studio",
+    "user": "Paper-model maker who wants a printable construction from simple designed shapes.",
+    "first_result": "Create a low-poly model and export numbered cut, fold and glue sheets.",
+    "loop": [
+      "Choose a supported base shape or import a small mesh",
+      "Adjust panels, tabs and scale",
+      "Build a paper prototype and note failures",
+      "Revise the next model"
+    ],
+    "return_trigger": "New models or revised prototypes; intermittent hobby projects favor one-time purchase.",
+    "paid_value": "Reliable unfolding, tab placement, printable layouts and reusable model files.",
+    "dependencies": [
+      "User paper, printer and cutting tools",
+      "Geometry validation for nonmanifold or overlapping meshes"
+    ],
+    "compute": "Local mesh unfolding and page packing, with strict mesh-complexity limits.",
+    "content_burden": "Own a small tested example library and clear assembly instructions; no weekly content treadmill needed.",
+    "first_scope": [
+      "Simple low-poly mesh input and basic shape editing",
+      "Manual seam selection with overlap warnings",
+      "Numbered PDF parts and assembly preview"
+    ],
+    "acquisition": "Offer one attractive printable model with an editable source and short assembly video; untested.",
+    "competitors": [
+      {
+        "name": "Pepakura Designer",
+        "url": "https://pepakura.tamasoft.co.jp/pepakura_designer/index.html",
+        "accessed": "2026-10-09",
+        "relation": "direct",
+        "facts": "Turns supplied three-dimensional models into unfolded paper patterns for cutting and assembly; full features require a license key.",
+        "price": "not verified"
+      }
+    ],
+    "difference": "Test a browser-based small-model authoring flow with explicit beginner constraints; portability alone may be weak differentiation.",
+    "risk": "Pepakura already solves the core job, while geometric edge cases are costly and demand is episodic.",
+    "experiment": "Let paper crafters create and assemble one unaided custom model, then offer a paid export/editor unlock for a second.",
+    "stop_rule": "Park if exports require manual specialist correction or buyers only want ready-made free models.",
+    "overlap": "Produces folded paper solids; E038 produces rigid laser-cut assemblies, while pattern E031 concerns decorative surfaces.",
+    "scores": {
+      "activation": 3,
+      "recurrence": 2,
+      "independence": 4,
+      "demonstrability": 5,
+      "paid_value": 3,
+      "differentiation": 2,
+      "feasibility": 2
+    },
+    "rationale": "Visible artifact and local operation fit, but physical verification and mature alternatives limit priority.",
+    "disposition": "reserve",
+    "pricing": {
+      "model": "one-time",
+      "monthly_usd": null,
+      "annual_usd": null,
+      "basis": "Hypothesis: USD 25 one-time; zero subscription MRR.",
+      "free": "Create a low-poly model and export numbered cut, fold and glue sheets.",
+      "paid": "Reliable unfolding, tab placement, printable layouts and reusable model files."
+    }
+  },
+  {
+    "family": "creative",
+    "origin": "new research proposal; no implementation verified",
+    "confidence": "low; competitor evidence only",
+    "id": "E038",
+    "name": "Laser-Cut Construction Designer",
+    "user": "Hobby maker with laser-cutter access who pays for accurate parametric construction files.",
+    "first_result": "Generate an adjustable organizer with material thickness, kerf and a calibration piece.",
+    "loop": [
+      "Enter material and machine calibration",
+      "Customize dimensions and assembly joints",
+      "Cut a test piece and preview assembly",
+      "Reuse calibrated settings for another construction"
+    ],
+    "return_trigger": "New fabrication projects; regular makers may recur but casual use is episodic.",
+    "paid_value": "Validated joints, reusable materials and reliable SVG/PDF assembly output.",
+    "dependencies": [
+      "Laser cutter access and suitable materials",
+      "Mechanical design review and calibration; no machine integration required"
+    ],
+    "compute": "Local parametric geometry and export; bounds on dimensions and cut-file complexity.",
+    "content_burden": "Review a small supported construction family and document material/kerf limits; do not claim universal structural reliability.",
+    "first_scope": [
+      "One configurable organizer with dividers",
+      "Kerf calibration and dimension checks",
+      "SVG cut layout plus numbered assembly guide"
+    ],
+    "acquisition": "Show a generated-file-to-assembled-object walkthrough to makerspace hobbyists; untested.",
+    "competitors": [
+      {
+        "name": "Boxes.py",
+        "url": "https://boxes.hackerspace-bamberg.de/",
+        "accessed": "2026-10-09",
+        "relation": "direct",
+        "facts": "Open-source parameterized laser-cut design generators include boxes, joints, hinges, gears and dividers.",
+        "price": "Open-source generator; no purchase amount shown"
+      }
+    ],
+    "difference": "Test understandable assembly preview and failure checks for one construction family; Boxes.py already provides extensive generators.",
+    "risk": "Free Boxes.py may be enough, and fit issues can turn a software purchase into machine/material support.",
+    "experiment": "Observe makers independently calibrate, export and assemble; charge once only if the next custom object saves meaningful work.",
+    "stop_rule": "Park if makers use the free file once, cannot assemble reliably, or require machine-specific services.",
+    "overlap": "Rigid slotted/jointed fabrication, distinct from E037 folding nets and E036 garment fit.",
+    "scores": {
+      "activation": 3,
+      "recurrence": 2,
+      "independence": 3,
+      "demonstrability": 5,
+      "paid_value": 3,
+      "differentiation": 2,
+      "feasibility": 3
+    },
+    "rationale": "Clear first artifact, with hardware dependence and powerful free competition reducing appeal for this brief.",
+    "disposition": "defer",
+    "pricing": {
+      "model": "one-time",
+      "monthly_usd": null,
+      "annual_usd": null,
+      "basis": "Hypothesis: USD 29 one-time; zero subscription MRR.",
+      "free": "Generate an adjustable organizer with material thickness, kerf and a calibration piece.",
+      "paid": "Validated joints, reusable materials and reliable SVG/PDF assembly output."
+    }
+  },
+  {
+    "family": "creative",
+    "origin": "new research proposal; no implementation verified",
+    "confidence": "low; competitor evidence only",
+    "id": "E039",
+    "name": "Comic Storyboard Studio",
+    "user": "Independent comic creator planning sequential visual stories before final illustration.",
+    "first_result": "Turn an original scene into a six-panel rough storyboard with readable dialogue and pacing.",
+    "loop": [
+      "Describe scene beats",
+      "Sketch panels and place speech balloons",
+      "Read in sequence and revise pacing",
+      "Continue the next scene with saved characters and page rules"
+    ],
+    "return_trigger": "Each scene/page of an ongoing comic project; completion may end use.",
+    "paid_value": "Reusable cast references, page continuity and clean editable storyboards across a series.",
+    "dependencies": [
+      "User-authored drawings and story",
+      "Comic editor to review first-use pacing guidance"
+    ],
+    "compute": "Local panel drawing, layout and PDF export; no generated copyrighted characters or mandatory image inference.",
+    "content_burden": "Small reviewed set of pacing exercises and layouts; user supplies the narrative.",
+    "first_scope": [
+      "Six-panel scene editor with sketch tools",
+      "Dialogue/balloon layout and sequential reading preview",
+      "Reusable cast references and PDF export"
+    ],
+    "acquisition": "Publish an original rough-to-readable scene walkthrough in independent comic communities; untested.",
+    "competitors": [
+      {
+        "name": "Storyboarder",
+        "url": "https://wonderunit.com/storyboarder/",
+        "accessed": "2026-10-09",
+        "relation": "adjacent",
+        "facts": "Free open-source storyboard tool combines drawing, ordering panels, dialogue, timing and animatic/PDF exports.",
+        "price": "Free download"
+      }
+    ],
+    "difference": "Test a comic-specific balloon and page-reading workflow; Storyboarder is an adjacent film/animatic alternative.",
+    "risk": "Creators may prefer existing drawing apps; a restricted editor can interrupt their established workflow rather than help.",
+    "experiment": "Have aspiring comic authors finish one unaided scene, begin a second independently, then test payment for a multi-scene project.",
+    "stop_rule": "Park if users must redraw everything elsewhere or only use free layout templates.",
+    "overlap": "Sequential panel authoring; E040 prose drafting and E041 interactive narrative use different editing and reading interactions.",
+    "scores": {
+      "activation": 4,
+      "recurrence": 3,
+      "independence": 5,
+      "demonstrability": 5,
+      "paid_value": 3,
+      "differentiation": 2,
+      "feasibility": 3
+    },
+    "rationale": "Strong visible first result, but drawing-editor scope and project-limited subscriptions temper the opportunity.",
+    "disposition": "reserve",
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 8,
+      "annual_usd": null,
+      "basis": "Hypothesis; no observed willingness to pay.",
+      "free": "Turn an original scene into a six-panel rough storyboard with readable dialogue and pacing.",
+      "paid": "Reusable cast references, page continuity and clean editable storyboards across a series."
+    }
+  },
+  {
+    "family": "creative",
+    "origin": "new research proposal; no implementation verified",
+    "confidence": "low; competitor evidence only",
+    "id": "E040",
+    "name": "Fiction Scene and Continuity Studio",
+    "user": "Hobby or independent fiction writer paying to finish an original long-form project.",
+    "first_result": "Draft one complete scene linked to a character goal and continuity note.",
+    "loop": [
+      "Choose the next scene and its purpose",
+      "Draft in a focused editor",
+      "Record what changed in character, place and timeline",
+      "Resume the next scene with only relevant prior facts"
+    ],
+    "return_trigger": "Writing sessions across an ongoing manuscript; a new project is a separate retention question.",
+    "paid_value": "A reliable scene-linked story bible, version history and resumable drafting without scattered documents.",
+    "dependencies": [
+      "User-owned manuscript",
+      "Fiction editor to review lightweight planning prompts"
+    ],
+    "compute": "Local editor and deterministic links/search, bounded cloud backups if paid; no mandatory AI token cost.",
+    "content_burden": "Modest reusable planning prompts and original examples; user authors the content.",
+    "first_scope": [
+      "Scene list with focused prose editor",
+      "Explicit character/place/timeline fact links",
+      "Version history and portable manuscript export"
+    ],
+    "acquisition": "Give writers a usable free one-scene tool and a public original scene-to-continuity demonstration; untested.",
+    "competitors": [
+      {
+        "name": "Plottr",
+        "url": "https://plottr.com/",
+        "accessed": "2026-10-09",
+        "relation": "direct",
+        "facts": "Visual story-planning software for Windows, Mac and web; emphasizes outlining and spotting plot holes without AI.",
+        "price": "Pricing page https://plottr.com/pricing/ opened but numeric amounts not rendered; not verified"
+      },
+      {
+        "name": "Novlr",
+        "url": "https://www.novlr.org/",
+        "accessed": "2026-10-09",
+        "relation": "direct",
+        "facts": "Creative-writing workspace provides notes, a plot grid, focus mode, writing sprints and paid version history.",
+        "price": "Starter displayed $8/month and Studio $16/month, both billed yearly; currency and monthly checkout not verified"
+      }
+    ],
+    "difference": "Test a constrained next-scene workspace that exposes only relevant continuity; no claim that established apps lack these abilities.",
+    "risk": "Novlr, Plottr and ordinary documents already cover much of the job; switching a manuscript requires trust and the distinction may be too small.",
+    "experiment": "Writers complete one scene without coaching, voluntarily draft another on a later day, import or start a real project, then pay for continued history/organization.",
+    "stop_rule": "Consolidate or park if writers value only generic editing or prompts, export immediately, or returning users reject the paid boundary.",
+    "overlap": "Prose production rather than spoken rehearsal, transcription, E039 comic panels or E041 branching-program execution.",
+    "scores": {
+      "activation": 4,
+      "recurrence": 4,
+      "independence": 5,
+      "demonstrability": 4,
+      "paid_value": 4,
+      "differentiation": 3,
+      "feasibility": 4
+    },
+    "rationale": "Long projects supply credible recurring work and local processing keeps costs bounded; competitive overlap remains the central unresolved risk.",
+    "disposition": "shortlist",
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 9,
+      "annual_usd": null,
+      "basis": "Hypothesis; no observed willingness to pay.",
+      "free": "Draft one complete scene linked to a character goal and continuity note.",
+      "paid": "A reliable scene-linked story bible, version history and resumable drafting without scattered documents."
+    }
+  },
+  {
+    "family": "creative",
+    "origin": "new research proposal; no implementation verified",
+    "confidence": "low; competitor evidence only",
+    "id": "E041",
+    "name": "Branching Interactive Story Studio",
+    "user": "Amateur interactive-fiction author making playable original stories.",
+    "first_result": "Author and play a three-choice story with two endings and no dead links.",
+    "loop": [
+      "Write passages and connect choices",
+      "Add a small inventory or relationship variable",
+      "Playtest each branch and fix unreachable content",
+      "Extend or publish another chapter as a portable file"
+    ],
+    "return_trigger": "Each chapter and playtest cycle; project-based usage needs validation before recurring billing.",
+    "paid_value": "Readable branch debugging, variable inspection and reliable portable story export.",
+    "dependencies": [
+      "Author supplies original text and media",
+      "No marketplace or hosted audience required"
+    ],
+    "compute": "Local story graph and deterministic execution; cap branch count for validation preview.",
+    "content_burden": "Own examples and tutorials for stateful stories; authors supply finished narratives.",
+    "first_scope": [
+      "Passage graph and choice editor",
+      "One simple variable system with playtest inspection",
+      "Standalone HTML export and broken-link checks"
+    ],
+    "acquisition": "Share a playable original micro-story beside an editable source in interactive-fiction communities; untested.",
+    "competitors": [
+      {
+        "name": "Twine",
+        "url": "https://twinery.org/",
+        "accessed": "2026-10-09",
+        "relation": "direct",
+        "facts": "Open-source nonlinear-story authoring supports simple no-code stories, optional variables/logic and HTML export; created works may be used commercially.",
+        "price": "Open-source browser/desktop tool; no purchase amount shown"
+      }
+    ],
+    "difference": "Test beginner-friendly state debugging and clear branch coverage; Twine is a strong free alternative, not evidence of an uncovered gap.",
+    "risk": "Free Twine is established and portable; better onboarding may be a feature rather than an independently paid product.",
+    "experiment": "Authors finish a short story unaided, return to add a stateful branch, then test a one-time editor purchase.",
+    "stop_rule": "Consolidate if a tutorial or Twine extension solves the same problem, or no creator pays after exporting twice.",
+    "overlap": "E054 in play lane consumes interactive fiction; this authors and debugs it. Distinct from E040 linear prose.",
+    "scores": {
+      "activation": 4,
+      "recurrence": 3,
+      "independence": 5,
+      "demonstrability": 5,
+      "paid_value": 2,
+      "differentiation": 2,
+      "feasibility": 3
+    },
+    "rationale": "A complete self-contained creation loop exists, but powerful free tooling sharply limits differentiation and pricing.",
+    "disposition": "reserve",
+    "pricing": {
+      "model": "one-time",
+      "monthly_usd": null,
+      "annual_usd": null,
+      "basis": "Hypothesis: USD 29 one-time; zero subscription MRR.",
+      "free": "Author and play a three-choice story with two endings and no dead links.",
+      "paid": "Readable branch debugging, variable inspection and reliable portable story export."
+    }
+  },
+  {
+    "family": "creative",
+    "origin": "new research proposal; no implementation verified",
+    "confidence": "low; competitor evidence only",
+    "id": "E042",
+    "name": "Letterform and Font Design Studio",
+    "user": "Illustrator making a small original display alphabet or personal font.",
+    "first_result": "Draw several glyphs and preview them together in sample words.",
+    "loop": [
+      "Choose a supported character set",
+      "Draw glyph outlines and adjust spacing",
+      "Preview words and fix inconsistent forms",
+      "Extend the alphabet and export a working font"
+    ],
+    "return_trigger": "Completing a font and creating new typefaces; often occasional rather than weekly.",
+    "paid_value": "Reliable font export, consistent metrics and reusable masters for original lettering.",
+    "dependencies": [
+      "Font-engineering expertise",
+      "User-owned glyph designs and supported script scope"
+    ],
+    "compute": "Local vector geometry and font generation; narrow character set and explicit shaping limits.",
+    "content_burden": "Substantial correctness work for metrics, kerning and valid output; start with simple Latin display fonts only.",
+    "first_scope": [
+      "Basic Latin glyph outline editor",
+      "Word preview with spacing/kerning",
+      "Validated OTF export and editable project backup"
+    ],
+    "acquisition": "Demonstrate turning an original hand-lettered word into an installable mini-font; untested.",
+    "competitors": [
+      {
+        "name": "Glyphs",
+        "url": "https://glyphsapp.com/",
+        "accessed": "2026-10-09",
+        "relation": "direct",
+        "facts": "Mac font editor supports glyph drawing, contextual kerning, live text previews and OpenType/webfont exports.",
+        "price": "not verified"
+      }
+    ],
+    "difference": "Test a narrow first-font path for illustrators; it is not a replacement for professional multilingual type engineering.",
+    "risk": "Glyphs already supports mature design/export; casual users may make one font and never return.",
+    "experiment": "Illustrators finish a valid mini-font unaided and buy a one-time unlock to complete their original alphabet.",
+    "stop_rule": "Park if users only want handwriting conversion once or output failures require expert repair.",
+    "overlap": "Specialized letterform metrics and font export; E027 general vector illustration does not provide typography engineering.",
+    "scores": {
+      "activation": 3,
+      "recurrence": 2,
+      "independence": 5,
+      "demonstrability": 5,
+      "paid_value": 3,
+      "differentiation": 2,
+      "feasibility": 2
+    },
+    "rationale": "Clear creative artifact but correctness and episodic use favor a later one-time tool.",
+    "disposition": "reserve",
+    "pricing": {
+      "model": "one-time",
+      "monthly_usd": null,
+      "annual_usd": null,
+      "basis": "Hypothesis: USD 39 one-time; zero subscription MRR.",
+      "free": "Draw several glyphs and preview them together in sample words.",
+      "paid": "Reliable font export, consistent metrics and reusable masters for original lettering."
+    }
+  },
+  {
+    "family": "creative",
+    "origin": "new research proposal; no implementation verified",
+    "confidence": "low; competitor evidence only",
+    "id": "E043",
+    "name": "Lyric and Song Sketchbook",
+    "user": "Amateur songwriter who records original lyrical, melodic and chord ideas.",
+    "first_result": "Capture one verse with chords and a short original voice memo in a single playable sketch.",
+    "loop": [
+      "Capture an idea before it disappears",
+      "Arrange verses, chorus and chords",
+      "Listen and revise words against the melody",
+      "Return to unfinished sketches and develop another section"
+    ],
+    "return_trigger": "Spontaneous song ideas and repeated songwriting sessions; recurrence is plausible but unmeasured.",
+    "paid_value": "Searchable original audio/text sketches, section versions and reliable private backup.",
+    "dependencies": [
+      "Microphone permission for optional original recording",
+      "User-owned lyrics and recordings"
+    ],
+    "compute": "Local recording/playback; cap paid cloud audio storage and avoid transcription or generative audio.",
+    "content_burden": "Small songwriting prompt set reviewed by a musician; no licensed song catalog required.",
+    "first_scope": [
+      "Lyrics and chord section editor",
+      "Attach short recordings to sections",
+      "Version comparison and portable project export"
+    ],
+    "acquisition": "Show a songwriter developing an original rough memo into a structured verse/chorus; untested.",
+    "competitors": [
+      {
+        "name": "Songcraft",
+        "url": "https://songcraft.io/",
+        "accessed": "2026-10-09",
+        "relation": "direct",
+        "facts": "Songwriting workspace stores lyrics, chords, tabs and recordings and offers rhyming resources and chord suggestions.",
+        "price": "Free sign-up shown; paid price not verified"
+      }
+    ],
+    "difference": "Test fast return to unfinished section-level ideas; Songcraft already combines lyrics, chords and recordings.",
+    "risk": "This may be a near-copy of Songcraft or a notes-app workflow with insufficient paid value.",
+    "experiment": "Songwriters capture an unaided first sketch, return to develop it independently, then test payment for retained versions and bounded backup.",
+    "stop_rule": "Consolidate if users need only notes plus a recorder or report no reason to switch from Songcraft.",
+    "overlap": "Song composition organization, not Transcript Forge transcription, E040 prose continuity, or E048 audio production.",
+    "scores": {
+      "activation": 4,
+      "recurrence": 3,
+      "independence": 5,
+      "demonstrability": 4,
+      "paid_value": 3,
+      "differentiation": 1,
+      "feasibility": 4
+    },
+    "rationale": "Low-cost self-service is credible, but direct overlap is unusually strong and must reduce priority.",
+    "disposition": "defer",
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 6,
+      "annual_usd": null,
+      "basis": "Hypothesis; no observed willingness to pay.",
+      "free": "Capture one verse with chords and a short original voice memo in a single playable sketch.",
+      "paid": "Searchable original audio/text sketches, section versions and reliable private backup."
+    }
+  },
+  {
+    "family": "creative",
+    "origin": "new research proposal; no implementation verified",
+    "confidence": "low; competitor evidence only",
+    "id": "E044",
+    "name": "Ear-to-Instrument Practice",
+    "user": "Adult instrumental learner practicing identification and reproduction of heard melodies.",
+    "first_result": "Hear a short phrase, reproduce its intervals on an on-screen instrument and receive deterministic feedback.",
+    "loop": [
+      "Choose range and familiar key",
+      "Listen without notation",
+      "Reproduce the phrase and inspect note-by-note differences",
+      "Repeat a spaced selection based on missed intervals"
+    ],
+    "return_trigger": "Short regular musicianship practice; improvement and voluntary return must be tested.",
+    "paid_value": "Adaptive listening exercises tied to playable instrument ranges and personal error patterns.",
+    "dependencies": [
+      "Musician-reviewed exercise progression",
+      "Audio output; microphone optional and excluded from initial scope"
+    ],
+    "compute": "Local synthesized audio and note comparison; no speech recognition or licensed recordings.",
+    "content_burden": "Review musical pedagogy and phrase generators; deterministic generation reduces new-content burden but not educational review.",
+    "first_scope": [
+      "Single-key melodic playback",
+      "On-screen keyboard answers with interval feedback",
+      "Saved difficulty and spaced review"
+    ],
+    "acquisition": "Publish a playable five-phrase ear challenge linked to a short original demonstration; untested.",
+    "competitors": [
+      {
+        "name": "TonedEar",
+        "url": "https://tonedear.com/",
+        "accessed": "2026-10-09",
+        "relation": "direct",
+        "facts": "Interactive exercises cover intervals, chords, scales, functional hearing and melodic dictation.",
+        "price": "not verified"
+      }
+    ],
+    "difference": "Test hear-to-play progression rather than abstract label recognition; the opened TonedEar source already covers broad ear-training tasks.",
+    "risk": "Free ear-training tools may provide enough, and a subscription needs demonstrated progression beyond generated drills.",
+    "experiment": "Learners finish one challenge unaided, return to improve a repeat measure, then pay for a longer adaptive path.",
+    "stop_rule": "Park if practice is random clicking, progress is not understandable, or returners prefer free drills.",
+    "overlap": "Listening-to-note reconstruction; E046 starts from visual notation and E045 isolates rhythm/timing.",
+    "scores": {
+      "activation": 5,
+      "recurrence": 4,
+      "independence": 5,
+      "demonstrability": 4,
+      "paid_value": 3,
+      "differentiation": 2,
+      "feasibility": 4
+    },
+    "rationale": "Frequent self-contained practice is credible and cheap to serve; market gap and willingness to pay are weakly evidenced.",
+    "disposition": "reserve",
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 6,
+      "annual_usd": null,
+      "basis": "Hypothesis; no observed willingness to pay.",
+      "free": "Hear a short phrase, reproduce its intervals on an on-screen instrument and receive deterministic feedback.",
+      "paid": "Adaptive listening exercises tied to playable instrument ranges and personal error patterns."
+    }
+  },
+  {
+    "family": "creative",
+    "origin": "new research proposal; no implementation verified",
+    "confidence": "low; competitor evidence only",
+    "id": "E045",
+    "name": "Rhythm Timing Practice",
+    "user": "Instrument learner who wants to improve rhythm reading and timed reproduction.",
+    "first_result": "Tap one rhythm and see timing offsets against the expected beat.",
+    "loop": [
+      "Hear or read a short rhythm",
+      "Tap it using calibrated input",
+      "Inspect early/late and missing-note feedback",
+      "Practice harder patterns after consistent accuracy"
+    ],
+    "return_trigger": "Short practice sessions before instrument work; true repetition remains unmeasured.",
+    "paid_value": "A finite progressive practice set with personal timing history and custom meters.",
+    "dependencies": [
+      "Music educator review",
+      "Browser/device latency calibration; no medical or diagnostic claims"
+    ],
+    "compute": "Local audio clock and input timing with explicit latency limits; no cloud inference.",
+    "content_burden": "Reviewed rhythm generator, progression and accessible notation; extensive editorial content is avoidable.",
+    "first_scope": [
+      "Device calibration and simple meters",
+      "Tap imitation plus visual timing feedback",
+      "Finite progression and local progress history"
+    ],
+    "acquisition": "Release one shareable timed rhythm challenge and show improvement across repeated attempts; untested.",
+    "competitors": [
+      {
+        "name": "Complete Rhythm Trainer",
+        "url": "https://completerhythmtrainer.com/",
+        "accessed": "2026-10-09",
+        "relation": "direct",
+        "facts": "Progressive rhythm-reading, imitation and dictation drills include generated practice and custom programs.",
+        "price": "Full mobile unlock USD 6.99 or EUR 5.99 one-time; first chapters free; store/country variations noted"
+      }
+    ],
+    "difference": "Test unusually clear timing-error visualization; incumbent already has progressive and custom rhythm drills.",
+    "risk": "Complete Rhythm Trainer offers a low one-time full unlock, making a new subscription difficult to justify.",
+    "experiment": "Learners complete calibrated practice, voluntarily repeat later, then buy the finite full practice tool once.",
+    "stop_rule": "Park if device latency makes feedback untrustworthy or the paid offer adds little beyond existing low-cost apps.",
+    "overlap": "Timing and rhythmic notation only; E044 melodic hearing and E046 keyboard pitch reading remain separate.",
+    "scores": {
+      "activation": 5,
+      "recurrence": 4,
+      "independence": 5,
+      "demonstrability": 5,
+      "paid_value": 2,
+      "differentiation": 2,
+      "feasibility": 4
+    },
+    "rationale": "Excellent self-contained demonstration but strong low-price substitutes imply one-time revenue, not MRR.",
+    "disposition": "reserve",
+    "pricing": {
+      "model": "one-time",
+      "monthly_usd": null,
+      "annual_usd": null,
+      "basis": "Hypothesis: USD 12 one-time; zero subscription MRR.",
+      "free": "Tap one rhythm and see timing offsets against the expected beat.",
+      "paid": "A finite progressive practice set with personal timing history and custom meters."
+    }
+  },
+  {
+    "family": "creative",
+    "origin": "new research proposal; no implementation verified",
+    "confidence": "low; competitor evidence only",
+    "id": "E046",
+    "name": "Piano Sight-Reading Practice",
+    "user": "Adult piano learner practicing fluent conversion from notation to keyboard action.",
+    "first_result": "Read and play a short generated single-hand passage with note and timing feedback.",
+    "loop": [
+      "Choose hand, key and comfortable range",
+      "Play unfamiliar notation",
+      "Review pitch/timing mistakes",
+      "Repeat a new passage targeting the difficult pattern"
+    ],
+    "return_trigger": "Regular instrument practice with progressively harder unseen passages; retention still hypothetical.",
+    "paid_value": "A structured notation-to-playing progression and useful history across independent sessions.",
+    "dependencies": [
+      "Music educator review",
+      "MIDI keyboard optional for initial on-screen trial; required for validating physical piano practice"
+    ],
+    "compute": "Local score generation and MIDI timing; no microphone pitch recognition in first scope.",
+    "content_burden": "Review playable generated passages and difficulty transitions; no commercial sheet-music catalog.",
+    "first_scope": [
+      "Single-hand notation with controlled key/range",
+      "On-screen keyboard and optional standards-based MIDI",
+      "Error review and progressive practice history"
+    ],
+    "acquisition": "Provide a playable sight-reading diagnostic and an original same-difficulty retest demonstration; untested.",
+    "competitors": [
+      {
+        "name": "Piano Marvel",
+        "url": "https://pianomarvel.com/en/",
+        "accessed": "2026-10-09",
+        "relation": "direct",
+        "facts": "Piano practice software offers immediate performance feedback, practice modes and a sight-reading assessment with progress history.",
+        "price": "Free account offered; paid price not verified"
+      },
+      {
+        "name": "Sight Reading Factory",
+        "url": "https://www.sightreadingfactory.com/",
+        "accessed": "2026-10-09",
+        "relation": "direct",
+        "facts": "Official service provides generated sight-reading practice for musicians.",
+        "price": "not verified"
+      }
+    ],
+    "difference": "Test a narrow low-friction practice path using personal error patterns; established tools already provide practice and generated reading.",
+    "risk": "Piano Marvel and Sight Reading Factory may solve this well; real keyboard adoption introduces device friction and raises feedback expectations.",
+    "experiment": "Learners complete an on-screen first exercise, connect a supported keyboard themselves if available, return for a fresh passage and pay for the progression.",
+    "stop_rule": "Park if success depends on individual device support, screen exercises fail to transfer to piano, or returners prefer incumbents.",
+    "overlap": "Notation-to-keyboard action, distinct from E044 hearing-to-note answers and E045 tapping rhythm alone.",
+    "scores": {
+      "activation": 4,
+      "recurrence": 4,
+      "independence": 4,
+      "demonstrability": 5,
+      "paid_value": 3,
+      "differentiation": 2,
+      "feasibility": 3
+    },
+    "rationale": "Strong practice recurrence but competitive saturation and input-device support constrain priority.",
+    "disposition": "reserve",
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 8,
+      "annual_usd": null,
+      "basis": "Hypothesis; no observed willingness to pay.",
+      "free": "Read and play a short generated single-hand passage with note and timing feedback.",
+      "paid": "A structured notation-to-playing progression and useful history across independent sessions."
+    }
+  },
+  {
+    "family": "creative",
+    "origin": "new research proposal; no implementation verified",
+    "confidence": "low; competitor evidence only",
+    "id": "E047",
+    "name": "Chord-Progression Composer",
+    "user": "Beginner songwriter or instrumentalist composing original harmonic and melodic sketches.",
+    "first_result": "Build and hear an original four-chord progression with a simple melody.",
+    "loop": [
+      "Choose key and mood as optional constraints",
+      "Try chords and melody notes with explained relationships",
+      "Listen, compare alternatives and keep a version",
+      "Develop the next section or new song"
+    ],
+    "return_trigger": "Songwriting and harmonic experimentation; many curious users may stop after one toy-like session.",
+    "paid_value": "Saved harmonic projects, voicing control, educational explanations and MIDI export for continued composition.",
+    "dependencies": [
+      "Music theory expert review",
+      "User creates original music; no licensed song examples required"
+    ],
+    "compute": "Local synthesis, deterministic theory rules and MIDI export; no generative audio costs.",
+    "content_burden": "Review examples and chord explanations; avoid implying one correct emotional label per progression.",
+    "first_scope": [
+      "Key-aware chord and melody grid",
+      "Audible comparisons with readable explanations",
+      "Versioned projects and MIDI export"
+    ],
+    "acquisition": "Offer an interactive compose-your-first-four-bars demo with downloadable original output; untested.",
+    "competitors": [
+      {
+        "name": "Hookpad",
+        "url": "https://www.hooktheory.com/hookpad",
+        "accessed": "2026-10-09",
+        "relation": "direct",
+        "facts": "Theory-based chord/melody editor provides suggestions, playback and arrangements; Standard adds MIDI/MP3 export.",
+        "price": "Free tier; Standard USD 7.99/month or USD 199 lifetime, plus applicable tax; Aria add-on USD 14.99/month"
+      }
+    ],
+    "difference": "Test constrained explanations that help a novice make a deliberate choice; Hookpad already does theory-guided chord/melody composition.",
+    "risk": "The proposed core is extremely close to Hookpad, including its free tier and modest subscription.",
+    "experiment": "Novices make a first progression unaided, return to write a second section, then choose whether to buy export/project depth.",
+    "stop_rule": "Consolidate if the useful distinction is only a guided tutorial or users cannot explain value beyond Hookpad.",
+    "overlap": "Symbolic harmony/melody authoring; E048 arranges audio loops, E043 stores song ideas and E050 engraves notation.",
+    "scores": {
+      "activation": 5,
+      "recurrence": 3,
+      "independence": 5,
+      "demonstrability": 5,
+      "paid_value": 3,
+      "differentiation": 1,
+      "feasibility": 3
+    },
+    "rationale": "A clear, inexpensive experience with exceptionally strong direct overlap; novelty must precede development.",
+    "disposition": "defer",
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 7,
+      "annual_usd": null,
+      "basis": "Hypothesis; no observed willingness to pay.",
+      "free": "Build and hear an original four-chord progression with a simple melody.",
+      "paid": "Saved harmonic projects, voicing control, educational explanations and MIDI export for continued composition."
+    }
+  },
+  {
+    "family": "creative",
+    "origin": "new research proposal; no implementation verified",
+    "confidence": "low; competitor evidence only",
+    "id": "E048",
+    "name": "Loop Arrangement Studio",
+    "user": "First-time music maker arranging an original short instrumental track.",
+    "first_result": "Arrange a thirty-second track from a bounded set of compatible original loops.",
+    "loop": [
+      "Choose tempo and a reviewed sound set",
+      "Arrange sections and adjust volume/effects",
+      "Listen to transitions and export the track",
+      "Create another arrangement or extend a saved project"
+    ],
+    "return_trigger": "Repeated music creation; novelty-only sampling is a strong alternative explanation.",
+    "paid_value": "Private editable projects, full-length export and additional reviewed sound sets without an overwhelming workstation.",
+    "dependencies": [
+      "Original or properly licensed redistributable loops",
+      "Browser audio compatibility and musician review"
+    ],
+    "compute": "Local audio scheduling and effects; cap sample packs and project length, meter optional cloud storage.",
+    "content_burden": "High if subscription relies on frequent sound releases; initial pack must be owned and demonstrably sufficient for varied work.",
+    "first_scope": [
+      "One original compatible loop pack",
+      "Section arrangement, level controls and limited effects",
+      "Project save and WAV export"
+    ],
+    "acquisition": "Publish a browser-playable make-a-track challenge and an audible before/after arrangement walkthrough; untested.",
+    "competitors": [
+      {
+        "name": "Soundtrap",
+        "url": "https://www.soundtrap.com/musicmakers",
+        "accessed": "2026-10-09",
+        "relation": "direct",
+        "facts": "Online studio includes beatmaking, instruments, recording, effects and royalty-free loops, with guided production resources.",
+        "price": "Free start offered; paid price not verified"
+      },
+      {
+        "name": "Soundation",
+        "url": "https://soundation.com/",
+        "accessed": "2026-10-09",
+        "relation": "direct",
+        "facts": "Online studio includes a beatmaker, sampler, loop library, instruments and mixing effects.",
+        "price": "not verified"
+      }
+    ],
+    "difference": "Test one completed-track path with intentionally limited choices; browser music platforms already supply rich creation tools.",
+    "risk": "Free production tools are powerful; ongoing sound-pack creation and browser audio polish can erase the apparent low-cost advantage.",
+    "experiment": "New makers finish and export a track unaided, return for an original second arrangement, then pay for sustained project/export depth.",
+    "stop_rule": "Park if users only browse loops, cannot make varied work with the first pack, or paid value depends on constant new releases.",
+    "overlap": "Audio arrangement, not transcription, performance coaching, E047 symbolic composition or E050 score layout.",
+    "scores": {
+      "activation": 5,
+      "recurrence": 3,
+      "independence": 5,
+      "demonstrability": 5,
+      "paid_value": 3,
+      "differentiation": 2,
+      "feasibility": 2
+    },
+    "rationale": "Compelling self-serve demonstration; mature tools and audio/content maintenance make execution less lightweight than it appears.",
+    "disposition": "reserve",
+    "pricing": {
+      "model": "subscription",
+      "monthly_usd": 8,
+      "annual_usd": null,
+      "basis": "Hypothesis; no observed willingness to pay.",
+      "free": "Arrange a thirty-second track from a bounded set of compatible original loops.",
+      "paid": "Private editable projects, full-length export and additional reviewed sound sets without an overwhelming workstation."
+    }
+  },
+  {
+    "family": "creative",
+    "origin": "new research proposal; no implementation verified",
+    "confidence": "low; competitor evidence only",
+    "id": "E049",
+    "name": "Vocal Harmony Practice",
+    "user": "Amateur singer practicing hearing and holding a harmony part without a group present.",
+    "first_result": "Learn one original three-part phrase by isolating parts and singing against the other voices.",
+    "loop": [
+      "Select a reviewed phrase and comfortable range",
+      "Listen to individual parts",
+      "Sing one line against adjustable accompanying parts",
+      "Repeat with reduced guide volume or a harder phrase"
+    ],
+    "return_trigger": "Singing rehearsal and musicianship practice; recurring demand requires observed use beyond a few demonstrations.",
+    "paid_value": "A finite reviewed practice library with transposition, part mixing and remembered exercises.",
+    "dependencies": [
+      "Vocal arranger and recorded singer permissions",
+      "Original or clearly licensed exercises; no unlicensed hit-song catalog"
+    ],
+    "compute": "Local audio playback/mixing and bounded pitch adjustment; no voice diagnosis or mandatory vocal scoring.",
+    "content_burden": "Substantial: record musically useful accurate parts and verify comfortable ranges; more songs create real editorial expense.",
+    "first_scope": [
+      "Ten original short harmony exercises",
+      "Per-part mute/solo/level with range controls",
+      "Saved exercise progression and offline-compatible playback"
+    ],
+    "acquisition": "Release one original three-part sing-along lesson and show the part-isolation interaction; untested.",
+    "competitors": [
+      {
+        "name": "Sing Harmonies",
+        "url": "https://www.singharmonies.com/",
+        "accessed": "2026-10-09",
+        "relation": "adjacent",
+        "facts": "Harmony-singing app's official page states in February 2025 it is being phased out; January 2026 note reports continuing iOS operation without a longevity guarantee.",
+        "price": "Current purchase availability and price not verified"
+      }
+    ],
+    "difference": "Test dependable original-exercise practice in a current self-serve interface; an older app winding down is not proof of an available market.",
+    "risk": "The closest opened example is being phased out, which may signal weak economics; free videos and choir tracks compete directly for attention.",
+    "experiment": "Singers learn one phrase unaided, return to a new exercise later, then purchase the finite reviewed library once.",
+    "stop_rule": "Defer if retention depends on copyrighted popular songs, specialist one-to-one feedback, or constant new recordings.",
+    "overlap": "Musical harmony listening/rehearsal, distinct from root's spoken presentation rehearsal and E044 instrument-note hearing.",
+    "scores": {
+      "activation": 4,
+      "recurrence": 3,
+      "independence": 5,
+      "demonstrability": 5,
+      "paid_value": 2,
+      "differentiation": 2,
+      "feasibility": 3
+    },
+    "rationale": "Self-contained rehearsal is plausible, but narrow source reliability and production labor keep confidence low.",
+    "disposition": "defer",
+    "pricing": {
+      "model": "one-time",
+      "monthly_usd": null,
+      "annual_usd": null,
+      "basis": "Hypothesis: USD 19 one-time; zero subscription MRR.",
+      "free": "Learn one original three-part phrase by isolating parts and singing against the other voices.",
+      "paid": "A finite reviewed practice library with transposition, part mixing and remembered exercises."
+    }
+  },
+  {
+    "family": "creative",
+    "origin": "new research proposal; no implementation verified",
+    "confidence": "low; competitor evidence only",
+    "id": "E050",
+    "name": "Score Engraving Studio",
+    "user": "Amateur composer preparing clean readable notation for their original music.",
+    "first_result": "Enter eight bars and produce a playable, printable score.",
+    "loop": [
+      "Choose a supported instrument or small ensemble",
+      "Enter notes and dynamics",
+      "Listen, correct notation and adjust layout",
+      "Extend the piece or prepare a new score"
+    ],
+    "return_trigger": "Composition and arranging projects; infrequent users likely prefer free or one-time software.",
+    "paid_value": "Reliable print/export, reusable engraving preferences and portable editable notation.",
+    "dependencies": [
+      "Notation/engraving expertise",
+      "User-owned composition; complex notation excluded initially"
+    ],
+    "compute": "Local score model, synthesis and MusicXML/PDF export; bounded instruments and score length.",
+    "content_burden": "High correctness and layout burden even without a content catalog; review notation edge cases and accessibility.",
+    "first_scope": [
+      "Single instrument note entry and playback",
+      "Basic dynamics, ties and rests",
+      "PDF and MusicXML export with retained project"
+    ],
+    "acquisition": "Demonstrate converting an original handwritten eight-bar phrase into a clean printable score; untested.",
+    "competitors": [
+      {
+        "name": "MuseScore Studio",
+        "url": "https://musescore.org/en",
+        "accessed": "2026-10-09",
+        "relation": "direct",
+        "facts": "Free open-source notation software supports MIDI input and exchange through MusicXML and MIDI.",
+        "price": "Free, no limitations as stated by publisher"
+      }
+    ],
+    "difference": "Test an exceptionally constrained first-score workflow; MuseScore Studio already offers free mature composition and export.",
+    "risk": "Free MuseScore is far more complete; a narrow editor may be a teaching feature while a broad editor becomes a major engineering project.",
+    "experiment": "Composers enter and print one original phrase unaided, return with another piece and choose a one-time purchase.",
+    "stop_rule": "Consolidate if users need only beginner guidance for MuseScore, or common notation needs force unbounded expansion.",
+    "overlap": "Notation engraving/output, not E047 harmonic suggestion or E046 instrument sight-reading practice.",
+    "scores": {
+      "activation": 3,
+      "recurrence": 3,
+      "independence": 5,
+      "demonstrability": 4,
+      "paid_value": 2,
+      "differentiation": 1,
+      "feasibility": 1
+    },
+    "rationale": "Independent creative work fits the brief, but mature free competition and notation complexity make it a poor next product.",
+    "disposition": "defer",
+    "pricing": {
+      "model": "one-time",
+      "monthly_usd": null,
+      "annual_usd": null,
+      "basis": "Hypothesis: USD 39 one-time; zero subscription MRR.",
+      "free": "Enter eight bars and produce a playable, printable score.",
+      "paid": "Reliable print/export, reusable engraving preferences and portable editable notation."
+    }
+  }
+]
+

@@ -1,0 +1,75 @@
+{
+  "product_count": 100,
+  "unique_ids": 100,
+  "independently_challenged": 100,
+  "primary_source_references": 121,
+  "unique_primary_urls": 119,
+  "per_lane": {
+    "learning": 25,
+    "creative": 25,
+    "play": 25,
+    "everyday": 25
+  },
+  "models": {
+    "subscription": 48,
+    "one-time": 47,
+    "packs": 5
+  },
+  "dispositions": {
+    "shortlist": 5,
+    "defer": 51,
+    "reserve": 44
+  },
+  "consolidated_concepts": {
+    "E007": "E001",
+    "E087": "E086",
+    "E093": "E092",
+    "E094": "E092"
+  },
+  "roadmap_selection": [
+    "E001",
+    "E002",
+    "E040",
+    "E031",
+    "E003"
+  ],
+  "old_catalog_count": 100,
+  "old_catalog_multi_role_count": 100,
+  "old_catalog_lanes": {
+    "business": 25,
+    "creator": 25,
+    "developer": 25,
+    "operations": 25
+  },
+  "weights": {
+    "base": {
+      "activation": 15,
+      "recurrence": 20,
+      "independence": 15,
+      "demonstrability": 10,
+      "paid_value": 15,
+      "differentiation": 15,
+      "feasibility": 10
+    },
+    "recurrence": {
+      "activation": 10,
+      "recurrence": 30,
+      "independence": 10,
+      "demonstrability": 5,
+      "paid_value": 20,
+      "differentiation": 15,
+      "feasibility": 10
+    },
+    "discovery": {
+      "activation": 20,
+      "recurrence": 10,
+      "independence": 15,
+      "demonstrability": 20,
+      "paid_value": 10,
+      "differentiation": 15,
+      "feasibility": 10
+    }
+  },
+  "schema_and_arithmetic": "passed",
+  "limits": "Schema and arithmetic checks do not verify source truth, customer demand, legal readiness, paid conversion or retention. Human-readable source observations and analyst review are the evidence for desk research."
+}
