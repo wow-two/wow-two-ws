@@ -1,6 +1,6 @@
 # Conventions — wow-two
 
-*Last updated: 2026-10-14*
+*Last updated: 2026-10-15*
 
 > **The single index to every convention.** When a task touches *how we build* — code, repo structure,
 > naming, versioning — search HERE first, then open only the file(s) you need. Lookup table,
@@ -252,6 +252,7 @@ Product UI standards, by need:
 | Per-app design spec — its path in the product repo and its shape | [design/design-conventions.md](design/design-conventions.md#per-app-specs) |
 | Logo system — WoW2 family scope · compositions · exact parent endorsement · masters · export verification | [design/identity/logo-system.md](design/identity/logo-system.md) |
 | Product icons — theme × form × color variants · `product/brand/icons/` paths for product and services · format · fallback order | [design/identity/product-icons.md](design/identity/product-icons.md) |
+| Product manifest — `product/product.json`: name, description, homepage, per-service text · format · JSON Schema · commit-keyed consumption | [design/identity/product-manifest.md](design/identity/product-manifest.md) |
 
 ---
 

@@ -1,6 +1,6 @@
 # Design conventions
 
-*Last updated: 2026-10-14*
+*Last updated: 2026-10-15*
 
 > Product UI exploration, screen copy and WoW2 family identity — shared methods and rules; a product's own
 > choices stay in its design spec. Index only — open the leaf.
@@ -13,6 +13,7 @@
 | UI copy — how many words a screen carries; sign-in, empty, confirm and loading text | [content/ui-copy.md](content/ui-copy.md) |
 | Logo system — family scope, compositions, parent endorsement, masters, export verification | [identity/logo-system.md](identity/logo-system.md) |
 | Product icons — the variant matrix (theme × form × color), repo paths, format, fallback order | [identity/product-icons.md](identity/product-icons.md) |
+| Product manifest — `product/product.json` identity text, its JSON Schema, commit-keyed consumption | [identity/product-manifest.md](identity/product-manifest.md) |
 
 ---
 

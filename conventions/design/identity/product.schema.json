@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "wow-two/product.schema.json",
+  "title": "wow-two product manifest (product/product.json)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["manifest", "name", "description"],
+  "properties": {
+    "$schema": { "type": "string", "description": "The path to this schema, for editors." },
+    "manifest": { "const": 1, "description": "Format version." },
+    "name": { "$ref": "#/$defs/name", "description": "The display name." },
+    "description": { "$ref": "#/$defs/description", "description": "One line on what the product does." },
+    "homepage": {
+      "type": "string", "maxLength": 300,
+      "pattern": "^https?://[^\\s@/?#]+(?:[/?#]\\S*)?$",
+      "description": "The product's public address; no credentials in it."
+    },
+    "services": {
+      "type": "object", "maxProperties": 32,
+      "propertyNames": { "$ref": "#/$defs/slug" },
+      "additionalProperties": { "$ref": "#/$defs/service" },
+      "description": "Per-service identity, keyed by a key under services: in engineering/deployment/deploy.yml."
+    }
+  },
+  "$defs": {
+    "slug": { "type": "string", "pattern": "^[a-z][a-z0-9-]{0,47}$" },
+    "name": {
+      "type": "string", "minLength": 1, "maxLength": 80,
+      "pattern": "^\\S(?:[^\\u0000-\\u001f\\u007f]*\\S)?$"
+    },
+    "description": {
+      "type": "string", "minLength": 1, "maxLength": 200,
+      "pattern": "^\\S(?:[^\\u0000-\\u001f\\u007f]*\\S)?$"
+    },
+    "service": {
+      "type": "object", "additionalProperties": false, "minProperties": 1,
+      "properties": {
+        "name": { "$ref": "#/$defs/name", "description": "The service's display name." },
+        "description": { "$ref": "#/$defs/description", "description": "One line on what the service does." }
+      }
+    }
+  }
+}

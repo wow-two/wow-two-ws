@@ -1,10 +1,12 @@
 # Identity
 
-*Last updated: 2026-10-14*
+*Last updated: 2026-10-15*
 
-> A product's identity — the WoW2 logo system and the icon files every product repo carries. Index only — open the leaf.
+> A product's identity — the WoW2 logo system, the icon files and the identity text every product repo carries.
+> Index only — open the leaf.
 
 | Need | File |
 |---|---|
 | Logo system — family scope, compositions, parent endorsement, masters, export verification | [logo-system.md](logo-system.md) |
 | Product icons — variant matrix, file paths, format, fallback order | [product-icons.md](product-icons.md) |
+| Product manifest — `product/product.json`, its JSON Schema, commit-keyed consumption | [product-manifest.md](product-manifest.md) |
