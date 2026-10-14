@@ -1,6 +1,6 @@
 # Repo structure
 
-*Last updated: 2026-10-01*
+*Last updated: 2026-10-14*
 
 > On-disk layout and naming of a product / venture repo under `wow-two-ws/workbench/` — folders and names, not code.
 > Use case — scaffolding a repo, placing a folder, or checking an existing repo's shape.
@@ -35,6 +35,7 @@ Framework selection → [frontend standard](../repo-conventions.md#frontend-stan
 │   ├── product.md                what it is, who for, positioning, model (lead doc)
 │   ├── context.md                current state and binding decisions
 │   ├── features/                 one spec per feature, listed in the backlog's Features group
+│   ├── brand/                    brand guide, masters, exports and `icons/` (brand.md lead doc)
 │   ├── flows/                    user and product flows (flows.md)
 │   └── marketing/                go-to-market, channels, campaigns (marketing.md)
 │
@@ -63,6 +64,7 @@ Framework selection → [frontend standard](../repo-conventions.md#frontend-stan
   [version track](../../../planning/version-track/version-track.md).
 - must describe deployables in `deploy.yml` per the
   [deploy descriptor](../../../deployment/descriptor/deploy-descriptor.md).
+- must keep a product's icons where [product icons](../../../design/identity/product-icons.md#paths) place them.
 - must keep the per-app design spec where
   [design conventions](../../../design/design-conventions.md#per-app-specs) place it.
 

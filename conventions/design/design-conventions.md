@@ -1,6 +1,6 @@
 # Design conventions
 
-*Last updated: 2026-10-01*
+*Last updated: 2026-10-14*
 
 > Product UI exploration, screen copy and WoW2 family identity — shared methods and rules; a product's own
 > choices stay in its design spec. Index only — open the leaf.
@@ -12,6 +12,7 @@
 | Design exploration — variants per decision, pick, lock, cascade, persist to the spec; other modes | [research/design-exploration.md](research/design-exploration.md) |
 | UI copy — how many words a screen carries; sign-in, empty, confirm and loading text | [content/ui-copy.md](content/ui-copy.md) |
 | Logo system — family scope, compositions, parent endorsement, masters, export verification | [identity/logo-system.md](identity/logo-system.md) |
+| Product icons — the variant matrix (theme × form × color), repo paths, format, fallback order | [identity/product-icons.md](identity/product-icons.md) |
 
 ---
 

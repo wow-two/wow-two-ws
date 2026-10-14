@@ -1,6 +1,6 @@
 # Conventions — wow-two
 
-*Last updated: 2026-10-09*
+*Last updated: 2026-10-14*
 
 > **The single index to every convention.** When a task touches *how we build* — code, repo structure,
 > naming, versioning — search HERE first, then open only the file(s) you need. Lookup table,
@@ -251,6 +251,7 @@ Product UI standards, by need:
 | UI copy — how many words a screen carries · sign-in, empty, confirm and loading text | [design/content/ui-copy.md](design/content/ui-copy.md) |
 | Per-app design spec — its path in the product repo and its shape | [design/design-conventions.md](design/design-conventions.md#per-app-specs) |
 | Logo system — WoW2 family scope · compositions · exact parent endorsement · masters · export verification | [design/identity/logo-system.md](design/identity/logo-system.md) |
+| Product icons — theme × form × color variants · `product/brand/icons/` paths for product and services · format · fallback order | [design/identity/product-icons.md](design/identity/product-icons.md) |
 
 ---
 
@@ -260,6 +261,7 @@ Product UI standards, by need:
 |---|---|
 | Single-host serving (product / venture) — SPA baked into the backend `wwwroot` (vite `outDir` + static-serve + `BuildSpa` target + dev proxy) · CORS posture | [deployment/hosting/single-host-serving.md](deployment/hosting/single-host-serving.md) |
 | Port ledger — allocated dev ports | [deployment/hosting/ports.md](deployment/hosting/ports.md) |
+| Environment file names — `{name}-{environment}.{ext}` (`console-dev.json`), each complete, no default | [deployment/hosting/environment-files.md](deployment/hosting/environment-files.md) |
 | Deployment descriptor — `engineering/deployment/deploy.yml`: services, per-service builds and change paths, sites (public ports), settings, needs · service versions · candidate builds · CI shape · JSON Schema | [deployment/descriptor/deploy-descriptor.md](deployment/descriptor/deploy-descriptor.md) |
 
 ---
