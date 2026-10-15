@@ -57,6 +57,8 @@ The [five-product analysis](../../ideas/self-serve-research-2026-10/self-serve-r
 
 **Haven** joins after venture revenue reaches a stable $2K MRR; it takes no queue position before then (user, `2026-10-08`).
 
+**Before ForeverPin (user, `2026-10-15`):** a few Wheelhouse iterations first (logic review, UI layout, mobile responsiveness), then the Ocharo projects, then ForeverPin resumes its place in this order.
+
 **Parallel preparation, authorized `2026-10-06`:** ForeverPin is handled in a separate chat. The initial implementation sweep and expanded feature increment are complete for local review: Pose Coach live framing/voice and 15 languages; Transcript Forge persistent queue controls; Hijinx 15-language UI, translated starter content and reusable host playlists. [Outcomes, checks and running review targets](../sessions/saas-research-2026-10/implementation-review.md). Their release priority stays as listed; physical-device, native editorial, provider and paid-release acceptance remain open. This preparation does not establish paid launch or release completion.
 
 ---
@@ -115,6 +117,7 @@ The [five-product analysis](../../ideas/self-serve-research-2026-10/self-serve-r
 | Task ID | Task | Deadline | Priority | Status | Repo | Notes |
 |---|---|---|---|---|---|---|
 | `wks-t-001` | Give every app a correct public identity: logo, description and homepage | `-` | normal | `todo` | `-` | Added `2026-10-13` by the user. Covers each product and platform app, its GitHub repository About, packages and GitHub OAuth/GitHub App registrations (first: Wheelhouse's `wheelhouse-dev` OAuth app). Inventory every surface, then fix per app |
+| `wks-t-002` | Review the `product.json` manifest and the icon variant set together, then roll both out | `-` | normal | `todo` | `-` | Added `2026-10-15` by the user: decide the required variants (monochrome is missing everywhere, including Wheelhouse), then add `product/product.json` and `product/brand/icons/` to ForeverPin and the product template. Conventions: `design/identity/` |
 
 ---
 
