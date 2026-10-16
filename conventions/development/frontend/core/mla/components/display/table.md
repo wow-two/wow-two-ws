@@ -1,6 +1,6 @@
 # Table
 
-*Last updated: 2026-09-10*
+*Last updated: 2026-10-16*
 
 > The table primitives — the caller writes the rows and cells by hand.
 > What a display is → [display](../../constructs/visual/display.md).
@@ -28,3 +28,4 @@
 
 - should leave `density` at `cozy` and `radius` at `md`
 - should leave `isStriped` and `isHoverable` off unless the rows are hard to track
+- phone layout → [responsive](../../../../shapes/app/responsive/responsive.md#tables)

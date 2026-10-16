@@ -1,6 +1,6 @@
 # Feedback
 
-*Last updated: 2026-10-01*
+*Last updated: 2026-10-16*
 
 > Which report to reach for, and with what values — the application register over the SDK's `feedback/` group.
 > Use case — picking between two reports that both work, or fixing the value one carries here.
@@ -48,8 +48,7 @@ Which surface answers which wait; the linked owner states the values.
 |---|---|---|
 | the app's first load, before the shell renders | `SplashScreen` | [SplashScreen](splashScreen.md) |
 | a route's chunk loading | the router's loading outcome | [routing](../../../../shapes/app/routing/routing.md#places) |
-| a region's first load, shape known | `SkeletonState` | [loading](../../domains/data/state-and-data.md#loading) |
-| a region's first load, shape unknown | a generic structural `SkeletonState` | [loading](../../domains/data/state-and-data.md#loading) |
+| a region's first load | `DataRegion` — each component draws its own skeleton | [loading](../../domains/data/state-and-data.md#loading) |
 | a refresh the user asked for | `SkeletonStateGroup` + `useRefresh` | [loading](../../domains/data/state-and-data.md#loading) |
 | a background refetch or poll | none — content stays, freshness shows | [loading](../../domains/data/state-and-data.md#loading) |
 | one command in flight | `Button` `isLoading` | [Button](../actions/button.md) |

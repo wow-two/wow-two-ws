@@ -1,6 +1,6 @@
 # Conventions — Development — Frontend
 
-*Last updated: 2026-10-01*
+*Last updated: 2026-10-16*
 
 > Conventions for every frontend under `wow-two-ws/`. Lookup table — open a file when the task
 > touches it; do not pre-read. The tree splits twice, and the cuts are orthogonal.
@@ -168,7 +168,8 @@ The lead is [app](shapes/app/app.md) — its vectors and their status.
 | [assets](shapes/app/platform/assets.md) | Images, fonts and public files |
 | [routing](shapes/app/routing/routing.md) | `createAppRouter`, the `AppRoute` model, places vs actions |
 | [shell](shapes/app/shell/shell.md) | The frame: bar, navigation, account menu, page heading |
-| [responsive](shapes/app/responsive/responsive.md) | Device targets, screen classes, layout rules |
+| [responsive](shapes/app/responsive/responsive.md) | Device targets, screen classes, phone patterns, motion |
+| [responsive proposals](shapes/app/responsive/responsive-proposals.md) | Open responsive drafts for the owner's review |
 | [delivery](shapes/app/delivery/delivery.md) | Hosting, reproducible builds, caching, verification |
 
 ### `shapes/library/` — a package another frontend imports

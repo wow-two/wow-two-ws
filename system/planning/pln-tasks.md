@@ -1,4 +1,4 @@
-*Last updated: 2026-10-15*
+*Last updated: 2026-10-16*
 
 # Tasks
 
@@ -110,7 +110,7 @@ The [five-product analysis](../../ideas/self-serve-research-2026-10/self-serve-r
 | `con-t-010` | Settle repository license conventions | `-` | normal | `todo` | `wow-two-ws` | Added `2026-10-14` by the user: analyze license options, choose our templates and write the exact conditions for picking one when a repo is created |
 | `con-t-011` | Require an app icon, version tag and environment tag in every app | `-` | normal | `todo` | `wow-two-ws` | Added `2026-10-14`: the design is proved in Wheelhouse first (a separate env pill beside the version; try a vertical stack on desktop), then fixed as a convention |
 | `con-t-012` | Write the zero-disruption deployment contract every app adopts | `-` | `high` | `todo` | `wow-two-ws` | Added `2026-10-15` by the user: request drain and maintenance pages, a busy signal for idle-aware and scheduled deploys, frontend refresh onto a new version before writes, migration dry runs. Wheelhouse and the canary prove it; then the SDK halves and the convention |
-| `con-t-013` | Write mobile interaction conventions | `-` | normal | `todo` | `wow-two-ws` | Added `2026-10-15` by the user: bottom navigation, swipe row actions, full-screen form dialogs and confirm sheets, stacked tables, transitions. Wheelhouse proves them first; includes the full-page versus modal dialog decision |
+| `con-t-013` | Write responsive design and mobile interaction conventions | `-` | normal | `wip` | `wow-two-ws` | Added `2026-10-15` by the user. Draft `2026-10-16`: settled rules in [responsive](../../conventions/development/frontend/shapes/app/responsive/responsive.md) (bottom bar, stacked tables, phone dialogs, list and detail, motion; skeletons in [loading](../../conventions/development/frontend/core/mla/domains/data/state-and-data.md#loading)); open drafts, including swipe row actions and full-page versus modal dialogs, in [responsive proposals](../../conventions/development/frontend/shapes/app/responsive/responsive-proposals.md). The owner reviews them in Wheelhouse v0.5 |
 
 ---
 

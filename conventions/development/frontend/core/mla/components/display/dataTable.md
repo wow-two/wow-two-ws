@@ -1,6 +1,6 @@
 # DataTable
 
-*Last updated: 2026-09-10*
+*Last updated: 2026-10-16*
 
 > The column-driven table — hand it rows and a `columns` descriptor, it sorts on the client.
 > What a display is → [display](../../constructs/visual/display.md).
@@ -28,3 +28,4 @@
 
 - should leave the [Table](table.md) dials unset — each defers to the root's own default
 - should leave `emptyContent` at `No results.`, or raise an [EmptyState](emptyState.md)
+- phone layout → [responsive](../../../../shapes/app/responsive/responsive.md#tables)

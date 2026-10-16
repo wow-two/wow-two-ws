@@ -1,6 +1,6 @@
 # State and data
 
-*Last updated: 2026-10-02*
+*Last updated: 2026-10-16*
 
 > Request outcomes, server caches and local state across frontend frameworks.
 
@@ -42,7 +42,10 @@
 A data region answers three loading moments differently: the first load, a refresh the user asked for, and a
 background refetch. The user must always be able to tell that an asked-for refresh ran.
 
-- must render a first load as a skeleton shaped like the loaded region; use a generic structural skeleton when that shape is unknown.
+- must wrap each region that loads as one in a single loading wrapper — `DataRegion` for its first load,
+  `SkeletonStateGroup` for a refresh the user asked for.
+- must let every component inside draw its own exact-shape skeleton; never hand-draw one beside the real layout.
+- must render the real layout over `useSkeletonItems` stand-ins while the item count is unknown.
 - must not show a visible `Loading…` paragraph instead of loading content; a single screen-reader announcement remains appropriate.
 - must replace existing values with their matched skeletons during a user-requested refresh.
 - must retain a known empty region during refresh; must not invent populated grid geometry.
@@ -60,7 +63,7 @@ background refetch. The user must always be able to tell that an asked-for refre
 - may crossfade skeleton and result opacity; must not animate layout height or reorder surrounding content.
 - must honor `prefers-reduced-motion` for placeholder animation and result transitions.
 - empty collection geometry → [EmptyState](../../components/display/emptyState.md#values).
-- must announce loading once per region through `SkeletonStateGroup`; the skeleton shapes stay decorative.
+- must announce loading once per region through its wrapper; the skeleton shapes stay decorative.
 - must show a running refresh on its control through `Button` `isLoading`: the icon turns into a spinner, the label
   stays and the control dims; it keeps focus, and overlapping requests share one pending state.
 

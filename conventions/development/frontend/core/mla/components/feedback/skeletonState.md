@@ -1,13 +1,14 @@
 # SkeletonState
 
-*Last updated: 2026-10-01*
+*Last updated: 2026-10-16*
 
 > The placeholder block — the shape of content that has not arrived yet.
 > What a state is → [state](../../constructs/visual/state.md).
 
 ## Reach for it when
 
-- must stand in for loading route and section content; use a generic structural shape when the exact layout is unknown
+- must stand in for a shape no SDK component draws; SDK components draw their own inside the region's
+  [loading wrapper](../../domains/data/state-and-data.md#loading)
 - must be reached for where a spinner would let the layout shift on arrival
 - should be repeated to sketch a list or a card, one node per line of real content
 - must stand in for a region's values during a user-requested refresh — the [loading pattern](../../domains/data/state-and-data.md#loading)

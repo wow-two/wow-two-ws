@@ -1,6 +1,6 @@
 # BottomSheet
 
-*Last updated: 2026-09-10*
+*Last updated: 2026-10-16*
 
 > The draggable bottom surface — a handle and snap heights, for a body the reader resizes.
 > What an overlay is → [overlay](../../constructs/visual/overlay.md).
@@ -19,7 +19,7 @@
 |---|---|
 | [Drawer](drawer.md) | the bottom panel rests at one height and needs no handle |
 | [ActionSheet](actionSheet.md) | the body is a row per action rather than free content |
-| [Modal](modal.md) | the same place on a wide viewport |
+| [Modal](modal.md) | the body needs no resizing — a modal already docks or fills on a phone |
 
 ---
 

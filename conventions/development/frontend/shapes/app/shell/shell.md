@@ -1,6 +1,6 @@
 # Shell
 
-*Last updated: 2026-10-01*
+*Last updated: 2026-10-16*
 
 > The frame every routed place renders inside — the bar, the navigation, the account menu and the page heading.
 > Purpose — a product's places share one frame, so chrome is decided once and no page rebuilds it.
@@ -29,7 +29,7 @@
 - must put primary navigation in the bar of a top-bar app, or in the rail of a sidebar app — one of them per app.
 - must mark the current destination `aria-current="page"`.
 - must keep primary navigation one tap away at every declared screen class
-  ([responsive](../responsive/responsive.md#layout-rules)).
+  ([responsive](../responsive/responsive.md#navigation)).
 - must end the bar with the account menu.
 
 ---

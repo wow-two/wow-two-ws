@@ -1,6 +1,6 @@
 # App
 
-*Last updated: 2026-10-01*
+*Last updated: 2026-10-16*
 
 > A product frontend a browser loads — a composition root, routed places, a build, a dev server.
 > Purpose — the shape we ship today, and the only one whose vectors are written out.
@@ -14,7 +14,7 @@
 | [platform](platform/platform.md) | how it is styled, served and previewed | written |
 | [routing](routing/routing.md) | how a place becomes a URL, and what owns the router | written |
 | [delivery](delivery/delivery.md) | build inputs, hosting, caching and verification | written |
-| [responsive](responsive/responsive.md) | device targets, screen classes and how layouts adapt between them | written |
+| [responsive](responsive/responsive.md) | device targets, screen classes, phone patterns and motion | written |
 | [shell](shell/shell.md) | the frame every place renders inside — bar, navigation, account menu, page heading | written |
 
 - must take every naming, kind, notation and domain rule from [core](../../core/core.md) unchanged.

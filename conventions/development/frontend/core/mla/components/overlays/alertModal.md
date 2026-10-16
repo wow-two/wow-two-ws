@@ -1,6 +1,6 @@
 # AlertModal
 
-*Last updated: 2026-10-01*
+*Last updated: 2026-10-16*
 
 > The confirm — a modal locked to `alertdialog` that a stray click outside cannot dismiss.
 > What an overlay is → [overlay](../../constructs/visual/overlay.md).
@@ -31,3 +31,4 @@
 - must reserve native dialogs for a critical app/browser condition where the app cannot present a reliable modal, such as the browser-required `beforeunload` safeguard
 - must retain unsaved-edit protection during a browser close or reload; this exception does not permit native confirmation during ordinary in-app product editing
 - must restore focus to the initiating control and cancel the pending intent when the owning view or session ends
+- phone layout → [responsive](../../../../shapes/app/responsive/responsive.md#dialogs)

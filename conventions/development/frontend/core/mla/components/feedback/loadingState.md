@@ -1,13 +1,12 @@
 # LoadingState
 
-*Last updated: 2026-10-01*
+*Last updated: 2026-10-16*
 
 > The centred busy report for a whole section — spinner, title and description, stacked.
 > What a state is → [state](../../constructs/visual/state.md).
 
 ## Reach for it when
 
-- must use [SkeletonState](skeletonState.md) for route and section content while data loads, including a generic structural skeleton when the exact shape is unknown
 - must not introduce a visible `Loading…` paragraph or centred spinner as the content placeholder
 - may retain this component for compatibility; new app content follows the [loading pattern](../../domains/data/state-and-data.md#loading)
 - must keep action loading on the initiating button, with its label retained
