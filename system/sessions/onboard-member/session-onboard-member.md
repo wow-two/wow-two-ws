@@ -31,7 +31,7 @@ Recommended chat name: `wow-two - onboard-{member}`.
 |---|---|---|
 | App **frontends** | Contributor | `engineering/codebase/{slug}.frontend-services/` only |
 | App **backends / infra** | You | `{slug}.backend-services/` + deploy/SSH |
-| Beta **libs** | You | `wow-two-sdk-beta.ui`, `wow-two-sdk.backend.beta` — incl. version bumps |
+| Beta **libs** | You | `wow-two-sdk-beta.fe`, `wow-two-sdk-beta.be` — incl. version bumps |
 
 - Contributor consumes libs as **published packages**; never edits libs or backends. (Stated once = the collision-free guarantee.)
 - **One live seam:** `wheelhouse` frontend ↔ backend **API contract** — coordinate on the status channel.

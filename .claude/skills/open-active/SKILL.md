@@ -42,9 +42,9 @@ affects how you spell the path.
 | Stagger launches | `DELAY=1 scripts/active.sh` |
 
 Project names are the first column of `scripts/active.sh -l` — currently `wheelhouse`, `secrets-vault`,
-`forever-pin`, `trademark-watcher`, `acquisition-explorer`, `transcript-forge`, `pdf-editor`, `backend-beta`,
-`frontend-beta`. Map fuzzy references to these (e.g. "the QR thing" → `forever-pin`, "yt scraper" →
-`transcript-forge`, "the beta libs" → `backend-beta frontend-beta`).
+`forever-pin`, `trademark-watcher`, `acquisition-explorer`, `transcript-forge`, `pdf-editor`, `be-sdk`,
+`fe-sdk`. Map fuzzy references to these (e.g. "the QR thing" → `forever-pin`, "yt scraper" →
+`transcript-forge`, "the beta libs" → `be-sdk fe-sdk`).
 
 ## Default behavior: preview before the swarm
 
@@ -58,6 +58,6 @@ frontend"), skip the preview and run it directly.
 
 - Requires Rider + WebStorm installed via JetBrains Toolbox; the script auto-detects the launchers.
 - Some projects are one-sided and the script opens whatever exists: `trademark-watcher` and
-  `pdf-editor` are backend-only; `acquisition-explorer` and `frontend-beta` are frontend-only.
+  `pdf-editor` are backend-only; `acquisition-explorer` and `fe-sdk` are frontend-only.
 - After launching, remind the user that each IDE is one app with many project windows
   (WebStorm's frontends share one dock icon) — `⌃→` / Mission Control corrals them.

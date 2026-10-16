@@ -1,6 +1,6 @@
 # Styling
 
-*Last updated: 2026-10-01*
+*Last updated: 2026-10-16*
 
 > How an app wires Tailwind v4 — the `index.css` entry, the plugin, the token import, and the theme switch.
 > Purpose — a wrong `@source` depth silently drops the library's utility classes and raises no build error.
@@ -19,11 +19,11 @@ compiled output so the utility classes its components emit are generated — Tai
 
 /* Design tokens (@theme) shipped by the library — gives bg-primary, text-foreground,
    bg-card, border-border, etc. */
-@import '@wow-two-beta/ui-vue/styles.css';
+@import '@wow-two-beta/fe/styles.css';
 
 /* Tailwind v4 ignores node_modules; point it at the beta UI's dist so its utility
    classes are generated. Path is relative to THIS file. */
-@source '../../node_modules/@wow-two-beta/ui-vue/dist';
+@source '../../node_modules/@wow-two-beta/fe/dist';
 ```
 
 - must load the Tailwind Vite plugin `@tailwindcss/vite` — `plugins: [vue(), tailwindcss()]`.

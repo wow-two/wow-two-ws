@@ -15,7 +15,7 @@
 
 ## Proposals
 
-Each entry: the draft rule, why it is needed, and how the Vue UI SDK (`@wow-two-beta/ui-vue`) would carry it.
+Each entry: the draft rule, why it is needed, and how the fe sdk (`@wow-two-beta/fe`) would carry it.
 Listed in the order a page applies them.
 
 ### Breakpoints and containers

@@ -5,7 +5,7 @@
 
 # Repo Registry
 
-*Last updated: 2026-06-09*
+*Last updated: 2026-10-16*
 
 All repos use the naming convention: `{org}.{domain}[.{subdomain}]`, lowercase, dot-separated. Repo prefix matches org name exactly.
 
@@ -78,8 +78,8 @@ Org: [github.com/wow-two-sdk-beta](https://github.com/wow-two-sdk-beta) — beta
 
 | Repo | Purpose | Status |
 |------|---------|--------|
-| `wow-two-sdk-beta.ui` | `@wow-two-beta/ui` — React UI library (single repo, many subpath exports). Foundation + domain layering, ESLint enforced. Storybook catalog + Vite playground. | Active (beta) |
-| `wow-two-sdk.backend.beta` | `WoW.Two.Sdk.Backend.Beta` (nuget.org) — backend SDK mono-lib: hosting, observability, web, mediator, identity, data. | Active (beta) |
+| `wow-two-sdk-beta.be` | be sdk — `WoW2.Sdk.Beta.Be[.X]` (nuget.org), namespace `WoW.Two.Sdk.Beta.Be[.X]`; mono-lib: hosting, observability, web, mediator, identity, data. Code: `engineering/codebase/wow-two-sdk-beta-be/` | Active (beta) |
+| `wow-two-sdk-beta.fe` | fe sdk — `@wow-two-beta/fe` (npm), Vue 3 components, application adapters, browser capabilities. Code: `engineering/codebase/wow-two-sdk-beta-fe/`; the parked React `@wow-two-beta/ui` sits in `engineering/codebase/wow-two-front-beta-sdk/` | Active (beta) |
 | `wow-two-sdk-beta.product-template` | Copyable product-repo template — the canonical conformant structure `create-repo` stamps out (a template, not a package) | Active |
 
 ## wow-two-kb (knowledge base)

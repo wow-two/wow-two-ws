@@ -1,6 +1,6 @@
 # JWT auth
 
-*Last updated: 2026-09-16*
+*Last updated: 2026-10-16*
 
 > Bearer validation and token issuance as separate registrations with an explicit trust configuration.
 
@@ -25,7 +25,7 @@
 - must use `MetadataAddress` for OpenID Connect discovery metadata, not a raw key-set URL.
 - must keep `AllowInsecureMetadataForDevelopment` explicit and local to development setup.
 - must select one accepted signing algorithm; symmetric algorithms require 32/48/64-byte keys for HS256/384/512.
-- current semantics → [JWT registration source](../../../../../../../../../workbench/wow-two-sdk-beta/wow-two-sdk.backend.beta/engineering/codebase/wow-two-back-beta-sdk/src/Identity/Jwt/JwtServiceCollectionExtensions.cs).
+- current semantics → [JWT registration source](../../../../../../../../../workbench/wow-two-sdk-beta/wow-two-sdk-beta.be/engineering/codebase/wow-two-sdk-beta-be/src/Identity/Jwt/JwtServiceCollectionExtensions.cs).
 
 ---
 
@@ -36,4 +36,4 @@
 - must use the injected clock for token timestamps.
 - must validate signing algorithm and key requirements through the issuance contract.
 - must not assume refresh, revocation, asymmetric signing or rotation from the symmetric issuer alone.
-- current API → [issuance source](../../../../../../../../../workbench/wow-two-sdk-beta/wow-two-sdk.backend.beta/engineering/codebase/wow-two-back-beta-sdk/src/Identity/Jwt/Issuance/JwtTokenIssuer.cs).
+- current API → [issuance source](../../../../../../../../../workbench/wow-two-sdk-beta/wow-two-sdk-beta.be/engineering/codebase/wow-two-sdk-beta-be/src/Identity/Jwt/Issuance/JwtTokenIssuer.cs).

@@ -8,7 +8,7 @@
   finish conventions, finish the SDK sweep, publish a new version.
 - User permits radical SDK changes and confirms no production consumers.
 - Conventions root: `conventions/development/frontend/` (363 Markdown files).
-- SDK repo: `workbench/wow-two-sdk-beta/wow-two-sdk-beta.ui/`.
+- SDK repo: `workbench/wow-two-sdk-beta/wow-two-sdk-beta.fe/`.
 - Existing track: folded on 2026-09-29 into the SDK's `engineering/planning/version-track/v0.1/v0.1.md` (iterations 10–11); open work in its `backlog.md`, method and gates in `engineering/development/rules.md`.
 - Active SDK scope: Vue only, confirmed 2026-09-10. React library/release is parked.
 - On 2026-09-13 the owner added a full SDK optimization pass, all playground/showcase/theme apps, and CI repair. React app-only corrections are authorized.
@@ -69,7 +69,7 @@
 - Source baseline is `f4fe5c6477bc83a344e8c10cc4d6467dabf176b8` plus earlier staged readiness changes.
   Release `0.0.7` and its public tarball are independently verified above. Concurrent local manifest edits
   are separate from the published source.
-- [Full implementation and coverage](../../../workbench/wow-two-sdk-beta/wow-two-sdk-beta.ui/engineering/architecture/analysis/vue-sdk-optimization/full-sweep-implementation.md)
+- [Full implementation and coverage](../../../workbench/wow-two-sdk-beta/wow-two-sdk-beta.fe/engineering/architecture/analysis/vue-sdk-optimization/full-sweep-implementation.md)
   records the complete capability pass, API migrations, source-family evidence and remaining proof limits.
 - Implemented exact editing/config/flags, session-owned HTTP/query/auth, form identities/validation/native types,
   browser cleanup, localization, focus/menus, display/media/layout fixes and measured class-merge optimization.

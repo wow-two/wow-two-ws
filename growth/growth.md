@@ -122,7 +122,7 @@
 - [ ] When to extract a one-off script into a real reusable tool vs. leave it a script
 
 ### Next deliberate step
-- [ ] TBD — candidate: generalize the forever-pin SQL migrator into the backend-beta SDK migrator (proving ground already validated 2026-06-11)
+- [ ] TBD — candidate: generalize the forever-pin SQL migrator into the be sdk migrator (proving ground already validated 2026-06-11)
 
 ---
 

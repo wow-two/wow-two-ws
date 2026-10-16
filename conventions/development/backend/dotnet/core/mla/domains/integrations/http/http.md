@@ -1,6 +1,6 @@
 # Http
 
-*Last updated: 2026-09-26*
+*Last updated: 2026-10-16*
 
 > Outbound HTTP registration and transport resilience behind the client/broker boundary.
 
@@ -11,7 +11,7 @@
 - must use `AddResilientClient<TClient>` for a typed client, or add `AddSdkResilience` to manual registration.
 - must provide base addresses through settings, not source literals.
 - must configure JSON at the supported preset seam rather than bypass it with unrelated settings.
-- registration API → [Refit registration](../../../../../../../../../workbench/wow-two-sdk-beta/wow-two-sdk.backend.beta/engineering/codebase/wow-two-back-beta-sdk/src/Http/Refit/RefitClientServiceCollectionExtensions.cs).
+- registration API → [Refit registration](../../../../../../../../../workbench/wow-two-sdk-beta/wow-two-sdk-beta.be/engineering/codebase/wow-two-sdk-beta-be/src/Http/Refit/RefitClientServiceCollectionExtensions.cs).
 
 ---
 
@@ -27,8 +27,8 @@
 - must pass cancellation through every outbound call.
 - must not treat caller cancellation as permission to spend another retry attempt.
 - must configure tracing explicitly through the [observability owner](../../observability/observability.md).
-- current options and pipeline → [resilience options](../../../../../../../../../workbench/wow-two-sdk-beta/wow-two-sdk.backend.beta/engineering/codebase/wow-two-back-beta-sdk/src/Http/Resilience/HttpResilienceOptions.cs)
-  and [resilience registration](../../../../../../../../../workbench/wow-two-sdk-beta/wow-two-sdk.backend.beta/engineering/codebase/wow-two-back-beta-sdk/src/Http/Resilience/HttpResilienceBuilderExtensions.cs).
+- current options and pipeline → [resilience options](../../../../../../../../../workbench/wow-two-sdk-beta/wow-two-sdk-beta.be/engineering/codebase/wow-two-sdk-beta-be/src/Http/Resilience/HttpResilienceOptions.cs)
+  and [resilience registration](../../../../../../../../../workbench/wow-two-sdk-beta/wow-two-sdk-beta.be/engineering/codebase/wow-two-sdk-beta-be/src/Http/Resilience/HttpResilienceBuilderExtensions.cs).
 - hedging is a separate client registration; must not stack it with the retry pipeline.
 
 ---

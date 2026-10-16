@@ -1,6 +1,6 @@
 # Architecture
 
-*Last updated: 2026-09-10*
+*Last updated: 2026-10-16*
 
 > Source and dependency boundaries inside a reusable .NET SDK.
 
@@ -23,4 +23,4 @@
 - must preserve caller opt-in boundaries when adding capabilities.
 - must keep the package's supported dependency surface documented beside its source.
 
-Concrete ownership: [package layout](../../../../../../../workbench/wow-two-sdk-beta/wow-two-sdk.backend.beta/engineering/architecture/package-layout.md) and [package registry](../../../../../../../workbench/wow-two-sdk-beta/wow-two-sdk.backend.beta/engineering/architecture/package-registry.md).
+Concrete ownership: [package layout](../../../../../../../workbench/wow-two-sdk-beta/wow-two-sdk-beta.be/engineering/architecture/package-layout.md) and [package registry](../../../../../../../workbench/wow-two-sdk-beta/wow-two-sdk-beta.be/engineering/architecture/package-registry.md).

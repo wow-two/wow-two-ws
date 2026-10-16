@@ -20,7 +20,7 @@ Both trees state the same three registers — definition · application · surfa
 
 The frontend's 242 are per shipped SDK component. The backend's 8 are per construct that is
 "complete on its own" — its own stated test. Nothing is wrong with that test; what is missing is
-the same completeness the frontend reached, measured against what the backend SDK actually ships.
+the same completeness the frontend reached, measured against what the be sdk actually ships.
 
 ---
 
@@ -37,7 +37,7 @@ The frontend tree registers every shipped component; the backend should reach th
 - add a `components/{name}.md` for each construct a caller chooses between, matching the shape of
   the 8 that are already there
 - open each new doc with a link to its construct, as `components.md` already requires
-- leave the surface register empty — the backend SDK does not spec its own types yet
+- leave the surface register empty — the be sdk does not spec its own types yet
 - keep the `## Location` / `## Declaration` section vocabulary the construct docs use; `patterns/`
   has its own `Shape · Use · Limits · Components` set and it does not transfer
 

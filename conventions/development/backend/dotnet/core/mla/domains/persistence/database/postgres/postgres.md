@@ -1,6 +1,6 @@
 # Postgres
 
-*Last updated: 2026-09-10*
+*Last updated: 2026-10-16*
 
 > PostgreSQL column and stored-value conventions; access APIs belong to their provider.
 
@@ -67,6 +67,6 @@ builder.UseNpgsqlConventional(dataSource, npgsql => npgsql.MapEnum<ChannelType>(
 ```
 
 - EF/driver requirements → [Npgsql enum mapping](https://www.npgsql.org/efcore/mapping/enum.html).
-- current driver helper → [enum mapping source](../../../../../../../../../../workbench/wow-two-sdk-beta/wow-two-sdk.backend.beta/engineering/codebase/wow-two-back-beta-sdk/src/Data/EntityFrameworkCore/Postgres/NpgsqlEnumMappingExtensions.cs).
+- current driver helper → [enum mapping source](../../../../../../../../../../workbench/wow-two-sdk-beta/wow-two-sdk-beta.be/engineering/codebase/wow-two-sdk-beta-be/src/Data/EntityFrameworkCore/Postgres/NpgsqlEnumMappingExtensions.cs).
 - string-backed mapping APIs → [Dapper enums](../../access/dapper/dapper.md#enums).
 - SQL enum evolution → [migration dialects](../../migrations/sql/migration-dialects.md#native-enum-changes).

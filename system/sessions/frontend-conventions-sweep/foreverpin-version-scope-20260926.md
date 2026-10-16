@@ -27,11 +27,11 @@ were not changed. The application migration has not started.
 - Vue SDK `0.0.7` is public and `latest`, independently verified at `2026-09-25T21:55:54.998Z`.
   Its tarball matches the registry SHA-1/SHA-512, contains all 72 export mappings and 140 unique targets,
   and matches the tested release source. [Artifact evidence](/private/tmp/ui-vue-0.0.7-verification.json).
-- Existing [Vue readiness inventory](../../../workbench/wow-two-sdk-beta/wow-two-sdk-beta.ui/engineering/architecture/analysis/forever-pin-vue-readiness.md)
+- Existing [Vue readiness inventory](../../../workbench/wow-two-sdk-beta/wow-two-sdk-beta.fe/engineering/architecture/analysis/forever-pin-vue-readiness.md)
   maps every currently used UI root to Vue. Its older `0.0.6` version and test counts are historical;
   the subsequent full sweep and verified `0.0.7` release supersede that baseline.
 - Backend runtime/testing pins remain `10.0.45-beta` / `10.0.40-beta`. The
-  [backend adoption plan](../../../workbench/wow-two-sdk-beta/wow-two-sdk.backend.beta/engineering/research/foreverpin-adoption/foreverpin-adoption.md)
+  [backend adoption plan](../../../workbench/wow-two-sdk-beta/wow-two-sdk-beta.be/engineering/research/foreverpin-adoption/foreverpin-adoption.md)
   targets the published `10.0.58-beta` family. A fresh GitHub query still returns `v10.0.58-beta` at
   `546466ef67e0b8c5ba1ad01957052c682b2c447f` as the newest tag. NuGet contents were not re-downloaded here.
 - Backend SDK working HEAD `94b32a9` contains later data-session/HTTP work. That code is not proven to be

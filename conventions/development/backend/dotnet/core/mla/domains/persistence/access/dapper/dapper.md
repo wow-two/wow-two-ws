@@ -1,6 +1,6 @@
 # Dapper
 
-*Last updated: 2026-09-26*
+*Last updated: 2026-10-16*
 
 > SQL access through a connection factory, with explicit naming and cancellation.
 
@@ -44,8 +44,8 @@ var aliased = SqlNamingMapper.Col("EnrichedAt", "l", naming.ColumnCase);
 var parameter = SqlNamingMapper.ParRef("Limit", naming.ParameterCase);
 ```
 
-- source and defaults → [Dapper registration](../../../../../../../../../../workbench/wow-two-sdk-beta/wow-two-sdk.backend.beta/engineering/codebase/wow-two-back-beta-sdk/src/Data/Dapper/DapperServiceCollectionExtensions.cs)
-  and [SQL naming](../../../../../../../../../../workbench/wow-two-sdk-beta/wow-two-sdk.backend.beta/engineering/codebase/wow-two-back-beta-sdk/src/Data/Dapper/SqlNamingMapper.cs).
+- source and defaults → [Dapper registration](../../../../../../../../../../workbench/wow-two-sdk-beta/wow-two-sdk-beta.be/engineering/codebase/wow-two-sdk-beta-be/src/Data/Dapper/DapperServiceCollectionExtensions.cs)
+  and [SQL naming](../../../../../../../../../../workbench/wow-two-sdk-beta/wow-two-sdk-beta.be/engineering/codebase/wow-two-sdk-beta-be/src/Data/Dapper/SqlNamingMapper.cs).
 
 ---
 
@@ -61,7 +61,7 @@ var parameter = SqlNamingMapper.ParRef("Limit", naming.ParameterCase);
 - must explicitly read PostgreSQL `xmin` before attaching a Dapper row for concurrency-checked EF writes.
 - must not infer full-row provenance, EF converters or owned graph support from a generic Dapper entity result.
 - must not assume generic Dapper writes perform optimistic concurrency checks or soft deletion.
-- current constraints, virtual methods and registration overloads → [repository source](../../../../../../../../../../workbench/wow-two-sdk-beta/wow-two-sdk.backend.beta/engineering/codebase/wow-two-back-beta-sdk/src/Data/Dapper/Repositories/DapperRepository.cs).
+- current constraints, virtual methods and registration overloads → [repository source](../../../../../../../../../../workbench/wow-two-sdk-beta/wow-two-sdk-beta.be/engineering/codebase/wow-two-sdk-beta-be/src/Data/Dapper/Repositories/DapperRepository.cs).
 
 ---
 

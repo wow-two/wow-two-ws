@@ -155,7 +155,7 @@ Cross-area: **[sdk-extraction.md](development/sdk-extraction.md)** — extract, 
 | Repo layout (product / venture) · `product/` + `engineering/` · code under `engineering/codebase/{slug}.{backend,frontend}-services` · slug · lead docs (no README below root) · naming · tests · deployment files | [development/repo/structure/repo-structure.md](development/repo/structure/repo-structure.md) |
 | Product conformance — every check a product repo owes, each linked to its owning convention | [development/repo/structure/product-conformance.md](development/repo/structure/product-conformance.md) |
 | App and service versions · `X.Y` from the version track, `Z` from CI · injected at build · status endpoint · shown in the app · stamped on migrations · release tags | [development/repo/versioning/versioning.md](development/repo/versioning/versioning.md) |
-| SDK / library repo shape · `engineering/` + npm package under `engineering/codebase/{slug}/` · `src/` source-only + `tests/{unit,stories}` · config repoint · dist-only publish | [development/repo/structure/sdk-structure.md](development/repo/structure/sdk-structure.md) |
+| SDK / library repo shape · be sdk + fe sdk naming (repo, code dir, package, namespace) · `engineering/` + npm package under `engineering/codebase/{slug}/` · `src/` source-only + `tests/{unit,stories}` · config repoint · dist-only publish | [development/repo/structure/sdk-structure.md](development/repo/structure/sdk-structure.md) |
 | Commit messages · scoped index handover · independent repository Git flags · LFS, gitignore and large-file recovery | [development/repo/version-control/git.md](development/repo/version-control/git.md) |
 
 ### backend/ — .NET conventions · [the dotnet index](development/backend/dotnet/dotnet-conventions.md)
@@ -285,4 +285,4 @@ Product UI standards, by need:
 
 ## Precedence
 
-A convention applies to **every** repo under `wow-two-ws/`; a repo-level rule overrides for that repo. **Naming + documentation conventions are centralized here** — they apply to the backend-beta SDK too. The SDK keeps only package **layout / registry** as internal architecture under its own `docs/` (`docs/architecture/package-layout.md`, `docs/package-registry.md`).
+A convention applies to **every** repo under `wow-two-ws/`; a repo-level rule overrides for that repo. **Naming + documentation conventions are centralized here** — they apply to the be sdk too. The SDK keeps only package **layout / registry** as internal architecture under its own `engineering/architecture/` (`package-layout.md`, `package-registry.md`).

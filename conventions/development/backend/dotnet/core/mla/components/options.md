@@ -1,6 +1,6 @@
 # Options
 
-*Last updated: 2026-09-10*
+*Last updated: 2026-10-16*
 
 > Code-supplied knobs, applied through the [options construct](../constructs/data/options.md).
 
@@ -48,5 +48,5 @@ configureNaming?.Invoke(naming);
 services.TryAddSingleton(naming);
 ```
 
-- must use the shipped [validated registration helpers](../../../../../../../workbench/wow-two-sdk-beta/wow-two-sdk.backend.beta/engineering/codebase/wow-two-back-beta-sdk/src/Foundation/Options/OptionsRegistrationExtensions.cs)
+- must use the shipped [validated registration helpers](../../../../../../../workbench/wow-two-sdk-beta/wow-two-sdk-beta.be/engineering/codebase/wow-two-sdk-beta-be/src/Foundation/Options/OptionsRegistrationExtensions.cs)
   for fill/bind, validation, startup checking and projection.

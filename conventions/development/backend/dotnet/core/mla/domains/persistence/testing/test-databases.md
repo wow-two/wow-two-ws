@@ -1,6 +1,6 @@
 # Test Databases
 
-*Last updated: 2026-09-10*
+*Last updated: 2026-10-16*
 
 > Which database a backend test runs against, and how the tier picks it — Postgres by default,
 > SQLite as a switchable speed fallback.
@@ -13,7 +13,7 @@ Pick the tier by what the test exercises; each MUST use the SDK harness, never a
 
 - **pure-logic** — evaluators, formatters, mappers, generators → **no database**; a plain unit test, no harness.
 - **repository / handler** — reads/writes through `DbContext` → `RelationalTestDb<TContext>`.
-  - ships in `WoW.Two.Sdk.Backend.Beta.Testing.Data`.
+  - ships in `WoW.Two.Sdk.Beta.Be.Testing.Data`.
 - **E2E (host-boot)** — real HTTP through the real pipeline.
   - `MultiHostFixture` + `WebApiTestHost<T>` + `PostgresFixture`, Respawn resetting between tests.
 - **migrator-engine** — apply / rollback / drift over real SQL.

@@ -1,6 +1,6 @@
 # Style
 
-*Last updated: 2026-09-10*
+*Last updated: 2026-10-16*
 
 > What the text inside a file looks like — its order, its wrapping, its width.
 > Purpose — remove every per-file judgment call about layout so a diff shows meaning, not formatting.
@@ -15,7 +15,7 @@ What a file declares before any type appears.
 
 ```csharp
 // ✅ Correct
-namespace WoW.Two.Sdk.Backend.Beta.Data.Abstractions;
+namespace WoW.Two.Sdk.Beta.Be.Data.Abstractions;
 
 public interface IEntity { Guid Id { get; } }
 ```

@@ -32,7 +32,7 @@ Step 1 (org invite) is the owner's to action — longest lead, do first.
 
 ## Owned lanes (you)
 
-- Beta libs: `wow-two-sdk-beta.ui`, `wow-two-sdk.backend.beta` — incl. version bumps.
+- Beta libs: `wow-two-sdk-beta.fe`, `wow-two-sdk-beta.be` — incl. version bumps.
 - App backends: `secrets-vault.backend-services`, `wheelhouse.backend-services` + deploy/SSH.
 
 ## Live seam

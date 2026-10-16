@@ -1,6 +1,6 @@
 # SDK structure
 
-*Last updated: 2026-10-01*
+*Last updated: 2026-10-16*
 
 > On-disk layout and naming of an SDK / library repo under `wow-two-ws/workbench/` — the package-shaped
 > counterpart of [repo structure](repo-structure.md).
@@ -16,10 +16,26 @@
 
 ---
 
+## Naming
+
+| Part | be sdk | fe sdk |
+|---|---|---|
+| repo | `wow-two-sdk-beta.be` | `wow-two-sdk-beta.fe` |
+| code dir | `engineering/codebase/wow-two-sdk-beta-be/` | `engineering/codebase/wow-two-sdk-beta-fe/` |
+| package | `WoW2.Sdk.Beta.Be[.{Module}]` on NuGet | `@wow-two-beta/fe` on npm |
+| namespace | `WoW.Two.Sdk.Beta.Be[.{Module}]` | — |
+
+- must name a beta SDK repo `wow-two-sdk-beta.{stack}` — `be` for .NET, `fe` for the frontend.
+- must name its code dir `{slug}` — the repo name with the dot as a hyphen.
+- must name an extra be sdk package and its namespace by appending `.{Module}` to the root.
+- must call them "be sdk" and "fe sdk" in prose, lowercase — never "backend SDK", "UI SDK" or "frontend SDK".
+
+---
+
 ## Layout
 
 ```
-{repo}/                              e.g. wow-two-sdk-beta.ui
+{repo}/                              e.g. wow-two-sdk-beta.fe
 ├── README.md · CLAUDE.md            entry docs — root only
 ├── .claude/ · .gitignore
 ├── .github/workflows/               CI runs from the repo root only
@@ -31,7 +47,7 @@
     ├── development/                 rules.md — working rules for agents
     └── codebase/
         ├── codebase.md
-        └── {slug}/                  the package, e.g. wow-two-front-vue-beta-sdk
+        └── {slug}/                  the package, e.g. wow-two-sdk-beta-fe
             ├── package.json · pnpm-lock.yaml · pnpm-workspace.yaml
             ├── tsconfig*.json · vite.config.ts · vitest.config.ts · eslint.config.js
             ├── src/                 source only

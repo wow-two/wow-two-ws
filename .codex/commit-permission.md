@@ -1,6 +1,6 @@
 # Repository git flags
 
-*Last updated: 2026-09-29*
+*Last updated: 2026-10-16*
 
 > Codex and Claude Code integration for the workspace git flags in `wow-two-ws`. Only commands that are risky and
 > used often get a flag; risky commands that are rarely needed never run; safe commands need no flag.
@@ -64,11 +64,11 @@
 The following fenced examples are documentation, not consent:
 
 ```text
-~commit_on workbench/wow-two-sdk-beta/wow-two-sdk-beta.ui
+~commit_on workbench/wow-two-sdk-beta/wow-two-sdk-beta.fe
 ```
 
 ```text
-~push_off workbench/wow-two-sdk-beta/wow-two-sdk-beta.ui
+~push_off workbench/wow-two-sdk-beta/wow-two-sdk-beta.fe
 ```
 
 ```text
@@ -117,7 +117,7 @@ The helper is read-only and prints one repository's flags, or the whole store wi
 mutation command:
 
 ```sh
-python3 -B .codex/hooks/commit_permission.py status --repo workbench/wow-two-sdk-beta/wow-two-sdk-beta.ui
+python3 -B .codex/hooks/commit_permission.py status --repo workbench/wow-two-sdk-beta/wow-two-sdk-beta.fe
 python3 -B .codex/hooks/commit_permission.py status --repo '*'
 ```
 

@@ -1,6 +1,6 @@
 # Components
 
-*Last updated: 2026-09-10*
+*Last updated: 2026-10-16*
 
 > Which thing to reach for, and with what values — the application register over the roles `constructs/` defines
 > and the surfaces the SDK specs.
@@ -54,7 +54,7 @@ the third bullet: TypeScript supplies all three, so they are
 
 ## Reaching for one
 
-- must use the selected framework's SDK surface: `@wow-two-beta/ui-vue` for Vue.
+- must use the selected framework's SDK surface: `@wow-two-beta/fe` for Vue.
 - must apply the [extraction boundary](../../../shapes/app/architecture/boundaries.md) to reusable work.
 - must fix a missing or incorrect SDK API through its sweep instead of preserving a product workaround.
 - must keep component API details and compatibility aliases in the selected package's specifications.

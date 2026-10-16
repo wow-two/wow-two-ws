@@ -1,6 +1,6 @@
 # Template — `wow-two-ws/PLANNING.md` (entry board)
 
-*Last updated: 2026-06-17*
+*Last updated: 2026-10-16*
 
 > The single link handed to a contributor: who owns what · where each plan lives · how we (don't) gate.
 > Fill the `{placeholders}`; full rationale in `system/sessions/onboard-member/session-onboard-member.md`.
@@ -33,7 +33,7 @@ Single trusted contributor → fix-forward + CI-green signal, not gates. See SOP
 
 ## Dependency map
 
-- `wheelhouse.frontend-services` → `@wow-two-beta/ui` (`^0.0.x`) — owner controls bumps.
+- `wheelhouse.frontend-services` → `@wow-two-beta/fe` (`0.0.x`) — owner controls bumps.
 - `wheelhouse` frontend → `wheelhouse` backend — the one live API seam.
 
 ## Git note

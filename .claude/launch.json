@@ -86,7 +86,7 @@
       "runtimeExecutable": "pnpm",
       "runtimeArgs": [
         "-C",
-        "workbench/wow-two-sdk-beta/wow-two-sdk-beta.ui/apps/showcase",
+        "workbench/wow-two-sdk-beta/wow-two-sdk-beta.fe/engineering/codebase/wow-two-front-beta-sdk/apps/showcase",
         "dev"
       ],
       "port": 5174,
@@ -97,7 +97,7 @@
       "runtimeExecutable": "pnpm",
       "runtimeArgs": [
         "-C",
-        "workbench/wow-two-sdk-beta/wow-two-sdk-beta.ui/apps/theme-studio",
+        "workbench/wow-two-sdk-beta/wow-two-sdk-beta.fe/engineering/codebase/wow-two-front-beta-sdk/apps/theme-studio",
         "dev"
       ],
       "port": 5175,
@@ -268,11 +268,11 @@
       "port": 8248
     },
     {
-      "name": "ui-vue-playground",
+      "name": "fe-playground",
       "runtimeExecutable": "pnpm",
       "runtimeArgs": [
         "-C",
-        "workbench/wow-two-sdk-beta/wow-two-sdk-beta.ui/engineering/codebase/wow-two-front-vue-beta-sdk",
+        "workbench/wow-two-sdk-beta/wow-two-sdk-beta.fe/engineering/codebase/wow-two-sdk-beta-fe",
         "--filter",
         "playground",
         "dev"
@@ -281,11 +281,11 @@
       "autoPort": true
     },
     {
-      "name": "ui-vue-atlas",
+      "name": "fe-atlas",
       "runtimeExecutable": "pnpm",
       "runtimeArgs": [
         "-C",
-        "workbench/wow-two-sdk-beta/wow-two-sdk-beta.ui/engineering/codebase/wow-two-front-vue-beta-sdk",
+        "workbench/wow-two-sdk-beta/wow-two-sdk-beta.fe/engineering/codebase/wow-two-sdk-beta-fe",
         "--filter",
         "atlas",
         "dev"

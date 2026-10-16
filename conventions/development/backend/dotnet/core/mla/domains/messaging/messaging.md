@@ -1,6 +1,6 @@
 # Messaging
 
-*Last updated: 2026-09-13*
+*Last updated: 2026-10-16*
 
 > Dispatching a message to its handlers without binding the message to its transport.
 
@@ -59,7 +59,7 @@ the handler call graph. WoW2 chooses explicit service composition for this work.
 - must not classify host-shutdown cancellation as a failed handler delivery.
 - must bound retries and route exhausted failures through the configured dead-letter policy.
 - must apply backpressure rather than buffer unbounded pending work in the process.
-- transport contract → [messaging standard](../../../../../../../../workbench/wow-two-sdk-beta/wow-two-sdk.backend.beta/engineering/codebase/wow-two-back-beta-sdk/src/Messaging/Messaging.standard.md).
+- transport contract → [messaging standard](../../../../../../../../workbench/wow-two-sdk-beta/wow-two-sdk-beta.be/engineering/codebase/wow-two-sdk-beta-be/src/Messaging/Messaging.standard.md).
 
 ---
 

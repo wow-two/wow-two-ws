@@ -6,7 +6,7 @@
 
 - September 26 autonomous SDK completion is implemented locally: opt-in EF/Dapper sessions, nested units/hooks,
   transactional mediator requests, atomic idempotency ownership and outbound destination safety.
-  [Full sweep and remaining vectors](../../../workbench/wow-two-sdk-beta/wow-two-sdk.backend.beta/engineering/research/sdk-completion/sweep-2026-09-26.md).
+  [Full sweep and remaining vectors](../../../workbench/wow-two-sdk-beta/wow-two-sdk-beta.be/engineering/research/sdk-completion/sweep-2026-09-26.md).
   Release tests passed 609 with one existing Kafka skip; seven local package/symbol pairs verified.
   Implementation commits: `aba7f85` (HTTP safety) and `e0310de` (data sessions/idempotency); documentation is
   committed as `94b32a9`. Publication remains pending. Native SDK commit permission is ON for this chat;
@@ -15,7 +15,7 @@
 - `10.0.57-beta` includes the CI propagation fix (`a645d1b`); publish run `35428036926` passed.
   The autonomous SDK adoption cut was committed as `ba2a87e` and published as `10.0.58-beta`: rendering safety/PNG/results,
   protected guest identity, database/HTTP errors, stored JSON registration/snapshots, payload formats, IDs and request context.
-- [Adoption track](../../../workbench/wow-two-sdk-beta/wow-two-sdk.backend.beta/engineering/research/foreverpin-adoption/foreverpin-adoption.md)
+- [Adoption track](../../../workbench/wow-two-sdk-beta/wow-two-sdk-beta.be/engineering/research/foreverpin-adoption/foreverpin-adoption.md)
   owns the full 12-project / 215-file ForeverPin inventory, SDK regression evidence and remaining product/deferred work.
   Publish run `35442850653` passed **552 with one existing Kafka skip**; all seven packages are on NuGet.
   Commit permission remains OFF; the developer commits/publishes. ForeverPin repins to `10.0.58-beta`.
@@ -28,7 +28,7 @@
   [Batch verification](commit-batches-verification.md).
 - Backend conventions are complete: all 25 BC01–BC25 tasks and all design/naming decisions are closed.
   [Final acceptance](naming-final-acceptance.md) verifies 159 docs and 1,050 local links/fragments.
-- The convention implementation sweep and local release verification are complete. [Remaining work](../../../workbench/wow-two-sdk-beta/wow-two-sdk.backend.beta/be-convention-sweep.md)
+- The convention implementation sweep and local release verification are complete. [Remaining work](../../../workbench/wow-two-sdk-beta/wow-two-sdk-beta.be/be-convention-sweep.md)
   carries the CI correction and newly scoped ForeverPin adoption work.
 - Completed session naming/placement slices were checked against live source and removed from active obligations.
   [SDK recheck](sdk-handoff-recheck.md) distinguishes source evidence from historical test results.
@@ -110,8 +110,8 @@
   One local pack required native network escalation despite `--no-restore`. [Verification](release-readiness-verification.md).
 - Current SDK order: background workers, cache invalidation, full-row/write guards, translation and identity completion.
   Consumer order stays ForeverPin adoption, then other repins; it no longer gates authorized SDK implementation.
-- SDK repository: `workbench/wow-two-sdk-beta/wow-two-sdk.backend.beta/`, an independent Git repository.
-  Code root: `engineering/codebase/wow-two-back-beta-sdk/src/`. C17 owns stale onboarding/version/structure claims;
+- SDK repository: `workbench/wow-two-sdk-beta/wow-two-sdk-beta.be/`, an independent Git repository.
+  Code root: `engineering/codebase/wow-two-sdk-beta-be/src/`. C17 owns stale onboarding/version/structure claims;
   use evaluated project/workflow state for release work.
 
 ## Confirmed constraints

@@ -120,7 +120,7 @@ The [five-product analysis](../../ideas/self-serve-research-2026-10/self-serve-r
 |---|---|---|---|---|---|---|
 | `wks-t-001` | Give every app a correct public identity: logo, description and homepage | `-` | normal | `todo` | `-` | Added `2026-10-13` by the user. Covers each product and platform app, its GitHub repository About, packages and GitHub OAuth/GitHub App registrations (first: Wheelhouse's `wheelhouse-dev` OAuth app). Inventory every surface, then fix per app |
 | `wks-t-002` | Review the `product.json` manifest and the icon variant set together, then roll both out | `-` | normal | `todo` | `-` | Added `2026-10-15` by the user: decide the required variants (monochrome is missing everywhere, including Wheelhouse), then add `product/product.json` and `product/brand/icons/` to ForeverPin and the product template. Conventions: `design/identity/` |
-| `wks-t-003` | Rename both SDKs to `wow-two-sdk-beta.be` and `wow-two-sdk-beta.fe`, packages and namespaces included | `-` | `high` | `todo` | `-` | Decided `2026-10-16` by the user: repos, local folders and remotes; NuGet `WoW2.Sdk.Backend.Beta*` → `WoW2.Sdk.Beta.Be*` and namespace `WoW.Two.Sdk.Backend.Beta` → `WoW.Two.Sdk.Beta.Be`; npm `@wow-two-beta/ui-vue` → `@wow-two-beta/fe`. Consumers are frozen; Wheelhouse moves now, the rest on their next upgrade. Starts once running SDK work lands |
+| `wks-t-003` | Rename both SDKs to `wow-two-sdk-beta.be` and `wow-two-sdk-beta.fe`, packages and namespaces included | `-` | `high` | `todo` | `-` | Decided `2026-10-16` by the user: repos, local folders and remotes; NuGet `WoW2.Sdk.Backend.Beta*` → `WoW2.Sdk.Beta.Be*` and namespace `WoW.Two.Sdk.Backend.Beta` → `WoW.Two.Sdk.Beta.Be`; npm `@wow-two-beta/ui-vue` → `@wow-two-beta/fe`. Consumers are frozen; Wheelhouse moves now, the rest on their next upgrade. Starts once running SDK work lands. Progress `2026-10-16`: repos, folders, packages and namespaces renamed; publishing and consumer moves in progress |
 
 ---
 
@@ -128,7 +128,7 @@ The [five-product analysis](../../ideas/self-serve-research-2026-10/self-serve-r
 
 Not started, ordered, top = next. Pulling one promotes it above and mints its ID.
 
-### → beta SDK (`wow-two-sdk.backend.beta`)
+### → be sdk (`wow-two-sdk-beta.be`)
 
 | Item | Type | Notes |
 |---|---|---|
@@ -144,12 +144,12 @@ Not started, ordered, top = next. Pulling one promotes it above and mints its ID
 |---|---|---|
 | Reconcile controller and message examples | issue | Backend audit `BC07` and `BC13`; current construct owner is `controller.md`, not the removed `controllers.md` |
 | Apply the current convention authoring rules | check | Backend audit `BC20`; directive rules and single ownership per `conventions/conventions.md` |
-| Align result, validation and ProblemDetails conventions with `AppError` | check | From the backend SDK's errors research §6; verify what already landed |
-| Settle explicit `IQuery` / `ICommand` markers in `mediator.md` | check | From the backend SDK's mediator research, decision 2; verify first |
+| Align result, validation and ProblemDetails conventions with `AppError` | check | From the be sdk's errors research §6; verify what already landed |
+| Settle explicit `IQuery` / `ICommand` markers in `mediator.md` | check | From the be sdk's mediator research, decision 2; verify first |
 | Resolve `Provides mapping for` vs `Extends` in XML-doc summaries | issue | TNIS: `request-models.md:82` against `documentation/summary.md:83` |
 | Name grouped controls and input suffixes; prefer gaps and separators to borders | feature | ForeverPin polish findings (`ShapeControls` vs `ShapeControlsGroup`) |
-| Document the derived component-catalog pattern in `sdk-structure.md` | feature | UI SDK v0.1 iteration 3 |
-| Move shipped facts from the UI SDK vector analyses into conventions | check | UI SDK content audit |
+| Document the derived component-catalog pattern in `sdk-structure.md` | feature | fe sdk v0.1 iteration 3 |
+| Move shipped facts from the fe sdk vector analyses into conventions | check | fe sdk content audit |
 
 ### → product template (`wow-two-sdk-beta.product-template`)
 
@@ -157,7 +157,7 @@ Not started, ordered, top = next. Pulling one promotes it above and mints its ID
 |---|---|---|
 | Stop `vue/html-self-closing` fighting Prettier on void elements | issue | PbnStudio; `eslint.config.mjs` lacks the override |
 | Serve `vite preview` over http without the mkcert `server.https` | issue | Hijinx: http previews and E2E get empty responses |
-| Stamp `src/form.ts` into new repos | feature | UI SDK forms row, deferred |
+| Stamp `src/form.ts` into new repos | feature | fe sdk forms row, deferred |
 
 ### → SDK repos (`wow-two-sdk-beta.be` · `wow-two-sdk-beta.fe`)
 

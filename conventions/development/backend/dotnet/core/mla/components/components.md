@@ -1,6 +1,6 @@
 # Components
 
-*Last updated: 2026-08-18*
+*Last updated: 2026-10-16*
 
 > The things that are complete on their own — declared, and immediately doing their whole job.
 > Purpose — a component needs no service, no domain and no collaborator present to mean something.
@@ -19,7 +19,7 @@ they own, not by what they cover.
 
 - must open each doc here with a link to its construct — a reader landing on the condition still reaches
   the definition ([development conventions](../../../../../development-conventions.md) § *The layers of a thing*).
-- must leave the surface register empty until the backend SDK specs its own types; a rule about an
+- must leave the surface register empty until the be sdk specs its own types; a rule about an
   SDK type's options belongs to that SDK's doc, never here.
 - must move a rule to `mla/constructs/` when it says **what the thing is** rather than how one is used.
 - must not carry a variation in the construct — a variation is an application, so it belongs here.

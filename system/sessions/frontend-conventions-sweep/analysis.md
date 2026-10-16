@@ -255,7 +255,7 @@ are the implementation queue. Multiple findings can close together when they sha
 | 30 — ARIA constants | Keep; distinguish code extraction from template-only names and actual ARIA behavior. |
 
 Additional SDK work is appended as rows 31–42 in the
-[existing sweep](../../../workbench/wow-two-sdk-beta/wow-two-sdk-beta.ui/engineering/planning/ui-sdk-conventions-sweep.md),
+existing sweep (folded into the [fe sdk backlog](../../../workbench/wow-two-sdk-beta/wow-two-sdk-beta.fe/engineering/planning/backlog.md) on 2026-09-29),
 linked to these convention tasks.
 Old counts remain historical unless the [SDK baseline](sdk-baseline.md) explicitly remeasured them.
 

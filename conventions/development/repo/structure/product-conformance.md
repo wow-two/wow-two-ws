@@ -66,7 +66,7 @@
 
 | Check | Owner |
 |---|---|
-| Vue 3, strict TypeScript, Vite, Tailwind v4, on a published `@wow-two-beta/ui-vue` | [frontend standard](../repo-conventions.md#frontend-standard) |
+| Vue 3, strict TypeScript, Vite, Tailwind v4, on a published `@wow-two-beta/fe` | [frontend standard](../repo-conventions.md#frontend-standard) |
 | a pnpm workspace with the app at `apps/web/`, one lockfile, a pinned `packageManager` | [workspace](../../frontend/shapes/app/architecture/workspace.md) |
 | `src/` holds the five layers, each sliced by domain | [architecture](../../frontend/shapes/app/architecture/architecture.md) |
 | layer and slice boundaries are linted and tested | [architecture](../../frontend/shapes/app/architecture/architecture.md#layers-required) |

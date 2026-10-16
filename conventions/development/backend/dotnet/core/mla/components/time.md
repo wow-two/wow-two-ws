@@ -1,6 +1,6 @@
 # Time
 
-*Last updated: 2026-09-24*
+*Last updated: 2026-10-16*
 
 > Applying the [clock seam](../constructs/behavior/time.md) to timestamps, durations and schedules.
 
@@ -39,7 +39,7 @@ var next = parser.Parse("0 0 8 * * *").GetNextOccurrence(
 - must derive the default `IClock` from the registered `TimeProvider`.
 - must register an independent `IClock` explicitly only when the two clocks intentionally differ.
 - must replace both registrations when a test host owns the clock.
-- registration surface → [time registration](../../../../../../../workbench/wow-two-sdk-beta/wow-two-sdk.backend.beta/engineering/codebase/wow-two-back-beta-sdk/src/Foundation/Time/TimeServiceCollectionExtensions.cs).
+- registration surface → [time registration](../../../../../../../workbench/wow-two-sdk-beta/wow-two-sdk-beta.be/engineering/codebase/wow-two-sdk-beta-be/src/Foundation/Time/TimeServiceCollectionExtensions.cs).
 
 ---
 
@@ -55,5 +55,5 @@ var next = parser.Parse("0 0 8 * * *").GetNextOccurrence(
 
 - must handle invalid zone ids and cron expressions at the input boundary.
 - must not assume every zone id is available on every machine; zone data remains an OS dependency.
-- API and exceptions → [zone mapper](../../../../../../../workbench/wow-two-sdk-beta/wow-two-sdk.backend.beta/engineering/codebase/wow-two-back-beta-sdk/src/Foundation/Time/TimeZoneMapper.cs)
-  and [cron parser](../../../../../../../workbench/wow-two-sdk-beta/wow-two-sdk.backend.beta/engineering/codebase/wow-two-back-beta-sdk/src/Foundation/Time/Parsers/ICronExpressionParser.cs).
+- API and exceptions → [zone mapper](../../../../../../../workbench/wow-two-sdk-beta/wow-two-sdk-beta.be/engineering/codebase/wow-two-sdk-beta-be/src/Foundation/Time/TimeZoneMapper.cs)
+  and [cron parser](../../../../../../../workbench/wow-two-sdk-beta/wow-two-sdk-beta.be/engineering/codebase/wow-two-sdk-beta-be/src/Foundation/Time/Parsers/ICronExpressionParser.cs).

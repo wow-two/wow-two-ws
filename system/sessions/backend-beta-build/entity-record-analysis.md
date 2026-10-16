@@ -103,7 +103,7 @@ merge: navigation changes, original concurrency values, allowed fields and parti
 
 The current SDK makes this distinction relevant:
 
-- [EfRepository.GetByIdAsync](../../../workbench/wow-two-sdk-beta/wow-two-sdk.backend.beta/engineering/codebase/wow-two-back-beta-sdk/src/Data/EntityFrameworkCore/Repositories/EfRepository.cs)
+- [EfRepository.GetByIdAsync](../../../workbench/wow-two-sdk-beta/wow-two-sdk-beta.be/engineering/codebase/wow-two-sdk-beta-be/src/Data/EntityFrameworkCore/Repositories/EfRepository.cs)
   performs a query without an explicit no-tracking operator (line 34); normal context defaults track it.
 - `UpdateAsync` calls `Set.Update(entity)` (line 66). Reading and sending a `with` copy through the same tracked
   repository/context therefore reaches the duplicate-instance constraint.

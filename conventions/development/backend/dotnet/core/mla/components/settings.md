@@ -1,6 +1,6 @@
 # Settings
 
-*Last updated: 2026-09-10*
+*Last updated: 2026-10-16*
 
 > Configuration-section values, applied through the [settings construct](../constructs/data/settings.md).
 
@@ -35,5 +35,5 @@
 - must not read `IConfiguration` inside a consuming service.
 - must use [options registration](options.md#registration) for composition and pipeline-construction constraints.
 
-- helper signatures → [validated registration](../../../../../../../workbench/wow-two-sdk-beta/wow-two-sdk.backend.beta/engineering/codebase/wow-two-back-beta-sdk/src/Foundation/Options/OptionsRegistrationExtensions.cs).
+- helper signatures → [validated registration](../../../../../../../workbench/wow-two-sdk-beta/wow-two-sdk-beta.be/engineering/codebase/wow-two-sdk-beta-be/src/Foundation/Options/OptionsRegistrationExtensions.cs).
 - environment overrides → [host configuration](../../../shapes/service/platform/startup/host-configuration.md).

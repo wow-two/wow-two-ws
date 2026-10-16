@@ -1,6 +1,6 @@
 # Extract, keep, remove
 
-*Last updated: 2026-10-01*
+*Last updated: 2026-10-16*
 
 > Where a component, helper or module lives — a shared SDK, the app, or nowhere.
 > Use case — judging a piece already built or about to be built, in app code or in either SDK.
@@ -16,7 +16,7 @@
 
 ## Extract
 
-- must extract a generic piece to the SDK — `@wow-two-beta/ui-vue` or `WoW2.Sdk.Backend.Beta`.
+- must extract a generic piece to the SDK — `@wow-two-beta/fe` or `WoW2.Sdk.Beta.Be`.
 - must extract it even when it carries little logic, and even when one app uses it today.
 - must treat a generic atom — the lowest-level input or control — as SDK, never app-local.
 - must build a missing generic primitive in the SDK first, mirroring its nearest sibling, then consume it.

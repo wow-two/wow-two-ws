@@ -4,7 +4,7 @@
 
 ## Paths
 - **Vault**: `wow-two-ws/workbench/wow-two-platform/wow-two-platform.secrets-vault/` → backend `engineering/codebase/secrets-vault.backend-services/Wow-Two-Platform.Secrets-Vault.sln` · frontend `…/secrets-vault.frontend-services/` (React 19 / Vite).
-- **Kit (SDK)**: `wow-two-sdk-beta/wow-two-sdk.backend.beta/` — pinned **`10.0.40-beta`**. Extracted leaves: `src/Foundation/Security` (envelope crypto) · `src/Foundation/Audit` (hash-chain).
+- **Kit (SDK)**: `wow-two-sdk-beta/wow-two-sdk-beta.be/` — pinned **`10.0.40-beta`**. Extracted leaves: `src/Foundation/Security` (envelope crypto) · `src/Foundation/Audit` (hash-chain).
 - **forever-pin** (mirror for result-model + tests): `ventures/10x-venture-forever-pin/`.
 - **Version docs**: vault `engineering/planning/version-track/v{X.Y}/v{X.Y}.md` (newest = active) · `engineering/planning/backlog.md` · analysis `engineering/research/v0.2-analysis.md`.
 - **Version-doc convention**: `wow-two-ws/conventions/planning/version-track/version-track.md`.

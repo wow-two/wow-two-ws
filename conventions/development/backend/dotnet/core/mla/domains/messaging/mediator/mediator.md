@@ -1,6 +1,6 @@
 # Mediator
 
-*Last updated: 2026-09-13*
+*Last updated: 2026-10-16*
 
 > Applying the in-process mediator to requests, notifications and their interception pipeline.
 
@@ -56,4 +56,4 @@
 - deduplication → `AddMediatorDeduplicatingInterceptor()`, with `IIdempotent` and an appropriate repository.
 - authorization → `AddMediatorAuthorizingInterceptor()`, with `IRequireAuthorization`.
 - must use a shared durable idempotency store when duplicate requests can reach different instances.
-- API and registration contracts → [mediator source](../../../../../../../../../workbench/wow-two-sdk-beta/wow-two-sdk.backend.beta/engineering/codebase/wow-two-back-beta-sdk/src/Mediator/MediatorServiceCollectionExtensions.cs).
+- API and registration contracts → [mediator source](../../../../../../../../../workbench/wow-two-sdk-beta/wow-two-sdk-beta.be/engineering/codebase/wow-two-sdk-beta-be/src/Mediator/MediatorServiceCollectionExtensions.cs).

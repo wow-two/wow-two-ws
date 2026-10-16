@@ -1,6 +1,6 @@
 # Serilog
 
-*Last updated: 2026-09-10*
+*Last updated: 2026-10-16*
 
 > Logging through the SDK's host wiring, including failures before the application logger exists.
 
@@ -23,7 +23,7 @@
 - must preserve `{TraceId}` in text sinks used to correlate operations.
 - must verify custom sink templates; adding a sink does not inherit another sink's output template.
 - must keep the log directory outside version control and configure storage retention in the deployment.
-- must keep source defaults in the [SDK logging owner](../../../../../../../../../workbench/wow-two-sdk-beta/wow-two-sdk.backend.beta/engineering/codebase/wow-two-back-beta-sdk/src/Observability/Logging/logging.md).
+- must keep source defaults in the [SDK logging owner](../../../../../../../../../workbench/wow-two-sdk-beta/wow-two-sdk-beta.be/engineering/codebase/wow-two-sdk-beta-be/src/Observability/Logging/logging.md).
 
 ---
 

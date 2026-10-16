@@ -52,7 +52,7 @@ and focused regression tests during the SDK pass.
 
 ## Existing work
 
-The active SDK tracker is [Backend convention sweep](../../../workbench/wow-two-sdk-beta/wow-two-sdk.backend.beta/be-convention-sweep.md).
+The active SDK tracker is [Backend convention sweep](../../../workbench/wow-two-sdk-beta/wow-two-sdk-beta.be/be-convention-sweep.md).
 Its pre-audit row markers contained **90 rows: 73 marked completed, 6 refuted, 11 open**, versus the
 header's 89/10 and the older [handoff](../../../be-handoff.md)'s six-open snapshot. Source verification
 reopened `N60`: `AppErrorProblemDetailsFactory.cs:10` is still static. The post-audit count was

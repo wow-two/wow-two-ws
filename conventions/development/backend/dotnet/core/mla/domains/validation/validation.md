@@ -1,6 +1,6 @@
 # Validation
 
-*Last updated: 2026-09-15*
+*Last updated: 2026-10-16*
 
 > Input validity, phase ordering, and field failures independent of the validation provider.
 
@@ -64,7 +64,7 @@ These rules govern the SDK input/field-validation contract; domain integrity res
 - may use `ValidateAndThrow(T)` only at a declared throwing boundary.
 - must read advisory failures through `Inspect(T)` rather than treating them as write failures.
 - must not let an advisory warning block a write; a blocking rule is an error.
-- API → [validator contract](../../../../../../../../workbench/wow-two-sdk-beta/wow-two-sdk.backend.beta/engineering/codebase/wow-two-back-beta-sdk/src/Foundation/Validation/IValidator.cs).
+- API → [validator contract](../../../../../../../../workbench/wow-two-sdk-beta/wow-two-sdk-beta.be/engineering/codebase/wow-two-sdk-beta-be/src/Foundation/Validation/IValidator.cs).
 
 ---
 

@@ -1,6 +1,6 @@
 # Development cycle
 
-*Last updated: 2026-10-01*
+*Last updated: 2026-10-16*
 
 > Two cycles per active app — implement a version in-app, then extract its stable blocks to the SDK + conventions and adopt across the active apps.
 > Purpose — mature the apps and the shared SDK in parallel: ship fast in one product, harden once, propagate everywhere — never in isolation.
@@ -46,7 +46,7 @@ The defining rule of cycle 2. A known domain (forms, validation, auth, tables, s
 - must complete the vector in a dedicated follow-up pass (its own chat) after the triggering product ships — so the **second** product finds the capability already present, never re-triggers the question
 - must not gate a vector **capability** on "a consumer asked" — proactive to completeness is the default
 - may gate an alternative **engine adapter** (a 2nd/3rd wrapping of the same capability, e.g. RHF beside TanStack) on preference/trigger once swap-freedom exists (≥2 adapters) — that is the lone exception, not a capability gap
-- applies to both the backend and the frontend SDK
+- applies to both the be sdk and the fe sdk
 - track every vector + its completion iterations in the SDK repository's `engineering/planning/backlog.md` `Vectors` group — a new vector (e.g. i18n) gets a row there the moment it is triggered
 
 ---
@@ -98,7 +98,7 @@ Main CI answers every SDK push with a release commit (`chore: release … [skip 
 - must not commit in that repo while its release run is in flight — queue the work, or do it in another repo.
 - must rebase unpushed commits onto `origin/main` when a release commit landed beside them, then push.
 - may hand the wait to a background agent or shell that waits the average release time, then pulls.
-- the average release time — UI SDK ≈ 7 min, backend SDK ≈ 10 min; `gh run list --workflow` gives today's figure.
+- the average release time — fe sdk ≈ 7 min, be sdk ≈ 10 min; `gh run list --workflow` gives today's figure.
 - a failed release run lands no release commit; fix forward, and the next push releases.
 
 ---

@@ -1,6 +1,6 @@
 # EF migrations
 
-*Last updated: 2026-09-10*
+*Last updated: 2026-10-16*
 
 > EF-owned schema evolution for a code-first product database.
 
@@ -17,7 +17,7 @@
 - must register the startup runner through `AddEfMigrationsRunner<TContext>()` when the host applies development migrations.
 - must disable that runner on a production application host using an explicit deployment migration action.
 - must validate configured connection retry counts and delays through the agreed [options recipe](../../../../components/options.md#registration).
-- actual registration and defaults → [EF migration registration](../../../../../../../../../../workbench/wow-two-sdk-beta/wow-two-sdk.backend.beta/engineering/codebase/wow-two-back-beta-sdk/src/Data/Migrations/Ef/EfMigrationsServiceCollectionExtensions.cs).
+- actual registration and defaults → [EF migration registration](../../../../../../../../../../workbench/wow-two-sdk-beta/wow-two-sdk-beta.be/engineering/codebase/wow-two-sdk-beta-be/src/Data/Migrations/Ef/EfMigrationsServiceCollectionExtensions.cs).
 
 ---
 

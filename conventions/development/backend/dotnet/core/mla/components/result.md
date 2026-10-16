@@ -1,6 +1,6 @@
 # Result
 
-*Last updated: 2026-09-10*
+*Last updated: 2026-10-16*
 
 > Choosing and consuming the [result construct](../constructs/data/result.md) for recoverable failure.
 
@@ -68,5 +68,5 @@
 - may use `.ValueOrThrow()` or `.ThrowIfFailure()` for the SDK's `AppException` bridge.
 - must not promise every throw becomes a result: pre-dispatch, programmer-error and incompatible-response paths may throw.
 
-- carrier API → [results](../../../../../../../workbench/wow-two-sdk-beta/wow-two-sdk.backend.beta/engineering/codebase/wow-two-back-beta-sdk/src/Foundation/Results/Result.cs).
-- bridge API → [result extensions](../../../../../../../workbench/wow-two-sdk-beta/wow-two-sdk.backend.beta/engineering/codebase/wow-two-back-beta-sdk/src/Foundation/Results/ResultExtensions.cs).
+- carrier API → [results](../../../../../../../workbench/wow-two-sdk-beta/wow-two-sdk-beta.be/engineering/codebase/wow-two-sdk-beta-be/src/Foundation/Results/Result.cs).
+- bridge API → [result extensions](../../../../../../../workbench/wow-two-sdk-beta/wow-two-sdk-beta.be/engineering/codebase/wow-two-sdk-beta-be/src/Foundation/Results/ResultExtensions.cs).

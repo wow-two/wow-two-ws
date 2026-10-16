@@ -30,7 +30,7 @@ Usage counted by grepping the 11 SDK-consuming product backends for each symbol.
 
 | Tree | Holds | Verdict |
 |---|---|---|
-| `workbench/wow-two-sdk-beta/wow-two-sdk.backend.beta/` | the beta backend SDK mono-lib | the real platform |
+| `workbench/wow-two-sdk-beta/wow-two-sdk-beta.be/` | the be sdk mono-lib | the real platform |
 | `workbench/wow-two-platform/` | 17 repos | 14 empty, 1 stub, 2 products |
 | `workbench/wow-two-sdk/` | 7 repos | 5 empty, 2 with code |
 | `workbench/ventures/` + wheelhouse + secrets-vault | 11 product backends | the consumers |
@@ -39,20 +39,20 @@ Usage counted by grepping the 11 SDK-consuming product backends for each symbol.
 
 ### The mono-lib
 
-- code dir `engineering/codebase/wow-two-back-beta-sdk/src/`; a bare `src/…` below is relative to it
+- code dir `engineering/codebase/wow-two-sdk-beta-be/src/`; a bare `src/…` below is relative to it
 - 7 packable projects only — the per-concern csproj split was collapsed
 
 | Package id | Project | What |
 |---|---|---|
-| `WoW2.Sdk.Backend.Beta` | `src/WoW.Two.Sdk.Backend.Beta.csproj` | the mono-lib, all shipping concerns |
-| `WoW2.Sdk.Backend.Beta.Data.Abstractions` | `src/Data/Abstractions/` | zero-dep entity + repository contracts |
-| `WoW2.Sdk.Backend.Beta.Testing` | `src/Testing/` | host, fixtures, containers |
-| `WoW2.Sdk.Backend.Beta.Testing.Data` | `src/Testing.Data/` | EF + migrator harnesses |
-| `WoW2.Sdk.Backend.Beta.Testing.Messaging` | `src/Testing.Messaging/` | bus + saga recorders |
-| `WoW2.Sdk.Backend.Beta.Testing.Integrations` | `src/Testing.Integrations/` | fake GitHub / GHCR clients |
-| `WoW2.Sdk.Backend.Beta.Data.Migrations.Cli` | `src/Data/Migrations/cli/` | `wow-migrate` dotnet tool |
+| `WoW2.Sdk.Beta.Be` | `src/WoW.Two.Sdk.Beta.Be.csproj` | the mono-lib, all shipping concerns |
+| `WoW2.Sdk.Beta.Be.Data.Abstractions` | `src/Data/Abstractions/` | zero-dep entity + repository contracts |
+| `WoW2.Sdk.Beta.Be.Testing` | `src/Testing/` | host, fixtures, containers |
+| `WoW2.Sdk.Beta.Be.Testing.Data` | `src/Testing.Data/` | EF + migrator harnesses |
+| `WoW2.Sdk.Beta.Be.Testing.Messaging` | `src/Testing.Messaging/` | bus + saga recorders |
+| `WoW2.Sdk.Beta.Be.Testing.Integrations` | `src/Testing.Integrations/` | fake GitHub / GHCR clients |
+| `WoW2.Sdk.Beta.Be.Data.Migrations.Cli` | `src/Data/Migrations/cli/` | `wow-migrate` dotnet tool |
 
-- namespaces are `WoW.Two.Sdk.Backend.Beta.*`; package ids are `WoW2.Sdk.*` — the two differ by design
+- namespaces are `WoW.Two.Sdk.Beta.Be.*`; package ids are `WoW2.Sdk.*` — the two differ by design
 - 203 public `Add*` / `Use*` / `Map*` registration methods across `src/`
 - products pin `10.0.45-beta` (forever-pin, wheelhouse) or `10.0.40-beta`; testing companions lag at `10.0.40-beta`
 
@@ -627,7 +627,7 @@ in the working tree on this date — re-check the two convention entries before 
   depend on it in production.
 - the same file lists `UseMySqlConventional` and a `Data.EntityFrameworkCore.MySql` package. Neither exists —
   the surviving EF providers are Postgres, SQL Server, SQLite and Cosmos.
-- the same file lists `WoW.Two.Sdk.Backend.Beta.Testing.Assertions` as shipped; `src/Testing/Assertions/` holds
+- the same file lists `WoW.Two.Sdk.Beta.Be.Testing.Assertions` as shipped; `src/Testing/Assertions/` holds
   only `Assertions.md`.
 - the same file counts **16 OAuth providers**; source has **17** — it omits `AddTwitterAuthentication`.
 - `conventions/development/backend/dotnet/mla/platform/startup-defaults.md` says `AddApiDefaults` folds in

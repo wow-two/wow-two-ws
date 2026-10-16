@@ -1,6 +1,6 @@
 # Delivery
 
-*Last updated: 2026-09-10*
+*Last updated: 2026-10-16*
 
 > Release validation and publishing handoff for a .NET SDK family.
 
@@ -28,11 +28,11 @@
 
 ---
 
-## Backend beta
+## be sdk
 
 - must read its current `publish.yml` and `Directory.Build.props` before calculating a release candidate.
 - must preserve workflow ownership of the version bump unless the release procedure is explicitly changed.
 - must validate every project the workflow packs, including runtime, contracts, CLI and shipped testing libraries.
 - must not infer consumer compatibility requirements from a beta label; follow the SDK owner's declared support boundary.
 
-Current procedure: [publishing workflow](../../../../../../../workbench/wow-two-sdk-beta/wow-two-sdk.backend.beta/.github/workflows/publish.yml).
+Current procedure: [publishing workflow](../../../../../../../workbench/wow-two-sdk-beta/wow-two-sdk-beta.be/.github/workflows/publish.yml).

@@ -1,6 +1,6 @@
 # Imports
 
-*Last updated: 2026-10-01*
+*Last updated: 2026-10-16*
 
 > How to order and write `import` statements in `.ts`, `.tsx` and Vue script blocks — group order, sort, and
 > the `type`-import form.
@@ -18,7 +18,7 @@
 |---|---|---|---|
 | 1 | Side-effect | bare `import "…"`, no bindings | `"@fontsource-variable/geist"` · `"./index.css"` |
 | 2 | Third-party | bare specifiers outside the SDK namespace | `vue` · `vue-router` · `lucide-vue-next` |
-| 3 | SDK | `@wow-two-beta/*` roots and subpaths | `@wow-two-beta/ui-vue/presentation/actions` |
+| 3 | SDK | `@wow-two-beta/*` roots and subpaths | `@wow-two-beta/fe/presentation/actions` |
 | 4 | `@/` alias | app-internal absolute imports | `@/domain/codes/core` |
 | 5 | Relative | `../` then `./` | `./gradient` |
 
@@ -34,8 +34,8 @@ import "@fontsource-variable/geist";
 import { computed, ref } from "vue";
 import { ArrowRight } from "lucide-vue-next";
 
-import { Button } from "@wow-two-beta/ui-vue/presentation/actions";
-import { StackLayout } from "@wow-two-beta/ui-vue/presentation/layout";
+import { Button } from "@wow-two-beta/fe/presentation/actions";
+import { StackLayout } from "@wow-two-beta/fe/presentation/layout";
 
 import { UserKind, type Me } from "@/domain/identity";
 import { getMe } from "@/integration/identity";
@@ -78,7 +78,7 @@ import type { Gradient } from "@/domain/codes/core";      // ❌ split — fold 
 ## 4. Rules
 
 - React bindings → [JSX](../../constructs/react/jsx.md) § *React types — import named, never the UMD namespace*.
-- must import the SDK through its published subpath (`@wow-two-beta/ui-vue/presentation/forms`), never a deep
+- must import the SDK through its published subpath (`@wow-two-beta/fe/presentation/forms`), never a deep
   path into the package's `src` or `dist`.
 - app aliases and source placement → [app architecture](../../../../shapes/app/architecture/architecture.md).
 - library source aliases and declaration safety → [delivery](../../../../shapes/library/delivery/delivery.md).

@@ -1,6 +1,6 @@
 # Startup defaults
 
-*Last updated: 2026-10-01*
+*Last updated: 2026-10-16*
 
 > The shared API boot bundle and its host-owned opt-ins.
 
@@ -13,7 +13,7 @@
 - must install the controller [JSON contract](../responses/serialization.md) when using controllers.
 
 ```csharp
-using WoW.Two.Sdk.Backend.Beta.Meta;
+using WoW.Two.Sdk.Beta.Be.Meta;
 
 builder.AddApiDefaults(options => options.ServiceName = "{service}");
 // Configure the product's auth, mediator and data here.

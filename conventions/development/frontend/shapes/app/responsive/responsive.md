@@ -36,7 +36,7 @@
 - must avoid horizontal page scroll; a wide element scrolls inside its own container.
 - must give every hover affordance a touch equivalent on phone and tablet.
 - must keep touch targets at least 44 × 44px on phone and tablet.
-- must take every phone pattern below from `@wow-two-beta/ui-vue` 0.0.14 or later; each section links its spec.
+- must take every phone pattern below from `@wow-two-beta/fe`; each section links its spec.
 
 ---
 
@@ -48,7 +48,7 @@
 - must settle the information architecture — which places are destinations — before building the bar.
 - must pad the main region by the bar's height, so the pinned bar never covers content.
 - from `md` up → the shell's bar or rail ([shell](../shell/shell.md#bar)).
-- implementation → [BottomNavMenu spec](../../../../../../workbench/wow-two-sdk-beta/wow-two-sdk-beta.ui/engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/nav/bottomNavMenu/BottomNavMenu.spec.md).
+- implementation → [BottomNavMenu spec](../../../../../../workbench/wow-two-sdk-beta/wow-two-sdk-beta.fe/engineering/codebase/wow-two-sdk-beta-fe/src/presentation/nav/bottomNavMenu/BottomNavMenu.spec.md).
 
 ---
 
@@ -59,8 +59,8 @@
 - must leave `stackBreakpoint` at `md`.
 - must give every column header text, or its cells a `label`, so each card line names its value.
 - may opt one table into sideways scrolling with `phoneLayout: 'scroll'`; the exception is per table, never app-wide.
-- implementation → [Table spec](../../../../../../workbench/wow-two-sdk-beta/wow-two-sdk-beta.ui/engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/display/table/Table.spec.md)
-  · [DataTable spec](../../../../../../workbench/wow-two-sdk-beta/wow-two-sdk-beta.ui/engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/display/dataTable/DataTable.spec.md).
+- implementation → [Table spec](../../../../../../workbench/wow-two-sdk-beta/wow-two-sdk-beta.fe/engineering/codebase/wow-two-sdk-beta-fe/src/presentation/display/table/Table.spec.md)
+  · [DataTable spec](../../../../../../workbench/wow-two-sdk-beta/wow-two-sdk-beta.fe/engineering/codebase/wow-two-sdk-beta-fe/src/presentation/display/dataTable/DataTable.spec.md).
 
 ---
 
@@ -73,8 +73,8 @@
 - must open a short confirmation as a bottom sheet below `sm` — `AlertModalContent`, whose `phoneLayout` is `sheet`.
 - must set `phoneLayout: 'sheet'` on a `ModalContent` that only confirms — a question, no fields, two actions at most.
 - must show every dialog from `sm` up as the centred card, sized by `size`.
-- implementation → [ModalContent spec](../../../../../../workbench/wow-two-sdk-beta/wow-two-sdk-beta.ui/engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/overlays/modal/ModalContent.spec.md)
-  · [AlertModalContent spec](../../../../../../workbench/wow-two-sdk-beta/wow-two-sdk-beta.ui/engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/overlays/alertModal/AlertModalContent.spec.md).
+- implementation → [ModalContent spec](../../../../../../workbench/wow-two-sdk-beta/wow-two-sdk-beta.fe/engineering/codebase/wow-two-sdk-beta-fe/src/presentation/overlays/modal/ModalContent.spec.md)
+  · [AlertModalContent spec](../../../../../../workbench/wow-two-sdk-beta/wow-two-sdk-beta.fe/engineering/codebase/wow-two-sdk-beta-fe/src/presentation/overlays/alertModal/AlertModalContent.spec.md).
 
 ---
 
@@ -88,7 +88,7 @@
 - must keep the list pane mounted while the detail shows, so its scroll and search survive.
 - must mark the chosen item `aria-current` or `aria-selected`, so focus returns to it on back.
 - must open the detail pane with a heading — it takes focus when the detail opens.
-- implementation → [ListDetailLayout spec](../../../../../../workbench/wow-two-sdk-beta/wow-two-sdk-beta.ui/engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/layout/listDetailLayout/ListDetailLayout.spec.md).
+- implementation → [ListDetailLayout spec](../../../../../../workbench/wow-two-sdk-beta/wow-two-sdk-beta.fe/engineering/codebase/wow-two-sdk-beta-fe/src/presentation/layout/listDetailLayout/ListDetailLayout.spec.md).
 
 ---
 

@@ -1,6 +1,6 @@
 # Naming
 
-*Last updated: 2026-09-10*
+*Last updated: 2026-10-16*
 
 > Cross-cutting naming for backend types, members, and extension methods — the symbol name,
 > never its file, namespace, or project.
@@ -11,7 +11,7 @@
 
 - a **type, member, or extension-method** name carries **no product / brand prefix**
 - `MigrateDatabaseAsync` not `MigrateForeverPinDatabaseAsync` · `DatabaseContext` not `ForeverPinDbContext`
-- **project / package names keep the brand** — `ForeverPin.Api`, `WoW.Two.Sdk.Backend.Beta`
+- **project / package names keep the brand** — `ForeverPin.Api`, `WoW.Two.Sdk.Beta.Be`
   - the carve-out is the name identifying the *assembly*, never the code inside it
 - every symbol under `ForeverPin.*` is already forever-pin's; the prefix tells a reader nothing the namespace doesn't
 
@@ -42,7 +42,7 @@
 - First letter capital, rest lowercase, **even when it distorts an established acronym**.
 - Applies to type / namespace / folder / member names.
 - Governs *all-caps runs* only — a mixed-case proper name (`OAuth`, `SendGrid`, `MailKit`) is unaffected.
-- Canonical for the whole ecosystem — the backend-beta SDK follows it too
+- Canonical for the whole ecosystem — the be sdk follows it too
   (`engineering/architecture/package-layout.md`).
 
 ---

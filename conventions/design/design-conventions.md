@@ -1,6 +1,6 @@
 # Design conventions
 
-*Last updated: 2026-10-15*
+*Last updated: 2026-10-16*
 
 > Product UI exploration, screen copy and WoW2 family identity — shared methods and rules; a product's own
 > choices stay in its design spec. Index only — open the leaf.
@@ -23,7 +23,7 @@
 - must keep it at `engineering/research/design-research/design-research.md` in the product repo.
 - must open it with `## Screens` — the device targets
   ([responsive](../development/frontend/shapes/app/responsive/responsive.md#device-targets)).
-- must carry token tables for light and dark, and the mapping from each semantic token to `@wow-two-beta/ui-vue`.
+- must carry token tables for light and dark, and the mapping from each semantic token to `@wow-two-beta/fe`.
 - must carry type, layout and shape, component rules, usage don'ts and the next iteration.
 - must apply its tokens through the app's stylesheet
   ([styling](../development/frontend/shapes/app/platform/styling.md#brand-tokens)).

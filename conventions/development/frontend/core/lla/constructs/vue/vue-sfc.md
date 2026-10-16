@@ -1,9 +1,9 @@
 # Vue SFC
 
-*Last updated: 2026-09-10*
+*Last updated: 2026-10-16*
 
 > Block layout, in-file order, shared DOM vocabulary, and JSDoc verbs for a Vue Single-File Component.
-> Use case — writing or reviewing any `.vue` file, above all in `@wow-two-beta/ui-vue`.
+> Use case — writing or reviewing any `.vue` file, above all in `@wow-two-beta/fe`.
 
 ## Blocks
 
@@ -113,4 +113,4 @@ Run the package's mapped commands; type checking alone does not validate the SFC
 ## Reference
 
 `CopyButton.vue` in the Vue beta SDK is a worked reference, not proof of current package-wide conformance.
-Path: `wow-two-sdk-beta.ui/engineering/codebase/wow-two-front-vue-beta-sdk/src/presentation/actions/copyButton/`.
+Path: `wow-two-sdk-beta.fe/engineering/codebase/wow-two-sdk-beta-fe/src/presentation/actions/copyButton/`.

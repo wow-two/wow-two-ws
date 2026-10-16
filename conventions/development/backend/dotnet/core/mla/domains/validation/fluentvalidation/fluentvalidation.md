@@ -1,6 +1,6 @@
 # FluentValidation
 
-*Last updated: 2026-09-10*
+*Last updated: 2026-10-16*
 
 > FluentValidation rule authoring behind the SDK [validation contract](../validation.md).
 
@@ -26,7 +26,7 @@
 - must not hand-bind the SDK `IValidator<T>` or provider validator interfaces alongside that scan.
 - may have multiple provider validators for one type; the adapter aggregates them.
 - must use `AddMediatorValidatingInterceptor()` only when its pre-handler placement satisfies [phase ordering](../validation.md#phases).
-- registration → [validation registration](../../../../../../../../../workbench/wow-two-sdk-beta/wow-two-sdk.backend.beta/engineering/codebase/wow-two-back-beta-sdk/src/Foundation/Validation/ValidationServiceCollectionExtensions.cs).
+- registration → [validation registration](../../../../../../../../../workbench/wow-two-sdk-beta/wow-two-sdk-beta.be/engineering/codebase/wow-two-sdk-beta-be/src/Foundation/Validation/ValidationServiceCollectionExtensions.cs).
 
 ---
 
@@ -40,7 +40,7 @@
 - must preserve provider placeholder keys; clients translate them when rendering.
 - must not treat `PropertyName` as the member path when `.WithName()` supplies a display label.
 - must use `.WithSeverity(Severity.Warning)` for advisory rules inside the same validator.
-- projection API → [adapter source](../../../../../../../../../workbench/wow-two-sdk-beta/wow-two-sdk.backend.beta/engineering/codebase/wow-two-back-beta-sdk/src/Foundation/Validation/FluentValidationAdapter.cs).
+- projection API → [adapter source](../../../../../../../../../workbench/wow-two-sdk-beta/wow-two-sdk-beta.be/engineering/codebase/wow-two-sdk-beta-be/src/Foundation/Validation/FluentValidationAdapter.cs).
 
 ---
 
@@ -51,4 +51,4 @@
 - may use request-culture localization inside a rule message when code-based rendering is insufficient.
 - must configure request localization before relying on `CurrentUICulture`.
 - must not inject scoped localization state into a singleton mapper.
-- current mapper lifetime and interfaces → [error mapping registration](../../../../../../../../../workbench/wow-two-sdk-beta/wow-two-sdk.backend.beta/engineering/codebase/wow-two-back-beta-sdk/src/Web/ErrorMapping/ErrorMappingServiceCollectionExtensions.cs).
+- current mapper lifetime and interfaces → [error mapping registration](../../../../../../../../../workbench/wow-two-sdk-beta/wow-two-sdk-beta.be/engineering/codebase/wow-two-sdk-beta-be/src/Web/ErrorMapping/ErrorMappingServiceCollectionExtensions.cs).

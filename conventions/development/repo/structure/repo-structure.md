@@ -1,6 +1,6 @@
 # Repo structure
 
-*Last updated: 2026-10-15*
+*Last updated: 2026-10-16*
 
 > On-disk layout and naming of a product / venture repo under `wow-two-ws/workbench/` — folders and names, not code.
 > Use case — scaffolding a repo, placing a folder, or checking an existing repo's shape.
@@ -167,7 +167,7 @@ Framework selection → [frontend standard](../repo-conventions.md#frontend-stan
 
 - must name an org lowercase and hyphenated — `wow-two-sdk`.
 - must name a repo `{org}.{domain}[.{subdomain}]`, lowercase and dot-separated — `wow-two-platform.wheelhouse`.
-- must name a NuGet package PascalCase and branded — `WoW2.Sdk.Backend.Beta`.
+- must name a NuGet package PascalCase and branded — `WoW2.Sdk.Beta.Be`.
 
 ---
 

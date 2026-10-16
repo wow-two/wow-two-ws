@@ -2,7 +2,7 @@
 
 *Last updated: 2026-04-29*
 
-- Repo: `workbench/wow-two-sdk-beta/wow-two-sdk-beta.ui/`
+- Repo: `workbench/wow-two-sdk-beta/wow-two-sdk-beta.fe/`
 - Plan: [ui-beta-roadmap.md](../../../docs/ui-beta-roadmap.md) (P1–P7)
 - State: [context.md](./context.md) ← read first
 

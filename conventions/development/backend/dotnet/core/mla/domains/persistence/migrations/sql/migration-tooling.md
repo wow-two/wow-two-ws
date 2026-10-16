@@ -1,6 +1,6 @@
 # Migration tooling
 
-*Last updated: 2026-09-10*
+*Last updated: 2026-10-16*
 
 > CLI composition and operational controls for the bespoke migration engine.
 
@@ -10,7 +10,7 @@
 - must delegate migration operations to `IMigrationRunnerService`.
 - must keep `Program.cs` to composition, parse/invoke and terminal error mapping.
 - must construct the command tree through the builder role and keep command bodies in the runner role.
-- current tree → [CLI builder](../../../../../../../../../../workbench/wow-two-sdk-beta/wow-two-sdk.backend.beta/engineering/codebase/wow-two-back-beta-sdk/src/Data/Migrations/cli/CliCommandBuilder.cs).
+- current tree → [CLI builder](../../../../../../../../../../workbench/wow-two-sdk-beta/wow-two-sdk-beta.be/engineering/codebase/wow-two-sdk-beta-be/src/Data/Migrations/cli/CliCommandBuilder.cs).
 
 ---
 
@@ -44,7 +44,7 @@
 - must classify both `Result` failures and thrown exceptions at the CLI boundary.
 - must not depend on removed migration-specific exception types for returned failures.
 - must print a concise sanitized failure description.
-- current runner → [CLI runner source](../../../../../../../../../../workbench/wow-two-sdk-beta/wow-two-sdk.backend.beta/engineering/codebase/wow-two-back-beta-sdk/src/Data/Migrations/cli/CliRunnerService.cs).
+- current runner → [CLI runner source](../../../../../../../../../../workbench/wow-two-sdk-beta/wow-two-sdk-beta.be/engineering/codebase/wow-two-sdk-beta-be/src/Data/Migrations/cli/CliRunnerService.cs).
 
 ---
 

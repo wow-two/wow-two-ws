@@ -1,6 +1,6 @@
 # DbUp migrations
 
-*Last updated: 2026-09-10*
+*Last updated: 2026-10-16*
 
 > Forward-only embedded SQL with DbUp's journal and an explicit provider choice.
 
@@ -29,8 +29,8 @@ services.AddDbUpRunner(connectionString, options =>
 });
 ```
 
-- current registration → [DbUp registration source](../../../../../../../../../../workbench/wow-two-sdk-beta/wow-two-sdk.backend.beta/engineering/codebase/wow-two-back-beta-sdk/src/Data/Migrations/DbUp/DbUpServiceCollectionExtensions.cs).
-- provider selectors → [DbUp extensions](../../../../../../../../../../workbench/wow-two-sdk-beta/wow-two-sdk.backend.beta/engineering/codebase/wow-two-back-beta-sdk/src/Data/Migrations/DbUp/Extensions/DbUpExtensions.cs).
+- current registration → [DbUp registration source](../../../../../../../../../../workbench/wow-two-sdk-beta/wow-two-sdk-beta.be/engineering/codebase/wow-two-sdk-beta-be/src/Data/Migrations/DbUp/DbUpServiceCollectionExtensions.cs).
+- provider selectors → [DbUp extensions](../../../../../../../../../../workbench/wow-two-sdk-beta/wow-two-sdk-beta.be/engineering/codebase/wow-two-sdk-beta-be/src/Data/Migrations/DbUp/Extensions/DbUpExtensions.cs).
 
 ---
 
@@ -39,7 +39,7 @@ services.AddDbUpRunner(connectionString, options =>
 - must abort host startup when a development boot migration fails.
 - must run production migration application as an explicit deployment action.
 - must not register the enabled startup runner on a production application host that should never mutate schema at boot.
-- must verify runner options against the [options source](../../../../../../../../../../workbench/wow-two-sdk-beta/wow-two-sdk.backend.beta/engineering/codebase/wow-two-back-beta-sdk/src/Data/Migrations/DbUp/DbUpOptions.cs).
+- must verify runner options against the [options source](../../../../../../../../../../workbench/wow-two-sdk-beta/wow-two-sdk-beta.be/engineering/codebase/wow-two-sdk-beta-be/src/Data/Migrations/DbUp/DbUpOptions.cs).
 
 ---
 

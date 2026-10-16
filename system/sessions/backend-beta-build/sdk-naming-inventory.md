@@ -4,7 +4,7 @@ Date: 2026-09-13. Read-only source inspection; no Git mutation or SDK edits.
 
 ## Current disposition
 
-Updated 2026-09-15: all naming decisions are closed. The [active SDK handoff](../../../workbench/wow-two-sdk-beta/wow-two-sdk.backend.beta/be-convention-sweep.md)
+Updated 2026-09-15: all naming decisions are closed. The [active SDK handoff](../../../workbench/wow-two-sdk-beta/wow-two-sdk-beta.be/be-convention-sweep.md)
 owns remaining implementation; [live recheck](sdk-handoff-recheck.md) verifies completed source slices.
 Exporter/Serializer/Bus role placements are complete ([evidence](retained-role-conformance-verification.md)).
 The three recorder Trackers role placements are also complete ([evidence](tracker-placement-verification.md)).

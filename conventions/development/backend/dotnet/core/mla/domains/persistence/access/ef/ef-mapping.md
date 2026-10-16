@@ -1,6 +1,6 @@
 # Ef mapping
 
-*Last updated: 2026-09-10*
+*Last updated: 2026-10-16*
 
 > EF runtime mapping under an explicitly selected schema-ownership strategy.
 
@@ -20,7 +20,7 @@
 - must call `base.OnModelCreating(modelBuilder)` before additional model conventions.
 - must put pre-convention customization in `ConfigureConventionsCore`, not override `ConfigureConventions`.
 - must keep per-entity mapping in [entity configurations](entity-configuration.md).
-- base behavior → [context source](../../../../../../../../../../workbench/wow-two-sdk-beta/wow-two-sdk.backend.beta/engineering/codebase/wow-two-back-beta-sdk/src/Data/EntityFrameworkCore/AppDbContextBase.cs).
+- base behavior → [context source](../../../../../../../../../../workbench/wow-two-sdk-beta/wow-two-sdk-beta.be/engineering/codebase/wow-two-sdk-beta-be/src/Data/EntityFrameworkCore/AppDbContextBase.cs).
 
 ---
 
@@ -32,7 +32,7 @@
 - must share one `NpgsqlDataSource` between EF and Dapper when both access the same database.
 - must choose pooling only when context state and dependencies are compatible with pooled lifetimes.
 - must register SDK interceptors through their registration seams and verify they attach to the context.
-- registration API → [context registration](../../../../../../../../../../workbench/wow-two-sdk-beta/wow-two-sdk.backend.beta/engineering/codebase/wow-two-back-beta-sdk/src/Data/EntityFrameworkCore/EntityFrameworkCoreServiceCollectionExtensions.cs).
+- registration API → [context registration](../../../../../../../../../../workbench/wow-two-sdk-beta/wow-two-sdk-beta.be/engineering/codebase/wow-two-sdk-beta-be/src/Data/EntityFrameworkCore/EntityFrameworkCoreServiceCollectionExtensions.cs).
 
 ---
 
@@ -81,4 +81,4 @@ builder
 - must not resolve a scoped current-user service into a singleton interceptor.
 - must call `ApplyNpgsqlConventions()` or `ApplySqlServerConventions()` for the corresponding native concurrency token.
 - must let the base apply provider-independent `IVersioned` conventions.
-- current interceptor registration → [interceptor source](../../../../../../../../../../workbench/wow-two-sdk-beta/wow-two-sdk.backend.beta/engineering/codebase/wow-two-back-beta-sdk/src/Data/EntityFrameworkCore/Interceptors/EfInterceptorServiceCollectionExtensions.cs).
+- current interceptor registration → [interceptor source](../../../../../../../../../../workbench/wow-two-sdk-beta/wow-two-sdk-beta.be/engineering/codebase/wow-two-sdk-beta-be/src/Data/EntityFrameworkCore/Interceptors/EfInterceptorServiceCollectionExtensions.cs).

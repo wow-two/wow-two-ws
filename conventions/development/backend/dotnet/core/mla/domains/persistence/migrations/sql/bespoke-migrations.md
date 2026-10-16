@@ -1,6 +1,6 @@
 # Bespoke migrations
 
-*Last updated: 2026-10-14*
+*Last updated: 2026-10-16*
 
 > SQL-owned schema evolution through ordered Apply/Rollback pairs and a checksum journal.
 
@@ -12,7 +12,7 @@
 - must allocate the ordinal at promotion on the integration branch: highest ordinal plus one.
 - must not allocate competing ordinals on feature branches.
 - must not embed drafts or read them as numbered migrations.
-- layout constants → [migration constants](../../../../../../../../../../workbench/wow-two-sdk-beta/wow-two-sdk.backend.beta/engineering/codebase/wow-two-back-beta-sdk/src/Data/Migrations/Bespoke/MigrationConstants.cs).
+- layout constants → [migration constants](../../../../../../../../../../workbench/wow-two-sdk-beta/wow-two-sdk-beta.be/engineering/codebase/wow-two-sdk-beta-be/src/Data/Migrations/Bespoke/MigrationConstants.cs).
 
 ---
 
@@ -47,7 +47,7 @@
 - must make that Apply recoverable from a partially applied and unjournaled state.
 - must inspect validity as well as object existence during recovery → [concurrent indexes](migration-dialects.md#concurrent-indexes).
 - must not assume multiple SQL statements sent in one command each autocommit independently.
-- transaction and result behavior → [runner source](../../../../../../../../../../workbench/wow-two-sdk-beta/wow-two-sdk.backend.beta/engineering/codebase/wow-two-back-beta-sdk/src/Data/Migrations/Bespoke/MigrationRunnerService.cs).
+- transaction and result behavior → [runner source](../../../../../../../../../../workbench/wow-two-sdk-beta/wow-two-sdk-beta.be/engineering/codebase/wow-two-sdk-beta-be/src/Data/Migrations/Bespoke/MigrationRunnerService.cs).
 
 ---
 
@@ -59,7 +59,7 @@
 - must not treat a clean Apply checksum as verification of Rollback content.
 - must preserve source files even when the deployed binary no longer needs to apply them.
 - must consume the runner's `Result` failures explicitly; a malformed source may still throw at the broker seam.
-- checksum normalization and flags → [checksum source](../../../../../../../../../../workbench/wow-two-sdk-beta/wow-two-sdk.backend.beta/engineering/codebase/wow-two-back-beta-sdk/src/Data/Migrations/Bespoke/MigrationChecksumHasher.cs).
+- checksum normalization and flags → [checksum source](../../../../../../../../../../workbench/wow-two-sdk-beta/wow-two-sdk-beta.be/engineering/codebase/wow-two-sdk-beta-be/src/Data/Migrations/Bespoke/MigrationChecksumHasher.cs).
 
 ---
 
@@ -70,7 +70,7 @@
 - must supply the connection factory required by that registration.
 - must use the same lock identity for applicants sharing one PostgreSQL database.
 - must inherit [coordination](../migrations.md#coordination) for another provider.
-- current overloads and options → [registration source](../../../../../../../../../../workbench/wow-two-sdk-beta/wow-two-sdk.backend.beta/engineering/codebase/wow-two-back-beta-sdk/src/Data/Migrations/Bespoke/MigrationServiceCollectionExtensions.cs).
+- current overloads and options → [registration source](../../../../../../../../../../workbench/wow-two-sdk-beta/wow-two-sdk-beta.be/engineering/codebase/wow-two-sdk-beta-be/src/Data/Migrations/Bespoke/MigrationServiceCollectionExtensions.cs).
 
 ---
 
@@ -85,4 +85,4 @@
 </EmbeddedResource>
 ```
 
-- parser contract → [embedded broker](../../../../../../../../../../workbench/wow-two-sdk-beta/wow-two-sdk.backend.beta/engineering/codebase/wow-two-back-beta-sdk/src/Data/Migrations/Bespoke/EmbeddedResourceMigrationBroker.cs).
+- parser contract → [embedded broker](../../../../../../../../../../workbench/wow-two-sdk-beta/wow-two-sdk-beta.be/engineering/codebase/wow-two-sdk-beta-be/src/Data/Migrations/Bespoke/EmbeddedResourceMigrationBroker.cs).

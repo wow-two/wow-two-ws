@@ -2,7 +2,7 @@
 
 *Last updated: 2026-05-04*
 
-- Repo: `workbench/wow-two-sdk-beta/wow-two-sdk.backend.beta/`
+- Repo: `workbench/wow-two-sdk-beta/wow-two-sdk-beta.be/`
 - Plan: repo's `docs/analysis/philosophy/targets.md` §6 (P0–P6 phase mapping)
 - State: [context.md](./context.md) ← read first
 
