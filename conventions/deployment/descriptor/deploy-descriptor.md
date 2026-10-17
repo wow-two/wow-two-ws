@@ -1,6 +1,6 @@
 # Deployment descriptor
 
-*Last updated: 2026-10-01*
+*Last updated: 2026-10-17*
 
 > One file per product repo, `engineering/deployment/deploy.yml`, declaring its deployable services: how each
 > builds, which paths change it, how it runs, which sites it serves and what it needs.
@@ -20,6 +20,7 @@ Why a custom format → [rationale](deploy-descriptor-rationale.md).
   ([known endpoints](../../development/backend/dotnet/shapes/service/platform/responses/known-endpoints.md)
   § *Runtime config*).
 - a settings change is a commit, so it builds a new image; an operator setting changes only the target.
+- must list every setting a service needs under `settings.required`; the runner refuses a deploy missing one.
 - must give every service a health check; the runner refuses a service without one.
 - must point a backend service's health check at the boot bundle's `/health`
   ([startup defaults](../../development/backend/dotnet/shapes/service/platform/startup/startup-defaults.md#health)).
@@ -96,7 +97,7 @@ services:
 - Two services may share a site name only with different path prefixes; the longer prefix wins.
 - Every service runs with `no-new-privileges`, all capabilities dropped, an init process, bounded logs and a restart policy.
 - Each service answers on the platform network as `<product>-<environment>-<service>`; the ingress routes sites there.
-- Wheelhouse targets map site names to hostnames: prod names each one, dev and test follow a host pattern.
+- Wheelhouse targets map site names to hostnames: prod names each one, dev follows a host pattern.
 
 ---
 
@@ -108,10 +109,8 @@ version in which it last changed, so services version independently and an old v
 
 | Built from | Version | Image tags | Deploys to | Kept |
 |---|---|---|---|---|
-| `main` | `X.Y.Z`, the next `Z` | `X.Y.Z`, `latest` | dev, test, prod | for good: a release |
-| `test` | `X.Y.(Z+1)-test.<n>` | `test-latest` | dev, test | until the next `test` build |
-| `dev` | `X.Y.(Z+1)-dev.<n>` | `dev-latest` | dev | until the next `dev` build |
-| any other branch, or a dispatched commit | `X.Y.(Z+1)-<branch>.<n>` | `sha-<commit>` | dev | 14 days |
+| `main` | `X.Y.Z`, the next `Z` | `X.Y.Z`, `latest` | dev, then prod | for good: a release |
+| any other branch, or a dispatched commit | `X.Y.(Z+1)-<branch>.<n>` | `sha-<commit>` | dev, by hand | 14 days |
 
 - `Z` is the highest `vX.Y.*` tag plus one, so no version-bump commit lands in history; `Z` restarts at 0 on a new `X.Y`.
 - A `main` build releases only when a service or the descriptor changed; a docs-only push releases nothing.
@@ -119,15 +118,24 @@ version in which it last changed, so services version independently and an old v
 - `<n>` counts the branch's commits since it left `main`, so one commit always gets the same version.
 - `<branch>` is the branch name made tag-safe (`feat/login` → `feat-login`); a pre-release sorts below its release.
 - A service changed when a path in its `paths`, `shared` or its Dockerfile differs from the previous release's commit.
-- Moving tags (`latest`, `test-latest`, `dev-latest`) name the newest build of their branch, never what an environment
-  runs; Wheelhouse records that, and deploys only digest-pinned images.
-- dev, test and prod are environments; `dev` and `test` branches are optional, and a product without them builds
-  every other branch as a candidate.
+- The moving tag `latest` names the newest release, never what an environment runs; Wheelhouse records that, and
+  deploys only digest-pinned images.
 - The release generator is `generator/release.py` in `wow-two-platform.pipelines`; it needs Python 3.9+ with
   PyYAML, Git and Docker Buildx.
 - `release.py plan` prints what builds and every service's version; `release.py build` builds, pushes and writes
   the bundle.
 - CI checks out the full history (`fetch-depth: 0`), so the generator can diff against the previous release.
+
+---
+
+## Release flow
+
+- must work on `main` only and fix forward; no long-lived branch, no `dev` or `test` branch.
+- may push a short-lived branch; it builds a candidate that reaches dev only by hand.
+- must run two environments per product: `dev` and `prod`.
+- must deploy every `main` release to dev automatically.
+- must promote that same release to prod by digest; prod never rebuilds and never takes a candidate.
+- must refuse a prod deploy of a release that has not succeeded on dev; typing the target's ID overrides.
 
 ---
 
@@ -138,7 +146,7 @@ version in which it last changed, so services version independently and an old v
 - A self-hosted registry waits for a trigger: GHCR billing, private images across many targets, or pull latency.
 - A bundle is about 2 KB, so every release bundle is kept for good.
 - Keep every deployed digest and each target's rollback set, and the last 10 release images per service.
-- Keep only the newest `dev` and `test` builds; other candidates expire after 14 days.
+- Candidates expire after 14 days.
 - Wheelhouse owns deletion, because only it knows what each target runs.
 
 ---
@@ -160,7 +168,7 @@ jobs:
 
 The shared workflow:
 
-- builds on every push: `main` releases, `dev` and `test` replace their builds, other branches build candidates;
+- builds on every push: `main` releases, every other branch builds a candidate;
 - builds a dispatched commit that has no build yet (Wheelhouse's Build action);
 - builds each changed service from `deploy.yml`, whatever its Dockerfile, target, arguments or build contexts;
-- tags and publishes images and the bundle per the table above, and moves the branch's tag last.
+- tags and publishes images and the bundle per the table above, and moves `latest` last on a release.

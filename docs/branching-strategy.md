@@ -138,7 +138,7 @@ This strategy applies to all **library repos** (SDK + Platform). Other repo type
 |-----------|----------|-------|
 | SDK libs (`sdk.*`) | This document | Two branches, dual publish |
 | Platform libs (`platform.*`) | This document | Same — internal but same flow |
-| Products and apps | [Product repos](#product-repos) | `main` releases; optional `dev` / `test` branches |
+| Products and apps | [Product repos](#product-repos) | `main` only; each release goes to dev, then prod |
 | KB modules (`kb.*`) | Simplified | Possibly main-only, no packages |
 | Meta repos | Main-only | Docs, roadmap — no CI/CD needed |
 
@@ -146,17 +146,14 @@ This strategy applies to all **library repos** (SDK + Platform). Other repo type
 
 ## Product repos
 
-Deployable products (anything with `engineering/deployment/deploy.yml`) branch by what a build is for; the full
-version and tag table is in the [deploy descriptor](../conventions/deployment/descriptor/deploy-descriptor.md)
-§ *Builds and versions*.
+Deployable products (anything with `engineering/deployment/deploy.yml`) work on `main` only and fix forward; the
+rules are in the [deploy descriptor](../conventions/deployment/descriptor/deploy-descriptor.md) § *Release flow*
+and § *Builds and versions*.
 
 | Branch | Required | Build | Image tag | Deploys to |
 |---|---|---|---|---|
-| `main` | yes | release `X.Y.Z` | `X.Y.Z`, `latest` | dev, test, prod |
-| `test` | optional | `X.Y.(Z+1)-test.<n>`, replacing the previous | `test-latest` | dev, test |
-| `dev` | optional | `X.Y.(Z+1)-dev.<n>`, replacing the previous | `dev-latest` | dev |
-| `feat/*`, `fix/*`, … | no | candidate `X.Y.(Z+1)-<branch>.<n>`, 14 days | `sha-<commit>` | dev |
+| `main` | yes | release `X.Y.Z` | `X.Y.Z`, `latest` | dev automatically, then prod by promotion |
+| `feat/*`, `fix/*`, … | no | candidate `X.Y.(Z+1)-<branch>.<n>`, 14 days | `sha-<commit>` | dev, by hand |
 
-- A product starts with `main` only; `dev` and `test` appear when a product needs a shared integration or QA line.
-- With them, changes move `feat/*` → `dev` → `test` → `main` by merge; each branch builds its own images.
-- Prod only ever runs a `main` release; Wheelhouse deploys digests, never the moving tags.
+- No long-lived branch: no `dev`, no `test`; the environments are `dev` and `prod`.
+- Prod takes only a release that succeeded on dev; Wheelhouse deploys digests, never the moving tags.

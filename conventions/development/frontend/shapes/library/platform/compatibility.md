@@ -1,6 +1,6 @@
 # Compatibility
 
-*Last updated: 2026-09-10*
+*Last updated: 2026-10-17*
 
 > Declared runtime support and capability fallbacks for library entries.
 
@@ -8,7 +8,7 @@
 
 - must publish a code-adjacent support matrix for each public subpath and adapter.
 - must name supported framework versions, browser minimums, JavaScript target and required Web APIs.
-- must derive build targets and test environments from that matrix, not a moving label such as latest.
+- must derive build targets and the runtimes tests run on from that matrix, not a moving label such as latest.
 - must distinguish browser-only, DOM-free import, server-renderable and hydration-supported entries.
 - must make a vendor-free contract entry import without DOM globals or optional vendor packages.
 - must declare a browser-only adapter explicitly; a safe base import does not certify that adapter for SSR.
@@ -40,6 +40,6 @@
 
 ## App consumption
 
-- must let an app choose a subset of the library's supported environments.
+- must let an app choose a subset of the library's supported runtimes.
 - must verify that app targets satisfy every imported subpath's requirements.
 - must keep framework-specific effects and cleanup in the appropriate framework convention.

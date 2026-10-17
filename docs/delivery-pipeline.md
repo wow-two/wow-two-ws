@@ -1,6 +1,6 @@
 # WoW 2.0 — Delivery pipeline
 
-*Last updated: 2026-09-29*
+*Last updated: 2026-10-17*
 
 > How every product goes from a push to a deployable, versioned build: the version shape, the planning tracks, the
 > build trigger, the artifact store and the shared CI. Analysis with open points, ordered parent before child: a later
@@ -55,10 +55,10 @@ goes. Worked out in [one version track](version-track-consolidation.md).
 
 ### D3 — Release trigger and branch builds
 
-Decided 2026-09-29: `main` releases; optional `dev` / `test` branches replace their builds under `dev-latest` /
-`test-latest`; other branches build 14-day candidates. Now in the
-[deploy descriptor](../conventions/deployment/descriptor/deploy-descriptor.md) § *Builds and versions* and the
-[branching strategy](branching-strategy.md#product-repos).
+Decided 2026-09-29: `main` releases; other branches build 14-day candidates. Revised 2026-10-17: products work
+on `main` only, with no `dev` or `test` branch; every release deploys to dev, then is promoted to prod, and the
+`test` environment is gone. Now in the [deploy descriptor](../conventions/deployment/descriptor/deploy-descriptor.md)
+§ *Builds and versions* and § *Release flow*, and the [branching strategy](branching-strategy.md#product-repos).
 
 ### D4 — Version source
 
@@ -80,7 +80,7 @@ Decided 2026-09-29: GHCR stays the registry; our own code owns the catalog, vers
 ### D6 — Bundles and retention
 
 Decided 2026-09-29: bundles kept for good; deployed digests, rollback sets and the last 10 releases per service kept;
-`dev` / `test` keep their newest build; candidates expire after 14 days; Wheelhouse owns deletion. Now in the
+candidates expire after 14 days; Wheelhouse owns deletion. Now in the
 [deploy descriptor](../conventions/deployment/descriptor/deploy-descriptor.md) § *Artifacts and retention*.
 
 - Open in implementation: bundles as OCI artifacts beside the images, and a dependency image layer so a rebuild

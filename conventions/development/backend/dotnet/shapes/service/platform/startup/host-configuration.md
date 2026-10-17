@@ -1,6 +1,6 @@
 # Host configuration
 
-*Last updated: 2026-10-02*
+*Last updated: 2026-10-17*
 
 > Product composition in the host; reusable registration contracts in the SDK.
 
@@ -114,7 +114,8 @@ await app.ConfigureAsync();
 
 ## Environment overrides
 
-- must use `appsettings.{Environment}.json` for non-secret environment defaults.
+- must take settings file names and environments from
+  [environment files](../../../../../../../deployment/hosting/environment-files.md) § *Settings*.
 - must keep secrets out of checked-in settings; use environment values, a secret store or development user secrets.
 - must name explicit deployment aliases by role in UPPER_SNAKE, such as `DB_CONNECTION`, without a product prefix.
 - must apply explicit alias mappings before binding their settings consumers.

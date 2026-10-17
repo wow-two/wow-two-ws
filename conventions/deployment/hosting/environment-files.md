@@ -1,13 +1,27 @@
 # Environment files
 
-*Last updated: 2026-10-14*
+*Last updated: 2026-10-17*
 
-> How per-environment files on a host or in a repo are named: settings, targets, identity inputs.
+> How per-environment files are named and filled: a .NET service's settings in its repo, and every other file,
+> such as host targets and identity inputs.
+
+## Settings
+
+- must keep a .NET service's non-secret defaults in its repo's `appsettings.json`.
+- must put environment-specific defaults in `appsettings.Development.json` and `appsettings.Production.json`.
+- must run the `dev` environment as ASP.NET Core `Development` and `prod` as `Production`.
+- must take every deployed override from an environment variable or Secrets Vault; the repo holds defaults only.
+- must enter a deployed override in the Wheelhouse console: a non-secret value under Settings, a secret under Secrets.
+- must keep secret values out of the repo ([secrets](../../security/secrets/secrets.md) § *Repository content*).
+- must declare a service's required settings in its
+  [deploy descriptor](../descriptor/deploy-descriptor.md) § *Rules*.
+
+---
 
 ## Naming
 
-- must name an environment-specific file `{name}-{environment}.{ext}`: `console-dev.json`, `console-prod.json`,
-  `wheelhouse-dev.json`.
+- must name every other environment-specific file `{name}-{environment}.{ext}`: `console-dev.json`,
+  `console-prod.json`, `wheelhouse-dev.json`.
 - must not give any environment the unsuffixed name; no file stands for a default environment.
 - may keep an unsuffixed name only for a file every environment shares unchanged.
 
@@ -15,5 +29,5 @@
 
 ## Content
 
-- must make each environment's file complete on its own; one file never overrides another.
-- must keep dev, test and prod files side by side in the same folder, under the same name stem.
+- must make each such environment file complete on its own; one file never overrides another.
+- must keep the dev and prod files side by side in the same folder, under the same name stem.

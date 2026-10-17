@@ -276,7 +276,7 @@ entries:
     kind: platform
     deploy: wheelhouse
     status: "v0.1 built; awaiting first deploy"
-    purpose: "Sample Vue + .NET + PostgreSQL app Wheelhouse deploys to dev, test and prod to prove every deployment flow"
+    purpose: "Sample Vue + .NET + PostgreSQL app Wheelhouse deploys to dev and prod to prove every deployment flow"
     repositories: [wow-two-platform/wow-two-platform.wheelhouse-canary]
   - slug: wow-two-platform-github
     name: wow-two-platform/.github

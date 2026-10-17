@@ -1,6 +1,6 @@
 # Versioning
 
-*Last updated: 2026-10-01*
+*Last updated: 2026-10-17*
 
 > Where a product's version is declared, how builds stamp it, and how running services and apps report it.
 > Purpose — one version answers "what is running" in the API, the UI, the database history and the image tag.
@@ -36,7 +36,7 @@
 
 - must release from `main` only: CI tags `vX.Y.Z` and names the changed images `X.Y.Z`
   ([deploy descriptor](../../../deployment/descriptor/deploy-descriptor.md) § *Builds and versions*).
-- must version a `dev`, `test` or other branch build as a pre-release of the next patch (`X.Y.(Z+1)-<branch>.<n>`);
+- must version any other branch's build as a pre-release of the next patch (`X.Y.(Z+1)-<branch>.<n>`);
   environments never appear in a version.
 - must keep a service's last-changed version in a multi-service product
   ([deploy descriptor](../../../deployment/descriptor/deploy-descriptor.md) § *Builds and versions*).
