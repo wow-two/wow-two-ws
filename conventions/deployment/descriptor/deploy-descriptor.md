@@ -161,7 +161,7 @@ version in which it last changed, so services version independently and an old v
 ```yaml
 jobs:
   publish:
-    uses: wow-two-platform/wow-two-platform.pipelines/.github/workflows/publish.yml@v0.1.0
+    uses: wow-two-platform/wow-two-platform.pipelines/.github/workflows/publish.yml@v0.3.0
     with:
       commit: ${{ inputs.commit }}
 ```
@@ -171,4 +171,6 @@ The shared workflow:
 - builds on every push: `main` releases, every other branch builds a candidate;
 - builds a dispatched commit that has no build yet (Wheelhouse's Build action);
 - builds each changed service from `deploy.yml`, whatever its Dockerfile, target, arguments or build contexts;
+- fetches the Git LFS files under `engineering/` first, so images carry real assets instead of pointer files;
+- passes every build `APP_VERSION` (the build's version) and `VCS_REF` (the full commit SHA it was built from);
 - tags and publishes images and the bundle per the table above, and moves `latest` last on a release.
