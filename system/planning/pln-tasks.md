@@ -1,4 +1,4 @@
-*Last updated: 2026-10-16*
+*Last updated: 2026-10-17*
 
 # Tasks
 
@@ -163,7 +163,7 @@ Not started, ordered, top = next. Pulling one promotes it above and mints its ID
 
 | Item | Type | Notes |
 |---|---|---|
-| Deprecate the old SDK packages on npm and NuGet | chore | Added `2026-10-16` by the user, skipped for now: mark `@wow-two-beta/ui-vue` and the `WoW2.Sdk.Backend.Beta` family deprecated, pointing at `@wow-two-beta/fe` and `WoW2.Sdk.Beta.Be`; needs the owner's registry logins |
+| Deprecate the old be sdk packages on NuGet | chore | Added `2026-10-16`; npm half done `2026-10-17` (`@wow-two-beta/ui-vue` and `@wow-two-beta/ui` point at `@wow-two-beta/fe`). NuGet has no CLI deprecation: per package on nuget.org, Manage › Deprecation › all versions › Legacy, alternate = the `WoW2.Sdk.Beta.Be*` twin, for the 7 `WoW2.Sdk.Backend.Beta*` packages |
 
 ---
 
