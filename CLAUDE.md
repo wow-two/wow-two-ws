@@ -24,13 +24,13 @@ Shared source and workspace overrides: `.claude/rules/response-style.md`; reinfo
 ## Layout
 
 ```
-CLAUDE.md · .claude/repo-registry.md (lazy index) · .claude/rules/ (auto-load: response-style · behavior-rules · templates/) · conventions/ (how we build)
+CLAUDE.md · catalog.yml (every repo and app) · .claude/repo-registry.md (generated lazy index) · .claude/rules/ (auto-load: response-style · behavior-rules · templates/) · conventions/ (how we build)
 docs/ (strategy, playbooks) · system/sessions/ · ideas/ · scripts/ · workbench/ (all repos, gitignored)
 ```
 
 ## Orgs & repos
 
-- 7 orgs, folder = org name: `wow-two` (core) · `-meta` (off-ecosystem) · `-platform` (infra) · `-sdk` (public libs) · `-sdk-beta` (beta libs) · `-kb` (knowledge base) · `-apps` (products). Full index: `.claude/repo-registry.md`.
+- 7 orgs, folder = org name: `wow-two` (core) · `-meta` (off-ecosystem) · `-platform` (infra) · `-sdk` (public libs) · `-sdk-beta` (beta libs) · `-kb` (knowledge base) · `-apps` (products). Source: `catalog.yml` — every repo and app, one entry per product ([catalog](conventions/development/repo/catalog/catalog.md)); `.claude/repo-registry.md` is generated from it by `scripts/gen-repo-registry.py`.
 
 ## Sessions
 

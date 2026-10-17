@@ -1,6 +1,6 @@
 # Conventions — Development — Repo
 
-*Last updated: 2026-10-16*
+*Last updated: 2026-10-17*
 
 > How a repo is shaped and equipped — repo **shape** splits by **archetype** (product / venture vs SDK / library),
 > grouped under `structure/`; version control + the default tech stack are the shared, cross-archetype setup. Code
@@ -16,6 +16,14 @@ Repo shape by archetype — product / venture (both stacks, one repo) vs SDK / l
 | [structure/repo-structure.md](structure/repo-structure.md) | Product / venture — `product/` + `engineering/`, code under `engineering/codebase/`, slug, lead docs, naming, tests, deployment files |
 | [structure/product-conformance.md](structure/product-conformance.md) | Product / venture — every check a product repo owes, each linked to its owning convention |
 | [structure/sdk-structure.md](structure/sdk-structure.md) | SDK / library — be sdk + fe sdk naming, `engineering/` + npm package nested under `engineering/codebase/{slug}/`, `src/` source-only + `tests/{unit,stories}`, config repoint, dist-only publish |
+
+---
+
+## Catalog
+
+| File | Covers |
+|---|---|
+| [catalog/catalog.md](catalog/catalog.md) | `catalog.yml` — every wow2 repo and app, one entry per product; Wheelhouse imports it, the repo registry is generated from it |
 
 ---
 

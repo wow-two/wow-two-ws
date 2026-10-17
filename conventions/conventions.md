@@ -1,6 +1,6 @@
 # Conventions — wow-two
 
-*Last updated: 2026-10-16*
+*Last updated: 2026-10-17*
 
 > **The single index to every convention.** When a task touches *how we build* — code, repo structure,
 > naming, versioning — search HERE first, then open only the file(s) you need. Lookup table,
@@ -157,6 +157,7 @@ Cross-area: **[sdk-extraction.md](development/sdk-extraction.md)** — extract, 
 | App and service versions · `X.Y` from the version track, `Z` from CI · injected at build · status endpoint · shown in the app · stamped on migrations · release tags | [development/repo/versioning/versioning.md](development/repo/versioning/versioning.md) |
 | SDK / library repo shape · be sdk + fe sdk naming (repo, code dir, package, namespace) · `engineering/` + npm package under `engineering/codebase/{slug}/` · `src/` source-only + `tests/{unit,stories}` · config repoint · dist-only publish | [development/repo/structure/sdk-structure.md](development/repo/structure/sdk-structure.md) |
 | Commit messages · scoped index handover · independent repository Git flags · LFS, gitignore and large-file recovery | [development/repo/version-control/git.md](development/repo/version-control/git.md) |
+| Catalog — `catalog.yml`: every wow2 repo and app, one entry per product · workspaces · kinds · deploy mode · schema · generated repo registry | [development/repo/catalog/catalog.md](development/repo/catalog/catalog.md) |
 
 ### backend/ — .NET conventions · [the dotnet index](development/backend/dotnet/dotnet-conventions.md)
 

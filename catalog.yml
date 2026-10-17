@@ -1,0 +1,735 @@
+# yaml-language-server: $schema=conventions/development/repo/catalog/catalog.schema.json
+# The wow2 catalog: every repository and app, one entry per product.
+# Wheelhouse reads it from wow-two/wow-two-ws@main; .claude/repo-registry.md is generated from it.
+# Rules: conventions/development/repo/catalog/catalog.md. Public file: no hosts, addresses, environments or secrets.
+catalog: 1
+
+orgs:
+  - slug: wow-two
+    url: https://github.com/wow-two
+    label: core
+    description: "core identity: vision, roadmap, standards, org-wide GitHub config"
+    notes:
+      - "Also under `workbench/wow-two/`: `wow-two-modular-library-analysis.md` — historical analysis, loose file awaiting a future home repo."
+  - slug: wow-two-meta
+    url: https://github.com/wow-two-meta
+    label: off-ecosystem
+    description: "docs adjacent to but not part of the wow-two ecosystem: personal career strategy, legacy archives"
+  - slug: wow-two-platform
+    url: https://github.com/wow-two-platform
+    label: internal infra
+    description: "pipelines, DI, comms, data access. Not for external consumers"
+  - slug: wow-two-sdk
+    url: https://github.com/wow-two-sdk
+    label: public libs & tools
+    description: "installable packages, tools, clients"
+  - slug: wow-two-sdk-beta
+    url: https://github.com/wow-two-sdk-beta
+    label: beta SDK packages
+    description: "beta-forever packages. Mirror of `wow-two-sdk` for unstable / iterating libs. Repos are **public** (Pages requirement on free tier) but Issues/Discussions disabled to keep contributor surface minimal"
+  - slug: wow-two-kb
+    url: https://github.com/wow-two-kb
+    label: knowledge base
+    description: "code samples, runnable demos, real-world docs"
+  - slug: wow-two-apps
+    url: https://github.com/wow-two-apps
+    label: community products
+    description: "no public repos yet"
+    notes:
+      - "> **Note**: Apps like Feedback.Analyzer, DDLParser, StudyMate etc. are still in the old `WoW-2-0-Projects` org and haven't been migrated yet."
+  - slug: ocharo-hq
+    url: https://github.com/ocharo-hq
+    label: brand workspace
+    description: "Ocharo's brand organization: platform, studio, marketing and assets, independent of WoW2"
+    intro:
+      - "Six main repositories plus the `.github` profile repository belong to Ocharo. Blog, Brand and Catalogue are adopted components, not additional repository targets. Current paths: [Ocharo repository map](../workbench/ocharo-hq/ocharo-ws/docs/repositories.md)."
+      - |-
+        - `workbench/ocharo-hq/ocharo-ws/` owns Ocharo setup and repository navigation.
+        - Its Git history and GitHub organization remain independent of WoW2.
+        - Its managed repositories sit directly under its own ignored `workbench/`.
+        - Coding chats use the WoW2 root for existing shared hooks and engineering conventions.
+
+workspaces:
+  - slug: personal
+    name: Personal
+    description: "Personal tools and documents outside the ecosystem"
+  - slug: wow2-platform
+    name: wow2 platform
+    description: "Platform apps that deploy and run the portfolio, and their test fixtures"
+  - slug: wow2-backbone
+    name: wow2 backbone
+    description: "Building blocks: core docs, SDKs, platform libraries, pipelines, templates and the knowledge base"
+  - slug: wow2-apps
+    name: wow2 apps
+    description: "Community apps built on the ecosystem"
+  - slug: own-ventures
+    name: Own ventures
+    description: "The owner's product ventures"
+  - slug: other-ventures
+    name: Other ventures
+    description: "Ventures and client work run for others"
+
+entries:
+  # wow-two (core)
+  - slug: wow-two-refinement
+    name: wow-two.refinement
+    workspace: wow2-backbone
+    kind: core
+    deploy: none
+    status: "Active"
+    purpose: "Refinement doc, vision, current state"
+    repositories: [wow-two/wow-two.refinement]
+  - slug: wow-two-roadmap
+    name: wow-two.roadmap
+    workspace: wow2-backbone
+    kind: core
+    deploy: none
+    status: "Active"
+    purpose: "Project roadmap and milestones"
+    repositories: [wow-two/wow-two.roadmap]
+  - slug: wow-two-standards
+    name: wow-two.standards
+    workspace: wow2-backbone
+    kind: core
+    deploy: none
+    status: "Active"
+    purpose: "Ecosystem-wide enforceable standards + ADRs"
+    repositories: [wow-two/wow-two.standards]
+  - slug: wow-two-github
+    name: wow-two/.github
+    workspace: wow2-backbone
+    kind: core
+    deploy: none
+    status: "Active"
+    purpose: "Org-wide GitHub config (templates, profiles)"
+    repositories: [wow-two/.github]
+
+  # wow-two-meta (off-ecosystem)
+  - slug: wow-two-meta-career-strategies
+    name: wow-two-meta.career-strategies
+    workspace: personal
+    kind: meta
+    deploy: none
+    status: "Active"
+    purpose: "Career strategy docs (personal, not ecosystem)"
+    repositories: [wow-two-meta/wow-two-meta.career-strategies]
+  - slug: wow-two-meta-legacy-core
+    name: wow-two-meta.legacy.core
+    workspace: wow2-backbone
+    kind: meta
+    deploy: none
+    status: "Archive"
+    purpose: "Legacy core code (pre-migration)"
+    repositories: [wow-two-meta/wow-two-meta.legacy.core]
+  - slug: wow-two-meta-legacy-old-core
+    name: wow-two-meta.legacy.old-core
+    workspace: wow2-backbone
+    kind: meta
+    deploy: none
+    status: "Archive"
+    purpose: "Old core, formerly `WOW2.Core---Old`"
+    repositories: [wow-two-meta/wow-two-meta.legacy.old-core]
+
+  # wow-two-platform (internal infra)
+  - slug: wow-two-platform-pipelines
+    name: wow-two-platform.pipelines
+    workspace: wow2-backbone
+    kind: backbone
+    deploy: none
+    status: "Active"
+    purpose: "Shared GitHub Actions: every product's reusable build-and-publish workflow and the release generator ([delivery pipeline](../docs/delivery-pipeline.md) D7)"
+    repositories: [wow-two-platform/wow-two-platform.pipelines]
+  - slug: wow-two-platform-core-di
+    name: wow-two-platform.core.di
+    workspace: wow2-backbone
+    kind: backbone
+    deploy: none
+    status: "Active"
+    purpose: "DI configuration helpers"
+    repositories: [wow-two-platform/wow-two-platform.core.di]
+  - slug: wow-two-platform-core-app
+    name: wow-two-platform.core.app
+    workspace: wow2-backbone
+    kind: backbone
+    deploy: none
+    status: "Active"
+    purpose: "Base application setup"
+    repositories: [wow-two-platform/wow-two-platform.core.app]
+  - slug: wow-two-platform-core-exceptions
+    name: wow-two-platform.core.exceptions
+    workspace: wow2-backbone
+    kind: backbone
+    deploy: none
+    status: "Active"
+    purpose: "Exception handling patterns"
+    repositories: [wow-two-platform/wow-two-platform.core.exceptions]
+  - slug: wow-two-platform-core-validations
+    name: wow-two-platform.core.validations
+    workspace: wow2-backbone
+    kind: backbone
+    deploy: none
+    status: "Active"
+    purpose: "Validation utilities"
+    repositories: [wow-two-platform/wow-two-platform.core.validations]
+  - slug: wow-two-platform-comms-infra
+    name: wow-two-platform.comms.infra
+    workspace: wow2-backbone
+    kind: backbone
+    deploy: none
+    status: "Active"
+    purpose: "MediatR (in-process) + MassTransit (distributed) — don't confuse them"
+    repositories: [wow-two-platform/wow-two-platform.comms.infra]
+  - slug: wow-two-platform-data-relational
+    name: wow-two-platform.data.relational
+    workspace: wow2-backbone
+    kind: backbone
+    deploy: none
+    status: "Active"
+    purpose: "Relational DB patterns (EF Core)"
+    repositories: [wow-two-platform/wow-two-platform.data.relational]
+  - slug: wow-two-platform-data-transport
+    name: wow-two-platform.data.transport
+    workspace: wow2-backbone
+    kind: backbone
+    deploy: none
+    status: "Draft"
+    purpose: "Data transportation"
+    repositories: [wow-two-platform/wow-two-platform.data.transport]
+  - slug: wow-two-platform-storage-cache
+    name: wow-two-platform.storage.cache
+    workspace: wow2-backbone
+    kind: backbone
+    deploy: none
+    status: "Active"
+    purpose: "Caching abstractions"
+    repositories: [wow-two-platform/wow-two-platform.storage.cache]
+  - slug: wow-two-platform-storage-file
+    name: wow-two-platform.storage.file
+    workspace: wow2-backbone
+    kind: backbone
+    deploy: none
+    status: "Active"
+    purpose: "File system operations"
+    repositories: [wow-two-platform/wow-two-platform.storage.file]
+  - slug: wow-two-platform-docs-api
+    name: wow-two-platform.docs.api
+    workspace: wow2-backbone
+    kind: backbone
+    deploy: none
+    status: "Draft"
+    purpose: "API documentation generation"
+    repositories: [wow-two-platform/wow-two-platform.docs.api]
+  - slug: wow-two-platform-templates-ai
+    name: wow-two-platform.templates.ai
+    workspace: wow2-backbone
+    kind: backbone
+    deploy: none
+    status: "Draft"
+    purpose: "AI capability templates"
+    repositories: [wow-two-platform/wow-two-platform.templates.ai]
+  - slug: wow-two-platform-main
+    name: wow-two-platform.main
+    workspace: wow2-backbone
+    kind: backbone
+    deploy: none
+    status: "Active"
+    purpose: "Main platform assembly"
+    repositories: [wow-two-platform/wow-two-platform.main]
+  - slug: wow-two-platform-design-patterns
+    name: wow-two-platform.design-patterns
+    workspace: wow2-backbone
+    kind: backbone
+    deploy: none
+    status: "Active"
+    purpose: "Common design patterns"
+    repositories: [wow-two-platform/wow-two-platform.design-patterns]
+  - slug: wow-two-platform-contrimap
+    name: wow-two-platform.contrimap
+    workspace: wow2-backbone
+    kind: backbone
+    deploy: none
+    status: "POC"
+    purpose: "POCO mapping"
+    repositories: [wow-two-platform/wow-two-platform.contrimap]
+  - slug: wheelhouse
+    name: Wheelhouse
+    workspace: wow2-platform
+    kind: platform
+    deploy: ci
+    status: "Active"
+    purpose: "Product ops & deploy control plane (Clean-Arch .NET 10 + Vue)"
+    repositories: [wow-two-platform/wow-two-platform.wheelhouse]
+  - slug: secrets-vault
+    name: Secrets Vault
+    workspace: wow2-platform
+    kind: platform
+    deploy: wheelhouse
+    status: "Active"
+    purpose: "Secrets vault — envelope-encrypted store + management UI"
+    repositories: [wow-two-platform/wow-two-platform.secrets-vault]
+  - slug: wheelhousecanary
+    name: Wheelhouse Canary
+    workspace: wow2-platform
+    kind: platform
+    deploy: wheelhouse
+    status: "v0.1 built; awaiting first deploy"
+    purpose: "Sample Vue + .NET + PostgreSQL app Wheelhouse deploys to dev, test and prod to prove every deployment flow"
+    repositories: [wow-two-platform/wow-two-platform.wheelhouse-canary]
+  - slug: wow-two-platform-github
+    name: wow-two-platform/.github
+    workspace: wow2-backbone
+    kind: backbone
+    deploy: none
+    status: "Active"
+    purpose: "Org-wide GitHub config"
+    repositories: [wow-two-platform/.github]
+
+  # wow-two-sdk (public libs & tools)
+  - slug: wow-two-sdk-language-core
+    name: wow-two-sdk.language.core
+    workspace: wow2-backbone
+    kind: sdk
+    deploy: none
+    status: "Published"
+    purpose: "Time providers, enum extensions, type abstractions"
+    repositories: [wow-two-sdk/wow-two-sdk.language.core]
+  - slug: wow-two-sdk-language-linq
+    name: wow-two-sdk.language.linq
+    workspace: wow2-backbone
+    kind: sdk
+    deploy: none
+    status: "Published"
+    purpose: "LINQ extensions"
+    repositories: [wow-two-sdk/wow-two-sdk.language.linq]
+  - slug: wow-two-sdk-language-serialization
+    name: wow-two-sdk.language.serialization
+    workspace: wow2-backbone
+    kind: sdk
+    deploy: none
+    status: "Published"
+    purpose: "JSON/object serialization"
+    repositories: [wow-two-sdk/wow-two-sdk.language.serialization]
+  - slug: wow-two-sdk-ai-semantic-kernel
+    name: wow-two-sdk.ai.semantic-kernel
+    workspace: wow2-backbone
+    kind: sdk
+    deploy: none
+    status: "Active"
+    purpose: "Semantic Kernel integration"
+    repositories: [wow-two-sdk/wow-two-sdk.ai.semantic-kernel]
+  - slug: wow-two-sdk-ai-nlp
+    name: wow-two-sdk.ai.nlp
+    workspace: wow2-backbone
+    kind: sdk
+    deploy: none
+    status: "Active"
+    purpose: "NLP utilities"
+    repositories: [wow-two-sdk/wow-two-sdk.ai.nlp]
+  - slug: wow-two-sdk-package-analyzer
+    name: wow-two-sdk.package-analyzer
+    workspace: wow2-backbone
+    kind: sdk
+    deploy: none
+    status: "v1.0"
+    purpose: "Batch repo/package management across orgs"
+    repositories: [wow-two-sdk/wow-two-sdk.package-analyzer]
+  - slug: wow-two-sdk-resilience-patterns
+    name: wow-two-sdk.resilience-patterns
+    workspace: wow2-backbone
+    kind: sdk
+    deploy: none
+    status: "Active"
+    purpose: "Resilience and retry patterns"
+    repositories: [wow-two-sdk/wow-two-sdk.resilience-patterns]
+
+  # wow-two-sdk-beta (beta SDK packages)
+  - slug: wow-two-sdk-beta-be
+    name: wow-two-sdk-beta.be
+    workspace: wow2-backbone
+    kind: sdk
+    deploy: none
+    status: "Active (beta)"
+    purpose: "be sdk — `WoW2.Sdk.Beta.Be[.X]` (nuget.org), namespace `WoW.Two.Sdk.Beta.Be[.X]`; mono-lib: hosting, observability, web, mediator, identity, data. Code: `engineering/codebase/wow-two-sdk-beta-be/`"
+    repositories: [wow-two-sdk-beta/wow-two-sdk-beta.be]
+  - slug: wow-two-sdk-beta-fe
+    name: wow-two-sdk-beta.fe
+    workspace: wow2-backbone
+    kind: sdk
+    deploy: none
+    status: "Active (beta)"
+    purpose: "fe sdk — `@wow-two-beta/fe` (npm), Vue 3 components, application adapters, browser capabilities. Code: `engineering/codebase/wow-two-sdk-beta-fe/`; the parked React `@wow-two-beta/ui` sits in `engineering/codebase/wow-two-front-beta-sdk/`"
+    repositories: [wow-two-sdk-beta/wow-two-sdk-beta.fe]
+  - slug: wow-two-sdk-beta-product-template
+    name: wow-two-sdk-beta.product-template
+    workspace: wow2-backbone
+    kind: template
+    deploy: none
+    status: "Active"
+    purpose: "Copyable product-repo template — the canonical conformant structure `create-repo` stamps out (a template, not a package)"
+    repositories: []
+    local: workbench/wow-two-sdk-beta/wow-two-sdk-beta.product-template
+
+  # wow-two-kb (knowledge base)
+  - slug: wow-two-kb-welcome
+    name: wow-two-kb.welcome
+    workspace: wow2-backbone
+    kind: kb
+    deploy: none
+    status: "Stub"
+    purpose: "Welcome page / index"
+    repositories: [wow-two-kb/wow-two-kb.welcome]
+  - slug: wow-two-kb-dotnet-efcore
+    name: wow-two-kb.dotnet.efcore
+    workspace: wow2-backbone
+    kind: kb
+    deploy: none
+    status: "Has code"
+    purpose: "EF Core ORM patterns"
+    repositories: [wow-two-kb/wow-two-kb.dotnet.efcore]
+  - slug: wow-two-kb-dotnet-efcore-issues
+    name: wow-two-kb.dotnet.efcore.issues
+    workspace: wow2-backbone
+    kind: kb
+    deploy: none
+    status: "Has docs"
+    purpose: "EF Core common issues & solutions"
+    repositories: [wow-two-kb/wow-two-kb.dotnet.efcore.issues]
+  - slug: wow-two-kb-dotnet-mediatr
+    name: wow-two-kb.dotnet.mediatr
+    workspace: wow2-backbone
+    kind: kb
+    deploy: none
+    status: "Has code"
+    purpose: "MediatR examples (Messages, Streams, PipelineBehavior)"
+    repositories: [wow-two-kb/wow-two-kb.dotnet.mediatr]
+  - slug: wow-two-kb-dotnet-httpclient
+    name: wow-two-kb.dotnet.httpclient
+    workspace: wow2-backbone
+    kind: kb
+    deploy: none
+    status: "Has docs"
+    purpose: "HttpClient REST docs"
+    repositories: [wow-two-kb/wow-two-kb.dotnet.httpclient]
+  - slug: wow-two-kb-dotnet-concurrency
+    name: wow-two-kb.dotnet.concurrency
+    workspace: wow2-backbone
+    kind: kb
+    deploy: none
+    status: "Has code"
+    purpose: "Async/concurrent patterns"
+    repositories: [wow-two-kb/wow-two-kb.dotnet.concurrency]
+  - slug: wow-two-kb-dotnet-generics
+    name: wow-two-kb.dotnet.generics
+    workspace: wow2-backbone
+    kind: kb
+    deploy: none
+    status: "Has code"
+    purpose: "Generic programming"
+    repositories: [wow-two-kb/wow-two-kb.dotnet.generics]
+  - slug: wow-two-kb-dotnet-di
+    name: wow-two-kb.dotnet.di
+    workspace: wow2-backbone
+    kind: kb
+    deploy: none
+    status: "Has code"
+    purpose: "IoC/DI container patterns"
+    repositories: [wow-two-kb/wow-two-kb.dotnet.di]
+  - slug: wow-two-kb-dotnet-security-identity
+    name: wow-two-kb.dotnet.security.identity
+    workspace: wow2-backbone
+    kind: kb
+    deploy: none
+    status: "Has code"
+    purpose: "Identity & auth"
+    repositories: [wow-two-kb/wow-two-kb.dotnet.security.identity]
+  - slug: wow-two-kb-dotnet-security-base
+    name: wow-two-kb.dotnet.security.base
+    workspace: wow2-backbone
+    kind: kb
+    deploy: none
+    status: "Has code"
+    purpose: "Base security framework"
+    repositories: [wow-two-kb/wow-two-kb.dotnet.security.base]
+  - slug: wow-two-kb-dotnet-webapi
+    name: wow-two-kb.dotnet.webapi
+    workspace: wow2-backbone
+    kind: kb
+    deploy: none
+    status: "Has code"
+    purpose: "ASP.NET Core Web API helpers"
+    repositories: [wow-two-kb/wow-two-kb.dotnet.webapi]
+  - slug: wow-two-kb-dotnet-api-rest
+    name: wow-two-kb.dotnet.api.rest
+    workspace: wow2-backbone
+    kind: kb
+    deploy: none
+    status: "Has code"
+    purpose: "HTTP/REST communication patterns"
+    repositories: [wow-two-kb/wow-two-kb.dotnet.api.rest]
+  - slug: wow-two-kb-dotnet-notifications
+    name: wow-two-kb.dotnet.notifications
+    workspace: wow2-backbone
+    kind: kb
+    deploy: none
+    status: "Has code"
+    purpose: "Event-based notifications"
+    repositories: [wow-two-kb/wow-two-kb.dotnet.notifications]
+  - slug: wow-two-kb-dotnet-notifications-framework
+    name: wow-two-kb.dotnet.notifications.framework
+    workspace: wow2-backbone
+    kind: kb
+    deploy: none
+    status: "Has code"
+    purpose: "Notifications framework"
+    repositories: [wow-two-kb/wow-two-kb.dotnet.notifications.framework]
+  - slug: wow-two-kb-dotnet-optimization-general
+    name: wow-two-kb.dotnet.optimization.general
+    workspace: wow2-backbone
+    kind: kb
+    deploy: none
+    status: "Has code"
+    purpose: "Performance optimization"
+    repositories: [wow-two-kb/wow-two-kb.dotnet.optimization.general]
+  - slug: wow-two-kb-dotnet-optimization-db
+    name: wow-two-kb.dotnet.optimization.db
+    workspace: wow2-backbone
+    kind: kb
+    deploy: none
+    status: "Has code"
+    purpose: "DB & memory optimization"
+    repositories: [wow-two-kb/wow-two-kb.dotnet.optimization.db]
+  - slug: wow-two-kb-dotnet-mapping
+    name: wow-two-kb.dotnet.mapping
+    workspace: wow2-backbone
+    kind: kb
+    deploy: none
+    status: "Has code"
+    purpose: "AutoMapper patterns"
+    repositories: [wow-two-kb/wow-two-kb.dotnet.mapping]
+  - slug: wow-two-kb-dotnet-files
+    name: wow-two-kb.dotnet.files
+    workspace: wow2-backbone
+    kind: kb
+    deploy: none
+    status: "Has code"
+    purpose: "File I/O"
+    repositories: [wow-two-kb/wow-two-kb.dotnet.files]
+  - slug: wow-two-kb-dotnet-data-abstractions
+    name: wow-two-kb.dotnet.data.abstractions
+    workspace: wow2-backbone
+    kind: kb
+    deploy: none
+    status: "Has code"
+    purpose: "Data access abstractions"
+    repositories: [wow-two-kb/wow-two-kb.dotnet.data.abstractions]
+  - slug: wow-two-kb-dotnet-jobs
+    name: wow-two-kb.dotnet.jobs
+    workspace: wow2-backbone
+    kind: kb
+    deploy: none
+    status: "Has code"
+    purpose: "Background jobs & scheduling"
+    repositories: [wow-two-kb/wow-two-kb.dotnet.jobs]
+  - slug: wow-two-kb-dotnet-framework
+    name: wow-two-kb.dotnet.framework
+    workspace: wow2-backbone
+    kind: kb
+    deploy: none
+    status: "Has code"
+    purpose: ".NET framework patterns"
+    repositories: [wow-two-kb/wow-two-kb.dotnet.framework]
+
+  # wow-two-apps (community products)
+  - slug: med-text-fab
+    name: Med Text Fab
+    workspace: wow2-apps
+    kind: app
+    deploy: none
+    status: "Local repository; uncalibrated model; no version track"
+    purpose: "DS3-150 bandage machine parameter analysis and Vue/.NET educational 3D simulator"
+    repositories: []
+    local: workbench/wow-two-apps/wow-two-apps.med-text-fab
+  - slug: home-atlas
+    name: Home Atlas
+    workspace: wow2-apps
+    kind: app
+    deploy: none
+    status: "Local repository; mapping under review; no version track"
+    purpose: "Private home reference mapping and layered Vue/.NET 3D renovation workbench"
+    repositories: []
+    local: workbench/wow-two-apps/wow-two-apps.home-atlas
+
+  # Ventures — product repositories
+  - slug: foreverpin
+    name: ForeverPin
+    workspace: own-ventures
+    kind: venture
+    deploy: wheelhouse
+    status: "Active, v0.9"
+    purpose: "ForeverPin QR and programmable links"
+    repositories: [sulton-max/10x-venture-forever-pin]
+    local: workbench/ventures/10x-venture-forever-pin
+  - slug: haven
+    name: Haven
+    workspace: own-ventures
+    kind: venture
+    deploy: wheelhouse
+    status: "Active; v1.1 and v1.2 in progress"
+    purpose: "Haven: real estate platform for Tashkent; agents classify, triage and publish ListingShelf listings"
+    repositories: [sulton-max/10x-ven-haven]
+    local: workbench/ventures/10x-ven-haven
+  - slug: surface-pattern
+    name: Surface Pattern
+    workspace: own-ventures
+    kind: venture
+    deploy: none
+    status: "v0.1 local studio built; demand and physical print validation pending"
+    purpose: "Surface Pattern: local repeat-pattern studio, surface previews and print exports"
+    repositories: []
+    local: workbench/ventures/ventures.surface-pattern
+  - slug: listing-shelf
+    name: ListingShelf
+    workspace: own-ventures
+    kind: venture
+    deploy: none
+    status: "v0.2 built (Vue shelf console, SDK 10.0.59); verification pending"
+    purpose: "ListingShelf: listing/post crawler and archive; OLX and Domtut initial adapters, no social media"
+    repositories: [sulton-max/ventures.listing-shelf]
+    local: workbench/ventures/ventures.listing-shelf
+  - slug: pose-coach
+    name: PoseCoach
+    workspace: own-ventures
+    kind: venture
+    deploy: none
+    status: "v0.1 duo collage flow built locally (pattern check, alignment, collage, eye screens); iPhone verification pending"
+    purpose: "PoseCoach: iPhone photo director (Swift/SwiftUI) with a .NET API and Vue console"
+    repositories: []
+    local: workbench/ventures/ventures.pose-coach
+  - slug: retainer-balance
+    name: Retainer Balance
+    workspace: own-ventures
+    kind: venture
+    deploy: none
+    status: "Local v0.1 implemented and tested; authenticated Vue/.NET pilot; launch gates remain"
+    purpose: "Retainer Balance — first-ten SaaS pilot"
+    repositories: []
+    local: workbench/ventures/ventures.retainer-balance
+  - slug: documentation-checker
+    name: Documentation Checker
+    workspace: own-ventures
+    kind: venture
+    deploy: none
+    status: "Local v0.1 implemented and tested; authenticated Vue/.NET pilot; launch gates remain"
+    purpose: "Documentation Checker — first-ten SaaS pilot"
+    repositories: []
+    local: workbench/ventures/ventures.documentation-checker
+  - slug: file-watch
+    name: File Watch
+    workspace: own-ventures
+    kind: venture
+    deploy: none
+    status: "Local v0.1 implemented and tested; authenticated Vue/.NET pilot; launch gates remain"
+    purpose: "File Watch — first-ten SaaS pilot"
+    repositories: []
+    local: workbench/ventures/ventures.file-watch
+  - slug: procedure-review
+    name: Procedure Review
+    workspace: own-ventures
+    kind: venture
+    deploy: none
+    status: "Local v0.1 implemented and tested; authenticated Vue/.NET pilot; launch gates remain"
+    purpose: "Procedure Review — first-ten SaaS pilot"
+    repositories: []
+    local: workbench/ventures/ventures.procedure-review
+  - slug: training-seats
+    name: Training Seats
+    workspace: own-ventures
+    kind: venture
+    deploy: none
+    status: "Local v0.1 implemented and tested; authenticated Vue/.NET pilot; launch gates remain"
+    purpose: "Training Seats — first-ten SaaS pilot"
+    repositories: []
+    local: workbench/ventures/ventures.training-seats
+  - slug: epub-review
+    name: Epub Review
+    workspace: own-ventures
+    kind: venture
+    deploy: none
+    status: "Local v0.1 implemented and tested; authenticated Vue/.NET pilot; launch gates remain"
+    purpose: "Epub Review — first-ten SaaS pilot"
+    repositories: []
+    local: workbench/ventures/ventures.epub-review
+  - slug: customer-promises
+    name: Customer Promises
+    workspace: own-ventures
+    kind: venture
+    deploy: none
+    status: "Local v0.1 implemented and tested; authenticated Vue/.NET pilot; launch gates remain"
+    purpose: "Customer Promises — first-ten SaaS pilot"
+    repositories: []
+    local: workbench/ventures/ventures.customer-promises
+  - slug: vendor-renewals
+    name: Vendor Renewals
+    workspace: own-ventures
+    kind: venture
+    deploy: none
+    status: "Local v0.1 implemented and tested; authenticated Vue/.NET pilot; launch gates remain"
+    purpose: "Vendor Renewals — first-ten SaaS pilot"
+    repositories: []
+    local: workbench/ventures/ventures.vendor-renewals
+  - slug: config-checker
+    name: Config Checker
+    workspace: own-ventures
+    kind: venture
+    deploy: none
+    status: "Local v0.1 implemented and tested; authenticated Vue/.NET pilot; launch gates remain"
+    purpose: "Config Checker — first-ten SaaS pilot"
+    repositories: []
+    local: workbench/ventures/ventures.config-checker
+  - slug: podcast-readiness
+    name: Podcast Readiness
+    workspace: own-ventures
+    kind: venture
+    deploy: none
+    status: "Local v0.1 implemented and tested; authenticated Vue/.NET pilot; launch gates remain"
+    purpose: "Podcast Readiness — first-ten SaaS pilot"
+    repositories: []
+    local: workbench/ventures/ventures.podcast-readiness
+
+  # ocharo-hq (brand workspace)
+  - slug: ocharo-platform
+    name: Ocharo Platform
+    workspace: other-ventures
+    kind: venture
+    deploy: wheelhouse
+    status: "Brand/Catalogue sources adopted; application integration pending"
+    purpose: "Ocharo Platform: brand identity, catalogue and business management; adopted Brand Workspace"
+    repositories: [ocharo-hq/ocharo-platform]
+    local: workbench/ocharo-hq/ocharo-ws/workbench/ocharo-platform
+  - slug: ocharo-studio
+    name: Ocharo Studio
+    workspace: other-ventures
+    kind: venture
+    deploy: wheelhouse
+    status: "Existing Studio implementation retained; integration deferred"
+    purpose: "Ocharo Studio: 3D mannequin and per-part textile creative studio"
+    repositories: [ocharo-hq/ocharo-studio]
+    local: workbench/ocharo-hq/ocharo-ws/workbench/ocharo-studio
+  - slug: ocharo-marketing
+    name: Ocharo Marketing
+    workspace: other-ventures
+    kind: venture
+    deploy: none
+    status: "Both Blog sources adopted; broader public apps/integration pending"
+    purpose: "Ocharo Marketing: operator desk, editorial/public app container, distribution and lead capture"
+    repositories: [ocharo-hq/ocharo-marketing]
+    local: workbench/ocharo-hq/ocharo-ws/workbench/ocharo-marketing
+  - slug: ocharo-assets
+    name: Ocharo Assets
+    workspace: other-ventures
+    kind: venture
+    deploy: none
+    status: "Garment library adopted; runtime integration deferred"
+    purpose: "Ocharo Assets: asset creation and motion research; Ocharo Motion runtime retained"
+    repositories: [ocharo-hq/ocharo-assets]
+    local: workbench/ocharo-hq/ocharo-ws/workbench/ocharo-assets

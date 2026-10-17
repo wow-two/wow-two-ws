@@ -1,0 +1,101 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "wow-two/catalog.schema.json",
+  "title": "wow2 catalog (catalog.yml at the wow-two-ws root)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["catalog", "orgs", "workspaces", "entries"],
+  "properties": {
+    "catalog": { "const": 1, "description": "Format version." },
+    "orgs": {
+      "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/org" },
+      "description": "GitHub organizations, in registry order."
+    },
+    "workspaces": {
+      "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/workspace" },
+      "description": "Wheelhouse workspaces an entry belongs to."
+    },
+    "entries": {
+      "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/entry" },
+      "description": "One entry per product; a library, KB module or template is a single-repository entry."
+    }
+  },
+  "$defs": {
+    "slug": { "type": "string", "pattern": "^[a-z][a-z0-9-]{0,47}$" },
+    "text": { "type": "string", "minLength": 1, "pattern": "^[^\\r\\n]*$" },
+    "markdown": { "type": "string", "minLength": 1 },
+    "repository": {
+      "type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9-]*/[A-Za-z0-9._-]+$",
+      "description": "GitHub owner/name."
+    },
+    "local": {
+      "type": "string", "pattern": "^workbench/[A-Za-z0-9._/-]+[A-Za-z0-9._-]$",
+      "not": { "pattern": "(^|/)\\.\\.(/|$)" },
+      "description": "Checkout path relative to the wow-two-ws root."
+    },
+    "org": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["slug", "url", "description"],
+      "properties": {
+        "slug": { "type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9-]*$", "description": "GitHub organization login." },
+        "url": { "type": "string", "pattern": "^https://github\\.com/[A-Za-z0-9-]+$" },
+        "description": { "$ref": "#/$defs/text", "description": "What the org holds; no trailing period." },
+        "label": { "$ref": "#/$defs/text", "description": "Registry only: the heading's parenthetical." },
+        "intro": {
+          "type": "array", "items": { "$ref": "#/$defs/markdown" },
+          "description": "Registry only: Markdown blocks between the Org line and the table."
+        },
+        "notes": {
+          "type": "array", "items": { "$ref": "#/$defs/markdown" },
+          "description": "Registry only: Markdown blocks after the table."
+        }
+      }
+    },
+    "workspace": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["slug", "name", "description"],
+      "properties": {
+        "slug": { "$ref": "#/$defs/slug" },
+        "name": { "$ref": "#/$defs/text" },
+        "description": { "$ref": "#/$defs/text" }
+      }
+    },
+    "entry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["slug", "name", "workspace", "kind", "deploy", "status", "purpose", "repositories"],
+      "properties": {
+        "slug": {
+          "$ref": "#/$defs/slug",
+          "description": "Product slug; a deployable's equals the product in its deploy.yml."
+        },
+        "name": { "$ref": "#/$defs/text" },
+        "workspace": { "$ref": "#/$defs/slug", "description": "A slug under workspaces." },
+        "kind": { "enum": ["core", "meta", "platform", "backbone", "sdk", "kb", "app", "venture", "template"] },
+        "deploy": {
+          "enum": ["wheelhouse", "ci", "none"],
+          "description": "wheelhouse: Wheelhouse deploys it; ci: CI deploys it; none: nothing runs."
+        },
+        "status": { "$ref": "#/$defs/text" },
+        "purpose": { "$ref": "#/$defs/text" },
+        "repositories": {
+          "type": "array", "uniqueItems": true, "items": { "$ref": "#/$defs/repository" },
+          "description": "GitHub owner/name; the first is primary. Empty only while no GitHub repository exists."
+        },
+        "local": { "$ref": "#/$defs/local" }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "deploy": { "enum": ["wheelhouse", "ci"] } } },
+          "then": { "properties": { "repositories": { "minItems": 1 } } }
+        },
+        {
+          "if": { "properties": { "repositories": { "maxItems": 0 } } },
+          "then": { "required": ["local"] }
+        }
+      ]
+    }
+  }
+}

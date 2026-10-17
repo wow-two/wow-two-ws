@@ -1,3 +1,5 @@
+> **Generated** from `catalog.yml` by `scripts/gen-repo-registry.py` — edit the catalog, then regenerate.
+>
 > **Usage:** This is a lookup table. Do NOT read these files or repos proactively.
 > Only access a repo when the current task specifically requires it.
 >
@@ -5,7 +7,7 @@
 
 # Repo Registry
 
-*Last updated: 2026-10-16*
+*Last updated: 2026-10-17*
 
 All repos use the naming convention: `{org}.{domain}[.{subdomain}]`, lowercase, dot-separated. Repo prefix matches org name exactly.
 
@@ -114,8 +116,8 @@ Org: [github.com/wow-two-kb](https://github.com/wow-two-kb) — code samples, ru
 
 Org: [github.com/wow-two-apps](https://github.com/wow-two-apps) — no public repos yet.
 
-| Repo / local folder | Purpose | Status |
-|---|---|---|
+| Repo | Purpose | Status |
+|------|---------|--------|
 | `wow-two-apps.med-text-fab` | DS3-150 bandage machine parameter analysis and Vue/.NET educational 3D simulator | Local repository; uncalibrated model; no version track |
 | `wow-two-apps.home-atlas` | Private home reference mapping and layered Vue/.NET 3D renovation workbench | Local repository; mapping under review; no version track |
 
@@ -125,9 +127,10 @@ Org: [github.com/wow-two-apps](https://github.com/wow-two-apps) — no public re
 
 | Repo / local folder | Purpose | Status |
 |---|---|---|
-| `sulton-max/10x-venture-forever-pin` · `ventures/10x-venture-forever-pin` | ForeverPin QR and programmable links | Active, v0.9 |
+| `sulton-max/10x-venture-forever-pin` · `workbench/ventures/10x-venture-forever-pin` | ForeverPin QR and programmable links | Active, v0.9 |
+| `sulton-max/10x-ven-haven` · `workbench/ventures/10x-ven-haven` | Haven: real estate platform for Tashkent; agents classify, triage and publish ListingShelf listings | Active; v1.1 and v1.2 in progress |
 | `ventures.surface-pattern` · `workbench/ventures/ventures.surface-pattern` | Surface Pattern: local repeat-pattern studio, surface previews and print exports | v0.1 local studio built; demand and physical print validation pending |
-| `ventures.listing-shelf` · `workbench/ventures/ventures.listing-shelf` | ListingShelf: listing/post crawler and archive; OLX and Domtut initial adapters, no social media | v0.2 built (Vue shelf console, SDK 10.0.59); verification pending |
+| `sulton-max/ventures.listing-shelf` · `workbench/ventures/ventures.listing-shelf` | ListingShelf: listing/post crawler and archive; OLX and Domtut initial adapters, no social media | v0.2 built (Vue shelf console, SDK 10.0.59); verification pending |
 | `ventures.pose-coach` · `workbench/ventures/ventures.pose-coach` | PoseCoach: iPhone photo director (Swift/SwiftUI) with a .NET API and Vue console | v0.1 duo collage flow built locally (pattern check, alignment, collage, eye screens); iPhone verification pending |
 | `ventures.retainer-balance` · `workbench/ventures/ventures.retainer-balance` | Retainer Balance — first-ten SaaS pilot | Local v0.1 implemented and tested; authenticated Vue/.NET pilot; launch gates remain |
 | `ventures.documentation-checker` · `workbench/ventures/ventures.documentation-checker` | Documentation Checker — first-ten SaaS pilot | Local v0.1 implemented and tested; authenticated Vue/.NET pilot; launch gates remain |
@@ -142,9 +145,9 @@ Org: [github.com/wow-two-apps](https://github.com/wow-two-apps) — no public re
 
 ## ocharo-hq (brand workspace)
 
-Six main repositories plus the `.github` profile repository belong to Ocharo. Blog, Brand and Catalogue are adopted components, not additional repository targets. Current paths: [Ocharo repository map](../workbench/ocharo-hq/ocharo-ws/docs/repositories.md).
+Org: [github.com/ocharo-hq](https://github.com/ocharo-hq) — Ocharo's brand organization: platform, studio, marketing and assets, independent of WoW2.
 
-Organization: [github.com/ocharo-hq](https://github.com/ocharo-hq).
+Six main repositories plus the `.github` profile repository belong to Ocharo. Blog, Brand and Catalogue are adopted components, not additional repository targets. Current paths: [Ocharo repository map](../workbench/ocharo-hq/ocharo-ws/docs/repositories.md).
 
 - `workbench/ocharo-hq/ocharo-ws/` owns Ocharo setup and repository navigation.
 - Its Git history and GitHub organization remain independent of WoW2.
