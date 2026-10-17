@@ -65,6 +65,9 @@ workspaces:
   - slug: own-ventures
     name: Own ventures
     description: "The owner's product ventures"
+  - slug: ocharo
+    name: Ocharo
+    description: "Maftuna's brand: platform, studio, marketing and assets"
   - slug: other-ventures
     name: Other ventures
     description: "Ventures and client work run for others"
@@ -699,7 +702,7 @@ entries:
   # ocharo-hq (brand workspace)
   - slug: ocharo-platform
     name: Ocharo Platform
-    workspace: other-ventures
+    workspace: ocharo
     kind: venture
     deploy: wheelhouse
     status: "Brand/Catalogue sources adopted; application integration pending"
@@ -708,7 +711,7 @@ entries:
     local: workbench/ocharo-hq/ocharo-ws/workbench/ocharo-platform
   - slug: ocharo-studio
     name: Ocharo Studio
-    workspace: other-ventures
+    workspace: ocharo
     kind: venture
     deploy: wheelhouse
     status: "Existing Studio implementation retained; integration deferred"
@@ -717,7 +720,7 @@ entries:
     local: workbench/ocharo-hq/ocharo-ws/workbench/ocharo-studio
   - slug: ocharo-marketing
     name: Ocharo Marketing
-    workspace: other-ventures
+    workspace: ocharo
     kind: venture
     deploy: none
     status: "Both Blog sources adopted; broader public apps/integration pending"
@@ -726,7 +729,7 @@ entries:
     local: workbench/ocharo-hq/ocharo-ws/workbench/ocharo-marketing
   - slug: ocharo-assets
     name: Ocharo Assets
-    workspace: other-ventures
+    workspace: ocharo
     kind: venture
     deploy: none
     status: "Garment library adopted; runtime integration deferred"

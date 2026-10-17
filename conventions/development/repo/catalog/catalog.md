@@ -56,7 +56,7 @@ entries:
 | Field | Rule |
 |---|---|
 | `slug` | a deployable's `deploy.yml` `product`; another product's code slug; else the repo name, dots → hyphens |
-| `workspace` | `personal` · `wow2-platform` · `wow2-backbone` · `wow2-apps` · `own-ventures` · `other-ventures` |
+| `workspace` | `personal` · `wow2-platform` · `wow2-backbone` · `wow2-apps` · `own-ventures` · `ocharo` · `other-ventures` |
 | `kind` | `core` · `meta` · `platform` · `backbone` · `sdk` · `kb` · `app` · `venture` · `template` |
 | `deploy` | `wheelhouse` · `ci` · `none` |
 
@@ -64,7 +64,7 @@ entries:
 - must name a `.github` repository's entry `{owner}-github`.
 - must file platform apps and their fixtures under `wow2-platform`; SDKs, libraries, pipelines and templates under
   `wow2-backbone`; community apps under `wow2-apps`; personal tools under `personal`.
-- must file the owner's ventures under `own-ventures`; ventures and client work for others under `other-ventures`.
+- must file the owner's ventures under `own-ventures`, Ocharo's repositories under `ocharo`, and other ventures and client work under `other-ventures`.
 - must use kind `platform` for a platform app and `backbone` for a platform library, pipeline or org config.
 - must set `deploy: wheelhouse` when Wheelhouse deploys the repo, `ci` when CI does (Wheelhouse itself).
 - must name the canonical GitHub repository, never a redirect alias left in a local `origin`.
