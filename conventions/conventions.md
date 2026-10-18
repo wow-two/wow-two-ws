@@ -1,6 +1,6 @@
 # Conventions — wow-two
 
-*Last updated: 2026-10-17*
+*Last updated: 2026-10-18*
 
 > **The single index to every convention.** When a task touches *how we build* — code, repo structure,
 > naming, versioning — search HERE first, then open only the file(s) you need. Lookup table,
@@ -209,6 +209,7 @@ Product UI standards, by need:
 | `index.html` — head, favicon and app icons, pre-paint theme, splash twin | [document](development/frontend/shapes/app/platform/document.md) |
 | Icons — the one icon set, imports, sizes | [lucide](development/frontend/core/mla/domains/icons/lucide/lucide.md) |
 | Loading — which surface answers which wait | [feedback](development/frontend/core/mla/components/feedback/feedback.md#loading) |
+| Explanation read once — legends, a control's reach; the info button and first-run intro | [guidance](development/frontend/core/mla/domains/guidance/guidance.md) |
 | Colour mode, brand tokens, the stylesheet entry | [styling](development/frontend/shapes/app/platform/styling.md) |
 | Screens — device targets, screen classes, bottom bar, stacked tables, phone dialogs, list and detail, motion | [responsive](development/frontend/shapes/app/responsive/responsive.md) |
 

@@ -1,6 +1,6 @@
 # Domains
 
-*Last updated: 2026-09-29*
+*Last updated: 2026-10-18*
 
 > Capability contracts, provider adapters and their shared lifetime boundary.
 
@@ -42,6 +42,7 @@
 | [feedback](feedback/feedback.md) | notice publication and rendering |
 | [flags](flags/flags.md) | total flag evaluation |
 | [forms](forms/forms.md) | editing, parsing and field binding |
+| [guidance](guidance/guidance.md) | explanation behind an info button, the first-run intro and its seen state |
 | [i18n](i18n/i18n.md) | locale, messages and formatting |
 | [icons](icons/icons.md) | decorative and semantic glyphs, and the product icon set |
 | [observability](observability/observability.md) | structured local records |

@@ -1,6 +1,6 @@
 # UI copy
 
-*Last updated: 2026-10-01*
+*Last updated: 2026-10-18*
 
 > How many words a product screen carries, and which ones earn their place.
 > Purpose — an operator who already knows the product reads extra copy as noise.
@@ -13,6 +13,9 @@
 - must not restate in a hint what the label, the placeholder or the control already says.
 - may keep one short line beside a primary action.
 - may keep one line of description under a page or panel title.
+- must not repeat a figure another region of the same screen already shows.
+- explanation read once — a legend, a control's reach, a how-to →
+  [guidance](../../development/frontend/core/mla/domains/guidance/guidance.md#placement).
 - must keep marketing copy on marketing surfaces — a landing page, a pricing page.
 
 ---
