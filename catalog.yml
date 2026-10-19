@@ -258,8 +258,8 @@ entries:
     name: Secrets Vault
     workspace: wow2-platform
     kind: platform
-    deploy: wheelhouse
-    status: "Active"
+    deploy: none
+    status: "Inactive: merging into Wheelhouse as its built-in vault (Wheelhouse decision 59)"
     purpose: "Secrets vault — envelope-encrypted store + management UI"
     repositories: [wow-two-platform/wow-two-platform.secrets-vault]
   - slug: wheelhousecanary
