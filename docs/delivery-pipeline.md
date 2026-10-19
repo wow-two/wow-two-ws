@@ -1,6 +1,6 @@
 # WoW 2.0 — Delivery pipeline
 
-*Last updated: 2026-10-17*
+*Last updated: 2026-10-19*
 
 > How every product goes from a push to a deployable, versioned build: the version shape, the planning tracks, the
 > build trigger, the artifact store and the shared CI. Analysis with open points, ordered parent before child: a later
@@ -12,16 +12,15 @@
 
 ## Today
 
-| Concern | State on 2026-09-29 |
+| Concern | State on 2026-10-19, for a product on the shared workflow |
 |---|---|
-| Version source | `v{X.Y}` version docs (Feature odd, Adoption even); code carries `X.Y.Z` in `Directory.Build.props` and `package.json`, `Z` bumped by hand |
-| Other tracks | Rough `r{X.Y}` and polish `p{X.Y}` number themselves; neither number reaches code or images |
-| Release | A published `vX.Y.Z` GitHub release builds the changed services, tags them `X.Y.Z` and attaches the bundle |
-| Candidate | Every push builds the changed services as `sha-<commit>`, shown as `<last release>+<commit>`; the bundle is a 14-day Actions artifact |
+| Version source | `X.Y` from the newest `version-track/v{X.Y}/` folder; CI assigns `Z` and injects `X.Y.Z` into every build |
+| Release | A push to `main` builds the changed services, tags them `X.Y.Z` and attaches the bundle; no `dev` or `test` branch |
+| Candidate | Another branch or a dispatched commit builds `sha-<commit>` images; the bundle is a 14-day Actions artifact |
 | Service version | The release in which the service last changed, derived by `release.py` from change paths |
 | Registry | GHCR, one repository per service (`ghcr.io/<owner>/<repo>/<service>`); free under GitHub's current policy |
-| Generator | `release.py` lives in Wheelhouse; each product's workflow fetches it by git blob and SHA-256 |
-| Shared CI | None: every product copies its workflow; `wow-two-platform.pipelines` is an empty public repository |
+| Generator | `generator/release.py` in `wow-two-platform.pipelines` (tag `v0.8.1`) |
+| Shared CI | `publish.yml`, pinned by tag: Wheelhouse, the canary and Ocharo call it; ForeverPin, Haven and Secrets Vault do not yet |
 | SDKs | Beta-forever: CI bumps the patch on every push to `main` and publishes |
 
 ---
@@ -115,6 +114,8 @@ because each product's `deploy.yml` names its services' Dockerfiles, targets, ar
 ### D11 — Rollout order
 
 - ForeverPin, then Wheelhouse, then Secrets Vault, then every product through `create-repo`.
+- Done 2026-10-19: Wheelhouse, the canary, Ocharo Platform and Studio. Open: ForeverPin (a pinned generator copy), Haven
+  and Secrets Vault (no descriptor), and the product template (no workflows).
 - Retire each product's copied workflow once it calls the shared one.
 - Needs: D1–D9.
 

@@ -1,6 +1,6 @@
 # WoW 2.0 — Platform Apps, In Order
 
-*Last updated: 2026-10-16*
+*Last updated: 2026-10-19*
 
 > The order the wow-two platform apps get built and shipped — one list to focus on, top down. Scope: the internal
 > apps every product stands on (ops, observability, backbone services). Products and ventures live in the
@@ -20,15 +20,15 @@
 
 ## Order
 
-| # | App | Repo | What it is | State 2026-09-29 | Ship gate | Needs |
+| # | App | Repo | What it is | State 2026-09-29 (rows 1 and 7: 2026-10-19) | Ship gate | Needs |
 |---|---|---|---|---|---|---|
-| 1 | **Wheelhouse** | `wow-two-platform.wheelhouse` | deploy + ops control plane: products, servers, domains, deploys | v0.3 built; IA pass open | a product deployed to a VPS from it, with rollback, domain and live logs | — |
+| 1 | **Wheelhouse** | `wow-two-platform.wheelhouse` | deploy + ops control plane: products, servers, domains, deploys | v0.5 in progress: platform model built; infrastructure automation planned | a product deployed to a VPS from it, with rollback, domain and live logs | — |
 | 2 | **Secrets Vault** | `wow-two-platform.secrets-vault` | envelope-encrypted secrets store + UI; env injection | Form 2 built | Wheelhouse deploys read their env from it; Form 1 wireable; hardened | 1 |
 | 3 | **Feedbacks** | `wow-two-platform.feedbacks` | incident reports → issues; triage inbox ([spec](../ideas/feedbacks-spec.md)) | client in the fe sdk `/reporting`; app not started | one app's Report button lands grouped reports in its inbox | 1, 2 |
 | 4 | **Logs** | `wow-two-platform.logs` | structured log store + `/logs` viewer, search by trace id ([analysis](../ideas/logging-analysis.md)) | SDK emits OTel; no store | Feedbacks issue → one click → the request's log lines | 1, 2 |
 | 5 | **Monitoring** | `wow-two-platform.monitoring` | uptime and health checks, Telegram alerts, domain/SSL expiry; dashboards bought (Grafana/SigNoz) | Wheelhouse spec P3 only | a downed product or expiring domain alerts before a user notices | 1, 4 |
 | 6 | **Identity** | `wow-two-platform.identity` | central OIDC IdP / SSO — one Google client for the fleet ([spec](../ideas/identity-service-spec.md)) | SDK identity rebuild steps 1–9 done | two apps sign in through it | 2 |
-| 7 | **Pipelines** | `wow-two-platform.pipelines` | reusable GitHub Actions: build · test · pack · publish · deploy | skeleton | every active repo runs the shared workflows | — |
+| 7 | **Pipelines** | `wow-two-platform.pipelines` | reusable GitHub Actions: build · test · pack · publish · deploy | `v0.8.1` shipped; Wheelhouse, the canary and Ocharo call it | every active repo runs the shared workflows | — |
 | 8 | **`wow` CLI** | new | `wow new` / `wow add <brick>` over `product-template` + `create-repo` | template + skill | a new product from zero to deployed in one command | 1, 7 |
 | 9 | **Notifications** | new | multi-channel: email · Telegram · push · in-app (build thin or wrap Novu) | email + Telegram in the SDK | one app sends through every channel from one call | 6 |
 | 10 | **Audit Log** | new | standalone audit trail, harvested from the vault's hash chain | inside Secrets Vault | a second app writes and verifies its trail | 2 |

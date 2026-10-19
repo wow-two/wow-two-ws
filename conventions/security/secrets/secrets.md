@@ -1,6 +1,6 @@
 # Secrets
 
-*Last updated: 2026-10-09*
+*Last updated: 2026-10-19*
 
 > What never enters a repository — credentials, secrets and private infrastructure identifiers — and where they live.
 > Applies to every repository, public or private.
@@ -17,7 +17,8 @@
 ## Storage
 
 - must keep credentials and private identifiers in NordPass.
-- must place runtime secrets as protected files (mode `0600`) on the host they serve, never in images or bundles.
+- must place runtime secrets as protected files on the host they serve, never in images or bundles: mode `0600`,
+  or `0444` inside a `0700` folder when a container reads the file.
 - must keep CI secrets in GitHub environment secrets, never in workflow files or logs.
 
 ---
