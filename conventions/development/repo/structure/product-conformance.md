@@ -91,11 +91,11 @@
 |---|---|
 | `engineering/deployment/deploy.yml` describes every service | [deploy descriptor](../../../deployment/descriptor/deploy-descriptor.md) |
 | `deploy.yml` is `descriptor: 2` | [deploy descriptor](../../../deployment/descriptor/deploy-descriptor.md#rules) |
-| `publish-docker-image.yml` calls the shared workflow at the newest pipelines tag | [deploy descriptor](../../../deployment/descriptor/deploy-descriptor.md#ci-workflow) |
+| `publish-docker-image.yml` calls the shared `delivery.yml` at the newest pipelines tag | [deploy descriptor](../../../deployment/descriptor/deploy-descriptor.md#ci-workflow) |
 | `dotnetEnvironment: true`, with `appsettings.Development.json` holding defaults only | [environment files](../../../deployment/hosting/environment-files.md#settings) |
 | a deployed settings file mounts as `appsettings.Target.json`; it and `Local.json` are git- and docker-ignored | [environment files](../../../deployment/hosting/environment-files.md#settings) |
 | a product that auto-promotes declares a `verify` check | [deploy descriptor](../../../deployment/descriptor/deploy-descriptor.md#rules) |
-| `ci.yml` builds and tests on every push | [repo structure](repo-structure.md#layout) |
+| `publish-docker-image.yml` declares every build and test tier as a check; no separate `ci.yml` | [deploy descriptor](../../../deployment/descriptor/deploy-descriptor.md#ci-workflow) |
 | the SPA builds into `apps/web/dist` and reaches `wwwroot/` through `BuildSpa` | [single-host serving](../../../deployment/hosting/single-host-serving.md) |
 | the host serves the SPA through the SDK's `SpaHosting`, not hand-wired static files | [single-host serving](../../../deployment/hosting/single-host-serving.md#backend-serving) |
 | CI injects the version; no file declares it | [versioning](../versioning/versioning.md#source) |

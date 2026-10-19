@@ -167,6 +167,19 @@ Not started, ordered, top = next. Pulling one promotes it above and mints its ID
 |---|---|---|
 | Deprecate the old be sdk packages on NuGet | chore | Added `2026-10-16`; npm half done `2026-10-17` (`@wow-two-beta/ui-vue` and `@wow-two-beta/ui` point at `@wow-two-beta/fe`). NuGet has no CLI deprecation: per package on nuget.org, Manage › Deprecation › all versions › Legacy, alternate = the `WoW2.Sdk.Beta.Be*` twin, for the 7 `WoW2.Sdk.Backend.Beta*` packages |
 
+### → CI outside Wheelhouse and Ocharo (audit `2026-10-19`; shared `delivery.yml` is pipelines `v0.9.0`)
+
+| Item | Type | Notes |
+|---|---|---|
+| Move Secrets Vault to shared delivery with its tests in CI | issue | Legacy release-triggered publish; Integration and Migrations tests exist but never run; no job timeouts |
+| Move Haven to shared delivery and descriptor 2 | issue | Legacy release matrix x6, no descriptor; its only CI run failed (Images); 25 commits unpushed |
+| Move ForeverPin to shared delivery | issue | Legacy publish pinned to drydock and not gated on its CI |
+| Push TNIS and prove its CI | issue | CI never ran: 41 commits unpushed; browser script not in CI |
+| Add CI to the hub repos | feature | `wow-two-ws`, `10x-ventures`, `ocharo-ws` hold the catalogs Wheelhouse reads; no schema or link check |
+| Stamp the delivery caller into the product template | feature | `create-repo` stamps no workflows, so new repos start without CI |
+| Give the be sdk a path filter, a job timeout and a separate NuGet wait | issue | Docs pushes release NuGet versions; no timeout (one 528-min run); 7-12 min of each run waits on NuGet |
+| Retarget the fe sdk `test.yml` to the live package | issue | It tests the parked React package; `pnpm test \|\| pnpm test` hides a vite race |
+
 ---
 
 ## Detail pointers

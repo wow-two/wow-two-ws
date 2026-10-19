@@ -266,8 +266,11 @@ version in which it last changed, so services version independently and an old v
 
 ## CI workflow
 
-- must keep `.github/workflows/publish-docker-image.yml` as the marker file Wheelhouse detects.
-- must call the shared `publish.yml` workflow of `wow-two-platform.pipelines` from it, pinned to a tag.
+- must keep `.github/workflows/publish-docker-image.yml` as the marker file Wheelhouse detects; it is the product's
+  one CI file.
+- must call the shared `delivery.yml` workflow of `wow-two-platform.pipelines` from it, pinned to a tag (`v0.9.0` or
+  later), and declare the product's checks there; no product `ci.yml` or `verify.yml`. Before `v0.9.0` it called
+  `publish.yml` behind its own CI.
 - must pin `v0.5.0` or later to declare `dotnetEnvironment` or `verify`, and `v0.6.0` or later to declare
   `dependsOn`; an older generator refuses each key.
 - must move to `v0.7.0` together with a be sdk that reads `appsettings.Target.json`: from `v0.7.0` the settings file
@@ -276,20 +279,29 @@ version in which it last changed, so services version independently and an old v
 - must pin `v0.8.0` or later to declare `descriptor: 2`; an older generator refuses it, and a Wheelhouse runner older
   than descriptor 2 refuses a schema 2 bundle.
 - should move the pin to each new pipelines tag; every workflow of a repo that names the generator names one tag.
-- must trigger it on every push and on `workflow_dispatch` with a `commit` input.
-- must not copy the publish steps or the release generator into a product repo.
+- must trigger it on every push except `renovate/**` branches, on pull requests, and on `workflow_dispatch` with a
+  `commit` input.
+- must queue `main` runs in one concurrency group (`queue: max`) and cancel superseded runs on other refs.
+- must not copy the publish steps, the CI steps or the release generator into a product repo.
+- must give a check `paths` only when every path it reads is listed; a path no check owns runs every check.
 
 ```yaml
 jobs:
-  publish:
-    uses: wow-two-platform/wow-two-platform.pipelines/.github/workflows/publish.yml@v0.8.1
+  delivery:
+    uses: wow-two-platform/wow-two-platform.pipelines/.github/workflows/delivery.yml@v0.9.0
     with:
       commit: ${{ inputs.commit }}
+      backends: |
+        [{"name": "Backend", "dotnet": "engineering/codebase/pilot.backend-services/global.json",
+          "run": "dotnet test engineering/codebase/pilot.backend-services/Pilot.BackendServices.slnx"}]
 ```
 
-The shared workflow:
+Full caller and check keys: the pipelines `README.md`. The shared workflow:
 
-- builds on every push: `main` releases, every other branch builds a candidate;
+- skips a `main` push a newer push has replaced, and builds, tests and publishes nothing for a push that changes only
+  docs, planning or markdown since the last delivered commit; its `gate` check still passes;
+- runs each declared check whose paths changed, then publishes once they pass; a pull request runs the checks only;
+- builds on every code push: `main` releases, every other branch builds a candidate;
 - builds a dispatched commit that has no build yet (Wheelhouse's Build action);
 - builds each changed service from `deploy.yml`, whatever its Dockerfile, target, arguments or build contexts;
 - fetches the Git LFS files under `engineering/` first, so images carry real assets instead of pointer files;

@@ -1,6 +1,6 @@
 # Repo structure
 
-*Last updated: 2026-10-16*
+*Last updated: 2026-10-19*
 
 > On-disk layout and naming of a product / venture repo under `wow-two-ws/workbench/` — folders and names, not code.
 > Use case — scaffolding a repo, placing a folder, or checking an existing repo's shape.
@@ -27,9 +27,11 @@ Framework selection → [frontend standard](../repo-conventions.md#frontend-stan
 ├── CLAUDE.md                     agent entry — lazy-load rules, stack, structure
 ├── .claude/rules/
 │   └── file-references.md        doc lookup table; never lists `engineering/codebase/` files
-├── .github/workflows/
-│   ├── ci.yml                    build and test on every push
-│   └── publish-docker-image.yml  the image-publish marker
+├── .github/
+│   ├── renovate.json             extends the pipelines Renovate preset
+│   └── workflows/
+│       ├── publish-docker-image.yml  the delivery marker: the product's checks, then image publish
+│       └── codeql.yml            public repos only: the shared CodeQL scan
 │
 ├── product/                      the definition — what, why, features, flows; no code
 │   ├── product.md                what it is, who for, positioning, model (lead doc)
