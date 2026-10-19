@@ -1,78 +1,82 @@
 # Guidance
 
-*Last updated: 2026-10-18*
+*Last updated: 2026-10-19*
 
-> Explanation a screen needs once — a legend, a control's reach, how to read a chart — behind an info button,
-> with a first-run intro and a remembered "seen" state.
+> The context a region needs — a legend, what a control applies to, the gestures it takes, the period and units of
+> its figures — behind an info button that opens on click. A guided first-visit tour is a separate pattern.
 
 ## Placement
 
 - must keep inline only copy that changes the next action on every read
   ([UI copy](../../../../../../design/content/ui-copy.md)).
-- must put content read once behind an info button: a legend or colour key, what a control reaches, a how-to hint.
+- must put behind the info button what a region needs explained once: its context, legend, instructions and units.
 - must not put behind it what the screen cannot be operated without — a field error, a consequence, a next step.
-- must not add a title's description line that only explains a control the info button already explains.
+- must not keep a description line under a title that is pure context; it moves behind the title's info button.
+
+---
+
+## Content
+
+- must give the region's context: what it shows, and where its figures come from.
+- must give each legend the region draws — colour, mark, line, icon — drawn the way the region draws it.
+- must give the instructions and gestures the region takes, such as `Drag to move · Pinch or Ctrl + scroll to zoom`.
+- must give the units and periods of its figures, such as `minutes over the last 30 days`.
+- must explain only its own region; a nested region with its own legend takes its own button.
+- must head the panel with the region's title and each section with its own; a single section takes none.
+- should fit without scrolling; a long legend moves to the region it explains rather than growing one panel.
 
 ---
 
 ## Info button
 
-- must sit right after the title it explains, inside the title row; one per titled region.
+- must sit right after the title it explains, in the title row and outside the heading element, so the heading's
+  name stays the title; one per titled region.
 - must be an icon-only ghost `Button`, `sm` and `square`, holding the `Info` glyph at 16px, named `About {title}`.
 - must reach 44px on phones without growing the title row — a negative block margin absorbs the extra height.
+- must be dimmed — the subtle foreground — and take the foreground on hover, focus and while open.
+- must open on click only: never by itself, never on hover.
 - must open every section at once — a [Popover](../../components/overlays/popover.md) from `md`, a
   [BottomSheet](../../components/overlays/bottomSheet.md) on phones.
-- must head the panel with the region's title and each section with its own; a single section takes none.
+- must open the popover on the side with room, below by preference, and cap its height to that room, scrolling
+  inside rather than past the screen's edge.
 - must hold a close button, close on Escape and an outside click, and return focus to the button.
 
 ---
 
-## Intro
+## Reveal
 
-- may open once by itself, the first time the reader meets a region whose reading is not obvious — a grid, a chart.
-- must wait until the region has rendered, its button shows whole and most of the first step's target is on screen.
-- must not open while focus is in a field, a menu or another dialog; it retries a few times, then waits a visit.
-- must show the info button's own sections, one per step — one source for both, at most four steps.
-- must open in a popover above the info button on every screen class — a sheet would hide the region.
-- must show its place (`2 of 3`), Back, Next or Done, and a close button; the last step names the info button.
-- must move focus to Next or Done on open, and announce each step politely.
-- may ring each step's target; the ring holds still under reduced motion.
-- must count as seen the moment it opens, so a reload or a skip never brings it back.
-- must not chain into another intro, return as a nag, or ask for anything
-  ([product principles](../../../../../../conventions.md#product-principles)).
+- must, on a device that hovers with a fine pointer — `(hover: hover) and (pointer: fine)` — stay hidden until the
+  pointer is over its region or focus is inside it.
+- must take as its region the nearest ancestor that declares one (`data-info-scope`): a panel declares itself.
+- must hide by opacity only, never `display` or `visibility`, so it stays in the tab order and focus reveals it.
+- must, on a touch device — no hover, or a coarse pointer — always show, dimmed: nothing hovers there, and a tap
+  that revealed it would first act on whatever it landed on.
+- must show while open, and always when it belongs to no region.
+- must not animate the reveal under reduced motion.
 
 ---
 
-## Seen state
+## Tours
 
-- must key each intro by a stable `{page}.{region}` id; changed content takes a new id.
-- must store seen ids per user on the server where the app keeps per-user preferences.
-- must otherwise store them through the [storage](../storage/storage.md) seam, under one versioned app key.
-- must read storage that cannot be written as seen — an intro that cannot be remembered never shows.
-
----
-
-## Providers
-
-| Provider | Implements | Reach for it when |
-|---|---|---|
-| server preference | the user's seen ids beside their preferences | the app keeps per-user preferences |
-| local-storage | the ids under one versioned key, via the storage broker | a single-user app, or no per-user store |
-| memory | an in-process set behind the same seam | tests |
+- A guided first-visit tour is a separate pattern ([TourPopover](../../components/overlays/tourPopover.md)): its own
+  text, a blurred spotlight over the page, and its own seen state.
+- must not open an info button's panel, step through its sections or remember it as seen.
+- must not share text with an info button; a tour says what to do first, the info button what the region means.
 
 ---
 
 ```txt
-✅ <InfoPopover title="Calendar" intro="deployments.calendar" :steps>   key and intro behind one button
-❌ a legend row under the calendar on every visit                      read once, shown forever
-❌ the intro in a bottom sheet over the calendar it explains           the region disappears
+✅ Services  ⓘ          the legend, "Drag to move · Pinch or Ctrl + scroll to zoom" and what the lines measure inside
+✅ ⓘ dimmed on a phone  a touch screen has no hover, so the button never hides there
+❌ a legend row under the map on every visit       read once, shown forever
+❌ the panel opening by itself on the first visit  that is a tour, a separate pattern
+❌ the button inside the <h2>                      the heading's name becomes "Services About Services"
 ```
 
 ---
 
 ## Neighbours
 
-- [TourPopover](../../components/overlays/tourPopover.md) — a multi-target walk over a whole feature, not one region
+- [TourPopover](../../components/overlays/tourPopover.md) — a guided walk over a whole feature, not one region's context
 - [UI copy](../../../../../../design/content/ui-copy.md) — how many words a screen carries inline
-- [storage](../storage/storage.md) — the seam the seen ids persist through
 - [responsive](../../../../shapes/app/responsive/responsive.md) — the phone class and its touch target
