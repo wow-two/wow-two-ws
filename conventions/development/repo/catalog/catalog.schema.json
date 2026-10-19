@@ -1,15 +1,20 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "wow-two/catalog.schema.json",
-  "title": "wow2 catalog (catalog.yml at the wow-two-ws root)",
+  "title": "Hub catalog (catalog.yml at the root of a hub repository: wow-two-ws, 10x-ventures, ocharo-ws)",
   "type": "object",
   "additionalProperties": false,
-  "required": ["catalog", "orgs", "workspaces", "entries"],
+  "required": ["catalog", "hub", "workspaces", "entries"],
   "properties": {
     "catalog": { "const": 1, "description": "Format version." },
+    "hub": { "$ref": "#/$defs/hub" },
+    "hubs": {
+      "type": "array", "items": { "$ref": "#/$defs/hubCheckout" },
+      "description": "wow2 hub only: the other hubs, in registry order; the generator reads each checkout's catalog.yml."
+    },
     "orgs": {
-      "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/org" },
-      "description": "GitHub organizations, in registry order."
+      "type": "array", "items": { "$ref": "#/$defs/org" },
+      "description": "GitHub organizations the hub owns, in registry order; entries no org owns form the hub's own section."
     },
     "workspaces": {
       "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/workspace" },
@@ -31,7 +36,27 @@
     "local": {
       "type": "string", "pattern": "^workbench/[A-Za-z0-9._/-]+[A-Za-z0-9._-]$",
       "not": { "pattern": "(^|/)\\.\\.(/|$)" },
-      "description": "Checkout path relative to the wow-two-ws root."
+      "description": "Checkout path relative to the wow-two-ws root, whichever hub lists it."
+    },
+    "hub": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["slug", "name", "repository", "description"],
+      "properties": {
+        "slug": { "$ref": "#/$defs/slug", "description": "wow2 · ventures · ocharo." },
+        "name": { "$ref": "#/$defs/text", "description": "Display name: registry section and Wheelhouse group heading." },
+        "repository": { "$ref": "#/$defs/repository", "description": "The hub repository itself; never an entry." },
+        "description": { "$ref": "#/$defs/text", "description": "What the hub owns; no trailing period." }
+      }
+    },
+    "hubCheckout": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["repository", "local"],
+      "properties": {
+        "repository": { "$ref": "#/$defs/repository" },
+        "local": { "$ref": "#/$defs/local" }
+      }
     },
     "org": {
       "type": "object",

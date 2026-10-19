@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
-"""Regenerate .claude/repo-registry.md from catalog.yml.
+"""Regenerate .claude/repo-registry.md from every hub's catalog.yml.
+
+Reads wow2's catalog.yml, then each hub its `hubs` lists from that hub's local checkout (no network).
 
 Usage:
   python3 scripts/gen-repo-registry.py           rewrite the registry
@@ -17,11 +19,11 @@ import sys
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 CATALOG = os.path.join(ROOT, "catalog.yml")
 REGISTRY = os.path.join(ROOT, ".claude", "repo-registry.md")
-VENTURES_HEADING = "Ventures — product repositories"
 DATE_LINE = re.compile(r"^\*Last updated: (.+)\*$", re.M)
 
 HEADER = """\
-> **Generated** from `catalog.yml` by `scripts/gen-repo-registry.py` — edit the catalog, then regenerate.
+> **Generated** from the hubs' `catalog.yml` files (wow2's, then each hub its `hubs` lists) by \
+`scripts/gen-repo-registry.py` — edit the owning hub's catalog, then regenerate.
 >
 > **Usage:** This is a lookup table. Do NOT read these files or repos proactively.
 > Only access a repo when the current task specifically requires it.
@@ -186,25 +188,60 @@ def load(path):
 
 # --- Registry --------------------------------------------------------------------------------------
 
-def check(catalog):
+def check(catalog, where):
+    if not isinstance(catalog.get("hub"), dict):
+        sys.exit("%s: `hub` is required" % where)
     workspaces = {w["slug"] for w in catalog["workspaces"]}
     slugs, repositories = set(), set()
     for entry in catalog["entries"]:
         if entry["slug"] in slugs:
-            sys.exit("duplicate entry slug: " + entry["slug"])
+            sys.exit("%s: duplicate entry slug: %s" % (where, entry["slug"]))
         if entry["workspace"] not in workspaces:
-            sys.exit("%s: unknown workspace %s" % (entry["slug"], entry["workspace"]))
+            sys.exit("%s: %s: unknown workspace %s" % (where, entry["slug"], entry["workspace"]))
         if not entry["repositories"] and not entry.get("local"):
-            sys.exit("%s: an entry without a repository needs `local`" % entry["slug"])
+            sys.exit("%s: %s: an entry without a repository needs `local`" % (where, entry["slug"]))
         for repository in entry["repositories"]:
             if repository in repositories:
-                sys.exit("repository listed twice: " + repository)
+                sys.exit("%s: repository listed twice: %s" % (where, repository))
             repositories.add(repository)
         slugs.add(entry["slug"])
 
 
+def check_across(hubs):
+    """Every entry slug, workspace slug, repository and org belongs to one hub."""
+    owners = {}
+    for where, catalog in hubs:
+        keys = [("entry", e["slug"]) for e in catalog["entries"]]
+        keys += [("workspace", w["slug"]) for w in catalog["workspaces"]]
+        keys += [("repository", r) for e in catalog["entries"] for r in e["repositories"]]
+        keys += [("org", o["slug"]) for o in catalog.get("orgs") or []]
+        for key in keys:
+            if key in owners:
+                sys.exit("%s %s is in both %s and %s" % (key[0], key[1], owners[key], where))
+            owners[key] = where
+
+
+def load_hubs():
+    """wow2's catalog, then each hub its `hubs` lists, read from the hub's local checkout."""
+    root = load(CATALOG)
+    check(root, "catalog.yml")
+    hubs = [("catalog.yml", root)]
+    for ref in root.get("hubs") or []:
+        where = "%s/catalog.yml" % ref["local"]
+        path = os.path.join(ROOT, ref["local"], "catalog.yml")
+        if not os.path.exists(path):
+            sys.exit("%s is missing: check out %s at %s, then regenerate" % (where, ref["repository"], ref["local"]))
+        catalog = load(path)
+        check(catalog, where)
+        if catalog["hub"]["repository"] != ref["repository"]:
+            sys.exit("%s names hub %s, not %s" % (where, catalog["hub"]["repository"], ref["repository"]))
+        hubs.append((where, catalog))
+    check_across(hubs)
+    return [catalog for _, catalog in hubs]
+
+
 def section_of(entry, orgs):
-    """The org whose section lists the entry, or None for the ventures section."""
+    """The org whose section lists the entry, or None for the hub's own section."""
     if entry["repositories"]:
         owner = entry["repositories"][0].split("/")[0]
         if owner in orgs:
@@ -248,42 +285,42 @@ def org_section(org, entries):
     return "\n\n".join(blocks)
 
 
-def ventures_section(entries):
+def hub_section(hub, entries):
     rows = []
     for entry in entries:
         repository = entry["repositories"][0] if entry["repositories"] else repo_name(entry)
         cell = "`%s`" % repository + (" · `%s`" % entry["local"] if entry.get("local") else "")
         rows.append((cell, entry["purpose"], entry["status"]))
-    return "\n\n".join(["## " + VENTURES_HEADING, table(rows, True)])
+    url = "https://github.com/" + hub["repository"]
+    line = "Hub: [%s](%s) — %s." % (hub["repository"], url, hub["description"])
+    return "\n\n".join(["## " + hub["name"], line, table(rows, True)])
 
 
-def render(catalog, date):
-    orgs = {org["slug"]: org for org in catalog["orgs"]}
-    grouped, ventures = {slug: [] for slug in orgs}, []
-    for entry in catalog["entries"]:
-        org = section_of(entry, orgs)
-        (grouped[org] if org else ventures).append(entry)
-    wow2 = [o for o in catalog["orgs"] if o["slug"].startswith("wow-two")]
-    others = [o for o in catalog["orgs"] if not o["slug"].startswith("wow-two")]
-    sections = [org_section(o, grouped[o["slug"]]) for o in wow2]
-    if ventures:
-        sections.append(ventures_section(ventures))
-    sections += [org_section(o, grouped[o["slug"]]) for o in others]
+def render(hubs, date):
+    sections = []
+    for catalog in hubs:
+        orgs = {org["slug"]: org for org in catalog.get("orgs") or []}
+        grouped, loose = {slug: [] for slug in orgs}, []
+        for entry in catalog["entries"]:
+            org = section_of(entry, orgs)
+            (grouped[org] if org else loose).append(entry)
+        sections += [org_section(org, grouped[org["slug"]]) for org in catalog.get("orgs") or []]
+        if loose:
+            sections.append(hub_section(catalog["hub"], loose))
     return "\n\n".join([HEADER % date] + sections) + "\n"
 
 
 def main():
-    catalog = load(CATALOG)
-    check(catalog)
+    hubs = load_hubs()
     current = open(REGISTRY, encoding="utf-8").read() if os.path.exists(REGISTRY) else ""
     stamped = DATE_LINE.search(current)
-    if stamped and render(catalog, stamped.group(1)) == current:
+    if stamped and render(hubs, stamped.group(1)) == current:
         print("repo-registry.md is up to date")
         return
     if "--check" in sys.argv[1:]:
         sys.exit("repo-registry.md is stale: run python3 scripts/gen-repo-registry.py")
     with open(REGISTRY, "w", encoding="utf-8") as handle:
-        handle.write(render(catalog, datetime.date.today().isoformat()))
+        handle.write(render(hubs, datetime.date.today().isoformat()))
     print("wrote .claude/repo-registry.md")
 
 

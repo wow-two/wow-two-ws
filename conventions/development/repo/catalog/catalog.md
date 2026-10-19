@@ -1,17 +1,54 @@
 # Catalog
 
-*Last updated: 2026-10-17*
+*Last updated: 2026-10-19*
 
-> `catalog.yml` at the `wow-two-ws` root: every wow2 repository and app, one entry per product.
-> Purpose — one machine-readable source: Wheelhouse imports products from it; `.claude/repo-registry.md` is its view.
-> Use case — adding, moving or retiring a repository; reading the portfolio from code.
+> `catalog.yml` at the root of each hub repository: every repository and app the hub owns, one entry per product.
+> Purpose — one machine-readable source per owner: Wheelhouse imports from every hub; `.claude/repo-registry.md` renders them all.
+> Use case — adding, moving or retiring a repository; starting a hub; reading the portfolio from code.
 
 ## Scope
 
-- must give every repository the registry lists an entry; one entry per product.
+- must give every repository the registry lists an entry in exactly one hub; one entry per product.
 - must give a library, KB module or template its own single-repository entry with `deploy: none`.
-- must keep hosts, addresses, tailnet names, environments and secrets out; `wow-two-ws` is public.
-- must validate the file against [catalog.schema.json](catalog.schema.json); its first line points `$schema` there.
+- must keep hosts, addresses, tailnet names, environments and secrets out of every hub; the registry renders all hubs
+  into public `wow-two-ws`.
+- must validate each hub's file against [catalog.schema.json](catalog.schema.json); its first line points `$schema` there.
+
+---
+
+## Hubs
+
+A hub is a repository whose root `catalog.yml` indexes one owner's products.
+
+| Hub | Repository | Checkout | Owns | Workspaces |
+|---|---|---|---|---|
+| `wow2` | `wow-two/wow-two-ws` | the workspace root | the `wow-two*` orgs: core, meta, platform, SDKs, KB, apps; wow2's personal tools | `wow2-platform` · `wow2-backbone` · `wow2-apps` · `personal` |
+| `ventures` | `sulton-max/10x-ventures` | `workbench/ventures/10x-ventures` | the owner's ventures, and ventures and client work run for others | `own-ventures` · `other-ventures` |
+| `ocharo` | `ocharo-hq/ocharo-ws` | `workbench/ocharo-hq/ocharo-ws` | the `ocharo-hq` org's repositories | `ocharo` |
+
+```text
+{hub}/
+├── catalog.yml      ← the index: hub, orgs, workspaces, entries
+└── …                ← the hub's own docs: portfolio tracking, strategy, setup; they link entries by slug
+```
+
+- must keep the index to the one root `catalog.yml`; a hub adds no `catalog/` folder — an entry's plans, tracks and
+  specs live in its own repository, so a per-entry folder would repeat them.
+- must not re-list an entry's repository, status or purpose in another hub document; link the slug or `catalog.yml`.
+- must name the hub in `hub` (`slug`, `name`, `repository`, `description`); the hub repository is never an entry.
+- must file an entry in its owner's hub: `wow-two*` repositories in wow2, the owner's and others' ventures in ventures,
+  `ocharo-hq` repositories in Ocharo.
+- must give each workspace one hub; a workspace slug carries its hub's word — `wow2-*`, `*-ventures`, `ocharo[-*]` —
+  except wow2's `personal`.
+- must keep entry and workspace slugs unique across hubs; Wheelhouse refuses the later hub's list naming both.
+- must keep `local` relative to the `wow-two-ws` root in every hub; each hub checkout sits under it.
+- must list each other hub in wow2's `hubs` (`repository`, `local`), in registry order.
+
+### Starting a hub
+
+- must create the repository and its root `catalog.yml` with `hub`, then validate it against the schema.
+- must add the hub to wow2's `hubs`, this table and Wheelhouse's `Catalog:Sources`, then regenerate the registry.
+- must move entries by deleting them from the old hub in the same pass; the registry rejects a slug in two hubs.
 
 ---
 
@@ -19,7 +56,15 @@
 
 ```yaml
 catalog: 1
-orgs:                                   # GitHub organizations, in registry order
+hub:                                    # the hub this file indexes
+  slug: wow2
+  name: wow2
+  repository: wow-two/wow-two-ws
+  description: "The wow2 ecosystem: core, platform, SDKs, knowledge base and community apps"
+hubs:                                   # wow2 only: the other hubs' checkouts, in registry order
+  - repository: sulton-max/10x-ventures
+    local: workbench/ventures/10x-ventures
+orgs:                                   # GitHub organizations the hub owns, in registry order; optional
   - slug: wow-two-platform
     url: https://github.com/wow-two-platform
     label: internal infra               # registry only: heading parenthetical
@@ -41,9 +86,11 @@ entries:
 
 | Key | Meaning |
 |---|---|
+| `hub` | the hub's slug, display name, own repository and one-line scope |
+| `hubs` | wow2 only: each other hub's repository and checkout path |
 | `orgs[].intro` · `notes` | registry only: Markdown blocks before and after the org's table |
 | `entries[].repositories` | GitHub `owner/name`, primary first |
-| `entries[].local` | checkout path from the root, when not `workbench/{owner}/{name}` |
+| `entries[].local` | checkout path from the `wow-two-ws` root, when not `workbench/{owner}/{name}` |
 
 - must double-quote free text (`description`, `status`, `purpose`); a `: ` or a leading backtick breaks a plain value.
 - must keep to block mappings and sequences, flow sequences of scalars, quoted values and `|-` literals.
@@ -56,7 +103,7 @@ entries:
 | Field | Rule |
 |---|---|
 | `slug` | a deployable's `deploy.yml` `product`; another product's code slug; else the repo name, dots → hyphens |
-| `workspace` | `personal` · `wow2-platform` · `wow2-backbone` · `wow2-apps` · `own-ventures` · `ocharo` · `other-ventures` |
+| `workspace` | one the same hub declares — see [Hubs](#hubs) |
 | `kind` | `core` · `meta` · `platform` · `backbone` · `sdk` · `kb` · `app` · `venture` · `template` |
 | `deploy` | `wheelhouse` · `ci` · `none` |
 
@@ -64,7 +111,8 @@ entries:
 - must name a `.github` repository's entry `{owner}-github`.
 - must file platform apps and their fixtures under `wow2-platform`; SDKs, libraries, pipelines and templates under
   `wow2-backbone`; community apps under `wow2-apps`; personal tools under `personal`.
-- must file the owner's ventures under `own-ventures`, Ocharo's repositories under `ocharo`, and other ventures and client work under `other-ventures`.
+- must file the owner's ventures under `own-ventures`, other ventures and client work under `other-ventures`, and
+  Ocharo's repositories under `ocharo`.
 - must use kind `platform` for a platform app and `backbone` for a platform library, pipeline or org config.
 - must set `deploy: wheelhouse` when Wheelhouse deploys the repo, `ci` when CI does (Wheelhouse itself).
 - must name the canonical GitHub repository, never a redirect alias left in a local `origin`.
@@ -75,24 +123,27 @@ entries:
 
 ## Adding a repository
 
-- must add the entry inside its org's group, or the ventures group; registry rows follow catalog order.
-- must validate against the schema, then run `python3 scripts/gen-repo-registry.py`.
-- must commit `catalog.yml` and `.claude/repo-registry.md` together.
+- must add the entry to its owner's hub, inside its org's group or the hub's own group; registry rows follow catalog
+  order.
+- must validate against the schema, then run `python3 scripts/gen-repo-registry.py` in `wow-two-ws`.
+- must commit the hub's `catalog.yml` in the hub and `.claude/repo-registry.md` in `wow-two-ws`.
 
 ---
 
 ## Registry
 
-- must not edit `.claude/repo-registry.md` by hand; the generator rewrites it.
+- must not edit `.claude/repo-registry.md` by hand; the generator rewrites it from wow2's catalog and each hub in `hubs`.
+- must have every hub checked out at its `local`; the generator exits 1 naming a missing one.
 - may run the generator with `--check`; it exits 1 while the registry is stale.
-- section — the primary repository's owner, else the org folder in `local`, else the ventures section.
-- section order — the `wow-two*` orgs, then the ventures section, then the remaining orgs.
+- section — per hub in `hubs` order, wow2 first: each org the hub declares, then the hub's own section for entries
+  whose primary repository no declared org owns.
+- org — the primary repository's owner, else the org folder in `local`.
 - date line — kept when nothing else changed, else today.
 
 ---
 
 ## Consumption
 
-- Wheelhouse reads `catalog.yml` from `wow-two/wow-two-ws` at `main`.
-- must ignore keys a reader does not use; `label`, `intro`, `notes` and `local` serve the registry.
+- Wheelhouse reads each hub in `Catalog:Sources` at `main` — wow2, ventures, Ocharo — and merges them in that order.
+- must ignore keys a reader does not use; `label`, `intro`, `notes`, `hubs`, `status` and `local` serve the registry.
 - must skip importing an entry whose `repositories` is empty.

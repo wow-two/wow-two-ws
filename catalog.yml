@@ -1,8 +1,20 @@
 # yaml-language-server: $schema=conventions/development/repo/catalog/catalog.schema.json
-# The wow2 catalog: every repository and app, one entry per product.
-# Wheelhouse reads it from wow-two/wow-two-ws@main; .claude/repo-registry.md is generated from it.
+# The wow2 hub's catalog: every wow2 repository and app, one entry per product. Ventures and Ocharo keep their own hubs.
+# Wheelhouse reads it from wow-two/wow-two-ws@main with the other hubs; .claude/repo-registry.md is generated from all.
 # Rules: conventions/development/repo/catalog/catalog.md. Public file: no hosts, addresses, environments or secrets.
 catalog: 1
+
+hub:
+  slug: wow2
+  name: wow2
+  repository: wow-two/wow-two-ws
+  description: "The wow2 ecosystem: core, platform, SDKs, knowledge base and community apps"
+
+hubs:
+  - repository: sulton-max/10x-ventures
+    local: workbench/ventures/10x-ventures
+  - repository: ocharo-hq/ocharo-ws
+    local: workbench/ocharo-hq/ocharo-ws
 
 orgs:
   - slug: wow-two
@@ -37,17 +49,6 @@ orgs:
     description: "no public repos yet"
     notes:
       - "> **Note**: Apps like Feedback.Analyzer, DDLParser, StudyMate etc. are still in the old `WoW-2-0-Projects` org and haven't been migrated yet."
-  - slug: ocharo-hq
-    url: https://github.com/ocharo-hq
-    label: brand workspace
-    description: "Ocharo's brand organization: platform, studio, marketing and assets, independent of WoW2"
-    intro:
-      - "Six main repositories plus the `.github` profile repository belong to Ocharo. Blog, Brand and Catalogue are adopted components, not additional repository targets. Current paths: [Ocharo repository map](../workbench/ocharo-hq/ocharo-ws/docs/repositories.md)."
-      - |-
-        - `workbench/ocharo-hq/ocharo-ws/` owns Ocharo setup and repository navigation.
-        - Its Git history and GitHub organization remain independent of WoW2.
-        - Its managed repositories sit directly under its own ignored `workbench/`.
-        - Coding chats use the WoW2 root for existing shared hooks and engineering conventions.
 
 workspaces:
   - slug: personal
@@ -62,15 +63,6 @@ workspaces:
   - slug: wow2-apps
     name: wow2 apps
     description: "Community apps built on the ecosystem"
-  - slug: own-ventures
-    name: Own ventures
-    description: "The owner's product ventures"
-  - slug: ocharo
-    name: Ocharo
-    description: "Maftuna's brand: platform, studio, marketing and assets"
-  - slug: other-ventures
-    name: Other ventures
-    description: "Ventures and client work run for others"
 
 entries:
   # wow-two (core)
@@ -561,178 +553,3 @@ entries:
     purpose: "Private home reference mapping and layered Vue/.NET 3D renovation workbench"
     repositories: []
     local: workbench/wow-two-apps/wow-two-apps.home-atlas
-
-  # Ventures — product repositories
-  - slug: foreverpin
-    name: ForeverPin
-    workspace: own-ventures
-    kind: venture
-    deploy: wheelhouse
-    status: "Active, v0.9"
-    purpose: "ForeverPin QR and programmable links"
-    repositories: [sulton-max/10x-venture-forever-pin]
-    local: workbench/ventures/10x-venture-forever-pin
-  - slug: haven
-    name: Haven
-    workspace: own-ventures
-    kind: venture
-    deploy: wheelhouse
-    status: "Active; v1.1 and v1.2 in progress"
-    purpose: "Haven: real estate platform for Tashkent; agents classify, triage and publish ListingShelf listings"
-    repositories: [sulton-max/10x-ven-haven]
-    local: workbench/ventures/10x-ven-haven
-  - slug: surface-pattern
-    name: Surface Pattern
-    workspace: own-ventures
-    kind: venture
-    deploy: none
-    status: "v0.1 local studio built; demand and physical print validation pending"
-    purpose: "Surface Pattern: local repeat-pattern studio, surface previews and print exports"
-    repositories: []
-    local: workbench/ventures/ventures.surface-pattern
-  - slug: listing-shelf
-    name: ListingShelf
-    workspace: own-ventures
-    kind: venture
-    deploy: none
-    status: "v0.2 built (Vue shelf console, SDK 10.0.59); verification pending"
-    purpose: "ListingShelf: listing/post crawler and archive; OLX and Domtut initial adapters, no social media"
-    repositories: [sulton-max/ventures.listing-shelf]
-    local: workbench/ventures/ventures.listing-shelf
-  - slug: pose-coach
-    name: PoseCoach
-    workspace: own-ventures
-    kind: venture
-    deploy: none
-    status: "v0.1 duo collage flow built locally (pattern check, alignment, collage, eye screens); iPhone verification pending"
-    purpose: "PoseCoach: iPhone photo director (Swift/SwiftUI) with a .NET API and Vue console"
-    repositories: []
-    local: workbench/ventures/ventures.pose-coach
-  - slug: retainer-balance
-    name: Retainer Balance
-    workspace: own-ventures
-    kind: venture
-    deploy: none
-    status: "Local v0.1 implemented and tested; authenticated Vue/.NET pilot; launch gates remain"
-    purpose: "Retainer Balance — first-ten SaaS pilot"
-    repositories: []
-    local: workbench/ventures/ventures.retainer-balance
-  - slug: documentation-checker
-    name: Documentation Checker
-    workspace: own-ventures
-    kind: venture
-    deploy: none
-    status: "Local v0.1 implemented and tested; authenticated Vue/.NET pilot; launch gates remain"
-    purpose: "Documentation Checker — first-ten SaaS pilot"
-    repositories: []
-    local: workbench/ventures/ventures.documentation-checker
-  - slug: file-watch
-    name: File Watch
-    workspace: own-ventures
-    kind: venture
-    deploy: none
-    status: "Local v0.1 implemented and tested; authenticated Vue/.NET pilot; launch gates remain"
-    purpose: "File Watch — first-ten SaaS pilot"
-    repositories: []
-    local: workbench/ventures/ventures.file-watch
-  - slug: procedure-review
-    name: Procedure Review
-    workspace: own-ventures
-    kind: venture
-    deploy: none
-    status: "Local v0.1 implemented and tested; authenticated Vue/.NET pilot; launch gates remain"
-    purpose: "Procedure Review — first-ten SaaS pilot"
-    repositories: []
-    local: workbench/ventures/ventures.procedure-review
-  - slug: training-seats
-    name: Training Seats
-    workspace: own-ventures
-    kind: venture
-    deploy: none
-    status: "Local v0.1 implemented and tested; authenticated Vue/.NET pilot; launch gates remain"
-    purpose: "Training Seats — first-ten SaaS pilot"
-    repositories: []
-    local: workbench/ventures/ventures.training-seats
-  - slug: epub-review
-    name: Epub Review
-    workspace: own-ventures
-    kind: venture
-    deploy: none
-    status: "Local v0.1 implemented and tested; authenticated Vue/.NET pilot; launch gates remain"
-    purpose: "Epub Review — first-ten SaaS pilot"
-    repositories: []
-    local: workbench/ventures/ventures.epub-review
-  - slug: customer-promises
-    name: Customer Promises
-    workspace: own-ventures
-    kind: venture
-    deploy: none
-    status: "Local v0.1 implemented and tested; authenticated Vue/.NET pilot; launch gates remain"
-    purpose: "Customer Promises — first-ten SaaS pilot"
-    repositories: []
-    local: workbench/ventures/ventures.customer-promises
-  - slug: vendor-renewals
-    name: Vendor Renewals
-    workspace: own-ventures
-    kind: venture
-    deploy: none
-    status: "Local v0.1 implemented and tested; authenticated Vue/.NET pilot; launch gates remain"
-    purpose: "Vendor Renewals — first-ten SaaS pilot"
-    repositories: []
-    local: workbench/ventures/ventures.vendor-renewals
-  - slug: config-checker
-    name: Config Checker
-    workspace: own-ventures
-    kind: venture
-    deploy: none
-    status: "Local v0.1 implemented and tested; authenticated Vue/.NET pilot; launch gates remain"
-    purpose: "Config Checker — first-ten SaaS pilot"
-    repositories: []
-    local: workbench/ventures/ventures.config-checker
-  - slug: podcast-readiness
-    name: Podcast Readiness
-    workspace: own-ventures
-    kind: venture
-    deploy: none
-    status: "Local v0.1 implemented and tested; authenticated Vue/.NET pilot; launch gates remain"
-    purpose: "Podcast Readiness — first-ten SaaS pilot"
-    repositories: []
-    local: workbench/ventures/ventures.podcast-readiness
-
-  # ocharo-hq (brand workspace)
-  - slug: ocharo-platform
-    name: Ocharo Platform
-    workspace: ocharo
-    kind: venture
-    deploy: wheelhouse
-    status: "Brand/Catalogue sources adopted; application integration pending"
-    purpose: "Ocharo Platform: brand identity, catalogue and business management; adopted Brand Workspace"
-    repositories: [ocharo-hq/ocharo-platform]
-    local: workbench/ocharo-hq/ocharo-ws/workbench/ocharo-platform
-  - slug: ocharo-studio
-    name: Ocharo Studio
-    workspace: ocharo
-    kind: venture
-    deploy: wheelhouse
-    status: "Existing Studio implementation retained; integration deferred"
-    purpose: "Ocharo Studio: 3D mannequin and per-part textile creative studio"
-    repositories: [ocharo-hq/ocharo-studio]
-    local: workbench/ocharo-hq/ocharo-ws/workbench/ocharo-studio
-  - slug: ocharo-marketing
-    name: Ocharo Marketing
-    workspace: ocharo
-    kind: venture
-    deploy: none
-    status: "Both Blog sources adopted; broader public apps/integration pending"
-    purpose: "Ocharo Marketing: operator desk, editorial/public app container, distribution and lead capture"
-    repositories: [ocharo-hq/ocharo-marketing]
-    local: workbench/ocharo-hq/ocharo-ws/workbench/ocharo-marketing
-  - slug: ocharo-assets
-    name: Ocharo Assets
-    workspace: ocharo
-    kind: venture
-    deploy: none
-    status: "Garment library adopted; runtime integration deferred"
-    purpose: "Ocharo Assets: asset creation and motion research; Ocharo Motion runtime retained"
-    repositories: [ocharo-hq/ocharo-assets]
-    local: workbench/ocharo-hq/ocharo-ws/workbench/ocharo-assets

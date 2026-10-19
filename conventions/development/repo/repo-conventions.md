@@ -1,6 +1,6 @@
 # Conventions — Development — Repo
 
-*Last updated: 2026-10-17*
+*Last updated: 2026-10-19*
 
 > How a repo is shaped and equipped — repo **shape** splits by **archetype** (product / venture vs SDK / library),
 > grouped under `structure/`; version control + the default tech stack are the shared, cross-archetype setup. Code
@@ -23,7 +23,7 @@ Repo shape by archetype — product / venture (both stacks, one repo) vs SDK / l
 
 | File | Covers |
 |---|---|
-| [catalog/catalog.md](catalog/catalog.md) | `catalog.yml` — every wow2 repo and app, one entry per product; Wheelhouse imports it, the repo registry is generated from it |
+| [catalog/catalog.md](catalog/catalog.md) | hub `catalog.yml` files — wow2, ventures and Ocharo each index their repos and apps, one entry per product; Wheelhouse imports every hub, the repo registry is generated from them |
 
 ---
 
