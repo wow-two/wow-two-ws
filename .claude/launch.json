@@ -592,6 +592,21 @@
         "--strictPort"
       ],
       "port": 3000
+    },
+    {
+      "name": "wheelhouse-web-statuses",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": [
+        "-C",
+        "workbench/wow-two-platform/wow-two-platform.wheelhouse/engineering/codebase/wheelhouse.frontend-services",
+        "dev"
+      ],
+      "env": {
+        "VITE_HTTPS": "false",
+        "VITE_PORT": "5179",
+        "WHEELHOUSE_API_PROXY": "http://127.0.0.1:8961"
+      },
+      "port": 5179
     }
   ]
 }
