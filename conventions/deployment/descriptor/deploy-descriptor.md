@@ -21,6 +21,9 @@ Why a custom format → [rationale](deploy-descriptor-rationale.md).
   § *Runtime config*).
 - a settings change is a commit, so it builds a new image; an operator setting changes only the target.
 - must list every setting a service needs under `settings.required`; the runner refuses a deploy missing one.
+  Wheelhouse derives some and asks for the rest on a first deploy ([settings at deploy](#settings-at-deploy)).
+- should name a secret setting so its last part reads as one (`Key`, `Secret`, `Password`, `Token`,
+  `ConnectionString`): Wheelhouse then keeps its value in the vault, never in its settings store.
 - must give every service a health check; the runner refuses a service without one.
 - must point a backend service's health check at the boot bundle's `/health`
   ([startup defaults](../../development/backend/dotnet/shapes/service/platform/startup/startup-defaults.md#health)).
@@ -194,6 +197,31 @@ How Wheelhouse applies a release to a target, service by service.
 
 ---
 
+## Settings at deploy
+
+Wheelhouse renders each service's settings file at every deploy, in layers, the last winning:
+
+| Layer | Holds |
+|---|---|
+| Host file | A file the target still names; the render keeps it as its bottom layer |
+| Wheelhouse | The environment's stored settings and its vault secrets |
+| Derived | `AllowedHosts` (the hosts of the sites the service serves, its platform name `<product>-<environment>-<service>`, `localhost`), `Sites:<site>:Url` (each published site's origin) and `Deployment:TrustedProxies` (the ingress's address) |
+| Database | A required connection key no other layer sets (`ConnectionStrings:<name>`, `<Section>:ConnectionString`), from the target's own database, for a service that `needs: [postgres]` |
+
+- A derived key may sit under `settings.required`; nobody fills it in.
+- Every other required key the first deploy asks for, and a deploy waits until each has a value.
+- A value goes to each service that requires its key; a key no service requires goes to every service.
+
+### Snapshots of file databases
+
+A prod deploy first snapshots the product's PostgreSQL databases and named volumes. A volume holding a file database is
+archived while the product's containers that mount it are paused, so the copy is consistent; other volumes are archived
+live. No descriptor key marks it: the runner finds a SQLite file by its header, whatever its name, and another embedded
+database by its file name (`*.db`, `*.db3`, `*.sqlite`, `*.sqlite3`, `*.litedb`, `*.mdb`, `*.duckdb`, `*.realm`, `*.wt`,
+`*.bdb`), so name such files that way.
+
+---
+
 ## Dev check
 
 The `verify` check proves a release end to end on dev before it may auto-promote.
@@ -205,7 +233,7 @@ The `verify` check proves a release end to end on dev before it may auto-promote
   `VERIFY_SERVICE_<SERVICE>` per service (`http://<product>-dev-<service>:<port>`);
   no settings file and no secret;
 - must send `Host: localhost` on a `VERIFY_SERVICE_<SERVICE>` request: a service URL's host is the container
-  name, which a restricted `AllowedHosts` answers with 400;
+  name, which a hand-written `AllowedHosts` may leave out and answer with 400;
 - passes on exit 0; any other exit, a run past `timeout` or a check that cannot start fails it;
 - must not print a secret: the deployment keeps the check's last output line;
 - never changes the rollout's outcome: a failure is a warning on the deployment, and auto-promote holds the release;
