@@ -237,7 +237,7 @@ if [ "$APPLY" = 1 ]; then
   echo "▸ Verify"
   echo "  top level: $(cd "$WB" && ls -d -- */ | tr '\n' ' ')"
   python3 "$WS/scripts/gen-repo-registry.py" --check 2>&1 | sed 's/^/  /' || true
-  missing_targets="$("$WS/scripts/active.sh" --list 2>/dev/null | grep -c '✗' || true)"
+  missing_targets="$("$WS/scripts/active.sh" --list 2>/dev/null | grep -v '^PROJECT' | grep -c '✗' || true)"
   echo "  active.sh: $missing_targets project(s) with a missing target"
 fi
 
