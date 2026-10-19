@@ -17,6 +17,22 @@
       "type": "object", "minProperties": 1,
       "propertyNames": { "$ref": "#/$defs/slug" },
       "additionalProperties": { "$ref": "#/$defs/service" }
+    },
+    "dotnetEnvironment": {
+      "type": "boolean", "default": false,
+      "description": "Run dev as .NET Development and prod as Production: the runner sets ASPNETCORE_ENVIRONMENT and DOTNET_ENVIRONMENT. Only when appsettings.Development.json holds no machine-local value."
+    },
+    "verify": {
+      "type": "object", "additionalProperties": false, "required": ["service", "command"],
+      "description": "The end-to-end check the runner runs after a dev rollout succeeds; auto-promote takes only a release whose check passed.",
+      "properties": {
+        "service": { "$ref": "#/$defs/slug", "description": "The service whose release image runs the check." },
+        "command": {
+          "type": "array", "minItems": 1, "maxItems": 32, "items": { "type": "string", "minLength": 1, "maxLength": 1000 },
+          "description": "The program and its arguments; replaces the image's entrypoint."
+        },
+        "timeout": { "type": "string", "pattern": "^[1-9][0-9]*[smh]$", "default": "5m", "description": "10s-30m." }
+      }
     }
   },
   "$defs": {

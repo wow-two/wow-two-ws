@@ -1,6 +1,6 @@
 # Host configuration
 
-*Last updated: 2026-10-17*
+*Last updated: 2026-10-19*
 
 > Product composition in the host; reusable registration contracts in the SDK.
 
@@ -145,6 +145,37 @@ if (connection is not null)
 
 - must use the actual settings section/key in each host's mapping; `Database:ConnectionString` is an example.
 - must test both prefixed and unprefixed unexpected variables, alias precedence and fallback behavior.
+
+---
+
+## Machine settings
+
+Deployed dev runs as `Development`, so `Development` alone never means the developer's machine.
+
+- must treat a host as deployed when `DEPLOY_ENVIRONMENT` is set; the runner sets it on every deployed container.
+- must call a run local only in `Development` without `DEPLOY_ENVIRONMENT`.
+- must gate local-only conveniences on a local run, never on `IsDevelopment()` alone: an open allowlist, OpenAPI,
+  log-delivered sign-in codes, relaxed rate limits, polling instead of webhooks.
+- must read `appsettings.Machine.json` only on a local run whose launch profile sets `MACHINE_SETTINGS=true`
+  ([launch profiles](launch-profiles.md)); tests and containers never set it.
+- must add it right after `appsettings.{Environment}.json`, optional, so user secrets, environment values and
+  every later source still win.
+- must document `MACHINE_SETTINGS` and `DEPLOY_ENVIRONMENT` as host-bootstrap inputs, not application aliases.
+
+```csharp
+if (builder.Environment.IsDevelopment()
+    && string.IsNullOrWhiteSpace(builder.Configuration["DEPLOY_ENVIRONMENT"])
+    && bool.TryParse(builder.Configuration["MACHINE_SETTINGS"], out var machine) && machine)
+{
+    var sources = builder.Configuration.Sources;
+    var after = sources.ToList().FindLastIndex(source => source is JsonConfigurationSource { Path: var path }
+        && path == $"appsettings.{builder.Environment.EnvironmentName}.json");
+    sources.Insert(after + 1, new JsonConfigurationSource
+    {
+        Path = "appsettings.Machine.json", Optional = true, FileProvider = builder.Configuration.GetFileProvider(),
+    });
+}
+```
 
 ---
 

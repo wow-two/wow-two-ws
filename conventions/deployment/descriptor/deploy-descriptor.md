@@ -1,6 +1,6 @@
 # Deployment descriptor
 
-*Last updated: 2026-10-17*
+*Last updated: 2026-10-19*
 
 > One file per product repo, `engineering/deployment/deploy.yml`, declaring its deployable services: how each
 > builds, which paths change it, how it runs, which sites it serves and what it needs.
@@ -29,6 +29,9 @@ Why a custom format → [rationale](deploy-descriptor-rationale.md).
 - must not publish host ports; the ingress routes each site by hostname.
 - should publish one image per service at `ghcr.io/<owner>/<repo>/<service>`; `image` overrides a legacy name.
 - must keep the product slug equal to the Wheelhouse runner product (`foreverpin`, not `forever-pin`).
+- should set `dotnetEnvironment: true` once every .NET service's `appsettings.Development.json` holds defaults only
+  ([environment files](../hosting/environment-files.md) § *Settings*); the runner then runs dev as `Development`.
+- may declare a `verify` check; a product that auto-promotes should, so a release reaches prod only after it.
 
 ---
 
@@ -44,6 +47,11 @@ platform: linux/amd64                 # default; or linux/arm64
 shared:                               # a change here rebuilds every service
   - codebase/haven.backend-services/Directory.*.props
   - deployment/backend.Dockerfile
+dotnetEnvironment: true               # dev runs as .NET Development, prod as Production
+verify:                               # the end-to-end check after a dev rollout
+  service: auth                       # whose release image runs it
+  command: [sh, -c, 'curl --fail --silent "$VERIFY_SERVICE_AUTH/health"']
+  timeout: 5m                         # default 5m; 10s-30m
 services:
   auth:                               # service slug = Compose service = image name
     build:
@@ -82,6 +90,8 @@ services:
 | `product` | — | Runner product slug |
 | `platform` | `linux/amd64` | Build and run platform |
 | `shared` | `[]` | Paths whose change rebuilds every service |
+| `dotnetEnvironment` | `false` | The runner sets `ASPNETCORE_ENVIRONMENT` and `DOTNET_ENVIRONMENT`: dev `Development`, prod `Production` |
+| `verify` | none | `service`, `command` and `timeout` of the end-to-end check after a dev rollout ([below](#dev-check)) |
 | `services.<name>.image` | `<registry>/<name>` | Image repository without a tag, for a legacy name |
 | `services.<name>.build` | — | `dockerfile` (required), `context`, `target`, `args`, `contexts` |
 | `services.<name>.paths` | — | Paths whose change rebuilds this service; its Dockerfile always counts |
@@ -98,6 +108,23 @@ services:
 - Every service runs with `no-new-privileges`, all capabilities dropped, an init process, bounded logs and a restart policy.
 - Each service answers on the platform network as `<product>-<environment>-<service>`; the ingress routes sites there.
 - Wheelhouse targets map site names to hostnames: prod names each one, dev follows a host pattern.
+- Every service receives `DEPLOY_ENVIRONMENT` (`dev` or `prod`) from the runner, declared or not.
+
+---
+
+## Dev check
+
+The `verify` check proves a release end to end on dev before it may auto-promote.
+
+- runs once a dev rollout succeeds: the `command` in a one-off container from the `service`'s release image, on the
+  platform network, as the image's user, with all capabilities dropped and 512 MB of memory;
+- gets `DEPLOY_ENVIRONMENT`, `VERIFY_RELEASE`, `VERIFY_SITES` (a JSON list of `name`, `service`, `exposure`, `url`),
+  `VERIFY_SITE_<SITE>` per published site and `VERIFY_SERVICE_<SERVICE>` per service (`http://<product>-dev-<service>:<port>`);
+  no settings file and no secret;
+- passes on exit 0; any other exit, a run past `timeout` or a check that cannot start fails it;
+- must not print a secret: the deployment keeps the check's last output line;
+- never changes the rollout's outcome: a failure is a warning on the deployment, and auto-promote holds the release;
+- prod never runs it; a manual promote shows its result.
 
 ---
 
@@ -155,6 +182,7 @@ version in which it last changed, so services version independently and an old v
 
 - must keep `.github/workflows/publish-docker-image.yml` as the marker file Wheelhouse detects.
 - must call the shared `publish.yml` workflow of `wow-two-platform.pipelines` from it, pinned to a tag.
+- must pin `v0.5.0` or later to declare `dotnetEnvironment` or `verify`; an older generator refuses both keys.
 - must trigger it on every push and on `workflow_dispatch` with a `commit` input.
 - must not copy the publish steps or the release generator into a product repo.
 
