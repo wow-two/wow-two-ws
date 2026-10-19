@@ -1,6 +1,6 @@
 # API endpoint documentation
 
-*Last updated: 2026-10-02*
+*Last updated: 2026-10-19*
 
 > Pending XML/commenting baseline for MVC APIs; the separate ProblemDetails error-contract decision is adopted.
 
@@ -17,7 +17,7 @@
 
 Roots relative to `wow-two-ws/`:
 
-- `C` = `workbench/ocharo-hq/ocharo-ws/workbench/ocharo-platform/engineering/codebase/ocharo-catalogue.backend-services/`.
+- `C` = `workbench/mfts-projects/ventures/ocharo-hq/ocharo-ws/workbench/ocharo-platform/engineering/codebase/ocharo-catalogue.backend-services/`.
 - `A` = `C/OcharoCatalogue.Api/`.
 
 Verified in the checkout:

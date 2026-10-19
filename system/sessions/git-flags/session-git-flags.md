@@ -1,6 +1,6 @@
 # Session — git flags everywhere
 
-*Last updated: 2026-09-29*
+*Last updated: 2026-10-19*
 
 > Brief for the chat that rolls the developer's git-flag decisions out to every workspace and every product repository.
 > Analysis and open points: [docs/git-flags.md](../../../docs/git-flags.md). State: [context.md](context.md).
@@ -13,7 +13,7 @@
 | 10x-ws | `/Users/max/Projects/10x-ws` | `COMMITS = "open"`, older engine |
 | mft-10x-ws | `/Users/max/Projects/10x-ws/workbench/fam/mft-10x-ws` | `COMMITS = "open"`, hooks untracked |
 | eis-ws | `/Users/max/Projects/Company/EPAM/eis/eis-ws` | `STRICT`, `COMMITS = "switch"`; EPAM repository — never commit there |
-| ocharo-ws | `.../wow-two-ws/workbench/ocharo-hq/ocharo-ws` | none yet |
+| ocharo-ws | `.../wow-two-ws/workbench/mfts-projects/ventures/ocharo-hq/ocharo-ws` | none yet |
 
 Product repositories live in each workspace's `workbench/`; each is its own Git repository.
 

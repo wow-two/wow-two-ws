@@ -1,6 +1,6 @@
 # Session — one version track
 
-*Last updated: 2026-09-29*
+*Last updated: 2026-10-19*
 
 > Brief for the chat that consolidates wow-two planning onto one version-track standard and migrates every product
 > repository onto it. Inventory and points: [docs/version-track-consolidation.md](../../../docs/version-track-consolidation.md).
@@ -48,7 +48,7 @@
    `.agents/skills` copy).
 3. Repositories, one Agent-tool subagent per repository: every Git repository under `workbench/` that has an
    `engineering/` or `product/` folder — ventures, platform repositories such as secrets-vault, and the SDK
-   repositories among them. Leave `workbench/ocharo-hq/` for last: another chat works there. When every other
+   repositories among them. Leave `workbench/mfts-projects/ventures/ocharo-hq/` for last: another chat works there. When every other
    repository is done, ask the developer whether ocharo-ws is free, then migrate its repositories. Per repository:
    move `engineering/versions/*` into `engineering/planning/version-track/` (merge where both exist); fold polish
    iterations (ForeverPin 3, TranscriptForge 2), rough-track tasks (pose-coach) and vector-track lanes
