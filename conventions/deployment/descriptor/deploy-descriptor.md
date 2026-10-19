@@ -3,7 +3,7 @@
 *Last updated: 2026-10-19*
 
 > One file per product repo, `engineering/deployment/deploy.yml`, declaring its deployable services: how each
-> builds, which paths change it, how it runs, which sites it serves and what it needs.
+> builds, which paths change it, how it runs, which site paths it serves and what it needs.
 > Purpose — one source for CI, the release generator and Wheelhouse; environments, hosts and secrets stay out.
 > Use case — every product repo deployed through Wheelhouse; the product template ships one.
 
@@ -25,8 +25,11 @@ Why a custom format → [rationale](deploy-descriptor-rationale.md).
 - must point a backend service's health check at the boot bundle's `/health`
   ([startup defaults](../../development/backend/dotnet/shapes/service/platform/startup/startup-defaults.md#health)).
 - must list the paths that change each service; a `shared` path rebuilds every service.
-- must declare public entry points as named `sites`; every other port stays internal.
-- must not publish host ports; the ingress routes each site by hostname.
+- should use `descriptor: 2`; descriptor 1 is deprecated and still reads ([descriptor 1](#descriptor-1-deprecated)).
+- must declare the product's entry points as named `sites` and the paths each service serves on each
+  ([sites and routing](#sites-and-routing)); every other port stays internal.
+- must not name a host, zone, address or proxy setting; Wheelhouse binds each site to one host per environment.
+- must not publish host ports; the ingress routes each site by host and path.
 - should publish one image per service at `ghcr.io/<owner>/<repo>/<service>`; `image` overrides a legacy name.
 - must keep the product slug equal to the Wheelhouse runner product (`foreverpin`, not `forever-pin`).
 - should set `dotnetEnvironment: true` once every .NET service's `appsettings.Development.json` holds defaults only
@@ -45,7 +48,7 @@ Paths are relative to the repo's `engineering/` folder. `**` crosses folders; `*
 
 ```yaml
 # yaml-language-server: $schema=<path to wow-two-ws>/conventions/deployment/descriptor/deploy.schema.json
-descriptor: 1                         # format version
+descriptor: 2                         # format version
 product: haven                        # runner product slug
 platform: linux/amd64                 # default; or linux/arm64
 shared:                               # a change here rebuilds every service
@@ -56,6 +59,10 @@ verify:                               # the end-to-end check after a dev rollout
   service: auth                       # whose release image runs it
   command: [sh, -c, 'curl --fail --silent --header "Host: localhost" "$VERIFY_SERVICE_AUTH/health"']
   timeout: 5m                         # default 5m; 10s-30m
+sites:                                # host roles; Wheelhouse binds each to one host per environment
+  crm: { primary: true }              # the front door; public by default
+  landing: {}
+  admin: { exposure: private }        # answers only on the private network
 services:
   auth:                               # service slug = Compose service = image name
     build:
@@ -76,6 +83,9 @@ services:
     volumes:
       keys: /data/keys                # named volume → mount path, scoped to the environment
     needs: [postgres]                 # postgres | valkey | broker
+    sites:
+      crm: { paths: [/api, /hubs] }   # the API under the product's own host
+      admin: { paths: [/api] }
   edge:
     build: { dockerfile: deployment/edge.Dockerfile, contexts: { deployment: deployment } }
     paths: [codebase/haven.frontend-services/**, deployment/edge/**]
@@ -84,19 +94,23 @@ services:
     health: { command: [wget, -q, -O-, http://localhost/healthz] }   # when the image has no curl
     capabilities: [NET_BIND_SERVICE]  # added back after the default drop of all capabilities
     sites:
-      landing: {}                     # port defaults to the service port, path to /
-      crm: { path: / }
-      admin: { exposure: private }    # answers only on the private network
+      landing: {}                     # paths default to [/], port to the service port
+      crm: { paths: [/] }
+      admin: {}
 ```
 
 | Key | Default | Meaning |
 |---|---|---|
-| `descriptor` | — | Format version; `1` |
+| `descriptor` | — | Format version: `2`; `1` is deprecated |
 | `product` | — | Runner product slug |
 | `platform` | `linux/amd64` | Build and run platform |
 | `shared` | `[]` | Paths whose change rebuilds every service |
 | `dotnetEnvironment` | `false` | The runner sets `ASPNETCORE_ENVIRONMENT` and `DOTNET_ENVIRONMENT`: dev `Development`, prod `Production` |
 | `verify` | none | `service`, `command` and `timeout` of the end-to-end check after a dev rollout ([below](#dev-check)) |
+| `sites.<site>` | `{}` | A host role; Wheelhouse binds it to one host per environment |
+| `sites.<site>.exposure` | `public` | `public` (internet) or `private` (private network) |
+| `sites.<site>.primary` | the first site | The front door: Open site, the apex proposal; at most one |
+| `sites.<site>.environments` | `[dev, prod]` | The environments that publish the site |
 | `services.<name>.image` | `<registry>/<name>` | Image repository without a tag, for a legacy name |
 | `services.<name>.build` | — | `dockerfile` (required), `context`, `target`, `args`, `contexts` |
 | `services.<name>.paths` | — | Paths whose change rebuilds this service; its Dockerfile always counts |
@@ -105,16 +119,63 @@ services:
 | `services.<name>.memory` · `stopGrace` | `512m` · `30s` | Container memory limit and stop grace |
 | `services.<name>.settings` | none | `file` mount target (default `/app/appsettings.Target.json`; `/app/appsettings.Local.json` before v0.7.0) and the `required` keys the runner checks before deploying |
 | `services.<name>.volumes` | `{}` | Named volume → absolute mount path |
-| `services.<name>.sites` | `{}` | Site name → `port`, `path` prefix, `exposure` (`public` \| `private`) |
+| `services.<name>.sites.<site>.paths` | `[/]` | The path prefixes the service serves on that site |
+| `services.<name>.sites.<site>.port` | the service port | The container port the site reaches |
 | `services.<name>.needs` | `[]` | Platform services consumed: `postgres`, `valkey`, `broker` |
 | `services.<name>.dependsOn` | `[]` | Services of this product it starts after, once each is healthy; no cycle |
 | `services.<name>.capabilities` | `[]` | Linux capabilities added back after `cap_drop: ALL` |
 
-- Two services may share a site name only with different path prefixes; the longer prefix wins.
 - Every service runs with `no-new-privileges`, all capabilities dropped, an init process, bounded logs and a restart policy.
 - Each service answers on the platform network as `<product>-<environment>-<service>`; the ingress routes sites there.
-- Wheelhouse targets map site names to hostnames: prod names each one, dev follows a host pattern.
 - Every service receives `DEPLOY_ENVIRONMENT` (`dev` or `prod`) from the runner, declared or not.
+
+---
+
+## Sites and routing
+
+A site is a host role: one host per environment, bound by Wheelhouse. The descriptor owns roles, paths and exposure;
+Wheelhouse owns hosts, zones and proxying.
+
+- One product per host; a product's API lives under its own host's `/api`.
+- Each site path has exactly one service: one service serves `/` per site, and the generator refuses a second claim.
+- A path is `/` or `/a/b`: letters, digits and `. _ ~ -` between slashes, no trailing slash, no `.` or `..`.
+- The longest prefix wins; `/api` serves `/api` and `/api/…`, never `/apiary`.
+- A service may serve several paths of one site; a site may list paths of several services.
+- A site without `/` answers 404 outside its paths; `release.py validate` warns.
+- A site's `environments` leave it unpublished elsewhere: `environments: [prod]` routes nothing on dev.
+- A Wheelhouse binding may narrow a site's exposure (public to private), never widen it.
+- Today a target names each site's host, or dev follows the server's host pattern; domain bindings replace both.
+
+How the runner renders them, after a verified rollout, into `<root>/ingress/<product>-<environment>.yml`:
+
+| Site path | Traefik rule | Priority |
+|---|---|---|
+| `/` | `` Host(`h`) `` | 101 |
+| `/api` | `` Host(`h`) && (Path(`/api`) \|\| PathPrefix(`/api/`)) `` | 104 |
+| `/api/docs` | `` Host(`h`) && (Path(`/api/docs`) \|\| PathPrefix(`/api/docs/`)) `` | 109 |
+
+- One router per site path, priority 100 plus the path's length, whatever the rule's length.
+- Public sites attach to the public entry points, private sites to the private ones.
+- Every path of a service shares one upstream, `<product>-<environment>-<service>:<port>`.
+- Each service site publishes the URL of its shortest path and is probed there; a site's root comes first.
+- `release.json` schema 2 carries `sites` (the roles) and `routes` (each service's `port` and `paths` per site).
+
+### Descriptor 1 (deprecated)
+
+Descriptor 1 declares one path per service site, with its own exposure, and no top-level `sites`:
+
+```yaml
+descriptor: 1
+services:
+  edge:
+    sites:
+      app: { path: /, exposure: private }   # port defaults to the service port, path to /
+```
+
+- It still reads, and its bundles stay `release.json` schema 1, byte for byte.
+- The runner routes it the same way: `path: /x` routes as `paths: [/x]`, with that entry's exposure.
+- To move: set `descriptor: 2`, list each site under `sites` with its `exposure`, and turn `path: /x` into
+  `paths: [/x]`. Pin pipelines `v0.8.0` first.
 
 ---
 
@@ -139,8 +200,9 @@ The `verify` check proves a release end to end on dev before it may auto-promote
 
 - runs once a dev rollout succeeds: the `command` in a one-off container from the `service`'s release image, on the
   platform network, as the image's user, with all capabilities dropped and 512 MB of memory;
-- gets `DEPLOY_ENVIRONMENT`, `VERIFY_RELEASE`, `VERIFY_SITES` (a JSON list of `name`, `service`, `exposure`, `url`),
-  `VERIFY_SITE_<SITE>` per published site and `VERIFY_SERVICE_<SERVICE>` per service (`http://<product>-dev-<service>:<port>`);
+- gets `DEPLOY_ENVIRONMENT`, `VERIFY_RELEASE`, `VERIFY_SITES` (a JSON list of `name`, `service`, `exposure`, `url`
+  per published service site), `VERIFY_SITE_<SITE>` per published site (its root, else its shortest path) and
+  `VERIFY_SERVICE_<SERVICE>` per service (`http://<product>-dev-<service>:<port>`);
   no settings file and no secret;
 - must send `Host: localhost` on a `VERIFY_SERVICE_<SERVICE>` request: a service URL's host is the container
   name, which a restricted `AllowedHosts` answers with 400;
@@ -210,13 +272,15 @@ version in which it last changed, so services version independently and an old v
 - must move to `v0.7.0` together with a be sdk that reads `appsettings.Target.json`: from `v0.7.0` the settings file
   mounts there, not at `/app/appsettings.Local.json`
   ([host configuration](../../development/backend/dotnet/shapes/service/platform/startup/host-configuration.md) § *Settings files*).
+- must pin `v0.8.0` or later to declare `descriptor: 2`; an older generator refuses it, and a Wheelhouse runner older
+  than descriptor 2 refuses a schema 2 bundle.
 - must trigger it on every push and on `workflow_dispatch` with a `commit` input.
 - must not copy the publish steps or the release generator into a product repo.
 
 ```yaml
 jobs:
   publish:
-    uses: wow-two-platform/wow-two-platform.pipelines/.github/workflows/publish.yml@v0.7.0
+    uses: wow-two-platform/wow-two-platform.pipelines/.github/workflows/publish.yml@v0.8.0
     with:
       commit: ${{ inputs.commit }}
 ```
