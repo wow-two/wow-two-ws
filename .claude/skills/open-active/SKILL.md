@@ -20,7 +20,7 @@ for frontends) via the workspace script `scripts/active.sh`.
 ## Source of truth
 
 `scripts/active.sh` owns the curated registry (`name | backend | frontend`) across all orgs
-(`ventures/`, `wow-two-platform/`, `wow-two-sdk-beta/`) and all the launch logic (Toolbox
+(`wow-two-*/`, `maxs-projects/`, `mfts-projects/`) and all the launch logic (Toolbox
 `rider`/`webstorm` with an `open -na` fallback, skip-missing, staggering). **Do not duplicate the
 project list here** — run the script. To change what counts as "active", edit the `PROJECTS` array
 at the top of `scripts/active.sh`.

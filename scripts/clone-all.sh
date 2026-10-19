@@ -2,8 +2,10 @@
 #
 # clone-all.sh — Bootstrap the WoW 2.0 workspace.
 #
-# Clones the workspace repo first (if not already inside it),
-# then clones all org repos into the correct folder structure.
+# Clones the workspace repo first (if not already inside it), then every wow-two
+# org repo into workbench/{org}/, the owner folders, each hub at its catalog
+# `local`, and every hub entry's repositories at theirs.
+# Layout: conventions/development/repo/layout/workbench-layout.md
 #
 # Usage:
 #   # Standalone (e.g. downloaded via curl):
@@ -12,12 +14,13 @@
 #   ./clone-all.sh --dry-run        # Preview without cloning
 #
 #   # From inside the workspace:
-#   ./scripts/clone-all.sh          # Only clone org repos
+#   ./scripts/clone-all.sh          # Clone org repos, hubs and hub entries
 #
 # Prerequisites:
 #   - git
 #   - gh CLI (GitHub CLI) — https://cli.github.com/
 #   - Authenticated with `gh auth login`
+#   - python3 (reads the hub catalogs)
 
 set -euo pipefail
 
@@ -32,6 +35,9 @@ ORGS="wow-two wow-two-meta wow-two-platform wow-two-sdk wow-two-sdk-beta wow-two
 org_to_folder() {
   echo "$1"
 }
+
+# Owner folders — ventures and client work outside the wow-two orgs.
+OWNER_FOLDERS="maxs-projects/ventures maxs-projects/clients mfts-projects/ventures"
 
 # ── Parse args ──────────────────────────────────────────────────────────────
 
@@ -78,6 +84,11 @@ fi
 
 if ! command -v gh &>/dev/null; then
   err "GitHub CLI (gh) not found. Install from https://cli.github.com/"
+  exit 1
+fi
+
+if ! command -v python3 &>/dev/null; then
+  err "python3 not found. Install Python 3 first."
   exit 1
 fi
 
@@ -165,23 +176,67 @@ for org in $ORGS; do
 
     if [ -d "$repo_path" ]; then
       skip "$repo"
-      ((total_skipped++))
+      total_skipped=$((total_skipped + 1))
     elif $DRY_RUN; then
       log "Would clone: $url → $folder/$repo"
-      ((total_cloned++))
+      total_cloned=$((total_cloned + 1))
     else
       if git clone --quiet "$url" "$repo_path" 2>/dev/null; then
         ok "$repo"
-        ((total_cloned++))
+        total_cloned=$((total_cloned + 1))
       else
         err "Failed to clone $repo"
-        ((total_failed++))
+        total_failed=$((total_failed + 1))
       fi
     fi
   done <<< "$repos"
 
   echo ""
 done
+
+# ── Step 3: Owner folders, hubs and hub entries ────────────────────────────
+
+clone_to() {  # $1 = owner/name, $2 = path from the workspace root
+  local repository="$1" path="$2" url
+  url=$(clone_url "${repository%%/*}" "${repository#*/}")
+  if [ -e "$WORKSPACE_ROOT/$path" ]; then
+    skip "$path"
+    total_skipped=$((total_skipped + 1))
+  elif $DRY_RUN; then
+    log "Would clone: $url → $path"
+    total_cloned=$((total_cloned + 1))
+  elif mkdir -p "$(dirname "$WORKSPACE_ROOT/$path")" && git clone --quiet "$url" "$WORKSPACE_ROOT/$path" 2>/dev/null; then
+    ok "$path"
+    total_cloned=$((total_cloned + 1))
+  else
+    err "Failed to clone $repository → $path"
+    total_failed=$((total_failed + 1))
+  fi
+}
+
+info "Owner folders"
+for folder in $OWNER_FOLDERS; do
+  $DRY_RUN || mkdir -p "$WORKSPACE_ROOT/workbench/$folder"
+  log "workbench/$folder/"
+done
+echo ""
+
+if [ ! -f "$WORKSPACE_ROOT/catalog.yml" ]; then
+  log "catalog.yml not available yet (dry run before the workspace clone) — hubs skipped"
+  echo ""
+else
+  info "Hubs (catalog.yml → hubs)"
+  while IFS=$'\t' read -r repository path; do
+    [ -n "$repository" ] && clone_to "$repository" "$path"
+  done < <(python3 "$WORKSPACE_ROOT/scripts/catalog-checkouts.py" hubs)
+  echo ""
+
+  info "Hub entries (each hub's catalog.yml → local)"
+  while IFS=$'\t' read -r repository path; do
+    [ -n "$repository" ] && clone_to "$repository" "$path"
+  done < <(python3 "$WORKSPACE_ROOT/scripts/catalog-checkouts.py" entries)
+  echo ""
+fi
 
 # ── Summary ─────────────────────────────────────────────────────────────────
 

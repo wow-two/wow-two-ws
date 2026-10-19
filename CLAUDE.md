@@ -31,6 +31,7 @@ docs/ (strategy, playbooks) · system/sessions/ · ideas/ · scripts/ · workben
 ## Orgs & repos
 
 - 7 orgs, folder = org name: `wow-two` (core) · `-meta` (off-ecosystem) · `-platform` (infra) · `-sdk` (public libs) · `-sdk-beta` (beta libs) · `-kb` (knowledge base) · `-apps` (products). Source: `catalog.yml` — every wow2 repo and app, one entry per product; ventures and Ocharo keep their own hub catalogs ([catalog](conventions/development/repo/catalog/catalog.md)); `.claude/repo-registry.md` is generated from all three by `scripts/gen-repo-registry.py`.
+- Ventures, client work and Ocharo sit in the owner folders `workbench/maxs-projects/` · `workbench/mfts-projects/` — [workbench layout](conventions/development/repo/layout/workbench-layout.md).
 
 ## Sessions
 

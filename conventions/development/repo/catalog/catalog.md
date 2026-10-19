@@ -23,8 +23,8 @@ A hub is a repository whose root `catalog.yml` indexes one owner's products.
 | Hub | Repository | Checkout | Owns | Workspaces |
 |---|---|---|---|---|
 | `wow2` | `wow-two/wow-two-ws` | the workspace root | the `wow-two*` orgs: core, meta, platform, SDKs, KB, apps; wow2's personal tools | `wow2-platform` · `wow2-backbone` · `wow2-apps` · `personal` |
-| `ventures` | `sulton-max/10x-ventures` | `workbench/ventures/10x-ventures` | the owner's ventures, and ventures and client work run for others | `own-ventures` · `other-ventures` |
-| `ocharo` | `ocharo-hq/ocharo-ws` | `workbench/ocharo-hq/ocharo-ws` | the `ocharo-hq` org's repositories | `ocharo` |
+| `ventures` | `sulton-max/10x-ventures` | `workbench/maxs-projects/ventures/10x-ventures` | the owner's ventures, and ventures and client work run for others | `own-ventures` · `other-ventures` |
+| `ocharo` | `ocharo-hq/ocharo-ws` | `workbench/mfts-projects/ventures/ocharo-hq/ocharo-ws` | the `ocharo-hq` org's repositories | `ocharo` |
 
 ```text
 {hub}/
@@ -63,7 +63,7 @@ hub:                                    # the hub this file indexes
   description: "The wow2 ecosystem: core, platform, SDKs, knowledge base and community apps"
 hubs:                                   # wow2 only: the other hubs' checkouts, in registry order
   - repository: sulton-max/10x-ventures
-    local: workbench/ventures/10x-ventures
+    local: workbench/maxs-projects/ventures/10x-ventures
 orgs:                                   # GitHub organizations the hub owns, in registry order; optional
   - slug: wow-two-platform
     url: https://github.com/wow-two-platform
@@ -90,7 +90,7 @@ entries:
 | `hubs` | wow2 only: each other hub's repository and checkout path |
 | `orgs[].intro` · `notes` | registry only: Markdown blocks before and after the org's table |
 | `entries[].repositories` | GitHub `owner/name`, primary first |
-| `entries[].local` | checkout path from the `wow-two-ws` root, when not `workbench/{owner}/{name}` |
+| `entries[].local` | the primary's checkout path from the `wow-two-ws` root, when not `workbench/{owner}/{name}` |
 
 - must double-quote free text (`description`, `status`, `purpose`); a `: ` or a leading backtick breaks a plain value.
 - must keep to block mappings and sequences, flow sequences of scalars, quoted values and `|-` literals.
@@ -108,6 +108,8 @@ entries:
 | `deploy` | `wheelhouse` · `ci` · `none` |
 
 - must take a deployable's slug from its [deploy descriptor](../../../deployment/descriptor/deploy-descriptor.md#rules).
+- must pick `local` by the [workbench layout](../layout/workbench-layout.md#catalog-mapping).
+- must check out an entry's other repositories beside the primary, each under its own name.
 - must name a `.github` repository's entry `{owner}-github`.
 - must file platform apps and their fixtures under `wow2-platform`; SDKs, libraries, pipelines and templates under
   `wow2-backbone`; community apps under `wow2-apps`; personal tools under `personal`.

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# ventures.sh — open / list venture projects under workbench/ventures/
+# ventures.sh — open / list venture projects under workbench/maxs-projects/ventures/
 #
 # Per-venture manifest: <venture-root>/.venture.sh declares
 #   TAGS=(micro-saas backend poc ...)
@@ -19,7 +19,7 @@ set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 WS_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
-VENTURES_DIR="$WS_DIR/workbench/ventures"
+VENTURES_DIR="$WS_DIR/workbench/maxs-projects/ventures"
 
 JB_SCRIPTS="$HOME/Library/Application Support/JetBrains/Toolbox/scripts"
 RIDER="$JB_SCRIPTS/rider"
@@ -177,7 +177,7 @@ cmd_open() {
 
 cmd_help() {
     cat <<'EOF'
-ventures.sh — manage venture projects under workbench/ventures/
+ventures.sh — manage venture projects under workbench/maxs-projects/ventures/
 
 Commands:
   list                     Tabular overview of all ventures (parts + tags)

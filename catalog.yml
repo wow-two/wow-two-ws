@@ -12,9 +12,9 @@ hub:
 
 hubs:
   - repository: sulton-max/10x-ventures
-    local: workbench/ventures/10x-ventures
+    local: workbench/maxs-projects/ventures/10x-ventures
   - repository: ocharo-hq/ocharo-ws
-    local: workbench/ocharo-hq/ocharo-ws
+    local: workbench/mfts-projects/ventures/ocharo-hq/ocharo-ws
 
 orgs:
   - slug: wow-two

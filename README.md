@@ -26,7 +26,7 @@ Folder name matches org name 1:1. The clone script discovers repos in each org a
 | [wow-two-kb](https://github.com/wow-two-kb) | `workbench/wow-two-kb/` | Knowledge base — code samples & docs |
 | [wow-two-apps](https://github.com/wow-two-apps) | `workbench/wow-two-apps/` | Community products |
 
-You can also add your own repos under `workbench/` — for ventures, products, experiments, or anything else you're building with the ecosystem. They'll be gitignored from the workspace automatically.
+Ventures, client work and other owners' projects sit in owner folders beside the org folders — `workbench/maxs-projects/` and `workbench/mfts-projects/` ([workbench layout](conventions/development/repo/layout/workbench-layout.md)). Everything under `workbench/` is gitignored from the workspace automatically.
 
 ## Getting started
 
@@ -41,7 +41,7 @@ You can also add your own repos under `workbench/` — for ventures, products, e
 curl -sLO https://raw.githubusercontent.com/wow-two/wow-two-ws/main/scripts/setup.sh && bash setup.sh
 ```
 
-This clones the workspace repo, then runs `scripts/clone-all.sh` which uses `gh repo list` to discover and clone every repo from every org into `workbench/`.
+This clones the workspace repo, then runs `scripts/clone-all.sh`, which uses `gh repo list` to clone every repo from every org into `workbench/{org}/`, then clones each hub in `catalog.yml` and every hub entry to its catalog `local`.
 
 | Flag | Effect |
 |---|---|

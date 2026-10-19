@@ -3,7 +3,7 @@
 > **Usage:** This is a lookup table. Do NOT read these files or repos proactively.
 > Only access a repo when the current task specifically requires it.
 >
-> **Path:** All repos live under `workbench/{org}/` — e.g. `workbench/wow-two-sdk/wow-two-sdk.language.core/`, `workbench/wow-two/wow-two.refinement/`. Folder name = org name (1:1).
+> **Path:** wow2 repos live under `workbench/{org}/` — e.g. `workbench/wow-two-sdk/wow-two-sdk.language.core/`; folder name = org name (1:1). Ventures, client work and Ocharo sit in the owner folders `workbench/maxs-projects/` and `workbench/mfts-projects/` at each entry's `local` — [workbench layout](../conventions/development/repo/layout/workbench-layout.md).
 
 # Repo Registry
 
@@ -129,57 +129,57 @@ Hub: [sulton-max/10x-ventures](https://github.com/sulton-max/10x-ventures) — T
 
 | Repo / local folder | Purpose | Status |
 |---|---|---|
-| `sulton-max/10x-venture-forever-pin` · `workbench/ventures/10x-venture-forever-pin` | ForeverPin QR and programmable links | Active, v0.9 |
-| `sulton-max/10x-ven-haven` · `workbench/ventures/10x-ven-haven` | Haven: real estate platform for Tashkent; agents classify, triage and publish ListingShelf listings | Active; v1.1 and v1.2 in progress |
-| `ventures.surface-pattern` · `workbench/ventures/ventures.surface-pattern` | Surface Pattern: local repeat-pattern studio, surface previews and print exports | v0.1 local studio built; demand and physical print validation pending |
-| `sulton-max/ventures.listing-shelf` · `workbench/ventures/ventures.listing-shelf` | ListingShelf: listing/post crawler and archive; OLX and Domtut initial adapters, no social media | v0.2 built (Vue shelf console, SDK 10.0.59); verification pending |
-| `ventures.pose-coach` · `workbench/ventures/ventures.pose-coach` | PoseCoach: iPhone photo director (Swift/SwiftUI) with a .NET API and Vue console | v0.1 duo collage flow built locally (pattern check, alignment, collage, eye screens); iPhone verification pending |
-| `ventures.retainer-balance` · `workbench/ventures/ventures.retainer-balance` | Retainer Balance — first-ten SaaS pilot | Local v0.1 implemented and tested; authenticated Vue/.NET pilot; launch gates remain |
-| `ventures.documentation-checker` · `workbench/ventures/ventures.documentation-checker` | Documentation Checker — first-ten SaaS pilot | Local v0.1 implemented and tested; authenticated Vue/.NET pilot; launch gates remain |
-| `ventures.file-watch` · `workbench/ventures/ventures.file-watch` | File Watch — first-ten SaaS pilot | Local v0.1 implemented and tested; authenticated Vue/.NET pilot; launch gates remain |
-| `ventures.procedure-review` · `workbench/ventures/ventures.procedure-review` | Procedure Review — first-ten SaaS pilot | Local v0.1 implemented and tested; authenticated Vue/.NET pilot; launch gates remain |
-| `ventures.training-seats` · `workbench/ventures/ventures.training-seats` | Training Seats — first-ten SaaS pilot | Local v0.1 implemented and tested; authenticated Vue/.NET pilot; launch gates remain |
-| `ventures.epub-review` · `workbench/ventures/ventures.epub-review` | Epub Review — first-ten SaaS pilot | Local v0.1 implemented and tested; authenticated Vue/.NET pilot; launch gates remain |
-| `ventures.customer-promises` · `workbench/ventures/ventures.customer-promises` | Customer Promises — first-ten SaaS pilot | Local v0.1 implemented and tested; authenticated Vue/.NET pilot; launch gates remain |
-| `ventures.vendor-renewals` · `workbench/ventures/ventures.vendor-renewals` | Vendor Renewals — first-ten SaaS pilot | Local v0.1 implemented and tested; authenticated Vue/.NET pilot; launch gates remain |
-| `ventures.config-checker` · `workbench/ventures/ventures.config-checker` | Config Checker — first-ten SaaS pilot | Local v0.1 implemented and tested; authenticated Vue/.NET pilot; launch gates remain |
-| `ventures.podcast-readiness` · `workbench/ventures/ventures.podcast-readiness` | Podcast Readiness — first-ten SaaS pilot | Local v0.1 implemented and tested; authenticated Vue/.NET pilot; launch gates remain |
-| `sulton-max/10x-ventures-prism` · `workbench/ventures/10x-ventures-prism` | PRISM: browser parametric room and interior modeler — 2D plan editor and live 3D | v0.15 shipped; v0.16 parked for the engine rewrite; v0.17 planned |
-| `sulton-max/10x-ventures-whiteout` · `workbench/ventures/whiteout` | Whiteout: browser tactical sniper FPS on WebGPU (React Three Fiber); the presets repository holds its Blender asset library | v0.7 in progress (crate hero asset); v0.8 and v0.9 drafted |
-| `sulton-max/10x-ventures-transcript-forge` · `workbench/ventures/10x-ventures-transcript-forge` | TranscriptForge: YouTube transcription engine (captions first, Whisper fallback) under a creator repurposing suite | v0.8 in progress |
-| `ventures.hijinx` · `workbench/ventures/ventures.hijinx` | Hijinx: web-first party and fun apps (web, PWA and native shells) fed by Fun Vault packs | v0.1 in progress; no remote |
-| `ventures.fun-vault` · `workbench/ventures/ventures.fun-vault` | Fun Vault: curated fun-content library (pranks, party games, icebreakers) that Hijinx and Arcade consume as packs | Usable content library; no remote |
-| `ventures.arcade` · `workbench/ventures/ventures.arcade` | Arcade: Telegram Mini App games collection (Vue on a .NET host), monetized with Telegram Stars cosmetics | v0.1 in progress (15 games in the launcher); no remote |
-| `sift` · `workbench/ventures/sift` | Sift: curated anti-brainrot YouTube feed ranked by information density | v0.2 in progress; no remote |
-| `ventures.pbn-studio` · `workbench/ventures/ventures.pbn-studio` | PbnStudio: photo to custom paint-by-numbers kit generator | v0.1 in progress; no remote |
-| `sulton-max/10x-ventures.museums-gallery` · `workbench/ventures/ventures.museums-gallery` | Museums Gallery: desktop-first gallery of Uzbekistan's museums and heritage sites | v0.1 frontend-only; seed data unverified |
-| `sulton-max/ventures.tnis` · `workbench/ventures/ventures.tnis` | TNIS: transport network impact simulation, continued as a product after the National Transport Hackathon 2026 | v0.3 in progress |
-| `ventures.city-vision` · `workbench/ventures/ventures.city-vision` | City Vision: speculative circular city with six satellites — vision, domains and baseline parameters | Documentation and drawings; no application code; no remote |
-| `sulton-max/trademark-watcher-poc` · `workbench/ventures/trademark-watcher-poc` | Trademark Watcher: filing watcher that ranks recent registry filings by similarity to a keyword | POC scaffold; idle since 2026-05 |
-| `sulton-max/acquisition-explorer-poc` · `workbench/ventures/acquisition-explorer-poc` | Acquisition Explorer: company and M&A ownership graph | Frontend scaffold; idle since 2026-05 |
-| `sulton-max/pdf-editor` · `workbench/ventures/pdf-editor` | PDF Editor: PDF editing tool | Scaffold; scope undefined; idle since 2026-05 |
-| `sulton-max/10x-fin-nt` · `workbench/ventures/10x-fin-nt` | NT auction tracker for Uzbekistan | Dormant; kept as a personal tool |
-| `10x-venture-forever-pin-promo` · `workbench/ventures/10x-venture-forever-pin-promo` | ForeverPin promo and hero videos (Remotion) | Usable; local only |
-| `airfryer-3d` · `workbench/labs/airfryer-3d` | Scroll-driven 3D product ad page (procedural Three.js model, GSAP choreography) | Usable concept page; local only |
-| `sulton-max/ventures.tnis-mintrans` · `workbench/ventures/ventures.tnis-mintrans` | TNIS Mintrans: the ministry handoff cut of TNIS, implemented by the ministry's own team | Handoff cut for Mintrans UZ: technical document, reference implementation and data request |
-| `National-transport-hackathon/track-2-transportbrain` · `workbench/ventures/track-2-transportbrain` | Transport Brain Studio: Track 2 hackathon submission; the jury demo lives in sulton-max/tbs.demo | National Transport Hackathon 2026 submission; organisers own its IP |
+| `sulton-max/10x-venture-forever-pin` · `workbench/maxs-projects/ventures/10x-venture-forever-pin` | ForeverPin QR and programmable links | Active, v0.9 |
+| `sulton-max/10x-ven-haven` · `workbench/maxs-projects/ventures/10x-ven-haven` | Haven: real estate platform for Tashkent; agents classify, triage and publish ListingShelf listings | Active; v1.1 and v1.2 in progress |
+| `ventures.surface-pattern` · `workbench/maxs-projects/ventures/ventures.surface-pattern` | Surface Pattern: local repeat-pattern studio, surface previews and print exports | v0.1 local studio built; demand and physical print validation pending |
+| `sulton-max/ventures.listing-shelf` · `workbench/maxs-projects/ventures/ventures.listing-shelf` | ListingShelf: listing/post crawler and archive; OLX and Domtut initial adapters, no social media | v0.2 built (Vue shelf console, SDK 10.0.59); verification pending |
+| `ventures.pose-coach` · `workbench/maxs-projects/ventures/ventures.pose-coach` | PoseCoach: iPhone photo director (Swift/SwiftUI) with a .NET API and Vue console | v0.1 duo collage flow built locally (pattern check, alignment, collage, eye screens); iPhone verification pending |
+| `ventures.retainer-balance` · `workbench/maxs-projects/ventures/ventures.retainer-balance` | Retainer Balance — first-ten SaaS pilot | Local v0.1 implemented and tested; authenticated Vue/.NET pilot; launch gates remain |
+| `ventures.documentation-checker` · `workbench/maxs-projects/ventures/ventures.documentation-checker` | Documentation Checker — first-ten SaaS pilot | Local v0.1 implemented and tested; authenticated Vue/.NET pilot; launch gates remain |
+| `ventures.file-watch` · `workbench/maxs-projects/ventures/ventures.file-watch` | File Watch — first-ten SaaS pilot | Local v0.1 implemented and tested; authenticated Vue/.NET pilot; launch gates remain |
+| `ventures.procedure-review` · `workbench/maxs-projects/ventures/ventures.procedure-review` | Procedure Review — first-ten SaaS pilot | Local v0.1 implemented and tested; authenticated Vue/.NET pilot; launch gates remain |
+| `ventures.training-seats` · `workbench/maxs-projects/ventures/ventures.training-seats` | Training Seats — first-ten SaaS pilot | Local v0.1 implemented and tested; authenticated Vue/.NET pilot; launch gates remain |
+| `ventures.epub-review` · `workbench/maxs-projects/ventures/ventures.epub-review` | Epub Review — first-ten SaaS pilot | Local v0.1 implemented and tested; authenticated Vue/.NET pilot; launch gates remain |
+| `ventures.customer-promises` · `workbench/maxs-projects/ventures/ventures.customer-promises` | Customer Promises — first-ten SaaS pilot | Local v0.1 implemented and tested; authenticated Vue/.NET pilot; launch gates remain |
+| `ventures.vendor-renewals` · `workbench/maxs-projects/ventures/ventures.vendor-renewals` | Vendor Renewals — first-ten SaaS pilot | Local v0.1 implemented and tested; authenticated Vue/.NET pilot; launch gates remain |
+| `ventures.config-checker` · `workbench/maxs-projects/ventures/ventures.config-checker` | Config Checker — first-ten SaaS pilot | Local v0.1 implemented and tested; authenticated Vue/.NET pilot; launch gates remain |
+| `ventures.podcast-readiness` · `workbench/maxs-projects/ventures/ventures.podcast-readiness` | Podcast Readiness — first-ten SaaS pilot | Local v0.1 implemented and tested; authenticated Vue/.NET pilot; launch gates remain |
+| `sulton-max/10x-ventures-prism` · `workbench/maxs-projects/ventures/10x-ventures-prism` | PRISM: browser parametric room and interior modeler — 2D plan editor and live 3D | v0.15 shipped; v0.16 parked for the engine rewrite; v0.17 planned |
+| `sulton-max/10x-ventures-whiteout` · `workbench/maxs-projects/ventures/whiteout` | Whiteout: browser tactical sniper FPS on WebGPU (React Three Fiber); the presets repository holds its Blender asset library | v0.7 in progress (crate hero asset); v0.8 and v0.9 drafted |
+| `sulton-max/10x-ventures-transcript-forge` · `workbench/maxs-projects/ventures/10x-ventures-transcript-forge` | TranscriptForge: YouTube transcription engine (captions first, Whisper fallback) under a creator repurposing suite | v0.8 in progress |
+| `ventures.hijinx` · `workbench/maxs-projects/ventures/ventures.hijinx` | Hijinx: web-first party and fun apps (web, PWA and native shells) fed by Fun Vault packs | v0.1 in progress; no remote |
+| `ventures.fun-vault` · `workbench/maxs-projects/ventures/ventures.fun-vault` | Fun Vault: curated fun-content library (pranks, party games, icebreakers) that Hijinx and Arcade consume as packs | Usable content library; no remote |
+| `ventures.arcade` · `workbench/maxs-projects/ventures/ventures.arcade` | Arcade: Telegram Mini App games collection (Vue on a .NET host), monetized with Telegram Stars cosmetics | v0.1 in progress (15 games in the launcher); no remote |
+| `sift` · `workbench/maxs-projects/ventures/sift` | Sift: curated anti-brainrot YouTube feed ranked by information density | v0.2 in progress; no remote |
+| `ventures.pbn-studio` · `workbench/maxs-projects/ventures/ventures.pbn-studio` | PbnStudio: photo to custom paint-by-numbers kit generator | v0.1 in progress; no remote |
+| `sulton-max/10x-ventures.museums-gallery` · `workbench/maxs-projects/ventures/ventures.museums-gallery` | Museums Gallery: desktop-first gallery of Uzbekistan's museums and heritage sites | v0.1 frontend-only; seed data unverified |
+| `sulton-max/ventures.tnis` · `workbench/maxs-projects/ventures/ventures.tnis` | TNIS: transport network impact simulation, continued as a product after the National Transport Hackathon 2026 | v0.3 in progress |
+| `ventures.city-vision` · `workbench/maxs-projects/ventures/ventures.city-vision` | City Vision: speculative circular city with six satellites — vision, domains and baseline parameters | Documentation and drawings; no application code; no remote |
+| `sulton-max/trademark-watcher-poc` · `workbench/maxs-projects/ventures/trademark-watcher-poc` | Trademark Watcher: filing watcher that ranks recent registry filings by similarity to a keyword | POC scaffold; idle since 2026-05 |
+| `sulton-max/acquisition-explorer-poc` · `workbench/maxs-projects/ventures/acquisition-explorer-poc` | Acquisition Explorer: company and M&A ownership graph | Frontend scaffold; idle since 2026-05 |
+| `sulton-max/pdf-editor` · `workbench/maxs-projects/ventures/pdf-editor` | PDF Editor: PDF editing tool | Scaffold; scope undefined; idle since 2026-05 |
+| `sulton-max/10x-fin-nt` · `workbench/maxs-projects/ventures/10x-fin-nt` | NT auction tracker for Uzbekistan | Dormant; kept as a personal tool |
+| `10x-venture-forever-pin-promo` · `workbench/maxs-projects/ventures/10x-venture-forever-pin-promo` | ForeverPin promo and hero videos (Remotion) | Usable; local only |
+| `airfryer-3d` · `workbench/maxs-projects/ventures/airfryer-3d` | Scroll-driven 3D product ad page (procedural Three.js model, GSAP choreography) | Usable concept page; local only |
+| `sulton-max/ventures.tnis-mintrans` · `workbench/maxs-projects/clients/mintrans/ventures.tnis-mintrans` | TNIS Mintrans: the ministry handoff cut of TNIS, implemented by the ministry's own team | Handoff cut for Mintrans UZ: technical document, reference implementation and data request |
+| `National-transport-hackathon/track-2-transportbrain` · `workbench/maxs-projects/clients/mintrans/track-2-transportbrain` | Transport Brain Studio: Track 2 hackathon submission; the jury demo lives in sulton-max/tbs.demo | National Transport Hackathon 2026 submission; organisers own its IP |
 
 ## ocharo-hq (brand workspace)
 
 Org: [github.com/ocharo-hq](https://github.com/ocharo-hq) — Ocharo's brand organization: platform, studio, marketing and assets, independent of WoW2.
 
-Six main repositories plus the `.github` profile repository belong to Ocharo. Blog, Brand and Catalogue are adopted components, not additional repository targets. Current paths: [Ocharo repository map](../workbench/ocharo-hq/ocharo-ws/docs/repositories.md).
+Six main repositories plus the `.github` profile repository belong to Ocharo. Blog, Brand and Catalogue are adopted components, not additional repository targets. Current paths: [Ocharo repository map](../workbench/mfts-projects/ventures/ocharo-hq/ocharo-ws/docs/repositories.md).
 
-- `workbench/ocharo-hq/ocharo-ws/` owns Ocharo setup and repository navigation.
+- `workbench/mfts-projects/ventures/ocharo-hq/ocharo-ws/` owns Ocharo setup and repository navigation.
 - Its Git history and GitHub organization remain independent of WoW2.
 - Its managed repositories sit directly under its own ignored `workbench/`.
 - Coding chats use the WoW2 root for existing shared hooks and engineering conventions.
 
 | Repo / local folder | Purpose | Status |
 |---|---|---|
-| `ocharo-platform` · `workbench/ocharo-hq/ocharo-ws/workbench/ocharo-platform` | Ocharo Platform: brand identity, catalogue and business management; adopted Brand Workspace | Brand/Catalogue sources adopted; application integration pending |
-| `ocharo-studio` · `workbench/ocharo-hq/ocharo-ws/workbench/ocharo-studio` | Ocharo Studio: 3D mannequin and per-part textile creative studio | Existing Studio implementation retained; integration deferred |
-| `ocharo-marketing` · `workbench/ocharo-hq/ocharo-ws/workbench/ocharo-marketing` | Ocharo Marketing: operator desk, editorial/public app container, distribution and lead capture | Both Blog sources adopted; broader public apps/integration pending |
-| `ocharo-assets` · `workbench/ocharo-hq/ocharo-ws/workbench/ocharo-assets` | Ocharo Assets: asset creation and motion research; Ocharo Motion runtime retained | Garment library adopted; runtime integration deferred |
-| `ocharo-hq` · `workbench/ocharo-hq/ocharo-ws/workbench/ocharo-hq` | Main brand overview and public portfolio README | Published, private; public visibility recommended |
-| `.github` | GitHub organization profile at profile/README.md | Public; organization profile published |
+| `ocharo-platform` · `workbench/mfts-projects/ventures/ocharo-hq/ocharo-ws/workbench/ocharo-platform` | Ocharo Platform: brand identity, catalogue and business management; adopted Brand Workspace | Brand/Catalogue sources adopted; application integration pending |
+| `ocharo-studio` · `workbench/mfts-projects/ventures/ocharo-hq/ocharo-ws/workbench/ocharo-studio` | Ocharo Studio: 3D mannequin and per-part textile creative studio | Existing Studio implementation retained; integration deferred |
+| `ocharo-marketing` · `workbench/mfts-projects/ventures/ocharo-hq/ocharo-ws/workbench/ocharo-marketing` | Ocharo Marketing: operator desk, editorial/public app container, distribution and lead capture | Both Blog sources adopted; broader public apps/integration pending |
+| `ocharo-assets` · `workbench/mfts-projects/ventures/ocharo-hq/ocharo-ws/workbench/ocharo-assets` | Ocharo Assets: asset creation and motion research; Ocharo Motion runtime retained | Garment library adopted; runtime integration deferred |
+| `ocharo-hq` · `workbench/mfts-projects/ventures/ocharo-hq/ocharo-ws/workbench/ocharo-hq` | Main brand overview and public portfolio README | Published, private; public visibility recommended |
+| `.github` · `workbench/mfts-projects/ventures/ocharo-hq/ocharo-ws/workbench/.github` | GitHub organization profile at profile/README.md | Public; organization profile published |

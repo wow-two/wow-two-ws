@@ -27,6 +27,14 @@ Repo shape by archetype — product / venture (both stacks, one repo) vs SDK / l
 
 ---
 
+## Layout
+
+| File | Covers |
+|---|---|
+| [layout/workbench-layout.md](layout/workbench-layout.md) | where each checkout lives under `workbench/` — `wow-two*` org folders, owner folders `maxs-projects/` + `mfts-projects/`, flat `ventures/`, `clients/{client}/`; moving a checkout |
+
+---
+
 ## Version control
 
 | File | Covers |

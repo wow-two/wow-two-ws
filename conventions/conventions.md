@@ -158,6 +158,7 @@ Cross-area: **[sdk-extraction.md](development/sdk-extraction.md)** — extract, 
 | SDK / library repo shape · be sdk + fe sdk naming (repo, code dir, package, namespace) · `engineering/` + npm package under `engineering/codebase/{slug}/` · `src/` source-only + `tests/{unit,stories}` · config repoint · dist-only publish | [development/repo/structure/sdk-structure.md](development/repo/structure/sdk-structure.md) |
 | Commit messages · scoped index handover · independent repository Git flags · LFS, gitignore and large-file recovery | [development/repo/version-control/git.md](development/repo/version-control/git.md) |
 | Catalog — hub `catalog.yml` files (wow2, ventures, Ocharo): every repo and app, one entry per product · hub structure and ownership · workspaces · kinds · deploy mode · schema · generated repo registry | [development/repo/catalog/catalog.md](development/repo/catalog/catalog.md) |
+| Workbench layout — where each checkout lives · `wow-two*` org folders · owner folders `maxs-projects/` + `mfts-projects/` · flat `ventures/` · `clients/{client}/` · catalog workspace → `local` · moving a checkout | [development/repo/layout/workbench-layout.md](development/repo/layout/workbench-layout.md) |
 
 ### backend/ — .NET conventions · [the dotnet index](development/backend/dotnet/dotnet-conventions.md)
 

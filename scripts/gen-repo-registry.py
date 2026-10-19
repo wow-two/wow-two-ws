@@ -28,8 +28,10 @@ HEADER = """\
 > **Usage:** This is a lookup table. Do NOT read these files or repos proactively.
 > Only access a repo when the current task specifically requires it.
 >
-> **Path:** All repos live under `workbench/{org}/` — e.g. `workbench/wow-two-sdk/wow-two-sdk.language.core/`, \
-`workbench/wow-two/wow-two.refinement/`. Folder name = org name (1:1).
+> **Path:** wow2 repos live under `workbench/{org}/` — e.g. `workbench/wow-two-sdk/wow-two-sdk.language.core/`; \
+folder name = org name (1:1). Ventures, client work and Ocharo sit in the owner folders `workbench/maxs-projects/` \
+and `workbench/mfts-projects/` at each entry's `local` — \
+[workbench layout](../conventions/development/repo/layout/workbench-layout.md).
 
 # Repo Registry
 
@@ -246,10 +248,8 @@ def section_of(entry, orgs):
         owner = entry["repositories"][0].split("/")[0]
         if owner in orgs:
             return owner
-    parts = entry.get("local", "").split("/")
-    if len(parts) > 1 and parts[1] in orgs:
-        return parts[1]
-    return None
+    folders = entry.get("local", "").split("/")[1:-1]
+    return next((folder for folder in folders if folder in orgs), None)
 
 
 def repo_name(entry):

@@ -4,9 +4,10 @@
 #   Rider    ← .NET backends (.sln / .slnx)
 #   WebStorm ← frontends (the package.json folder)
 #
-# Spans all orgs under workbench/ (ventures + platform + sdk-beta) — unlike
-# ventures.sh, which only covers workbench/ventures/. The registry below is the
-# curated set of "things I'm working on right now"; edit it as focus shifts.
+# Spans the whole workbench/ (wow-two-* orgs + maxs-projects/ + mfts-projects/) —
+# unlike ventures.sh, which only covers workbench/maxs-projects/ventures/. The
+# registry below is the curated set of "things I'm working on right now"; edit it
+# as focus shifts.
 #
 # Usage:
 #   active.sh                       open every project (backend + frontend)
@@ -36,45 +37,45 @@ DELAY="${DELAY:-0.4}"
 #   backend  = .sln/.slnx path relative to workbench/, or '-' if none
 #   frontend = folder (with package.json) relative to workbench/, or '-' if none
 PROJECTS=(
-  "tbs|ventures/track-2-transportbrain/engineering/codebase/tbs.backend-services/tbs.backend-services.slnx|ventures/track-2-transportbrain/engineering/codebase/tbs.frontend-services"
+  "tbs|maxs-projects/clients/mintrans/track-2-transportbrain/engineering/codebase/tbs.backend-services/tbs.backend-services.slnx|maxs-projects/clients/mintrans/track-2-transportbrain/engineering/codebase/tbs.frontend-services"
   "wheelhouse|wow-two-platform/wow-two-platform.wheelhouse/engineering/codebase/wheelhouse.backend-services/Wheelhouse.BackendServices.slnx|wow-two-platform/wow-two-platform.wheelhouse/engineering/codebase/wheelhouse.frontend-services"
   "secrets-vault|wow-two-platform/wow-two-platform.secrets-vault/engineering/codebase/secrets-vault.backend-services/Wow-Two-Platform.Secrets-Vault.sln|wow-two-platform/wow-two-platform.secrets-vault/engineering/codebase/secrets-vault.frontend-services"
-  "forever-pin|ventures/10x-venture-forever-pin/engineering/codebase/forever-pin.backend-services/ForeverPin.BackendServices.slnx|ventures/10x-venture-forever-pin/engineering/codebase/forever-pin.frontend-services"
-  "trademark-watcher|ventures/trademark-watcher-poc/platform/src/backend/Trademark.Watcher.sln|-"
-  "acquisition-explorer|-|ventures/acquisition-explorer-poc/platform/acquisition-explorer-frontend"
-  "transcript-forge|ventures/10x-ventures-transcript-forge/engineering/codebase/transcript-forge.backend-services/TranscriptForge.BackendServices.slnx|ventures/10x-ventures-transcript-forge/engineering/codebase/transcript-forge.frontend-services"
-  "pdf-editor|ventures/pdf-editor/platform/pdf-editor.backend-services/PdfEditor.BackendServices.sln|-"
+  "forever-pin|maxs-projects/ventures/10x-venture-forever-pin/engineering/codebase/forever-pin.backend-services/ForeverPin.BackendServices.slnx|maxs-projects/ventures/10x-venture-forever-pin/engineering/codebase/forever-pin.frontend-services"
+  "trademark-watcher|maxs-projects/ventures/trademark-watcher-poc/platform/src/backend/Trademark.Watcher.sln|-"
+  "acquisition-explorer|-|maxs-projects/ventures/acquisition-explorer-poc/platform/acquisition-explorer-frontend"
+  "transcript-forge|maxs-projects/ventures/10x-ventures-transcript-forge/engineering/codebase/transcript-forge.backend-services/TranscriptForge.BackendServices.slnx|maxs-projects/ventures/10x-ventures-transcript-forge/engineering/codebase/transcript-forge.frontend-services"
+  "pdf-editor|maxs-projects/ventures/pdf-editor/platform/pdf-editor.backend-services/PdfEditor.BackendServices.sln|-"
   "be-sdk|wow-two-sdk-beta/wow-two-sdk-beta.be/engineering/codebase/wow-two-sdk-beta-be/src/WoW.Two.Sdk.Beta.Be.slnx|-"
   "fe-sdk|-|wow-two-sdk-beta/wow-two-sdk-beta.fe/engineering/codebase/wow-two-sdk-beta-fe"
-  "sift|ventures/sift/engineering/codebase/sift.backend-services/Sift.sln|ventures/sift/engineering/codebase/sift.frontend-services"
-  "prism|-|ventures/10x-ventures-prism/engineering/codebase/prism.frontend-services"
-  "arcade|ventures/ventures.arcade/engineering/codebase/arcade.backend-services/Arcade.sln|ventures/ventures.arcade/engineering/codebase/arcade.frontend-services"
-  "museums-gallery|ventures/ventures.museums-gallery/engineering/codebase/museums-gallery.backend-services/MuseumsGallery.sln|ventures/ventures.museums-gallery/engineering/codebase/museums-gallery.frontend-services"
-  "tnis|ventures/ventures.tnis/engineering/codebase/tnis.backend-services/Tnis.BackendServices.slnx|ventures/ventures.tnis/engineering/codebase/tnis.frontend-services"
-  "tnis-mintrans|ventures/ventures.tnis-mintrans/engineering/codebase/tnis-mintrans.backend-services/TnisMintrans.sln|ventures/ventures.tnis-mintrans/engineering/codebase/tnis-mintrans.frontend-services"
-  "listing-shelf|ventures/ventures.listing-shelf/engineering/codebase/listing-shelf.backend-services/ListingShelf.BackendServices.slnx|ventures/ventures.listing-shelf/engineering/codebase/listing-shelf.frontend-services"
-  "pose-coach|ventures/ventures.pose-coach/engineering/codebase/pose-coach.backend-services/PoseCoach.BackendServices.slnx|ventures/ventures.pose-coach/engineering/codebase/pose-coach.frontend-services"
-  "ocharo-studio|ocharo-hq/ocharo-ws/workbench/ocharo-studio/engineering/codebase/ocharo-studio.backend-services/OcharoStudio.BackendServices.slnx|ocharo-hq/ocharo-ws/workbench/ocharo-studio/engineering/codebase/ocharo-studio.frontend-services"
-  "brand-workspace|ocharo-hq/ocharo-ws/workbench/ocharo-platform/engineering/codebase/brand-workspace.backend-services/BrandWorkspace.BackendServices.slnx|ocharo-hq/ocharo-ws/workbench/ocharo-platform/engineering/codebase/brand-workspace.frontend-services"
-  "ocharo-marketing|ocharo-hq/ocharo-ws/workbench/ocharo-marketing/engineering/codebase/ocharo-marketing.backend-services/OcharoMarketing.BackendServices.slnx|ocharo-hq/ocharo-ws/workbench/ocharo-marketing/engineering/codebase/ocharo-marketing.frontend-services"
-  "ocharo-catalogue|ocharo-hq/ocharo-ws/workbench/ocharo-platform/engineering/codebase/ocharo-catalogue.backend-services/OcharoCatalogue.BackendServices.slnx|ocharo-hq/ocharo-ws/workbench/ocharo-platform/engineering/codebase/ocharo-catalogue.frontend-services"
-  "ocharo-blog|ocharo-hq/ocharo-ws/workbench/ocharo-marketing/engineering/codebase/ocharo-blog.backend-services/OcharoBlog.BackendServices.slnx|ocharo-hq/ocharo-ws/workbench/ocharo-marketing/engineering/codebase/ocharo-blog.frontend-services"
-  "ocharo-brand|ocharo-hq/ocharo-ws/workbench/ocharo-platform/engineering/codebase/ocharo-brand.backend-services/OcharoBrand.BackendServices.slnx|ocharo-hq/ocharo-ws/workbench/ocharo-platform/engineering/codebase/ocharo-brand.frontend-services"
-  "pbn-studio|ventures/ventures.pbn-studio/engineering/codebase/pbn-studio.backend-services/PbnStudio.sln|ventures/ventures.pbn-studio/engineering/codebase/pbn-studio.frontend-services"
-  "ocharo-motion|ocharo-hq/ocharo-ws/workbench/ocharo-assets/engineering/codebase/ocharo-motion.backend-services/OcharoMotion.sln|ocharo-hq/ocharo-ws/workbench/ocharo-assets/engineering/codebase/ocharo-motion.frontend-services"
-  "retainer-balance|ventures/ventures.retainer-balance/engineering/codebase/retainer-balance.backend-services/RetainerBalance.slnx|ventures/ventures.retainer-balance/engineering/codebase/retainer-balance.frontend-services"
-  "documentation-checker|ventures/ventures.documentation-checker/engineering/codebase/documentation-checker.backend-services/DocumentationChecker.slnx|ventures/ventures.documentation-checker/engineering/codebase/documentation-checker.frontend-services"
-  "file-watch|ventures/ventures.file-watch/engineering/codebase/file-watch.backend-services/FileWatch.slnx|ventures/ventures.file-watch/engineering/codebase/file-watch.frontend-services"
-  "procedure-review|ventures/ventures.procedure-review/engineering/codebase/procedure-review.backend-services/ProcedureReview.slnx|ventures/ventures.procedure-review/engineering/codebase/procedure-review.frontend-services"
-  "training-seats|ventures/ventures.training-seats/engineering/codebase/training-seats.backend-services/TrainingSeats.slnx|ventures/ventures.training-seats/engineering/codebase/training-seats.frontend-services"
-  "epub-review|ventures/ventures.epub-review/engineering/codebase/epub-review.backend-services/EpubReview.slnx|ventures/ventures.epub-review/engineering/codebase/epub-review.frontend-services"
-  "customer-promises|ventures/ventures.customer-promises/engineering/codebase/customer-promises.backend-services/CustomerPromises.slnx|ventures/ventures.customer-promises/engineering/codebase/customer-promises.frontend-services"
-  "vendor-renewals|ventures/ventures.vendor-renewals/engineering/codebase/vendor-renewals.backend-services/VendorRenewals.slnx|ventures/ventures.vendor-renewals/engineering/codebase/vendor-renewals.frontend-services"
-  "config-checker|ventures/ventures.config-checker/engineering/codebase/config-checker.backend-services/ConfigChecker.slnx|ventures/ventures.config-checker/engineering/codebase/config-checker.frontend-services"
-  "podcast-readiness|ventures/ventures.podcast-readiness/engineering/codebase/podcast-readiness.backend-services/PodcastReadiness.slnx|ventures/ventures.podcast-readiness/engineering/codebase/podcast-readiness.frontend-services"
+  "sift|maxs-projects/ventures/sift/engineering/codebase/sift.backend-services/Sift.sln|maxs-projects/ventures/sift/engineering/codebase/sift.frontend-services"
+  "prism|-|maxs-projects/ventures/10x-ventures-prism/engineering/codebase/prism.frontend-services"
+  "arcade|maxs-projects/ventures/ventures.arcade/engineering/codebase/arcade.backend-services/Arcade.sln|maxs-projects/ventures/ventures.arcade/engineering/codebase/arcade.frontend-services"
+  "museums-gallery|maxs-projects/ventures/ventures.museums-gallery/engineering/codebase/museums-gallery.backend-services/MuseumsGallery.sln|maxs-projects/ventures/ventures.museums-gallery/engineering/codebase/museums-gallery.frontend-services"
+  "tnis|maxs-projects/ventures/ventures.tnis/engineering/codebase/tnis.backend-services/Tnis.BackendServices.slnx|maxs-projects/ventures/ventures.tnis/engineering/codebase/tnis.frontend-services"
+  "tnis-mintrans|maxs-projects/clients/mintrans/ventures.tnis-mintrans/engineering/codebase/tnis-mintrans.backend-services/TnisMintrans.sln|maxs-projects/clients/mintrans/ventures.tnis-mintrans/engineering/codebase/tnis-mintrans.frontend-services"
+  "listing-shelf|maxs-projects/ventures/ventures.listing-shelf/engineering/codebase/listing-shelf.backend-services/ListingShelf.BackendServices.slnx|maxs-projects/ventures/ventures.listing-shelf/engineering/codebase/listing-shelf.frontend-services"
+  "pose-coach|maxs-projects/ventures/ventures.pose-coach/engineering/codebase/pose-coach.backend-services/PoseCoach.BackendServices.slnx|maxs-projects/ventures/ventures.pose-coach/engineering/codebase/pose-coach.frontend-services"
+  "ocharo-studio|mfts-projects/ventures/ocharo-hq/ocharo-ws/workbench/ocharo-studio/engineering/codebase/ocharo-studio.backend-services/OcharoStudio.BackendServices.slnx|mfts-projects/ventures/ocharo-hq/ocharo-ws/workbench/ocharo-studio/engineering/codebase/ocharo-studio.frontend-services"
+  "brand-workspace|mfts-projects/ventures/ocharo-hq/ocharo-ws/workbench/ocharo-platform/engineering/codebase/brand-workspace.backend-services/BrandWorkspace.BackendServices.slnx|mfts-projects/ventures/ocharo-hq/ocharo-ws/workbench/ocharo-platform/engineering/codebase/brand-workspace.frontend-services"
+  "ocharo-marketing|mfts-projects/ventures/ocharo-hq/ocharo-ws/workbench/ocharo-marketing/engineering/codebase/ocharo-marketing.backend-services/OcharoMarketing.BackendServices.slnx|mfts-projects/ventures/ocharo-hq/ocharo-ws/workbench/ocharo-marketing/engineering/codebase/ocharo-marketing.frontend-services"
+  "ocharo-catalogue|mfts-projects/ventures/ocharo-hq/ocharo-ws/workbench/ocharo-platform/engineering/codebase/ocharo-catalogue.backend-services/OcharoCatalogue.BackendServices.slnx|mfts-projects/ventures/ocharo-hq/ocharo-ws/workbench/ocharo-platform/engineering/codebase/ocharo-catalogue.frontend-services"
+  "ocharo-blog|mfts-projects/ventures/ocharo-hq/ocharo-ws/workbench/ocharo-marketing/engineering/codebase/ocharo-blog.backend-services/OcharoBlog.BackendServices.slnx|mfts-projects/ventures/ocharo-hq/ocharo-ws/workbench/ocharo-marketing/engineering/codebase/ocharo-blog.frontend-services"
+  "ocharo-brand|mfts-projects/ventures/ocharo-hq/ocharo-ws/workbench/ocharo-platform/engineering/codebase/ocharo-brand.backend-services/OcharoBrand.BackendServices.slnx|mfts-projects/ventures/ocharo-hq/ocharo-ws/workbench/ocharo-platform/engineering/codebase/ocharo-brand.frontend-services"
+  "pbn-studio|maxs-projects/ventures/ventures.pbn-studio/engineering/codebase/pbn-studio.backend-services/PbnStudio.sln|maxs-projects/ventures/ventures.pbn-studio/engineering/codebase/pbn-studio.frontend-services"
+  "ocharo-motion|mfts-projects/ventures/ocharo-hq/ocharo-ws/workbench/ocharo-assets/engineering/codebase/ocharo-motion.backend-services/OcharoMotion.sln|mfts-projects/ventures/ocharo-hq/ocharo-ws/workbench/ocharo-assets/engineering/codebase/ocharo-motion.frontend-services"
+  "retainer-balance|maxs-projects/ventures/ventures.retainer-balance/engineering/codebase/retainer-balance.backend-services/RetainerBalance.slnx|maxs-projects/ventures/ventures.retainer-balance/engineering/codebase/retainer-balance.frontend-services"
+  "documentation-checker|maxs-projects/ventures/ventures.documentation-checker/engineering/codebase/documentation-checker.backend-services/DocumentationChecker.slnx|maxs-projects/ventures/ventures.documentation-checker/engineering/codebase/documentation-checker.frontend-services"
+  "file-watch|maxs-projects/ventures/ventures.file-watch/engineering/codebase/file-watch.backend-services/FileWatch.slnx|maxs-projects/ventures/ventures.file-watch/engineering/codebase/file-watch.frontend-services"
+  "procedure-review|maxs-projects/ventures/ventures.procedure-review/engineering/codebase/procedure-review.backend-services/ProcedureReview.slnx|maxs-projects/ventures/ventures.procedure-review/engineering/codebase/procedure-review.frontend-services"
+  "training-seats|maxs-projects/ventures/ventures.training-seats/engineering/codebase/training-seats.backend-services/TrainingSeats.slnx|maxs-projects/ventures/ventures.training-seats/engineering/codebase/training-seats.frontend-services"
+  "epub-review|maxs-projects/ventures/ventures.epub-review/engineering/codebase/epub-review.backend-services/EpubReview.slnx|maxs-projects/ventures/ventures.epub-review/engineering/codebase/epub-review.frontend-services"
+  "customer-promises|maxs-projects/ventures/ventures.customer-promises/engineering/codebase/customer-promises.backend-services/CustomerPromises.slnx|maxs-projects/ventures/ventures.customer-promises/engineering/codebase/customer-promises.frontend-services"
+  "vendor-renewals|maxs-projects/ventures/ventures.vendor-renewals/engineering/codebase/vendor-renewals.backend-services/VendorRenewals.slnx|maxs-projects/ventures/ventures.vendor-renewals/engineering/codebase/vendor-renewals.frontend-services"
+  "config-checker|maxs-projects/ventures/ventures.config-checker/engineering/codebase/config-checker.backend-services/ConfigChecker.slnx|maxs-projects/ventures/ventures.config-checker/engineering/codebase/config-checker.frontend-services"
+  "podcast-readiness|maxs-projects/ventures/ventures.podcast-readiness/engineering/codebase/podcast-readiness.backend-services/PodcastReadiness.slnx|maxs-projects/ventures/ventures.podcast-readiness/engineering/codebase/podcast-readiness.frontend-services"
   "med-text-fab|wow-two-apps/wow-two-apps.med-text-fab/engineering/codebase/med-text-fab.backend-services/MedTextFab.slnx|wow-two-apps/wow-two-apps.med-text-fab/engineering/codebase/med-text-fab.frontend-services"
   "home-atlas|wow-two-apps/wow-two-apps.home-atlas/engineering/codebase/home-atlas.backend-services/HomeAtlas.BackendServices.slnx|wow-two-apps/wow-two-apps.home-atlas/engineering/codebase/home-atlas.frontend-services"
-  "surface-pattern|ventures/ventures.surface-pattern/engineering/codebase/surface-pattern.backend-services/SurfacePattern.BackendServices.slnx|ventures/ventures.surface-pattern/engineering/codebase/surface-pattern.frontend-services"
+  "surface-pattern|maxs-projects/ventures/ventures.surface-pattern/engineering/codebase/surface-pattern.backend-services/SurfacePattern.BackendServices.slnx|maxs-projects/ventures/ventures.surface-pattern/engineering/codebase/surface-pattern.frontend-services"
   "wheelhouse-canary|wow-two-platform/wow-two-platform.wheelhouse-canary/engineering/codebase/wheelhouse-canary.backend-services/WheelhouseCanary.BackendServices.slnx|wow-two-platform/wow-two-platform.wheelhouse-canary/engineering/codebase/wheelhouse-canary.frontend-services"
 )
 
