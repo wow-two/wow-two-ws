@@ -1,6 +1,6 @@
 # Auth
 
-*Last updated: 2026-09-10*
+*Last updated: 2026-10-19*
 
 > The session state machine an app renders against, and the sign-in shapes that settle it.
 > Purpose — a page reads a status and a user; how the credential was obtained stays behind the strategy.
@@ -62,3 +62,22 @@
 - must cancel or invalidate an earlier resolve when sign-in/sign-out establishes a newer session generation.
 - must report a resolve transport failure without exposing credentials or treating it as an authorization decision.
 - must follow [domain lifetime](../domains.md#lifetime) for bridge ownership and replacement.
+
+---
+
+## Session expiry
+
+- must expire a signed-in session once — on its first current 401 or the auth module's own expiry signal.
+- must settle it anonymous, clear its credentials, invalidate its request scope and clear its private caches.
+- must resolve that session's in-flight and queued requests as cancelled, never as errors.
+- must capture the return URL at expiry, before a guard redirect replaces the location.
+- must route to sign-in once with that return URL, and restore it after sign-in.
+- must swallow a 401 while signed out; a 401 in an unsettled first resolve settles anonymous without an expiry.
+- must not turn a 401 into an error toast — a session's expiry is never an error stream.
+- may publish one neutral notice per expiry; never a danger tone.
+
+```txt
+✅ bridge.subscribeExpired(signInRedirect(router))      one redirect; returnTo carries the page
+✅ bridge.subscribeExpired(feedbackSessionExpiry())     one neutral notice
+❌ every query toasting its own 401                     an error stream instead of a sign-out
+```

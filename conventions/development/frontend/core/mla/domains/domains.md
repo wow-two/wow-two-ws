@@ -1,6 +1,6 @@
 # Domains
 
-*Last updated: 2026-10-18*
+*Last updated: 2026-10-19*
 
 > Capability contracts, provider adapters and their shared lifetime boundary.
 
@@ -36,7 +36,7 @@
 |---|---|
 | [analytics](analytics/analytics.md) | consent-gated product events |
 | [api](api/type-mapping.md) | wire values and typed codecs |
-| [auth](auth/auth.md) | session resolution and strategies |
+| [auth](auth/auth.md) | session resolution, strategies and expiry |
 | [config](config/config.md) | typed startup configuration |
 | [data](data/state-and-data.md) | request outcomes and server caches |
 | [feedback](feedback/feedback.md) | notice publication and rendering |

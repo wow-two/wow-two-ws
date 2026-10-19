@@ -1,6 +1,6 @@
 # State and data
 
-*Last updated: 2026-10-16*
+*Last updated: 2026-10-19*
 
 > Request outcomes, server caches and local state across frontend frameworks.
 
@@ -108,6 +108,7 @@ const { refresh, refreshing } = useRefresh(vitals.refetch);
 - must translate that rejection back into the public failure/lifecycle state at the adapter boundary.
 - must keep vendor errors and result containers out of the app contract.
 - must report page-load and API failures, including HTTP 500, through the app toast host using display-safe localized wording.
+- must exempt a 401 from that report → [session expiry](../auth/auth.md#session-expiry).
 - must not place request error messages, HTTP status text or raw backend bodies in ordinary page, grid or card content.
 - may render field validation beside its field and error records in a component whose actual purpose is displaying errors; neither exception permits a generic request failure banner.
 - must settle query failures through the [loading lifecycle](#loading); a failure must not leave skeletons running.
