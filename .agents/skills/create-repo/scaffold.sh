@@ -213,7 +213,10 @@ node_modules/
 *.db
 *.db-shm
 *.db-wal
+# appsettings.Local.json is this machine's own; appsettings.Target.json a target's, mounted at deploy
 **/appsettings.Local.json
+**/appsettings.Target.json
+**/appsettings.Machine.json
 .env
 
 # IDE / OS

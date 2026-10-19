@@ -13,8 +13,8 @@
 - must allocate the next free even port from [ports.md](../../../../../../../deployment/hosting/ports.md)
 - must not reuse a port across projects
 - must set `ASPNETCORE_ENVIRONMENT` to `Development`
-- must set `MACHINE_SETTINGS` to `true`, so the run reads `appsettings.Machine.json`
-  ([host configuration](host-configuration.md) § *Machine settings*)
+- must set `LOCAL_SETTINGS` to `true`, so the run reads `appsettings.Local.json`
+  ([host configuration](host-configuration.md) § *Settings files*)
 - must trust the dev cert once per machine — `dotnet dev-certs https --trust`
 - the Vite dev server proxies `/api` to the even (HTTPS) port with `secure: false`
   ([dev server](../../../../../../frontend/shapes/app/platform/dev-server.md))
@@ -30,7 +30,7 @@
       "dotnetRunMessages": true,
       "launchBrowser": false,
       "applicationUrl": "https://localhost:8220;http://localhost:8221",
-      "environmentVariables": { "ASPNETCORE_ENVIRONMENT": "Development", "MACHINE_SETTINGS": "true" }
+      "environmentVariables": { "ASPNETCORE_ENVIRONMENT": "Development", "LOCAL_SETTINGS": "true" }
     }
   }
 }

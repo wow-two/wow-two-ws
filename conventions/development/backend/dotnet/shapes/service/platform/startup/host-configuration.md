@@ -148,7 +148,7 @@ if (connection is not null)
 
 ---
 
-## Machine settings
+## Settings files
 
 Deployed dev runs as `Development`, so `Development` alone never means the developer's machine.
 
@@ -156,25 +156,21 @@ Deployed dev runs as `Development`, so `Development` alone never means the devel
 - must call a run local only in `Development` without `DEPLOY_ENVIRONMENT`.
 - must gate local-only conveniences on a local run, never on `IsDevelopment()` alone: an open allowlist, OpenAPI,
   log-delivered sign-in codes, relaxed rate limits, polling instead of webhooks.
-- must read `appsettings.Machine.json` only on a local run whose launch profile sets `MACHINE_SETTINGS=true`
+- must read the two optional settings files through the be sdk's `AddSettingsFiles`; `AddApiDefaults` calls it, so a
+  host calls it itself only when it reads settings earlier.
+- must load in this order: `appsettings.json`, `appsettings.{Environment}.json`, `appsettings.Target.json`,
+  `appsettings.Local.json`, user secrets and environment variables, then later sources such as the vault.
+- `appsettings.Target.json` is the deployed target's file, mounted by its release bundle (pipelines v0.7.0 or later).
+- must read `appsettings.Local.json` only on a local run whose launch profile sets `LOCAL_SETTINGS=true`
   ([launch profiles](launch-profiles.md)); tests and containers never set it.
-- must add it right after `appsettings.{Environment}.json`, optional, so user secrets, environment values and
-  every later source still win.
-- must document `MACHINE_SETTINGS` and `DEPLOY_ENVIRONMENT` as host-bootstrap inputs, not application aliases.
+- must document `LOCAL_SETTINGS` and `DEPLOY_ENVIRONMENT` as host-bootstrap inputs, not application aliases.
+- transition: a deployed host (`DEPLOY_ENVIRONMENT` set) without `appsettings.Target.json` reads a legacy
+  `appsettings.Local.json`, which bundles before pipelines v0.7.0 mount, and logs a warning; the be sdk drops this
+  fallback in a later release.
 
 ```csharp
-if (builder.Environment.IsDevelopment()
-    && string.IsNullOrWhiteSpace(builder.Configuration["DEPLOY_ENVIRONMENT"])
-    && bool.TryParse(builder.Configuration["MACHINE_SETTINGS"], out var machine) && machine)
-{
-    var sources = builder.Configuration.Sources;
-    var after = sources.ToList().FindLastIndex(source => source is JsonConfigurationSource { Path: var path }
-        && path == $"appsettings.{builder.Environment.EnvironmentName}.json");
-    sources.Insert(after + 1, new JsonConfigurationSource
-    {
-        Path = "appsettings.Machine.json", Optional = true, FileProvider = builder.Configuration.GetFileProvider(),
-    });
-}
+var builder = WebApplication.CreateBuilder(args);
+builder.AddSettingsFiles();   // idempotent; only when the host reads settings before AddApiDefaults
 ```
 
 ---

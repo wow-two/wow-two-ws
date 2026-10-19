@@ -8,4 +8,4 @@
 |---|---|
 | [single-host-serving.md](single-host-serving.md) | Backend serves the SPA from `wwwroot` — vite `outDir` + static-serve/fallback + `BuildSpa` MSBuild target + dev proxy + CORS posture |
 | [ports.md](ports.md) | Port ledger — allocated dev ports (check before picking one) |
-| [environment-files.md](environment-files.md) | Per-environment files — .NET `appsettings.{Development,Production}.json`, machine-local `appsettings.Machine.json` · others `{name}-{environment}.{ext}` |
+| [environment-files.md](environment-files.md) | Per-environment files — .NET `appsettings.{Development,Production}.json`, a target's mounted `appsettings.Target.json`, machine-local `appsettings.Local.json` · others `{name}-{environment}.{ext}` |

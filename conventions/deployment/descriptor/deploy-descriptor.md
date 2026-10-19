@@ -71,7 +71,7 @@ services:
     memory: 512m                      # default 512m
     stopGrace: 30s                    # default 30s
     settings:                         # the service's private settings file, filled per environment
-      file: /app/appsettings.Local.json   # default
+      file: /app/appsettings.Target.json  # default
       required: [DatabaseOptions:ConnectionString, AllowedHosts]
     volumes:
       keys: /data/keys                # named volume → mount path, scoped to the environment
@@ -103,7 +103,7 @@ services:
 | `services.<name>.port` | `8080` | The port the service listens on |
 | `services.<name>.health` | — | An HTTP path, or `{ command: [...] }` |
 | `services.<name>.memory` · `stopGrace` | `512m` · `30s` | Container memory limit and stop grace |
-| `services.<name>.settings` | none | `file` mount target and the `required` keys the runner checks before deploying |
+| `services.<name>.settings` | none | `file` mount target (default `/app/appsettings.Target.json`; `/app/appsettings.Local.json` before v0.7.0) and the `required` keys the runner checks before deploying |
 | `services.<name>.volumes` | `{}` | Named volume → absolute mount path |
 | `services.<name>.sites` | `{}` | Site name → `port`, `path` prefix, `exposure` (`public` \| `private`) |
 | `services.<name>.needs` | `[]` | Platform services consumed: `postgres`, `valkey`, `broker` |
@@ -205,13 +205,16 @@ version in which it last changed, so services version independently and an old v
 - must call the shared `publish.yml` workflow of `wow-two-platform.pipelines` from it, pinned to a tag.
 - must pin `v0.5.0` or later to declare `dotnetEnvironment` or `verify`, and `v0.6.0` or later to declare
   `dependsOn`; an older generator refuses each key.
+- must move to `v0.7.0` together with a be sdk that reads `appsettings.Target.json`: from `v0.7.0` the settings file
+  mounts there, not at `/app/appsettings.Local.json`
+  ([host configuration](../../development/backend/dotnet/shapes/service/platform/startup/host-configuration.md) § *Settings files*).
 - must trigger it on every push and on `workflow_dispatch` with a `commit` input.
 - must not copy the publish steps or the release generator into a product repo.
 
 ```yaml
 jobs:
   publish:
-    uses: wow-two-platform/wow-two-platform.pipelines/.github/workflows/publish.yml@v0.6.0
+    uses: wow-two-platform/wow-two-platform.pipelines/.github/workflows/publish.yml@v0.7.0
     with:
       commit: ${{ inputs.commit }}
 ```
