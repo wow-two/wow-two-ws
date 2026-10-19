@@ -210,7 +210,7 @@ Product UI standards, by need:
 | Icons — the one icon set, imports, sizes | [lucide](development/frontend/core/mla/domains/icons/lucide/lucide.md) |
 | Loading — which surface answers which wait | [feedback](development/frontend/core/mla/components/feedback/feedback.md#loading) |
 | Session expiry — sign out once, return URL, no error toasts | [auth](development/frontend/core/mla/domains/auth/auth.md#session-expiry) |
-| Explanation read once — legends, a control's reach; the info button and first-run intro | [guidance](development/frontend/core/mla/domains/guidance/guidance.md) |
+| Context behind a panel's info button — legends, gestures, a control's reach | [guidance](development/frontend/core/mla/domains/guidance/guidance.md) |
 | Colour mode, brand tokens, the stylesheet entry | [styling](development/frontend/shapes/app/platform/styling.md) |
 | Screens — device targets, screen classes, bottom bar, stacked tables, phone dialogs, list and detail, motion | [responsive](development/frontend/shapes/app/responsive/responsive.md) |
 
