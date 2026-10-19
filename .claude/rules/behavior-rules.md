@@ -19,3 +19,9 @@ Updating a library other repos depend on:
 
 - `wow-two-sdk` / `wow-two-sdk-beta` packages → consumed by apps + external users; a breaking change needs a major version bump.
 - `wow-two-platform` packages → internal only; can break more freely, but still coordinate consumer updates.
+
+## GitHub account
+
+A push refused with `sulton-ebsco` as gh's active account: check whether any ebsco / `eis-ws` session is running
+(list the local Claude sessions, or ask the owner). None running → `gh auth switch -u sulton-max` and retry. One
+running → ask the owner before switching, because the switch changes that session's account too.
