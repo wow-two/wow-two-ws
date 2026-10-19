@@ -93,7 +93,11 @@
           }
         },
         "needs": { "type": "array", "items": { "enum": ["postgres", "valkey", "broker"] } },
-        "capabilities": { "type": "array", "items": { "type": "string", "pattern": "^[A-Z][A-Z_]{1,31}$" } }
+        "capabilities": { "type": "array", "items": { "type": "string", "pattern": "^[A-Z][A-Z_]{1,31}$" } },
+        "dependsOn": {
+          "type": "array", "uniqueItems": true, "items": { "$ref": "#/$defs/slug" },
+          "description": "Services of this product the service starts after, once each is healthy; never itself, never a cycle. Platform services go under needs. Pipelines v0.6.0 or later."
+        }
       }
     }
   }

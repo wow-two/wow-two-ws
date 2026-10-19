@@ -32,6 +32,10 @@ Why a custom format → [rationale](deploy-descriptor-rationale.md).
 - should set `dotnetEnvironment: true` once every .NET service's `appsettings.Development.json` holds defaults only
   ([environment files](../hosting/environment-files.md) § *Settings*); the runner then runs dev as `Development`.
 - may declare a `verify` check; a product that auto-promotes should, so a release reaches prod only after it.
+- may declare `dependsOn` for a service that cannot start before another service of the product is healthy; a
+  platform service (postgres, valkey, broker) goes under `needs`, never `dependsOn`.
+- a service restarts only when its own image or settings change; a dependency's update never restarts it
+  ([rollouts](#rollouts)).
 
 ---
 
@@ -75,6 +79,7 @@ services:
   edge:
     build: { dockerfile: deployment/edge.Dockerfile, contexts: { deployment: deployment } }
     paths: [codebase/haven.frontend-services/**, deployment/edge/**]
+    dependsOn: [auth]                 # starts once auth is healthy; an auth update never restarts it
     port: 80
     health: { command: [wget, -q, -O-, http://localhost/healthz] }   # when the image has no curl
     capabilities: [NET_BIND_SERVICE]  # added back after the default drop of all capabilities
@@ -102,6 +107,7 @@ services:
 | `services.<name>.volumes` | `{}` | Named volume → absolute mount path |
 | `services.<name>.sites` | `{}` | Site name → `port`, `path` prefix, `exposure` (`public` \| `private`) |
 | `services.<name>.needs` | `[]` | Platform services consumed: `postgres`, `valkey`, `broker` |
+| `services.<name>.dependsOn` | `[]` | Services of this product it starts after, once each is healthy; no cycle |
 | `services.<name>.capabilities` | `[]` | Linux capabilities added back after `cap_drop: ALL` |
 
 - Two services may share a site name only with different path prefixes; the longer prefix wins.
@@ -109,6 +115,21 @@ services:
 - Each service answers on the platform network as `<product>-<environment>-<service>`; the ingress routes sites there.
 - Wheelhouse targets map site names to hostnames: prod names each one, dev follows a host pattern.
 - Every service receives `DEPLOY_ENVIRONMENT` (`dev` or `prod`) from the runner, declared or not.
+
+---
+
+## Rollouts
+
+How Wheelhouse applies a release to a target, service by service.
+
+- `dependsOn` renders as Compose `depends_on` with `condition: service_healthy`, never `restart: true`.
+- The runner compares each service with what the target runs: `added`, its `image`, its Compose `definition` (memory,
+  health check, mounts), or its `settings` (the settings file's contents, the environment the runner gives it or the
+  target's variables). A `dependsOn` change alone changes nothing.
+- Only changed services restart, each alone, in dependency waves: a wave starts once the waves it depends on are
+  healthy, and an unchanged service keeps running even when a dependency it uses restarts.
+- A failing service stops the rollout: later waves never start, and a release that declares `rollbackCompatible`
+  rolls back whole, so a target always runs exactly one release.
 
 ---
 
@@ -182,14 +203,15 @@ version in which it last changed, so services version independently and an old v
 
 - must keep `.github/workflows/publish-docker-image.yml` as the marker file Wheelhouse detects.
 - must call the shared `publish.yml` workflow of `wow-two-platform.pipelines` from it, pinned to a tag.
-- must pin `v0.5.0` or later to declare `dotnetEnvironment` or `verify`; an older generator refuses both keys.
+- must pin `v0.5.0` or later to declare `dotnetEnvironment` or `verify`, and `v0.6.0` or later to declare
+  `dependsOn`; an older generator refuses each key.
 - must trigger it on every push and on `workflow_dispatch` with a `commit` input.
 - must not copy the publish steps or the release generator into a product repo.
 
 ```yaml
 jobs:
   publish:
-    uses: wow-two-platform/wow-two-platform.pipelines/.github/workflows/publish.yml@v0.3.0
+    uses: wow-two-platform/wow-two-platform.pipelines/.github/workflows/publish.yml@v0.6.0
     with:
       commit: ${{ inputs.commit }}
 ```

@@ -267,7 +267,7 @@ Product UI standards, by need:
 | Single-host serving (product / venture) — SPA baked into the backend `wwwroot` (vite `outDir` + static-serve + `BuildSpa` target + dev proxy) · CORS posture | [deployment/hosting/single-host-serving.md](deployment/hosting/single-host-serving.md) |
 | Port ledger — allocated dev ports | [deployment/hosting/ports.md](deployment/hosting/ports.md) |
 | Environment files — .NET settings `appsettings.json` + `appsettings.{Development,Production}.json`, machine-local values in `appsettings.Machine.json`, overrides from environment variables or Secrets Vault · other files `{name}-{environment}.{ext}` (`console-dev.json`), each complete, no default | [deployment/hosting/environment-files.md](deployment/hosting/environment-files.md) |
-| Deployment descriptor — `engineering/deployment/deploy.yml`: services, per-service builds and change paths, sites (public ports), settings, needs · service versions · candidate builds · release flow: `main` only, dev then prod · CI shape · JSON Schema | [deployment/descriptor/deploy-descriptor.md](deployment/descriptor/deploy-descriptor.md) |
+| Deployment descriptor — `engineering/deployment/deploy.yml`: services, per-service builds and change paths, sites (public ports), settings, needs, `dependsOn` · rollouts: dependency order, restart only on own change · service versions · candidate builds · release flow: `main` only, dev then prod · CI shape · JSON Schema | [deployment/descriptor/deploy-descriptor.md](deployment/descriptor/deploy-descriptor.md) |
 
 ---
 
