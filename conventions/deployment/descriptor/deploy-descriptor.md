@@ -227,6 +227,7 @@ version in which it last changed, so services version independently and an old v
 - `Z` is the highest `vX.Y.*` tag plus one, so no version-bump commit lands in history; `Z` restarts at 0 on a new `X.Y`.
 - A `main` build releases only when a service or the descriptor changed; a docs-only push releases nothing.
 - A descriptor-only change releases a new bundle that reuses every image.
+- A base release whose source commit left the history (a rewrite) rebuilds every service; the notes warn about it.
 - `<n>` counts the branch's commits since it left `main`, so one commit always gets the same version.
 - `<branch>` is the branch name made tag-safe (`feat/login` → `feat-login`); a pre-release sorts below its release.
 - A service changed when a path in its `paths`, `shared` or its Dockerfile differs from the previous release's commit.
