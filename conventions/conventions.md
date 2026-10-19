@@ -137,7 +137,7 @@ Rules every product obeys, whatever the stack. A convention that touches one lin
 | **agentic-workflow** (below) | how parallel chats / agents share a repo — lanes · no-revert · scope containment | Active |
 | **marketing** (below) | how we name, brand & go to market — naming/domains · GTM · channels · SEO · content formats | Active |
 | **design** (below) | how we design — variant-driven exploration · per-app specs · UI copy · logo system | Active |
-| **deployment** (below) | how we ship & host — single-host serving · dev-port ledger · deployment descriptor, per-service builds and versions | Active |
+| **deployment** (below) | how we ship & host — single-host serving · dev-port ledger · domains · server lifecycle · deployment descriptor, per-service builds and versions | Active |
 | **security** (below) | how we keep secrets — what never enters a repo · where credentials live | Active |
 
 ---
@@ -267,6 +267,8 @@ Product UI standards, by need:
 | Single-host serving (product / venture) — SPA baked into the backend `wwwroot` (vite `outDir` + static-serve + `BuildSpa` target + dev proxy) · CORS posture | [deployment/hosting/single-host-serving.md](deployment/hosting/single-host-serving.md) |
 | Port ledger — allocated dev ports | [deployment/hosting/ports.md](deployment/hosting/ports.md) |
 | Environment files — .NET settings `appsettings.json` + `appsettings.{Development,Production}.json`, a target's mounted `appsettings.Target.json`, machine-local `appsettings.Local.json`, overrides from environment variables or Secrets Vault · other files `{name}-{environment}.{ext}` (`console-dev.json`), each complete, no default | [deployment/hosting/environment-files.md](deployment/hosting/environment-files.md) |
+| Domains — site hosts bound per environment in Wheelhouse · apex, `www`, product and dev hosts · Cloudflare proxy, DNS records Wheelhouse owns, tailnet-only SSH and control path | [deployment/hosting/domains.md](deployment/hosting/domains.md) |
+| Server lifecycle — a VPS from purchase to retirement · order, bootstrap kit, tailnet policy and tags, runner key, `platform` network, product databases and settings, registry token, backups, move, retire · points to Wheelhouse's VPS runbook | [deployment/servers/server-lifecycle.md](deployment/servers/server-lifecycle.md) |
 | Deployment descriptor — `engineering/deployment/deploy.yml`: services, per-service builds and change paths, sites (public ports), settings, needs, `dependsOn` · rollouts: dependency order, restart only on own change · service versions · candidate builds · release flow: `main` only, dev then prod · CI shape · JSON Schema | [deployment/descriptor/deploy-descriptor.md](deployment/descriptor/deploy-descriptor.md) |
 
 ---
