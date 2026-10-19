@@ -48,7 +48,7 @@ PROJECTS=(
   "be-sdk|wow-two-sdk-beta/wow-two-sdk-beta.be/engineering/codebase/wow-two-sdk-beta-be/src/WoW.Two.Sdk.Beta.Be.slnx|-"
   "fe-sdk|-|wow-two-sdk-beta/wow-two-sdk-beta.fe/engineering/codebase/wow-two-sdk-beta-fe"
   "sift|maxs-projects/ventures/saas/sift/engineering/codebase/sift.backend-services/Sift.sln|maxs-projects/ventures/saas/sift/engineering/codebase/sift.frontend-services"
-  "prism|-|maxs-projects/ventures/consumer/10x-ventures-prism/engineering/codebase/prism.frontend-services"
+  "prism|-|maxs-projects/ventures/saas/10x-ventures-prism/engineering/codebase/prism.frontend-services"
   "arcade|maxs-projects/ventures/consumer/ventures.arcade/engineering/codebase/arcade.backend-services/Arcade.sln|maxs-projects/ventures/consumer/ventures.arcade/engineering/codebase/arcade.frontend-services"
   "museums-gallery|maxs-projects/ventures/consumer/ventures.museums-gallery/engineering/codebase/museums-gallery.backend-services/MuseumsGallery.sln|maxs-projects/ventures/consumer/ventures.museums-gallery/engineering/codebase/museums-gallery.frontend-services"
   "tnis|maxs-projects/ventures/saas/ventures.tnis/engineering/codebase/tnis.backend-services/Tnis.BackendServices.slnx|maxs-projects/ventures/saas/ventures.tnis/engineering/codebase/tnis.frontend-services"

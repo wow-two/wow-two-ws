@@ -20,7 +20,7 @@
         "run",
         "dev",
         "--prefix",
-        "workbench/maxs-projects/ventures/consumer/10x-ventures-prism/engineering/codebase/prism.frontend-services"
+        "workbench/maxs-projects/ventures/saas/10x-ventures-prism/engineering/codebase/prism.frontend-services"
       ],
       "port": 5180
     },

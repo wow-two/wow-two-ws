@@ -45,13 +45,13 @@ GROUP_SAAS=(
   ventures.training-seats ventures.epub-review ventures.customer-promises ventures.vendor-renewals
   ventures.config-checker ventures.podcast-readiness
   trademark-watcher-poc acquisition-explorer-poc pdf-editor ventures.tnis
+  10x-ventures-prism prism-wt-c        # prism-wt-c: leftover worktree of prism
   first-ten.md                         # the index file of the ten pilots, linked to them as siblings
 )
 GROUP_CONSUMER=(
   ventures.hijinx ventures.fun-vault ventures.arcade
   whiteout 10x-venture-whiteout-presets
   ventures.pose-coach ventures.museums-gallery
-  10x-ventures-prism prism-wt-c        # prism-wt-c: leftover worktree of prism
 )
 GROUP_LABS=(
   ventures.city-vision ventures.home-renovation 10x-fin-nt
