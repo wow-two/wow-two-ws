@@ -275,13 +275,14 @@ version in which it last changed, so services version independently and an old v
   ([host configuration](../../development/backend/dotnet/shapes/service/platform/startup/host-configuration.md) § *Settings files*).
 - must pin `v0.8.0` or later to declare `descriptor: 2`; an older generator refuses it, and a Wheelhouse runner older
   than descriptor 2 refuses a schema 2 bundle.
+- should move the pin to each new pipelines tag; every workflow of a repo that names the generator names one tag.
 - must trigger it on every push and on `workflow_dispatch` with a `commit` input.
 - must not copy the publish steps or the release generator into a product repo.
 
 ```yaml
 jobs:
   publish:
-    uses: wow-two-platform/wow-two-platform.pipelines/.github/workflows/publish.yml@v0.8.0
+    uses: wow-two-platform/wow-two-platform.pipelines/.github/workflows/publish.yml@v0.8.1
     with:
       commit: ${{ inputs.commit }}
 ```

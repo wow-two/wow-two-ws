@@ -1,6 +1,6 @@
 # Product conformance
 
-*Last updated: 2026-10-16*
+*Last updated: 2026-10-19*
 
 > Every check a product / venture repo owes, each linked to the convention that owns the rule.
 > Purpose — one list to audit a repo against, so a gap sweep reads the same way for every product.
@@ -90,7 +90,11 @@
 | Check | Owner |
 |---|---|
 | `engineering/deployment/deploy.yml` describes every service | [deploy descriptor](../../../deployment/descriptor/deploy-descriptor.md) |
-| `publish-docker-image.yml` calls the shared workflow at a tag | [deploy descriptor](../../../deployment/descriptor/deploy-descriptor.md#ci-workflow) |
+| `deploy.yml` is `descriptor: 2` | [deploy descriptor](../../../deployment/descriptor/deploy-descriptor.md#rules) |
+| `publish-docker-image.yml` calls the shared workflow at the newest pipelines tag | [deploy descriptor](../../../deployment/descriptor/deploy-descriptor.md#ci-workflow) |
+| `dotnetEnvironment: true`, with `appsettings.Development.json` holding defaults only | [environment files](../../../deployment/hosting/environment-files.md#settings) |
+| a deployed settings file mounts as `appsettings.Target.json`; it and `Local.json` are git- and docker-ignored | [environment files](../../../deployment/hosting/environment-files.md#settings) |
+| a product that auto-promotes declares a `verify` check | [deploy descriptor](../../../deployment/descriptor/deploy-descriptor.md#rules) |
 | `ci.yml` builds and tests on every push | [repo structure](repo-structure.md#layout) |
 | the SPA builds into `apps/web/dist` and reaches `wwwroot/` through `BuildSpa` | [single-host serving](../../../deployment/hosting/single-host-serving.md) |
 | the host serves the SPA through the SDK's `SpaHosting`, not hand-wired static files | [single-host serving](../../../deployment/hosting/single-host-serving.md#backend-serving) |
