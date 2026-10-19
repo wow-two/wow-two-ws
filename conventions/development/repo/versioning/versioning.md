@@ -1,6 +1,6 @@
 # Versioning
 
-*Last updated: 2026-10-17*
+*Last updated: 2026-10-19*
 
 > Where a product's version is declared, how builds stamp it, and how running services and apps report it.
 > Purpose — one version answers "what is running" in the API, the UI, the database history and the image tag.
@@ -36,6 +36,9 @@
 
 - must release from `main` only: CI tags `vX.Y.Z` and names the changed images `X.Y.Z`
   ([deploy descriptor](../../../deployment/descriptor/deploy-descriptor.md) § *Builds and versions*).
+- must let every pushed code change to `main` take the next `Z` from CI; `Z` never tracks iterations, tasks or the
+  version doc's progress, so seeing a change in an environment means pushing it, nothing more.
+- must not plan, discuss or hand-pick a `Z`; a docs-only push releases nothing and keeps the current `Z`.
 - must version any other branch's build as a pre-release of the next patch (`X.Y.(Z+1)-<branch>.<n>`);
   environments never appear in a version.
 - must keep a service's last-changed version in a multi-service product
