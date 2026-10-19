@@ -20,10 +20,14 @@ Why a custom format → [rationale](deploy-descriptor-rationale.md).
   ([known endpoints](../../development/backend/dotnet/shapes/service/platform/responses/known-endpoints.md)
   § *Runtime config*).
 - a settings change is a commit, so it builds a new image; an operator setting changes only the target.
-- must list every setting a service needs under `settings.required`; the runner refuses a deploy missing one.
-  Wheelhouse derives some and asks for the rest on a first deploy ([settings at deploy](#settings-at-deploy)).
+- must list every setting a service needs under `settings.required`, or as `required` under `settings.keys`; the
+  runner refuses a deploy missing one. Wheelhouse derives some and asks for the rest on a first deploy
+  ([settings at deploy](#settings-at-deploy)).
+- should type its keys under `settings.keys` ([typed keys](#typed-keys)): Wheelhouse checks each value against its type
+  when the owner saves it, offers a choice's values, and keeps a `secret` in its vault.
 - should name a secret setting so its last part reads as one (`Key`, `Secret`, `Password`, `Token`,
-  `ConnectionString`): Wheelhouse then keeps its value in the vault, never in its settings store.
+  `ConnectionString`), or declare it `secret: true`: Wheelhouse then keeps its value in its vault, never in its settings
+  store, and refuses it as a plain setting unless the owner confirms.
 - must give every service a health check; the runner refuses a service without one.
 - must point a backend service's health check at the boot bundle's `/health`
   ([startup defaults](../../development/backend/dotnet/shapes/service/platform/startup/startup-defaults.md#health)).
@@ -83,6 +87,10 @@ services:
     settings:                         # the service's private settings file, filled per environment
       file: /app/appsettings.Target.json  # default
       required: [DatabaseOptions:ConnectionString, AllowedHosts]
+      keys:                           # typed keys (pipelines v0.10.0); a required one joins `required`
+        Billing:Mode: { type: choice, values: [test, live], default: test }
+        Stripe:ApiKey: { secret: true, required: true }
+        Jobs:Cleanup: { type: cron, default: "0 3 * * *" }
     volumes:
       keys: /data/keys                # named volume → mount path, scoped to the environment
     needs: [postgres]                 # postgres | valkey | broker
@@ -120,7 +128,7 @@ services:
 | `services.<name>.port` | `8080` | The port the service listens on |
 | `services.<name>.health` | — | An HTTP path, or `{ command: [...] }` |
 | `services.<name>.memory` · `stopGrace` | `512m` · `30s` | Container memory limit and stop grace |
-| `services.<name>.settings` | none | `file` mount target (default `/app/appsettings.Target.json`; `/app/appsettings.Local.json` before v0.7.0) and the `required` keys the runner checks before deploying |
+| `services.<name>.settings` | none | `file` mount target (default `/app/appsettings.Target.json`; `/app/appsettings.Local.json` before v0.7.0), the `required` keys the runner checks before deploying, and typed `keys` ([below](#typed-keys)) |
 | `services.<name>.volumes` | `{}` | Named volume → absolute mount path |
 | `services.<name>.sites.<site>.paths` | `[/]` | The path prefixes the service serves on that site |
 | `services.<name>.sites.<site>.port` | the service port | The container port the site reaches |
@@ -204,13 +212,34 @@ Wheelhouse renders each service's settings file at every deploy, in layers, the 
 | Layer | Holds |
 |---|---|
 | Host file | A file the target still names; the render keeps it as its bottom layer |
-| Wheelhouse | The environment's stored settings and its vault secrets |
+| Wheelhouse | The environment's stored settings and its built-in vault secrets |
 | Derived | `AllowedHosts` (the hosts of the sites the service serves, its platform name `<product>-<environment>-<service>`, `localhost`), `Sites:<site>:Url` (each published site's origin) and `Deployment:TrustedProxies` (the ingress's address) |
 | Database | A required connection key no other layer sets (`ConnectionStrings:<name>`, `<Section>:ConnectionString`), from the target's own database, for a service that `needs: [postgres]` |
 
 - A derived key may sit under `settings.required`; nobody fills it in.
 - Every other required key the first deploy asks for, and a deploy waits until each has a value.
 - A value goes to each service that requires its key; a key no service requires goes to every service.
+
+### Typed keys
+
+`settings.keys` maps each configuration path to its declaration; every field is optional (`Key: {}` or `Key:` is a
+plain text key).
+
+| Field | Default | Meaning |
+|---|---|---|
+| `type` | `text` | `text`, `number` (`42`, `-0.5`), `boolean` (`true`/`false`), `choice`, `url` (absolute http or https), `cron` (five fields, six with seconds first, or `@daily` and the like), `date`, `email` |
+| `required` | `false` | A deploy waits until a layer sets it; it joins `settings.required` |
+| `secret` | `false` | Its values live in Wheelhouse's vault, never its settings store |
+| `default` | none | An optional plain key's value when no layer sets one; checked against `type`; refused on a secret or a required key |
+| `values` | — | A `choice`'s values, 1–50; refused on other types |
+| `format` | `yyyy-MM-dd` | A `date`'s format: `yyyy`, `MM`, `dd`, `HH`, `mm`, `ss` and `- . / : T` or space; refused on other types |
+
+- must pin pipelines `v0.10.0` or later to declare `keys`; an older generator refuses it, and the bundle reaches a
+  Wheelhouse runner from v0.5 (`settings.<service>.types`), which an older runner refuses.
+- A descriptor without `keys` builds bundles byte for byte as before.
+- Owners may add keys of their own per product in Wheelhouse's console, typed the same way; a release's declaration
+  wins over one the owner added.
+- Wheelhouse checks a value against its type on every save, field by field; a deploy applies what is saved.
 
 ### Snapshots of file databases
 
@@ -306,6 +335,7 @@ version in which it last changed, so services version independently and an old v
   ([host configuration](../../development/backend/dotnet/shapes/service/platform/startup/host-configuration.md) § *Settings files*).
 - must pin `v0.8.0` or later to declare `descriptor: 2`; an older generator refuses it, and a Wheelhouse runner older
   than descriptor 2 refuses a schema 2 bundle.
+- must pin `v0.10.0` or later to type its settings under `settings.keys`; an older generator refuses the key.
 - should move the pin to each new pipelines tag; every workflow of a repo that names the generator names one tag.
 - must trigger it on every push except `renovate/**` branches, on pull requests, and on `workflow_dispatch` with a
   `commit` input.
