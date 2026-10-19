@@ -32,7 +32,7 @@ Verification: final `xcodebuild test` passed **114 tests across 18 suites**, inc
 
 The unsigned generic iPhone build also passed, compiling the physical live-analysis path without claiming device execution. The tested app is installed and launched on **iPhone 17e / iOS 27.0**, simulator `3594D30A-3C57-4CBD-AF2B-0741344E82D9`. [English](/tmp/pose-coach-live-review-2026-10-06.png) and [Arabic](/tmp/pose-coach-live-review-ar-2026-10-06.png) menu screenshots were independently inspected; Arabic shows translated RTL navigation and content. The app was restored to its ordinary English launch afterward. Interactive camera-layout review was unavailable while the Mac was locked; no complete manual photo or voice workflow is claimed.
 
-Source of current product and check results: [Pose Coach context](../../../workbench/ventures/ventures.pose-coach/product/context.md), [live coaching, localization, commands and review steps](../../../workbench/ventures/ventures.pose-coach/engineering/research/live-coaching-and-localization-2026-10-06.md), [earlier reliability and purchase foundation](../../../workbench/ventures/ventures.pose-coach/engineering/research/local-implementation-sweep-2026-10-06.md).
+Source of current product and check results: [Pose Coach context](../../../workbench/maxs-projects/ventures/consumer/ventures.pose-coach/product/context.md), [live coaching, localization, commands and review steps](../../../workbench/maxs-projects/ventures/consumer/ventures.pose-coach/engineering/research/live-coaching-and-localization-2026-10-06.md), [earlier reliability and purchase foundation](../../../workbench/maxs-projects/ventures/consumer/ventures.pose-coach/engineering/research/local-implementation-sweep-2026-10-06.md).
 
 ## Transcript Forge
 
@@ -48,7 +48,7 @@ Verification: **329 backend tests** passed — 167 unit, 46 PostgreSQL integrati
 
 Review runtime: [https://localhost:8232](https://localhost:8232), with the built UI served by the API. The health endpoint and UI returned HTTP 200 with normal TLS validation. Replacement managed session `83492` uses HTTP/1.1 over TLS for this macOS review run; prior session `40257` stopped cleanly. Migration 009 applied on startup. The final rebuilt queue bundle was independently fetched over trusted HTTPS and contained the updated acknowledgement messages. Existing PostgreSQL and installed tools are used; automatic tool downloads are disabled. No Groq key is configured, so live speech recognition is unavailable in this environment.
 
-Source of current product and check results: [Transcript Forge context](../../../workbench/ventures/10x-ventures-transcript-forge/product/context.md), [queue controls, commands and review steps](../../../workbench/ventures/10x-ventures-transcript-forge/engineering/planning/version-track/v0.8/queue-controls-review.md), [earlier reliability sweep](../../../workbench/ventures/10x-ventures-transcript-forge/engineering/planning/version-track/v0.8/local-reliability-review.md).
+Source of current product and check results: [Transcript Forge context](../../../workbench/maxs-projects/ventures/saas/10x-ventures-transcript-forge/product/context.md), [queue controls, commands and review steps](../../../workbench/maxs-projects/ventures/saas/10x-ventures-transcript-forge/engineering/planning/version-track/v0.8/queue-controls-review.md), [earlier reliability sweep](../../../workbench/maxs-projects/ventures/saas/10x-ventures-transcript-forge/engineering/planning/version-track/v0.8/local-reliability-review.md).
 
 ## Hijinx
 
@@ -66,7 +66,7 @@ After a final selector-width correction, the 17 globalization browser scenarios 
 
 Review runtime: [https://localhost:5186/host](https://localhost:5186/host), managed session `8102`. Final independent readiness verification returned HTTP 200 with normal TLS validation. Current globalization screenshots: [Arabic](/private/tmp/hijinx-global-review/ar-playing-phone.png), [Japanese](/private/tmp/hijinx-global-review/ja-playing-phone.png), [Hindi](/private/tmp/hijinx-global-review/hi-playing-phone.png), [German](/private/tmp/hijinx-global-review/de-playing-phone.png), [Arabic with English fallback](/private/tmp/hijinx-global-review/ar-english-fallback-phone.png). Native bundle registration includes all 15 supported interface locales.
 
-Source of current product and check results: [Hijinx context](../../../workbench/ventures/ventures.hijinx/product/context.md), [globalization coverage, commands and native limits](../../../workbench/ventures/ventures.hijinx/engineering/research/globalization-2026-10-06.md), [earlier host-workflow review](../../../workbench/ventures/ventures.hijinx/engineering/research/local-review-2026-10-06.md).
+Source of current product and check results: [Hijinx context](../../../workbench/maxs-projects/ventures/consumer/ventures.hijinx/product/context.md), [globalization coverage, commands and native limits](../../../workbench/maxs-projects/ventures/consumer/ventures.hijinx/engineering/research/globalization-2026-10-06.md), [earlier host-workflow review](../../../workbench/maxs-projects/ventures/consumer/ventures.hijinx/engineering/research/local-review-2026-10-06.md).
 
 ## Handoff boundaries
 

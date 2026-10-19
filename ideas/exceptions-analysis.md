@@ -10,7 +10,7 @@
 Citation roots, elided from every path below:
 
 - `SDK` = `workbench/wow-two-sdk-beta/wow-two-sdk.backend.beta/engineering/codebase/wow-two-back-beta-sdk/src/`
-- `QR` = `workbench/ventures/10x-venture-forever-pin/engineering/codebase/forever-pin.backend-services/`
+- `QR` = `workbench/maxs-projects/ventures/saas/10x-venture-forever-pin/engineering/codebase/forever-pin.backend-services/`
 
 ---
 

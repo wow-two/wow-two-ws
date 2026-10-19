@@ -36,8 +36,8 @@ org_to_folder() {
   echo "$1"
 }
 
-# Owner folders — ventures and client work outside the wow-two orgs.
-OWNER_FOLDERS="maxs-projects/ventures maxs-projects/clients mfts-projects/ventures"
+# Owner folders — ventures (in groups) and client work outside the wow-two orgs.
+OWNER_FOLDERS="maxs-projects/ventures/saas maxs-projects/ventures/consumer maxs-projects/ventures/labs maxs-projects/clients mfts-projects/ventures"
 
 # ── Parse args ──────────────────────────────────────────────────────────────
 

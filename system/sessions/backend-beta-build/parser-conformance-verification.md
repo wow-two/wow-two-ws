@@ -65,8 +65,8 @@ SDK declaration/import/example references were updated. No other SDK calls to th
 TranscriptForge is the only found external parser consumer. When that repo is repinned to the newly published SDK,
 add `using WoW.Two.Sdk.Backend.Beta.Media.Captions.Parsers;` to these consumer files:
 
-- `workbench/ventures/10x-ventures-transcript-forge/engineering/codebase/transcript-forge.backend-services/TranscriptForge.Infrastructure/Youtube/YtDlpCaptionFetcher.cs`
-- `workbench/ventures/10x-ventures-transcript-forge/engineering/codebase/transcript-forge.backend-services/tests/TranscriptForge.Tests/VttParserTests.cs`
+- `workbench/maxs-projects/ventures/saas/10x-ventures-transcript-forge/engineering/codebase/transcript-forge.backend-services/TranscriptForge.Infrastructure/Youtube/YtDlpCaptionFetcher.cs`
+- `workbench/maxs-projects/ventures/saas/10x-ventures-transcript-forge/engineering/codebase/transcript-forge.backend-services/tests/TranscriptForge.Tests/VttParserTests.cs`
 
 Its `TranscriptForge.Api/Configurations/HostConfiguration.cs` calls `AddVttCaptionParser`; that extension's namespace is unchanged.
 Consumer code remains against its existing published pin until release adoption; these unpublished namespaces were not inserted into that repo.

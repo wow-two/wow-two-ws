@@ -173,7 +173,7 @@ P1 → P2 → P3 are sequential. P5 ran first walk during P3 (2026-05-03); P4 ru
 **Trigger**: P3 ~80% complete.
 
 **Process**:
-1. Walk `workbench/ventures/10x-ven-haven/platform/src/frontend-services/packages/ui/src/components/`
+1. Walk `workbench/maxs-projects/ventures/saas/10x-ven-haven/platform/src/frontend-services/packages/ui/src/components/`
 2. List every component
 3. For each: equivalent in `@wow-two-beta/ui`? Yes / partial / missing
 4. Gaps → append to P3 target list, build them

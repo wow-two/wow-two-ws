@@ -46,7 +46,7 @@ If validation fails, report the template gap; do not report the copied legacy st
 |---|---|---|
 | **repo name** | on-disk + git repo name | `wow-two-platform.foo` |
 | **brand** | PascalCase .NET project/namespace prefix | `Foo` |
-| **org** | `workbench/{org}/` subfolder | `wow-two` · `wow-two-platform` · `maxs-projects/ventures` |
+| **org** | `workbench/{org}/` subfolder | `wow-two` · `wow-two-platform` · `maxs-projects/ventures/{saas\|consumer\|labs}` |
 | **mode** | `single` (default) vs `multi` service | `single` |
 | **net** | .NET major (TargetFramework `net{N}.0`) | `10` |
 

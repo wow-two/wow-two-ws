@@ -25,7 +25,7 @@
   planned v0.11, preserved 22 parked hero rows, and opened v0.10. The separate backend lane remains unchecked.
 - `132e14c` moved the app into `forever-pin.frontend-services/apps/web`, keeping root pnpm commands/IDE paths stable.
   All 134 source/test files moved byte-for-byte; dependency resolutions were unchanged. The app remains React.
-- `0d3eba0` records the [full frontend audit](../../../workbench/ventures/10x-venture-forever-pin/engineering/architecture/frontend-adoption.md),
+- `0d3eba0` records the [full frontend audit](../../../workbench/maxs-projects/ventures/saas/10x-venture-forever-pin/engineering/architecture/frontend-adoption.md),
   verification, and adoption position. Only the frontend workspace checkbox is complete; Vue/backend adoption remain open.
 - Verified ForeverPin typecheck, 4 unit tests, production build, frozen install, API BuildSpa target, 14 matching artifact
   hashes, Docker SPA stage, API HTML/assets, and real local guest/create/dashboard/edit/preview flows.

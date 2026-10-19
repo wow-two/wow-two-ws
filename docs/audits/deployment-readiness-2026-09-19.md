@@ -50,7 +50,7 @@ dotnet test engineering/codebase/wheelhouse.backend-services/Wheelhouse.BackendS
 Build warnings include cached NuGet vulnerability reports. A fresh restore/security review and clean-image build remain release gates;
 this audit did not assess each advisory's exploitability. Passing tests do not prove real GitHub OAuth, SSH deployment or restoration.
 
-Source: [ForeverPin verification](../../workbench/ventures/10x-venture-forever-pin/engineering/operations/verification.md).
+Source: [ForeverPin verification](../../workbench/maxs-projects/ventures/saas/10x-venture-forever-pin/engineering/operations/verification.md).
 
 ---
 
@@ -101,7 +101,7 @@ Keep the useful code; reconcile the planning and packaging against these finding
 | Redirect API | Resolve printed links; collect scan events | Same product database; scan queue is currently in memory |
 | PostgreSQL | Codes, content, accounts, billing and analytics | Backed-up database storage |
 
-Source: [deployment status](../../workbench/ventures/10x-venture-forever-pin/engineering/deployment/deployment.md).
+Source: [deployment status](../../workbench/maxs-projects/ventures/saas/10x-venture-forever-pin/engineering/deployment/deployment.md).
 
 ### Local packaging complete
 
@@ -127,11 +127,11 @@ Source: [deployment status](../../workbench/ventures/10x-venture-forever-pin/eng
   the flush worker has no explicit shutdown-drain path. Do not promise lossless analytics during restart.
 - Complete the separately tracked product release gates. Infrastructure readiness does not close unfinished `v0.9` behavior.
 
-Sources: [API project](../../workbench/ventures/10x-venture-forever-pin/engineering/codebase/forever-pin.backend-services/ForeverPin.Api/ForeverPin.Api.csproj),
-[redirect startup](../../workbench/ventures/10x-venture-forever-pin/engineering/codebase/forever-pin.backend-services/ForeverPin.Redirect.Api/Configurations/HostConfiguration.cs),
-[scan recorder](../../workbench/ventures/10x-venture-forever-pin/engineering/codebase/forever-pin.backend-services/ForeverPin.Redirect.Api/Infrastructure/Analytics/ChannelScanRecorder.cs),
-[flush worker](../../workbench/ventures/10x-venture-forever-pin/engineering/codebase/forever-pin.backend-services/ForeverPin.Redirect.Api/Infrastructure/Analytics/ScanFlushBackgroundService.cs),
-[product backlog](../../workbench/ventures/10x-venture-forever-pin/engineering/planning/backlog.md).
+Sources: [API project](../../workbench/maxs-projects/ventures/saas/10x-venture-forever-pin/engineering/codebase/forever-pin.backend-services/ForeverPin.Api/ForeverPin.Api.csproj),
+[redirect startup](../../workbench/maxs-projects/ventures/saas/10x-venture-forever-pin/engineering/codebase/forever-pin.backend-services/ForeverPin.Redirect.Api/Configurations/HostConfiguration.cs),
+[scan recorder](../../workbench/maxs-projects/ventures/saas/10x-venture-forever-pin/engineering/codebase/forever-pin.backend-services/ForeverPin.Redirect.Api/Infrastructure/Analytics/ChannelScanRecorder.cs),
+[flush worker](../../workbench/maxs-projects/ventures/saas/10x-venture-forever-pin/engineering/codebase/forever-pin.backend-services/ForeverPin.Redirect.Api/Infrastructure/Analytics/ScanFlushBackgroundService.cs),
+[product backlog](../../workbench/maxs-projects/ventures/saas/10x-venture-forever-pin/engineering/planning/backlog.md).
 
 ---
 
@@ -265,8 +265,8 @@ Dependencies declared by a template may be unused. Uncommitted edits mean the in
 Haven particularly needs a new deployment bundle: `ship-all.sh` still calls the old `BrowserExtractor` path,
 while the inspected service is `RenderedContentExtractor`. Existing service scripts push `latest`, replace containers
 over root SSH, and use host networking. Preserve data and disabled paid-job settings before any eventual restart.
-Source: [Haven shipping script](../../workbench/ventures/10x-ven-haven/platform/deployment/ship-all.sh),
-[Supply operations](../../workbench/ventures/10x-ven-haven/platform/src/backend-services/Haven.Channels.Supply/ops.sh).
+Source: [Haven shipping script](../../workbench/maxs-projects/ventures/saas/10x-ven-haven/platform/deployment/ship-all.sh),
+[Supply operations](../../workbench/maxs-projects/ventures/saas/10x-ven-haven/platform/src/backend-services/Haven.Channels.Supply/ops.sh).
 
 The product template has Docker/Compose scaffolding but uses `npm install` without a committed lockfile in its Docker recipe.
 It is not yet the reproducible release template to copy unchanged.

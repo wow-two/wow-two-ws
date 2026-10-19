@@ -4,9 +4,9 @@
 
 ## Completed scope
 
-The user authorized creating and implementing all ten products under `workbench/ventures`. All ten independent repositories now contain locally verified v0.1 applications: Vue 3 interfaces, .NET 10 APIs, SDK authentication, SQLite migrations, domain workflows, export artifacts and tests. This is local pilot completion, not production deployment or market validation.
+The user authorized creating and implementing all ten products under `workbench/maxs-projects/ventures/saas`. All ten independent repositories now contain locally verified v0.1 applications: Vue 3 interfaces, .NET 10 APIs, SDK authentication, SQLite migrations, domain workflows, export artifacts and tests. This is local pilot completion, not production deployment or market validation.
 
-Canonical handoff: [venture index](../../../workbench/ventures/first-ten.md). Evidence: [implementation verification](../../../ideas/startup-research-2026-09/first-ten/implementation-verification.md). Track: [implementation status](../../../ideas/startup-research-2026-09/first-ten/implementation-status.md). Earlier [research and prototype](../../../ideas/startup-research-2026-09/first-ten/first-ten.md) remain separate evidence.
+Canonical handoff: [venture index](../../../workbench/maxs-projects/ventures/saas/first-ten.md). Evidence: [implementation verification](../../../ideas/startup-research-2026-09/first-ten/implementation-verification.md). Track: [implementation status](../../../ideas/startup-research-2026-09/first-ten/implementation-status.md). Earlier [research and prototype](../../../ideas/startup-research-2026-09/first-ten/first-ten.md) remain separate evidence.
 
 The ten products are Retainer Balance, Documentation Checker, File Watch, Procedure Review, Training Seats, EPUB Review, Customer Promises, Vendor Renewals, Config Checker and Podcast Readiness. They are registered in `scripts/active.sh`; the port ledger reserves their non-conflicting API/frontend ports. Each has its own `.git`, `.slnx`, launch script and product documentation.
 

@@ -33,7 +33,7 @@ Usage counted by grepping the 11 SDK-consuming product backends for each symbol.
 | `workbench/wow-two-sdk-beta/wow-two-sdk-beta.be/` | the be sdk mono-lib | the real platform |
 | `workbench/wow-two-platform/` | 17 repos | 14 empty, 1 stub, 2 products |
 | `workbench/wow-two-sdk/` | 7 repos | 5 empty, 2 with code |
-| `workbench/ventures/` + wheelhouse + secrets-vault | 11 product backends | the consumers |
+| `workbench/maxs-projects/ventures/` + wheelhouse + secrets-vault | 11 product backends | the consumers |
 
 **Headline: the platform org is empty.** Every shared backend capability lives in the beta SDK mono-lib.
 
@@ -558,12 +558,12 @@ Four packages, split by tier.
 
 | Backend | Repo | Notes |
 |---|---|---|
-| forever-pin | `ventures/10x-venture-forever-pin` | the reference; 2 hosts, 4 test tiers |
+| forever-pin | `ventures/saas/10x-venture-forever-pin` | the reference; 2 hosts, 4 test tiers |
 | wheelhouse | `wow-two-platform.wheelhouse` | deploy control plane; 94 `.cs` |
 | secrets-vault | `wow-two-platform.secrets-vault` | densest app layer; 109 `.cs` |
-| transcript-forge | `ventures/10x-ventures-transcript-forge` | full 5-project split |
-| tnis | `ventures/ventures.tnis` | plus an ingestion CLI |
-| tbs | `ventures/track-2-transportbrain` | full 5-project split |
+| transcript-forge | `ventures/saas/10x-ventures-transcript-forge` | full 5-project split |
+| tnis | `ventures/saas/ventures.tnis` | plus an ingestion CLI |
+| tbs | `clients/mintrans/track-2-transportbrain` | full 5-project split |
 | sift · arcade · museums-gallery · tnis-mintrans | `ventures/…` | 3-project (Api / Application / Domain) |
 | sample | `wow-two-sdk-beta.product-template` | the scaffold template |
 

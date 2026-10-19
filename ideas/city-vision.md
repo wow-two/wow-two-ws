@@ -4,7 +4,7 @@
 
 > Pointer only. This idea outgrew a single spec file and became its own repo.
 
-**Repo:** `workbench/ventures/ventures.city-vision` (own git, gitignored from `wow-two-ws` like every
+**Repo:** `workbench/maxs-projects/ventures/labs/ventures.city-vision` (own git, gitignored from `wow-two-ws` like every
 other repo under `workbench/`).
 
 ## What it is

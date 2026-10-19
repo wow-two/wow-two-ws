@@ -3,7 +3,7 @@
 *Last updated: 2026-08-15*
 
 > **Scope:** Producing motion graphics (promo videos, looping page-header animations, social shorts, data-driven video variants) with **Remotion** — React that renders to MP4 / GIF / WebM. Covers the project shape, the animation primitives, theming for dark/light, transparent-background export, and the Claude-Code verify loop.
-> **Status:** Living document. Reference implementation: `workbench/ventures/10x-venture-forever-pin-promo` (ForeverPin promo + hero). Extract shared scaffolding into a template/repo once a 2nd product needs video.
+> **Status:** Living document. Reference implementation: `workbench/maxs-projects/ventures/saas/10x-venture-forever-pin-promo` (ForeverPin promo + hero). Extract shared scaffolding into a template/repo once a 2nd product needs video.
 
 ---
 
@@ -168,7 +168,7 @@ No `Math.random()` / `Date.now()` in scripts — they break determinism (and Rem
 
 ## Reference implementation — file map
 
-`workbench/ventures/10x-venture-forever-pin-promo/`
+`workbench/maxs-projects/ventures/saas/10x-venture-forever-pin-promo/`
 
 | Path | What |
 |---|---|

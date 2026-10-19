@@ -16,7 +16,7 @@
 #   scaffold.sh <repo-name> <Brand> <org> [single|multi]
 #     repo-name  e.g. wow-two-platform.foo   (the on-disk + git repo name)
 #     Brand      PascalCase  e.g. Foo        (.NET namespace/project prefix)
-#     org        wow-two | wow-two-platform | maxs-projects/ventures | …  (workbench subfolder)
+#     org        wow-two | wow-two-platform | maxs-projects/ventures/{saas|consumer|labs} | …  (workbench subfolder)
 #     mode       single (default) | multi    (informational — drives later product work, not the mechanics)
 #
 # Env:
@@ -37,7 +37,10 @@ ACTIVE="$WS_DIR/scripts/active.sh"
 # ---- args ----
 REPO_NAME="${1:?repo-name required (e.g. wow-two-platform.foo)}"
 BRAND="${2:?Brand required (PascalCase, e.g. Foo)}"
-ORG="${3:?org required (wow-two | wow-two-platform | maxs-projects/ventures | …)}"
+ORG="${3:?org required (wow-two | wow-two-platform | maxs-projects/ventures/<saas, consumer or labs> | …)}"
+case "${ORG%/}" in
+  maxs-projects/ventures) echo "org must name a venture group: maxs-projects/ventures/{saas|consumer|labs}" >&2; exit 2 ;;
+esac
 MODE="${4:-single}"
 NET_VERSION="${NET_VERSION:-10}"
 

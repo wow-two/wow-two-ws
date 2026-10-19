@@ -80,7 +80,7 @@ The following fenced examples are documentation, not consent:
 ```
 
 ```text
-~git_off push workbench/ventures/10x-venture-forever-pin
+~git_off push workbench/maxs-projects/ventures/saas/10x-venture-forever-pin
 ```
 
 ```text

@@ -1098,7 +1098,7 @@ These are assessed candidates, not 100 approved businesses. Scores prioritize ex
 <a id="e032"></a>
 ## E032 — Photo-to-Paint Kit Studio
 
-**Origin:** existing repository workbench/ventures/ventures.pbn-studio; client-side v0.1 source exists, browser/print acceptance unverified  |  **Disposition:** reserve  |  **Score:** 71/100 (rank 20)
+**Origin:** existing repository workbench/maxs-projects/ventures/saas/ventures.pbn-studio; client-side v0.1 source exists, browser/print acceptance unverified  |  **Disposition:** reserve  |  **Score:** 71/100 (rank 20)
 
 **User and first value.** Hobby painters making personal photo-based numbered painting kits. Convert one photo into a numbered template, palette and printable page.
 
@@ -1203,7 +1203,7 @@ These are assessed candidates, not 100 approved businesses. Scores prioritize ex
 <a id="e035"></a>
 ## E035 — Knitwear Pattern Grading
 
-**Origin:** existing idea HD-D1 in workbench/ventures/10x-ventures/ideation-products.md:579; no implementation verified  |  **Disposition:** defer  |  **Score:** 63/100 (rank 59)
+**Origin:** existing idea HD-D1 in workbench/maxs-projects/ventures/10x-ventures/ideation-products.md:579; no implementation verified  |  **Disposition:** defer  |  **Score:** 63/100 (rank 59)
 
 **User and first value.** Independent knitwear designers grading an original garment design across sizes. Turn a measured swatch and a simple garment specification into internally balanced row/stitch instructions.
 

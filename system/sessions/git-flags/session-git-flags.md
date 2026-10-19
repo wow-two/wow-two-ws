@@ -46,8 +46,8 @@ Read first in wow-two-ws: `.claude/hooks/guard-git.py`, `.codex/hooks/commit_per
 
 Every point below is decided; report each finding in one line and ask only when a fact contradicts a decision.
 
-6. Product repository docs: `ventures/10x-ven-haven/CLAUDE.md` ("never push, amend or rewrite history"),
-   `ventures/ventures.tnis/CLAUDE.md` and `ocharo-ws/workbench/ventures.ocharo-studio/CLAUDE.md` restate the old git
+6. Product repository docs: `ventures/saas/10x-ven-haven/CLAUDE.md` ("never push, amend or rewrite history"),
+   `ventures/saas/ventures.tnis/CLAUDE.md` and `ocharo-ws/workbench/ventures.ocharo-studio/CLAUDE.md` restate the old git
    rules. Replace each with a pointer to the workspace rule, and grep every product repository for other copies.
 7. Migration: move each `<git-dir>/codex-<kind>-permission.json` record into the store (history → commit, gh → push,
    drop the inert `config` records), then delete the old files. Find them with

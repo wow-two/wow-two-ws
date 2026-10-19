@@ -37,7 +37,7 @@
 
 - The user requested a new ForeverPin logo using the shared construction and export conventions.
 - ForeverPin retains its independent consumer identity, violet palette and Geist wordmark; no WoW2 endorsement.
-- [Rounded identity exploration](../../../workbench/ventures/10x-venture-forever-pin/product/brand/exploration/rounded-identity/exploration.md)
+- [Rounded identity exploration](../../../workbench/maxs-projects/ventures/saas/10x-venture-forever-pin/product/brand/exploration/rounded-identity/exploration.md)
   owns three generated directions and the approved selection.
 - The user selected Routed QR for iteration; Finder F and Linked Finders remain exploration history.
 - Three originals, two comparison sheets, licensed Geist font, prompts and a portable renderer are saved.
@@ -47,9 +47,9 @@
 - Recommendation: retain three QR finder eyes plus the routing corner; no extra pin, infinity, arrow or dot.
 - The user approved using the original Routed QR artwork with spacing matched to the conventions.
 - Original gaps already satisfy the `1/24 ±10%` baseline; production export preserves them and the solid contours.
-- [Gap study](../../../workbench/ventures/10x-venture-forever-pin/product/brand/exploration/rounded-identity/refinement-01/refinement.md)
+- [Gap study](../../../workbench/maxs-projects/ventures/saas/10x-venture-forever-pin/product/brand/exploration/rounded-identity/refinement-01/refinement.md)
   is retained as unused exploration; it does not feed the approved family.
-- [ForeverPin brand guide](../../../workbench/ventures/10x-venture-forever-pin/product/brand/brand.md)
+- [ForeverPin brand guide](../../../workbench/maxs-projects/ventures/saas/10x-venture-forever-pin/product/brand/brand.md)
   owns the approved family, local app integration and verification state.
 - Final family: 24 exports, 34 reproducible files and 23 synchronized current/application artwork copies.
 - App verification: formatting, lint and build pass; 35 unit and 29 browser tests pass, one browser case skipped.

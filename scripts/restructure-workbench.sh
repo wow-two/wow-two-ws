@@ -1,14 +1,14 @@
 #!/usr/bin/env bash
 #
 # restructure-workbench.sh — move workbench/ into the owner-folder layout (one-time, idempotent).
-#   wow-two-*/ stay · own ventures → maxs-projects/ventures/ · work for others → maxs-projects/clients/{client}/
+#   wow-two-*/ stay · own ventures → maxs-projects/ventures/{saas,consumer,labs}/ · work for others → maxs-projects/clients/{client}/
 #   ocharo-hq/ → mfts-projects/ventures/ocharo-hq/ · labs/, apps/, projects/ and ventures/ retire.
 # Layout: conventions/development/repo/layout/workbench-layout.md
 #
-# Moves with `mv` only and never overwrites: while any step's source and target both exist, the run
-# refuses before anything moves. A step already done (source gone, target present) is skipped, so a
-# re-run is safe. A retired folder goes with `rmdir` only once empty; a lone .DS_Store and the
-# commit-less meme-world stub in apps/ go to ~/.Trash (recoverable). Nothing is deleted.
+# Moves with `mv` only and never overwrites: while any step's source and target both exist, or a child of
+# ventures/ has no group, the run refuses before anything moves. A step already done (source gone, target
+# present) is skipped, so a re-run is safe. A retired folder goes with `rmdir` only once empty; a lone
+# .DS_Store and the commit-less meme-world stub in apps/ go to ~/.Trash (recoverable). Nothing is deleted.
 #
 # Usage:
 #   scripts/restructure-workbench.sh                  dry run (default): print the plan, move nothing
@@ -36,23 +36,50 @@ for arg in "$@"; do
   esac
 done
 
-# source|target, relative to workbench/; the first match wins, so these precede the sweep.
+# Venture groups, by who pays (layout convention § Venture groups): every child of ventures/ is named once.
+VENTURES_TO="maxs-projects/ventures"
+GROUP_SAAS=(
+  10x-venture-forever-pin 10x-venture-forever-pin-promo 10x-ven-haven ventures.listing-shelf
+  10x-ventures-transcript-forge sift ventures.surface-pattern ventures.pbn-studio
+  ventures.retainer-balance ventures.documentation-checker ventures.file-watch ventures.procedure-review
+  ventures.training-seats ventures.epub-review ventures.customer-promises ventures.vendor-renewals
+  ventures.config-checker ventures.podcast-readiness
+  trademark-watcher-poc acquisition-explorer-poc pdf-editor ventures.tnis
+  first-ten.md                         # the index file of the ten pilots, linked to them as siblings
+)
+GROUP_CONSUMER=(
+  ventures.hijinx ventures.fun-vault ventures.arcade
+  whiteout 10x-venture-whiteout-presets
+  ventures.pose-coach ventures.museums-gallery
+  10x-ventures-prism prism-wt-c        # prism-wt-c: leftover worktree of prism
+)
+GROUP_LABS=(
+  ventures.city-vision ventures.home-renovation 10x-fin-nt
+  your-pocket-doctor                   # third-party clone, not a venture; the hub lists it for removal
+)
+
+# source|target, relative to workbench/. Clients and the hub first, then the groups, then labs/ and the rest.
 MOVES=(
   "ventures/ventures.tnis-mintrans|maxs-projects/clients/mintrans/ventures.tnis-mintrans"
   "ventures/track-2-transportbrain|maxs-projects/clients/mintrans/track-2-transportbrain"
   "ventures/tbs.demo|maxs-projects/clients/mintrans/tbs.demo"
+  "ventures/10x-ventures|$VENTURES_TO/10x-ventures"
+)
+for name in "${GROUP_SAAS[@]}";     do MOVES+=("ventures/$name|$VENTURES_TO/saas/$name"); done
+for name in "${GROUP_CONSUMER[@]}"; do MOVES+=("ventures/$name|$VENTURES_TO/consumer/$name"); done
+for name in "${GROUP_LABS[@]}";     do MOVES+=("ventures/$name|$VENTURES_TO/labs/$name"); done
+MOVES+=(
+  "labs/airfryer-3d|$VENTURES_TO/labs/airfryer-3d"
+  "labs/labs.home-reno|$VENTURES_TO/labs/labs.home-reno"
   "projects/nasiya-finance|maxs-projects/clients/nasiya-finance"
-  "labs/airfryer-3d|maxs-projects/ventures/airfryer-3d"
-  "labs/labs.home-reno|maxs-projects/ventures/labs.home-reno"
   "wom-two-ws|maxs-projects/wom-two-ws"
   "ocharo-hq|mfts-projects/ventures/ocharo-hq"
 )
-SWEEP_FROM="ventures"                  # every other child of ventures/ moves here
-SWEEP_TO="maxs-projects/ventures"
+GROUPED_FROM="ventures"                # a child of ventures/ named in no list above is refused, not guessed
 STUB="apps/wow-two-apps.meme-world"    # commit-less stub; the repository lives in wow-two-apps/
 STUB_REPO="wow-two-apps/wow-two-apps.meme-world"
 RETIRE="ventures labs apps projects"
-SKELETON="maxs-projects/ventures maxs-projects/clients mfts-projects/ventures"
+SKELETON="maxs-projects/ventures/saas maxs-projects/ventures/consumer maxs-projects/ventures/labs maxs-projects/clients mfts-projects/ventures"
 
 exists() { [ -e "$1" ] || [ -L "$1" ]; }
 
@@ -65,7 +92,6 @@ map_path() {  # old path under workbench/ → new path, or fail when it does not
       "$src"/*) echo "$dst/${rel#"$src"/}"; return 0 ;;
     esac
   done
-  case "$rel" in "$SWEEP_FROM"/*) echo "$SWEEP_TO/${rel#"$SWEEP_FROM"/}"; return 0 ;; esac
   return 1
 }
 
@@ -96,14 +122,15 @@ to_trash() {  # $1 = path under workbench/; prints where it went, fails without 
 # ── Plan ─────────────────────────────────────────────────────────────────────
 
 PLAN=("${MOVES[@]}")
-if [ -d "$WB/$SWEEP_FROM" ]; then
-  for path in "$WB/$SWEEP_FROM"/* "$WB/$SWEEP_FROM"/.[!.]*; do
+ungrouped=""                           # newline-separated children of ventures/ that no list names
+if [ -d "$WB/$GROUPED_FROM" ]; then
+  for path in "$WB/$GROUPED_FROM"/* "$WB/$GROUPED_FROM"/.[!.]*; do
     exists "$path" || continue
     name="${path##*/}"
     [ "$name" = ".DS_Store" ] && continue
-    explicit=0
-    for step in "${MOVES[@]}"; do [ "${step%%|*}" = "$SWEEP_FROM/$name" ] && explicit=1; done
-    [ "$explicit" = 1 ] || PLAN+=("$SWEEP_FROM/$name|$SWEEP_TO/$name")
+    listed=0
+    for step in "${MOVES[@]}"; do [ "${step%%|*}" = "$GROUPED_FROM/$name" ] && listed=1; done
+    [ "$listed" = 1 ] || ungrouped="$ungrouped$GROUPED_FROM/$name"$'\n'
   done
 fi
 
@@ -126,6 +153,10 @@ for step in "${PLAN[@]}"; do
     echo "  missing $src (skipped)"; missing=$((missing + 1))
   fi
 done
+while IFS= read -r path; do
+  [ -n "$path" ] || continue
+  echo "  REFUSE  $path (no group: add it to a GROUP_ list)"; conflicts=$((conflicts + 1))
+done <<< "$ungrouped"
 echo "  → $todo to move · $done_ done · $missing missing · $conflicts refused"
 
 echo ""
@@ -165,7 +196,7 @@ fi
 
 if [ "$conflicts" -gt 0 ]; then
   echo ""
-  echo "Refused: $conflicts target(s) already exist. Merge or rename them by hand, then re-run." >&2
+  echo "Refused: $conflicts step(s) have an existing target or no group. Merge, rename or group them by hand, then re-run." >&2
   exit 1
 fi
 

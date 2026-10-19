@@ -68,9 +68,9 @@ speaking rehearsal, art learning and local activity discovery. Their disposition
 
 ### 1. Arcade: the next existing-product experiment
 
-The [current backlog](../../workbench/ventures/ventures.arcade/engineering/planning/backlog.md) and
-[game catalog](../../workbench/ventures/ventures.arcade/engineering/codebase/arcade.frontend-services/apps/web/src/domain/games/GameCatalog.ts)
-contain fifteen implemented games. The [version track](../../workbench/ventures/ventures.arcade/engineering/planning/version-track/v0.1/v0.1.md)
+The [current backlog](../../workbench/maxs-projects/ventures/consumer/ventures.arcade/engineering/planning/backlog.md) and
+[game catalog](../../workbench/maxs-projects/ventures/consumer/ventures.arcade/engineering/codebase/arcade.frontend-services/apps/web/src/domain/games/GameCatalog.ts)
+contain fifteen implemented games. The [version track](../../workbench/maxs-projects/ventures/consumer/ventures.arcade/engineering/planning/version-track/v0.1/v0.1.md)
 still has verification work open. Those are implementation observations, not a live-product acceptance result.
 
 - Lead with one distinctive daily challenge, not a fifteen-game launcher.
@@ -79,7 +79,7 @@ still has verification work open. Those are implementation observations, not a l
 - Use personal improvement and asynchronous challenges to distinguish it from Hijinx's hosted social play.
 - Hot Take, Decoy and other pass-the-phone games overlap Hijinx; expanding that branch adds little portfolio breadth.
 
-The [current product definition](../../workbench/ventures/ventures.arcade/product/product.md) permits cosmetic
+The [current product definition](../../workbench/maxs-projects/ventures/consumer/ventures.arcade/product/product.md) permits cosmetic
 Telegram Stars purchases. Those are one-time receipts. A daily-puzzle membership with additional original
 challenges and archives is a **proposal** to assess, not a silent replacement of the existing policy.
 
@@ -93,7 +93,7 @@ that returning cohort. Do not count cosmetics or a paid pack as subscription ret
 
 ### 2. Formula Drill Gym: the cleanest new build
 
-The existing [P037 idea](../../workbench/ventures/10x-ventures/product-ideas.md) already describes browser
+The existing [P037 idea](../../workbench/maxs-projects/ventures/10x-ventures/product-ideas.md) already describes browser
 spreadsheet challenges, grading and spaced practice. The first version should own its small datasets and
 supported formula subset. Customer spreadsheets, employer integrations and enterprise administration are
 unnecessary for this experience. Deterministic tasks do not require an LLM.
@@ -116,7 +116,7 @@ session, then solves a new variant rather than merely remembering the supplied a
 
 ### 3. Kids Curiosity: the strongest broader consumer alternative
 
-The user-seeded [P140 concept](../../workbench/ventures/10x-ventures/product-ideas.md) connects a child's
+The user-seeded [P140 concept](../../workbench/maxs-projects/ventures/10x-ventures/product-ideas.md) connects a child's
 question with a short chapter and understanding check. Start with a bounded, reviewed collection and
 parent-led use. Unrestricted live generation, voice pipelines and teacher dashboards are unnecessary to
 test whether the experience earns another visit.
@@ -141,7 +141,7 @@ general-purpose child chatbot or a large content catalog.
 |---|---|
 | Next Set, existing I04 | Strong recurrence and deterministic core. Start with reviewed program rules and manual logging. [Fitbod](https://fitbod.me/faqs/) already offers personalized workout plans, so “tells you the next workout” is not novel. No camera diagnosis or wearables are needed for the proposed initial scope. |
 | Hifz revision, existing P057 | Daily individual revision fits well. A guided recall schedule is cheaper than live recitation recognition. [Tarteel](https://tarteel.ai/en/pricing) already sells planning/progress and mistake detection; teacher dashboards would reintroduce coordination. |
-| PBN Studio, existing implementation | Immediate creative output with on-device processing. Current [context](../../workbench/ventures/ventures.pbn-studio/product/context.md) says browser verification and pricing remain open. Its [backlog](../../workbench/ventures/ventures.pbn-studio/engineering/planning/backlog.md) records thin-region and outline-quality problems. Better fit for per-project sales until repeated seller usage is demonstrated. |
+| PBN Studio, existing implementation | Immediate creative output with on-device processing. Current [context](../../workbench/maxs-projects/ventures/saas/ventures.pbn-studio/product/context.md) says browser verification and pricing remain open. Its [backlog](../../workbench/maxs-projects/ventures/saas/ventures.pbn-studio/engineering/planning/backlog.md) records thin-region and outline-quality problems. Better fit for per-project sales until repeated seller usage is demonstrated. |
 | Drawing practice, new adjacent proposal | Draw → compare proportions/perspective → retry without guidance. Strong visual demonstration and enjoyable progress. [ShadowDraw](https://www.shadowdrawapp.com/faq) already combines free daily entry, artist-authored lessons and subscription access. Original teaching material and actual skill transfer are the hard work. |
 | Speaking rehearsal, new adjacent proposal | Prompt → record → inspect pacing/pauses → retry. Basic local analysis is bounded; useful semantic/accent feedback adds processing and calibration. [Speeko](https://www.speeko.co/subscriptions) already sells exercises and feedback. Reserve until the coaching advantage is specific. |
 | Chess repertoire, existing P121 | Natural practice loop, but the documented advantage uses imported games to find deviations. Removing those inputs weakens differentiation; importing them raises activation burden. Start with an optional file only if revisited. |

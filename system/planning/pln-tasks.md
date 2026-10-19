@@ -18,10 +18,10 @@ Categories: `sdk` · `plt` · `app` · `ven` · `con` · `ws`
 
 | Position | Product | Task | Outcome |
 |---|---|---|---|
-| 1 — current | [ForeverPin](../../workbench/maxs-projects/ventures/10x-venture-forever-pin/) | `ven-t-006` | Complete a reliable release and verify the paid subscription path |
-| 2 — local changes ready for review | [Pose Coach](../../workbench/maxs-projects/ventures/ventures.pose-coach/) | `ven-t-009` | Validate the photo-director experience and deliver a paid release |
-| 3 — local changes ready for review | [Transcript Forge](../../workbench/maxs-projects/ventures/10x-ventures-transcript-forge/) | `ven-t-010` | Deliver a paid transcript workflow for repeat users |
-| 4 — local changes ready for review | [Hijinx](../../workbench/maxs-projects/ventures/ventures.hijinx/) | `ven-t-011` | Validate repeat host use and deliver a paid release |
+| 1 — current | [ForeverPin](../../workbench/maxs-projects/ventures/saas/10x-venture-forever-pin/) | `ven-t-006` | Complete a reliable release and verify the paid subscription path |
+| 2 — local changes ready for review | [Pose Coach](../../workbench/maxs-projects/ventures/consumer/ventures.pose-coach/) | `ven-t-009` | Validate the photo-director experience and deliver a paid release |
+| 3 — local changes ready for review | [Transcript Forge](../../workbench/maxs-projects/ventures/saas/10x-ventures-transcript-forge/) | `ven-t-010` | Deliver a paid transcript workflow for repeat users |
+| 4 — local changes ready for review | [Hijinx](../../workbench/maxs-projects/ventures/consumer/ventures.hijinx/) | `ven-t-011` | Validate repeat host use and deliver a paid release |
 | 5 — selected, definition pending | Kids Curiosity | `ven-t-013` | Deliver a guided question-to-discovery experience with repeat family use and a tested paid boundary |
 
 This is the execution order for venture product work, including consumer and entertainment products, ordered to reach subscription revenue (MRR) sooner. The [subscription-speed assessment](../../ideas/saas-research-2026-10/subscription-speed.md) holds each product's remaining path and what blocks charging. Continue the current product until its release outcome is complete or the user explicitly parks it; the next queued product becomes current. Each repository's `engineering/planning/` owns its implementation breakdown and release evidence. Explicit user targets are recorded in the task deadlines below.
@@ -35,8 +35,8 @@ acceptance passed on iOS and Android.
 This target is not a paid-launch guarantee: realtime acceptance, payment acceptance, native distribution and
 repeat-user validation remain explicit release gates. Repository backlogs and active version tracks own the work.
 Both products share browser scenarios across phone, tablet and desktop layouts; `pnpm verify:release` repeats
-their local quality checks. [Hijinx verification](../../workbench/maxs-projects/ventures/ventures.hijinx/engineering/research/release-readiness-2026-10.md#verification)
-and [Transcript Forge verification](../../workbench/maxs-projects/ventures/10x-ventures-transcript-forge/engineering/research/release-readiness-2026-10.md#verification)
+their local quality checks. [Hijinx verification](../../workbench/maxs-projects/ventures/consumer/ventures.hijinx/engineering/research/release-readiness-2026-10.md#verification)
+and [Transcript Forge verification](../../workbench/maxs-projects/ventures/saas/10x-ventures-transcript-forge/engineering/research/release-readiness-2026-10.md#verification)
 separate automated coverage from remaining device, provider and release acceptance.
 
 The [October 5 B2B research](../../ideas/saas-research-2026-10/decision-report.md) remains an options catalog; its research ranking does not replace this order. On `2026-10-09`, the user selected Kids Curiosity. The [rebuilt self-serve 100-candidate assessment](../../ideas/self-serve-research-2026-10/self-serve-research-2026-10.md) confirms that the previous catalog's multi-role business-workflow requirement excluded the preferred product shape. Kids Curiosity is the next selected additional product. Existing platform-app and SDK work remains in its own track, with concrete dependencies resolved when they block the current product.
@@ -51,7 +51,7 @@ The [October 5 B2B research](../../ideas/saas-research-2026-10/decision-report.m
 | 4 — selected, implementation active | Surface-Pattern Studio (`E031`) | Regular makers prefer and pay for repeated collection production over existing tools |
 | 5 — recommended | Hifz Revision Companion (`E003`) | Trusted self-assessed revision remains useful through missed days and earns payment |
 
-**Surface Pattern implementation, authorized `2026-10-10`:** `ven-t-014` owns the new [venture](../../workbench/maxs-projects/ventures/ventures.surface-pattern/). Its first increment is a guided repeat studio, physical-scale surface previews, browser collections and SVG/PNG exports. This is additional local implementation; existing release chats retain their ownership. Paid demand, personal-artwork workflow and physical print acceptance remain unverified.
+**Surface Pattern implementation, authorized `2026-10-10`:** `ven-t-014` owns the new [venture](../../workbench/maxs-projects/ventures/saas/ventures.surface-pattern/). Its first increment is a guided repeat studio, physical-scale surface previews, browser collections and SVG/PNG exports. This is additional local implementation; existing release chats retain their ownership. Paid demand, personal-artwork workflow and physical print acceptance remain unverified.
 
 The [five-product analysis](../../ideas/self-serve-research-2026-10/self-serve-research-2026-10.md#five-research-priorities) records competitors, content/compute burdens and stop rules. Guided Drawing is the nearest reserve; Arcade's current cosmetic transactions, finite courses and packs contribute no assumed subscription MRR.
 
@@ -92,7 +92,7 @@ The [five-product analysis](../../ideas/self-serve-research-2026-10/self-serve-r
 | `ven-t-012` | Set up the parent company for Stripe and app-store sales | `-` | `high` | `todo` | `-` | Added `2026-10-08`: Stripe does not onboard Uzbekistan sellers, so ForeverPin's live billing needs a Stripe-supported entity; the user wants one parent company to serve every later product. [Structure analysis](../../ideas/parent-company-2026-10/parent-company-2026-10.md). Gates live billing under `ven-t-006` |
 | `ven-t-013` | Define and deliver Kids Curiosity as a self-serve learning product | `-` | `high` | `todo` | `-` | Selected by the user `2026-10-09`; predict → explore a reviewed investigation → explain. Start one coherent question cluster; qualified content review, family repeat use and a tested paid boundary precede release. No repository or implementation is created by the research task. [Selection and gates](../../ideas/self-serve-research-2026-10/self-serve-research-2026-10.md#kids-curiosity-selected-with-an-editorial-gate) |
 
-| `ven-t-014` | Build and validate Surface Pattern as a maker venture | `-` | `high` | `wip` | `ventures.surface-pattern` | Selected `2026-10-10`; WOW2 Vue/.NET studio with deterministic repeats, surface previews and print exports. Local implementation and verification in [v0.1](../../workbench/maxs-projects/ventures/ventures.surface-pattern/engineering/planning/version-track/v0.1/v0.1.md); recurring demand and physical print acceptance remain open. |
+| `ven-t-014` | Build and validate Surface Pattern as a maker venture | `-` | `high` | `wip` | `ventures.surface-pattern` | Selected `2026-10-10`; WOW2 Vue/.NET studio with deterministic repeats, surface previews and print exports. Local implementation and verification in [v0.1](../../workbench/maxs-projects/ventures/saas/ventures.surface-pattern/engineering/planning/version-track/v0.1/v0.1.md); recurring demand and physical print acceptance remain open. |
 
 ---
 
@@ -176,8 +176,8 @@ Not tasks — where a promoted capability gets broken down.
 | Source | Holds |
 |---|---|
 | `workbench/{org}/{repo}/engineering/planning/` | that repo's backlog and version track (`conventions/planning/version-track/version-track.md`) |
-| `workbench/ventures/ventures.tnis-mintrans/engineering/planning/backlog.md` | `TNIS` follow-up breakdown (the former follow-up roadmap) |
-| `workbench/ventures/ventures.tnis-mintrans/` | the Mintrans deliverable — demo + integration |
+| `workbench/maxs-projects/clients/mintrans/ventures.tnis-mintrans/engineering/planning/backlog.md` | `TNIS` follow-up breakdown (the former follow-up roadmap) |
+| `workbench/maxs-projects/clients/mintrans/ventures.tnis-mintrans/` | the Mintrans deliverable — demo + integration |
 | `workbench/wow-two/wow-two.refinement` | live ecosystem state + roadmap |
 
 ---

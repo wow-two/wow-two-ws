@@ -16,7 +16,7 @@ were not changed. The application migration has not started.
 
 - Product checkout: `341d0a92296b73035797ac59f2e9dedadc79bcc0`, plus existing routing/deployment changes.
 - The index is empty. Eight tracked files are modified; four files are untracked. These belong to existing work.
-- [v0.9](../../../workbench/ventures/10x-venture-forever-pin/engineering/planning/version-track/v0.9/v0.9.md)
+- [v0.9](../../../workbench/maxs-projects/ventures/saas/10x-venture-forever-pin/engineering/planning/version-track/v0.9/v0.9.md)
   has 22 checked and 41 unchecked rows, including five manual verification rows. Counts describe the plan,
   not independently verified capabilities or remaining implementation estimates.
 - The frontend still uses React 19 and `@wow-two-beta/ui@0.0.97`.
@@ -96,7 +96,7 @@ that all ten content types work end to end in both modes.
 ## Correctness that must stay visible
 
 These are not all represented by the current version's checkboxes. Keep the existing
-[gap analysis](../../../workbench/ventures/10x-venture-forever-pin/engineering/research/gap-analysis-2026-09-19.md)
+[gap analysis](../../../workbench/maxs-projects/ventures/saas/10x-venture-forever-pin/engineering/research/gap-analysis-2026-09-19.md)
 as their source, and carry the relevant acceptance criteria into adoption.
 
 | Area | Current mechanism | Required boundary |

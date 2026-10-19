@@ -373,7 +373,7 @@ Aligned with [GWDNBM principle](../../../../../.claude/projects/-Users-max-Proje
 
 ## Section 15: Status & Next Steps
 
-**Status:** `building` (portfolio #002). Backend POC scaffolded **2026-06-03** at `workbench/ventures/10x-venture-forever-pin/` — full Haven-style Clean Arch (6 projects + tests, 98 files), builds clean, **8 unit tests green** (QR/barcode generation + routing engine). Chose **POC-first** over the shared template repo (validate the crowded-market wedge before sinking time into shared infra).
+**Status:** `building` (portfolio #002). Backend POC scaffolded **2026-06-03** at `workbench/maxs-projects/ventures/saas/10x-venture-forever-pin/` — full Haven-style Clean Arch (6 projects + tests, 98 files), builds clean, **8 unit tests green** (QR/barcode generation + routing engine). Chose **POC-first** over the shared template repo (validate the crowded-market wedge before sinking time into shared infra).
 
 ### Done (POC, 2026-06-03)
 

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# ventures.sh — open / list venture projects under workbench/maxs-projects/ventures/
+# ventures.sh — open / list venture projects under workbench/maxs-projects/ventures/{saas,consumer,labs}/
 #
 # Per-venture manifest: <venture-root>/.venture.sh declares
 #   TAGS=(micro-saas backend poc ...)
@@ -10,8 +10,9 @@
 #
 # Usage:
 #   ventures.sh list                                # tabular overview
-#   ventures.sh open <name|tag|all>                 # open in Rider/WebStorm
+#   ventures.sh open <name|group|tag|all>           # open in Rider/WebStorm
 #   ventures.sh open trademark-watcher-poc          # one venture
+#   ventures.sh open saas                           # every venture in the saas group
 #   ventures.sh open micro-saas                     # all tagged micro-saas
 #   ventures.sh open all                            # everything
 
@@ -20,6 +21,7 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 WS_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
 VENTURES_DIR="$WS_DIR/workbench/maxs-projects/ventures"
+VENTURE_GROUPS=(saas consumer labs)   # layout convention § Venture groups; the hub sits beside them
 
 JB_SCRIPTS="$HOME/Library/Application Support/JetBrains/Toolbox/scripts"
 RIDER="$JB_SCRIPTS/rider"
@@ -28,16 +30,20 @@ WEBSTORM="$JB_SCRIPTS/webstorm"
 # ---------- helpers ----------
 
 discover_ventures() {
-    # Print one venture folder name per line, sorted.
-    find "$VENTURES_DIR" -mindepth 1 -maxdepth 1 -type d \
-        -not -name '.*' \
-        -exec basename {} \; | sort
+    # Print one "group/name" per line, sorted by name.
+    local g
+    for g in "${VENTURE_GROUPS[@]}"; do
+        [[ -d "$VENTURES_DIR/$g" ]] || continue
+        find "$VENTURES_DIR/$g" -mindepth 1 -maxdepth 1 -type d \
+            -not -name '.*' \
+            -exec basename {} \; | sed "s|^|$g/|"
+    done | sort -t/ -k2
 }
 
 # Reset + load a venture's manifest into module-scope arrays.
 # Sets: TAGS, RIDER_TARGETS, WEBSTORM_TARGETS (all bash arrays).
 load_manifest() {
-    local name="$1"
+    local name="$1"    # group/name
     local dir="$VENTURES_DIR/$name"
 
     TAGS=()
@@ -88,7 +94,7 @@ array_len() {
 # ---------- commands ----------
 
 cmd_list() {
-    printf "%-28s  %-3s  %-3s  %-40s  %s\n" "VENTURE" "BE" "FE" "TAGS" "TARGETS"
+    printf "%-28s  %-8s  %-3s  %-3s  %-40s  %s\n" "VENTURE" "GROUP" "BE" "FE" "TAGS" "TARGETS"
     printf -- "------------------------------------------------------------------------------------------------------------------\n"
     local name be fe tags_str targets
     while IFS= read -r name; do
@@ -97,22 +103,28 @@ cmd_list() {
         fe=$(array_len WEBSTORM_TARGETS)
         tags_str="${TAGS[*]:-}"
         targets="${RIDER_TARGETS[*]:-} ${WEBSTORM_TARGETS[*]:-}"
-        printf "%-28s  %-3s  %-3s  %-40s  %s\n" "$name" "$be" "$fe" "$tags_str" "$targets"
+        printf "%-28s  %-8s  %-3s  %-3s  %-40s  %s\n" "${name#*/}" "${name%%/*}" "$be" "$fe" "$tags_str" "$targets"
     done < <(discover_ventures)
 }
 
-# Resolve a target (name | tag | "all") to a list of venture names.
+# Resolve a target (name | group | tag | "all") to a list of "group/name" venture paths.
 resolve_target() {
     local target="$1"
     local matches=()
+    local n
 
     if [[ "$target" == "all" ]]; then
         while IFS= read -r n; do matches+=("$n"); done < <(discover_ventures)
-    elif [[ -d "$VENTURES_DIR/$target" ]]; then
-        matches=("$target")
+    elif contains "$target" "${VENTURE_GROUPS[@]}"; then
+        while IFS= read -r n; do
+            [[ "${n%%/*}" == "$target" ]] && matches+=("$n")
+        done < <(discover_ventures)
+    elif [[ -n "$(discover_ventures | awk -F/ -v t="$target" '$2 == t')" ]]; then
+        while IFS= read -r n; do
+            [[ "${n#*/}" == "$target" ]] && matches+=("$n")
+        done < <(discover_ventures)
     else
         # Treat as tag — collect every venture whose manifest contains it.
-        local n
         while IFS= read -r n; do
             load_manifest "$n" 2>/dev/null
             if [[ $(array_len TAGS) -gt 0 ]] && contains "$target" "${TAGS[@]}"; then
@@ -127,7 +139,7 @@ resolve_target() {
 cmd_open() {
     local target="${1:-}"
     if [[ -z "$target" ]]; then
-        echo "usage: ventures.sh open <name|tag|all>" >&2
+        echo "usage: ventures.sh open <name|group|tag|all>" >&2
         exit 1
     fi
 
@@ -177,16 +189,17 @@ cmd_open() {
 
 cmd_help() {
     cat <<'EOF'
-ventures.sh — manage venture projects under workbench/maxs-projects/ventures/
+ventures.sh — manage venture projects under workbench/maxs-projects/ventures/{saas,consumer,labs}/
 
 Commands:
-  list                     Tabular overview of all ventures (parts + tags)
-  open <name|tag|all>      Open in Rider (backends) + WebStorm (frontends)
+  list                     Tabular overview of all ventures (group + parts + tags)
+  open <name|group|tag|all>  Open in Rider (backends) + WebStorm (frontends)
   help                     This message
 
 Examples:
   ventures.sh list
   ventures.sh open trademark-watcher-poc
+  ventures.sh open saas
   ventures.sh open micro-saas
   ventures.sh open all
 

@@ -39,8 +39,8 @@ It already assigns four products to release work:
 | Transcript Forge | Also owned by `w2 - hijinx` | Local Release 1 precedes hosted customer isolation, quotas and billing |
 
 Transcript Forge ownership was checked in the current chat history, not inferred from its absence in
-the user's three-product exclusion. Its [release assessment](../../workbench/ventures/10x-ventures-transcript-forge/engineering/research/release-readiness-2026-10.md)
-and [product context](../../workbench/ventures/10x-ventures-transcript-forge/product/context.md) separate
+the user's three-product exclusion. Its [release assessment](../../workbench/maxs-projects/ventures/saas/10x-ventures-transcript-forge/engineering/research/release-readiness-2026-10.md)
+and [product context](../../workbench/maxs-projects/ventures/saas/10x-ventures-transcript-forge/product/context.md) separate
 local workflow reliability from the unvalidated repeat-publisher subscription.
 
 The October 31 target applies to the existing Transcript Forge/Hijinx lane. It is not a deadline or
@@ -111,10 +111,10 @@ incumbent configuration already solves the costly part. Do not assume approvals 
 
 ### 3. Retainer Balance
 
-The [current product](../../workbench/ventures/ventures.retainer-balance/product/product.md) implements
+The [current product](../../workbench/maxs-projects/ventures/saas/ventures.retainer-balance/product/product.md) implements
 CSV time import, allowance reconciliation, recorded external approval evidence and frozen statements.
 It is an authenticated personal workspace. It has no verified client consent, team membership or billing.
-The [backlog](../../workbench/ventures/ventures.retainer-balance/engineering/planning/backlog.md) still
+The [backlog](../../workbench/maxs-projects/ventures/saas/ventures.retainer-balance/engineering/planning/backlog.md) still
 lists published dependency pins, hosting/restore acceptance, account recovery and commercial launch gates.
 
 **Why third:** a monthly money-related workflow is more naturally recurring than a one-off generator,
@@ -135,18 +135,18 @@ merely to make the prototype look complete.
 | Product or group | Disposition | Reason |
 |---|---|---|
 | S094 — Receivables/disputes | Conditional reserve | Strong recurring pain; finance-buyer access could promote it, but correctness, integrations and collection-service expectations add scope |
-| [File Watch](../../workbench/ventures/ventures.file-watch/product/product.md) | Existing-pilot reserve | Repeated delivery accountability is plausible; buyer adoption and notification/operational readiness remain open |
-| [Documentation Checker](../../workbench/ventures/ventures.documentation-checker/engineering/research/research.md) | Existing-pilot reserve | Engineering access may help; current checker breadth and paid differentiation need evidence |
-| [Training Seats](../../workbench/ventures/ventures.training-seats/product/product.md) | Buyer-access reserve | Promote only with a reachable course/training provider and repeated cohort administration |
-| [ListingShelf](../../workbench/ventures/ventures.listing-shelf/product/product.md) | Hold for MRR priority | Personal listing-research use is established; recurring commercial buyer and paid boundary are not |
-| [Prism](../../workbench/ventures/10x-ventures-prism/product/context.md) / Whiteout | Hold for MRR priority | Current engineering scope is substantial; a near-term recurring commercial path is not established |
-| [Whiteout Presets](../../workbench/ventures/10x-venture-whiteout-presets/README.md) | Support asset | Companion game assets are not a separate validated subscription business |
-| [Craft generators](../../workbench/ventures/10x-ventures/ideation/runs/2026-09-26-thirty-day-revenue/pool-speed.md) | Revalidate before promotion | July rankings are stale; later research challenged free substitutes, distribution and physical-kit demand |
+| [File Watch](../../workbench/maxs-projects/ventures/saas/ventures.file-watch/product/product.md) | Existing-pilot reserve | Repeated delivery accountability is plausible; buyer adoption and notification/operational readiness remain open |
+| [Documentation Checker](../../workbench/maxs-projects/ventures/saas/ventures.documentation-checker/engineering/research/research.md) | Existing-pilot reserve | Engineering access may help; current checker breadth and paid differentiation need evidence |
+| [Training Seats](../../workbench/maxs-projects/ventures/saas/ventures.training-seats/product/product.md) | Buyer-access reserve | Promote only with a reachable course/training provider and repeated cohort administration |
+| [ListingShelf](../../workbench/maxs-projects/ventures/saas/ventures.listing-shelf/product/product.md) | Hold for MRR priority | Personal listing-research use is established; recurring commercial buyer and paid boundary are not |
+| [Prism](../../workbench/maxs-projects/ventures/consumer/10x-ventures-prism/product/context.md) / Whiteout | Hold for MRR priority | Current engineering scope is substantial; a near-term recurring commercial path is not established |
+| [Whiteout Presets](../../workbench/maxs-projects/ventures/consumer/10x-venture-whiteout-presets/README.md) | Support asset | Companion game assets are not a separate validated subscription business |
+| [Craft generators](../../workbench/maxs-projects/ventures/10x-ventures/ideation/runs/2026-09-26-thirty-day-revenue/pool-speed.md) | Revalidate before promotion | July rankings are stale; later research challenged free substitutes, distribution and physical-kit demand |
 | Haven | Preserve explicit gate | User placed it after stable $2K venture MRR |
 | TNIS / Mintrans | Preserve existing deferral | Existing roadmap defers them behind the current release priorities |
 
-The July [portfolio registry](../../workbench/ventures/10x-ventures/README.md) and
-[judged pipeline](../../workbench/ventures/10x-ventures/products-final.md) are historical context, not
+The July [portfolio registry](../../workbench/maxs-projects/ventures/10x-ventures/README.md) and
+[judged pipeline](../../workbench/maxs-projects/ventures/10x-ventures/products-final.md) are historical context, not
 reliable current release states. The [October decision report](decision-report.md) and current repository
 contexts supersede their technical-readiness claims. This assessment revisits the relevant shortlist and
 existing products; it does not claim a fresh 100-product market study.

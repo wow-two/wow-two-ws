@@ -3276,7 +3276,7 @@
   },
   {
     "family": "creative",
-    "origin": "existing repository workbench/ventures/ventures.pbn-studio; client-side v0.1 source exists, browser/print acceptance unverified",
+    "origin": "existing repository workbench/maxs-projects/ventures/saas/ventures.pbn-studio; client-side v0.1 source exists, browser/print acceptance unverified",
     "confidence": "low; competitor evidence only",
     "id": "E032",
     "name": "Photo-to-Paint Kit Studio",
@@ -3587,7 +3587,7 @@
   },
   {
     "family": "creative",
-    "origin": "existing idea HD-D1 in workbench/ventures/10x-ventures/ideation-products.md:579; no implementation verified",
+    "origin": "existing idea HD-D1 in workbench/maxs-projects/ventures/10x-ventures/ideation-products.md:579; no implementation verified",
     "confidence": "low; competitor evidence only",
     "id": "E035",
     "name": "Knitwear Pattern Grading",

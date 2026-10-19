@@ -2,7 +2,7 @@
 
 Updated: 2026-09-29
 
-The user authorized creating the ten products under `workbench/ventures` and implementing all ten. This supersedes the earlier prototype-only scope. The deliverable is a usable authenticated local v0.1 for each product, with durable domain state, server-side rules, typed Vue integration and verified workflows. External payment, email and production hosting integrations remain launch work.
+The user authorized creating the ten products under `workbench/maxs-projects/ventures/saas` and implementing all ten. This supersedes the earlier prototype-only scope. The deliverable is a usable authenticated local v0.1 for each product, with durable domain state, server-side rules, typed Vue integration and verified workflows. External payment, email and production hosting integrations remain launch work.
 
 ## Repository map
 
@@ -42,4 +42,4 @@ SDK versions must match tested package contents. Installed local SDK packages ma
 
 ## Local delivery
 
-[Open the venture app index](../../../workbench/ventures/first-ten.md) for repository links and startup commands. [Verification](implementation-verification.md) records actual tests, browser workflows, export artifacts and launch limitations. All ten are implemented local v0.1 pilots; no paid or production launch is claimed.
+[Open the venture app index](../../../workbench/maxs-projects/ventures/saas/first-ten.md) for repository links and startup commands. [Verification](implementation-verification.md) records actual tests, browser workflows, export artifacts and launch limitations. All ten are implemented local v0.1 pilots; no paid or production launch is claimed.

@@ -2,7 +2,7 @@
 
 Verified: 2026-09-29
 
-This record covers the ten new repositories under `workbench/ventures`. Earlier prototype verification is separate and does not count as evidence for these applications. Checks used synthetic local data only. No external message, production deployment or customer transaction occurred.
+This record covers the ten new repositories under `workbench/maxs-projects/ventures/saas`. Earlier prototype verification is separate and does not count as evidence for these applications. Checks used synthetic local data only. No external message, production deployment or customer transaction occurred.
 
 ## Automated checks
 
@@ -54,7 +54,7 @@ All ten local SDK checksum checks and Docker Compose configuration checks passed
 
 The initial .NET hot-reload watcher crashed when generated frontend bundles were replaced. The launch script now uses the documented rebuild-on-change `--no-hot-reload` mode, excludes runtime data and marks generated frontend content unwatched. A trusted existing localhost certificate was checked without changing trust. No HTTPS protection was removed.
 
-At handoff, all ten task-owned product watchers and the earlier prototype server were stopped gracefully with exit code 0. Temporary browser viewport overrides were reset. Use the product launch scripts in the [venture index](../../../workbench/ventures/first-ten.md) to run a product for review.
+At handoff, all ten task-owned product watchers and the earlier prototype server were stopped gracefully with exit code 0. Temporary browser viewport overrides were reset. Use the product launch scripts in the [venture index](../../../workbench/maxs-projects/ventures/saas/first-ten.md) to run a product for review.
 
 ## Limits and remaining launch work
 
