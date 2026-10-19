@@ -2,7 +2,7 @@
 name: create-repo
 description: >-
   Scaffold a NEW conformant product / venture repo for the wow-two workspace — copies the standard
-  product-template's example product (a complete Clean-Arch .NET 10 backend + React 19 / Vite frontend
+  product-template's example product (a complete Clean-Arch .NET 10 backend + Vue 3 / Vite frontend workspace
   under engineering/codebase/, single-host serving, Docker) and rebrands it to the new name, then git
   init + registration in scripts/active.sh. Use this whenever the user wants to create / start / spin up
   / bootstrap / set up a new repo, project, product, venture, app, service, or POC in this workspace

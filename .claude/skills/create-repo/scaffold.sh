@@ -1,16 +1,17 @@
 #!/usr/bin/env bash
 #
 # scaffold.sh — deterministic mechanics for the create-repo skill.
-#   Creates workbench/{org}/{repo}, COPIES the product-repo template (which now
-#   ships a complete working `Sample` example — 5 Clean-Arch projects + tests +
-#   a Vite/Vue frontend workspace + Docker), fills the doc {{placeholders}}, then
+#   Creates workbench/{org}/{repo}, COPIES the product-repo template (which
+#   ships a complete working `Sample` example — 5 Clean-Arch projects + unit /
+#   E2E / migrations tests, a Vite/Vue frontend workspace, Docker, the deploy
+#   descriptor and the CI and publish workflows), fills the doc {{placeholders}}, then
 #   REBRANDS the example: Sample → Brand across all code/config, renames every
 #   Sample* file/dir → Brand*, retargets the two code-dir slug prefixes
 #   (sample.{backend,frontend}-services → {repo-slug}.{…}), and re-allocates the
-#   template's dev ports to the next-free pair. Writes a root .gitignore, `git
-#   init`s, and registers the
-#   repo in scripts/active.sh. It does NOT generate code (the example is copied,
-#   not authored) and does NOT commit (the developer manages git).
+#   template's dev ports to the next-free pair. Keeps the template's .gitignore,
+#   `git init`s, and registers the repo in scripts/active.sh. It does NOT
+#   generate code (the example is copied, not authored) and does NOT commit
+#   (the developer manages git).
 #
 # Usage:
 #   scaffold.sh <repo-name> <Brand> <org> [single|multi]
@@ -52,8 +53,12 @@ REPO_SLUG="$(printf '%s' "${REPO_NAME##*.}" | tr '[:upper:]' '[:lower:]' | tr ' 
 # short name = active.sh first column (e.g. "secrets-vault") — same as the slug.
 SHORT_NAME="$REPO_SLUG"
 # lowercase brand — for the template's lowercase `sample` tokens (sample.db, sample-data,
-# sample-frontend, docker image/container name). Brand is PascalCase → just lowercase it.
+# sample-frontend, docker image/container name, the deploy.yml product and service slug).
+# Brand is PascalCase → just lowercase it.
 BRAND_LC="$(printf '%s' "$BRAND" | tr '[:upper:]' '[:lower:]')"
+# uppercase brand — for the template's `SAMPLE` token (the deploy.yml dev check's VERIFY_SERVICE_SAMPLE variable,
+# which the runner derives from the service slug).
+BRAND_UC="$(printf '%s' "$BRAND" | tr '[:lower:]' '[:upper:]')"
 TODAY="$(date +%F)"
 
 REPO_DIR="$WB/$ORG/$REPO_NAME"
@@ -78,8 +83,13 @@ mkdir -p "$WB/$ORG"
 cp -R "$TEMPLATE" "$REPO_DIR"
 # drop the template's own git history + any build artifacts that rode along in the copy.
 rm -rf "$REPO_DIR/.git"
-find "$REPO_DIR" -type d \( -name bin -o -name obj -o -name node_modules -o -name dist \) \
+find "$REPO_DIR" -type d \( -name bin -o -name obj -o -name node_modules -o -name dist -o -name logs \) \
   -prune -exec rm -rf {} + 2>/dev/null || true
+# ... and anything a local run left in the template: the built SPA in wwwroot (only .gitkeep stays), SQLite files
+# and this machine's own or a target's settings files.
+find "$REPO_DIR" -type d -name wwwroot -exec find {} -mindepth 1 -not -name .gitkeep -delete \; 2>/dev/null || true
+find "$REPO_DIR" -type f \( -name '*.db' -o -name '*.db-shm' -o -name '*.db-wal' \
+  -o -name 'appsettings.Local.json' -o -name 'appsettings.Target.json' -o -name 'appsettings.Machine.json' \) -delete
 
 # ---- 2. placeholder replacement across every template doc ----
 # {{REPO_NAME}} {{Brand}} {{repo-slug}} {{NET_VERSION}} {{YYYY-MM-DD}}
@@ -97,10 +107,10 @@ done < <(find "$REPO_DIR" -type f \( -name '*.md' -o -name '*.json' -o -name '*.
 # ---- 2b. BRAND pass: rebrand the copied `Sample` example to `$BRAND` ----
 # Files that may carry the Sample/sample token (code + config; docs already handled above,
 # but .md is harmless to re-run). Excludes binary/build dirs (already pruned) and .git.
-CODE_GLOBS=(-name '*.cs' -o -name '*.csproj' -o -name '*.sln' -o -name '*.props' \
+CODE_GLOBS=(-name '*.cs' -o -name '*.csproj' -o -name '*.sln' -o -name '*.slnx' -o -name '*.props' \
             -o -name '*.json' -o -name '*.ts' -o -name '*.tsx' -o -name '*.vue' -o -name '*.mjs' \
             -o -name '*.html' -o -name '*.css' -o -name '*.yml' -o -name '*.yaml' \
-            -o -name '*.http' -o -name 'Dockerfile' -o -name '.dockerignore' -o -name '*.md')
+            -o -name '*.http' -o -name 'Dockerfile' -o -name '.dockerignore' -o -name '.gitignore' -o -name '*.md')
 
 # 2b-i. content: Sample → $BRAND (PascalCase: namespaces, usings, types, project names,
 #       paths, InternalsVisibleTo, ProjectReference, deploy.mjs Sample.Api, doc comments,
@@ -118,11 +128,12 @@ while IFS= read -r -d '' f; do
     -e "s|sample\.frontend-services|$REPO_SLUG.frontend-services|g" \
     -e "s|Sample|$BRAND|g" \
     -e "s|sample|$BRAND_LC|g" \
+    -e "s|SAMPLE|$BRAND_UC|g" \
     "$f"
 done < <(find "$REPO_DIR" -type f \( "${CODE_GLOBS[@]}" \) -not -path '*/.git/*' -print0)
 
 # 2b-ii. rename Sample* files and dirs → $BRAND* (deepest paths first so parent renames
-#        don't invalidate child paths). Covers Sample.sln, Sample.Api/, Sample.Tests/,
+#        don't invalidate child paths). Covers Sample.BackendServices.slnx, Sample.Api/, tests/Sample.Tests.*/,
 #        SampleDbContext.cs, the 5 Sample.* project dirs + their .csproj, etc.
 while IFS= read -r -d '' p; do
   base="$(basename "$p")"
@@ -175,8 +186,8 @@ while { [ "$NEW_VITE" = "$TPL_VITE" ] || ! is_free "$NEW_VITE"; } \
   NEW_VITE=$((NEW_VITE + 2))
 done
 
-# rewrite the three ports across launchSettings, vite proxy, .http, appsettings (ports
-# appear only in those files; do http→http first is moot since the values are distinct).
+# rewrite the three ports across launchSettings, vite proxy, .http, appsettings, the local compose file and the two
+# docs that name them (ports appear only in those files; do http→http first is moot since the values are distinct).
 while IFS= read -r -d '' f; do
   LC_ALL=C sed -i '' \
     -e "s|$TPL_HTTPS|$NEW_HTTPS|g" \
@@ -184,7 +195,8 @@ while IFS= read -r -d '' f; do
     -e "s|$TPL_VITE|$NEW_VITE|g" \
     "$f"
 done < <(find "$REPO_DIR" -type f \( -name 'launchSettings.json' -o -name 'vite.config.ts' \
-            -o -name '*.http' -o -name 'appsettings*.json' \) -not -path '*/.git/*' -print0)
+            -o -name '*.http' -o -name 'appsettings*.json' -o -name 'docker-compose.yml' \
+            -o -name 'frontend-guidelines.md' -o -name 'deployment.md' \) -not -path '*/.git/*' -print0)
 
 # append a ports.md row (into the table) + bump "Next free" to the next even after the
 # pair we took. The new row is inserted as the last table row — anchored on the blank line
@@ -206,31 +218,27 @@ if [ -f "$PORTS_MD" ]; then
 fi
 
 # ---- 3. root .gitignore ----
-cat > "$REPO_DIR/.gitignore" <<'EOF'
-# Build output
+# The template ships its own (rebranded above with the other code/config files: the built wwwroot, settings files and
+# SQLite files stay out). Only a template without one gets this fallback.
+if [ ! -f "$REPO_DIR/.gitignore" ]; then
+  cat > "$REPO_DIR/.gitignore" <<'EOF'
 **/bin/
 **/obj/
 **/dist/
-**/.vite/
+**/logs/
 node_modules/
-
-# Local DB + secrets
 *.db
 *.db-shm
 *.db-wal
-# appsettings.Local.json is this machine's own; appsettings.Target.json a target's, mounted at deploy
 **/appsettings.Local.json
 **/appsettings.Target.json
 **/appsettings.Machine.json
 .env
-
-# IDE / OS
 .idea/
 .vs/
-.vscode/*
 .DS_Store
-*.tsbuildinfo
 EOF
+fi
 
 # Verify the copied/rebranded frontend before registering the result as a usable scaffold.
 node "$SCRIPT_DIR/validate-frontend.mjs" "$FE_DIR"
@@ -243,8 +251,8 @@ fi
 
 # ---- 5. register in scripts/active.sh PROJECTS array ----
 # entry: name|backend-sln(relative to workbench/)|frontend-dir(relative to workbench/)
-# the template ships a classic .sln (Sample.sln, rebranded to $BRAND.sln above).
-BE_REL="$ORG/$REPO_NAME/engineering/codebase/$REPO_SLUG.backend-services/$BRAND.sln"
+# the template ships Sample.BackendServices.slnx, rebranded to $BRAND.BackendServices.slnx above.
+BE_REL="$ORG/$REPO_NAME/engineering/codebase/$REPO_SLUG.backend-services/$BRAND.BackendServices.slnx"
 FE_REL="$ORG/$REPO_NAME/engineering/codebase/$REPO_SLUG.frontend-services"
 ENTRY="  \"$SHORT_NAME|$BE_REL|$FE_REL\""
 
@@ -267,13 +275,13 @@ cat <<EOF
 [scaffold] mechanical scaffold done — template copied + rebranded Sample → $BRAND.
   repo dir   : $REPO_DIR
   backend    : $BE_DIR
-               ($BRAND.sln + $BRAND.{Api,Application,Domain,Infrastructure,Persistence} + tests/$BRAND.Tests)
+               ($BRAND.BackendServices.slnx + $BRAND.{Api,Application,Domain,Infrastructure,Persistence} + tests/$BRAND.Tests.{Unit,E2E,Migrations})
   frontend   : $FE_DIR
                (pnpm workspace; Vue app in apps/web; single-host deployment)
   ports      : $NEW_HTTPS https / $NEW_HTTP http · $NEW_VITE vite   (was 8220/8221 · 8224; ports.md row added)
   short name : $SHORT_NAME      (scripts/active.sh $SHORT_NAME)
   net        : net$NET_VERSION.0
 
-Next (Claude): the working example is already in place — verify it builds
-(dotnet build "$BE_DIR/$BRAND.sln") and fill the doc {{placeholders}}. No code-gen needed.
+Next (Claude): the working example is already in place — verify it
+(dotnet test "$BE_DIR/$BRAND.BackendServices.slnx") and fill the doc {{placeholders}}. No code-gen needed.
 EOF
