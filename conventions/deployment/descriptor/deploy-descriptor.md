@@ -54,7 +54,7 @@ shared:                               # a change here rebuilds every service
 dotnetEnvironment: true               # dev runs as .NET Development, prod as Production
 verify:                               # the end-to-end check after a dev rollout
   service: auth                       # whose release image runs it
-  command: [sh, -c, 'curl --fail --silent "$VERIFY_SERVICE_AUTH/health"']
+  command: [sh, -c, 'curl --fail --silent --header "Host: localhost" "$VERIFY_SERVICE_AUTH/health"']
   timeout: 5m                         # default 5m; 10s-30m
 services:
   auth:                               # service slug = Compose service = image name
@@ -142,6 +142,8 @@ The `verify` check proves a release end to end on dev before it may auto-promote
 - gets `DEPLOY_ENVIRONMENT`, `VERIFY_RELEASE`, `VERIFY_SITES` (a JSON list of `name`, `service`, `exposure`, `url`),
   `VERIFY_SITE_<SITE>` per published site and `VERIFY_SERVICE_<SERVICE>` per service (`http://<product>-dev-<service>:<port>`);
   no settings file and no secret;
+- must send `Host: localhost` on a `VERIFY_SERVICE_<SERVICE>` request: a service URL's host is the container
+  name, which a restricted `AllowedHosts` answers with 400;
 - passes on exit 0; any other exit, a run past `timeout` or a check that cannot start fails it;
 - must not print a secret: the deployment keeps the check's last output line;
 - never changes the rollout's outcome: a failure is a warning on the deployment, and auto-promote holds the release;
