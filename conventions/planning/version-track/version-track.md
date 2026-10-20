@@ -1,6 +1,6 @@
 # Version Track
 
-*Last updated: 2026-09-29*
+*Last updated: 2026-10-20*
 
 The only planning convention: a repository plans with one backlog and one folder per version, the iterations and
 capabilities a product ships in that version.
@@ -44,7 +44,8 @@ A repository plans with exactly two things, both under `engineering/planning/`:
 
 - must place each version at `engineering/planning/version-track/v{X.Y}/v{X.Y}.md` — one folder per version, file
   named after its folder; never a flat `v{X.Y}.md`
-- must start at `v0.1`; minor-increment `Y`; bump major `X` only at `Y = 100` or a breaking change
+- must start at `v0.1` and bump `Y` with every version doc; no part of `X.Y.Z` has a ceiling
+- must bump `X` only by the owner's decision: a breaking change, a complete rewrite or a whole new feature set
 - must treat the newest folder as the active one
 - the active version's `X.Y` is the product's code version; CI assigns the patch `Z` to each release from `main`
   ([versioning](../../development/repo/versioning/versioning.md))

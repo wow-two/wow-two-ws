@@ -1,6 +1,6 @@
 # Development cycle
 
-*Last updated: 2026-10-16*
+*Last updated: 2026-10-20*
 
 > Two cycles per active app — implement a version in-app, then extract its stable blocks to the SDK + conventions and adopt across the active apps.
 > Purpose — mature the apps and the shared SDK in parallel: ship fast in one product, harden once, propagate everywhere — never in isolation.
@@ -9,7 +9,7 @@
 ## Cycle = two versions
 
 - a cycle maps to **two version numbers**: the **deliverable version** (cycle 1) then the **extraction version** (cycle 2) — **1 cycle = 2 versions shipped**.
-- products start at `v0.1`, minor-increment per version, major only at `.100` or a breaking change — see [version-track.md](../planning/version-track/version-track.md).
+- products start at `v0.1`, minor-increment per version, major only by the owner's decision — see [version-track.md](../planning/version-track/version-track.md).
 - example: forever-pin `v0.1` (product + migrator built inline) → `v0.2` (migrator extracted to the SDK + adopted across apps) → `v0.3` next deliverable.
 
 ---

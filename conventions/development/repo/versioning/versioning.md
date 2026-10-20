@@ -1,6 +1,6 @@
 # Versioning
 
-*Last updated: 2026-10-19*
+*Last updated: 2026-10-20*
 
 > Where a product's version is declared, how builds stamp it, and how running services and apps report it.
 > Purpose — one version answers "what is running" in the API, the UI, the database history and the image tag.
@@ -13,7 +13,7 @@
   so nobody bumps a patch by hand.
 - must take `X.Y` from the newest `engineering/planning/version-track/v{X.Y}/` folder, `0.0` before `v0.1`;
   opening a version doc is the bump, so nothing else declares the product version.
-- must bump `Y` per version doc and `X` only at `Y = 100` or a breaking change (version track rule).
+- must bump `Y` per version doc and `X` only by the owner's decision (version track rule); no part has a ceiling.
 - must let CI inject `X.Y.Z` into every build (build argument `APP_VERSION` → `-p:Version` and the SPA's
   `__APP_VERSION__`); a local build reports `dev`.
 - must keep `Directory.Build.props` and `package.json` free of the product version; a `0.0.0` placeholder is fine.
