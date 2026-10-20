@@ -1,6 +1,6 @@
 # Conventions — wow-two
 
-*Last updated: 2026-10-19*
+*Last updated: 2026-10-20*
 
 > **The single index to every convention.** When a task touches *how we build* — code, repo structure,
 > naming, versioning — search HERE first, then open only the file(s) you need. Lookup table,
@@ -252,6 +252,7 @@ Product UI standards, by need:
 | Need | File |
 |---|---|
 | Design exploration — variant-driven (a few in-context options → pick → lock → cascade → spec) · other modes · mode-selection · per-app spec shape | [design/research/design-exploration.md](design/research/design-exploration.md) |
+| Theme patterns — ambient glass (glassmorphism over a soft gradient backdrop) or solid · backdrop, surfaces, fallbacks | [design/theme/theme-patterns.md](design/theme/theme-patterns.md) |
 | UI copy — how many words a screen carries · sign-in, empty, confirm and loading text | [design/content/ui-copy.md](design/content/ui-copy.md) |
 | Per-app design spec — its path in the product repo and its shape | [design/design-conventions.md](design/design-conventions.md#per-app-specs) |
 | Logo system — WoW2 family scope · compositions · exact parent endorsement · masters · export verification | [design/identity/logo-system.md](design/identity/logo-system.md) |
