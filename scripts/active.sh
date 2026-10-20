@@ -77,6 +77,7 @@ PROJECTS=(
   "home-atlas|wow-two-apps/wow-two-apps.home-atlas/engineering/codebase/home-atlas.backend-services/HomeAtlas.BackendServices.slnx|wow-two-apps/wow-two-apps.home-atlas/engineering/codebase/home-atlas.frontend-services"
   "surface-pattern|maxs-projects/ventures/saas/ventures.surface-pattern/engineering/codebase/surface-pattern.backend-services/SurfacePattern.BackendServices.slnx|maxs-projects/ventures/saas/ventures.surface-pattern/engineering/codebase/surface-pattern.frontend-services"
   "wheelhouse-canary|wow-two-platform/wow-two-platform.wheelhouse-canary/engineering/codebase/wheelhouse-canary.backend-services/WheelhouseCanary.BackendServices.slnx|wow-two-platform/wow-two-platform.wheelhouse-canary/engineering/codebase/wheelhouse-canary.frontend-services"
+  "matinee|maxs-projects/ventures/consumer/ventures.matinee/engineering/codebase/matinee.backend-services/Matinee.BackendServices.slnx|maxs-projects/ventures/consumer/ventures.matinee/engineering/codebase/matinee.frontend-services"
 )
 
 MODE="both"     # both | backend | frontend

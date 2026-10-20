@@ -54,6 +54,7 @@
 | home-atlas | API · Vite | 8364 https / 8365 http · 8266 |
 | surface-pattern | API · Vite | 8368 https / 8369 http · 8268 |
 | wheelhouse-canary | API · Vite · local PostgreSQL | 8370 https / 8371 http · 8372 · 8374 |
+| matinee | API · Vite · laptop agent (loopback) | 8380 https / 8381 http · 8270 · 8382 |
 
 | transportbrain (hackathon Track 2 submission) | API | 8246 https / 8247 http |
 | tbs.demo | demo — jury-facing solution page, own repo + Vercel (Vite) | 8248 |
@@ -75,7 +76,7 @@
 | ocharo-marketing review | isolated Marketing API | 8354 https / 8355 http |
 | ocharo-platform image worker review | private loopback HTTP worker | 8360 |
 
-**Next free backend even port: 8380.** Append a row whenever you allocate.
+**Next free backend even port: 8384.** Append a row whenever you allocate.
 
 Ocharo Marketing Vite moved from the duplicate `8242` allocation to `8358` on 2026-09-29.
 Ocharo Desk Vite moved from `8266` (home-atlas) to `8378`, and its Compose API from `8268`/`8269` (surface-pattern) to `8376` https / `8377` http, on 2026-10-17.

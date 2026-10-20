@@ -607,6 +607,32 @@
         "WHEELHOUSE_API_PROXY": "http://127.0.0.1:8961"
       },
       "port": 5179
+    },
+    {
+      "name": "matinee-api",
+      "runtimeExecutable": "dotnet",
+      "runtimeArgs": [
+        "run",
+        "--project",
+        "workbench/maxs-projects/ventures/consumer/ventures.matinee/engineering/codebase/matinee.backend-services/Matinee.Api",
+        "--launch-profile",
+        "https"
+      ],
+      "port": 8381
+    },
+    {
+      "name": "matinee-desktop",
+      "runtimeExecutable": "dotnet",
+      "runtimeArgs": [
+        "run",
+        "--project",
+        "workbench/maxs-projects/ventures/consumer/ventures.matinee/engineering/codebase/matinee.backend-services/Matinee.Desktop",
+        "--launch-profile",
+        "desktop",
+        "--",
+        "--headless"
+      ],
+      "port": 8382
     }
   ]
 }

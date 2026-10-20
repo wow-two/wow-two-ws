@@ -7,7 +7,7 @@
 
 # Repo Registry
 
-*Last updated: 2026-10-19*
+*Last updated: 2026-10-20*
 
 All repos use the naming convention: `{org}.{domain}[.{subdomain}]`, lowercase, dot-separated. Repo prefix matches org name exactly.
 
@@ -150,6 +150,7 @@ Hub: [sulton-max/10x-ventures](https://github.com/sulton-max/10x-ventures) — T
 | `ventures.hijinx` · `workbench/maxs-projects/ventures/consumer/ventures.hijinx` | Hijinx: web-first party and fun apps (web, PWA and native shells) fed by Fun Vault packs | v0.1 in progress; no remote |
 | `ventures.fun-vault` · `workbench/maxs-projects/ventures/consumer/ventures.fun-vault` | Fun Vault: curated fun-content library (pranks, party games, icebreakers) that Hijinx and Arcade consume as packs | Usable content library; no remote |
 | `ventures.arcade` · `workbench/maxs-projects/ventures/consumer/ventures.arcade` | Arcade: Telegram Mini App games collection (Vue on a .NET host), monetized with Telegram Stars cosmetics | v0.1 in progress (15 games in the launcher); no remote |
+| `ventures.matinee` · `workbench/maxs-projects/ventures/consumer/ventures.matinee` | Matinee: personal movie theater — .NET library server, Vue app, Photino laptop and Capacitor iPhone shells with device sync | v0.1 built 2026-10-20 (server, Vue app, macOS app, iOS simulator); owner review pending; no remote |
 | `sift` · `workbench/maxs-projects/ventures/saas/sift` | Sift: curated anti-brainrot YouTube feed ranked by information density | v0.2 in progress; no remote |
 | `ventures.pbn-studio` · `workbench/maxs-projects/ventures/saas/ventures.pbn-studio` | PbnStudio: photo to custom paint-by-numbers kit generator | v0.1 in progress; no remote |
 | `sulton-max/10x-ventures.museums-gallery` · `workbench/maxs-projects/ventures/consumer/ventures.museums-gallery` | Museums Gallery: desktop-first gallery of Uzbekistan's museums and heritage sites | v0.1 frontend-only; seed data unverified |
