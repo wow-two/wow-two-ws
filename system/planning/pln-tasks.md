@@ -1,4 +1,4 @@
-*Last updated: 2026-10-19*
+*Last updated: 2026-10-20*
 
 # Tasks
 
@@ -123,6 +123,7 @@ The [five-product analysis](../../ideas/self-serve-research-2026-10/self-serve-r
 | `wks-t-001` | Give every app a correct public identity: logo, description and homepage | `-` | normal | `todo` | `-` | Added `2026-10-13` by the user. Covers each product and platform app, its GitHub repository About, packages and GitHub OAuth/GitHub App registrations (first: Wheelhouse's `wheelhouse-dev` OAuth app). Inventory every surface, then fix per app |
 | `wks-t-002` | Review the `product.json` manifest and the icon variant set together, then roll both out | `-` | normal | `todo` | `-` | Added `2026-10-15` by the user: decide the required variants (monochrome is missing everywhere, including Wheelhouse), then add `product/product.json` and `product/brand/icons/` to ForeverPin and the product template. Conventions: `design/identity/` |
 | `wks-t-003` | Rename both SDKs to `wow-two-sdk-beta.be` and `wow-two-sdk-beta.fe`, packages and namespaces included | `-` | `high` | `done` | `-` | Decided `2026-10-16` by the user: repos, local folders and remotes; NuGet `WoW2.Sdk.Backend.Beta*` → `WoW2.Sdk.Beta.Be*` and namespace `WoW.Two.Sdk.Backend.Beta` → `WoW.Two.Sdk.Beta.Be`; npm `@wow-two-beta/ui-vue` → `@wow-two-beta/fe`. Consumers are frozen; Wheelhouse moves now, the rest on their next upgrade. Starts once running SDK work lands. Done `2026-10-17`: both SDKs publish under the new names (`@wow-two-beta/fe` 0.0.20, `WoW2.Sdk.Beta.Be` 10.0.68-beta) and Wheelhouse uses them; npm's old names are deprecated, NuGet's wait in the backlog; other consumers move on their next upgrade |
+| `wks-t-004` | Remove material that should not be public from `wow-two-ws` | `-` | normal | `todo` | `wow-two-ws` | Added `2026-10-20` by the user: the repo stays public because wow2 is a public community. Inventory and move out personal business material — e.g. `ideas/parent-company-2026-10/` (tax, banking), client names, private venture plans. Removed files stay in git history; decide whether to rewrite it |
 
 ---
 
