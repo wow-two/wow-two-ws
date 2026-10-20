@@ -51,6 +51,7 @@ PROJECTS=(
   "prism|-|maxs-projects/ventures/saas/10x-ventures-prism/engineering/codebase/prism.frontend-services"
   "arcade|maxs-projects/ventures/consumer/ventures.arcade/engineering/codebase/arcade.backend-services/Arcade.BackendServices.slnx|maxs-projects/ventures/consumer/ventures.arcade/engineering/codebase/arcade.frontend-services"
   "museums-gallery|maxs-projects/ventures/consumer/ventures.museums-gallery/engineering/codebase/museums-gallery.backend-services/MuseumsGallery.BackendServices.slnx|maxs-projects/ventures/consumer/ventures.museums-gallery/engineering/codebase/museums-gallery.frontend-services"
+  "hijinx|maxs-projects/ventures/consumer/ventures.hijinx/engineering/codebase/hijinx.backend-services/Hijinx.BackendServices.slnx|maxs-projects/ventures/consumer/ventures.hijinx/engineering/codebase/hijinx.frontend-services"
   "tnis|maxs-projects/ventures/saas/ventures.tnis/engineering/codebase/tnis.backend-services/Tnis.BackendServices.slnx|maxs-projects/ventures/saas/ventures.tnis/engineering/codebase/tnis.frontend-services"
   "tnis-mintrans|maxs-projects/clients/mintrans/ventures.tnis-mintrans/engineering/codebase/tnis-mintrans.backend-services/TnisMintrans.sln|maxs-projects/clients/mintrans/ventures.tnis-mintrans/engineering/codebase/tnis-mintrans.frontend-services"
   "listing-shelf|maxs-projects/ventures/saas/ventures.listing-shelf/engineering/codebase/listing-shelf.backend-services/ListingShelf.BackendServices.slnx|maxs-projects/ventures/saas/ventures.listing-shelf/engineering/codebase/listing-shelf.frontend-services"
