@@ -1,6 +1,6 @@
 # Config
 
-*Last updated: 2026-09-10*
+*Last updated: 2026-10-20*
 
 > A typed, fail-fast read of application configuration — one declared schema resolved into one frozen object.
 > Purpose — a misconfigured deploy reports every problem at startup, not one boot-crash at a time.
@@ -26,16 +26,17 @@
 
 | Provider | Implements | Reach for it when |
 |---|---|---|
-| `import.meta.env` | the build-time source the bundler inlines | values fixed at build; empty outside a bundler |
+| `import.meta.env` | the build-time source the app passes in | values fixed at build |
 | `window` | a runtime global injected per environment | one built image deployed to many environments |
 | static | a plain record behind the source type | tests, or values resolved somewhere else |
 
 - must layer the runtime source ahead of the build-time one — that is the default order.
+- must pass the app's own `import.meta.env` as `env`; the bundler inlines it only in app modules, never in a package.
 
 ---
 
 ```txt
-✅ defineConfig({ API_URL: url(), PORT: port() }, { prefix: 'VITE_' })
+✅ defineConfig({ API_URL: url(), PORT: port() }, { prefix: 'VITE_', env: import.meta.env })
 ✅ error.issues                              every problem, reported at once
 ❌ import.meta.env.VITE_API_URL as string    unparsed, unchecked, typed by assertion
 ```
