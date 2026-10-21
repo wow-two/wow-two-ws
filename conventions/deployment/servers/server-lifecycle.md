@@ -1,6 +1,6 @@
 # Server lifecycle
 
-*Last updated: 2026-10-19*
+*Last updated: 2026-10-21*
 
 > The steps a VPS follows from purchase to retirement, and the rule each step keeps.
 > Purpose — one list to audit a host against; commands and values stay in the runbook.
@@ -37,7 +37,7 @@ Runbook → [VPS runbook](../../../workbench/wow-two-platform/wow-two-platform.w
 - must install Docker and Tailscale from their official repositories; a script never upgrades an installed package.
 - must give the `wheelhouse-deploy` account runner keys alone, each `restrict`ed; its Docker group is host control.
 - must turn SSH password, keyboard-interactive and root sign-in off; the administrator's password is for the console.
-- must default-deny inbound traffic; 80 and 443 stay closed until public ingress ships.
+- must default-deny inbound traffic except 80 and 443, which Traefik answers for public sites; SSH stays tailnet-only.
 - must publish a host port on loopback only; UFW alone does not stop Docker.
 - must install security updates unattended without reboots; the owner reboots in a window.
 - must upgrade Docker and Tailscale by hand: an engine upgrade restarts every container.
@@ -81,7 +81,8 @@ Runbook → [VPS runbook](../../../workbench/wow-two-platform/wow-two-platform.w
 - must keep a service's settings at `config/<product>-<environment>/<service>.json` under the deploy root:
   `0444` in a `0700` folder.
 - must set `AllowedHosts` to `<site host>;localhost` and `Deployment:TrustedProxies` to Traefik's `platform` address.
-- must give each site one tailnet node per environment: `<node>-dev` for dev, `<node>` for prod.
+- must give each private site one tailnet node per environment: `<node>-dev` for dev, `<node>` for prod; a public
+  site answers on its domain or its sslip.io baseline host ([domains](../hosting/domains.md)).
 - must pull private images with a classic token of `read:packages` alone, expiring, from a machine account.
 - must keep that token in the deploy account's Docker config; `prepare.py` refuses any other scope.
 - must register the server, import the product from its hub catalog, then add its dev and prod environments in prod.
@@ -119,4 +120,5 @@ Runbook → [VPS runbook](../../../workbench/wow-two-platform/wow-two-platform.w
 - a registry token per deploy replaces the host token — Iteration 21.
 - backups off the provider, with a restore proof — Iteration 12.
 - move and decommission as recorded jobs — v0.7.
-- Cloudflare domains and public ingress — Iteration 11 ([domains](../hosting/domains.md)).
+- Cloudflare domains — Iteration 11 ([domains](../hosting/domains.md)); public ingress and baseline hosts shipped 2026-10-20.
+- standby servers and a backup-only storage — [redundancy](redundancy.md), for review.

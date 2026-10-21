@@ -1,6 +1,6 @@
 # Conventions — wow-two
 
-*Last updated: 2026-10-20*
+*Last updated: 2026-10-21*
 
 > **The single index to every convention.** When a task touches *how we build* — code, repo structure,
 > naming, versioning — search HERE first, then open only the file(s) you need. Lookup table,
@@ -270,6 +270,7 @@ Product UI standards, by need:
 | Environment files — .NET settings `appsettings.json` + `appsettings.{Development,Production}.json`, a target's mounted `appsettings.Target.json`, machine-local `appsettings.Local.json`, overrides from environment variables or Secrets Vault · other files `{name}-{environment}.{ext}` (`console-dev.json`), each complete, no default | [deployment/hosting/environment-files.md](deployment/hosting/environment-files.md) |
 | Domains — site hosts bound per environment in Wheelhouse · apex, `www`, product and dev hosts · Cloudflare proxy, DNS records Wheelhouse owns, tailnet-only SSH and control path | [deployment/hosting/domains.md](deployment/hosting/domains.md) |
 | Server lifecycle — a VPS from purchase to retirement · order, bootstrap kit, tailnet policy and tags, runner key, `platform` network, product databases and settings, registry token, backups, move, retire · points to Wheelhouse's VPS runbook | [deployment/servers/server-lifecycle.md](deployment/servers/server-lifecycle.md) |
+| Redundancy (for review) — a product on primary, secondary and tertiary servers plus a backup-only storage · replication, failover, full recovery | [deployment/servers/redundancy.md](deployment/servers/redundancy.md) |
 | Deployment descriptor — `engineering/deployment/deploy.yml`: services, per-service builds and change paths, sites (public ports), settings, needs, `dependsOn` · rollouts: dependency order, restart only on own change · service versions · candidate builds · release flow: `main` only, dev then prod · CI shape · JSON Schema | [deployment/descriptor/deploy-descriptor.md](deployment/descriptor/deploy-descriptor.md) |
 
 ---
