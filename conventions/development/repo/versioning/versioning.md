@@ -1,6 +1,6 @@
 # Versioning
 
-*Last updated: 2026-10-20*
+*Last updated: 2026-10-21*
 
 > Where a product's version is declared, how builds stamp it, and how running services and apps report it.
 > Purpose — one version answers "what is running" in the API, the UI, the database history and the image tag.
@@ -43,3 +43,7 @@
   environments never appear in a version.
 - must keep a service's last-changed version in a multi-service product
   ([deploy descriptor](../../../deployment/descriptor/deploy-descriptor.md) § *Builds and versions*).
+- must version each repository of a product built from several repositories on its own track: its own version docs,
+  `vX.Y.Z` tags and `Z`. The product's release is a set of theirs, named by their versions
+  (`platform-v0.1.8_studio-v0.1.6`), never a version of its own
+  ([deploy descriptor](../../../deployment/descriptor/deploy-descriptor.md#products-of-several-repositories)).

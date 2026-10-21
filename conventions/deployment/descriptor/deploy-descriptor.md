@@ -1,6 +1,6 @@
 # Deployment descriptor
 
-*Last updated: 2026-10-19*
+*Last updated: 2026-10-21*
 
 > One file per product repo, `engineering/deployment/deploy.yml`, declaring its deployable services: how each
 > builds, which paths change it, how it runs, which site paths it serves and what it needs.
@@ -38,7 +38,8 @@ Why a custom format → [rationale](deploy-descriptor-rationale.md).
 - must not name a host, zone, address or proxy setting; Wheelhouse binds each site to one host per environment.
 - must not publish host ports; the ingress routes each site by host and path.
 - should publish one image per service at `ghcr.io/<owner>/<repo>/<service>`; `image` overrides a legacy name.
-- must keep the product slug equal to the Wheelhouse runner product (`foreverpin`, not `forever-pin`).
+- must keep the product slug equal to the Wheelhouse runner product (`foreverpin`, not `forever-pin`); every repository
+  of a product built from several names that product's slug ([below](#products-of-several-repositories)).
 - should set `dotnetEnvironment: true` once every .NET service's `appsettings.Development.json` holds defaults only
   ([environment files](../hosting/environment-files.md) § *Settings*); the runner then runs dev as `Development`.
 - may declare a `verify` check; a product that auto-promotes should, so a release reaches prod only after it.
@@ -188,6 +189,34 @@ services:
 - To move: set `descriptor: 2`, list each site under `sites` with its `exposure`, and turn `path: /x` into
   `paths: [/x]`. Pin pipelines `v0.8.0` first.
 
+### Products of several repositories
+
+A product may span several repositories (Wheelhouse decision 70): one brand, one domain, one set of environments,
+listed together in its [catalog entry](../../development/repo/catalog/catalog.md#products-of-several-repositories).
+Each repository keeps its own `deploy.yml`, CI, `vX.Y.Z` tags and version track; Wheelhouse composes the product's
+releases from theirs.
+
+| Fact | Rule |
+|---|---|
+| `product` | the product's slug in every repository (`ocharo`), never the repository's own name; the bundle, its asset (`ocharo-release.tar.gz`) and every service's platform name (`ocharo-<environment>-<service>`) carry it |
+| Services | unique across the product's repositories; Wheelhouse refuses a release set that repeats one, naming both repositories |
+| Images | each repository's own: `ghcr.io/<owner>/<repo>/<service>`, unchanged |
+| Sites | host roles of the one product, so unique across its repositories: each repository names its own (`desk`, `studio`, `motion`) and Wheelhouse refuses a clash |
+| Front door | the primary repository's primary site; another repository's primary site is an ordinary one |
+| Named volumes | unique across its repositories too (`studio-data`, `motion-data`): one volume is one product's storage, so Wheelhouse refuses a clash rather than share or rename one |
+| `dependsOn` | may name another repository's service once the shared generator accepts it; Wheelhouse checks the whole product when it composes a release, and refuses an unknown service or a cycle |
+| `dotnetEnvironment`, `verify` | per repository: .NET environment names apply to the services of the repositories that opt in; the first repository's dev check runs for the set |
+
+- A release set is one release of each repository, composed by Wheelhouse into one bundle: it deploys, rolls back
+  release-wide and promotes like a single repository's release, and only its changed services restart.
+- A set's label names each repository's release by its short name (the repository's name without the owner's or the
+  product's prefix), joined by `_`: `platform-v0.1.8_studio-v0.1.6_assets-v0.1.0`; its bundle ID is
+  `<product>-set-<12 hex>`, a digest of its components, so the same components always make the same set.
+- Every repository release makes a new set with every other repository's newest release; a commit build of one
+  repository makes a candidate set for dev. A product has no set until each of its deploying repositories has published
+  a release.
+- Prod takes the very set dev proved; the changelog before a promotion compares each repository that changed.
+
 ---
 
 ## Rollouts
@@ -201,7 +230,8 @@ How Wheelhouse applies a release to a target, service by service.
 - Only changed services restart, each alone, in dependency waves: a wave starts once the waves it depends on are
   healthy, and an unchanged service keeps running even when a dependency it uses restarts.
 - A failing service stops the rollout: later waves never start, and a release that declares `rollbackCompatible`
-  rolls back whole, so a target always runs exactly one release.
+  rolls back whole, so a target always runs exactly one release. A release set is rollback-compatible only when every
+  repository's release is.
 
 ---
 

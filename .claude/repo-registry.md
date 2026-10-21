@@ -7,7 +7,7 @@
 
 # Repo Registry
 
-*Last updated: 2026-10-20*
+*Last updated: 2026-10-21*
 
 All repos use the naming convention: `{org}.{domain}[.{subdomain}]`, lowercase, dot-separated. Repo prefix matches org name exactly.
 
@@ -178,9 +178,6 @@ Six main repositories plus the `.github` profile repository belong to Ocharo. Bl
 
 | Repo / local folder | Purpose | Status |
 |---|---|---|
-| `ocharo-platform` · `workbench/mfts-projects/ventures/ocharo-hq/ocharo-ws/workbench/ocharo-platform` | Ocharo Platform: brand identity, catalogue and business management; adopted Brand Workspace | Brand/Catalogue sources adopted; application integration pending |
-| `ocharo-studio` · `workbench/mfts-projects/ventures/ocharo-hq/ocharo-ws/workbench/ocharo-studio` | Ocharo Studio: 3D mannequin and per-part textile creative studio | Existing Studio implementation retained; integration deferred |
-| `ocharo-marketing` · `workbench/mfts-projects/ventures/ocharo-hq/ocharo-ws/workbench/ocharo-marketing` | Ocharo Marketing: operator desk, editorial/public app container, distribution and lead capture | Both Blog sources adopted; broader public apps/integration pending |
-| `ocharo-assets` · `workbench/mfts-projects/ventures/ocharo-hq/ocharo-ws/workbench/ocharo-assets` | Ocharo Assets: asset creation and motion research; Ocharo Motion runtime retained | Garment library adopted; runtime integration deferred |
+| `ocharo-platform` · `workbench/mfts-projects/ventures/ocharo-hq/ocharo-ws/workbench/ocharo-platform` | Ocharo: Desk (platform), Studio, Marketing and the motion lab (assets) under one brand and one domain | One product of four repositories since 2026-10-21 (Wheelhouse decision 70); Marketing deploys nothing yet |
 | `ocharo-hq` · `workbench/mfts-projects/ventures/ocharo-hq/ocharo-ws/workbench/ocharo-hq` | Main brand overview and public portfolio README | Published, private; public visibility recommended |
 | `.github` · `workbench/mfts-projects/ventures/ocharo-hq/ocharo-ws/workbench/.github` | GitHub organization profile at profile/README.md | Public; organization profile published |

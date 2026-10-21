@@ -1,6 +1,6 @@
 # Domains
 
-*Last updated: 2026-10-20*
+*Last updated: 2026-10-21*
 
 > How a product's sites get their hosts: one host per site and environment, bound in Wheelhouse, never in a repo.
 > Purpose — one naming and ownership rule, so a host moves between servers by a binding change alone.
@@ -19,12 +19,14 @@
 ## Hosts
 
 - must serve a brand's apex from its marketing site and redirect `www` to it.
-- must give each other product of the brand its own host, `studio.<domain>`, with its API under `/api`.
+- must give each other app of the brand its own host, `studio.<domain>`, with its API under `/api`: a product of its
+  own, or a site of a product built from several repositories, which shares one domain.
 - must put dev on the product's own domain, `studio-dev.<domain>`; there is no shared preview domain.
 - must choose the domain by the [naming rules](../../marketing/brand-naming-and-domains.md).
 - must give a deployed site whose product has no domain yet a baseline public host on its server's IP, through
   sslip.io: `<product>-dev.<ip>.sslip.io` in dev, `<product>.<ip>.sslip.io` in prod, with the IP's dots as dashes
-  (`ocharo-studio-dev.203-0-113-10.sslip.io`); a product's second site adds `-<site>` after the product.
+  (`ocharo-studio-dev.203-0-113-10.sslip.io`); a site other than the product's front door adds `-<site>` after the
+  product, so Ocharo's `studio` site reads `ocharo-studio-dev.<ip>.sslip.io` whichever repository serves it.
 - must let Wheelhouse fill the baseline host; binding a domain replaces it.
 
 ---

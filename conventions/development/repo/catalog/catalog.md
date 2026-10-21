@@ -1,6 +1,6 @@
 # Catalog
 
-*Last updated: 2026-10-19*
+*Last updated: 2026-10-21*
 
 > `catalog.yml` at the root of each hub repository: every repository and app the hub owns, one entry per product.
 > Purpose — one machine-readable source per owner: Wheelhouse imports from every hub; `.claude/repo-registry.md` renders them all.
@@ -89,7 +89,8 @@ entries:
 | `hub` | the hub's slug, display name, own repository and one-line scope |
 | `hubs` | wow2 only: each other hub's repository and checkout path |
 | `orgs[].intro` · `notes` | registry only: Markdown blocks before and after the org's table |
-| `entries[].repositories` | GitHub `owner/name`, primary first |
+| `entries[].repositories` | GitHub `owner/name`, primary first; several make one product ([below](#products-of-several-repositories)) |
+| `entries[].replaces` | the slugs of products this entry supersedes; Wheelhouse retires each one nothing ever deployed to |
 | `entries[].local` | the primary's checkout path from the `wow-two-ws` root, when not `workbench/{owner}/{name}` |
 
 - must double-quote free text (`description`, `status`, `purpose`); a `: ` or a leading backtick breaks a plain value.
@@ -121,6 +122,27 @@ entries:
 - may leave `repositories` empty only while no GitHub repository exists; `local` is then required.
 - must not leave `repositories` empty on a deployable.
 
+### Products of several repositories
+
+One brand, one domain and one dependency chain make one product, whatever its repositories (Wheelhouse decision 70):
+Ocharo's `ocharo` entry lists Platform, Studio, Marketing and Assets.
+
+- must list every repository of a `deploy: wheelhouse` entry in `repositories`, primary first: Wheelhouse imports them
+  as one product with one set of environments, one placement, one secrets space and one redundancy setup.
+- must put first the repository whose primary site is the product's front door; its manifest and icons stand for the
+  repository only, and the product is named by its entry.
+- must name the entry's slug as `product` in every listed repository's `deploy.yml`
+  ([descriptor](../../../deployment/descriptor/deploy-descriptor.md#products-of-several-repositories)).
+- must keep service, site and named-volume names unique across the product's repositories; Wheelhouse refuses a clash
+  and names both repositories.
+- may list a repository that deploys nothing yet; it joins the product's releases once its `deploy.yml` names a
+  service and it has published a release.
+- should name, in `replaces`, the products a merge supersedes (`replaces: [ocharo-platform, ocharo-studio]`); importing
+  the entry retires each one nothing ever deployed to, its environments first, and keeps one with deploys on record,
+  with a warning.
+- must keep a library, KB module or template on its own single-repository entry; several repositories mean one
+  deployable product, nothing else.
+
 ---
 
 ## Adding a repository
@@ -149,3 +171,5 @@ entries:
 - Wheelhouse reads each hub in `Catalog:Sources` at `main` — wow2, ventures, Ocharo — and merges them in that order.
 - must ignore keys a reader does not use; `label`, `intro`, `notes`, `hubs`, `status` and `local` serve the registry.
 - must skip importing an entry whose `repositories` is empty.
+- must import a `deploy: wheelhouse` entry of several repositories as one product, and give an existing product the
+  entry's repositories when they changed.

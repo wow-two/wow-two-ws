@@ -107,7 +107,11 @@
         "purpose": { "$ref": "#/$defs/text" },
         "repositories": {
           "type": "array", "uniqueItems": true, "items": { "$ref": "#/$defs/repository" },
-          "description": "GitHub owner/name; the first is primary. Empty only while no GitHub repository exists."
+          "description": "GitHub owner/name; the first is primary. Several make one product. Empty only while no GitHub repository exists."
+        },
+        "replaces": {
+          "type": "array", "uniqueItems": true, "items": { "$ref": "#/$defs/slug" },
+          "description": "Slugs of products this entry supersedes; importing it retires each one nothing ever deployed to."
         },
         "local": { "$ref": "#/$defs/local" }
       },
