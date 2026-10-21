@@ -1,11 +1,12 @@
 # WoW 2.0 — Platform Apps, In Order
 
-*Last updated: 2026-10-19*
+*Last updated: 2026-10-21*
 
 > The order the wow-two platform apps get built and shipped — one list to focus on, top down. Scope: the internal
 > apps every product stands on (ops, observability, backbone services). Products and ventures live in the
 > ventures registry; the SDKs are not apps — they grow with every app ([dev cycle](../conventions/development/dev-cycle.md)).
 > Why each brick exists and build-vs-buy: [platform roadmap](platform-roadmap.md) · forms: [platform model](platform-model.md).
+> Open cross-cutting choices, ranked: [platform decisions](platform-decisions.md).
 
 ## Rules
 
@@ -20,14 +21,14 @@
 
 ## Order
 
-| # | App | Repo | What it is | State 2026-09-29 (rows 1 and 7: 2026-10-19) | Ship gate | Needs |
+| # | App | Repo | What it is | State 2026-09-29 (rows 1 and 7: 2026-10-19; 6 and 15: 2026-10-21) | Ship gate | Needs |
 |---|---|---|---|---|---|---|
 | 1 | **Wheelhouse** | `wow-two-platform.wheelhouse` | deploy + ops control plane: products, servers, domains, deploys | v0.5 in progress: platform model built; infrastructure automation planned | a product deployed to a VPS from it, with rollback, domain and live logs | — |
 | 2 | **Secrets Vault** | `wow-two-platform.secrets-vault` | envelope-encrypted secrets store + UI; env injection | Form 2 built | Wheelhouse deploys read their env from it; Form 1 wireable; hardened | 1 |
 | 3 | **Feedbacks** | `wow-two-platform.feedbacks` | incident reports → issues; triage inbox ([spec](../ideas/feedbacks-spec.md)) | client in the fe sdk `/reporting`; app not started | one app's Report button lands grouped reports in its inbox | 1, 2 |
 | 4 | **Logs** | `wow-two-platform.logs` | structured log store + `/logs` viewer, search by trace id ([analysis](../ideas/logging-analysis.md)) | SDK emits OTel; no store | Feedbacks issue → one click → the request's log lines | 1, 2 |
 | 5 | **Monitoring** | `wow-two-platform.monitoring` | uptime and health checks, Telegram alerts, domain/SSL expiry; dashboards bought (Grafana/SigNoz) | Wheelhouse spec P3 only | a downed product or expiring domain alerts before a user notices | 1, 4 |
-| 6 | **Identity** | `wow-two-platform.identity` | central OIDC IdP / SSO — one Google client for the fleet ([spec](../ideas/identity-service-spec.md)) | SDK identity rebuild steps 1–9 done | two apps sign in through it | 2 |
+| 6 | **Identity** | `wow-two-platform.identity` | own user store, OIDC provider, hosted sign-in, admin console; three forms ([spec](../ideas/identity-service-spec.md)) | SDK identity steps 1–9 done; no OIDC server; Ocharo first | two apps sign in through it | 2 |
 | 7 | **Pipelines** | `wow-two-platform.pipelines` | reusable GitHub Actions: build · test · pack · publish · deploy | `v0.8.1` shipped; Wheelhouse, the canary and Ocharo call it | every active repo runs the shared workflows | — |
 | 8 | **`wow` CLI** | new | `wow new` / `wow add <brick>` over `product-template` + `create-repo` | template + skill | a new product from zero to deployed in one command | 1, 7 |
 | 9 | **Notifications** | new | multi-channel: email · Telegram · push · in-app (build thin or wrap Novu) | email + Telegram in the SDK | one app sends through every channel from one call | 6 |
@@ -36,6 +37,7 @@
 | 12 | **Docs site** | new | the platform's knowledge site (Starlight / Docusaurus) | — | conventions + SDK docs published | — |
 | 13 | **FlowDeck** | new | visual request-flow debugger over live traces ([spec](../ideas/flowdeck-spec.md)) | idea | one backend's flows browsable live | 4 |
 | 14 | **AI Gateway** | `wow-two-platform.templates.ai` | shared LLM proxy: keys, routing, caching | skeleton | two apps share keys and a cache through it | 2, 6 |
+| 15 | **File Storage** | `wow-two-platform.storage.file` | files, image variants, signed URLs, quotas, console; three forms ([spec](../ideas/file-storage-service-spec.md)) | SDK `Storage/` and `Media/Images` built; repo empty; rank pending D9 | two apps store and serve files through it | 6 |
 
 ---
 
@@ -69,3 +71,6 @@
 
 - 2026-09-29 — developer set #1 Wheelhouse, #2 Secrets Vault; Feedbacks, Logs and Monitoring follow as the
   observability set, then the backbone services.
+- 2026-10-21 — developer chose to build Identity (own store; Ocharo first, phone + Telegram bot code) and
+  File Storage, each in the three [capability forms](../conventions/development/capability-forms.md); their rank
+  is D9 in [platform decisions](platform-decisions.md).
