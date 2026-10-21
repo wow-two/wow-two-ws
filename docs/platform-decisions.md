@@ -9,20 +9,12 @@
 
 ## Proposed order
 
-D1 → D2 → D3 → D9 → D4 → D6 → D10 → D11, then the rest as their triggers fire.
+D4 → D6 → D10 → D11, then the rest as their triggers fire. D1–D3 and D9 were decided on 2026-10-21.
 
 ---
 
 ## Now — blocks Identity and File Storage
 
-- **D1 · Identity build path** — OpenIddict on our SDK store · Keycloak · Zitadel · Logto or Authentik · managed
-  (Clerk, WorkOS, Auth0). **Recommend** OpenIddict: only it keeps Form 1 and our Telegram flows. Unblocks every
-  sign-in change.
-- **D2 · Identity instances** — one central IdP for every owner · one instance per owner. **Recommend** per owner:
-  Ocharo runs its own Form 2 now; the WoW2 portfolio shares one Form 3 later. Unblocks the Ocharo deploy.
-- **D3 · Account model** — one person across an instance's apps with organization memberships · isolated accounts
-  per app. **Recommend** one person per instance, roles per organization, app permissions as claims. Unblocks
-  the Desk migration.
 - **D4 · Ocharo sign-in methods** — bot code only · plus Log in with Telegram · plus Gateway codes · plus
   passkeys. **Recommend** bot code and Log in with Telegram in P1; Gateway only for a member who cannot use
   the bot; owner passkey in P2.
@@ -34,9 +26,6 @@ D1 → D2 → D3 → D9 → D4 → D6 → D10 → D11, then the rest as their tr
   private by default with signed URLs; catalogue and blog images on immutable `/media/{sha}`; CDN in P2.
 - **D8 · Desk's `bytea` move** — with Files P1 · after the smaller apps. **Recommend** last: Catalogue and Brand
   first, then Blog and Marketing, then Desk.
-- **D9 · Rank of Identity and File Storage** — Identity stays #6 and Files joins as #15 · both move up right after
-  Wheelhouse's ship gate. **Recommend** moving both up: Ocharo's launch needs real members and hosted files, and
-  Feedbacks, Logs and Monitoring need users first.
 
 ---
 

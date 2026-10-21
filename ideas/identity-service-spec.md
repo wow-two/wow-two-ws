@@ -7,7 +7,7 @@
 > of wiring Google, Telegram or passwords itself.
 >
 > **Status:** the developer chose to build it on 2026-10-21; first consumer Ocharo (phone + Telegram bot code,
-> admin-managed members). Open choices: [platform decisions](../docs/platform-decisions.md) D1–D5.
+> admin-managed members). D1–D3 decided 2026-10-21; open: [platform decisions](../docs/platform-decisions.md) D4, D5.
 
 ## Problem
 
@@ -33,13 +33,13 @@
 - the image follows the [deployment descriptor](../conventions/deployment/descriptor/deploy-descriptor.md).
 - apps integrate with one SDK OIDC client module whatever the form; it replaces `Ocharo.Sso`, Desk's integration
   tickets and every per-app session client.
-- Ocharo runs Form 2 on its products host: its own bot, brand, members and database, separate from WoW2's (D2).
+- Ocharo runs Form 2 on its products host: its own bot, brand, members and database, separate from WoW2's (D2, decided).
 
 ---
 
 ## Build path
 
-- **hypothesis (D1):** OpenIddict (Apache-2.0, .NET) for the protocol on top of the SDK's own store.
+- **decided (D1):** OpenIddict (Apache-2.0, .NET) for the protocol on top of the SDK's own store.
   OpenIddict 6.0.0 already sits in the be SDK's `Directory.Packages.props`, unreferenced.
 - why not Keycloak, Zitadel, Logto or Authentik: each replaces our store, has no Form 1, and custom flows such as
   the Telegram link need Java SPIs or Go actions; Duende needs a commercial licence.
@@ -106,8 +106,8 @@ The whole vector, phased. P1 is the Ocharo slice; P2 completes the vector; P3 wa
 
 - invite-only mode per client: an admin adds a member by phone or email with a role; self sign-up stays off (P1).
 - self sign-up mode with email or phone verification for public products (P2).
-- organizations, memberships, roles and per-app permissions as token claims; Ocharo's `owner`, `editor`, `viewer`
-  carry over with `can-edit` and `can-approve` (P1).
+- one person per instance (D3); organizations, memberships, roles and per-app permissions as token claims;
+  Ocharo's `owner`, `editor`, `viewer` carry over with `can-edit` and `can-approve` (P1).
 - account linking: phone, Telegram, Google and passkeys on one person; merge two accounts (P2).
 - profile: name, avatar, locale (`uz`, `ru`, `en`), timezone (P1 name and locale).
 - disable, remove, personal-data export and deletion (P1 disable and remove; export exists).
