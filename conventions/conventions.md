@@ -230,7 +230,7 @@ Product UI standards, by need:
 
 | Need | File |
 |---|---|
-| Parallel chats on one tree · assume-intentional / no-revert · lane discipline · scope containment · commit discipline | [agentic-workflow/agentic-workflow.md](agentic-workflow/agentic-workflow.md) |
+| Parallel chats on one tree · assume-intentional / no-revert · lane discipline · scope containment · silent verification · commit discipline | [agentic-workflow/agentic-workflow.md](agentic-workflow/agentic-workflow.md) |
 
 ---
 

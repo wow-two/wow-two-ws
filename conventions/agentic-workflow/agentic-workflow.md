@@ -1,6 +1,6 @@
 # Agentic workflow
 
-*Last updated: 2026-10-01*
+*Last updated: 2026-10-21*
 
 > How parallel Claude chats / agents share one repo without clobbering each other — lane discipline, no-revert, scope containment.
 > Purpose — multiple chats edit the same working tree at once; a wrong "cleanup" silently destroys another lane's uncommitted work.
@@ -45,6 +45,19 @@ A handoff (`handoff.md`) exists for exactly one purpose: **loading a fresh chat 
 **Precedence:** version doc > handoff, always. A handoff that contradicts the version doc is wrong by definition, whichever is newer.
 
 Distinguish it from the version-track's **transient iteration plan** (`v{X.Y}/{iter-slug}.md`), which is also delete-when-done but serves the *current* chat's own build, not the next chat's start.
+
+---
+
+## Silent verification
+
+- must run every product check without sound unless the developer asks for sound — automated tests, headless and
+  headed browsers, previews, simulators and emulators.
+- must launch test browsers muted — Chromium `--mute-audio` in Playwright `launchOptions.args`; Firefox
+  `media.volume_scale: "0.0"` in `firefoxUserPrefs`.
+- must start a product's own audio (effects, music, speech) muted in test and verification runs — a test default or a
+  launch flag, never a code edit made for the run.
+- must not play sound from tooling during a run — `say`, `afplay`, terminal bells, OS notification sounds.
+- may enable sound only for the run the developer asked for, and must turn it off again after.
 
 ---
 
