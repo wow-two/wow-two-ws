@@ -49,6 +49,7 @@ PROJECTS=(
   "fe-sdk|-|wow-two-sdk-beta/wow-two-sdk-beta.fe/engineering/codebase/wow-two-sdk-beta-fe"
   "sift|maxs-projects/ventures/saas/sift/engineering/codebase/sift.backend-services/Sift.BackendServices.slnx|maxs-projects/ventures/saas/sift/engineering/codebase/sift.frontend-services"
   "prism|-|maxs-projects/ventures/saas/10x-ventures-prism/engineering/codebase/prism.frontend-services"
+  "whiteout|-|maxs-projects/ventures/consumer/whiteout/engineering/codebase"
   "arcade|maxs-projects/ventures/consumer/ventures.arcade/engineering/codebase/arcade.backend-services/Arcade.BackendServices.slnx|maxs-projects/ventures/consumer/ventures.arcade/engineering/codebase/arcade.frontend-services"
   "museums-gallery|maxs-projects/ventures/consumer/ventures.museums-gallery/engineering/codebase/museums-gallery.backend-services/MuseumsGallery.BackendServices.slnx|maxs-projects/ventures/consumer/ventures.museums-gallery/engineering/codebase/museums-gallery.frontend-services"
   "hijinx|maxs-projects/ventures/consumer/ventures.hijinx/engineering/codebase/hijinx.backend-services/Hijinx.BackendServices.slnx|maxs-projects/ventures/consumer/ventures.hijinx/engineering/codebase/hijinx.frontend-services"

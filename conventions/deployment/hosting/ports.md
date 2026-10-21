@@ -1,6 +1,6 @@
 # Port Ledger
 
-*Last updated: 2026-10-17*
+*Last updated: 2026-10-21*
 
 > Single source of truth for allocated dev ports — **check here before picking one** to avoid collisions.
 > Backend rule: a **single `https` profile** binds two ports per service — **HTTPS on the even port, HTTP on the adjacent odd port** (`even`, `even + 1`); TLS terminated upstream in prod — see [backend/launch-profiles.md](../../development/backend/dotnet/shapes/service/platform/startup/launch-profiles.md). Frontend (Vite) = an **even** port (HTTPS via mkcert).
@@ -21,6 +21,7 @@
 | haven | backend services | Auth 7010/7011 · Supply 7012/7013 · Location 7014/7015 · Settings 7016/7017 · Database 7018/7019 |
 | haven | frontends (Vite) · compose edge | web 7520 · channels 7522 · admin 7524 · map 7526 · landing 7528 · edge 7530 |
 | ventures/prism | frontend (Vite) · studio — Vue rewrite (Vite) | 5180 · 8294 |
+| ventures/whiteout | game · zone-builder · lookdev (Vite) | 5181 · 5182 · 5183 |
 | wow-two-sdk-beta.fe (Vue) | playground (Vite) · atlas — layouts, patterns, themes (Vite) | 5176 · 5178 |
 | product-template (`Sample` example) | API · Vite | 8220 https / 8221 http · 8225 |
 | sift | API · Vite | 8230 https / 8231 http · 8226 |
