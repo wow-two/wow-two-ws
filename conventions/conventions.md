@@ -147,6 +147,7 @@ Rules every product obeys, whatever the stack. A convention that touches one lin
 Cross-area: **[dev-cycle.md](development/dev-cycle.md)** — 2-cycle app↔SDK maturation (implement in-app → extract to SDK + conventions → adopt across the named active apps).
 Cross-area: **[swappable-modules.md](development/swappable-modules.md)** — engine-wrapping SDK modules: house contract + adapter subpaths (optional peers) + one shared conformance suite + app-side one-line engine pin.
 Cross-area: **[sdk-extraction.md](development/sdk-extraction.md)** — extract, keep or remove: generic goes to the SDK, app-bound stays, a wrapper for DRY alone is removed.
+Cross-area: **[capability-forms.md](development/capability-forms.md)** — a platform capability ships as an SDK library, a self-hosted service image and a provided service under one client contract; the service hosts the library.
 
 ### repo/ — repo shape & setup · [repo-conventions.md](development/repo/repo-conventions.md)
 

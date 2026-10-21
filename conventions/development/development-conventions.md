@@ -1,6 +1,6 @@
 # Conventions — Development
 
-*Last updated: 2026-10-01*
+*Last updated: 2026-10-21*
 
 > The **development** domain: how we structure repos and write code. Lookup table, not auto-loaded.
 > Each area has its own `{area}-conventions.md` index.
@@ -16,6 +16,8 @@
 **Cross-area:** [swappable-modules.md](swappable-modules.md) — engine-wrapping SDK modules: contract-first, adapter subpaths with optional peers, one conformance suite, one-line app engine pin.
 
 **Cross-area:** [sdk-extraction.md](sdk-extraction.md) — extract, keep or remove: a generic piece goes to the SDK whatever its size, an app-bound one stays, and a wrapper that exists only for DRY, a prop or a restyle is removed.
+
+**Cross-area:** [capability-forms.md](capability-forms.md) — a platform capability ships as an SDK library, a self-hosted service image and a provided service under one client contract.
 
 Planning lives in the sibling **planning** domain → [`../planning/version-track/version-track.md`](../planning/version-track/version-track.md).
 

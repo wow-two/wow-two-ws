@@ -1,6 +1,6 @@
 # WoW 2.0 — Platform Model & Build Strategy
 
-*Last updated: 2026-08-15*
+*Last updated: 2026-10-21*
 
 > How every wow-two platform capability is **shaped, shipped, and promoted**: the three distribution forms · the build-now-promote-later lifecycle · the parallel-bricks delivery rule. Read this before designing any new platform component.
 
@@ -28,9 +28,8 @@ Every platform capability (secrets, identity, comms, jobs, …) is delivered in 
 
 ### How a component offers forms
 
-- A component may offer **1, 2, or all 3** forms depending on the logic.
-- Start with whichever form is **cheapest to ship**; add forms as demand appears.
-- The **client contract stays stable across forms** — consumers migrate by *config, not rewrite*.
+The rules — contract first, one contract across forms, the service hosting the library — are the
+[capability forms](../conventions/development/capability-forms.md) convention.
 
 ### Worked examples
 
@@ -81,5 +80,5 @@ So **"what to build first" is the wrong frame**. The right frame: *which brick u
 - `docs/wow-two-refinement.md` — master vision & layer model (KB → Platform → SDK → Apps)
 - `docs/beta-launch.md` — beta-forever strategy, naming, `0.x` auto-bump
 - `docs/versioning-strategy.md` · `docs/branching-strategy.md`
-- `conventions/development/backend/service-architecture.md` — once the forms stabilize, graduate the rules here
-- `docs/platform-roadmap.md` *(coming)* — ranked brick backlog from the platform-apps deep-research
+- `conventions/development/capability-forms.md` — the forms' rules
+- `docs/platform-roadmap.md` — ranked brick backlog from the platform-apps deep-research
