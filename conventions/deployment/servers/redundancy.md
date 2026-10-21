@@ -56,10 +56,20 @@
 - must have a bound domain behind the Cloudflare proxy to fail over. An sslip.io baseline host names one server's
   address, so it cannot move ([domains](../hosting/domains.md)).
 - must rebuild a returning old primary as a standby of the new primary; it never resumes as primary on its own.
-- must run a background or scheduled job (a jobs worker, a cron, an outbound email) on the primary only; a standby
-  starts it on promotion.
+- must run a background or scheduled job (a jobs worker, a cron, an outbound email) on whichever server is primary;
+  a promoted standby starts it, so jobs keep running while the old primary is down.
 - should move a product by adding the new server as a standby, letting it catch up and promoting it. The old server
   stays as a standby for seven days, replacing the backup-and-restore move.
+
+---
+
+## Coordination
+
+- must let Wheelhouse, or a service of its own on each server, coordinate every failover step: fence, recover the
+  database to a point in time, prove the copy is current, start services and jobs, and check the product's
+  infrastructure before traffic moves.
+- must record each step live and in the audit trail, like the other infrastructure jobs.
+- must run Wheelhouse itself on the same model: its own primary, standbys and storage.
 
 ---
 
@@ -77,8 +87,8 @@
 
 ## Open for review
 
-- **Wheelhouse is one host.** Products keep serving while it is down, but failover and deploys stop until it returns.
-  Either keep a standby console on a products host or accept the pause.
+- **Wheelhouse's standby.** It follows this model (Coordination), so where its standbys run, and which of its
+  parts must keep watching while its primary is down, still needs a design.
 - **Failover traffic.** Cloudflare's load balancer switches on its own health checks but is paid. The free path is
   Wheelhouse rewriting the proxied DNS records itself, and it depends on the control host.
 - **Write loss.** Asynchronous replication can lose the last seconds of writes; synchronous replication costs write
@@ -91,5 +101,6 @@
 
 ## Planned
 
-- Wheelhouse: roles per product, replication wired by placement, a storage connection, Promote, and recovery drills.
-  These start after review, with v0.7's one-click infrastructure.
+- The SDKs first gain these capabilities (replication, point-in-time recovery, failover hooks, job ownership).
+- Then Wheelhouse adds roles per product, replication in placement, a storage connection, Promote and recovery
+  drills, and runs itself the same way. All of it is backlog, with v0.7's one-click infrastructure.
