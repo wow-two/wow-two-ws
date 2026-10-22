@@ -61,6 +61,17 @@ Distinguish it from the version-track's **transient iteration plan** (`v{X.Y}/{i
 
 ---
 
+## Built-in browser
+
+- must use the built-in browser on live consoles, prod included, as the developer does: navigate, read, click, type.
+- must not run JavaScript on a tailnet (`*.ts.net`) host: the app asks the developer on every call there, even with
+  permissions bypassed. Read the page, find elements, screenshot or zoom instead; JavaScript is fine on localhost.
+- must keep subagents' browsers off tailnet hosts, since each of their actions asks the developer; a subagent verifies
+  on localhost and hands the live check back to the main session.
+- must never type a password, secret or token into a page; the developer enters those.
+
+---
+
 ## Commit discipline
 
 - must stage, commit and push per [git](../development/repo/version-control/git.md) § *Protocol*; the repository
