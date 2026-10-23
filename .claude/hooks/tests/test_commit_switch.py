@@ -1,7 +1,7 @@
 """Claude Code side of the workspace git flags, run against a throwaway workspace; nothing commits for real.
 
-The hooks are copied into a temporary `<workspace>/.claude/hooks` + `.codex/hooks` layout, so the flag module resolves
-that workspace as its root and the flag store lives in its temporary `.codex/`.
+The hooks are copied into a temporary `<workspace>/.claude/hooks` layout, so the flag module resolves
+that workspace as its root and the flag store lives in its temporary `.claude/`.
 """
 import importlib.util
 import json
@@ -36,10 +36,9 @@ class SwitchHarness(unittest.TestCase):
         self.addCleanup(self.temp.cleanup)
         self.root = Path(self.temp.name).resolve()
         (self.root / ".claude/hooks").mkdir(parents=True)
-        (self.root / ".codex/hooks").mkdir(parents=True)
         for name in ("guard-git.py", "commit-switch.py"):
             shutil.copy(HOOKS / name, self.root / ".claude/hooks" / name)
-        shutil.copy(WORKSPACE / ".codex/hooks/commit_permission.py", self.root / ".codex/hooks/commit_permission.py")
+        shutil.copy(WORKSPACE / ".claude/hooks/commit_permission.py", self.root / ".claude/hooks/commit_permission.py")
         self.repo = self.root / "workbench/product"
         subprocess.run(["git", "init", "--quiet", "--initial-branch=main", str(self.repo)], check=True)
         self.commit = 'git -C {} commit -m "feat: added a thing"'.format(self.repo)
@@ -143,7 +142,7 @@ class CommitSwitchTests(SwitchHarness):
 
     def test_a_broken_switch_never_permits_a_commit(self):
         self.say("~commit_on workbench/product")
-        (self.root / ".codex/hooks/commit_permission.py").write_text("def broken(:\n")
+        (self.root / ".claude/hooks/commit_permission.py").write_text("def broken(:\n")
         result = self.guard(self.commit)
         self.assertEqual(2, result.returncode)
         self.assertIn("commit switch failed", result.stderr)
@@ -421,71 +420,26 @@ class StoreGuardTests(SwitchHarness):
         for tool in ("Write", "Edit", "MultiEdit", "NotebookEdit"):
             for name in ("git-flags.json", "git-flags.log", "git-flags.lock"):
                 with self.subTest(tool=tool, name=name):
-                    blocked = self.edit(tool, self.root / ".codex" / name)
+                    blocked = self.edit(tool, self.root / ".claude" / name)
                     self.assertEqual(2, blocked.returncode)
                     self.assertIn("git flag store", blocked.stderr)
         alias = self.root / "notes.json"
-        alias.symlink_to(self.root / ".codex/git-flags.json")
+        alias.symlink_to(self.root / ".claude/git-flags.json")
         self.assertEqual(2, self.edit("Write", alias).returncode)
         self.assertEqual(0, self.edit("Write", self.root / "docs/git-flags.md").returncode)
         multi = self.hook("guard-git.py", {"tool_name": "MultiEdit", "session_id": "chat-a", "tool_input": {
-            "edits": [{"file_path": str(self.root / "a.md")}, {"file_path": str(self.root / ".codex/git-flags.log")}]}})
+            "edits": [{"file_path": str(self.root / "a.md")}, {"file_path": str(self.root / ".claude/git-flags.log")}]}})
         self.assertEqual(2, multi.returncode)
 
     def test_shell_commands_naming_the_store_block(self):
-        for command in ["cat .codex/git-flags.json", "echo '{}' > .codex/git-flags.json",
-                        "python3 -c \"open('.codex/git-flags.log','a')\"", "rm .codex/git-flags.lock",
-                        "cp /tmp/x .codex/git-flags.json && git status"]:
+        for command in ["cat .claude/git-flags.json", "echo '{}' > .claude/git-flags.json",
+                        "python3 -c \"open('.claude/git-flags.log','a')\"", "rm .claude/git-flags.lock",
+                        "cp /tmp/x .claude/git-flags.json && git status"]:
             with self.subTest(command=command):
                 blocked = self.guard(command)
                 self.assertEqual(2, blocked.returncode)
                 self.assertIn("git flag store", blocked.stderr)
-        self.assertEqual(0, self.guard("python3 -B .codex/hooks/commit_permission.py status --repo .").returncode)
-
-
-class ParityTests(SwitchHarness):
-    """A directive recorded through each agent's adapter is honored by the other agent's guard."""
-
-    def setUp(self):
-        super().setUp()
-        shutil.rmtree(self.root / ".claude/hooks")
-        shutil.copytree(HOOKS, self.root / ".claude/hooks", ignore=shutil.ignore_patterns("tests", "__pycache__"))
-        shutil.copy(WORKSPACE / ".codex/hooks/claude_adapter.py", self.root / ".codex/hooks/claude_adapter.py")
-        shutil.copy(WORKSPACE / ".codex/instructions.md", self.root / ".codex/instructions.md")
-        (self.root / ".claude/rules").mkdir()
-        (self.root / "CLAUDE.md").write_text("# Fixture workspace\n")
-        self.env = dict(os.environ, TMPDIR=str(self.root), PYTHONDONTWRITEBYTECODE="1")
-
-    def codex(self, event, **fields):
-        payload = dict(dict(cwd=str(self.root)), hook_event_name=event, session_id="codex-chat",
-                       turn_id="turn-" + uuid.uuid4().hex, **fields)
-        return subprocess.run(["python3", str(self.root / ".codex/hooks/claude_adapter.py")], input=json.dumps(payload),
-                              capture_output=True, text=True, env=self.env, timeout=60)
-
-    def test_a_claude_directive_is_honored_by_the_codex_guard(self):
-        command = {"cmd": self.commit}
-        self.assertEqual(2, self.codex("PreToolUse", tool_name="exec_command", tool_input=command).returncode)
-        self.say("~commit_on workbench/product")
-        result = self.codex("PreToolUse", tool_name="exec_command", tool_input=command)
-        self.assertEqual(0, result.returncode, result.stderr)
-        self.assertIn("COMMIT PERMISSION: ON", result.stdout)
-
-    def test_a_codex_directive_is_honored_by_the_claude_guard(self):
-        push = "git -C {} push origin main".format(self.repo)
-        self.assertEqual(2, self.guard(push).returncode)
-        reply = self.codex("UserPromptSubmit", prompt="~push_on workbench/product")
-        self.assertEqual(0, reply.returncode, reply.stderr)
-        self.assertIn("PUSH PERMISSION: ON", reply.stdout)
-        self.assertEqual(0, self.guard(push).returncode)
-        self.assertIn("push ON (override)", self.say("~git_status workbench/product"))
-
-    def test_session_start_matches_in_both_agents(self):
-        self.say("~commit_on workbench/product")
-        claude = self.hook("commit-switch.py", {"hook_event_name": "SessionStart", "session_id": "c",
-                                                "cwd": str(self.repo)}).stdout.strip()
-        codex = self.codex("SessionStart", source="startup", cwd=str(self.repo))
-        self.assertTrue(claude)
-        self.assertIn(claude, json.loads(codex.stdout)["hookSpecificOutput"]["additionalContext"])
+        self.assertEqual(0, self.guard("python3 -B .claude/hooks/commit_permission.py status --repo .").returncode)
 
 
 if __name__ == "__main__":

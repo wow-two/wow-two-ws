@@ -1,4 +1,4 @@
-*Last updated: 2026-10-21*
+*Last updated: 2026-10-23*
 
 # Tasks
 
@@ -72,6 +72,7 @@ The [five-product analysis](../../ideas/self-serve-research-2026-10/self-serve-r
 | `app-t-003` | Set up a reliable off-provider backup flow for the platform VPS | `-` | `high` | `todo` | `wow-two-platform.wheelhouse` | Added `2026-10-14` by the user: encrypted backups of both Wheelhouse databases, cookie keys, runner state and host config, with a tested restore; OVH's daily backup is the only copy today. Multi-cloud replication is on the table. Breakdown in the Wheelhouse backlog § Hosting |
 | `app-t-004` | Buy a second VPS for Ocharo (Contabo or OVH) | `-` | `high` | `todo` | `-` | Added `2026-10-17` by the user: Ocharo is the first product to deploy and gets its own host. The purchase is the user's; Wheelhouse registers it as a server. Deploying waits for `app-t-005` |
 | `app-t-005` | Build Wheelhouse's essential modules before the first Ocharo deploy | `-` | `high` | `todo` | `wow-two-platform.wheelhouse` | Added `2026-10-17` by the user: logs and the other important modules land before Ocharo goes live. Module list and breakdown in the Wheelhouse backlog |
+| `app-t-006` | Build Almanac, the calendar view app, to its v1 ship gate | `2026-11-15` | `-` | `todo` | `wow-two-apps.almanac` | Added `2026-10-23` by the user: a readable read-only calendar for the built-in browser pane, run in Docker locally, deployed through Wheelhouse later. Google Calendar stays in use until then. Adds the calendar vector to the fe sdk. [Spec](../../ideas/calendar-spec.md) |
 
 ---
 

@@ -8,7 +8,7 @@
 > degrades to a bare findings list plus a loud stdout line.
 
 ## header
-STYLE CHECK — mechanical measurement of your PREVIOUS reply against `.claude/rules/response-style.md`.
+STYLE CHECK — mechanical measurement of your PREVIOUS reply against `~/.claude/conventions/response-style.md`.
 Advisory: nothing was blocked, the reply already shipped. Apply the fix to THIS turn's reply.
 
 ## footer

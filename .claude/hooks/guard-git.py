@@ -15,11 +15,10 @@ Only the CONFIG block differs between workspaces; DOC names the prose policy it 
              `git -C <repo> commit -m "subject"` while that repository's commit flag is ON, and
              `git -C <repo> push [-u] [<remote> [<ref>]]` while its push flag is ON. The developer
              flips each with a whole-message `~commit_on <repo>` / `~push_on <repo>`, or sets the
-             workspace default with `*`; each flag holds for every chat. `.codex/hooks/commit_permission.py`
-             owns the workspace store `.codex/git-flags.json` and the ordinary forms, and `commit-switch.py`
+             workspace default with `*`; each flag holds for every chat. `.claude/hooks/commit_permission.py`
+             owns the workspace store `.claude/git-flags.json` and the ordinary forms, and `commit-switch.py`
              feeds it Claude prompts. "open": a plain commit runs after the lane check. "never": no commit.
-             A Codex chat meets the switch in its adapter, where installed, before this hook.
-  flags      two kinds, for commands that are risky AND used often. Where `.codex/hooks/commit_permission.py`
+  flags      two kinds, for commands that are risky AND used often. Where `.claude/hooks/commit_permission.py`
              is installed, each runs while the target repository's flag of its kind is ON
              (`~git_on <kind> <repo>`); otherwise it blocks:
                commit   local history rewrites: `commit --amend` · `rebase` · `cherry-pick` · `revert` ·
@@ -32,7 +31,7 @@ Only the CONFIG block differs between workspaces; DOC names the prose policy it 
              A gh write acts on `-R owner/name`, a `repos/owner/name` API path, `repo ... owner/name` or
              `--source <path>`, matched to the workspace repository with that origin; an unmatched one
              reads the workspace repository's flag. Without the module each category stays forbidden.
-  store      the flag store and its change log (`.codex/git-flags.json|log|lock`) are never edited by a
+  store      the flag store and its change log (`.claude/git-flags.json|log|lock`) are never edited by a
              tool: a Write / Edit / MultiEdit / NotebookEdit on them, or a shell command naming them, blocks.
   forbidden  risky commands that are rarely needed, whatever the flags: `git push` outside the ordinary
              form (forcing, deleting, mirror, pruning, hook-skipping) · worktree discards (`restore` to
@@ -83,7 +82,7 @@ HANDOVER = "Hand it over by name in chat (`push main to origin`, `discard my edi
 # ------------------------------------------------------------------- engine
 
 # The repository commit switch; this file sits at `<workspace>/.claude/hooks/`.
-SWITCH = Path(__file__).resolve().parents[2] / ".codex" / "hooks" / "commit_permission.py"
+SWITCH = Path(__file__).resolve().parent / "commit_permission.py"
 COMMIT_FORM = 'git -C <repo> commit -m "subject"'
 PUSH_FORM = 'git -C <repo> push [-u] [<remote> [<ref>]]'
 
@@ -92,7 +91,7 @@ STORE_FILES = re.compile(r"git-flags\.(?:json|log|lock)")
 EDIT_TOOLS = {"Write", "Edit", "MultiEdit", "NotebookEdit"}
 
 # Session file-touch ledger, written by the PostToolUse hook `track-touch.py`.
-# Same `${TMPDIR:-/tmp}` + session-id shape as `style-recharge.sh`'s turn counter.
+# Same `${TMPDIR:-/tmp}` + session-id shape as `check-style.py`'s verdict file.
 LEDGER_PREFIX = "claude-git-lane-"
 
 # -------------------------------------------------------------- policy sets
@@ -702,8 +701,7 @@ def lane_family(sub, args):
 def switch_verdict(data, cmd):
     """(allowed, reason) for an ordinary commit or push from a Claude chat under COMMITS "switch"; None otherwise."""
     sid = data.get("session_id")
-    # A Codex adapter applies the switch before delegating here; its session ids start with `codex-`.
-    if COMMITS != "switch" or not isinstance(sid, str) or not sid or sid.startswith("codex-"):
+    if COMMITS != "switch" or not isinstance(sid, str) or not sid:
         return None
     if not SWITCH.is_file():
         return None  # not installed: every commit form falls through to the hard verdict

@@ -30,10 +30,9 @@ import sys
 import tempfile
 
 CAP = 15            # whitespace-separated words per bullet, status excluded
-STREAM_LINES = 15   # streamed-reply line cap as the ruleset states it
-STREAM_SLACK = 18   # the ruleset says "~15"; only complain past this
+LINE_TARGET = 15    # per-reply aim from the ruleset's `Length` section
+LINE_CAP = 20       # hard cap; only complain past this
 PLAN_MIN, PLAN_MAX = 4, 6
-PLAN_LINE_EXEMPT = 3          # <=3-line reply needs no Plan block
 STATUSES = ("✅", "\U0001f504", "⬜", "✗")
 VERBATIM_RUN = 24             # backtick/quote span this long reads as verbatim
 MAX_SHOWN = 3                 # never list more than this many over-cap bullets
@@ -45,7 +44,6 @@ BULLET = re.compile(r"^(\s*)([-*+])\s+(.*)$")
 FENCE = re.compile(r"^\s*(```|~~~)")
 HEADING = re.compile(r"^\s*#{1,6}\s")
 PLAN_HDR = re.compile(r"^\s*#{2,4}\s*Plan\s*$", re.I)
-QUEUE_HDR = re.compile(r"^\s*(#{2,4}\s*)?Queue\s*$", re.I)
 LONG_RUN = re.compile(
     r"`[^`]{%d,}`|\"[^\"]{%d,}\"|'[^']{%d,}'|“[^”]{%d,}”"
     % (VERBATIM_RUN, VERBATIM_RUN, VERBATIM_RUN, VERBATIM_RUN)
@@ -149,13 +147,6 @@ def plan_block(lines, flags):
     return start, bullets
 
 
-def has_queue(lines, flags):
-    for line, (fence, _t, _q) in zip(lines, flags):
-        if not fence and QUEUE_HDR.match(line):
-            return True
-    return False
-
-
 def unbulleted_lines(lines, flags):
     """Find chat text outside bullets or approved structural Markdown."""
     hits = []
@@ -174,13 +165,11 @@ def unbulleted_lines(lines, flags):
 def measure(reply, cfg):
     lines = reply.split("\n")
     flags = classify(lines)
-    nonblank = [l for l, (f, _t, _q) in zip(lines, flags) if l.strip() and not f]
     # A table row is denser than the bullets it replaces, and a `---` rule is free.
     # Counting either against the reading-cost cap punishes the sanctioned format.
     readable = [l for l, (f, t, _q) in zip(lines, flags)
                 if l.strip() and not f and not t and not l.strip().startswith("---")]
 
-    queued = has_queue(lines, flags)
     walkthrough = any(p.search(reply) for p in walkthrough_patterns(cfg))
 
     findings = []
@@ -198,12 +187,10 @@ def measure(reply, cfg):
         if more:
             findings.append(more)
 
+    # Plan is hidden by default and rendered only on an asked turn, so its absence
+    # is never a finding; a rendered block is still held to its shape.
     start, plan_bullets = plan_block(lines, flags)
-    if start is None:
-        # A `### Queue` may stand in for `### Plan` on a point-surfacing turn.
-        if len(nonblank) > PLAN_LINE_EXEMPT and not queued:
-            findings.append("`### Plan` block: missing (reply is %d lines)" % len(nonblank))
-    else:
+    if start is not None:
         if not (PLAN_MIN <= len(plan_bullets) <= PLAN_MAX):
             findings.append("`### Plan`: %d bullets (rule: %d-%d)"
                             % (len(plan_bullets), PLAN_MIN, PLAN_MAX))
@@ -212,9 +199,9 @@ def measure(reply, cfg):
             findings.append("`### Plan`: %d bullet(s) carry no status from %s"
                             % (len(bad), " ".join(STATUSES)))
 
-    if queued and not walkthrough and len(readable) > STREAM_SLACK:
-        findings.append("streamed reply: %d lines, tables and fences already excluded (cap ~%d)"
-                        % (len(readable), STREAM_LINES))
+    if not walkthrough and len(readable) > LINE_CAP:
+        findings.append("reply length: %d lines, tables and fences already excluded (aim %d, cap %d)"
+                        % (len(readable), LINE_TARGET, LINE_CAP))
 
     plain = unbulleted_lines(lines, flags)
     if plain and not walkthrough:

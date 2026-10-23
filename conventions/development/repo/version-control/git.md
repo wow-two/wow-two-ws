@@ -7,7 +7,7 @@
 
 ## Shared defaults
 
-Message format, type vocabulary, cohesive scope and index operations: [personal Git conventions](/Users/max/.codex/conventions/git.md).
+Message format, type vocabulary, cohesive scope and index operations: [personal Git conventions](/Users/max/.claude/conventions/git.md).
 
 ---
 
@@ -50,8 +50,8 @@ Repairing a binary already in pushed history:
 ## Discipline
 
 - **must** run a flagged command only while the target repository's flag of its kind is `ON`: `commit` (the ordinary commit plus local rewrites — amend, `merge`, `rebase`, `cherry-pick`, `revert`, `am`, `subtree`, soft/mixed `reset`) and `push` (the ordinary push plus every `gh` write). A rewrite never replaces a commit already on a remote-tracking branch. Only commands that are risky and used often get a flag. Enforced by the `guard-git` PreToolUse hook ([../../../../.claude/hooks/guard-git.py](../../../../.claude/hooks/guard-git.py)).
-- flags live in the workspace store `.codex/git-flags.json`: `~git_on <kind> *` sets the workspace default for every repository, a per-repository directive an override; `~git_status *` lists both.
-- **must** follow the [shared repository git flags](/Users/max/.codex/conventions/git.md#repository-commit-permission) and their [local adapter](../../../../.codex/commit-permission.md); the kinds and their commands are listed there.
+- flags live in the workspace store `.claude/git-flags.json`: `~git_on <kind> *` sets the workspace default for every repository, a per-repository directive an override; `~git_status *` lists both.
+- **must** follow the [shared repository git flags](/Users/max/.claude/conventions/git.md#repository-commit-permission) and their [local adapter](../../../commit-permission.md); the kinds and their commands are listed there.
 - **must not** ever run a risky command that is rarely needed: forcing, deleting or mirror pushes, `reset --hard`, worktree `restore`, `checkout -- <path>`, `clean`, `config` and `remote` writes, ref surgery, `gh repo delete`; no flag unlocks them.
 - **may** run `git add`, unforced `git mv` / `git rm`, `git apply`, `git pull`, `git stash`, branch create / switch, `git fetch`, and every read-only git.
 - **must** request the exact `~git_on <kind> <repo>` directive when a task needs a gated command whose flag is `OFF`; never infer a flag from prose.

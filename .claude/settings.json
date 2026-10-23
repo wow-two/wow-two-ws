@@ -37,7 +37,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/style-recharge.sh\" 2>/dev/null || echo \"STYLE hook did not run -- check it with: bash -n .claude/hooks/style-recharge.sh\""
+            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/style-pulse.sh\" 2>/dev/null || echo \"STYLE hook did not run -- check it with: bash -n .claude/hooks/style-pulse.sh\""
           },
           {
             "type": "command",
@@ -56,5 +56,9 @@
         ]
       }
     ]
-  }
+  },
+  "claudeMdExcludes": [
+    "/Users/max/Projects/10x-ws/CLAUDE.md",
+    "/Users/max/Projects/10x-ws/.claude/rules/**"
+  ]
 }

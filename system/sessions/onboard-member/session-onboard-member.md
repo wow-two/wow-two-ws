@@ -8,7 +8,7 @@
 
 - State / live roster: [context.md](./context.md) ← read first
 - Per-repo plans: `engineering/planning/backlog.md` + `version-track/v{X.Y}/` (shape: `conventions/planning/version-track/version-track.md`); agent rules: `engineering/development/rules.md`
-- Copy-ready templates: `.claude/rules/templates/onboarding-{start-here,planning-board,quickstart}.md`
+- Copy-ready templates: `.claude/templates/onboarding-{start-here,planning-board,quickstart}.md`
 - **Status channel** (set once): GitHub repo Issues — recommended, co-located + async — or a Telegram thread.
   Async status, lib requests, API-seam coordination land here. No standup.
 
@@ -100,7 +100,7 @@ Don't add gates before the trigger fires.
 |---|---|---|
 | Procedure (this) | `session-onboard-member.md` | Almost never |
 | Live roster + prep status | `context.md` | Per-member |
-| Entry board · quickstart · start-here | `.claude/rules/templates/onboarding-*.md` → `wow-two-ws/{PLANNING,ONBOARDING}.md`, repo `CLAUDE.md` | Rare |
+| Entry board · quickstart · start-here | `.claude/templates/onboarding-*.md` → `wow-two-ws/{PLANNING,ONBOARDING}.md`, repo `CLAUDE.md` | Rare |
 | Per-repo plan + queue | repo's `engineering/planning/{planning,backlog,rules}.md` (contributor's lane; beta-libs need none) | Frequent |
 | Branch / publish model | `docs/branching-strategy.md` | Rare |
 

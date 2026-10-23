@@ -3,15 +3,15 @@
 *Last updated: 2026-09-29*
 
 > How the per-repository git flags are stored, changed, read and retired. Analysis pool; each decided point moves into
-> the [adapter doc](../.codex/commit-permission.md) and the
-> [personal git convention](/Users/max/.codex/conventions/git.md#repository-commit-permission).
+> the [adapter doc](../.claude/commit-permission.md) and the
+> [personal git convention](/Users/max/.claude/conventions/git.md#repository-commit-permission).
 
 ## Today
 
 | Concern | State on 2026-09-29 (built) |
 |---|---|
 | Kinds | `commit` (ordinary commits and rewrites of unpushed commits), `push` (ordinary pushes and gh writes); rarely needed risky commands are banned, safe ones need no flag |
-| Store | One per workspace, `.codex/git-flags.json` (gitignored): defaults plus per-repository overrides; hash-chained `.codex/git-flags.log` beside it |
+| Store | One per workspace, `.claude/git-flags.json` (gitignored): defaults plus per-repository overrides; hash-chained `.claude/git-flags.log` beside it |
 | Change | A whole-message directive (`~git_on <kinds> <repo>...`, `*` for the default), one log entry each with session, turn, prompt and time |
 | Read | The guard reads the effective flag (override, else default) from the innermost workspace store; a store that disagrees with its log reads OFF |
 | Status | `~git_status <repo>` per repository, `~git_status *` for the whole store; session start shows the working repository's flags in both agents |

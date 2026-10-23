@@ -1,6 +1,6 @@
 """Workspace git flags: `commit` (everything local) and `push` (everything that reaches GitHub).
 
-One store per workspace, `<workspace>/.codex/git-flags.json`, beside this engine: workspace defaults plus
+One store per workspace, `<workspace>/.claude/git-flags.json`, beside this engine: workspace defaults plus
 per-repository overrides keyed by the repository's path inside the workspace. The effective flag is the override,
 else the default. A hash-chained change log sits beside the store; a store that disagrees with its log reads as every
 flag OFF until a `_off` directive resets it. A repository's flags live in the innermost workspace store containing it.
@@ -32,9 +32,9 @@ KINDS = ('commit', 'push')
 # Kinds merged on 2026-09-29; a directive naming one changes nothing and says where it went.
 RETIRED = {'history': 'commit', 'gh': 'push'}
 DEFAULT = '*'
-STORE = Path('.codex') / 'git-flags.json'
-LOG = Path('.codex') / 'git-flags.log'
-LOCK = Path('.codex') / 'git-flags.lock'
+STORE = Path('.claude') / 'git-flags.json'
+LOG = Path('.claude') / 'git-flags.log'
+LOCK = Path('.claude') / 'git-flags.lock'
 DIRECTIVE = re.compile(r'~(commit|push)_(on|off|status)')
 GIT_DIRECTIVE = re.compile(r'~git_(on|off|status)')
 MEANING = {
@@ -235,7 +235,7 @@ def record(store, state, changes, evidence, anchor=None):
         stream.flush()
         os.fsync(stream.fileno())
     state['log_head'] = entry['hash']
-    fd, name = tempfile.mkstemp(prefix='.git-flags-', dir=store / '.codex')
+    fd, name = tempfile.mkstemp(prefix='.git-flags-', dir=store / '.claude')
     try:
         with os.fdopen(fd, 'w') as stream:
             json.dump(state, stream, indent=2, sort_keys=True)

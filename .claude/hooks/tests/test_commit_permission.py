@@ -18,10 +18,9 @@ import unittest
 from unittest.mock import patch
 
 
-WORKSPACE_ROOT = Path(os.environ.get('COMMIT_PERMISSION_WORKSPACE', Path(__file__).resolve().parents[2]))
-DEFAULT_MODULE = WORKSPACE_ROOT / '.codex/hooks/commit_permission.py'
+WORKSPACE_ROOT = Path(os.environ.get('COMMIT_PERMISSION_WORKSPACE', Path(__file__).resolve().parents[3]))
+DEFAULT_MODULE = WORKSPACE_ROOT / '.claude/hooks/commit_permission.py'
 MODULE_PATH = Path(os.environ.get('COMMIT_PERMISSION_MODULE', DEFAULT_MODULE))
-ADAPTER_PATH = Path(os.environ.get('COMMIT_PERMISSION_ADAPTER', WORKSPACE_ROOT / '.codex/hooks/claude_adapter.py'))
 spec = importlib.util.spec_from_file_location('repository_commit_permission_under_test', MODULE_PATH)
 consent = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(consent)
@@ -32,7 +31,7 @@ class FlagStoreTests(unittest.TestCase):
         self.temp = tempfile.TemporaryDirectory(prefix='commit-permission-tests-')
         self.addCleanup(self.temp.cleanup)
         self.workspace = Path(self.temp.name).resolve()
-        (self.workspace / '.codex').mkdir()
+        (self.workspace / '.claude').mkdir()
         self.repo_a = self.workspace / 'repository-a'
         self.repo_b = self.workspace / 'repository-b'
         for repo in (self.repo_a, self.repo_b):
@@ -41,8 +40,8 @@ class FlagStoreTests(unittest.TestCase):
         root_patch = patch.object(consent, 'ROOT', self.workspace)
         root_patch.start()
         self.addCleanup(root_patch.stop)
-        self.store = self.workspace / '.codex/git-flags.json'
-        self.log = self.workspace / '.codex/git-flags.log'
+        self.store = self.workspace / '.claude/git-flags.json'
+        self.log = self.workspace / '.claude/git-flags.log'
         self.payload = {'hook_event_name': 'UserPromptSubmit', 'session_id': 'chat-a',
                         'turn_id': 'turn-1', 'cwd': str(self.repo_a)}
         self.next_user_turn = 1
@@ -86,25 +85,6 @@ class FlagStoreTests(unittest.TestCase):
         for field, value in changes.items():
             state[field] = value
         self.store.write_text(json.dumps(state))
-
-    def load_adapter(self):
-        spec = importlib.util.spec_from_file_location('repository_commit_adapter_under_test', ADAPTER_PATH)
-        adapter = importlib.util.module_from_spec(spec)
-        with patch.dict(sys.modules, {'commit_permission': consent}):
-            spec.loader.exec_module(adapter)
-        adapter.commit_permission = consent
-        adapter.ROOT = self.workspace
-        adapter.SHARED = WORKSPACE_ROOT / '.claude/hooks'
-        self.assertTrue((adapter.SHARED / 'guard-git.py').is_file())
-        return adapter
-
-    def adapter_guard(self, adapter, command=None, payload=None, tool_input=None, tool_name='exec_command'):
-        payload = dict(payload or self.payload, hook_event_name='PreToolUse', tool_name=tool_name,
-                       tool_input=tool_input if tool_input is not None else {'cmd': command or self.command})
-        with contextlib.redirect_stderr(io.StringIO()) as stderr:
-            output, code = adapter.guard(payload)
-        return output, code, stderr.getvalue()
-
 
 class DirectiveTests(FlagStoreTests):
     def test_escaped_on_records_original_text(self):
@@ -495,9 +475,9 @@ class IntegrityTests(FlagStoreTests):
         self.enable()
         other = Path(tempfile.mkdtemp(prefix='other-workspace-')).resolve()
         self.addCleanup(lambda: subprocess.run(['rm', '-rf', str(other)]))
-        (other / '.codex').mkdir()
-        (other / '.codex/git-flags.json').write_bytes(self.store.read_bytes())
-        (other / '.codex/git-flags.log').write_bytes(self.log.read_bytes())
+        (other / '.claude').mkdir()
+        (other / '.claude/git-flags.json').write_bytes(self.store.read_bytes())
+        (other / '.claude/git-flags.log').write_bytes(self.log.read_bytes())
         subprocess.run(['git', 'init', '--quiet', str(other / 'repository-a')], check=True)
         with patch.object(consent, 'ROOT', other):
             self.assertFalse(consent.enabled('commit', str(other / 'repository-a'))[0])
@@ -517,7 +497,7 @@ class NestedWorkspaceTests(FlagStoreTests):
         self.assertIn('workbench/inner-ws/workbench/product', self.state()['repositories'])
 
     def test_a_nested_store_owns_its_repositories_and_its_own_default(self):
-        (self.inner / '.codex').mkdir()
+        (self.inner / '.claude').mkdir()
         with patch.object(consent, 'ROOT', self.inner):
             consent.prompt(dict(self.payload, prompt='~git_on commit *', turn_id='inner-1'))
         self.assertTrue(self.on('commit', self.inner_repo))
@@ -525,11 +505,11 @@ class NestedWorkspaceTests(FlagStoreTests):
         self.directive('~git_on push *')
         self.assertFalse(self.on('push', self.inner_repo))
         self.directive('~push_on ' + str(self.inner_repo))
-        inner_state = json.loads((self.inner / '.codex/git-flags.json').read_text())
+        inner_state = json.loads((self.inner / '.claude/git-flags.json').read_text())
         self.assertEqual({'push': True}, inner_state['repositories']['workbench/product'])
         self.assertTrue(self.on('push', self.inner_repo))
         self.assertIn(str(self.workspace), json.loads(
-            (self.inner / '.codex/git-flags.log').read_text().splitlines()[-1])['base'])
+            (self.inner / '.claude/git-flags.log').read_text().splitlines()[-1])['base'])
 
 
 class CliTests(FlagStoreTests):
@@ -558,102 +538,6 @@ class CliTests(FlagStoreTests):
         self.assertIn('COMMIT PERMISSION: OFF', output)
         self.assertIn('PUSH PERMISSION: ON', output)
         self.assertIn('* default', self.run_cli('status', '--repo', '*')[1])
-
-
-class AdapterTests(FlagStoreTests):
-    def test_adapter_prompt_normalizes_only_display_and_preserves_native_payload(self):
-        adapter = self.load_adapter()
-        adapter.INSTRUCTIONS = self.workspace / 'instructions.md'
-        adapter.INSTRUCTIONS.write_text('fixture instructions')
-        escaped = r'\~commit\_on ' + str(self.repo_a)
-        for text, display in [(escaped, '~commit_on ' + str(self.repo_a)), ('Please ' + escaped, 'Please ' + escaped)]:
-            native_payload = dict(self.payload, prompt=text)
-            with self.subTest(text=text), patch.object(adapter, 'checker') as checker, \
-                    patch.object(adapter, 'run_shared') as shared, \
-                    patch.object(adapter, 'routing_pulse', return_value='fixture routing'), \
-                    patch.object(adapter.tempfile, 'gettempdir', return_value=str(self.workspace)), \
-                    patch.object(consent, 'prompt', return_value='fixture permission') as native_prompt:
-                checker.return_value.load_config.return_value = {}
-                shared.return_value = subprocess.CompletedProcess([], 0, '', '')
-                adapter.prompt(native_payload)
-                expanded = [call.args[1]['prompt'] for call in shared.call_args_list
-                            if call.args[0] == 'expand-markers.sh']
-                self.assertEqual([display], expanded)
-                native_prompt.assert_called_once_with(native_payload)
-                self.assertIsNone(self.state_bytes())
-
-    def test_adapter_allows_an_ordinary_commit_only_while_on(self):
-        adapter = self.load_adapter()
-        output, code, error = self.adapter_guard(adapter)
-        self.assertEqual(2, code)
-        self.assertIn('OFF', error)
-        self.enable()
-        original = self.state_bytes()
-        for turn in ['turn-1', 'child-turn-2']:
-            output, code, error = self.adapter_guard(adapter, payload=dict(self.payload, turn_id=turn))
-            self.assertEqual(0, code, error)
-            self.assertIn('every chat', output['hookSpecificOutput']['additionalContext'])
-        self.assertEqual(original, self.state_bytes())
-
-    def test_adapter_allows_an_ordinary_push_only_while_the_push_flag_is_on(self):
-        adapter = self.load_adapter()
-        self.enable()
-        output, code, error = self.adapter_guard(adapter, 'git push origin main')
-        self.assertEqual(2, code)
-        self.assertIn('PUSH PERMISSION: OFF', error)
-        self.enable_push()
-        output, code, error = self.adapter_guard(adapter, 'git push origin main')
-        self.assertEqual(0, code, error)
-
-    def test_adapter_git_read_remains_allowed_without_context(self):
-        adapter = self.load_adapter()
-        output, code, error = self.adapter_guard(adapter, 'git status --short')
-        self.assertEqual((0, {}), (code, output), error)
-
-    def test_adapter_keeps_force_destructive_and_compound_restrictions(self):
-        adapter = self.load_adapter()
-        self.directive('~git_on commit,push ' + str(self.repo_a))
-        for command in ['git push --force', 'git push --force-with-lease', 'git push origin :main',
-                        'git reset --hard', 'git clean -fd', 'git restore file.txt',
-                        self.command + ' && git push', self.command + '; git status --short',
-                        'git -c core.hooksPath=/tmp commit -m test']:
-            with self.subTest(command=command):
-                output, code, error = self.adapter_guard(adapter, command)
-                self.assertEqual(2, code, error)
-                self.assertIn('BLOCKED', error)
-
-    def test_adapter_patch_guard_refuses_the_store_and_its_log(self):
-        adapter = self.load_adapter()
-        for name in ['.codex/git-flags.json', '.codex/git-flags.log', '../other/.codex/git-flags.lock']:
-            with self.subTest(name=name):
-                patch_text = '*** Begin Patch\n*** Update File: ' + name + '\n@@\n-a\n+b\n*** End Patch'
-                output, code, error = self.adapter_guard(adapter, tool_name='apply_patch',
-                                                        tool_input={'command': patch_text})
-                self.assertEqual(2, code, error)
-                self.assertIn('git flag store', error)
-        fine = '*** Begin Patch\n*** Add File: docs/git-flags.md\n+store: `.codex/git-flags.json`\n*** End Patch'
-        output, code, error = self.adapter_guard(adapter, tool_name='apply_patch', tool_input={'command': fine})
-        self.assertEqual(0, code, error)
-
-    def test_adapter_normalizes_supported_shell_argv(self):
-        adapter = self.load_adapter()
-        self.enable()
-        command = 'git -C ' + shlex.quote(str(self.repo_a)) + ' commit -m "fix: corrected scope"'
-        for shell, switch in [('/bin/sh', '-c'), ('/bin/zsh', '-lc'), ('bash', '-c')]:
-            with self.subTest(shell=shell):
-                output, code, error = self.adapter_guard(adapter, tool_input={
-                    'command': [shell, switch, command], 'workdir': str(self.workspace)})
-                self.assertEqual(0, code, error)
-
-    def test_adapter_rejects_malformed_argv_and_conflicting_fields(self):
-        adapter = self.load_adapter()
-        self.enable()
-        for args in [{'command': ['/bin/sh', '-c', 'git push', 'ignored', '-c', self.command]},
-                     {'command': ['python3', '-c', self.command]}, {'command': ['/bin/sh', '-c']},
-                     {'command': ['/bin/sh', '-c', self.command, 'extra']},
-                     {'command': self.command, 'cmd': 'git push'}]:
-            with self.subTest(args=args):
-                self.assertEqual(2, self.adapter_guard(adapter, tool_input=args)[1])
 
 
 if __name__ == '__main__':

@@ -1,7 +1,7 @@
 #!/bin/bash
 # UserPromptSubmit tail hook: expands chat markers found in the prompt into rule text.
 #
-# Called by style-recharge.sh with the raw hook payload on stdin, AFTER the style pulse,
+# Called by style-pulse.sh with the raw hook payload on stdin, AFTER the style pulse,
 # so marker text lands last in the injected block and outranks the rules it overrides.
 # One script chain, never a second settings.json entry -- matching hooks run in parallel
 # with nondeterministic order, and ordering here is load-bearing.
@@ -11,6 +11,8 @@
 # The vocabulary IS the set of `## @@name` headers in that file. `## BANNER` and
 # `## UNKNOWN` are reserved sections holding the remaining prose. The token shape is
 # data too -- the `<!-- marker-shape: ... -->` comment near the top of the same file.
+# Chat markers use `sigil` (`-`) and fire only when known -- `-` is too common in prose
+# and flags to report typos. `directive-sigil` (`~`) is reserved for `directive-words`.
 #
 # Payload field: `prompt` (verified in the claude binary; a docs source claiming
 # `user_input` is wrong). When the field is absent the whole raw payload is scanned
@@ -112,8 +114,9 @@ function stripfences(t,   m, i, arr, ln, tr, inf, inm, res) {
     if (tr ~ /^(```|~~~)/) { inf = 1 - inf; continue }
     if (inf == 1) continue
     # machine-inserted wrappers: <system-reminder>, <task-notification>,
-    # <*-notification>, <cross-session-message ...>, <function_results> ...
-    if (tr ~ /^<\/?(system-reminder|[a-z-]*notification|cross-session-message|function_(calls|results)|persisted-output)[ >\/]/ || tr ~ /^<\/?(system-reminder|[a-z-]*notification|cross-session-message|function_(calls|results)|persisted-output)>/) {
+    # <*-notification>, <cross-session-message ...>, <function_results>,
+    # <pasted_content ...> (text the user pasted, not typed) ...
+    if (tr ~ /^<\/?(system-reminder|[a-z-]*notification|cross-session-message|function_(calls|results)|persisted-output|pasted_content)[ >\/]/ || tr ~ /^<\/?(system-reminder|[a-z-]*notification|cross-session-message|function_(calls|results)|persisted-output|pasted_content)>/) {
       if (tr ~ /^<\//) { inm = 0 } else { inm = 1 }
       continue
     }
@@ -155,6 +158,8 @@ END {
   run      = shapeval(shape, "run")
   wordre   = shapeval(shape, "word")
   beforenot = shapeval(shape, "before-not")
+  dsigil   = shapeval(shape, "directive-sigil")
+  dwords   = shapeval(shape, "directive-words")
   if (sigil == "" || run == "" || wordre == "") {
     printf "MARKER HOOK BROKEN: no usable <!-- marker-shape: --> in the rules file -- chat markers OFF this turn.\n"
     exit 0
@@ -173,7 +178,8 @@ END {
 
   n = length(text)
   for (i = 1; i <= n; i++) {
-    if (substr(text, i, 1) != sigil) continue
+    c0 = substr(text, i, 1)
+    if (c0 != sigil && (dsigil == "" || c0 != dsigil)) continue
     if (i > 1 && beforenot != "" && substr(text, i - 1, 1) ~ ("^" beforenot "$")) continue
     j = i + 1
     w = ""
@@ -181,11 +187,15 @@ END {
     i = j - 1
     if (w == "") continue
     if (w !~ wordre) continue
-    if (known[w] == 1) {
-      if (seenk[w] != 1) { seenk[w] = 1; nk++ }
-    } else {
-      if (seenu[w] != 1) { seenu[w] = 1; nu++; ulist[++nu2] = w }
+    # Git-flag directives keep the exact `~` their switch script parses.
+    isdir = (dwords != "" && w ~ dwords)
+    if (c0 == sigil) {
+      if (isdir || known[w] != 1) continue
+    } else if (!isdir || known[w] != 1) {
+      if (seenu[w] != 1) { seenu[w] = 1; nu++; ulist[++nu2] = w; usig[nu2] = c0 }
+      continue
     }
+    if (seenk[w] != 1) { seenk[w] = 1; nk++ }
   }
 
   if (nk == 0 && nu == 0) exit 0
@@ -197,7 +207,7 @@ END {
   }
   if (nu > 0) {
     if (body["UNKNOWN"] != "") print trimblank(body["UNKNOWN"])
-    for (u = 1; u <= nu2; u++) printf "  %s%s\n", sigil, ulist[u]
+    for (u = 1; u <= nu2; u++) printf "  %s%s\n", usig[u], ulist[u]
     printf "\n"
   }
   exit 0

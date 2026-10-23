@@ -39,7 +39,7 @@ If validation fails, report the template gap; do not report the copied legacy st
 > `deployment/deployment.md`, …). Root keeps the single `README.md` + `CLAUDE.md`.
 
 > **Not for SDK / library repos.** Those are package-shaped — use the SDK docs +
-> `.claude/rules/templates/CLAUDE-sdk.md`, not this skill.
+> `.claude/templates/CLAUDE-sdk.md`, not this skill.
 
 ## 1 · Gather inputs
 

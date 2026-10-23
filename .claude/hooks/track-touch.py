@@ -11,7 +11,7 @@ accumulated as the session goes.
 Ledger: `${TMPDIR:-/tmp}/claude-git-lane-<session_id>/touched` — one absolute
 realpath per line, append-only, deliberately never pruned (a file edited early and
 reverted later still belongs to this session). Same `${TMPDIR}` + session-id shape
-as `style-recharge.sh`'s turn counter. The OS reclaims it; nothing else does.
+as `check-style.py`'s verdict file. The OS reclaims it; nothing else does.
 
 Always exits 0 — a bookkeeping hook must never fail a tool call that already ran.
 """

@@ -1,26 +1,23 @@
 # Repository git flags
 
-*Last updated: 2026-10-16*
+*Last updated: 2026-10-23 06:10 PM*
 
-> Codex and Claude Code integration for the workspace git flags in `wow-two-ws`. Only commands that are risky and
+> Claude Code integration for the workspace git flags in `wow-two-ws`. Only commands that are risky and
 > used often get a flag; risky commands that are rarely needed never run; safe commands need no flag.
 
 ## Contract
 
-- flag, directive and consent rules: [personal Git conventions](/Users/max/.codex/conventions/git.md#repository-commit-permission); not repeated here.
+- flag, directive and consent rules: [personal Git conventions](/Users/max/.claude/conventions/git.md#repository-commit-permission); not repeated here.
 - staging and batch handover: [workspace Git protocol](../conventions/development/repo/version-control/git.md#protocol-agent--human).
 - analysis and decisions (G0–G7): [docs/git-flags.md](../docs/git-flags.md).
-- this adapter applies to `wow-two-ws` and every repository inside it; each other workspace runs its own hooks.
+- this integration applies to `wow-two-ws` and every repository inside it; each other workspace runs its own hooks.
 
 ---
 
-## Adapters
+## Hooks
 
-- `.codex/hooks/commit_permission.py` owns the workspace store and answers each kind's permission check; both agents
-  load this one module.
-- Codex: `claude_adapter.py` feeds it native prompts, `SessionStart` and tool calls; `apply_patch` reaches the
-  shared guard as a file edit.
-- Claude Code: `.claude/hooks/commit-switch.py` feeds it `SessionStart` and exact prompts (tail-called by
+- `.claude/hooks/commit_permission.py` owns the workspace store and answers each kind's permission check.
+- `.claude/hooks/commit-switch.py` feeds it `SessionStart` and exact prompts (tail-called by
   `expand-markers.sh`); `.claude/hooks/guard-git.py` consults it for gated commands and guards the store against
   `Write` / `Edit` / `MultiEdit` / `NotebookEdit`.
 - must resolve directive paths against the workspace root; `.` selects the workspace repository, `*` the workspace
@@ -91,8 +88,8 @@ The following fenced examples are documentation, not consent:
 
 ## Store
 
-- one store per workspace: `.codex/git-flags.json`, gitignored, beside this engine; `.codex/git-flags.log` holds the
-  hash-chained change log and `.codex/git-flags.lock` the writer lock.
+- one store per workspace: `.claude/git-flags.json`, gitignored, beside this engine; `.claude/git-flags.log` holds the
+  hash-chained change log and `.claude/git-flags.lock` the writer lock.
 - `defaults` holds the workspace default per kind; `repositories` holds overrides keyed by the repository's path
   inside the workspace (`.` for the workspace repository). The effective flag is the override, else the default.
 - `~git_on|off <kinds> *` sets or clears the default for every repository, present and future; a per-repository
@@ -117,8 +114,8 @@ The helper is read-only and prints one repository's flags, or the whole store wi
 mutation command:
 
 ```sh
-python3 -B .codex/hooks/commit_permission.py status --repo workbench/wow-two-sdk-beta/wow-two-sdk-beta.fe
-python3 -B .codex/hooks/commit_permission.py status --repo '*'
+python3 -B .claude/hooks/commit_permission.py status --repo workbench/wow-two-sdk-beta/wow-two-sdk-beta.fe
+python3 -B .claude/hooks/commit_permission.py status --repo '*'
 ```
 
 - session start shows the working repository's effective flags in both agents.
@@ -149,7 +146,7 @@ git -C <absolute-repository> push [-u] [<remote> [<refspec>...]]   # push flag O
 ## Verification
 
 ```sh
-python3 -B .codex/tests/test_commit_permission.py
+python3 -B .claude/hooks/tests/test_commit_permission.py
 python3 -B .claude/hooks/tests/test_commit_switch.py
 ```
 
@@ -157,5 +154,4 @@ python3 -B .claude/hooks/tests/test_commit_switch.py
 - must test each kind's gated commands, pushed-history refusal, the never-run and flag-free lists, multi-kind and
   multi-repository directives, hidden targets, gh origin matching and the store edit guard.
 - must test prompt provenance, replayed transitions, concurrency, and rejected commit forms without making commits.
-- one cross test records a directive through each agent's adapter and checks the other agent's guard honors it.
 - offline passing tests do not prove hook trust or a live permission change.

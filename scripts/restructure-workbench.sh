@@ -257,7 +257,7 @@ flag_lines() {  # "<kinds> workbench/<new path>" for each moving repository with
       done
 }
 
-helper="$WS/.codex/hooks/commit_permission.py"
+helper="$WS/.claude/hooks/commit_permission.py"
 if [ -f "$helper" ]; then
   directives="$(flag_lines "$helper" | sort | awk '{ a[$1] = a[$1] " " $2 } END { for (k in a) print "~git_on " k a[k] }')"
   if [ -n "$directives" ]; then
