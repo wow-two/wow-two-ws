@@ -7,7 +7,7 @@
 
 # Repo Registry
 
-*Last updated: 2026-10-21*
+*Last updated: 2026-10-25*
 
 All repos use the naming convention: `{org}.{domain}[.{subdomain}]`, lowercase, dot-separated. Repo prefix matches org name exactly.
 
@@ -49,7 +49,6 @@ Org: [github.com/wow-two-platform](https://github.com/wow-two-platform) — pipe
 | `wow-two-platform.data.relational` | Relational DB patterns (EF Core) | Active |
 | `wow-two-platform.data.transport` | Data transportation | Draft |
 | `wow-two-platform.storage.cache` | Caching abstractions | Active |
-| `wow-two-platform.storage.file` | File system operations | Active |
 | `wow-two-platform.docs.api` | API documentation generation | Draft |
 | `wow-two-platform.templates.ai` | AI capability templates | Draft |
 | `wow-two-platform.main` | Main platform assembly | Active |
@@ -58,6 +57,9 @@ Org: [github.com/wow-two-platform](https://github.com/wow-two-platform) — pipe
 | `wow-two-platform.wheelhouse` | Product ops & deploy control plane (Clean-Arch .NET 10 + Vue) | Active |
 | `wow-two-platform.secrets-vault` | Secrets vault — envelope-encrypted store + management UI | Inactive: merging into Wheelhouse as its built-in vault (Wheelhouse decision 59) |
 | `wow-two-platform.wheelhouse-canary` | Sample Vue + .NET + PostgreSQL app Wheelhouse deploys to dev and prod to prove every deployment flow | v0.1 built; awaiting first deploy |
+| `wow-two-platform.storage.file` | Files, image variants, signed URLs and quotas as a library and a Docker image; one instance per owner | Planned: spec ready (ideas/file-storage-service-spec.md); empty solution |
+| `wow-two-platform.events` | Shared event catalog fed by Harvest and curated in review, with private tracking per organization | Planned: design ready (ideas/events-service-spec.md); repository not created |
+| `wow-two-platform.harvest` | 24/7 harvester: scheduled pipelines capture sources and extract records into a consumer's schema | Planned: grows from ListingShelf (ideas/harvest-service-spec.md); repository not decided |
 | `.github` | Org-wide GitHub config | Active |
 
 ## wow-two-sdk (public libs & tools)
@@ -160,6 +162,7 @@ Hub: [sulton-max/10x-ventures](https://github.com/sulton-max/10x-ventures) — T
 | `sulton-max/acquisition-explorer-poc` · `workbench/maxs-projects/ventures/saas/acquisition-explorer-poc` | Acquisition Explorer: company and M&A ownership graph | Frontend scaffold; idle since 2026-05 |
 | `sulton-max/pdf-editor` · `workbench/maxs-projects/ventures/saas/pdf-editor` | PDF Editor: PDF editing tool | Scaffold; scope undefined; idle since 2026-05 |
 | `sulton-max/10x-fin-nt` · `workbench/maxs-projects/ventures/labs/10x-fin-nt` | NT auction tracker for Uzbekistan | Dormant; kept as a personal tool |
+| `ventures.unpause` · `workbench/maxs-projects/ventures/consumer/ventures.unpause` | Unpause: kids learn English through films; a phone checkpoint game on missed words resumes the film and an end test unlocks the next | Spec 2026-10-21 (specs/unpause.md); no repository yet; validation sprint before scaffold |
 | `10x-venture-forever-pin-promo` · `workbench/maxs-projects/ventures/saas/10x-venture-forever-pin-promo` | ForeverPin promo and hero videos (Remotion) | Usable; local only |
 | `airfryer-3d` · `workbench/maxs-projects/ventures/labs/airfryer-3d` | Scroll-driven 3D product ad page (procedural Three.js model, GSAP choreography) | Usable concept page; local only |
 | `sulton-max/ventures.tnis-mintrans` · `workbench/maxs-projects/clients/mintrans/ventures.tnis-mintrans` | TNIS Mintrans: the ministry handoff cut of TNIS, implemented by the ministry's own team | Handoff cut for Mintrans UZ: technical document, reference implementation and data request |

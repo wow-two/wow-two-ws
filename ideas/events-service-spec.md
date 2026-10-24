@@ -144,7 +144,7 @@ Version `v1`, `{ data }` envelopes, ProblemDetails failures, cursor paging, `Acc
 
 ## Harvest seam
 
-Harvest is the separate 24/7 harvester: it runs scheduled pipelines over sources, captures pages and posts, extracts
+[Harvest](harvest-service-spec.md) is the separate 24/7 harvester: it runs scheduled pipelines over sources, captures pages and posts, extracts
 records into a schema the consumer names, and delivers them. It grows from ListingShelf's pipelines, runs and
 captures; Events is one consumer of many.
 
@@ -212,7 +212,7 @@ Decided 2026-10-25 — [instances per owner](file-storage-service-spec.md#instan
 
 - [ ] EV1 — catalog sharing: Ocharo's catalog private, shared with chosen organizations, or public
 - [ ] EV2 — Afisha intake: provider API, HTTP capture or a feed; terms of use; what Afisha lists for fashion
-- [ ] EV3 — Harvest: its own repository grown from ListingShelf, or ListingShelf renamed and widened
+- [ ] EV3 — Harvest's repository: tracked as H1 in the [Harvest spec](harvest-service-spec.md)
 - [ ] EV4 — reminders: through Notifications or a Telegram message from the service until Notifications exists
 
 ---
