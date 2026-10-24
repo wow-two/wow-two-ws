@@ -1,6 +1,6 @@
 # Capability forms
 
-*Last updated: 2026-10-21*
+*Last updated: 2026-10-24*
 
 > How a platform capability ships: an SDK library, a self-hosted service image and a provided service, under
 > one client contract.
@@ -50,6 +50,15 @@
 - must keep the service's HTTP API a mirror of the contract; the service adds hosting, admin and app routing.
 - must publish the image per [deployment descriptor](../deployment/descriptor/deploy-descriptor.md) § Rules.
 - must keep UI parts form-agnostic; they call the consumer's backend or the service API through the contract.
+
+---
+
+## Theming
+
+- must build hosted pages, such as sign-in and the admin console, on the fe SDK so every SDK theme ships in the image.
+- must pick the hosted pages' theme by its SDK name from the instance's configuration.
+- may override that theme per registered app, so one instance shows each app's pages in its own theme.
+- must leave embedded UI parts on the consuming app's theme; they take no theme setting of their own.
 
 ---
 

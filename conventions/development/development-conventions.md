@@ -17,7 +17,7 @@
 
 **Cross-area:** [sdk-extraction.md](sdk-extraction.md) — extract, keep or remove: a generic piece goes to the SDK whatever its size, an app-bound one stays, and a wrapper that exists only for DRY, a prop or a restyle is removed.
 
-**Cross-area:** [capability-forms.md](capability-forms.md) — a platform capability ships as an SDK library, a self-hosted service image and a provided service under one client contract.
+**Cross-area:** [capability-forms.md](capability-forms.md) — a platform capability ships as an SDK library, a self-hosted service image and a provided service under one client contract; hosted pages take an SDK theme by name.
 
 Planning lives in the sibling **planning** domain → [`../planning/version-track/version-track.md`](../planning/version-track/version-track.md).
 
