@@ -1,6 +1,6 @@
 # Agentic workflow
 
-*Last updated: 2026-10-21*
+*Last updated: 2026-10-24*
 
 > How parallel Claude chats / agents share one repo without clobbering each other — lane discipline, no-revert, scope containment.
 > Purpose — multiple chats edit the same working tree at once; a wrong "cleanup" silently destroys another lane's uncommitted work.
@@ -69,6 +69,20 @@ Distinguish it from the version-track's **transient iteration plan** (`v{X.Y}/{i
 - must keep subagents' browsers off tailnet hosts, since each of their actions asks the developer; a subagent verifies
   on localhost and hands the live check back to the main session.
 - must never type a password, secret or token into a page; the developer enters those.
+
+---
+
+## Wheelhouse prod promotion
+
+- may promote Wheelhouse's own prod without asking (developer's grant, 2026-10-24): until self-deploy is active,
+  dispatch `promote-prod.yml` with an empty release and approve its `prod` environment; after, the prod console's
+  Ready to promote with `wheelhouse-prod` typed and a reason.
+- must promote only the newest release that succeeded on `wheelhouse-dev`; a rollback waits for the developer's ask.
+- must not promote while a Wheelhouse deployment or infrastructure job runs, since the console restarts for about a
+  minute.
+- must confirm afterwards that prod answers and runs the promoted release, then report the release in one line.
+- must treat the dispatch and the approval as GitHub writes, so the repository's push flag stays the switch.
+- must not stretch the grant to any other product's prod; those promotions stay the developer's call.
 
 ---
 
