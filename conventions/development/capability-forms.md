@@ -1,6 +1,6 @@
 # Capability forms
 
-*Last updated: 2026-10-24*
+*Last updated: 2026-10-25*
 
 > How a platform capability ships: an SDK library, a self-hosted service image and a provided service, under
 > one client contract.
@@ -34,6 +34,8 @@
 - must define the client contract before any form ships.
 - must keep one contract across every form; a consumer changes form by configuration, never by code.
 - must ship two registrations behind the contract: the in-process module and the HTTP client.
+- must declare the contract as a [broker](backend/dotnet/core/mla/constructs/behavior/broker.md) interface;
+  Form 1 implements it over the module, Forms 2 and 3 over the HTTP [client](backend/dotnet/core/mla/constructs/behavior/client.md).
 - must keep vendor types out of the contract → [swappable modules](swappable-modules.md) § Contract.
 - must run one conformance suite against the in-process module and against the running image.
 
