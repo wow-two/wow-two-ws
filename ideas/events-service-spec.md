@@ -1,13 +1,14 @@
 # WoW Two Events — Shared Event Catalog and Tracking for Every Product
 
-*Last updated: 2026-10-24*
+*Last updated: 2026-10-25*
 
 > `wow-two-platform.events`: a catalog of dated opportunities — fairs, fashion weeks, exhibitions, competitions,
 > conferences — that sources feed and reviewers curate, plus private tracking per organization. Shipped in the
 > [capability forms](../conventions/development/capability-forms.md). First consumer: Ocharo Desk's Events feed.
 >
-> **Status:** analysis 2026-10-24, from Desk's Events (v0.1 iterations 17–18). Open choice: E1 in
-> [Ocharo app boundaries](../workbench/mfts-projects/ventures/ocharo-hq/ocharo-ws/docs/app-boundaries.md) § Points.
+> **Status:** the developer chose on 2026-10-24 to move Events into the SDK now (E1 in
+> [Ocharo app boundaries](../workbench/mfts-projects/ventures/ocharo-hq/ocharo-ws/docs/app-boundaries.md)); the
+> entity, sources and harvesting design comes next.
 
 ## Problem
 

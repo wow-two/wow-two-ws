@@ -1,6 +1,6 @@
 # WoW 2.0 — Platform Apps, In Order
 
-*Last updated: 2026-10-21*
+*Last updated: 2026-10-25*
 
 > The order the wow-two platform apps get built and shipped — one list to focus on, top down. Scope: the internal
 > apps every product stands on (ops, observability, backbone services). Products and ventures live in the
@@ -21,7 +21,7 @@
 
 ## Order
 
-| # | App | Repo | What it is | State 2026-09-29 (rows 1 and 8: 2026-10-19; 2 and 3: 2026-10-21) | Ship gate | Needs |
+| # | App | Repo | What it is | State 2026-09-29 (rows 1 and 8: 2026-10-19; 2 and 3: 2026-10-21; 16: 2026-10-24) | Ship gate | Needs |
 |---|---|---|---|---|---|---|
 | 1 | **Wheelhouse** | `wow-two-platform.wheelhouse` | deploy + ops control plane: products, servers, domains, deploys | v0.5 in progress: platform model built; infrastructure automation planned | a product deployed to a VPS from it, with rollback, domain and live logs | — |
 | 2 | **Identity** | `wow-two-platform.identity` | own user store, OIDC provider, hosted sign-in, admin console; three forms ([spec](../ideas/identity-service-spec.md)) | SDK identity steps 1–9 done; no OIDC server; Ocharo first | two apps sign in through it | 1 |
@@ -38,6 +38,7 @@
 | 13 | **Docs site** | new | the platform's knowledge site (Starlight / Docusaurus) | — | conventions + SDK docs published | — |
 | 14 | **FlowDeck** | new | visual request-flow debugger over live traces ([spec](../ideas/flowdeck-spec.md)) | idea | one backend's flows browsable live | 6 |
 | 15 | **AI Gateway** | `wow-two-platform.templates.ai` | shared LLM proxy: keys, routing, caching | skeleton | two apps share keys and a cache through it | 2, 4 |
+| 16 | **Events** | `wow-two-platform.events` | shared event catalog, sources and harvesting, per-organization tracking; three forms ([spec](../ideas/events-service-spec.md)) | Desk Events moving into the SDK (Form 1) | two products track events through it | 2 |
 
 ---
 
@@ -76,3 +77,5 @@
   them to #2 and #3, right after Wheelhouse.
 - 2026-10-21 — Identity: OpenIddict for the protocol on the SDK's own store; one instance per owner, Ocharo
   running its own; one person per instance with roles per organization and app permissions as claims.
+- 2026-10-24 — developer chose to move Ocharo Desk's Events into a shared SDK module now (Form 1), with the
+  service form once a second product tracks events.
