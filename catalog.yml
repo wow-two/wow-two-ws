@@ -250,7 +250,7 @@ entries:
     name: Wheelhouse
     workspace: wow2-platform
     kind: platform
-    deploy: ci
+    deploy: wheelhouse
     status: "Active"
     purpose: "Product ops & deploy control plane (Clean-Arch .NET 10 + Vue)"
     repositories: [wow-two-platform/wow-two-platform.wheelhouse]

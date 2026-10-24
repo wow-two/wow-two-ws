@@ -1,6 +1,6 @@
 # Catalog
 
-*Last updated: 2026-10-21*
+*Last updated: 2026-10-24*
 
 > `catalog.yml` at the root of each hub repository: every repository and app the hub owns, one entry per product.
 > Purpose — one machine-readable source per owner: Wheelhouse imports from every hub; `.claude/repo-registry.md` renders them all.
@@ -117,7 +117,8 @@ entries:
 - must file the owner's ventures under `own-ventures`, other ventures and client work under `other-ventures`, and
   Ocharo's repositories under `ocharo`.
 - must use kind `platform` for a platform app and `backbone` for a platform library, pipeline or org config.
-- must set `deploy: wheelhouse` when Wheelhouse deploys the repo, `ci` when CI does (Wheelhouse itself).
+- must set `deploy: wheelhouse` when Wheelhouse deploys the repo, Wheelhouse itself included (it deploys itself since
+  2026-10-24), and `ci` when the repository's own CI does.
 - must name the canonical GitHub repository, never a redirect alias left in a local `origin`.
 - may leave `repositories` empty only while no GitHub repository exists; `local` is then required.
 - must not leave `repositories` empty on a deployable.
