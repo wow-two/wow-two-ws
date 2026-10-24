@@ -82,3 +82,5 @@
   service form once a second product tracks events.
 - 2026-10-25 — developer chose one standardized Harvest service for every scheduled capture, grown from
   ListingShelf; Events consumes it, and the Events service is built in its own WoW2 chat.
+- 2026-10-25 — File Storage runs one instance per owner: WoW2's own instance serves Harvest's captures and the
+  Events catalogs' media; each product (Ocharo) keeps its own for its media.

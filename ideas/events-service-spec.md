@@ -65,7 +65,7 @@
 | `deadlines` | Deadline[] | |
 | `offers` | Offer[] | tickets, exhibitor terms, fees |
 | `website` · `ticketUrl` · `onlineUrl` | URLs, optional | http(s) ≤ 2,048 |
-| `images` | URL[] | File Storage references later |
+| `images` | file references | in WoW2's File Storage instance — [Media](#media) |
 | `languages` | locale[] | languages the event runs in |
 | `externalIds` | map source → id | dedup by source identity |
 | `provenance` | SourceRef[] | every source that reported it: source, URL, observed at |
@@ -184,6 +184,19 @@ captures; Events is one consumer of many.
 | `status`, `priority`, `notes` | tracking stage, priority, notes |
 | `scope` | dropped: derived |
 | `key` | event `key` |
+
+---
+
+## Media
+
+Decided 2026-10-25 — [instances per owner](file-storage-service-spec.md#instances-per-owner).
+
+- event images live in WoW2's own File Storage instance, the one Harvest writes its captures to.
+- an event references the capture's file instead of copying it; the reference keeps the file after Harvest prunes
+  the capture.
+- reviewers' uploads and replacements go to the same instance, owned by the catalog, never an organization.
+- a consuming product's own files about an event, such as Ocharo's booth photos, stay in that product's instance and
+  attach to its tracking by reference.
 
 ---
 

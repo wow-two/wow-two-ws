@@ -1,6 +1,6 @@
 # WoW Two Files — Own File Storage for Every Product
 
-*Last updated: 2026-10-21*
+*Last updated: 2026-10-25*
 
 > `wow-two-platform.storage.file`: one way to store, transform, protect and serve files, shipped in the three
 > [capability forms](../conventions/development/capability-forms.md). Products stop writing their own `MediaStore`.
@@ -31,6 +31,17 @@
 
 - the repo `wow-two-platform.storage.file` exists with an empty solution (2 commits, 2024); it becomes the service.
 - every form authorizes with [Identity](identity-service-spec.md) claims: organization, app and role.
+
+### Instances per owner
+
+Decided 2026-10-25: one instance per owner, shared by that owner's services.
+
+- WoW2's own instance belongs to the WoW2 apps: Harvest's captures and the [Events](events-service-spec.md) catalogs'
+  media live there.
+- Ocharo's instance holds only Ocharo's media: products, brand, uploads and its own files about events.
+- a self-hosted Harvest and Events ship with a File Storage instance in the same bundle, split the same way.
+- a record that uses a file holds a reference; the file lives while any reference does, so pruning a capture never
+  removes a published image, and nothing is copied between services of one owner.
 
 ---
 
