@@ -21,7 +21,7 @@
 
 ## Order
 
-| # | App | Repo | What it is | State 2026-09-29 (rows 1 and 8: 2026-10-19; 2 and 3: 2026-10-21; 16: 2026-10-24) | Ship gate | Needs |
+| # | App | Repo | What it is | State 2026-09-29 (rows 1 and 8: 2026-10-19; 2 and 3: 2026-10-21; 16: 2026-10-24; 17: 2026-10-25) | Ship gate | Needs |
 |---|---|---|---|---|---|---|
 | 1 | **Wheelhouse** | `wow-two-platform.wheelhouse` | deploy + ops control plane: products, servers, domains, deploys | v0.5 in progress: platform model built; infrastructure automation planned | a product deployed to a VPS from it, with rollback, domain and live logs | — |
 | 2 | **Identity** | `wow-two-platform.identity` | own user store, OIDC provider, hosted sign-in, admin console; three forms ([spec](../ideas/identity-service-spec.md)) | SDK identity steps 1–9 done; no OIDC server; Ocharo first | two apps sign in through it | 1 |
@@ -38,7 +38,8 @@
 | 13 | **Docs site** | new | the platform's knowledge site (Starlight / Docusaurus) | — | conventions + SDK docs published | — |
 | 14 | **FlowDeck** | new | visual request-flow debugger over live traces ([spec](../ideas/flowdeck-spec.md)) | idea | one backend's flows browsable live | 6 |
 | 15 | **AI Gateway** | `wow-two-platform.templates.ai` | shared LLM proxy: keys, routing, caching | skeleton | two apps share keys and a cache through it | 2, 4 |
-| 16 | **Events** | `wow-two-platform.events` | shared event catalog, sources and harvesting, per-organization tracking; three forms ([spec](../ideas/events-service-spec.md)) | Desk Events moving into the SDK (Form 1) | two products track events through it | 2 |
+| 16 | **Events** | `wow-two-platform.events` | shared event catalog, sources and harvesting, per-organization tracking; three forms ([spec](../ideas/events-service-spec.md)) | design ready ([spec](../ideas/events-service-spec.md)); built in a WoW2 chat, Desk integrates after | two products track events through it | 2, 17 |
+| 17 | **Harvest** | new, grown from ListingShelf | 24/7 harvester: scheduled pipelines capture sources and extract records into a consumer's schema, then deliver them | ListingShelf pipelines, runs and captures | Events and one other product receive harvested records | 15 |
 
 ---
 
@@ -79,3 +80,5 @@
   running its own; one person per instance with roles per organization and app permissions as claims.
 - 2026-10-24 — developer chose to move Ocharo Desk's Events into a shared SDK module now (Form 1), with the
   service form once a second product tracks events.
+- 2026-10-25 — developer chose one standardized Harvest service for every scheduled capture, grown from
+  ListingShelf; Events consumes it, and the Events service is built in its own WoW2 chat.
