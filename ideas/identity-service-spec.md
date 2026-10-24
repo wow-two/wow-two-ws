@@ -1,6 +1,6 @@
 # WoW Two Identity — Own Identity Store and SSO for Every Product
 
-*Last updated: 2026-10-21*
+*Last updated: 2026-10-25*
 
 > `wow-two-platform.identity`: our own user store, OIDC provider, hosted sign-in and admin console, shipped in the
 > three [capability forms](../conventions/development/capability-forms.md). Every product signs in through it instead
@@ -8,6 +8,7 @@
 >
 > **Status:** the developer chose to build it on 2026-10-21; first consumer Ocharo (phone + Telegram bot code,
 > admin-managed members). D1–D3 decided 2026-10-21; open: [platform decisions](../docs/platform-decisions.md) D4, D5.
+> Pre-build analysis and its decision queue: [identity analysis](identity-analysis-2026-10/identity-analysis-2026-10.md).
 
 ## Problem
 
@@ -15,8 +16,8 @@
   first-ten pilots email and password; Ocharo Desk has a fifth (password + Telegram code + its own SSO broker).
 - Ocharo duplicates the client side: `Ocharo.Sso` is copied byte for byte into Studio, Marketing and Blog, plus
   four frontend session clients and three older ticket-introspection handlers.
-- Desk's broker is not OIDC, keeps app sessions in memory (a restart signs everyone out, one instance only), and
-  exposes no member administration: operators come from a CLI command and memberships from fixtures.
+- Desk's broker is not OIDC; each app's `Ocharo.Sso` keeps its sessions in memory (a restart signs everyone out,
+  one instance only); Desk exposes no member administration: operators come from a CLI command and memberships from fixtures.
 - one Google client per product does not scale to the portfolio; one shared client leaks token audiences.
 
 ---
@@ -40,7 +41,8 @@
 ## Build path
 
 - **decided (D1):** OpenIddict (Apache-2.0, .NET) for the protocol on top of the SDK's own store.
-  OpenIddict 6.0.0 already sits in the be SDK's `Directory.Packages.props`, unreferenced.
+  OpenIddict 6.0.0 sits in the be SDK's `Directory.Packages.props`, unreferenced and out of support; 7.7.2 is
+  current and needs EF Core 10.0.11 or later.
 - why not Keycloak, Zitadel, Logto or Authentik: each replaces our store, has no Form 1, and custom flows such as
   the Telegram link need Java SPIs or Go actions; Duende needs a commercial licence.
 - the risk of owning auth is protocol correctness: OpenIddict carries the protocol, and the OpenID Foundation
@@ -50,11 +52,12 @@
 
 ## What already exists
 
-Be SDK `Identity/` (about 92 tests):
+Be SDK `Identity/` (113 tests, green 2026-10-25):
 
 - email + password: Argon2id with rehash on upgrade, length 8–128, identifier check, HIBP k-anonymity (fails open),
   lockout 5 attempts / 5 minutes, reset tokens bound to the security stamp.
-- email magic link and email code; phone OTP sign-in; OTP channels SMS (Twilio, Vonage, Eskiz), email, WhatsApp,
+- organizations and memberships with roles and permissions as claims (I13, `10.0.76-beta`).
+- email magic link and email code; phone OTP sign-in (a service; no HTTP route yet); OTP channels SMS (Twilio, Vonage, Eskiz), email, WhatsApp,
   Telegram bot message, Telegram Gateway.
 - passkeys (Fido2, usernameless), TOTP, hashed recovery codes, delivered-code second factors, API keys.
 - 17 OAuth registrations (Amazon, Apple, Discord, Facebook, GitHub, GitLab, Google, LinkedIn, Microsoft, Notion,
@@ -71,10 +74,12 @@ callout.
 
 ## Gaps
 
-- protocol — OIDC server endpoints, discovery, JWKS, asymmetric signing keys and rotation (JWT is HS256 only).
-- accounts — organizations, memberships, invitations, admin-managed members, an OAuth callback-to-link route.
+- protocol — OIDC server endpoints, discovery, JWKS, asymmetric signing keys and rotation (JWT issuance is HS256
+  only; validation already accepts RS, PS and ES keys).
+- accounts — invitations, admin-managed members, an OAuth callback-to-link route.
 - passwords — expiry, history, forced reset, admin-generated temporary passwords, generator, a real strength meter.
-- sessions — a durable OTP store (memory only today), a session list per user and device, revoke one or all.
+- sessions — a durable OTP store (memory only today, codes plaintext at rest, 5-second resend), a session list per
+  user and device, revoke one or all.
 - audit — sign-in log, security events (log lines only today), admin action trail.
 - admin — user admin API, disable, impersonation, the console itself.
 - Telegram — Log in with Telegram (OIDC), link-on-first-sign-in without a password.
