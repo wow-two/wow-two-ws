@@ -1,5 +1,7 @@
 # WoW 2.0 — Versioning Strategy
 
+*Last updated: 2026-10-25*
+
 > **Scope**: .NET **library packages** (SDK + Platform libs) — the `<Version>` / NuGet version, where **x = .NET major**.
 >
 > **Apps** (product repos) do **not** use this scheme — their release + deployable **image tag** is the **product iteration version** (`vX.Y.Z`, see [`../conventions/planning/version-track/version-track.md`](../conventions/planning/version-track/version-track.md)). One axis, no .NET-major segment. E.g. a library ships `v10.0.1`; the secrets-vault app ships `v1.0.0`.
@@ -83,6 +85,7 @@ When .NET ships a new major version:
 ## Where Version Lives
 
 - **In `.csproj`**: `<Version>9.0.0-alpha.1</Version>`
+- **Domain repos**: versions come from tags, not `.csproj` — see *Applies To*
 - **CI override**: Pipeline can append/modify the pre-release suffix
   - Dev branch auto-increments alpha number
   - Main branch strips pre-release suffix for stable
@@ -138,3 +141,4 @@ Use `Directory.Build.props` to enforce this:
 | Platform libs (`platform.*`) | Yes | Internal packages, same convention |
 | Apps (`apps.*`) + platform apps | **No** | Use the **product iteration version** (`vX.Y.Z`, `version-docs.md`) as the release + deployable image tag — not the .NET-major scheme |
 | KB modules (`kb.*`) | No | No published packages |
+| SDK domain repos (Identity first) | Own lines per artifact | be packages `10.y.z-beta` from `be-v*` tags · `fe-{slug}` `0.0.z` from `fe-v*` tags · image `X.Y.Z` — [domain structure § Releases](../conventions/development/repo/structure/domain-structure.md#releases) |

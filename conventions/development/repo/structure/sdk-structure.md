@@ -1,6 +1,6 @@
 # SDK structure
 
-*Last updated: 2026-10-16*
+*Last updated: 2026-10-25*
 
 > On-disk layout and naming of an SDK / library repo under `wow-two-ws/workbench/` — the package-shaped
 > counterpart of [repo structure](repo-structure.md).
@@ -8,7 +8,8 @@
 
 ## Archetype
 
-- must treat an SDK / library repo — `wow-two-sdk.*`, `wow-two-sdk-beta.*` — as its own archetype.
+- must treat a package-only SDK / library repo — `wow-two-sdk.*`, `wow-two-sdk-beta.*` — as its own archetype.
+- must treat a domain repo, with its service and image, as the [domain structure](domain-structure.md) archetype instead.
 - must adopt the doc-bearing shell: `engineering/` at the repo root, as a product repo has.
 - must omit `product/`; the shipped thing is the package.
 - must nest each package under `engineering/codebase/{slug}/` — one package, one code directory.
