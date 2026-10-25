@@ -1,6 +1,6 @@
 # Conventions — wow-two
 
-*Last updated: 2026-10-21*
+*Last updated: 2026-10-25*
 
 > **The single index to every convention.** When a task touches *how we build* — code, repo structure,
 > naming, versioning — search HERE first, then open only the file(s) you need. Lookup table,
@@ -157,6 +157,7 @@ Cross-area: **[capability-forms.md](development/capability-forms.md)** — a pla
 | Product conformance — every check a product repo owes, each linked to its owning convention | [development/repo/structure/product-conformance.md](development/repo/structure/product-conformance.md) |
 | App and service versions · `X.Y` from the version track, `Z` from CI · injected at build · status endpoint · shown in the app · stamped on migrations · release tags | [development/repo/versioning/versioning.md](development/repo/versioning/versioning.md) |
 | SDK / library repo shape · be sdk + fe sdk naming (repo, code dir, package, namespace) · `engineering/` + npm package under `engineering/codebase/{slug}/` · `src/` source-only + `tests/{unit,stories}` · config repoint · dist-only publish | [development/repo/structure/sdk-structure.md](development/repo/structure/sdk-structure.md) |
+| Domain repo shape — one SDK domain's be packages, fe package, service and image in one repo · when a domain earns one · naming · `packages/` · `service/` · `tests/` · layers, the kernel `WoW2.Sdk.Beta.Be.Abstractions` · docs in the repo, pointer in the hub · tag-derived releases, compat job | [development/repo/structure/domain-structure.md](development/repo/structure/domain-structure.md) |
 | Commit messages · scoped index handover · independent repository Git flags · LFS, gitignore and large-file recovery | [development/repo/version-control/git.md](development/repo/version-control/git.md) |
 | Catalog — hub `catalog.yml` files (wow2, ventures, Ocharo): every repo and app, one entry per product · hub structure and ownership · workspaces · kinds · deploy mode · schema · generated repo registry | [development/repo/catalog/catalog.md](development/repo/catalog/catalog.md) |
 | Workbench layout — where each checkout lives · `wow-two*` org folders · owner folders `maxs-projects/` + `mfts-projects/` · flat `ventures/` · `clients/{client}/` · catalog workspace → `local` · moving a checkout | [development/repo/layout/workbench-layout.md](development/repo/layout/workbench-layout.md) |

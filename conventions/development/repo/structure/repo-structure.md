@@ -1,6 +1,6 @@
 # Repo structure
 
-*Last updated: 2026-10-19*
+*Last updated: 2026-10-25*
 
 > On-disk layout and naming of a product / venture repo under `wow-two-ws/workbench/` — folders and names, not code.
 > Use case — scaffolding a repo, placing a folder, or checking an existing repo's shape.
@@ -11,6 +11,7 @@
 |---|---|---|
 | product / venture | `product/` + `engineering/`, code under `engineering/codebase/` | this doc |
 | SDK / library | `engineering/` only, one package under `engineering/codebase/{slug}/` | [SDK structure](sdk-structure.md) |
+| domain | product shell; be packages + service + tests, fe package + hosted app | [domain structure](domain-structure.md) |
 
 - must scaffold a product repo with the `create-repo` skill, from `wow-two-sdk-beta.product-template`.
 - must not force one archetype's shape onto the other.

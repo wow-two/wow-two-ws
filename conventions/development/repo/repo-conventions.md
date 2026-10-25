@@ -1,21 +1,22 @@
 # Conventions — Development — Repo
 
-*Last updated: 2026-10-19*
+*Last updated: 2026-10-25*
 
-> How a repo is shaped and equipped — repo **shape** splits by **archetype** (product / venture vs SDK / library),
+> How a repo is shaped and equipped — repo **shape** splits by **archetype** (product / venture · SDK / library · domain),
 > grouped under `structure/`; version control + the default tech stack are the shared, cross-archetype setup. Code
 > style for each stack is in the siblings [../backend/](../backend/) + [../frontend/](../frontend/). Serving + dev-port
 > allocation are a deployment concern → [../../deployment/deployment-conventions.md](../../deployment/deployment-conventions.md).
 
 ## Structure
 
-Repo shape by archetype — product / venture (both stacks, one repo) vs SDK / library (one published package). Don't force one shape into the other.
+Repo shape by archetype — product / venture (both stacks, one repo) vs SDK / library (one published package) vs domain (one SDK domain's packages, service and image). Don't force one shape into another.
 
 | File | Covers |
 |---|---|
 | [structure/repo-structure.md](structure/repo-structure.md) | Product / venture — `product/` + `engineering/`, code under `engineering/codebase/`, slug, lead docs, naming, tests, deployment files |
 | [structure/product-conformance.md](structure/product-conformance.md) | Product / venture — every check a product repo owes, each linked to its owning convention |
 | [structure/sdk-structure.md](structure/sdk-structure.md) | SDK / library — be sdk + fe sdk naming, `engineering/` + npm package nested under `engineering/codebase/{slug}/`, `src/` source-only + `tests/{unit,stories}`, config repoint, dist-only publish |
+| [structure/domain-structure.md](structure/domain-structure.md) | Domain — when a domain earns a repo, naming, `packages/` · `service/` · `tests/`, layers and the kernel, docs in the repo, tag-derived releases |
 
 ---
 

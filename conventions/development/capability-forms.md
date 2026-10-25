@@ -45,9 +45,11 @@
 
 | Half | Lives in | Holds |
 |---|---|---|
-| library | be SDK; an fe SDK subpath for UI | contract, Form 1 module, HTTP client, UI parts |
-| service | `wow-two-platform.{capability}` | host, admin UI, Dockerfile, `deploy.yml` |
+| library | the domain repo's be `packages/` and `fe-{slug}` package | contract, Form 1 module, HTTP client, UI parts |
+| service | the domain repo's `service/` and `apps/web` | host, admin UI, Dockerfile, `deploy.yml` |
 
+- must ship both halves from one domain repo, shaped, layered and documented per
+  [domain structure](repo/structure/domain-structure.md).
 - must build the service by hosting the Form 1 module, never by implementing the logic a second time.
 - must keep the service's HTTP API a mirror of the contract; the service adds hosting, admin and app routing.
 - must publish the image per [deployment descriptor](../deployment/descriptor/deploy-descriptor.md) § Rules.
