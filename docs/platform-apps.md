@@ -1,6 +1,6 @@
 # WoW 2.0 — Platform Apps, In Order
 
-*Last updated: 2026-10-25*
+*Last updated: 2026-10-26*
 
 > The order the wow-two platform apps get built and shipped — one list to focus on, top down. Scope: the internal
 > apps every product stands on (ops, observability, backbone services). Products and ventures live in the
@@ -24,7 +24,7 @@
 | # | App | Repo | What it is | State 2026-09-29 (rows 1 and 8: 2026-10-19; 2 and 3: 2026-10-21; 16: 2026-10-24; 17: 2026-10-25) | Ship gate | Needs |
 |---|---|---|---|---|---|---|
 | 1 | **Wheelhouse** | `wow-two-platform.wheelhouse` | deploy + ops control plane: products, servers, domains, deploys | v0.5 in progress: platform model built; infrastructure automation planned | a product deployed to a VPS from it, with rollback, domain and live logs | — |
-| 2 | **Identity** | `wow-two-platform.identity` | own user store, OIDC provider, hosted sign-in, admin console; three forms ([spec](../ideas/identity-service-spec.md)) | SDK identity steps 1–9 done; no OIDC server; Ocharo first | two apps sign in through it | 1 |
+| 2 | **Identity** | `wow-two-sdk-beta.identity` | own user store, OIDC provider, hosted sign-in, admin console; three forms ([spec](../ideas/identity-service-spec.md)) | SDK identity steps 1–9 done; no OIDC server; Ocharo first | two apps sign in through it | 1 |
 | 3 | **File Storage** | `wow-two-platform.storage.file` | files, image variants, signed URLs, quotas, console; three forms ([spec](../ideas/file-storage-service-spec.md)) | SDK `Storage/` and `Media/Images` built; repo empty | two apps store and serve files through it | 2 |
 | 4 | **Secrets Vault** | `wow-two-platform.secrets-vault` | envelope-encrypted secrets store + UI; env injection | Form 2 built | Wheelhouse deploys read their env from it; Form 1 wireable; hardened | 1 |
 | 5 | **Feedbacks** | `wow-two-platform.feedbacks` | incident reports → issues; triage inbox ([spec](../ideas/feedbacks-spec.md)) | client in the fe sdk `/reporting`; app not started | one app's Report button lands grouped reports in its inbox | 1, 4 |

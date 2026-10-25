@@ -1,4 +1,4 @@
-*Last updated: 2026-10-23*
+*Last updated: 2026-10-26*
 
 # Tasks
 
@@ -182,6 +182,12 @@ Not started, ordered, top = next. Pulling one promotes it above and mints its ID
 | Stamp the delivery caller into the product template | feature | `create-repo` stamps no workflows, so new repos start without CI |
 | Give the be sdk a path filter, a job timeout and a separate NuGet wait | issue | Docs pushes release NuGet versions; no timeout (one 528-min run); 7-12 min of each run waits on NuGet |
 | Retarget the fe sdk `test.yml` to the live package | issue | It tests the parked React package; `pnpm test \|\| pnpm test` hides a vite race |
+
+### → GitHub orgs
+
+| Item | Type | Notes |
+|---|---|---|
+| Uninstall the Codex GitHub App | chore | Added `2026-10-26`, low priority: write access on 3 orgs though Codex was dropped `2026-10-23`; org setting, developer only. Identity analysis Q44 (`ideas/identity-analysis-2026-10/t9-release-automation.md`) |
 
 ---
 

@@ -1,8 +1,8 @@
 # WoW Two Identity — Own Identity Store and SSO for Every Product
 
-*Last updated: 2026-10-25*
+*Last updated: 2026-10-26*
 
-> `wow-two-platform.identity`: our own user store, OIDC provider, hosted sign-in and admin console, shipped in the
+> `wow-two-sdk-beta.identity`: our own user store, OIDC provider, hosted sign-in and admin console, shipped in the
 > three [capability forms](../conventions/development/capability-forms.md). Every product signs in through it instead
 > of wiring Google, Telegram or passwords itself.
 >
@@ -27,7 +27,7 @@
 - **Form 1 · library** — the identity and OIDC server modules in the be SDK `Identity/`, the sign-in kit in the
   fe SDK; for one product with accounts in-process.
 - **Form 2 · self-hosted service** — the module hosted with sign-in pages and an admin console, as the
-  `wow-two-platform.identity` image; for one owner's apps: Ocharo runs its own.
+  `wow-two-sdk-beta.identity` image; for one owner's apps: Ocharo runs its own.
 - **Form 3 · provided service** — the same image, run once by us on the WoW2 control host, for the portfolio.
 
 - the service hosts the SDK module; no identity logic lives only in the service repo.
@@ -206,7 +206,7 @@ The whole vector, phased. P1 is the Ocharo slice; P2 completes the vector; P3 wa
 1. be SDK: OIDC server module, organizations and memberships, durable OTP and session stores, sign-in log,
    asymmetric keys with JWKS, Telegram link-on-first-sign-in, OIDC client module.
 2. fe SDK: phone, code and Telegram link screens; members, sessions and sign-in log tables for the console.
-3. `wow-two-platform.identity`: host, hosted pages, admin console, Dockerfile, `deploy.yml`, conformance suite.
+3. `wow-two-sdk-beta.identity`: host, hosted pages, admin console, Dockerfile, `deploy.yml`, conformance suite.
 4. Ocharo: deploy its instance, migrate Desk's accounts, move the apps one by one, retire the old paths.
 5. P2 across the vector; then Form 3 for the portfolio, starting with ForeverPin and the pilots.
 

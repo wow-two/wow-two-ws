@@ -1,8 +1,8 @@
 # Identity — full analysis before the build
 
-*Last updated: 2026-10-25*
+*Last updated: 2026-10-26*
 
-> The analysis batch behind `wow-two-platform.identity` (#2 in [platform apps](../../docs/platform-apps.md)): every
+> The analysis batch behind `wow-two-sdk-beta.identity` (#2 in [platform apps](../../docs/platform-apps.md)): every
 > integration, the feature vector against the market, the code we already have, how products plug in, and whether
 > the be sdk splits. The [service spec](../identity-service-spec.md) stays the build source; settled findings move
 > into it, and this folder keeps the evidence.
@@ -45,8 +45,8 @@ holding the evidence. Tick a line when the developer answers; the answer moves i
 
 ### A · Placement and shape — blocks the build
 
-- [ ] Q1 Identity leaves the be sdk for its own repo (be + fe library, service, Docker) as P1 step 0 → yes, no blocker (T5)
-- [ ] Q1a repo org: `wow-two-sdk-beta.identity` or `wow-two-platform.identity` → sdk-beta (T5)
+- [x] Q1 (developer 2026-10-25: the SDK splits per domain, Identity first) Identity leaves the be sdk for its own repo (be + fe library, service, Docker) as P1 step 0 → yes, no blocker (T5)
+- [x] Q1a (developer 2026-10-26: confirmed) repo org: `wow-two-sdk-beta.identity` (T5)
 - [x] Q1b (developer: kernel, 2026-10-25) seams: a kernel `WoW2.Sdk.Beta.Be.Abstractions` in the core repo (`ICurrentUserService`, `UserKind`,
   `Result`, `AppError`, `IEvent`); core never references `Identity.Abstractions`, a NuGet cycle → kernel (T7)
 - [ ] Q1c seven packages: Abstractions, Auth, Module, Client, Providers, Server, Testing; all of `Identity/` leaves
@@ -117,13 +117,13 @@ holding the evidence. Tick a line when the developer answers; the answer moves i
 
 ### H · Release automation
 
-- [ ] Q40 one entry point: a `create-library` skill over `scripts/release/library.py`, dry run first, resumable; it
+- [x] Q40 (developer 2026-10-26: confirmed; unavoidable hand steps stay the developer's, the rest is automated) one entry point: a `create-library` skill over `scripts/release/library.py`, dry run first, resumable; it
   prints every GitHub write for the agent to run as its own guarded command → yes (T9)
-- [ ] Q41 guard hole: a `gh` write to a repo not cloned locally reads the hub's push flag (ON) → unmatched targets read
+- [x] Q41 (developer 2026-10-26: confirmed) guard hole: a `gh` write to a repo not cloned locally reads the hub's push flag (ON) → unmatched targets read
   OFF; `gh repo create` reads the flag of the folder it clones into (P2) (T9)
 - [ ] Q42 one flag directive per folder, `workbench/wow-two-sdk-beta/*`, covering repos created later (P1) (T9)
 - [ ] Q43 clone counts as safe; a push must name a configured remote, never a URL (P3) (T9)
-- [ ] Q44 uninstall the Codex GitHub App: write access on 3 orgs, Codex dropped 2026-10-23 → developer, once (T9)
+- [ ] Q44 [parked 2026-10-26, low priority → `system/planning/pln-tasks.md` § Backlog] uninstall the Codex GitHub App: write access on 3 orgs, Codex dropped 2026-10-23 → developer, once (T9)
 - [ ] Q45 consumer re-pins: an agent sweep (`repin.py`), since no wow2 org has Renovate installed → sweep (T9)
 
 ### Self-served
@@ -132,5 +132,5 @@ holding the evidence. Tick a line when the developer answers; the answer moves i
 - ⬜ build-step facts, no decision: OpenIddict 6.0.0 → 7.7.2 with EF Core ≥ 10.0.11; Fido2 3.0.1 → 4.3.1 (security)
 - ⬜ claim vocabulary converges on `sub`, `sid`, `org_id` before an OIDC client ships (T4)
 - ⬜ release residue: npm ≥ 11.15.0 for `npm trust` (local 11.6.1); stale `NUGET_API_KEY` and `NPM_TOKEN` repo secrets in the sdks (T9)
-- ⬜ `catalog.yml` has no Identity entry; add it once Q1a names the repo (T8)
+- ⬜ `catalog.yml` has no Identity entry; it lands at rollout step 11 ([T8 § 6](t8-library-template.md#6--rollout-checklist)), once the GitHub repo exists
 - ⬜ split prerequisites: an error-text hook in `Web/ErrorTranslation`, delete `IdentityApi/` and `Policies/`, own publish workflow (T5)
