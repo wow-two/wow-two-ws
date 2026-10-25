@@ -30,8 +30,10 @@
 | T4 | Integration modes: in-process, API client broker, OIDC sign-in, service tokens | [t4-integration-modes.md](t4-integration-modes.md) | 2 | ✅ |
 | T5 | SDK split: Identity as the first per-domain repo (be + fe library, service, Docker) | [t5-sdk-breakdown.md](t5-sdk-breakdown.md) | 2 | ✅ |
 | T6 | Hosting, security and conformance for Forms 2 and 3 | [t6-hosting-security.md](t6-hosting-security.md) | 2 | ✅ |
+| T7 | Library architecture: abstractions layer, package graph, what the main SDK references | [t7-library-architecture.md](t7-library-architecture.md) | 3 | 🔄 |
+| T8 | Domain library repo template and the rollout checklist | [t8-library-template.md](t8-library-template.md) | 3 | 🔄 |
 
-- all six tracks landed 2026-10-25; the decision queue below is the next step.
+- waves 1–2 landed 2026-10-25; wave 3 answers the developer's high-level breakdown ask of the same day.
 
 ---
 
@@ -72,9 +74,10 @@ holding the evidence. Tick a line when the developer answers; the answer moves i
 
 ### D · Feature scope
 
-- [ ] Q18 add to P1: test mode with fake channels, operator passkey or TOTP, claims-contributor hook, OTel + health (T2, T6)
+- [x] Q18 (developer: agreed 2026-10-25) add to P1: test mode with fake channels, operator passkey or TOTP, claims-contributor hook, OTel + health (T2, T6)
 - [ ] Q19 add to P1: CSP `frame-ancestors`, no third-party assets on hosted pages, OTP hashed + bound + 30 s resend (T6)
-- [ ] Q20 delete password composition, expiry and history (NIST SHALL NOT); sole-factor minimum 15 (T2, T6)
+- [x] Q20 (developer 2026-10-25: keep all, configurable) composition, expiry, history, minimum length as policy
+  settings; defaults off and minimum 15, per NIST SP 800-63B (T2, T6)
 - [ ] Q21 add to P2: bulk import with foreign hashes, token exchange, erasure fan-out, consent records, guest upgrade (T2)
 - [ ] Q22 add to P2: Telegram Mini App `initData`, phone and email change recovery, declarative config, paid-channel guard (T2)
 - [ ] Q23 move to P3 or drop: SAML, SCIM, device flow, impossible travel, WhatsApp, account merge → link only (T2)
