@@ -43,6 +43,11 @@
 - **decided (D1):** OpenIddict (Apache-2.0, .NET) for the protocol on top of the SDK's own store.
   OpenIddict 6.0.0 sits in the be SDK's `Directory.Packages.props`, unreferenced and out of support; 7.7.2 is
   current and needs EF Core 10.0.11 or later.
+- what it does — the OAuth 2.0 / OIDC protocol engine: authorize, token, discovery and JWKS endpoints, PKCE,
+  refresh, client credentials, device flow and token exchange; our store keeps the users.
+- why — without it we hand-write those endpoints and their security edge cases.
+- where — Forms 2 and 3 load it; a Form 1 product never does, unless it opts into the in-process OIDC server.
+- what it lacks — back-channel logout (planned for 8.0) and signing-key rotation; I17 and I18 build both.
 - why not Keycloak, Zitadel, Logto or Authentik: each replaces our store, has no Form 1, and custom flows such as
   the Telegram link need Java SPIs or Go actions; Duende needs a commercial licence.
 - the risk of owning auth is protocol correctness: OpenIddict carries the protocol, and the OpenID Foundation
