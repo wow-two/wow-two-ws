@@ -31,7 +31,7 @@
 | T5 | SDK split: Identity as the first per-domain repo (be + fe library, service, Docker) | [t5-sdk-breakdown.md](t5-sdk-breakdown.md) | 2 | ✅ |
 | T6 | Hosting, security and conformance for Forms 2 and 3 | [t6-hosting-security.md](t6-hosting-security.md) | 2 | ✅ |
 | T7 | Library architecture: abstractions layer, package graph, what the main SDK references | [t7-library-architecture.md](t7-library-architecture.md) | 3 | 🔄 |
-| T8 | Domain library repo template and the rollout checklist | [t8-library-template.md](t8-library-template.md) | 3 | 🔄 |
+| T8 | Domain library repo template and the rollout checklist | [t8-library-template.md](t8-library-template.md) | 3 | ✅ |
 
 - waves 1–2 landed 2026-10-25; wave 3 answers the developer's high-level breakdown ask of the same day.
 
@@ -99,9 +99,20 @@ holding the evidence. Tick a line when the developer answers; the answer moves i
 - [ ] Q33 Haven's several phones per user vs one `PhoneNumber` → settle the model before Haven moves (T3)
 - [ ] Q34 Wheelhouse stays Form 1: it deploys Identity and must sign in without it → yes (T3)
 
+### G · Library repo and template
+
+- [ ] Q35 template: `wow-two-sdk-beta.domain-template`, a separate repo; `create-repo` gains `SHAPE=domain` → yes (T8)
+- [ ] Q36 docs: the spec moves to the repo's `product/product.md`, analysis to `engineering/research/`; the hub keeps
+  the catalog entry, platform-apps row and cross-capability decisions → yes (T8)
+- [ ] Q37 packages publish from a repo-local workflow, versions from tags, no release commit; images via shared
+  `delivery.yml` → yes (T5, T8)
+- [ ] Q38 compat job: nightly and on dispatch, against the latest core release → yes (T5, T8)
+- [ ] Q39 strip provider and region names from T6 before the docs move into a public repo → yes (T8)
+
 ### Self-served
 
 - ✅ spec facts corrected from T3: 113 tests, I13 shipped, OTP defaults, Desk session store, OpenIddict support
 - ⬜ build-step facts, no decision: OpenIddict 6.0.0 → 7.7.2 with EF Core ≥ 10.0.11; Fido2 3.0.1 → 4.3.1 (security)
 - ⬜ claim vocabulary converges on `sub`, `sid`, `org_id` before an OIDC client ships (T4)
+- ⬜ `catalog.yml` has no Identity entry; add it once Q1a names the repo (T8)
 - ⬜ split prerequisites: an error-text hook in `Web/ErrorTranslation`, delete `IdentityApi/` and `Policies/`, own publish workflow (T5)
