@@ -1,6 +1,6 @@
 # WoW 2.0 — Platform Decisions, Ranked
 
-*Last updated: 2026-10-21*
+*Last updated: 2026-10-25*
 
 > The big cross-cutting choices still open across WoW2 products and Ocharo, ranked by what each one unblocks.
 > A made decision moves to [platform apps](platform-apps.md) § Decisions or its owning repo and leaves this list.
@@ -9,15 +9,12 @@
 
 ## Proposed order
 
-D4 → D6 → D10 → D11, then the rest as their triggers fire. D1–D3 and D9 were decided on 2026-10-21.
+D6 → D10 → D11, then the rest as their triggers fire. D1–D3 and D9 were decided on 2026-10-21, D4 on 2026-10-25.
 
 ---
 
 ## Now — blocks Identity and File Storage
 
-- **D4 · Ocharo sign-in methods** — bot code only · plus Log in with Telegram · plus Gateway codes · plus
-  passkeys. **Recommend** bot code and Log in with Telegram in P1; Gateway only for a member who cannot use
-  the bot; owner passkey in P2.
 - **D5 · Ocharo bot ownership** — Identity owns its webhook · a Notifications service owns it. **Recommend**
   Identity owns the webhook; any service may send through the Bot API; a second bot if Marketing needs commands.
 - **D6 · File backing store** — Contabo Object Storage · Cloudflare R2 · SeaweedFS on the VPS · local disk only.

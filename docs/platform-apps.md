@@ -84,3 +84,8 @@
   ListingShelf; Events consumes it, and the Events service is built in its own WoW2 chat.
 - 2026-10-25 — File Storage runs one instance per owner: WoW2's own instance serves Harvest's captures and the
   Events catalogs' media; each product (Ocharo) keeps its own for its media.
+- 2026-10-25 — D4: every Identity code channel is configuration per instance and client — own bot, Telegram
+  Gateway, SMS, email — worded by the SDK message formatter in `uz`, `ru` and `en`.
+- 2026-10-25 — the SDK splits into one repo per domain (be + fe library, service, Docker), Identity first; seams
+  that core and a domain share live in a kernel package `WoW2.Sdk.Beta.Be.Abstractions` in the core repo; a
+  domain's spec and analysis live in its repo, the hub keeps a pointer.

@@ -102,7 +102,7 @@ The whole vector, phased. P1 is the Ocharo slice; P2 completes the vector; P3 wa
 |---|---|---|
 | phone + code via own Telegram bot | P1 | free; the member opens the bot once and shares their contact |
 | Log in with Telegram (OIDC) | P1 | one tap; `phone` scope returns a Telegram-verified number; same bot |
-| phone + code via Telegram Gateway | P2 | no bot link; paid per delivered code, refunded if undelivered |
+| phone + code via Telegram Gateway | P2 | no bot link; $0.01 per delivered code, paid in TON; Telegram words the text |
 | phone + code via SMS or WhatsApp | P2 | adapters exist (Eskiz for Uzbekistan, Twilio, Vonage) |
 | email + password | P2 | hosted pages over the existing SDK flow |
 | email magic link, email code | P2 | exists in the SDK; needs email delivery |
@@ -111,6 +111,11 @@ The whole vector, phased. P1 is the Ocharo slice; P2 completes the vector; P3 wa
 | enterprise: Microsoft Entra ID, Google Workspace, SAML 2.0 | P3 | per-organization connections |
 | regional: Yandex ID, OneID (Uzbekistan e-gov) | P3 | OneID needs an integration agreement |
 | device flow, client credentials, personal access tokens | P2 | CLIs, TVs, service-to-service |
+
+- the code channel is configuration per instance and per client: own bot, Telegram Gateway, SMS or email, over
+  the SDK's keyed OTP delivery handlers (decided 2026-10-25).
+- every channel but Gateway words its message through `IOtpMessageFormatter`: per-culture ICU templates, built-in
+  `uz`, `ru`, `en`, overridable per instance; Gateway takes only the code.
 
 ### Accounts and members
 

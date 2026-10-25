@@ -32,6 +32,7 @@
 | T6 | Hosting, security and conformance for Forms 2 and 3 | [t6-hosting-security.md](t6-hosting-security.md) | 2 | ✅ |
 | T7 | Library architecture: abstractions layer, package graph, what the main SDK references | [t7-library-architecture.md](t7-library-architecture.md) | 3 | ✅ |
 | T8 | Domain library repo template and the rollout checklist | [t8-library-template.md](t8-library-template.md) | 3 | ✅ |
+| T9 | Release automation: repo creation, NuGet and npm first publish, rollout an agent can run | [t9-release-automation.md](t9-release-automation.md) | 3 | 🔄 |
 
 - waves 1–2 landed 2026-10-25; wave 3 answers the developer's high-level breakdown ask of the same day.
 
@@ -46,7 +47,7 @@ holding the evidence. Tick a line when the developer answers; the answer moves i
 
 - [ ] Q1 Identity leaves the be sdk for its own repo (be + fe library, service, Docker) as P1 step 0 → yes, no blocker (T5)
 - [ ] Q1a repo org: `wow-two-sdk-beta.identity` or `wow-two-platform.identity` → sdk-beta (T5)
-- [ ] Q1b seams: a kernel `WoW2.Sdk.Beta.Be.Abstractions` in the core repo (`ICurrentUserService`, `UserKind`,
+- [x] Q1b (developer: kernel, 2026-10-25) seams: a kernel `WoW2.Sdk.Beta.Be.Abstractions` in the core repo (`ICurrentUserService`, `UserKind`,
   `Result`, `AppError`, `IEvent`); core never references `Identity.Abstractions`, a NuGet cycle → kernel (T7)
 - [ ] Q1c seven packages: Abstractions, Auth, Module, Client, Providers, Server, Testing; all of `Identity/` leaves
   core, the auth primitives too (T7 supersedes T5's six)
@@ -69,7 +70,8 @@ holding the evidence. Tick a line when the developer answers; the answer moves i
 
 ### C · Sign-in methods — Ocharo P1
 
-- [ ] Q12 D4: bot code + Log in with Telegram in P1; Gateway deferred, it is paid in TON only (T1)
+- [x] Q12 (developer 2026-10-25) D4: every code channel is configuration — own bot, Telegram Gateway, SMS, email —
+  worded by the SDK `IOtpMessageFormatter` (ICU templates, `uz` · `ru` · `en`); Gateway words its own text (T1)
 - [ ] Q13 D5: Identity owns the Ocharo bot webhook; others send through the Bot API → yes (spec)
 - [ ] Q14 after first link, identity keys on the Telegram user id, never the phone claim → yes (T6)
 - [ ] Q15 UZ SMS: Eskiz primary, Twilio and Vonage fallback; Eskiz needs a UZ legal entity (`ven-t-012`) (T1)
@@ -106,7 +108,7 @@ holding the evidence. Tick a line when the developer answers; the answer moves i
 ### G · Library repo and template
 
 - [ ] Q35 template: `wow-two-sdk-beta.domain-template`, a separate repo; `create-repo` gains `SHAPE=domain` → yes (T8)
-- [ ] Q36 docs: the spec moves to the repo's `product/product.md`, analysis to `engineering/research/`; the hub keeps
+- [x] Q36 (developer 2026-10-25: confirmed, as a wow2 convention every new library follows) docs: the spec moves to the repo's `product/product.md`, analysis to `engineering/research/`; the hub keeps
   the catalog entry, platform-apps row and cross-capability decisions → yes (T8)
 - [ ] Q37 packages publish from a repo-local workflow, versions from tags, no release commit; images via shared
   `delivery.yml` → yes (T5, T8)
