@@ -30,7 +30,7 @@
 | T4 | Integration modes: in-process, API client broker, OIDC sign-in, service tokens | [t4-integration-modes.md](t4-integration-modes.md) | 2 | ✅ |
 | T5 | SDK split: Identity as the first per-domain repo (be + fe library, service, Docker) | [t5-sdk-breakdown.md](t5-sdk-breakdown.md) | 2 | ✅ |
 | T6 | Hosting, security and conformance for Forms 2 and 3 | [t6-hosting-security.md](t6-hosting-security.md) | 2 | ✅ |
-| T7 | Library architecture: abstractions layer, package graph, what the main SDK references | [t7-library-architecture.md](t7-library-architecture.md) | 3 | 🔄 |
+| T7 | Library architecture: abstractions layer, package graph, what the main SDK references | [t7-library-architecture.md](t7-library-architecture.md) | 3 | ✅ |
 | T8 | Domain library repo template and the rollout checklist | [t8-library-template.md](t8-library-template.md) | 3 | ✅ |
 
 - waves 1–2 landed 2026-10-25; wave 3 answers the developer's high-level breakdown ask of the same day.
@@ -46,9 +46,13 @@ holding the evidence. Tick a line when the developer answers; the answer moves i
 
 - [ ] Q1 Identity leaves the be sdk for its own repo (be + fe library, service, Docker) as P1 step 0 → yes, no blocker (T5)
 - [ ] Q1a repo org: `wow-two-sdk-beta.identity` or `wow-two-platform.identity` → sdk-beta (T5)
-- [ ] Q1b six packages: Contracts, Client, Module, Providers, Server, Testing; Form 3 takes Contracts + Client (T4, T5)
-- [ ] Q1c the auth primitives staying in core rename to `…Be.Auth.*` (39 product files) → rename (T5)
+- [ ] Q1b seams: a kernel `WoW2.Sdk.Beta.Be.Abstractions` in the core repo (`ICurrentUserService`, `UserKind`,
+  `Result`, `AppError`, `IEvent`); core never references `Identity.Abstractions`, a NuGet cycle → kernel (T7)
+- [ ] Q1c seven packages: Abstractions, Auth, Module, Client, Providers, Server, Testing; all of `Identity/` leaves
+  core, the auth primitives too (T7 supersedes T5's six)
 - [ ] Q1d versions from tags with no release commit; a CI job tests Identity against each core release → both (T5)
+- [ ] Q1e fe: `auth` stays in `@wow-two-beta/fe`; the sign-in kit goes to `@wow-two-beta/fe-identity` → yes (T7)
+- ✗ T5's `…Be.Auth.*` rename in core: moot once the primitives leave with Identity (T7)
 - [ ] Q2 one registration, `Identity:Mode = Module | Oidc`, same routes, claims, brokers and events → yes (T4)
 - [ ] Q3 Form 1 → 3 move: strictly config, or config plus deleting the module package → allow the delete (T4)
 - [ ] Q4 Form 3 host: the control host is off-limits for products → a WoW2 products host, none exists yet (T6)
