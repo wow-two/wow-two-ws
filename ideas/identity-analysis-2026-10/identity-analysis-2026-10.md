@@ -32,7 +32,7 @@
 | T6 | Hosting, security and conformance for Forms 2 and 3 | [t6-hosting-security.md](t6-hosting-security.md) | 2 | ✅ |
 | T7 | Library architecture: abstractions layer, package graph, what the main SDK references | [t7-library-architecture.md](t7-library-architecture.md) | 3 | ✅ |
 | T8 | Domain library repo template and the rollout checklist | [t8-library-template.md](t8-library-template.md) | 3 | ✅ |
-| T9 | Release automation: repo creation, NuGet and npm first publish, rollout an agent can run | [t9-release-automation.md](t9-release-automation.md) | 3 | 🔄 |
+| T9 | Release automation: repo creation, NuGet and npm first publish, rollout an agent can run | [t9-release-automation.md](t9-release-automation.md) | 3 | ✅ |
 
 - waves 1–2 landed 2026-10-25; wave 3 answers the developer's high-level breakdown ask of the same day.
 
@@ -115,10 +115,22 @@ holding the evidence. Tick a line when the developer answers; the answer moves i
 - [ ] Q38 compat job: nightly and on dispatch, against the latest core release → yes (T5, T8)
 - [ ] Q39 strip provider and region names from T6 before the docs move into a public repo → yes (T8)
 
+### H · Release automation
+
+- [ ] Q40 one entry point: a `create-library` skill over `scripts/release/library.py`, dry run first, resumable; it
+  prints every GitHub write for the agent to run as its own guarded command → yes (T9)
+- [ ] Q41 guard hole: a `gh` write to a repo not cloned locally reads the hub's push flag (ON) → unmatched targets read
+  OFF; `gh repo create` reads the flag of the folder it clones into (P2) (T9)
+- [ ] Q42 one flag directive per folder, `workbench/wow-two-sdk-beta/*`, covering repos created later (P1) (T9)
+- [ ] Q43 clone counts as safe; a push must name a configured remote, never a URL (P3) (T9)
+- [ ] Q44 uninstall the Codex GitHub App: write access on 3 orgs, Codex dropped 2026-10-23 → developer, once (T9)
+- [ ] Q45 consumer re-pins: an agent sweep (`repin.py`), since no wow2 org has Renovate installed → sweep (T9)
+
 ### Self-served
 
 - ✅ spec facts corrected from T3: 113 tests, I13 shipped, OTP defaults, Desk session store, OpenIddict support
 - ⬜ build-step facts, no decision: OpenIddict 6.0.0 → 7.7.2 with EF Core ≥ 10.0.11; Fido2 3.0.1 → 4.3.1 (security)
 - ⬜ claim vocabulary converges on `sub`, `sid`, `org_id` before an OIDC client ships (T4)
+- ⬜ release residue: npm ≥ 11.15.0 for `npm trust` (local 11.6.1); stale `NUGET_API_KEY` and `NPM_TOKEN` repo secrets in the sdks (T9)
 - ⬜ `catalog.yml` has no Identity entry; add it once Q1a names the repo (T8)
 - ⬜ split prerequisites: an error-text hook in `Web/ErrorTranslation`, delete `IdentityApi/` and `Policies/`, own publish workflow (T5)
