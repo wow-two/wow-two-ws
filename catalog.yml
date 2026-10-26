@@ -391,6 +391,14 @@ entries:
     purpose: "Copyable domain-repo template — one SDK domain's NuGet family, npm package, service and image with tag-derived releases; `create-repo` stamps it with `SHAPE=domain` (a template, not a package)"
     repositories: []
     local: workbench/wow-two-sdk-beta/wow-two-sdk-beta.domain-template
+  - slug: identity
+    name: Identity
+    workspace: wow2-platform
+    kind: platform
+    deploy: none
+    status: "Planned"
+    purpose: "Our own identity: user store, OIDC provider, hosted sign-in and admin console, shipped as an SDK library, a self-hosted image or a provided service."
+    repositories: [wow-two-sdk-beta/wow-two-sdk-beta.identity]
 
   # wow-two-kb (knowledge base)
   - slug: wow-two-kb-welcome

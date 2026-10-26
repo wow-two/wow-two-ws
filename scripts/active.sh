@@ -80,6 +80,8 @@ PROJECTS=(
   "surface-pattern|maxs-projects/ventures/saas/ventures.surface-pattern/engineering/codebase/surface-pattern.backend-services/SurfacePattern.BackendServices.slnx|maxs-projects/ventures/saas/ventures.surface-pattern/engineering/codebase/surface-pattern.frontend-services"
   "wheelhouse-canary|wow-two-platform/wow-two-platform.wheelhouse-canary/engineering/codebase/wheelhouse-canary.backend-services/WheelhouseCanary.BackendServices.slnx|wow-two-platform/wow-two-platform.wheelhouse-canary/engineering/codebase/wheelhouse-canary.frontend-services"
   "matinee|maxs-projects/ventures/consumer/ventures.matinee/engineering/codebase/matinee.backend-services/Matinee.BackendServices.slnx|maxs-projects/ventures/consumer/ventures.matinee/engineering/codebase/matinee.frontend-services"
+  "identity|wow-two-sdk-beta/wow-two-sdk-beta.identity/engineering/codebase/identity.backend-services/Identity.BackendServices.slnx|wow-two-sdk-beta/wow-two-sdk-beta.identity/engineering/codebase/identity.frontend-services"
+  "files|wow-two-sdk-beta/wow-two-sdk-beta.files/engineering/codebase/files.backend-services/Files.BackendServices.slnx|wow-two-sdk-beta/wow-two-sdk-beta.files/engineering/codebase/files.frontend-services"
 )
 
 MODE="both"     # both | backend | frontend
