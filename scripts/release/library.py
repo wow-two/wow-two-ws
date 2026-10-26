@@ -588,7 +588,8 @@ class Probe:
         done = self.run([sys.executable, "-I", lib.root / REGISTRY_GEN, "--check"])
         st.registry_fresh = None if done is None else done.returncode == 0
         dirty = self.git("-C", lib.root, "status", "--porcelain", "--", *HUB_PATHS)
-        st.hub_dirty = [line[3:] for line in (dirty or "").splitlines() if line[3:]]
+        # `git()` strips the output, so the first line may have lost its leading status space; cut the status field
+        st.hub_dirty = [path for line in (dirty or "").splitlines() if (path := re.sub(r"^\s*\S{1,2}\s+", "", line))]
         worktree = (lib.root / "catalog.yml").read_text(encoding="utf-8") if (lib.root / "catalog.yml").is_file() else ""
         head = self.git("-C", lib.root, "show", "HEAD:catalog.yml") or ""
         origin = self.git("-C", lib.root, "show", "origin/main:catalog.yml") or ""

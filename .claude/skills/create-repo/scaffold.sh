@@ -289,6 +289,8 @@ done < <(find "$REPO_DIR" -type f \( -name 'launchSettings.json' -o -name 'vite.
 # that precedes the "Next free" line so it lands inside the table, not after it.
 if [ -f "$PORTS_MD" ] && [ "$SCRATCH" != 1 ]; then
   NEXT_FREE=$((NEW_HTTPS + 2))
+  # the Vite port may sit right after the pair (domain repos take it from the same range); skip past it
+  if [ "$NEW_VITE" -ge "$NEXT_FREE" ]; then NEXT_FREE=$((NEW_VITE + 2)); fi
   LC_ALL=C awk -v sn="$SHORT_NAME" -v hs="$NEW_HTTPS" -v ht="$NEW_HTTP" -v vt="$NEW_VITE" -v nf="$NEXT_FREE" '
     # last table row before the trailing blank: emit our row right after it.
     prev ~ /^\| / && $0 == "" && !done {
