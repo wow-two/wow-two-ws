@@ -1,6 +1,6 @@
 # WoW Two Harvest — One 24/7 Harvester for Every Product
 
-*Last updated: 2026-10-25*
+*Last updated: 2026-10-26*
 
 > `harvest`: a standardized harvester that runs scheduled pipelines over sources — sites, Telegram channels, feeds,
 > provider APIs — captures what they publish, extracts records into a schema the consumer names, and delivers them.
@@ -11,8 +11,9 @@
 
 ## Problem
 
-- ListingShelf captures OLX and Domtut listings; Haven classifies Telegram listings with an LLM; Ocharo needs events
-  from Afisha and fashion sources. Each would otherwise grow its own crawler, scheduler and classifier.
+- ListingShelf captures OLX and Domtut listings; Haven pulls its finished runs over HTTP and classifies them with an
+  LLM, with Telegram groups next in its backlog; Ocharo needs events from Afisha and fashion sources. Each would
+  otherwise grow its own crawler, scheduler and classifier.
 - A capture service that runs 24/7 for any scheduled request is built once and every product subscribes.
 
 ---
