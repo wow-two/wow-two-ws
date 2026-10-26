@@ -25,7 +25,7 @@
 |---|---|---|---|---|---|---|
 | 1 | **Wheelhouse** | `wow-two-platform.wheelhouse` | deploy + ops control plane: products, servers, domains, deploys | v0.5 in progress: platform model built; infrastructure automation planned | a product deployed to a VPS from it, with rollback, domain and live logs | — |
 | 2 | **Identity** | `wow-two-sdk-beta.identity` | own user store, OIDC provider, hosted sign-in, admin console; three forms ([spec](../ideas/identity-service-spec.md)) | SDK identity steps 1–9 done; no OIDC server; Ocharo first | two apps sign in through it | 1 |
-| 3 | **File Storage** | `wow-two-platform.storage.file` | files, image variants, signed URLs, quotas, console; three forms ([spec](../ideas/file-storage-service-spec.md)) | SDK `Storage/` and `Media/Images` built; repo empty | two apps store and serve files through it | 2 |
+| 3 | **File Storage** | `wow-two-platform.storage.file` | files, image variants, signed URLs, quotas, console; three forms ([spec](../ideas/file-storage-service-spec.md)) | own domain repo decided; spec + [analysis](../ideas/file-storage-analysis-2026-10/file-storage-analysis-2026-10.md) 2026-10-26; repo not created | two apps store and serve files through it | 2 |
 | 4 | **Secrets Vault** | `wow-two-platform.secrets-vault` | envelope-encrypted secrets store + UI; env injection | Form 2 built | Wheelhouse deploys read their env from it; Form 1 wireable; hardened | 1 |
 | 5 | **Feedbacks** | `wow-two-platform.feedbacks` | incident reports → issues; triage inbox ([spec](../ideas/feedbacks-spec.md)) | client in the fe sdk `/reporting`; app not started | one app's Report button lands grouped reports in its inbox | 1, 4 |
 | 6 | **Logs** | `wow-two-platform.logs` | structured log store + `/logs` viewer, search by trace id ([analysis](../ideas/logging-analysis.md)) | SDK emits OTel; no store | Feedbacks issue → one click → the request's log lines | 1, 4 |
@@ -89,3 +89,7 @@
 - 2026-10-25 — the SDK splits into one repo per domain (be + fe library, service, Docker), Identity first; seams
   that core and a domain share live in a kernel package `WoW2.Sdk.Beta.Be.Abstractions` in the core repo; a
   domain's spec and analysis live in its repo, the hub keeps a pointer.
+- 2026-10-26 — File Storage leaves the be sdk for its own domain repo; beside the per-owner instances, a shared files
+  host runs the same image for many products, to start a product without its own storage server and to migrate
+  files; D7: files go out publicly through share links behind gates (password, expiry and more). Analysis:
+  [file storage analysis](../ideas/file-storage-analysis-2026-10/file-storage-analysis-2026-10.md).

@@ -1,12 +1,14 @@
 # WoW Two Files — Own File Storage for Every Product
 
-*Last updated: 2026-10-25*
+*Last updated: 2026-10-26*
 
-> `wow-two-platform.storage.file`: one way to store, transform, protect and serve files, shipped in the three
-> [capability forms](../conventions/development/capability-forms.md). Products stop writing their own `MediaStore`.
+> One way to store, transform, compress, protect, share and serve files, shipped in the three
+> [capability forms](../conventions/development/capability-forms.md) from its own domain repo. Products stop writing
+> their own `MediaStore`.
 >
-> **Status:** the developer chose to build it on 2026-10-21; first consumer Ocharo. Open choices:
-> [platform decisions](../docs/platform-decisions.md) D6–D8.
+> **Status:** the developer chose to build it on 2026-10-21; first consumer Ocharo. Its own repo, separate from the be
+> sdk, and D7 decided 2026-10-26. Open: [platform decisions](../docs/platform-decisions.md) D6, D8. Pre-build analysis
+> and its decision queue: [file storage analysis](file-storage-analysis-2026-10/file-storage-analysis-2026-10.md).
 
 ## Problem
 
@@ -23,13 +25,16 @@
 
 ## Placement
 
-- **Form 1 · library** — a files module over `Storage/` and `Media/Images` in the be SDK, the upload kit in the
-  fe SDK; for one product with files in its own bucket.
-- **Form 2 · self-hosted service** — the module hosted with an API and an admin console, as the
-  `wow-two-platform.storage.file` image; for one owner's apps: Ocharo runs its own.
-- **Form 3 · provided service** — the same image, run once by us on the WoW2 control host, for the portfolio.
+- **Form 1 · library** — the files module over the be sdk's `Storage/` byte adapters, plus the fe upload kit; for one
+  product with files in its own bucket.
+- **Form 2 · self-hosted service** — the module hosted with an API and an admin console, as one image; for one
+  owner's apps: Ocharo runs its own.
+- **Form 3 · provided service** — the same image, run by us for the portfolio.
 
-- the repo `wow-two-platform.storage.file` exists with an empty solution (2 commits, 2024); it becomes the service.
+- decided 2026-10-26: File Storage lives in its own domain repo, separate from the be sdk, per
+  [domain structure](../conventions/development/repo/structure/domain-structure.md); new libraries leave the sdk one
+  domain at a time, bigger ones first. Scope, name and packages: analysis Q2–Q6.
+- the repo `wow-two-platform.storage.file` holds only an empty 2024 solution.
 - every form authorizes with [Identity](identity-service-spec.md) claims: organization, app and role.
 
 ### Instances per owner
@@ -42,6 +47,15 @@ Decided 2026-10-25: one instance per owner, shared by that owner's services.
 - a self-hosted Harvest and Events ship with a File Storage instance in the same bundle, split the same way.
 - a record that uses a file holds a reference; the file lives while any reference does, so pruning a capture never
   removes a published image, and nothing is copied between services of one owner.
+
+### Shared files host
+
+Decided 2026-10-26: beside the per-owner instances, a shared files host runs the same image, or nearly the same, for
+many products at once, on a cheaper or storage-fit server.
+
+- a product points at it by configuration and keeps only file ids: no bucket, storage code or large server of its own.
+- it carries file migrations: from legacy stores, and between instances as a product grows or shrinks.
+- design — roles, tenancy modes, tenant moves, where it runs: analysis [T1](file-storage-analysis-2026-10/t1-services-tenancy.md).
 
 ---
 
@@ -91,6 +105,20 @@ P1 is the Ocharo slice; P2 completes the vector; P3 waits on a named consumer.
 - a CDN in front of public files (P2); image resizing at the edge (P3).
 - range requests for video and large downloads (P1).
 
+### Share
+
+Decided 2026-10-26 (D7): files go out publicly, through share links behind gates.
+
+- gates: expiry, password, download limits, one-time links, revoke; sign-in, email and further gates in the
+  [feature vector](file-storage-analysis-2026-10/t2-feature-vector.md) § 9; phasing: analysis Q14.
+- a share page per link with preview and download-all as ZIP.
+
+### Compress and recognize
+
+- compression and archives in scope: streamed ZIP downloads, archive creation and extraction with bomb guards.
+- one registry of file types — extensions, MIME types, magic bytes — drives type checks and an icon pack covering
+  every extension ([T7](file-storage-analysis-2026-10/t7-file-icons.md)).
+
 ### Limits and admin
 
 - quotas per organization and app; a usage figure on every upload response (P2).
@@ -129,10 +157,14 @@ P1 is the Ocharo slice; P2 completes the vector; P3 waits on a named consumer.
 
 ## Sequencing
 
-1. be SDK: files module with metadata, variants, signed URLs and policy; fe SDK `fileUpload`.
-2. `wow-two-platform.storage.file`: host, API, console, Dockerfile, `deploy.yml`, conformance suite.
+The whole vector goes to the backlog; the build takes the slice products need now and grows the rest in parallel
+after the first release (decided 2026-10-26).
+
+1. the domain repo from the domain template: contract, files module with metadata, variants, signed URLs, shares and
+   policy; the fe upload kit.
+2. the service: host, API, console, Dockerfile, `deploy.yml`, conformance suite.
 3. Ocharo: deploy, then migrate Catalogue and Brand first (smallest), Blog and Marketing, Desk last (largest).
-4. P2 across the vector; then Form 3 for the portfolio.
+4. P2 across the vector; then the shared files host for the portfolio.
 
 ---
 

@@ -1,6 +1,6 @@
 # WoW 2.0 — Platform Decisions, Ranked
 
-*Last updated: 2026-10-25*
+*Last updated: 2026-10-26*
 
 > The big cross-cutting choices still open across WoW2 products and Ocharo, ranked by what each one unblocks.
 > A made decision moves to [platform apps](platform-apps.md) § Decisions or its owning repo and leaves this list.
@@ -9,7 +9,8 @@
 
 ## Proposed order
 
-D6 → D10 → D11, then the rest as their triggers fire. D1–D3 and D9 were decided on 2026-10-21, D4 on 2026-10-25.
+D6 → D10 → D11, then the rest as their triggers fire. D1–D3 and D9 were decided on 2026-10-21, D4 on 2026-10-25,
+D7 on 2026-10-26.
 
 ---
 
@@ -19,8 +20,6 @@ D6 → D10 → D11, then the rest as their triggers fire. D1–D3 and D9 were de
   Identity owns the webhook; any service may send through the Bot API; a second bot if Marketing needs commands.
 - **D6 · File backing store** — Contabo Object Storage · Cloudflare R2 · SeaweedFS on the VPS · local disk only.
   **Recommend** Contabo Object Storage hosted (same provider, no transfer fees), local disk in development.
-- **D7 · Public file delivery** — every file through the API · public immutable URLs with a CDN. **Recommend**
-  private by default with signed URLs; catalogue and blog images on immutable `/media/{sha}`; CDN in P2.
 - **D8 · Desk's `bytea` move** — with Files P1 · after the smaller apps. **Recommend** last: Catalogue and Brand
   first, then Blog and Marketing, then Desk.
 
