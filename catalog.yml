@@ -386,7 +386,7 @@ entries:
     workspace: wow2-backbone
     kind: template
     deploy: none
-    status: "Draft: built 2026-10-26, awaiting review"
+    status: "Active"
     purpose: "Copyable domain-repo template — one SDK domain's NuGet family, npm package, service and image with tag-derived releases; `create-repo` stamps it with `SHAPE=domain` (a template, not a package)"
     repositories: []
     local: workbench/wow-two-sdk-beta/wow-two-sdk-beta.domain-template
