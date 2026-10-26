@@ -17,5 +17,6 @@ Updating a library other repos depend on:
 
 ## Dependency awareness
 
-- `wow-two-sdk` / `wow-two-sdk-beta` packages → consumed by apps + external users; a breaking change needs a major version bump.
+- `wow-two-sdk` packages → consumed by apps + external users; a breaking change needs a major version bump.
+- `wow-two-sdk-beta` packages and products → may break whenever it improves something, while products have no external users — `conventions/development/breaking-changes.md`.
 - `wow-two-platform` packages → internal only; can break more freely, but still coordinate consumer updates.

@@ -31,7 +31,7 @@
 - write or update the convention(s) the block establishes — cite the SDK symbols, per the [authoring rules](../conventions.md).
 - adopt the published package back in the **source app first** (prove parity), then across the **other active apps**.
 - the active-app set is named **per chat by the human** — never assume the targets; adopt only the apps the active chat specifies.
-- a breaking SDK change = a coordinated consumer update across the named apps; respect lane discipline ([agentic-workflow.md](../agentic-workflow/agentic-workflow.md)).
+- a breaking SDK change = a coordinated consumer update across the named apps; respect lane discipline ([agentic-workflow.md](../agentic-workflow/agentic-workflow.md)). When a break is allowed: [breaking changes](breaking-changes.md).
 
 ---
 
