@@ -159,6 +159,10 @@ holding the evidence. Tick a line when the developer answers; the answer moves i
 - ⬜ build-step facts, no decision: OpenIddict 6.0.0 → 7.7.2 with EF Core ≥ 10.0.11; Fido2 3.0.1 → 4.3.1 (security)
 - ⬜ claim vocabulary converges on `sub`, `sid`, `org_id` before an OIDC client ships (T4)
 - ⬜ release residue: npm ≥ 11.15.0 for `npm trust` (local 11.6.1); stale `NUGET_API_KEY` and `NPM_TOKEN` repo secrets in the sdks (T9)
+- ✅ Q48 migrator shipped in be sdk `10.0.81-beta`: named sets, `CREATE SCHEMA`, `{{schema}}`, level check, owner marker (T10)
+- ⬜ migrator follow-ups before Identity's first deploy: `MigrateBespokeOnStartupAsync` applies at every boot and
+  Wheelhouse calls it in production (against Q57); the owner marker must name the instance, not `module`/`service`;
+  no `BaselineAsync`; `MigratorHarness` in `Testing.Data` builds one set only; `wow-migrate` connects to PostgreSQL only
 - ⬜ `catalog.yml` has no Identity entry; it lands at rollout step 11 ([T8 § 6](t8-library-template.md#6--rollout-checklist)), once the GitHub repo exists
 - ✅ split prerequisites (rollout step 5) shipped in be sdk `10.0.77-beta`, 2026-10-26: kernel `WoW2.Sdk.Beta.Be.Abstractions`
   with forwarders, `AddErrorTexts` seam, `IdentityApi/` and `Policies/` deleted; the own publish workflow comes with the template (T5, T7)
