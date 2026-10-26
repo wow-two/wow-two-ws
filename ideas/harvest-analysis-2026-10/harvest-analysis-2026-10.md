@@ -53,9 +53,9 @@
 | T2 | Social platforms: Instagram, Facebook, X, Reddit, TikTok, YouTube, Threads, LinkedIn | [t2-social-sources.md](t2-social-sources.md) | 1 | ✅ |
 | T3 | Web sources: pages, browser, whole-site, provider APIs, feeds, link intake; build vs wrap | [t3-web-sources.md](t3-web-sources.md) | 1 | ✅ |
 | T4 | Consumer needs (Ocharo, Haven, others) and the social-integration inventory | [t4-consumers-and-social.md](t4-consumers-and-social.md) | 1 | ✅ |
-| T5 | Post model: captures, sources, canonical posts, dedup, deletion checks, containers | t5-post-model.md | 2 | ⬜ |
-| T6 | Extraction and classification: per-source fields, tags, AI tiers, cost | t6-extraction.md | 2 | ⬜ |
-| T7 | Pipelines, schedules, subscriptions, workers, delivery, roles | t7-pipelines-delivery.md | 2 | ⬜ |
+| T5 | Post model: captures, sources, canonical posts, dedup, deletion checks, containers | [t5-post-model.md](t5-post-model.md) | 2 | ✅ |
+| T6 | Extraction and classification: per-source fields, tags, AI tiers, cost | [t6-extraction.md](t6-extraction.md) | 2 | 🔄 |
+| T7 | Pipelines, schedules, subscriptions, workers, delivery, roles | [t7-pipelines-delivery.md](t7-pipelines-delivery.md) | 2 | ✅ |
 | T8 | Placement: social domain vs Harvest domain, ListingShelf reuse (H1), forms | t8-placement.md | 3 | ⬜ |
 
 - wave 1 runs 2026-10-26; wave 2 reads wave 1; wave 3 reads both.
@@ -98,3 +98,32 @@ holding the evidence. Tick a line when the developer answers; the answer moves i
 The tracks' own Points (T1-P1…14, S1–S12, W1–W18, T4-1…13) hold the children.
 
 ### C · Model, extraction and pipelines — from wave 2
+
+- [ ] P10 pipeline and subscription split: the pipeline `(container, source, scope_key)` is the shared harvesting
+  unit; the subscription is per consumer with its own delivery, AI switch and budget share; the effective config
+  derives from the subscriptions → provisional pick: yes (T7)
+- [ ] P11 post layers: `source` → `capture` → `link_readings` → `post_links` → `posts`, each in a `container`; the
+  canonical post is derived from its links' readings with provenance per field, never patched in place; captures
+  written only on content change → provisional pick: yes (T5)
+- [ ] P12 dedup: a deterministic ladder — exact keys, normalized-text hash, `pg_trgm` on transliterated text;
+  merges undoable with a `non_matches` veto; embeddings review-only and never over `ai_allowed = false` text →
+  provisional pick: yes (T5)
+- [ ] P13 deletion: `suspect` before `gone`; only a completed run over a complete enumeration may infer it; a post
+  is gone when all its verifiable links are; unverifiable sources abstain → provisional pick: yes (T5, T7)
+- [ ] P14 extraction: a deterministic → rules → embeddings → small model → large model cascade that always yields
+  `wow2.post.v1`; a consumer schema is a declared mapping first and the model fills only gaps → provisional pick:
+  yes (T6)
+- [ ] P15 AI gates: pipeline `off` · `gaps` · `full`, source `ai_allowed` `yes` · `no` · `unreviewed`, host
+  `ai-input` signal, budget cap; the build runs end to end without AI → provisional pick: yes; Telegram defaults wait
+  on P3 (T6)
+- [ ] P16 delivery: one durable event log per subscription feeds webhooks, pull cursors, replay and dead letters;
+  the be sdk's inline `WebhookPublisher` is not at-least-once, so a durable dispatcher joins the SDK, shared with
+  Identity → provisional pick: yes (T7, T8)
+- [ ] P17 text search: PostgreSQL has no Uzbek configuration; `simple` with prefix matching over Latin-transliterated
+  text, a UTF-8 database locale and a boot self-test → provisional pick: yes (T6, T5)
+- [ ] P18 retention travels downstream: deliveries carry `retention_class` and `delete_by`, and `post.purged`
+  reaches consumers; derived items, tags and embeddings die with their capture → provisional pick: yes (T5, T6, T2)
+- [ ] P19 contact keys: an HMAC with a vault-held pepper, not a plain hash of nine digits → provisional pick: yes
+  (T5)
+
+The tracks' own Points (T5-1…22, T6-1…17, T7-P1…P20) hold the children.
