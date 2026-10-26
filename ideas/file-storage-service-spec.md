@@ -35,7 +35,7 @@
   [domain structure](../conventions/development/repo/structure/domain-structure.md); new libraries leave the sdk one
   domain at a time, bigger ones first.
 - confirmed 2026-10-26: one files domain — storage, server, formats, compression, images, documents, video, icons —
-  in one repo of granular packages, org `wow-two-sdk-beta`; the name is still open. Core keeps `Storage/` byte
+  in one repo of granular packages: `wow-two-sdk-beta.files`, named 2026-10-26. Core keeps `Storage/` byte
   adapters, which its Messaging claim check reads; `Media/Images` and `Media/Pdf` move in
   ([T6](file-storage-analysis-2026-10/t6-library-shape.md)).
 - the repo `wow-two-platform.storage.file` holds only an empty 2024 solution.

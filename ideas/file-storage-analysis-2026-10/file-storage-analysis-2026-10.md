@@ -56,8 +56,9 @@ holding the evidence. Tick a line when the developer answers; the answer moves i
 - [x] Q1 (developer 2026-10-26) its own domain repo, not a be sdk module
 - [x] Q2 (developer 2026-10-26: confirmed) one `files` domain — storage, server, formats, compression, images, documents, video, icons — with
   granular packages → yes (T6)
-- [ ] Q3 (developer 2026-10-26: org and archive confirmed; the name reopened — files, media or other) repo
-  `wow-two-sdk-beta.{slug}`; the empty `wow-two-platform.storage.file` archived by the developer (T6)
+- [x] Q3 (developer 2026-10-26: `files`, after weighing media, assets, storage and drive) repo
+  `wow-two-sdk-beta.files`; moved `Media.Images` and `Media.Pdf` namespaces become `Files.Images` and
+  `Files.Documents`; the empty `wow-two-platform.storage.file` archived by the developer (T6)
 - [x] Q4 (developer 2026-10-26: confirmed) core keeps `Storage/` byte adapters, since core's Messaging claim check reads them; Files builds on them → yes (T6)
 - [x] Q5 (developer 2026-10-26: confirmed) `Media/Images` and `Media/Pdf` move to Files; Word, Markdown, Captions, Tabular stay in core → yes (T6)
 - [x] Q6 (developer 2026-10-26: confirmed) amend domain structure § Scope: a stateless library moves with the domain whose pipeline uses it → yes (T6)
@@ -104,20 +105,22 @@ holding the evidence. Tick a line when the developer answers; the answer moves i
 
 ### G · Wheelhouse migration module — blocks the Wheelhouse prompt
 
-- [ ] W1 split: Files owns import, export and the CLI mover; Wheelhouse orchestrates; the product owns the manifest
+- [x] W1 (developer 2026-10-26: W1–W9 confirmed) split: Files owns import, export and the CLI mover; Wheelhouse orchestrates; the product owns the manifest
   and its id-map migration → yes (T9)
-- [ ] W2 the mover runs on the source host and pushes straight to Files → yes (T9)
-- [ ] W3 manifest at `engineering/deployment/files-migration.yml` in the product repo → yes (T9)
-- [ ] W4 one generic data-move job, reused by Wheelhouse's planned server move → yes (T9)
-- [ ] W5 gates: dry run default, dev first, prod by the owner, retire separate with a final snapshot and a 7-day wait → yes (T9)
-- [ ] W6 Files-minted import tokens, tenant- and import-scoped, hours long, over stdin → yes (T9)
-- [ ] W7 Ocharo uses its own `files.{domain}` on B from day one → yes (T9)
-- [ ] W8 first run: Ocharo dev, Catalogue and Brand first, then prod → yes (T9)
-- [ ] W9 cancel and progress join Wheelhouse jobs as part of the module → yes (T9)
+- [x] W2 the mover runs on the source host and pushes straight to Files → yes (T9)
+- [x] W3 manifest at `engineering/deployment/files-migration.yml` in the product repo → yes (T9)
+- [x] W4 one generic data-move job, reused by Wheelhouse's planned server move → yes (T9)
+- [x] W5 gates: dry run default, dev first, prod by the owner, retire separate with a final snapshot and a 7-day wait → yes (T9)
+- [x] W6 Files-minted import tokens, tenant- and import-scoped, hours long, over stdin → yes (T9)
+- [x] W7 Ocharo uses its own `files.{domain}` on B from day one → yes (T9)
+- [x] W8 first run: Ocharo dev, Catalogue and Brand first, then prod → yes (T9)
+- [x] W9 cancel and progress join Wheelhouse jobs as part of the module → yes (T9)
 
 ### Self-served
 
 - ✅ D7 recorded as decided in [platform apps](../../docs/platform-apps.md) § Decisions and removed from platform decisions
 - ✅ spec updated with the settled points: own repo, shared host B, D7 scope, compression and icons in scope
-- ⬜ `catalog.yml` entry and the platform-apps row renamed once Q2 and Q3 settle
-- ⬜ the repo waits for the Identity chat's domain template (`wow-two-sdk-beta.domain-template`)
+- ✅ `catalog.yml` entry and the platform-apps row renamed to Files
+- ✅ repo folder `workbench/wow-two-sdk-beta/wow-two-sdk-beta.files` with root essentials, no remote (2026-10-26)
+- ⬜ scaffold from the domain template after the developer's review; this batch and the spec move in with that first
+  docs commit

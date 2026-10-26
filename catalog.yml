@@ -262,14 +262,15 @@ entries:
     status: "v0.1 built; awaiting first deploy"
     purpose: "Sample Vue + .NET + PostgreSQL app Wheelhouse deploys to dev and prod to prove every deployment flow"
     repositories: [wow-two-platform/wow-two-platform.wheelhouse-canary]
-  - slug: wow-two-platform-storage-file
-    name: File Storage
+  - slug: wow-two-sdk-beta-files
+    name: Files
     workspace: wow2-platform
     kind: platform
     deploy: none
-    status: "Planned: spec ready (ideas/file-storage-service-spec.md); empty solution"
-    purpose: "Files, image variants, signed URLs and quotas as a library and a Docker image; one instance per owner"
-    repositories: [wow-two-platform/wow-two-platform.storage.file]
+    status: "Planned: spec and analysis ready (ideas/file-storage-service-spec.md); local repo, pre-scaffold; the empty `wow-two-platform/wow-two-platform.storage.file` goes to the archive"
+    purpose: "Files domain — storage, upload, transforms, compression, sharing, delivery, file icons — as NuGet packages, an npm package and one image; per-owner instances and a shared files host"
+    repositories: []
+    local: workbench/wow-two-sdk-beta/wow-two-sdk-beta.files
   - slug: events
     name: Events
     workspace: wow2-platform
