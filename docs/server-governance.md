@@ -30,7 +30,7 @@
 
 ## Points
 
-- [ ] G1 — Shape: one governance host per server composing module libraries, or one service per module per server
+- [x] G1 — Shape: one governance service per server composing module libraries (owner 2026-10-26)
 - [ ] G2 — Wheelhouse's role: widgets, auth and forwarding over the tailnet; no log or feedback data stored in it
 - [ ] G3 — Feedback ingest: a public path on each server's ingress, keyed per product, or one central ingest
 - [ ] G4 — Log pipeline: collect containers' stdout on the host, then build thin (PostgreSQL / SQLite search) or wrap
@@ -40,7 +40,8 @@
 - [ ] G6 — Module repositories: each module a domain repository (library + service), like Identity
 - [ ] G7 — Retention and compute bounds per server, and what happens when a server is full
 - [ ] G8 — Later modules: metrics and uptime probes, backups, failover coordination; which join first
-- [ ] G9 — SDK prerequisites: trace id in every log line, structured JSON logs, OTLP log export (v0.6 candidates)
+- [ ] G9 — SDK prerequisites: trace id in every log line, structured JSON logs, OTLP log export `[parked]` until
+  the governance build starts (owner 2026-10-26)
 
 ---
 
@@ -51,3 +52,15 @@
 - Logs: [platform apps](platform-apps.md) #6 — structured store and `/logs` viewer by trace id; the SDK emits OTel
   traces and metrics, not logs.
 - Wheelhouse today reads a service's recent log lines over SSH, one container at a time.
+
+---
+
+## Module work from Wheelhouse's backlog (2026-10-26)
+
+Wheelhouse keeps only widgets, sign-in and forwarding; these move to the governance service's modules.
+
+- Ability to collect every service's logs in one place
+- Ability to search logs by product, service, level and time
+- Ability to follow a service's logs live
+- Ability to probe every site's uptime from outside
+- Ability to get alerts for downtime, certificates, disk and backups
