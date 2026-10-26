@@ -17,6 +17,10 @@
   [broker](../../conventions/development/backend/dotnet/core/mla/constructs/behavior/broker.md) contract.
 - developer, 2026-10-25: the SDK will split into one repo per domain — be library, fe library, service (be + fe)
   and Docker together; T5 weighs Identity as the first such repo. This departs from capability forms § Layout.
+- developer, 2026-10-26: one schema serves every form, so an instance can point at the database a product already
+  uses; inventory every table the infrastructure may need (users, roles, tenants, logins, devices …) with features
+  switched by configuration; migrations either create tables on demand or create the whole schema and leave unused
+  tables empty (T10).
 
 ---
 
@@ -33,6 +37,7 @@
 | T7 | Library architecture: abstractions layer, package graph, what the main SDK references | [t7-library-architecture.md](t7-library-architecture.md) | 3 | ✅ |
 | T8 | Domain library repo template and the rollout checklist | [t8-library-template.md](t8-library-template.md) | 3 | ✅ |
 | T9 | Release automation: repo creation, NuGet and npm first publish, rollout an agent can run | [t9-release-automation.md](t9-release-automation.md) | 3 | ✅ |
+| T10 | Full identity schema, feature toggles, migrations and shared databases | [t10-schema-migrations.md](t10-schema-migrations.md) | 4 | 🔄 |
 
 - waves 1–2 landed 2026-10-25; wave 3 answers the developer's high-level breakdown ask of the same day.
 
@@ -57,7 +62,8 @@ holding the evidence. Tick a line when the developer answers; the answer moves i
   pages and widgets a consumer embeds, and can instead forward the flow to a running Identity's hosted pages (T7)
 - ✗ T5's `…Be.Auth.*` rename in core: moot once the primitives leave with Identity (T7)
 - [ ] Q2 one registration, `Identity:Mode = Module | Oidc`, same routes, claims, brokers and events → yes (T4)
-- [ ] Q3 Form 1 → 3 move: strictly config, or config plus deleting the module package → allow the delete (T4)
+- [x] Q3 (developer 2026-10-26: confirmed — a self-serving product drops the Module package and adds the Client,
+  whose brokers delegate to the running server) Form 1 → 3 move: config plus deleting the module package (T4)
 - [ ] Q4 Form 3 host: the control host is off-limits for products → a WoW2 products host, none exists yet (T6)
 - [ ] Q5 two owners' instances of one image in Wheelhouse (descriptor keys one slug per repo) → model before Ocharo (T6)
 - [ ] Q6 D2 widens to one instance per owner and per residency, with an onshore option → yes (T6)
