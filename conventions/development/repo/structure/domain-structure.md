@@ -1,6 +1,6 @@
 # Domain structure
 
-*Last updated: 2026-10-25*
+*Last updated: 2026-10-26*
 
 > Shape of a domain repo — one SDK domain's be packages, fe package, service and image in one repo: when a domain
 > earns one, naming, layout, layers, docs and releases.
@@ -35,7 +35,7 @@ Evidence and the options weighed → [SDK breakdown](../../../../ideas/identity-
 | namespace root | `WoW.Two.Sdk.Beta.Be.{Domain}` | `WoW.Two.Sdk.Beta.Be.Identity` |
 | npm package | `@wow-two-beta/fe-{slug}` | `@wow-two-beta/fe-identity` |
 
-- must name the repo per [ecosystem naming](repo-structure.md#ecosystem-naming); its org is open (→ [Open](#open)).
+- must name the repo per [ecosystem naming](repo-structure.md#ecosystem-naming); its org is `wow-two-sdk-beta`, which also owns the image.
 - must derive `{slug}` per [repo structure](repo-structure.md#slug), and `{Domain}` as its PascalCase brand —
   `file-storage` → `FileStorage`.
 - must name each NuGet package `WoW2.Sdk.Beta.Be.{Domain}.{Layer}`, with `{Layer}` from [Layers](#layers).
@@ -122,6 +122,8 @@ Evidence and the options weighed → [SDK breakdown](../../../../ideas/identity-
 - must set the package's `repository.directory` to its path from the repo root.
 - must let `apps/web` take the package by `workspace:*`, through its `exports` only.
 - must not import `apps/` from the package.
+- must keep session and transport strategies (`auth`) in the fe sdk; the package holds the domain's contract
+  models, components and widgets, and can forward a flow to the hosted pages instead of embedding it.
 - must serve `apps/web` from `service/{Domain}.Api` per
   [single-host serving](../../../deployment/hosting/single-host-serving.md).
 
@@ -200,13 +202,7 @@ Evidence and the options weighed → [SDK breakdown](../../../../ideas/identity-
 - must not create a GitHub Release for a `be-v` or `fe-v` tag.
 - must publish packages only from `publish-packages.yml`, by registry trusted publishing; the repo stores no token.
 - must keep each publish job disarmed until its registry trusts `publish-packages.yml`.
+- must scaffold a domain repo from `wow-two-sdk-beta.domain-template` with `create-repo SHAPE=domain`.
+- must create a domain repo and carry it to its first releases with the `create-library` skill:
+  `scripts/release/library.py plan` probes each phase and prints the next commands; the agent runs each write alone.
 
----
-
-## Open
-
-- org — `wow-two-sdk-beta` leads; it sets the repo name, the catalog workspace and the image owner.
-- fe split — whether session and transport strategies stay in the fe sdk while a domain's screens and contract models
-  go to `fe-{slug}` (library architecture § 6).
-- scaffold — a domain template and a `create-repo` domain shape (library template § 1, § 5); until built, a domain
-  repo is shaped by hand from this doc.

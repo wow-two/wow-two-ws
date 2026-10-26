@@ -33,10 +33,14 @@
 #                 a change refreshes pnpm-lock.yaml (network)
 #   SCRATCH=1     scaffold into a temp dir (SCRATCH_DIR, else mktemp): no ports.md row, no active.sh row, no git init —
 #                 a template check leaves nothing in the workbench to remove
+#   INTO=clone    fill an existing empty clone at the target (`gh repo clone owner/name workbench/{org}/{repo}` of a
+#                 repository with no commits) instead of creating the dir: its .git and origin stay, git init is
+#                 skipped, every other pass runs. With SCRATCH=1 the clone is SCRATCH_DIR/{repo} (a template check).
+#                 The create-library skill drives it: scripts/release/library.py prints the command.
 #   NET_VERSION   defaults to 10   (TargetFramework net{N}.0)
 #
-# Idempotency: refuses to clobber an existing repo dir; appends to active.sh only
-# if the project name is not already registered.
+# Idempotency: refuses to clobber an existing repo dir (with INTO=clone: a clone that holds a commit or any file);
+# appends to active.sh only if the project name is not already registered.
 
 set -euo pipefail
 
@@ -47,6 +51,11 @@ WB="$WS_DIR/workbench"
 ACTIVE="$WS_DIR/scripts/active.sh"
 SHAPE="${SHAPE:-product}"
 SCRATCH="${SCRATCH:-0}"
+INTO="${INTO:-}"
+case "$INTO" in
+  ''|clone) ;;
+  *) echo "INTO must be clone or unset, not '$INTO'" >&2; exit 2 ;;
+esac
 
 # Each shape names its template and the dev ports its example binds (https / http / vite), which the port pass moves.
 case "$SHAPE" in
@@ -106,26 +115,45 @@ CODEBASE="$REPO_DIR/engineering/codebase"
 BE_DIR="$CODEBASE/$REPO_SLUG.backend-services"
 FE_DIR="$CODEBASE/$REPO_SLUG.frontend-services"
 
-echo "[scaffold] shape=$SHAPE repo=$REPO_NAME brand=$BRAND org=$ORG slug=$REPO_SLUG product=$BRAND_LC mode=$MODE net=$NET_VERSION scratch=$SCRATCH"
+echo "[scaffold] shape=$SHAPE repo=$REPO_NAME brand=$BRAND org=$ORG slug=$REPO_SLUG product=$BRAND_LC mode=$MODE net=$NET_VERSION scratch=$SCRATCH into=${INTO:-new}"
 echo "[scaffold] target=$REPO_DIR"
 
 # ---- guardrails ----
 [ -d "$TEMPLATE" ] || { echo "[scaffold] template missing: $TEMPLATE" >&2; exit 1; }
-[ -e "$REPO_DIR" ] && { echo "[scaffold] refusing to clobber existing: $REPO_DIR" >&2; exit 1; }
+if [ "$INTO" = clone ]; then
+  # An empty clone: a git repository with no commit and nothing beside its .git, so the stamp overwrites nothing.
+  [ -d "$REPO_DIR/.git" ] || { echo "[scaffold] INTO=clone needs a clone at $REPO_DIR (gh repo clone owner/name <path>)" >&2; exit 1; }
+  if git -C "$REPO_DIR" rev-parse --verify -q 'HEAD^{commit}' >/dev/null; then
+    echo "[scaffold] refusing to stamp a clone that already holds a commit: $REPO_DIR" >&2; exit 1
+  fi
+  if [ -n "$(find "$REPO_DIR" -mindepth 1 -maxdepth 1 ! -name .git -print -quit)" ]; then
+    echo "[scaffold] refusing to stamp a clone that already holds files: $REPO_DIR" >&2; exit 1
+  fi
+  ORIGIN_URL="$(git -C "$REPO_DIR" remote get-url origin 2>/dev/null || true)"
+  echo "[scaffold] filling the empty clone (origin: ${ORIGIN_URL:-none})"
+else
+  [ -e "$REPO_DIR" ] && { echo "[scaffold] refusing to clobber existing: $REPO_DIR" >&2; exit 1; }
+fi
 # Reject an outdated starter before creating a repository, allocating ports or registering it.
 node "$SCRIPT_DIR/validate-frontend.mjs" "$TEMPLATE/engineering/codebase/sample.frontend-services"
 
 # ---- 1. create + copy template (incl. the complete `Sample` example) ----
-mkdir -p "$(dirname "$REPO_DIR")"
-cp -R "$TEMPLATE" "$REPO_DIR"
-# drop the template's own git history + any build artifacts that rode along in the copy.
-rm -rf "$REPO_DIR/.git"
-find "$REPO_DIR" -type d \( -name bin -o -name obj -o -name node_modules -o -name dist -o -name logs \) \
+if [ "$INTO" = clone ]; then
+  # copy every top-level entry but the template's .git into the clone, which keeps its own .git and origin.
+  find "$TEMPLATE" -mindepth 1 -maxdepth 1 ! -name .git -exec cp -R {} "$REPO_DIR/" \;
+else
+  mkdir -p "$(dirname "$REPO_DIR")"
+  cp -R "$TEMPLATE" "$REPO_DIR"
+  # drop the template's own git history.
+  rm -rf "$REPO_DIR/.git"
+fi
+# drop any build artifacts that rode along in the copy; a clone's .git (its logs/ included) stays untouched.
+find "$REPO_DIR" -path "$REPO_DIR/.git" -prune -o -type d \( -name bin -o -name obj -o -name node_modules -o -name dist -o -name logs \) \
   -prune -exec rm -rf {} + 2>/dev/null || true
 # ... and anything a local run left in the template: the built SPA in wwwroot (only .gitkeep stays), SQLite files
 # and this machine's own or a target's settings files.
-find "$REPO_DIR" -type d -name wwwroot -exec find {} -mindepth 1 -not -name .gitkeep -delete \; 2>/dev/null || true
-find "$REPO_DIR" -type f \( -name '*.db' -o -name '*.db-shm' -o -name '*.db-wal' -o -name '*.nupkg' -o -name '*.snupkg' -o -name '*.tgz' \
+find "$REPO_DIR" -path "$REPO_DIR/.git" -prune -o -type d -name wwwroot -exec find {} -mindepth 1 -not -name .gitkeep -delete \; 2>/dev/null || true
+find "$REPO_DIR" -type f -not -path "$REPO_DIR/.git/*" \( -name '*.db' -o -name '*.db-shm' -o -name '*.db-wal' -o -name '*.nupkg' -o -name '*.snupkg' -o -name '*.tgz' \
   -o -name 'appsettings.Local.json' -o -name 'appsettings.Target.json' -o -name 'appsettings.Machine.json' \) -delete
 
 # ---- 2. placeholder replacement across every template doc ----
@@ -139,7 +167,7 @@ while IFS= read -r -d '' f; do
     -e "s|{{NET_VERSION}}|$NET_VERSION|g" \
     -e "s|{{YYYY-MM-DD}}|$TODAY|g" \
     "$f"
-done < <(find "$REPO_DIR" -type f \( -name '*.md' -o -name '*.json' -o -name '*.txt' \) -print0)
+done < <(find "$REPO_DIR" -path "$REPO_DIR/.git" -prune -o -type f \( -name '*.md' -o -name '*.json' -o -name '*.txt' \) -print0)
 
 # ---- 2b. BRAND pass: rebrand the copied `Sample` example to `$BRAND` ----
 # Files that may carry the Sample/sample token (code + config; docs already handled above,
@@ -393,7 +421,8 @@ EOF
 if [ "$SHAPE" = domain ]; then
   cat <<EOF
 
-Catalog entry for catalog.yml (fill purpose and status, then run scripts/gen-repo-registry.py):
+Catalog entry for catalog.yml (fill purpose and status, then run scripts/gen-repo-registry.py;
+scripts/release/library.py apply-local catalog writes it for the create-library skill):
   - slug: $BRAND_LC
     name: $BRAND
     workspace: wow2-platform
@@ -403,7 +432,8 @@ Catalog entry for catalog.yml (fill purpose and status, then run scripts/gen-rep
     purpose: "{{one line}}"
     repositories: [$OWNER/$REPO_NAME]
 
-Git flags, once the remote exists (the developer sends this as one whole message):
+Git flags: a folder override (~git_on commit,push workbench/$ORG/*) covers the repo; without one, once the remote
+exists, the developer sends this as one whole message:
   ~git_on commit,push workbench/$ORG/$REPO_NAME
 EOF
 fi

@@ -44,7 +44,8 @@ If validation fails, report the template gap; do not report the copied legacy st
 > **Shapes.** `product` (default) stamps the product template. `SHAPE=domain` stamps
 > `workbench/wow-two-sdk-beta/wow-two-sdk-beta.domain-template/`: one SDK domain's be packages, fe package, service
 > and image in one repo, per `conventions/development/repo/structure/domain-structure.md`. Package-only repos (the be
-> sdk, the fe sdk) stay out of this skill.
+> sdk, the fe sdk) stay out of this skill. A domain repo meant for GitHub, the registries and Wheelhouse goes through
+> the `create-library` skill, which drives this scaffold with `INTO=clone`.
 
 ## 1 · Gather inputs
 
@@ -72,6 +73,7 @@ A domain repo (`SHAPE=domain`) takes these instead:
 | `PRODUCT` (env) | product, service and catalog slug; must equal the Wheelhouse product | lowercased Brand |
 | `CORE_VERSION`, `FE_VERSION` (env) | be sdk pin (`BackendSdkVersion`) and fe sdk pin (+ the fe package's peer floor) | the template's |
 | `SCRATCH=1` (env) | scaffold into a temp dir (`SCRATCH_DIR`); no `active.sh`, no ports row, no `git init` | off |
+| `INTO=clone` (env) | fill the empty clone at the target (`gh repo clone`, no commit, nothing beside `.git`); keeps its `.git` and `origin`, skips `git init` | off |
 
 ## 2 · Run the mechanical scaffold
 
