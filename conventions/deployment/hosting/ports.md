@@ -80,7 +80,7 @@
 | ocharo-marketing review | isolated Marketing API | 8354 https / 8355 http |
 | ocharo-platform image worker review | private loopback HTTP worker | 8360 |
 
-**Next free backend even port: 8394.** Append a row whenever you allocate.
+**Next free backend even port: 8394.** Append a row whenever you allocate, and move this number past every port the row takes, its Vite port included.
 
 Ocharo Marketing Vite moved from the duplicate `8242` allocation to `8358` on 2026-09-29.
 Ocharo Desk Vite moved from `8266` (home-atlas) to `8378`, and its Compose API from `8268`/`8269` (surface-pattern) to `8376` https / `8377` http, on 2026-10-17.

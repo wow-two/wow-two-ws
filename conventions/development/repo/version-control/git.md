@@ -1,6 +1,6 @@
 # Git
 
-*Last updated: 2026-10-01*
+*Last updated: 2026-10-26*
 
 > Commit-message format **and** the agent⇄human commit protocol, for every repo under `wow-two-ws/`.
 > Purpose — a uniform, scannable history whose subject reads as *what changed* (past tense); and one unambiguous rule for who publishes (the repository push flag decides).
@@ -61,6 +61,14 @@ Repairing a binary already in pushed history:
 - must prepare the scoped staged set and message; execute only while the repository commit flag is `ON`.
 - may push in the ordinary form only while the repository push flag is `ON`; otherwise hand push requests to the developer.
 - parallel-lane rules (assume-intentional · no-revert · stage only your own files): [../../../agentic-workflow/agentic-workflow.md](../../../agentic-workflow/agentic-workflow.md).
+
+---
+
+## Scripts
+
+- must parse `git status --porcelain` lines unstripped: the first two columns are the status, and stripping the
+  output drops the first line's leading space, so a fixed `line[3:]` cuts its path.
+- must cut the status field with a pattern (`^\s*\S{1,2}\s+`) when the output arrives stripped.
 
 ---
 

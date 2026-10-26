@@ -124,6 +124,8 @@ Evidence and the options weighed → [SDK breakdown](../../../../ideas/identity-
 - must not import `apps/` from the package.
 - must keep session and transport strategies (`auth`) in the fe sdk; the package holds the domain's contract
   models, components and widgets, and can forward a flow to the hosted pages instead of embedding it.
+- must ship management screens in the package's `./admin` export; `apps/web` composes them into the console,
+  and a central console or a product's own admin page imports the same export.
 - must serve `apps/web` from `service/{Domain}.Api` per
   [single-host serving](../../../deployment/hosting/single-host-serving.md).
 
@@ -181,6 +183,17 @@ Evidence and the options weighed → [SDK breakdown](../../../../ideas/identity-
 - must pin a domain in a consumer through one `{Domain}SdkVersion` property beside `BackendSdkVersion`.
 - must run `core-latest.yml` nightly and on dispatch: build and test the domain against the newest be sdk and fe sdk.
 - must treat a red compat run as a break to fix in the domain, never as a release gate.
+
+---
+
+## Repository
+
+- must create a domain repo public in its org, with the `create-library` skill (phase 1), never by hand.
+- must turn off issues, wiki, projects and discussions.
+- must set the workflow token to read-only by default; a workflow raises permissions per job.
+- must protect `main` with the `main-guard` ruleset (`scripts/release/main-guard.json` in the hub): no deletion,
+  no force push, no review rule.
+- must take `origin` from `gh repo clone`; never `git remote add`.
 
 ---
 
