@@ -23,6 +23,10 @@
 - developer, 2026-10-26: an icon pack for every file extension; compression in scope; asked whether one big files
   library should hold the server as one of its parts.
 - developer, 2026-10-26: the Identity chat is preparing the domain library template; this batch hands it Files' asks.
+- developer, 2026-10-26 (second pass): every point A–F confirmed; the repo name reopened, since the domain is about
+  media and files alike; Ocharo starts on B too; the first test migration runs through Wheelhouse, as a Wheelhouse
+  module built from a prompt once its features, integrations and security are decided; the Identity contracts get
+  analysed in full and the developer forwards a prompt to the Identity chat.
 
 ---
 
@@ -37,6 +41,8 @@
 | T5 | Identity: what Files needs; asks for the Identity chat | [t5-identity.md](t5-identity.md) | ✅ |
 | T6 | Library shape: one files domain, packages, what stays in core | [t6-library-shape.md](t6-library-shape.md) | ✅ |
 | T7 | File icon pack | [t7-file-icons.md](t7-file-icons.md) | ✅ |
+| T8 | Identity contracts C1–C15, with the prompt for the Identity chat | [t8-identity-contracts.md](t8-identity-contracts.md) · [prompt](prompt-identity-chat.md) | ✅ |
+| T9 | Wheelhouse migration module: features, integrations, security | [t9-wheelhouse-migration.md](t9-wheelhouse-migration.md) | ✅ |
 
 ---
 
@@ -48,49 +54,66 @@ holding the evidence. Tick a line when the developer answers; the answer moves i
 ### A · Scope and placement — blocks the repo
 
 - [x] Q1 (developer 2026-10-26) its own domain repo, not a be sdk module
-- [ ] Q2 one `files` domain — storage, server, formats, compression, images, documents, video, icons — with
+- [x] Q2 (developer 2026-10-26: confirmed) one `files` domain — storage, server, formats, compression, images, documents, video, icons — with
   granular packages → yes (T6)
-- [ ] Q3 repo `wow-two-sdk-beta.files`; the empty `wow-two-platform.storage.file` archived by the developer → yes (T6)
-- [ ] Q4 core keeps `Storage/` byte adapters, since core's Messaging claim check reads them; Files builds on them → yes (T6)
-- [ ] Q5 `Media/Images` and `Media/Pdf` move to Files; Word, Markdown, Captions, Tabular stay in core → yes (T6)
-- [ ] Q6 amend domain structure § Scope: a stateless library moves with the domain whose pipeline uses it → yes (T6)
+- [ ] Q3 (developer 2026-10-26: org and archive confirmed; the name reopened — files, media or other) repo
+  `wow-two-sdk-beta.{slug}`; the empty `wow-two-platform.storage.file` archived by the developer (T6)
+- [x] Q4 (developer 2026-10-26: confirmed) core keeps `Storage/` byte adapters, since core's Messaging claim check reads them; Files builds on them → yes (T6)
+- [x] Q5 (developer 2026-10-26: confirmed) `Media/Images` and `Media/Pdf` move to Files; Word, Markdown, Captions, Tabular stay in core → yes (T6)
+- [x] Q6 (developer 2026-10-26: confirmed) amend domain structure § Scope: a stateless library moves with the domain whose pipeline uses it → yes (T6)
 
 ### B · Services and instances
 
-- [ ] Q7 one image, three roles (`api`, `worker`, `delivery`), one process in P1 → yes (T1)
-- [ ] Q8 B is the same image in `Tenancy:Mode=Shared`; A is the same with one tenant row → yes (T1)
-- [ ] Q9 WoW2's own instance is the first B; Ocharo runs an A → yes (T1)
-- [ ] Q10 Form 3 becomes B, hosted off the control host → yes (T1)
-- [ ] Q11 tenant moves: signed export bundle + byte copy or bucket re-point; public URLs on the tenant's host → yes (T1)
-- [ ] Q12 B's server and byte store fold into D6 → yes (T1)
+- [x] Q7 (developer 2026-10-26: confirmed) one image, three roles (`api`, `worker`, `delivery`), one process in P1 → yes (T1)
+- [x] Q8 (developer 2026-10-26: confirmed) B is the same image in `Tenancy:Mode=Shared`; A is the same with one tenant row → yes (T1)
+- [x] Q9 (developer 2026-10-26: changed — Ocharo starts on B as well; it moves to its own A later, as the first test
+  migration through Wheelhouse) WoW2's own instance is the first B (T1)
+- [x] Q10 (developer 2026-10-26: confirmed) Form 3 becomes B, hosted off the control host → yes (T1)
+- [x] Q11 (developer 2026-10-26: confirmed) tenant moves: signed export bundle + byte copy or bucket re-point; public URLs on the tenant's host → yes (T1)
+- [x] Q12 (developer 2026-10-26: confirmed) B's server and byte store fold into D6 → yes (T1)
 
 ### C · Features and the first slice
 
-- [ ] Q13 P1 = Ocharo (A) + Harvest captures, Events media, optionally ForeverPin logos (B); the rest to the backlog (T2, T3)
-- [ ] Q14 share gates in P1: expiry, password, max downloads, one-time, revoke; sign-in and email gates in P2 (T2)
-- [ ] Q15 user content on its own origin (`files.{domain}`) from P1 → yes (T2, T4)
-- [ ] Q16 on-the-fly transforms through signed params in P2, own Skia renderer, no imgproxy → yes (T2)
-- [ ] Q17 video posters in P2; transcoding and HLS in P3 on a named consumer → yes (T2)
-- [ ] Q18 lifecycle expiry and the orphan sweep move to P1 for Harvest → yes (T3)
+- [x] Q13 (developer 2026-10-26: confirmed, Ocharo on B) P1 = Ocharo, Harvest captures, Events media, optionally
+  ForeverPin logos, all on B; the rest to the backlog (T2, T3)
+- [x] Q14 (developer 2026-10-26: confirmed) share gates in P1: expiry, password, max downloads, one-time, revoke; sign-in and email gates in P2 (T2)
+- [x] Q15 (developer 2026-10-26: confirmed) user content on its own origin (`files.{domain}`) from P1 → yes (T2, T4)
+- [x] Q16 (developer 2026-10-26: confirmed) on-the-fly transforms through signed params in P2, own Skia renderer, no imgproxy → yes (T2)
+- [x] Q17 (developer 2026-10-26: confirmed) video posters in P2; transcoding and HLS in P3 on a named consumer → yes (T2)
+- [x] Q18 (developer 2026-10-26: confirmed) lifecycle expiry and the orphan sweep move to P1 for Harvest → yes (T3)
 
 ### D · Contract
 
-- [ ] Q19 one broker set for Module and Client (`IFileUploads`, `IFileStore`, `IFileReferences`, `IFileUrls`,
+- [x] Q19 (developer 2026-10-26: confirmed) one broker set for Module and Client (`IFileUploads`, `IFileStore`, `IFileReferences`, `IFileUrls`,
   `IFileShares`, `IFileTransforms`, `IFileArchives`, `IFileJobs`, `IFileAdmin`) → yes (T4)
-- [ ] Q20 `FileId` UUIDv7, instance-independent; storage keys by content hash per tenant → yes (T4)
-- [ ] Q21 browsers upload through backend-minted tickets in P1; user tokens with the `files` audience in P2 → yes (T4, T5)
-- [ ] Q22 resumable uploads by tus 1.0 (tusdotnet) in P2 → yes (T4)
+- [x] Q20 (developer 2026-10-26: confirmed) `FileId` UUIDv7, instance-independent; storage keys by content hash per tenant → yes (T4)
+- [x] Q21 (developer 2026-10-26: confirmed) browsers upload through backend-minted tickets in P1; user tokens with the `files` audience in P2 → yes (T4, T5)
+- [x] Q22 (developer 2026-10-26: confirmed) resumable uploads by tus 1.0 (tusdotnet) in P2 → yes (T4)
 
 ### E · Identity
 
-- [ ] Q23 Files uses our Identity (M8, M10; M11 in P2) and does not wait for it: P1 runs on existing client-credentials
+- [x] Q23 (developer 2026-10-26: confirmed) Files uses our Identity (M8, M10; M11 in P2) and does not wait for it: P1 runs on existing client-credentials
   and API-key handlers → yes (T5)
-- [ ] Q24 hand the T5 § 3 asks (I-1 … I-11) to the Identity chat; I-4 multi-issuer and I-5 API keys are new there → send (T5)
+- [x] Q24 (developer 2026-10-26: the developer forwards the prompt) hand the Identity chat the contracts C1–C15 of
+  [T8](t8-identity-contracts.md) through [prompt-identity-chat.md](prompt-identity-chat.md) (T5, T8)
 
 ### F · Icons
 
-- [ ] Q25 one generated pack: ~24 kind glyphs + extension label, from one registry shared by be and fe → yes (T7)
-- [ ] Q26 no brand logos in P1 → yes (T7)
+- [x] Q25 (developer 2026-10-26: confirmed) one generated pack: ~24 kind glyphs + extension label, from one registry shared by be and fe → yes (T7)
+- [x] Q26 (developer 2026-10-26: confirmed) no brand logos in P1 → yes (T7)
+
+### G · Wheelhouse migration module — blocks the Wheelhouse prompt
+
+- [ ] W1 split: Files owns import, export and the CLI mover; Wheelhouse orchestrates; the product owns the manifest
+  and its id-map migration → yes (T9)
+- [ ] W2 the mover runs on the source host and pushes straight to Files → yes (T9)
+- [ ] W3 manifest at `engineering/deployment/files-migration.yml` in the product repo → yes (T9)
+- [ ] W4 one generic data-move job, reused by Wheelhouse's planned server move → yes (T9)
+- [ ] W5 gates: dry run default, dev first, prod by the owner, retire separate with a final snapshot and a 7-day wait → yes (T9)
+- [ ] W6 Files-minted import tokens, tenant- and import-scoped, hours long, over stdin → yes (T9)
+- [ ] W7 Ocharo uses its own `files.{domain}` on B from day one → yes (T9)
+- [ ] W8 first run: Ocharo dev, Catalogue and Brand first, then prod → yes (T9)
+- [ ] W9 cancel and progress join Wheelhouse jobs as part of the module → yes (T9)
 
 ### Self-served
 

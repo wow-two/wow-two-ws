@@ -51,7 +51,7 @@
 
 | Consumer | Form | Needs in P1 |
 |---|---|---|
-| Ocharo | A | everything in the spec's Ocharo slice; import from `bytea` and blob folders |
+| Ocharo | B, then its own A | everything in the spec's Ocharo slice; import from `bytea` and blob folders |
 | Harvest (from ListingShelf) | B | content-hash photos, immutable public URLs, references with retention → orphan sweep and lifecycle rules move to P1 |
 | Events catalogs | B | public media with variants (decided 2026-10-25) |
 | ForeverPin | B, optional | small public logos out of jsonb |

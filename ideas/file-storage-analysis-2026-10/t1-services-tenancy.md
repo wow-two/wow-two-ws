@@ -43,7 +43,7 @@
 | quotas | per organization and app | per tenant, then organization and app |
 | console | the owner's admins | the operator (us), plus tenant admins scoped to their tenant |
 | runs on | beside the owner's products | a storage-fit server: small CPU, large disk or object storage, cheap bandwidth |
-| first one | Ocharo | WoW2's portfolio: Harvest, Events, ventures starting out |
+| first one | Ocharo, after its test move off B | WoW2's portfolio and Ocharo: Harvest, Events, ventures starting out |
 
 - B is A with more tenant rows: same image, same API, same SDK client; a product changes only base URL and
   credentials.
@@ -51,7 +51,8 @@
 - tenant resolution, first match wins: API key prefix → token `iss` + `aud` → request host (public delivery).
 - Form 3 ("provided service, run once by us") becomes B; it runs off the control host, which identity Q4 keeps free
   of products.
-- the 2026-10-25 rule "one instance per owner" holds for Ocharo; WoW2's own instance is the first B.
+- WoW2's own instance is the first B; Ocharo starts on it too and moves to its own A later, as the first
+  test migration, run through Wheelhouse (developer, 2026-10-26; [T9](t9-wheelhouse-migration.md)).
 
 ---
 

@@ -135,7 +135,7 @@
 | user content on its own origin: `files.{domain}`, never the app host | P1 | XSS guard |
 | `nosniff`, sandbox CSP, attachment disposition for active types | P1 | |
 | range requests, `ETag`, `If-None-Match`, `304` | P1 | |
-| custom hostname per tenant with TLS | P1 on A, P2 on B | B's tenants CNAME to it |
+| custom hostname per tenant with TLS | P1 | B's tenants CNAME to it; Ocharo needs it for a later move ([T9](t9-wheelhouse-migration.md)) |
 | CDN in front of public files, purge on delete | P2 | spec |
 | hotlink protection by referrer per tenant | P2 | |
 | bandwidth caps and rate limits per tenant | P2 | B noisy neighbour |
