@@ -226,8 +226,8 @@ What's there (rebranded from `Sample` → `{Brand}`):
 - Shared packages follow the convention's extraction rule; empty placeholder packages are unnecessary.
 - Verify `/api` proxy and ports against the deployment conventions after the mechanical port pass.
 - Domain: `packages/fe-{slug}` is `@wow-two-beta/fe-{slug}` (`./contracts`, `./kit`: an embeddable widget through the
-  contract, and a forward to the service's hosted page); `apps/web` routes the hosted pages and console with the fe
-  sdk router and takes the package by `workspace:*`. Root `dev`, `typecheck` and `test` build the package first.
+  contract, and a forward to the service's hosted page; `./admin`: management screens); `apps/web` routes the hosted
+  pages and the console, which composes `./admin`, with the fe sdk router and takes the package by `workspace:*`. Root `dev`, `typecheck` and `test` build the package first.
 
 ## 5 · Single-host serving, Docker and delivery (already wired)
 
