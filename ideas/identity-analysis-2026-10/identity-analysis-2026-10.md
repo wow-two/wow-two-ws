@@ -37,7 +37,7 @@
 | T7 | Library architecture: abstractions layer, package graph, what the main SDK references | [t7-library-architecture.md](t7-library-architecture.md) | 3 | ✅ |
 | T8 | Domain library repo template and the rollout checklist | [t8-library-template.md](t8-library-template.md) | 3 | ✅ |
 | T9 | Release automation: repo creation, NuGet and npm first publish, rollout an agent can run | [t9-release-automation.md](t9-release-automation.md) | 3 | ✅ |
-| T10 | Full identity schema, feature toggles, migrations and shared databases | [t10-schema-migrations.md](t10-schema-migrations.md) | 4 | 🔄 |
+| T10 | Full identity schema, feature toggles, migrations and shared databases | [t10-schema-migrations.md](t10-schema-migrations.md) | 4 | ✅ |
 
 - waves 1–2 landed 2026-10-25; wave 3 answers the developer's high-level breakdown ask of the same day.
 
@@ -66,7 +66,7 @@ holding the evidence. Tick a line when the developer answers; the answer moves i
   whose brokers delegate to the running server) Form 1 → 3 move: config plus deleting the module package (T4)
 - [ ] Q4 Form 3 host: the control host is off-limits for products → a WoW2 products host, none exists yet (T6)
 - [ ] Q5 two owners' instances of one image in Wheelhouse (descriptor keys one slug per repo) → model before Ocharo (T6)
-- [ ] Q6 D2 widens to one instance per owner and per residency, with an onshore option → yes (T6)
+- [ ] Q6 [folded into Q54] D2 widens to one instance per owner and per residency, with an onshore option → yes (T6)
 
 ### B · Tokens and protocol
 
@@ -108,9 +108,9 @@ holding the evidence. Tick a line when the developer answers; the answer moves i
 
 ### F · Migration
 
-- [ ] Q31 one migrator for identity tables across Form 1 hosts and the service before I14–I16 (T3)
-- [ ] Q32 Ocharo: Desk runs Microsoft `AddIdentityCore` with text ids → rename + key-type plan; port Desk's prototypes (T3)
-- [ ] Q33 Haven's several phones per user vs one `PhoneNumber` → settle the model before Haven moves (T3)
+- [ ] Q31 [folded into Q47] one migrator for identity tables across Form 1 hosts and the service before I14–I16 (T3)
+- [ ] Q32 [folded into Q55] Ocharo: Desk runs Microsoft `AddIdentityCore` with text ids → rename + key-type plan; port Desk's prototypes (T3)
+- [ ] Q33 [folded into Q56] Haven's several phones per user vs one `PhoneNumber` → settle the model before Haven moves (T3)
 - [ ] Q34 Wheelhouse stays Form 1: it deploys Identity and must sign in without it → yes (T3)
 
 ### G · Library repo and template
@@ -133,6 +133,22 @@ holding the evidence. Tick a line when the developer answers; the answer moves i
 - [x] Q43 (developer 2026-10-26: confirmed) clone counts as safe; a push must name a configured remote, never a URL (P3) (T9)
 - [ ] Q44 [parked 2026-10-26, low priority → `system/planning/pln-tasks.md` § Backlog] uninstall the Codex GitHub App: write access on 3 orgs, Codex dropped 2026-10-23 → developer, once (T9)
 - [ ] Q45 consumer re-pins: an agent sweep (`repin.py`), since no wow2 org has Renovate installed → sweep (T9)
+
+### I · Schema and migrations (T10)
+
+- [ ] Q46 migration strategy: A whole schema always · B on demand · C hybrid → A; configuration switches reads and writes only (T10)
+- [ ] Q47 schema authority: a SQL set in `Identity.Module`, run by the be sdk migrator, EF only maps · EF migrations per consumer → SQL set (answers Q31)
+- [ ] Q48 migrator: named sets per host, `CREATE SCHEMA`, a `{{schema}}` placeholder, startup level check and owner marker, before I14–I16 → yes
+- [ ] Q49 keys: `uuid` only, Guid v7 made in code; `TKey`/`TUser` generics dropped from stored entities → yes
+- [ ] Q50 extension: side tables keyed by `sub` plus claims contributors; `attributes jsonb` the narrow exception; `TUser` columns retired → yes
+- [ ] Q51 feature switches: configuration only in both forms, the Module registers every slice · code `.AddX()` decides in Form 1 → configuration (reverses 2026-09-28)
+- [ ] Q52 naming: schema `identity` plus the `identity_` prefix · bare names · prefix only → schema plus prefix
+- [ ] Q53 shared database: never one identity schema for two instances; a database per instance by default, a schema per instance allowed → yes
+- [ ] Q54 D2: one instance per isolation boundary (owner, product or residency); capability forms § Ownership becomes per schema → yes (folds Q6)
+- [ ] Q55 Ocharo: its own database with a one-time copy of Desk's converted `access` tables · take over Desk's database → own database (folds Q32)
+- [ ] Q56 Haven: `identity_user_phones`, several per person, one primary; `users.phone_number` retires → yes (folds Q33)
+- [ ] Q57 production migrations: an explicit `migrate` deploy step · apply on boot → explicit step, boot in development only
+- [ ] Q58 SQLite: a supported Form 1 dialect, pilots copy to PostgreSQL at launch · test-only → supported
 
 ### Self-served
 
