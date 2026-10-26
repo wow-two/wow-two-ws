@@ -54,11 +54,11 @@
 | T3 | Web sources: pages, browser, whole-site, provider APIs, feeds, link intake; build vs wrap | [t3-web-sources.md](t3-web-sources.md) | 1 | ✅ |
 | T4 | Consumer needs (Ocharo, Haven, others) and the social-integration inventory | [t4-consumers-and-social.md](t4-consumers-and-social.md) | 1 | ✅ |
 | T5 | Post model: captures, sources, canonical posts, dedup, deletion checks, containers | [t5-post-model.md](t5-post-model.md) | 2 | ✅ |
-| T6 | Extraction and classification: per-source fields, tags, AI tiers, cost | [t6-extraction.md](t6-extraction.md) | 2 | 🔄 |
+| T6 | Extraction and classification: per-source fields, tags, AI tiers, cost | [t6-extraction.md](t6-extraction.md) | 2 | ✅ |
 | T7 | Pipelines, schedules, subscriptions, workers, delivery, roles | [t7-pipelines-delivery.md](t7-pipelines-delivery.md) | 2 | ✅ |
-| T8 | Placement: social domain vs Harvest domain, ListingShelf reuse (H1), forms | t8-placement.md | 3 | ⬜ |
+| T8 | Placement: social domain vs Harvest domain, ListingShelf reuse (H1), forms | [t8-placement.md](t8-placement.md) | 3 | ✅ |
 
-- wave 1 runs 2026-10-26; wave 2 reads wave 1; wave 3 reads both.
+- all three waves landed 2026-10-26.
 
 ---
 
@@ -70,8 +70,21 @@ holding the evidence. Tick a line when the developer answers; the answer moves i
 ### A · Placement — blocks the build
 
 - [ ] P1 social media and Harvest: one social repo holding Harvest, or a social connectors domain beside a Harvest
-  domain → provisional pick: two domains, Harvest's social adapters calling the connectors (T4, T8)
-- [ ] P2 (H1) Harvest's repo: ListingShelf widened and renamed, or a new repo seeded from its core (T8)
+  domain → provisional pick: two domains, `wow-two-sdk-beta.social` beside `wow-two-sdk-beta.harvest` (T4, T8-1)
+  - Social acts as an organization's account: tokens, publishing with receipts, own metrics, verification, the
+    authorised-read transport; created on its first consumer trigger, not in Harvest's first slice (T8-2)
+  - Harvest observes: public readers, provider runners, the Telegram MTProto pool and intake bots; it calls Social
+    only on authenticated routes; Social never depends on Harvest
+  - Telegram and WhatsApp send go to be sdk core `Comms`, under Social and Notifications (T8-3)
+- [ ] P2 (H1) Harvest's repo → provisional pick: a new `wow-two-sdk-beta.harvest` from the domain template with
+  ListingShelf's generic core copied and its source commit cited; ListingShelf stays the shelf view (T8-4)
+- [ ] P2a org → provisional pick: `wow-two-sdk-beta` for Harvest, Social and Events, which repoints their catalog
+  entries and edits platform-apps rows 16 and 17 (T8-5)
+- [ ] P2b chain → provisional pick: core → Identity → Files → Social → Harvest → Events, no cycle over 33 package
+  nodes; Events renames its tracking `pipeline` to `workflow` (T8-6, T8-13)
+- [ ] P2c slug for Social → provisional pick: `social`, alternative `connectors` (T8-2)
+- [ ] P2d research in a public repo → provisional pick: strip the analysis' private facts before it moves into the
+  public Harvest repo (T8-5)
 
 ### B · Source terms — blocks the source picks
 
