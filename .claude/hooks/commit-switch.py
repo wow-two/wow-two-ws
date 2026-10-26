@@ -3,8 +3,8 @@
 
 `.claude/hooks/commit_permission.py` owns the workspace flag store; this file only feeds it Claude events.
 Only a prompt that is exactly `~commit_on|off|status <repo>`, `~push_on|off|status <repo>` or
-`~git_on|off <kind>[,<kind>...] <repo>...` / `~git_status <repo>...` (`*` for the workspace default) can change or
-read a flag; every other prompt prints nothing. At session start the working repository's effective flags are
+`~git_on|off <kind>[,<kind>...] <repo>...` / `~git_status <repo>...` (`<folder>/*` for every repository under a
+folder, `*` for the workspace default) can change or read a flag; every other prompt prints nothing. At session start the working repository's effective flags are
 surfaced. `guard-git.py` reads the same store before a gated command; each flag is final for every chat.
 
 Claude chats are recorded as `claude-<session_id>` in the change evidence only.

@@ -1,14 +1,16 @@
 """Workspace git flags: `commit` (everything local) and `push` (everything that reaches GitHub).
 
 One store per workspace, `<workspace>/.claude/git-flags.json`, beside this engine: workspace defaults plus
-per-repository overrides keyed by the repository's path inside the workspace. The effective flag is the override,
-else the default. A hash-chained change log sits beside the store; a store that disagrees with its log reads as every
-flag OFF until a `_off` directive resets it. A repository's flags live in the innermost workspace store containing it.
+overrides keyed by the path inside the workspace, of a repository (`workbench/org/repo`) or of a folder
+(`workbench/org/*`, every repository under it, present and future). The effective flag is the repository's override,
+else the longest folder override above it, else the default, kind by kind. A hash-chained change log sits beside the
+store; a store that disagrees with its log reads as every flag OFF until a `_off` directive resets it. A repository's
+flags live in the innermost workspace store containing it.
 
-Only exact whole-message user directives change a flag: `~commit_on|off|status <repo>`,
-`~push_on|off|status <repo>`, `~git_on|off <kind>[,<kind>...] <repo>...` and `~git_status <repo>...`, where `*`
-names the workspace default. Each flag is the final state for every chat; this workflow guard grants no native
-execution permission.
+Only exact whole-message user directives change a flag: `~commit_on|off|status <target>`,
+`~push_on|off|status <target>`, `~git_on|off <kind>[,<kind>...] <target>...` and `~git_status <target>...`, where a
+target is a repository, an existing folder followed by `/*`, or `*` for the workspace default. Each flag is the final
+state for every chat; this workflow guard grants no native execution permission.
 """
 import argparse
 from contextlib import contextmanager
@@ -32,6 +34,8 @@ KINDS = ('commit', 'push')
 # Kinds merged on 2026-09-29; a directive naming one changes nothing and says where it went.
 RETIRED = {'history': 'commit', 'gh': 'push'}
 DEFAULT = '*'
+# A target or key ending in `/*` is a folder override: every repository under that folder, present and future.
+FOLDER = '/*'
 STORE = Path('.claude') / 'git-flags.json'
 LOG = Path('.claude') / 'git-flags.log'
 LOCK = Path('.claude') / 'git-flags.lock'
@@ -79,6 +83,18 @@ def store_root(root):
 def key(store, root):
     """A repository's key in its store: its path inside the workspace, `.` for the workspace repository."""
     return os.path.relpath(root, store)
+
+
+def folder(path):
+    """(store, key, folder) for a folder override: an existing directory below its workspace, keyed `<path>/*`."""
+    path = Path(path).resolve()
+    if not path.is_relative_to(ROOT) or not path.is_dir():
+        raise ValueError(f'folder {path} must be an existing directory inside this workspace')
+    store = store_root(path)
+    name = key(store, path)
+    if name == '.':
+        raise ValueError(f'folder {path} is the whole workspace; `*` sets the workspace default')
+    return store, name + FOLDER, path
 
 
 def nonempty(value):
@@ -247,11 +263,22 @@ def record(store, state, changes, evidence, anchor=None):
         Path(name).unlink(missing_ok=True)
 
 
+def covering(state, name, kind):
+    """The key of the longest folder override that sets `kind` above `name`, or None."""
+    holders = [other for other, flags in state['repositories'].items()
+               if other.endswith(FOLDER) and kind in flags and name.startswith(other[:-1])]
+    return max(holders, key=len, default=None)
+
+
 def effective(state, name, kind):
-    """(value, source) of one flag: the repository's override, else the workspace default."""
+    """(value, source) of one flag: the repository's override, else the longest folder override above it, else the
+    workspace default. A `name` ending in `/` reads a new repository directly under that folder."""
     override = state['repositories'].get(name, {})
     if kind in override:
         return override[kind], 'override'
+    holder = covering(state, name, kind)
+    if holder is not None:
+        return state['repositories'][holder][kind], 'folder ' + holder
     return state['defaults'][kind], 'default'
 
 
@@ -282,6 +309,22 @@ def describe_default(kind, store, value):
             f'present and future. {MEANING[kind]}.')
 
 
+def describe_folder(kind, name, value, source):
+    """One flag of every repository under a folder that has no override of its own."""
+    state = 'ON' if value else 'OFF'
+    return (f'{kind.upper()} PERMISSION: {state} for {name} ({source}): every repository under that folder without '
+            f'its own override, present and future. {MEANING[kind]}.')
+
+
+def describe_planned(kind, path, value, source):
+    """One flag of a repository not checked out yet, read at the path it will be cloned into."""
+    if value:
+        return (f'{kind.upper()} PERMISSION: ON for {path}, not checked out yet ({source}). '
+                f'Report each GitHub write.')
+    return (f'{kind.upper()} PERMISSION: OFF for {path}, not checked out yet ({source}). The developer runs it, or '
+            f'turns the folder on with `~git_on {kind} <folder>/*`.')
+
+
 def describe_invalid(kind, root, store, problem):
     return (f'{kind.upper()} PERMISSION: OFF for {root}; invalid state: {problem} ({store / STORE}). '
             f'Every flag in that store reads OFF until a `~git_off` directive resets it.')
@@ -299,6 +342,26 @@ def summary(root):
     if problem:
         return f'GIT FLAGS for {root}: every flag OFF; the store {store / STORE} is invalid: {problem}.'
     return f'GIT FLAGS for {root}: {flags_line(state, key(store, root))}.'
+
+
+def folder_summary(store, name):
+    """Every effective flag of a new repository under a folder on one line, then the overrides that win under it."""
+    state, problem = load(store)
+    where = '' if store == ROOT else f' in {store}'
+    if problem:
+        return f'GIT FLAGS for {name}{where}: every flag OFF; the store {store / STORE} is invalid: {problem}.'
+    line = (f'GIT FLAGS for {name}{where} (each repository under it without its own override): '
+            f'{flags_line(state, name[:-1])}.')
+    inside = [other for other in sorted(state['repositories']) if other != name and other.startswith(name[:-1])]
+    return line + (' Own overrides under it: ' + ', '.join(inside) + '.' if inside else '')
+
+
+def folder_status(store, name, kind):
+    """One flag of a folder override target."""
+    state, problem = load(store)
+    if problem:
+        return describe_invalid(kind, name, store, problem)
+    return describe_folder(kind, name, *effective(state, name[:-1], kind))
 
 
 def overview(store):
@@ -326,6 +389,9 @@ def status(repo, session_id=None, kind='commit'):
 
 
 def statuses(repo, session_id=None):
+    if repo.endswith(FOLDER):
+        store, name, _ = folder(repo[:-len(FOLDER)])
+        return '\n'.join([*(folder_status(store, name, kind) for kind in KINDS), folder_summary(store, name)])
     root, _ = repository(repo)
     return '\n'.join([*(status(root, None, kind) for kind in KINDS), summary(root)])
 
@@ -350,6 +416,28 @@ def enabled(kind, path):
         return value, describe(kind, root, value, source)
     except (ValueError, OSError, subprocess.SubprocessError) as exc:
         return False, f'{kind.upper()} PERMISSION: OFF; the repository cannot be resolved: {exc}'
+
+
+def planned(kind, path):
+    """(allowed, reason) for a repository not checked out yet, read at the path it will be cloned into.
+
+    The path must sit below this workspace and be missing or an empty directory; its flag is its own override, else
+    the longest folder override above it, else the default. Any doubt reads as OFF."""
+    try:
+        path = Path(path)
+        path = (path if path.is_absolute() else ROOT / path).resolve()
+        if path == ROOT or not path.is_relative_to(ROOT):
+            raise ValueError(f'{path} is not a checkout path inside this workspace')
+        if path.exists() and (not path.is_dir() or any(path.iterdir())):
+            raise ValueError(f'{path} already exists, so the new repository has no free checkout path')
+        store = store_root(path)
+        state, problem = load(store)
+        if problem:
+            return False, describe_invalid(kind, path, store, problem)
+        value, source = effective(state, key(store, path), kind)
+        return value, describe_planned(kind, path, value, source)
+    except (ValueError, OSError) as exc:
+        return False, f'{kind.upper()} PERMISSION: OFF; {exc}.'
 
 
 def directive_text(text):
@@ -434,10 +522,19 @@ def directives(text):
 
 
 def resolve(target):
-    """(store, key, repository root) for a directive target; `*` is this workspace's default."""
+    """(store, key, repository root or folder) for a directive target; `*` is this workspace's default.
+
+    A repository target must name the repository's root: a folder inside one (`workbench/org` inside the hub) would
+    otherwise set the enclosing repository's flag, so it voids the directive."""
     if target == DEFAULT:
         return ROOT, DEFAULT, None
-    root, _ = repository(ROOT / target)
+    if target.endswith(FOLDER):
+        return folder(ROOT / target[:-len(FOLDER)])
+    path = (ROOT / target).resolve()
+    root, _ = repository(path)
+    if Path(root) != path:
+        raise ValueError(f'{target} is a folder inside {root}, not a repository root; name the repository root, '
+                         f'or `{target.rstrip("/")}/*` for every repository under the folder')
     store = store_root(root)
     return store, key(store, root), root
 
@@ -475,6 +572,7 @@ def change(payload, sid, parsed, targets):
             record(store, state, changes, {'session_id': sid, 'turn_id': payload['turn_id'],
                                            'prompt': payload['prompt'], 'base': str(ROOT)}, anchor)
             lines += [describe_default(kind, store, value) if name == DEFAULT
+                      else describe_folder(kind, name, *effective(state, name[:-1], kind)) if name.endswith(FOLDER)
                       else describe(kind, root, *effective(state, name, kind)) for value, name, kind, root in items]
     return '\n'.join(lines)
 
@@ -486,6 +584,9 @@ def report(parsed, targets, single):
         store, name, root = targets[target]
         if single:
             kind = parsed[0][2]
+            if name.endswith(FOLDER):
+                lines.append(folder_status(store, name, kind))
+                continue
             if name != DEFAULT:
                 lines.append(status(root, None, kind))
                 continue
@@ -493,7 +594,8 @@ def report(parsed, targets, single):
             lines.append(f'{kind.upper()} PERMISSION: OFF by default in {store}; invalid state: {problem}.'
                          if problem else describe_default(kind, store, state['defaults'][kind]))
         else:
-            lines.append(overview(store) if name == DEFAULT else summary(root))
+            lines.append(overview(store) if name == DEFAULT
+                         else folder_summary(store, name) if name.endswith(FOLDER) else summary(root))
     return '\n'.join(lines)
 
 
@@ -568,13 +670,29 @@ def ordinary_push(args):
     return True
 
 
+def configured_remote(cwd, args):
+    """True when a push names no remote, or one the repository has configured; a URL or a path never is one."""
+    named = [arg for arg in args[1:] if not arg.startswith('-')]
+    if not named:
+        return True
+    try:
+        result = subprocess.run(['git', '-C', str(cwd), 'remote'], text=True, capture_output=True, timeout=5)
+    except (OSError, subprocess.SubprocessError):
+        return False
+    return result.returncode == 0 and named[0] in result.stdout.split()
+
+
 def assess(payload, command, cwd):
-    """(allowed, reason) for an ordinary commit or push, each decided by its repository flag; None otherwise."""
+    """(allowed, reason) for an ordinary commit or push, each decided by its repository flag; None otherwise.
+
+    An ordinary push names no remote or a remote configured in the repository; a URL or a path is a remote write in
+    disguise, so that push is not the ordinary form."""
     parsed = git_command(command, cwd)
     if parsed is None:
         return None
     cwd, args = parsed
-    kind = 'commit' if ordinary_commit(args) else 'push' if ordinary_push(args) else None
+    kind = ('commit' if ordinary_commit(args)
+            else 'push' if ordinary_push(args) and configured_remote(cwd, args) else None)
     if kind is None:
         return None
     if not nonempty(payload.get('turn_id')):
@@ -596,7 +714,7 @@ def notice(payload, command, cwd):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('action', choices=['status'])
-    parser.add_argument('--repo', default='.')
+    parser.add_argument('--repo', default='.', help='a repository, a folder followed by `/*`, or `*`')
     args = parser.parse_args()
     try:
         print(overview(ROOT) if args.repo == DEFAULT else statuses(args.repo))

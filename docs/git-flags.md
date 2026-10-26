@@ -1,6 +1,6 @@
 # WoW 2.0 — Git flags: management and storage
 
-*Last updated: 2026-09-29*
+*Last updated: 2026-10-26*
 
 > How the per-repository git flags are stored, changed, read and retired. Analysis pool; each decided point moves into
 > the [adapter doc](../.claude/commit-permission.md) and the
@@ -8,12 +8,12 @@
 
 ## Today
 
-| Concern | State on 2026-09-29 (built) |
+| Concern | State on 2026-10-26 (built) |
 |---|---|
-| Kinds | `commit` (ordinary commits and rewrites of unpushed commits), `push` (ordinary pushes and gh writes); rarely needed risky commands are banned, safe ones need no flag |
-| Store | One per workspace, `.claude/git-flags.json` (gitignored): defaults plus per-repository overrides; hash-chained `.claude/git-flags.log` beside it |
-| Change | A whole-message directive (`~git_on <kinds> <repo>...`, `*` for the default), one log entry each with session, turn, prompt and time |
-| Read | The guard reads the effective flag (override, else default) from the innermost workspace store; a store that disagrees with its log reads OFF |
+| Kinds | `commit` (ordinary commits and rewrites of unpushed commits), `push` (ordinary pushes to a configured remote and gh writes); rarely needed risky commands are banned, safe ones (clone included) need no flag |
+| Store | One per workspace, `.claude/git-flags.json` (gitignored): defaults plus repository and folder (`<folder>/*`) overrides; hash-chained `.claude/git-flags.log` beside it |
+| Change | A whole-message directive (`~git_on <kinds> <repo>...`, `<folder>/*` for every repository under a folder, `*` for the default), one log entry each with session, turn, prompt and time |
+| Read | The guard reads the effective flag (repository override, else longest folder override, else default) from the innermost workspace store; a store that disagrees with its log reads OFF; a gh write it cannot match to a checkout reads OFF |
 | Status | `~git_status <repo>` per repository, `~git_status *` for the whole store; session start shows the working repository's flags in both agents |
 | Lifetime | ON until `~git_off`; no expiry |
 
@@ -29,6 +29,7 @@
 - [x] G3 — Overview
 - [x] G4 — Lifetime of risky grants
 - [x] G5 — Migration
+- [x] G8 — Folder overrides, fail-closed gh targets, named remotes
 
 ---
 
@@ -113,3 +114,34 @@ it; no per-repository or user-level wiring.
 - Done 2026-09-29: twelve product docs in eleven repositories restated old git rules; each now points to the workspace
   rule (Haven and TNIS committed). `ventures.ocharo-studio/CLAUDE.md` waits for the ocharo-ws step.
 - Needs: G0, G1.
+
+### G8 — Folder overrides, fail-closed gh targets, named remotes
+
+Decided 2026-10-26 (queue Q41–Q43, from
+[T9 § 3](../ideas/identity-analysis-2026-10/t9-release-automation.md#3--agent-permissions)), built the same day. An
+agent can now create, clone and flag a new library repository without a per-repository directive, and two holes close.
+No new kind, and consent stays a whole-message directive.
+
+- P1, folder overrides: `~git_on|off <kinds> <folder>/*` records one override, keyed `<folder>/*`, for every
+  repository under an existing folder, present and future; `~git_status <folder>/*` reads it. Kind by kind, the
+  effective flag is the repository override, else the longest folder override, else the `*` default. The folder must
+  exist inside the workspace and must not be the workspace itself; an unresolvable target voids the whole directive.
+  The keys share `repositories`, so the store schema stays at version 3. A repository target must name its root: a
+  folder named without `/*` (`workbench/wow-two-sdk-beta`) voids the directive, where it used to set the enclosing
+  repository's flag, the hub's.
+- P2, fail-closed gh targets: a gh write whose `owner/name` matches no checked-out repository reads OFF (before, it read
+  `.`, the hub, whose push flag is ON, so any repository not cloned here was reachable); a write naming its repository
+  through `GH_REPO` reads OFF too, and so does every `gh api graphql` mutation, whose target is a node ID; a document
+  the command does not show plainly (`@file`, `--input`, a shell expansion) counts as a mutation. Repository creation (bare `gh repo create owner/name`, `POST orgs/{owner}/repos`,
+  template generation, forks into an org) reads the flag of the path the new repository will be cloned into, per the
+  workbench layout, through P1. No single folder (personal repositories, `POST user/repos`), an unstated
+  `owner/name`, or an occupied path reads OFF. `gh repo create --source|--remote|--push` stays blocked, now with
+  the short forms `-s` / `-r`.
+- P3, clones and named remotes: `git clone` and `gh repo clone` need no flag, since a clone writes only the new
+  repository and its own `origin`; clone options that write configuration, install hooks or run a command
+  (`--config`, `--template`, `--upload-pack`) never run. An ordinary push names no remote or one the repository
+  already has; a URL or a path is a remote write in disguise and never runs.
+- Rejected: a `repo` kind (creation already sits under `push`), a `*` default ON (hands every future product both
+  flags), allow-listing scripts by path, agent `git remote add`.
+- Still read from the working repository: gh writes that name no repository, `gh api graphql` queries included.
+- Needs: G1, G2.

@@ -36,6 +36,8 @@ class FlagStoreTests(unittest.TestCase):
         self.repo_b = self.workspace / 'repository-b'
         for repo in (self.repo_a, self.repo_b):
             subprocess.run(['git', 'init', '--quiet', str(repo)], check=True, capture_output=True, text=True)
+            subprocess.run(['git', '-C', str(repo), 'remote', 'add', 'origin', 'https://example.invalid/x.git'],
+                           check=True, capture_output=True, text=True)
             (repo / 'nested').mkdir()
         root_patch = patch.object(consent, 'ROOT', self.workspace)
         root_patch.start()
@@ -150,6 +152,21 @@ class DirectiveTests(FlagStoreTests):
                 reply = self.directive(text)
                 self.assertIn('merged into', reply)
                 self.assertIsNone(self.state_bytes())
+
+    def test_a_folder_that_is_not_a_repository_root_voids_the_directive(self):
+        subprocess.run(['git', 'init', '--quiet', str(self.workspace)], check=True, capture_output=True)
+        (self.workspace / 'workbench/group').mkdir(parents=True)
+        for text in ['~git_on push workbench/group', '~push_on workbench/group', '~git_on push workbench',
+                     '~git_on push ' + str(self.repo_a / 'nested'), '~git_on push ' + str(self.repo_a) + ' workbench/group',
+                     '~git_on push * workbench/group', '~git_off push workbench/group']:
+            with self.subTest(text=text):
+                self.assertIn('not a repository root', self.directive(text))
+                self.assertIsNone(self.state_bytes())
+        self.directive('~git_on push .')
+        self.directive('~git_on commit workbench/group/*')
+        self.directive('~git_on commit ' + str(self.repo_a))
+        self.assertEqual({'.': {'push': True}, 'workbench/group/*': {'commit': True}, 'repository-a': {'commit': True}},
+                         self.state()['repositories'])
 
     def test_one_bad_target_changes_nothing(self):
         self.directive('~git_on commit ' + str(self.repo_a) + ' ' + str(self.workspace / 'missing-repo'))
@@ -383,10 +400,153 @@ class KindTests(FlagStoreTests):
             with self.subTest(command=command):
                 self.assertFalse(self.permits(command=command))
 
+    def test_an_ordinary_push_names_a_configured_remote_never_a_url_or_a_path(self):
+        self.enable_push()
+        for command in ['git push https://github.com/owner/elsewhere.git main',
+                        'git push git@github.com:owner/elsewhere.git main', 'git push ../repository-b main',
+                        'git push ' + str(self.repo_b) + ' main', 'git push file:///tmp/elsewhere.git main',
+                        'git push -u https://example.invalid/x.git main', 'git push upstream main']:
+            with self.subTest(command=command):
+                self.assertIsNone(consent.assess(self.payload, command, str(self.repo_a)))
+                self.assertFalse(self.permits(command=command))
+        for command in ['git push', 'git push origin', 'git push -u origin feature/x', 'git push --tags origin']:
+            with self.subTest(command=command):
+                self.assertTrue(self.permits(command=command))
+
     def test_enabled_fails_closed_outside_the_workspace(self):
         allowed, reason = consent.enabled('commit', '/')
         self.assertFalse(allowed)
         self.assertIn('COMMIT PERMISSION: OFF', reason)
+
+
+class FolderTests(FlagStoreTests):
+    """`<folder>/*` records one override for every repository under that folder, present and future."""
+
+    def setUp(self):
+        super().setUp()
+        self.group = self.workspace / 'workbench/group'
+        self.repo_g = self.group / 'repo-g'
+        self.repo_i = self.group / 'inner/repo-i'
+        for repo in (self.repo_g, self.repo_i):
+            self.git_init(repo)
+
+    def git_init(self, path):
+        subprocess.run(['git', 'init', '--quiet', str(path)], check=True, capture_output=True)
+
+    def test_folder_targets_parse_like_any_other_target(self):
+        target = 'workbench/group/*'
+        self.assertEqual([('on', target, 'commit'), ('on', target, 'push')],
+                         consent.directives('~git_on commit,push ' + target))
+        self.assertEqual([('off', target, kind) for kind in consent.KINDS], consent.directives('~git_off all ' + target))
+        self.assertEqual([('status', target, kind) for kind in consent.KINDS],
+                         consent.directives('~git_status ' + target))
+        self.assertEqual([('on', target, 'push')], consent.directives('~push_on ' + target))
+        self.assertEqual([('on', target, 'push')], consent.directives(r'\~git\_on push ' + target))
+
+    def test_a_folder_override_covers_every_repository_under_it_present_and_future(self):
+        reply = self.directive('~git_on commit,push workbench/group/*')
+        self.assertIn('workbench/group/*', reply)
+        self.assertEqual({'commit': True, 'push': True}, self.state()['repositories']['workbench/group/*'])
+        self.assertEqual([{'target': 'workbench/group/*', 'kind': 'commit', 'value': True},
+                          {'target': 'workbench/group/*', 'kind': 'push', 'value': True}],
+                         self.entries()[-1]['changes'])
+        later = self.group / 'later'
+        self.git_init(later)
+        for repo in (self.repo_g, self.repo_i, later, self.repo_g):
+            with self.subTest(repo=repo):
+                self.assertTrue(self.on('commit', repo))
+                self.assertTrue(self.on('push', repo))
+        self.assertFalse(self.on('push', self.repo_a))
+        self.directive('~git_off push workbench/group/*')
+        self.assertFalse(self.on('push', later))
+        self.assertTrue(self.on('commit', later))
+
+    def test_precedence_is_repository_then_longest_folder_then_default(self):
+        self.directive('~git_on push *')
+        self.directive('~git_off push workbench/group/*')
+        self.assertTrue(self.on('push', self.repo_a))
+        self.assertFalse(self.on('push', self.repo_g))
+        self.assertFalse(self.on('push', self.repo_i))
+        self.directive('~git_on push workbench/group/inner/*')
+        self.assertTrue(self.on('push', self.repo_i))
+        self.assertFalse(self.on('push', self.repo_g))
+        self.directive('~git_off push ' + str(self.repo_i))
+        self.assertFalse(self.on('push', self.repo_i))
+        self.directive('~git_on push ' + str(self.repo_g))
+        self.assertTrue(self.on('push', self.repo_g))
+        # each kind falls through on its own: commit skips the push-only folders
+        self.directive('~git_on commit workbench/*')
+        self.assertTrue(self.on('commit', self.repo_i))
+        self.assertFalse(self.on('commit', self.repo_a))
+
+    def test_status_names_the_folder_that_decides_and_never_writes(self):
+        self.directive('~git_on push workbench/group/*')
+        self.directive('~git_off push ' + str(self.repo_i))
+        original = self.state_bytes()
+        self.assertIn('push ON (folder workbench/group/*)', self.directive('~git_status ' + str(self.repo_g)))
+        self.assertIn('push OFF (override)', self.directive('~git_status ' + str(self.repo_i)))
+        folder = self.directive('~git_status workbench/group/*')
+        self.assertIn('GIT FLAGS for workbench/group/*', folder)
+        self.assertIn('commit OFF (default) · push ON (folder workbench/group/*)', folder)
+        self.assertIn('workbench/group/inner/repo-i', folder)
+        self.assertIn('PUSH PERMISSION: ON', self.directive('~push_status workbench/group/*'))
+        self.assertIn('COMMIT PERMISSION: OFF', self.directive('~commit_status workbench/group/*'))
+        self.assertIn('workbench/group/*: push ON', self.directive('~git_status *'))
+        self.assertIn('(folder workbench/group/*)', consent.session_status(str(self.repo_g)))
+        self.assertEqual(original, self.state_bytes())
+
+    def test_a_folder_must_exist_inside_the_workspace_or_the_directive_changes_nothing(self):
+        (self.group / 'notes.txt').write_text('x')
+        outside = Path(tempfile.mkdtemp(prefix='outside-folder-')).resolve()
+        self.addCleanup(lambda: subprocess.run(['rm', '-rf', str(outside)]))
+        (self.workspace / 'workbench/escape').symlink_to(outside, target_is_directory=True)
+        for text in ['~git_on push workbench/missing/*', '~git_on push ' + str(self.repo_a) + ' workbench/missing/*',
+                     '~git_on push ./*', '~git_on push ' + str(self.workspace) + '/*',
+                     '~git_on push ' + str(outside) + '/*', '~git_on push workbench/group/notes.txt/*',
+                     '~git_on push workbench/escape/*', '~git_on push workbench/*/*', '~git_on push workbench/group*']:
+            with self.subTest(text=text):
+                self.directive(text)
+                self.assertIsNone(self.state_bytes())
+
+    def test_cli_status_reads_a_folder(self):
+        self.directive('~git_on commit workbench/group/*')
+        with patch.object(sys, 'argv', ['commit_permission.py', 'status', '--repo', str(self.group) + '/*']):
+            with contextlib.redirect_stdout(io.StringIO()) as output:
+                consent.main()
+        self.assertIn('commit ON (folder workbench/group/*)', output.getvalue())
+
+    def test_planned_reads_the_folder_a_new_checkout_lands_in(self):
+        self.directive('~git_on push workbench/group/*')
+        self.assertTrue(consent.planned('push', str(self.group / 'new-repo'))[0])
+        self.assertTrue(consent.planned('push', 'workbench/group/inner/new-repo')[0])
+        self.assertFalse(consent.planned('commit', str(self.group / 'new-repo'))[0])
+        self.assertFalse(consent.planned('push', str(self.workspace / 'workbench/other/new-repo'))[0])
+        (self.group / 'empty').mkdir()
+        self.assertTrue(consent.planned('push', str(self.group / 'empty'))[0])
+        (self.group / 'taken').mkdir()
+        (self.group / 'taken/notes.md').write_text('x')
+        for path in (self.group / 'taken', self.repo_g, Path('/tmp/elsewhere-repo'), self.workspace,
+                     self.group / '../../../outside'):
+            with self.subTest(path=path):
+                allowed, reason = consent.planned('push', str(path))
+                self.assertFalse(allowed)
+                self.assertIn('PUSH PERMISSION: OFF', reason)
+
+    def test_a_folder_inside_a_nested_store_is_recorded_there(self):
+        inner = self.workspace / 'workbench/inner-ws'
+        product = inner / 'workbench/x/product'
+        for repo in (inner, product):
+            self.git_init(repo)
+        (inner / '.claude').mkdir()
+        with patch.object(consent, 'ROOT', inner):
+            consent.prompt(dict(self.payload, prompt='~git_off push *', turn_id='inner-1'))
+        self.directive('~git_on push workbench/inner-ws/workbench/x/*')
+        inner_state = json.loads((inner / '.claude/git-flags.json').read_text())
+        self.assertEqual({'push': True}, inner_state['repositories']['workbench/x/*'])
+        self.assertTrue(self.on('push', product))
+        self.directive('~git_on commit workbench/*')
+        self.assertFalse(self.on('commit', product))
+        self.assertTrue(self.on('commit', self.repo_g))
 
 
 class IntegrityTests(FlagStoreTests):

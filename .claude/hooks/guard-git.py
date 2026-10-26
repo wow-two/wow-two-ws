@@ -8,16 +8,19 @@ Only the CONFIG block differs between workspaces; DOC names the prose policy it 
              `submodule init|update|sync` · `notes` writes · read-only git
              (status log diff show blame describe rev-parse ls-files shortlog
              reflog, `branch --list`, `remote -v`, `stash list|show`) ·
-             `git fetch` · read-only gh (`pr view|list|diff|checks|status`,
-             `run view|list|watch`, `issue view|list`, `api` GET, `repo view`,
-             `auth status`)
+             `git fetch` · `git clone` and `gh repo clone` (a clone writes only the new repository and
+             its own `origin`; `--config`, `--template` and `--upload-pack` never run) · read-only gh
+             (`pr view|list|diff|checks|status`, `run view|list|watch`, `issue view|list`, `api` GET,
+             `repo view`, `auth status`)
   commits    COMMITS decides. "switch": a Claude chat runs exactly
              `git -C <repo> commit -m "subject"` while that repository's commit flag is ON, and
-             `git -C <repo> push [-u] [<remote> [<ref>]]` while its push flag is ON. The developer
-             flips each with a whole-message `~commit_on <repo>` / `~push_on <repo>`, or sets the
-             workspace default with `*`; each flag holds for every chat. `.claude/hooks/commit_permission.py`
-             owns the workspace store `.claude/git-flags.json` and the ordinary forms, and `commit-switch.py`
-             feeds it Claude prompts. "open": a plain commit runs after the lane check. "never": no commit.
+             `git -C <repo> push [-u] [<remote> [<ref>]]` while its push flag is ON, where `<remote>` is a
+             remote the repository already has, never a URL or a path. The developer flips each with a
+             whole-message `~commit_on <repo>` / `~push_on <repo>`, `<folder>/*` for every repository under a
+             folder, or `*` for the workspace default; each flag holds for every chat.
+             `.claude/hooks/commit_permission.py` owns the workspace store `.claude/git-flags.json` and the
+             ordinary forms, and `commit-switch.py` feeds it Claude prompts. "open": a plain commit runs after
+             the lane check. "never": no commit.
   flags      two kinds, for commands that are risky AND used often. Where `.claude/hooks/commit_permission.py`
              is installed, each runs while the target repository's flag of its kind is ON
              (`~git_on <kind> <repo>`); otherwise it blocks:
@@ -28,9 +31,14 @@ Only the CONFIG block differs between workspaces; DOC names the prose policy it 
                         `workflow run`, `secret set`, `repo create|edit|rename`, `api` writes)
              A gated git command acts on `git -C <repo>`, else the working directory; a `cd`, `pushd`,
              `--git-dir` or `--work-tree` in the same command blocks it, since the target is unknown.
-             A gh write acts on `-R owner/name`, a `repos/owner/name` API path, `repo ... owner/name` or
-             `--source <path>`, matched to the workspace repository with that origin; an unmatched one
-             reads the workspace repository's flag. Without the module each category stays forbidden.
+             A gh write acts on `-R owner/name`, a `repos/owner/name` API path or `repo ... owner/name`,
+             matched to the workspace repository with that origin; an unmatched one, one named through
+             `GH_REPO`, and every `gh api graphql` mutation (its target is a node ID) read OFF. A write
+             naming none, graphql queries included, reads the working repository. Repository creation
+             (`gh repo create owner/name`, `POST orgs/<owner>/repos`, template generation, forks into an
+             org) reads the flag of the path it will be cloned into (CLONE_FOLDERS), where folder overrides
+             apply; no single folder, or an unstated `owner/name`, reads OFF. Without the module each
+             category stays forbidden.
   store      the flag store and its change log (`.claude/git-flags.json|log|lock`) are never edited by a
              tool: a Write / Edit / MultiEdit / NotebookEdit on them, or a shell command naming them, blocks.
   forbidden  risky commands that are rarely needed, whatever the flags: `git push` outside the ordinary
@@ -76,8 +84,17 @@ DOC = "conventions/development/repo/version-control/git.md -> ## Discipline"
 STRICT = False          # True -> no pull / branch / stash-write / tag write either
 LANE_CHECK = True       # True -> pull / stash-push ask about foreign dirt
 COMMITS = "switch"      # "switch": the repository commit switch · "open": plain commits, lane-checked · "never"
-ALLOWED_HERE = "index-only staging/unstaging, unforced `git mv` / `git rm`, `git apply`, branch create/switch,\n`git stash`, `git pull`, `git fetch`, read-only git + `gh`, ordinary commits and rewrites of unpushed\ncommits while the repository's `commit` flag is ON, and ordinary pushes and gh writes while its `push` flag is ON."
+ALLOWED_HERE = "index-only staging/unstaging, unforced `git mv` / `git rm`, `git apply`, branch create/switch,\n`git stash`, `git pull`, `git fetch`, `git clone` / `gh repo clone`, read-only git + `gh`, ordinary commits and\nrewrites of unpushed commits while the repository's `commit` flag is ON, and ordinary pushes and gh writes while\nits `push` flag is ON."
 HANDOVER = "Hand it over by name in chat (`push main to origin`, `discard my edits to Program.cs`)\nand STOP; the developer runs it in GitKraken. A subject-only commit message is welcome."
+# Where a new GitHub repository will be cloned, per conventions/development/repo/layout/workbench-layout.md:
+# (owner pattern, checkout folder, folder must already exist). A repository-creating gh write reads the push flag of
+# `<folder>/<name>`; an owner matching no row, or rows naming different folders, reads OFF.
+CLONE_FOLDERS = (
+    (r"wow-two(?:-[a-z0-9]+)*", "workbench/{owner}", False),
+    (r"ocharo-hq", "workbench/mfts-projects/ventures/ocharo-hq/ocharo-ws/workbench", False),
+    (r"[a-z0-9-]+", "workbench/maxs-projects/clients/{owner}", True),
+    (r"(?!(?:saas|consumer|labs|10x-ventures)$)[a-z0-9-]+", "workbench/maxs-projects/ventures/{owner}", True),
+)
 
 # ------------------------------------------------------------------- engine
 
@@ -163,6 +180,10 @@ CONFIG_WRITE_FLAGS = {"--unset", "--unset-all", "--add", "--replace-all", "--edi
                       "--remove-section", "--rename-section"}
 CONFIG_VALUE_FLAGS = {"--get", "--get-all", "--get-regexp", "--get-urlmatch", "--type",
                       "--default", "-f", "--file", "--blob"}
+# `git clone` options that write configuration, install hooks or run a command; git accepts unique long prefixes.
+CLONE_KILL_LONG = ("config", "template", "upload-pack")
+CLONE_KILL_SHORT = set("cu")
+CLONE_VALUE_SHORT = set("obj")  # a short option that takes the rest of its word as the value
 
 # gh: (group, verb) pairs that write, plus a verb-level net for the rest.
 GH_BLOCKED_PAIRS = {
@@ -192,6 +213,11 @@ EXTRA_GH_BLOCKED = globals().get("EXTRA_GH_BLOCKED", set())
 # gh writes an agent never runs, whatever the flags.
 GH_NEVER = {("repo", "delete")}
 GH_REPO_FLAGS = {"-R", "--repo"}
+# `gh repo create` flags that also configure a local repository or push from it, and its short value flags.
+GH_CREATE_LOCAL = {"--source", "--remote", "--push"}
+GH_CREATE_LOCAL_SHORT = set("sr")
+GH_CREATE_VALUE_SHORT = set("dghlpt")
+GH_CREATE_VALUE_FLAGS = {"-g", "--gitignore", "--license", "-s", "-r"}
 # gh flags that take a separate value, so the positional after them is not the endpoint or repository.
 GH_VALUE_FLAGS = {"-X", "--method", "-H", "--header", "-f", "-F", "--field", "--raw-field", "--input",
                   "-q", "--jq", "-t", "--template", "--cache", "-p", "--preview", "--hostname",
@@ -322,6 +348,22 @@ def checkout_discards(args, flags, cwd):
         return True
 
 
+def clone_writes_more(options):
+    """True when clone options would write configuration, install hooks or run a command beyond the clone itself."""
+    for a in options:
+        if a.startswith("--"):
+            name = a[2:].split("=", 1)[0]
+            if name and any(full.startswith(name) for full in CLONE_KILL_LONG):
+                return True
+        elif a.startswith("-"):
+            for letter in a[1:]:
+                if letter in CLONE_KILL_SHORT:
+                    return True
+                if letter in CLONE_VALUE_SHORT:
+                    break
+    return False
+
+
 def git_verdict(sub, args, cwd=None):
     options = args[:args.index("--")] if "--" in args else args
     flags = {a.split("=", 1)[0] for a in options if a.startswith("-")}
@@ -375,6 +417,10 @@ def git_verdict(sub, args, cwd=None):
         return lane
     if sub == "pull":
         return hard if STRICT else lane  # allowed outside eis-ws, lane check aside
+    if sub == "clone":
+        # A clone writes only the new repository and its own `origin`; options that write configuration, install
+        # hooks or run a command on the remote side never run.
+        return hard if clone_writes_more(options) else None
     if sub in HISTORY:
         return gated("commit")
     if sub == "stash":
@@ -425,15 +471,33 @@ def git_verdict(sub, args, cwd=None):
     return None  # unknown subcommand — stay out of the way rather than guess
 
 
+def creates_with_local_changes(args):
+    """True when `gh repo create` would also configure a local repository or push from it, short forms included."""
+    for a in args:
+        if a == "--":
+            break
+        if a.split("=", 1)[0] in GH_CREATE_LOCAL:
+            return True
+        if a.startswith("-") and not a.startswith("--"):
+            for letter in a[1:]:
+                if letter in GH_CREATE_LOCAL_SHORT:
+                    return True
+                if letter in GH_CREATE_VALUE_SHORT:
+                    break
+    return False
+
+
 def gh_verdict(sub, args):
     verb = next((a for a in args if not a.startswith("-")), "").lower()
     text = label("gh", sub, args)
     hard = ("hard", text)
     if (sub, verb) in GH_NEVER:
         return hard
-    flags = {a.split("=", 1)[0] for a in args if a.startswith("-")}
-    if sub == "repo" and verb == "create" and flags & {"--source", "--remote", "--push"}:
+    if sub == "repo" and verb == "create" and creates_with_local_changes(args):
         return hard  # source/remote configure a local remote; push is not an ordinary git push
+    if sub == "repo" and verb == "clone":
+        # A clone needs no flag; git options after `--` follow `git clone`'s rule.
+        return hard if clone_writes_more(args[args.index("--") + 1:] if "--" in args else []) else None
     gated = hard if STRICT else ("push", text)
     if sub == "api":
         method = ""
@@ -564,13 +628,128 @@ def local_repository(slug):
     return None
 
 
-def gh_target(sub, args, cwd):
-    """The workspace directory whose flag a gh write reads."""
+# Repository-creating REST endpoints; only their writes reach gh_target.
+CREATE_ENDPOINT = re.compile(r"/?(?:api/v3/)?(?:orgs/(?P<org>[^/]+)/repos|(?P<user>user)/repos"
+                             r"|repos/(?P<owner>[^/]+)/(?P<repo>[^/]+)/(?P<how>generate|forks))/?")
+SLUG_PART = re.compile(r"[A-Za-z0-9._-]+")
+UNKNOWN = ("", "")  # a creation whose `owner/name` the command does not state plainly
+PLACEHOLDER = "{owner}/{repo}"  # gh fills it from the working repository
+GH_REPO_ENV = re.compile(r"\bGH_REPO=")
+UNMATCHED = ("`{slug}` matches no repository checked out in this workspace, so its push flag reads OFF.\n"
+             "Clone it first (`gh repo clone {slug} <folder>/<name>`), or hand the write to the developer.")
+UNSTATED = ("The command creates a repository without a plain `owner/name` the guard can map to a checkout folder,\n"
+            "so its push flag reads OFF. Name it: `gh repo create <owner>/<name>` or\n"
+            "`gh api -X POST orgs/<owner>/repos -f name=<name>`.")
+NO_FOLDER = ("`{slug}` has no single checkout folder in conventions/development/repo/layout/workbench-layout.md,\n"
+             "so creating it reads OFF; a new repository reads the push flag of the folder it will be cloned into.")
+GH_REPO_SET = ("The command names its repository through `GH_REPO`, which the guard cannot match, so its push flag\n"
+               "reads OFF. Name the repository with `-R owner/name` instead.")
+GRAPHQL_ENDPOINT = re.compile(r"/?(?:api/)?graphql/?")
+GRAPHQL_CHANGE = re.compile(r"\b(?:mutation|subscription)\b")
+GRAPHQL_MUTATION = ("A `gh api graphql` mutation names its target by node ID, which the guard cannot match to a checkout,\n"
+                    "so its push flag reads OFF; so does a document the command does not show plainly (`@file`,\n"
+                    "`--input`, shell expansion). Use REST (`gh api -X <method> repos/<owner>/<name>/...`) or a gh\n"
+                    "subcommand with `-R owner/name`; graphql queries read the working repository as before.")
+
+
+def graphql_changes(args):
+    """True when a `gh api graphql` call may change data: its document holds a `mutation` or `subscription`, or the
+    command does not show the document plainly (a file, `--input`, a shell expansion)."""
+    document = (gh_fields(args) or {}).get("query")
+    if not document or "{" not in document or any(mark in document for mark in ("`", "$(", "${")):
+        return True
+    return bool(GRAPHQL_CHANGE.search(document))
+
+
+def slug_parts(text):
+    """(owner, name) of a plain `owner/name` (or `github.com/owner/name`), else UNKNOWN."""
+    parts = text.split("/")
+    if len(parts) == 3 and parts[0].lower() == "github.com":
+        parts = parts[1:]
+    if len(parts) != 2 or not all(SLUG_PART.fullmatch(part) and part not in (".", "..") for part in parts):
+        return UNKNOWN
+    return parts[0], parts[1]
+
+
+def gh_fields(args):
+    """The `key=value` fields a `gh api` call sends, or None when the command does not state its body plainly."""
+    fields, i = {}, 0
+    while i < len(args):
+        a = args[i]
+        if a in ("-f", "-F", "--field", "--raw-field"):
+            if i + 1 >= len(args):
+                return None
+            value, i = args[i + 1], i + 2
+        elif a.startswith(("--field=", "--raw-field=")):
+            value, i = a.split("=", 1)[1], i + 1
+        elif a.startswith(("-f", "-F")) and len(a) > 2:
+            value, i = a[2:], i + 1
+        elif a.split("=", 1)[0] == "--input":
+            return None
+        else:
+            i += 1
+            continue
+        name, sep, text = value.partition("=")
+        if not sep or text.startswith("@") or fields.get(name, text) != text:
+            return None
+        fields[name] = text
+    return fields
+
+
+def gh_creation(sub, args):
+    """(owner, name) of the repository a gh write creates, UNKNOWN when it is not stated plainly, None for no creation."""
+    verb = next((a for a in args if not a.startswith("-")), "").lower()
+    if sub == "repo" and verb == "create":
+        named = positionals(args, GH_VALUE_FLAGS | GH_CREATE_VALUE_FLAGS)
+        return slug_parts(named[1]) if len(named) == 2 else UNKNOWN
+    if sub != "api":
+        return None
+    match = CREATE_ENDPOINT.fullmatch(gh_api_path(args))
+    if not match:
+        return None
+    fields = gh_fields(args)
+    if fields is None or match.group("user"):
+        return UNKNOWN  # the account's own repositories have no single checkout folder
+    if match.group("org"):
+        return slug_parts(match.group("org") + "/" + fields.get("name", ""))
+    if match.group("how") == "generate":
+        return slug_parts(fields.get("owner", "") + "/" + fields.get("name", ""))
+    return slug_parts(fields.get("organization", "") + "/" + fields.get("name", match.group("repo")))
+
+
+def clone_folder(owner, name):
+    """The workspace path `owner/name` will be cloned into per CLONE_FOLDERS, or None when no single folder fits."""
+    owner = owner.lower()
+    found = set()
+    for pattern, folder, existing in CLONE_FOLDERS:
+        base = folder.format(owner=owner)
+        if re.fullmatch(pattern, owner) and (not existing or (WORKSPACE_ROOT / base).is_dir()):
+            found.add(base)
+    return str(WORKSPACE_ROOT / found.pop() / name) if len(found) == 1 else None
+
+
+def gh_target(sub, args, cwd, cmd=""):
+    """The workspace directory whose flag a gh write reads, ("planned", path) for a repository it creates, or
+    ("off", reason) when the write names a repository the workspace cannot match."""
+    if GH_REPO_ENV.search(cmd):
+        return ("off", GH_REPO_SET)
+    if sub == "api" and GRAPHQL_ENDPOINT.fullmatch(gh_api_path(args)) and graphql_changes(args):
+        return ("off", GRAPHQL_MUTATION)
+    created = gh_creation(sub, args)
+    if created is not None:
+        if created == UNKNOWN:
+            return ("off", UNSTATED)
+        slug = "/".join(created)
+        local = local_repository(slug)
+        if local:
+            return local
+        planned = clone_folder(*created)
+        return ("planned", planned) if planned else ("off", NO_FOLDER.format(slug=slug))
     named = gh_slug(sub, args)
     if isinstance(named, tuple):
         return os.path.normpath(os.path.join(cwd or os.getcwd(), named[1]))
-    if named:
-        return local_repository(named) or str(WORKSPACE_ROOT)
+    if named and named != PLACEHOLDER:
+        return local_repository(named) or ("off", UNMATCHED.format(slug=named))
     return cwd or os.getcwd()
 
 
@@ -601,6 +780,11 @@ def flag_decision(kind, target):
     if target is None:
         return False, ("The command changes directory or names a Git directory, so the guard cannot tell\n"
                        "which repository it acts on. Name it with `git -C <repo>` in a command of its own.")
+    if isinstance(target, tuple):
+        how, value = target
+        if how == "planned" and hasattr(module, "planned"):
+            return module.planned(kind, value)
+        return False, value if how == "off" else "The flag module cannot read a repository not checked out yet."
     return module.enabled(kind, target)
 
 
@@ -621,7 +805,7 @@ def assess(cmd, cwd):
             continue
         if kind not in FLAG_KINDS:
             return (kind, op, sub, None), lanes
-        target = gh_target(sub, args, cwd) if binary == "gh" else git_target(directory, hidden, cwd)
+        target = gh_target(sub, args, cwd, cmd) if binary == "gh" else git_target(directory, hidden, cwd)
         decision = flag_decision(kind, target)
         if decision is None:
             return ("hard", op, sub, None), lanes
@@ -790,7 +974,8 @@ def already_asked(sdir, family, strays):
 
 def hard_message(op, sub=""):
     form = {"commit": COMMIT_FORM, "push": PUSH_FORM}.get(sub) if COMMITS == "switch" else None
-    force = " Forcing, deleting and mirror pushes never run." if sub == "push" else ""
+    force = (" `<remote>` is a remote the repository already has, never a URL or a path.\n"
+             "Forcing, deleting and mirror pushes never run.") if sub == "push" else ""
     commit = ("An ordinary {sub} runs only as `{form}` while the repository's\n"
               "{sub} flag is ON; check it with `~{sub}_status <repo>`.{force}\n"
               ).format(sub=sub, form=form, force=force) if form else ""
@@ -809,8 +994,9 @@ def flag_message(op, kind, reason):
         "BLOCKED — {ws} git flag `{kind}` ({doc}).\n"
         "Operation: `{op}`\n"
         "{reason}\n"
-        "The developer turns it on with a whole-message `~git_on {kind} <repo>` (`*` for the workspace\n"
-        "default) and reads every flag with `~git_status <repo>`; a tool call can never change a flag.\n"
+        "The developer turns it on with a whole-message `~git_on {kind} <repo>` (`<folder>/*` for every\n"
+        "repository under a folder, `*` for the workspace default) and reads every flag with `~git_status <repo>`;\n"
+        "a tool call can never change a flag.\n"
     ).format(ws=WORKSPACE, doc=DOC, op=op, kind=kind, reason=reason)
 
 

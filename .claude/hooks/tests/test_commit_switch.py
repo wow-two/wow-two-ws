@@ -114,6 +114,7 @@ class CommitSwitchTests(SwitchHarness):
 
     def test_an_ordinary_push_follows_the_push_flag(self):
         push = "git -C {} push origin main".format(self.repo)
+        self.git(self.repo, "remote", "add", "origin", "https://github.com/owner/product.git")
         self.say("~commit_on workbench/product")
         blocked = self.guard(push)
         self.assertEqual(2, blocked.returncode)
@@ -215,6 +216,7 @@ class GitFlagTests(SwitchHarness):
         self.say("~git_on commit,push workbench/product workbench/other")
         for repo in (self.repo, self.other):
             with self.subTest(repo=repo):
+                self.git(repo, "remote", "add", "origin", "https://github.com/owner/{}.git".format(repo.name))
                 self.assertEqual(0, self.guard("git -C {} rebase main".format(repo)).returncode)
                 self.assertEqual(0, self.guard("git -C {} push origin main".format(repo)).returncode)
                 self.assertEqual(0, self.guard("git -C {} commit -m \"x: y\"".format(repo)).returncode)
@@ -360,13 +362,170 @@ class GitFlagTests(SwitchHarness):
 
     def test_repo_creation_cannot_smuggle_remote_configuration_or_push(self):
         subprocess.run(["git", "init", "--quiet", str(self.root)], check=True)
-        self.say("~git_on push . workbench/product")
-        for suffix in ("--source .", "--source=. --push", "--push", "--remote origin", "--remote=origin"):
+        (self.root / "workbench/wow-two-sdk-beta").mkdir(parents=True)
+        self.say("~git_on push . workbench/product workbench/wow-two-sdk-beta/*")
+        for suffix in ("--source .", "--source=. --push", "--push", "--remote origin", "--remote=origin",
+                       "-s .", "-s.", "-r origin", "-rorigin", "-cr origin"):
             with self.subTest(suffix=suffix):
-                self.assertEqual(2, self.guard("gh repo create owner/new --private " + suffix).returncode)
-        self.assertEqual(0, self.guard("gh repo create owner/new --private").returncode)
+                blocked = self.guard("gh repo create wow-two-sdk-beta/new --private " + suffix)
+                self.assertEqual(2, blocked.returncode)
+                self.assertIn("no flag permits it", blocked.stderr)
+        self.assertEqual(0, self.guard("gh repo create wow-two-sdk-beta/new --private").returncode)
+        self.say("~git_off push workbench/wow-two-sdk-beta/*")
+        self.assertEqual(2, self.guard("gh repo create wow-two-sdk-beta/new --private").returncode)
+
+    def test_a_gh_write_to_a_repository_not_checked_out_reads_off(self):
+        subprocess.run(["git", "init", "--quiet", str(self.root)], check=True)
+        self.say("~git_on push * .")
+        for command in ["gh repo edit wow-two-apps/not-cloned --visibility public",
+                        "gh pr create -R owner/elsewhere --title t --body b",
+                        "gh api -X PATCH repos/owner/elsewhere -f private=false",
+                        "gh secret set TOKEN -R owner/elsewhere --body value",
+                        "gh workflow run deploy.yml --repo=owner/elsewhere"]:
+            with self.subTest(command=command):
+                blocked = self.guard(command)
+                self.assertEqual(2, blocked.returncode)
+                self.assertIn("git flag `push`", blocked.stderr)
+                self.assertIn("matches no repository", blocked.stderr)
+        blocked = self.guard("GH_REPO=owner/elsewhere gh repo edit --visibility public")
+        self.assertEqual(2, blocked.returncode)
+        self.assertIn("GH_REPO", blocked.stderr)
+        # the working repository and gh's `{owner}/{repo}` placeholders still read the working repository
+        for command in ["gh repo edit --description x", "gh api -X POST repos/{owner}/{repo}/dispatches -f event_type=x"]:
+            with self.subTest(command=command):
+                self.assertEqual(0, self.guard(command).returncode)
+
+    def test_repository_creation_reads_the_flag_of_its_future_checkout_folder(self):
+        subprocess.run(["git", "init", "--quiet", str(self.root)], check=True)
+        (self.root / "workbench/wow-two-sdk-beta").mkdir(parents=True)
+        self.say("~git_on push .")
+        creations = ["gh repo create wow-two-sdk-beta/new-lib --public --disable-wiki -d 'A library'",
+                     "gh repo create --public wow-two-sdk-beta/new-lib",
+                     "gh api -X POST orgs/wow-two-sdk-beta/repos -f name=new-lib -F private=false",
+                     "gh api orgs/wow-two-sdk-beta/repos --raw-field=name=new-lib",
+                     "gh api --method POST /orgs/wow-two-sdk-beta/repos -fname=new-lib"]
+        for command in creations:
+            with self.subTest(command=command):
+                blocked = self.guard(command)
+                self.assertEqual(2, blocked.returncode)
+                self.assertIn("workbench/wow-two-sdk-beta/new-lib", blocked.stderr)
+        self.say("~git_on push workbench/wow-two-sdk-beta/*")
+        for command in creations:
+            with self.subTest(command=command):
+                self.assertEqual(0, self.guard(command).returncode)
+        self.assertEqual(2, self.guard("gh repo create wow-two-apps/new-app --private").returncode)
+        self.say("~git_off push workbench/wow-two-sdk-beta/*")
+        self.assertEqual(2, self.guard(creations[0]).returncode)
+
+    def test_creation_without_one_checkout_folder_reads_off(self):
+        subprocess.run(["git", "init", "--quiet", str(self.root)], check=True)
+        (self.root / "workbench/wow-two-sdk-beta/taken").mkdir(parents=True)
+        (self.root / "workbench/wow-two-sdk-beta/taken/notes.md").write_text("x\n")
+        self.say("~git_on push * .")
+        self.assertEqual(0, self.guard("gh repo create wow-two-sdk-beta/fresh --public").returncode)
+        for command in ["gh repo create owner/new --private", "gh repo create new-name --private", "gh repo create",
+                        "gh repo create wow-two-sdk-beta/taken --public", "gh repo create wow-two-sdk-beta/.. --public",
+                        "gh api -X POST user/repos -f name=new", "gh api -X POST orgs/owner/repos -f name=new",
+                        "gh api -X POST orgs/wow-two-sdk-beta/repos --input body.json",
+                        "gh api -X POST orgs/wow-two-sdk-beta/repos -F name=@name.txt",
+                        "gh api -X POST orgs/wow-two-sdk-beta/repos -f private=true",
+                        "gh api -X POST orgs/wow-two-sdk-beta/repos -f name=a -f name=b",
+                        "gh api -X POST repos/owner/template/generate -f name=new",
+                        "gh api -X POST repos/wow-two-sdk-beta/template/forks"]:
+            with self.subTest(command=command):
+                blocked = self.guard(command)
+                self.assertEqual(2, blocked.returncode)
+                self.assertIn("git flag `push`", blocked.stderr)
+        self.assertEqual(0, self.guard("gh api -X POST repos/owner/template/generate -f owner=wow-two-sdk-beta "
+                                       "-f name=fresh").returncode)
+
+    def test_graphql_mutations_read_off_and_queries_read_the_working_repository(self):
+        subprocess.run(["git", "init", "--quiet", str(self.root)], check=True)
+        self.git(self.repo, "remote", "add", "origin", "https://github.com/owner/product.git")
+        self.say("~git_on push * . workbench/product")
+        mutations = [
+            "gh api graphql -f query='mutation { addStar(input: {starrableId: \"x\"}) { clientMutationId } }'",
+            "gh api graphql -f query='mutation($id: ID!) { updateRepository(input: {repositoryId: $id}) { clientMutationId } }' -f id=x",
+            "gh api graphql --raw-field 'query=query Q { viewer { login } } mutation M { x }'",
+            "gh api /graphql -F query=@change.graphql", "gh api graphql --input body.json",
+            "gh api graphql -f query=\"$(cat change.graphql)\"", "gh api graphql -f \"query=$DOCUMENT\"",
+            "gh api -X POST graphql", "gh api -R owner/product graphql -f query='mutation { x }'",
+        ]
+        for command in mutations:
+            with self.subTest(command=command):
+                blocked = self.guard(command)
+                self.assertEqual(2, blocked.returncode)
+                self.assertIn("graphql", blocked.stderr)
+        queries = ["gh api graphql -f query='query { viewer { login } }'",
+                   "gh api graphql -f query='query($o: String!) { repository(owner: $o, name: \"n\") { id } }' -f o=x",
+                   "gh api graphql -f query='{ viewer { login } }' --jq .data"]
+        for command in queries:
+            with self.subTest(command=command):
+                self.assertEqual(0, self.guard(command).returncode)
         self.say("~git_off push .")
-        self.assertEqual(2, self.guard("gh repo create owner/new --private").returncode)
+        self.assertEqual(2, self.guard(queries[0]).returncode)
+
+    def test_a_directive_naming_a_folder_without_star_changes_nothing(self):
+        subprocess.run(["git", "init", "--quiet", str(self.root)], check=True)
+        (self.root / "workbench/wow-two-sdk-beta").mkdir(parents=True)
+        (self.repo / "src").mkdir()
+        for prompt in ["~git_on push workbench/wow-two-sdk-beta", "~git_on push workbench/product/src",
+                       "~git_on commit,push workbench/product workbench/wow-two-sdk-beta"]:
+            with self.subTest(prompt=prompt):
+                self.assertIn("not a repository root", self.say(prompt))
+                self.assertIn("commit OFF (default) · push OFF (default)", self.say("~git_status ."))
+                self.assertEqual(2, self.guard(self.commit).returncode)
+        self.assertIn("ON for", self.say("~git_on push ."))
+        self.assertIn("workbench/wow-two-sdk-beta/*", self.say("~git_on push workbench/wow-two-sdk-beta/*"))
+        self.assertIn("ON for", self.say("~commit_on workbench/product"))
+        self.assertEqual(0, self.guard(self.commit).returncode)
+
+    def test_a_folder_override_reaches_every_repository_under_it(self):
+        self.assertIn("workbench/*", self.say("~git_on commit,push workbench/*"))
+        later = self.root / "workbench/later"
+        subprocess.run(["git", "init", "--quiet", str(later)], check=True)
+        for repo in (self.repo, self.other, later):
+            with self.subTest(repo=repo):
+                self.assertEqual(0, self.guard('git -C {} commit -m "feat: added"'.format(repo)).returncode)
+        self.assertEqual(0, self.guard(self.rebase).returncode)
+        self.say("~git_off commit workbench/product")
+        self.assertEqual(2, self.guard(self.rebase).returncode)
+        self.assertEqual(0, self.guard("git -C {} rebase main".format(self.other)).returncode)
+        self.assertIn("commit ON (folder workbench/*)", self.say("~git_status workbench/other"))
+        self.assertIn("GIT FLAGS for workbench/*", self.say("~git_status workbench/*"))
+        self.assertEqual("", self.say("please ~git_on push workbench/*"))
+
+    def test_clone_needs_no_flag(self):
+        for command in ["git clone https://github.com/owner/new.git workbench/owner/new",
+                        "git -C workbench clone --depth 1 https://github.com/owner/new.git",
+                        "gh repo clone owner/new workbench/owner/new",
+                        "gh repo clone owner/new workbench/owner/new -- --depth 1"]:
+            with self.subTest(command=command):
+                self.assertEqual(0, self.guard(command).returncode)
+        for command in ["git clone -c core.hooksPath=/tmp/x https://github.com/owner/new.git",
+                        "git clone --config=credential.helper=x https://github.com/owner/new.git",
+                        "git clone --template=/tmp/t https://github.com/owner/new.git",
+                        "git clone -u 'sh -c x' https://github.com/owner/new.git",
+                        "git clone --upload-pack=x https://github.com/owner/new.git",
+                        "gh repo clone owner/new dir -- --config core.hooksPath=/tmp/x",
+                        "gh repo clone owner/new dir -- -c core.hooksPath=/tmp/x"]:
+            with self.subTest(command=command):
+                blocked = self.guard(command)
+                self.assertEqual(2, blocked.returncode)
+                self.assertIn("no flag permits it", blocked.stderr)
+
+    def test_an_ordinary_push_names_a_configured_remote(self):
+        self.git(self.repo, "remote", "add", "origin", "https://github.com/owner/product.git")
+        self.say("~git_on push workbench/product")
+        for command in ["push origin main", "push -u origin feature", "push"]:
+            with self.subTest(command=command):
+                self.assertEqual(0, self.guard("git -C {} {}".format(self.repo, command)).returncode)
+        for target in ("https://github.com/owner/elsewhere.git", "git@github.com:owner/elsewhere.git",
+                       str(self.other), "../other", "upstream"):
+            with self.subTest(target=target):
+                blocked = self.guard("git -C {} push -u {} main".format(self.repo, target))
+                self.assertEqual(2, blocked.returncode)
+                self.assertIn("never a URL or a path", blocked.stderr)
 
     def test_lfs_preserves_inspection_and_hydration_but_rejects_surgery_and_direct_push(self):
         self.say("~git_on commit,push workbench/product")
