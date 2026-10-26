@@ -81,7 +81,7 @@ Org: [github.com/wow-two-sdk-beta](https://github.com/wow-two-sdk-beta) — beta
 
 | Repo | Purpose | Status |
 |------|---------|--------|
-| `wow-two-sdk-beta.files` | Files domain — storage, upload, transforms, compression, sharing, delivery, file icons — as NuGet packages, an npm package and one image; per-owner instances and a shared files host | Planned: spec and analysis ready (ideas/file-storage-service-spec.md); local repo, pre-scaffold; the empty `wow-two-platform/wow-two-platform.storage.file` goes to the archive |
+| `wow-two-sdk-beta.files` | Files for every product: store, upload, transform, compress, share and serve them under one contract. | Planned: scaffolded from the domain template 2026-10-26; private until the first release; the empty `wow-two-platform/wow-two-platform.storage.file` goes to the archive |
 | `wow-two-sdk-beta.be` | be sdk — `WoW2.Sdk.Beta.Be[.X]` (nuget.org), namespace `WoW.Two.Sdk.Beta.Be[.X]`; mono-lib: hosting, observability, web, mediator, identity, data. Code: `engineering/codebase/wow-two-sdk-beta-be/` | Active (beta) |
 | `wow-two-sdk-beta.fe` | fe sdk — `@wow-two-beta/fe` (npm), Vue 3 components, application adapters, browser capabilities. Code: `engineering/codebase/wow-two-sdk-beta-fe/`; the parked React `@wow-two-beta/ui` sits in `engineering/codebase/wow-two-front-beta-sdk/` | Active (beta) |
 | `wow-two-sdk-beta.product-template` | Copyable product-repo template — the canonical conformant structure `create-repo` stamps out (a template, not a package) | Active |

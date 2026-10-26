@@ -189,7 +189,7 @@ captures; Events is one consumer of many.
 
 ## Media
 
-Decided 2026-10-25 — [instances per owner](file-storage-service-spec.md#instances-per-owner).
+Decided 2026-10-25 — [instances per owner](https://github.com/wow-two-sdk-beta/wow-two-sdk-beta.files/blob/main/product/product.md#instances-per-owner).
 
 - event images live in WoW2's own File Storage instance, the one Harvest writes its captures to.
 - an event references the capture's file instead of copying it; the reference keeps the file after Harvest prunes

@@ -56,7 +56,7 @@
 ## Storage
 
 - captures and their media go to WoW2's own File Storage instance —
-  [instances per owner](file-storage-service-spec.md#instances-per-owner).
+  [instances per owner](https://github.com/wow-two-sdk-beta/wow-two-sdk-beta.files/blob/main/product/product.md#instances-per-owner).
 - captures are pruned by retention; a consumer that references a capture's file keeps it alive.
 - a self-hosted Harvest ships with its own File Storage instance in the same bundle.
 

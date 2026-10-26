@@ -903,6 +903,6 @@ PostgreSQL and extensions (read 2026-10-26):
 Workspace:
 - ListingShelf: `Persistence/Migrations/001-baseline`, `003-absences`, `006-photos`, `007-exports`; `Persistence/Repositories/ListingSnapshotRepository.cs`; `Infrastructure/Runs/OrchestrationServices/RunExecutionService.cs` (all under `lb`)
 - Haven: `Haven.Database/Haven.Database.Persistence/Migrations/002-external-listings`, `008-listing-phones`; `Haven.Supply/Haven.Supply.Persistence/Intake/Repositories/ExternalListingRepository.cs` (under `hb`)
-- [harvest-service-spec.md](../harvest-service-spec.md) · [events-service-spec.md](../events-service-spec.md) § Harvest seam · [file-storage-service-spec.md](../file-storage-service-spec.md) § Instances per owner · [analysis index](harvest-analysis-2026-10.md)
+- [harvest-service-spec.md](../harvest-service-spec.md) · [events-service-spec.md](../events-service-spec.md) § Harvest seam · [files spec](https://github.com/wow-two-sdk-beta/wow-two-sdk-beta.files/blob/main/product/product.md) § Instances per owner · [analysis index](harvest-analysis-2026-10.md)
 - [t1-messaging-sources.md](t1-messaging-sources.md) · [t2-social-sources.md](t2-social-sources.md) · [t3-web-sources.md](t3-web-sources.md) · [t4-consumers-and-social.md](t4-consumers-and-social.md)
 - format: [identity T10](../identity-analysis-2026-10/t10-schema-migrations.md)

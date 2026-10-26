@@ -262,7 +262,7 @@ flowchart BT
 | core references only the kernel | core `Messaging/Transport` uses `IBlobRepository` (4 refs) and `BlobStoragePathMapper` (2) from `Storage/Core` | ✓ once `Storage/Core` (6 files, 0 `using`s) joins the kernel |
 | contract → kernel only | a files broker, `FileModel`, stored and deleted events, `quota_exceeded`-style errors need `Result`, `AppError`, `IEvent` | ✓ |
 | edge for store-less use | products that store blobs without the files service | ✓ `FileStorage.Blobs` = `Storage/{FileSystem,S3,Azure,Transfer}` |
-| chain order | the module authorizes on `org_id`, app and role ([spec](../file-storage-service-spec.md) § Placement) | ✓ uses `Identity.Abstractions` claim constants, to its left |
+| chain order | the module authorizes on `org_id`, app and role ([spec](https://github.com/wow-two-sdk-beta/wow-two-sdk-beta.files/blob/main/product/product.md) § Forms) | ✓ uses `Identity.Abstractions` claim constants, to its left |
 | no reference to the right | Identity avatars would point at File Storage | ✓ only through a port or a reference string |
 | stateless heavy libraries stay companions | `Media/` (127 files: images, PDF, Word, Excel, captions, YouTube); it imports no `Storage/` | ✓ stays in core or a companion; the module references `Media/Images` |
 | fe split | fe sdk keeps generic pickers, the upload queue and image editors | ✓ `fe-file-storage` takes the contract-bound upload kit and console tables |
