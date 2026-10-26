@@ -64,14 +64,20 @@
 
 ## Behaviour at sources
 
-- must honour each source's terms and robots rules; a blocked or rate-limited source is an outcome, never bypassed.
-- must identify itself and keep per-source rate limits and backoff.
+- reads a source through the capabilities its pipeline steps require — sign-in, captcha avoidance, an IP server —
+  instead of stopping at its terms: Telegram, Meta and Afisha offer no proper API to integrate with (developer
+  2026-10-26). The capability framework is analysed in
+  [T9](harvest-analysis-2026-10/t9-capabilities.md).
+- keeps per-source rate limits and backoff; a block that no capability clears stays an outcome.
 - prefers a provider API or feed over page capture when the source offers one.
 
 ---
 
 ## Placement
 
+- **Repos** — two, decided 2026-10-26: `social` holds everything social media (trends, posting, monitoring) and the
+  shared integration libraries, such as IP servers; Harvest runs mass actions over posts, trends learning included,
+  on top of Social's libraries.
 - **Form 1 · library** — source adapters, pipeline runner and extraction in the be SDK.
 - **Form 2 · self-hosted service** — the `harvest` image with its console of pipelines, runs and captures.
 - **Form 3 · provided service** — WoW2's own instance serving Events and other WoW2 apps.

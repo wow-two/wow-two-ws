@@ -43,6 +43,17 @@
 - asked: should one social-media repo hold Harvest, since Ocharo and other products need social integration for
   other logic too (publishing, metrics, sign-in)?
 
+### Developer, 2026-10-26, second answer
+
+- repos: two. `social` holds everything social media — trends, posting, monitoring — and the shared integration
+  libraries, such as IP servers. Harvest runs mass actions over posts, trends learning included, on top of Social's
+  libraries.
+- harvesting: integrations act as brokers, and pipelines define steps. One site needs sign-in, another needs captcha
+  avoidance (OLX, in Haven's case), another needs an IP server for one exact step — so a framework of capabilities
+  that each source can use.
+- terms: not honoured, because Telegram, Meta and Afisha offer no proper API to integrate with; if a platform blocks
+  us, an IP server or similar handles it.
+
 ---
 
 ## Tracks
@@ -57,8 +68,9 @@
 | T6 | Extraction and classification: per-source fields, tags, AI tiers, cost | [t6-extraction.md](t6-extraction.md) | 2 | ✅ |
 | T7 | Pipelines, schedules, subscriptions, workers, delivery, roles | [t7-pipelines-delivery.md](t7-pipelines-delivery.md) | 2 | ✅ |
 | T8 | Placement: social domain vs Harvest domain, ListingShelf reuse (H1), forms | [t8-placement.md](t8-placement.md) | 3 | ✅ |
+| T9 | Steps and capabilities: pipeline steps, the capability framework, the Social cut redrawn | [t9-capabilities.md](t9-capabilities.md) | 4 | 🔄 |
 
-- all three waves landed 2026-10-26.
+- waves 1–3 landed 2026-10-26; wave 4 (T9) follows the developer's second answer.
 
 ---
 
@@ -69,29 +81,26 @@ holding the evidence. Tick a line when the developer answers; the answer moves i
 
 ### A · Placement — blocks the build
 
-- [ ] P1 social media and Harvest: one social repo holding Harvest, or a social connectors domain beside a Harvest
-  domain → provisional pick: two domains, `wow-two-sdk-beta.social` beside `wow-two-sdk-beta.harvest` (T4, T8-1)
-  - Social acts as an organization's account: tokens, publishing with receipts, own metrics, verification, the
-    authorised-read transport; created on its first consumer trigger, not in Harvest's first slice (T8-2)
-  - Harvest observes: public readers, provider runners, the Telegram MTProto pool and intake bots; it calls Social
-    only on authenticated routes; Social never depends on Harvest
-  - Telegram and WhatsApp send go to be sdk core `Comms`, under Social and Notifications (T8-3)
+- [x] P1 social media and Harvest → answered 2026-10-26: two repos. `social` holds everything social media —
+  trends, posting, monitoring — and the shared integration libraries, such as IP servers; Harvest runs mass actions
+  over posts, trends learning included, on top of Social's libraries (T4, T8-1)
+  - T8 § 1.4 kept platform readers and the Telegram pool in Harvest; T9 redraws that cut under this answer
 - [ ] P2 (H1) Harvest's repo → provisional pick: a new `wow-two-sdk-beta.harvest` from the domain template with
   ListingShelf's generic core copied and its source commit cited; ListingShelf stays the shelf view (T8-4)
 - [ ] P2a org → provisional pick: `wow-two-sdk-beta` for Harvest, Social and Events, which repoints their catalog
   entries and edits platform-apps rows 16 and 17 (T8-5)
 - [ ] P2b chain → provisional pick: core → Identity → Files → Social → Harvest → Events, no cycle over 33 package
   nodes; Events renames its tracking `pipeline` to `workflow` (T8-6, T8-13)
-- [ ] P2c slug for Social → provisional pick: `social`, alternative `connectors` (T8-2)
+- [x] P2c slug for Social → answered 2026-10-26: `social` (T8-2)
 - [ ] P2d research in a public repo → provisional pick: strip the analysis' private facts before it moves into the
   public Harvest repo (T8-5)
 
 ### B · Source terms — blocks the source picks
 
-- [ ] P3 posture: the spec says "must honour each source's terms", and three terms collide with the plan →
-  provisional pick: keep the rule; every route carries a posture tag (official · licensed provider · own fetch ·
-  consented intake) and every source `permission` and `ai_allowed` fields; counsel reads the Telegram and Meta
-  terms before Route B or Telegram AI (T1-P1, S1, W1, W5)
+- [x] P3 posture: the spec says "must honour each source's terms", and three terms collide with the plan →
+  answered 2026-10-26: not honoured, since these platforms offer no proper API; a block routes through a capability
+  such as an IP server (T9). The counsel gates in T1-P1, S1, W1, W5 and P4 fall away; T9 re-reads the defaults
+  (T1-P1, S1, W1, W5)
   - Telegram API Terms §1.5: no Telegram data for AI "development, enhancement or deployment" (read 2026-10-26)
   - Meta Automated Data Collection Terms (2024): no automated collection without written permission
   - Afisha terms: prior written permission to copy or use material
@@ -140,3 +149,9 @@ The tracks' own Points (T1-P1…14, S1–S12, W1–W18, T4-1…13) hold the chil
   (T5)
 
 The tracks' own Points (T5-1…22, T6-1…17, T7-P1…P20) hold the children.
+
+### D · Steps and capabilities — from wave 4
+
+- [ ] P20 the capability framework: pipelines as steps, integrations as brokers, and capabilities each step may
+  require — sign-in, captcha avoidance, an IP server, rendering — with the cut between Social and Harvest → T9
+  pending
