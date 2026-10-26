@@ -1,6 +1,6 @@
 # Chat markers
 
-*Last updated: 2026-09-29*
+*Last updated: 2026-10-26*
 
 > Rule text injected by `.claude/hooks/expand-markers.sh` when a marker appears in the prompt.
 > The vocabulary **is** the set of `## @@name` headers below — add a marker by adding a section,
@@ -94,6 +94,15 @@ nothing you asked, every open ask stays open, the denominator does not fall, and
 never assent. Keep this reply to a one-line receipt of what ran. When the queued run completes,
 re-deliver the unread reply's points — verdict, changes, open asks — within the length cap.
 Not `-bg`: `-bg` defers work, `-queued` defers the conversation.
+
+## @@compose
+
+`-compose` — one answer from many replies. Re-deliver every reply sent since the developer's last
+own message — typically one partial report per agent return — as ONE self-contained answer:
+verdict first, then what changed, failures and unverified items, then every open ask, at most one
+`decide`. Drop superseded statements and stay within the length cap. Answer nothing new and start
+no work for the marker itself; other text in the same message runs as usual. Not `-queued`:
+`-queued` marks a reply unread, `-compose` merges replies already sent.
 
 ## @@dump
 
