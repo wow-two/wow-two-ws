@@ -68,9 +68,9 @@
 | T6 | Extraction and classification: per-source fields, tags, AI tiers, cost | [t6-extraction.md](t6-extraction.md) | 2 | ✅ |
 | T7 | Pipelines, schedules, subscriptions, workers, delivery, roles | [t7-pipelines-delivery.md](t7-pipelines-delivery.md) | 2 | ✅ |
 | T8 | Placement: social domain vs Harvest domain, ListingShelf reuse (H1), forms | [t8-placement.md](t8-placement.md) | 3 | ✅ |
-| T9 | Steps and capabilities: pipeline steps, the capability framework, the Social cut redrawn | [t9-capabilities.md](t9-capabilities.md) | 4 | 🔄 |
+| T9 | Steps and capabilities: pipeline steps, the capability framework, the Social cut redrawn | [t9-capabilities.md](t9-capabilities.md) | 4 | ✅ |
 
-- waves 1–3 landed 2026-10-26; wave 4 (T9) follows the developer's second answer.
+- all four waves landed 2026-10-26; wave 4 (T9) followed the developer's second answer.
 
 ---
 
@@ -153,5 +153,16 @@ The tracks' own Points (T5-1…22, T6-1…17, T7-P1…P20) hold the children.
 ### D · Steps and capabilities — from wave 4
 
 - [ ] P20 the capability framework: pipelines as steps, integrations as brokers, and capabilities each step may
-  require — sign-in, captcha avoidance, an IP server, rendering — with the cut between Social and Harvest → T9
-  pending
+  require — sign-in, captcha avoidance, an IP server, rendering — with the cut between Social and Harvest →
+  provisional pick: pipelines are declared step plans; each step states a floor, a ladder and a ceiling of
+  capabilities; the resolver picks the cheapest working rung per `(host, lane)` at claim, reserves budget and leases
+  egress and sessions (T9-1)
+  - cut: Social holds every platform client and every capability provider with its secrets, the Telegram MTProto
+    pool included; Harvest holds the engine and the non-social site adapters (T9-2, T9-9)
+  - timing: slice 1 builds direct egress, cookie jars, challenge detection and pacing inline behind Social-shaped
+    contracts, which move to Social at the next +0.1; Afisha joins slice 1 (T9-3, T9-23)
+  - posture: 24 earlier picks change; the posture fields stay as switches with permissive defaults (T9-4)
+  - forks for the developer: honour official-API terms only (T9-5), keep per-site recipes out of public repos
+    (T9-19), robots.txt obeyed by default (T9-17)
+
+The track's own Points (T9-1…23) hold the children.
