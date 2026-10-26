@@ -104,6 +104,12 @@
 - must not ship `src/`, `tests/`, `apps/`, `engineering/` or any other `.md`, wherever they sit.
 - exports, peers, CSS and release verification →
   [library delivery](../../frontend/shapes/library/delivery/delivery.md).
+- must add a new package to the publish workflow's pack step and to every release-verification script in the
+  commit that creates it; each repo keeps that checklist in its package layout doc.
+- needs no registry step for a new NuGet id: trusted publishing creates it under the reserved `WoW2.*` prefix on the
+  first publish (proved 2026-10-26 by `WoW2.Sdk.Beta.Be.Abstractions`).
+- must publish a new npm package's first version by hand, then add its trusted publisher; later versions publish
+  from CI.
 
 ---
 
