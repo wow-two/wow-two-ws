@@ -1,6 +1,6 @@
 # Ef
 
-*Last updated: 2026-09-10*
+*Last updated: 2026-10-26*
 
 > Reaching the database through EF Core — the change tracker, the mapping, and code-first migrations.
 > Schema authority follows the selected migration strategy.
@@ -29,3 +29,12 @@
 - may use copies as detached candidates or snapshots under the [prototype contract](../../../../constructs/patterns/prototype.md); a candidate is not itself the tracked update target.
 - must define any separate detached-update or explicit candidate-application operation in terms of allowed fields, relationships and original concurrency values; scalar `SetValues` is not a graph-merge contract.
 - framework behavior → [EF identity resolution](https://learn.microsoft.com/en-us/ef/core/change-tracking/identity-resolution#query-then-apply-changes).
+
+---
+
+## Unique writes
+
+- must insert or update a row by its unique key through `UpsertAsync`; never exists-then-insert by hand.
+- must insert a row unless its key exists through `AddIfAbsentAsync`.
+- should pass the key's unique constraint as `constraintName`.
+- must not catch `DbUpdateException` to detect a unique conflict; use `TrySaveChangesUniqueAsync`.

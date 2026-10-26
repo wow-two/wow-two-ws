@@ -1,6 +1,6 @@
 # Integrations
 
-*Last updated: 2026-08-16*
+*Last updated: 2026-10-26*
 
 > Reaching a system we do not own — the transport guarantee every outbound call carries, and who owns what.
 > Purpose — transport resilience answers to the channel, degradation answers to the app; the two never merge.
@@ -59,6 +59,7 @@ Deliberately unwritten; decide against a second real broker rather than inventin
 | Provider | Reaches the system through | Docs |
 |---|---|---|
 | HTTP | `IHttpClientFactory`, the SDK resilience pipeline, Refit | [http](http/http.md) |
+| child process | the be sdk's `IProcessClient` | [process](process/process.md) |
 | vendor SDK | the vendor's own client type and its own knobs | — |
 
 - must give a vendor-SDK client the same transport guarantee through that SDK's knobs.

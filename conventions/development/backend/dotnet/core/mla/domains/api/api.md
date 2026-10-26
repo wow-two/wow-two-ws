@@ -1,6 +1,6 @@
 # Api
 
-*Last updated: 2026-10-02*
+*Last updated: 2026-10-26*
 
 > The HTTP surface a service exposes — what a client may send, and what it reads back.
 > Purpose — the wire is a contract with a client, so it changes on the client's schedule, not the domain's.
@@ -99,6 +99,18 @@ catch (NotFoundException) { return NotFound(); }
 - must retain existing documented success contracts during adoption until consumers are migrated together.
 - must use query-specific endpoints or explicit projection options when reads need different fields; do not add GraphQL solely to refresh a grid.
 - frontend acknowledgement and refresh lifecycle → [state and data](../../../../../../frontend/core/mla/domains/data/state-and-data.md#mutations).
+
+---
+
+## MCP endpoints
+
+- must host MCP tools through the be sdk's `AddStatelessMcpServer` and `MapAuthenticatedMcp`; never a bare `MapMcp`.
+- must bind extra browser origins from settings into `McpRequestGuardOptions.AllowedOrigins`; never hand-roll
+  an origin check or a body cap.
+- must raise `MaxRequestBodyBytes` only for a tool whose input needs it; never lift it with `null`.
+- must fail a tool with an `AppError` — thrown as `AppException`, or returned through
+  `McpToolErrorFilter.ToToolResult`; never build an error result by hand.
+- may map an MCP endpoint beside the service's delivery style; it is its own surface on its own path.
 
 ---
 

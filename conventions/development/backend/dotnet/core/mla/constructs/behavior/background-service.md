@@ -1,10 +1,11 @@
 # Background services
 
-*Last updated: 2026-09-10*
+*Last updated: 2026-10-26*
 
 > A type the host starts and stops, doing its work off the request path.
 > Purpose — give boot work and long-running loops a lifetime the host owns rather than a request's.
-> Use case — reach here for a migration run at startup, a poller on a timer, or a queue drain.
+> Use case — reach here for a migration run at startup or a queue drain; a pass on an interval is a periodic job
+> → [host configuration](../../../../shapes/service/platform/startup/host-configuration.md#background-work).
 
 ## Location
 

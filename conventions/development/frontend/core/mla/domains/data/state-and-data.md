@@ -1,6 +1,6 @@
 # State and data
 
-*Last updated: 2026-10-19*
+*Last updated: 2026-10-26*
 
 > Request outcomes, server caches and local state across frontend frameworks.
 
@@ -18,6 +18,8 @@
 - must set JSON content headers only for JSON bodies; let the browser set multipart boundaries for `FormData`.
 - must retain HTTP status and response headers at the integration edge, outside transport-free failure fields.
 - must map display-safe failures through the app error catalog, never display an untrusted server body verbatim.
+- may show our own API's refusal through `ApiFailureExtensions.reason`; a third party's body maps through the catalog.
+- must read a problem body through `ProblemDetailsExtensions`; never hand-parse `detail`, `title` or `errors`.
 - must consume the backend [success envelope](../../../../../backend/dotnet/core/mla/domains/api/api-messages.md).
 - must parse RFC 9457 [ProblemDetails](../../../../../backend/dotnet/shapes/service/platform/responses/problem-details.md).
 - must preserve unknown error codes as data without treating them as a known discriminant.

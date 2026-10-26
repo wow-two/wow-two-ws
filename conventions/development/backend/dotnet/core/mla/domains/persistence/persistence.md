@@ -1,6 +1,6 @@
 # Persistence
 
-*Last updated: 2026-09-10*
+*Last updated: 2026-10-26*
 
 > How a service stores and reads its own state, cut into the four things that swap independently.
 > Purpose — an entity is not tied to an engine, an engine not to a mapper, neither to a migrator.
@@ -42,6 +42,16 @@ The entity axis declares them once; every axis below reads that declaration and 
 - must not let an EF-first habit become the contract: another provider keys, stamps and soft-deletes the
   same rows, and the entity cannot tell which one is mapping it.
 - must move a rule up when two providers restate it — a shared rule was never the provider's.
+
+---
+
+## Local files
+
+- must write a file another reader opens — a process, a restart, a folder scan — through the be sdk's
+  `AtomicFileExtensions`; never write it in place with `File.WriteAll*`.
+- must set a secret-bearing file's mode at creation through `AtomicFileWriteOptions.UnixCreateMode`, never after.
+- must serialize writers of one file when their order matters; the last rename wins.
+- must skip `AtomicFileExtensions.IsTemporaryFile` names when listing a folder.
 
 ---
 

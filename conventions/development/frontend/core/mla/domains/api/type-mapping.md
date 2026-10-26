@@ -1,6 +1,6 @@
 # Type mapping
 
-*Last updated: 2026-09-12*
+*Last updated: 2026-10-26*
 
 > The declared wire scalars and their validated frontend representations.
 
@@ -9,6 +9,8 @@
 - must take emitted JSON from the [backend contract](../../../../../backend/dotnet/shapes/service/platform/responses/serialization.md).
 - must describe wire fields with JSON types in a `*Dto` or `*ApiRequest`; a static type does not validate input.
 - must validate unknown input at integration before exposing a typed value.
+- must decode a response through a schema with `ApiDecoderExtensions.fromSchema`, passed as `decode`;
+  never a hand-written guard or cast.
 
 | Wire value | DTO representation | Decoded value when needed |
 |---|---|---|

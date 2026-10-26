@@ -1,6 +1,6 @@
 # Host configuration
 
-*Last updated: 2026-10-19*
+*Last updated: 2026-10-26*
 
 > Product composition in the host; reusable registration contracts in the SDK.
 
@@ -101,7 +101,15 @@ await app.ConfigureAsync();
 ## Background work
 
 - must register host-run work in its owning domain's registration.
-- must use `BackgroundService.ExecuteAsync` for a long-running loop.
+- must run work repeated on an interval through the be sdk's `AddPeriodicJob`; never hand-write a timer loop.
+- must put a periodic pass in a scoped service method; the job resolves it from a fresh scope each pass.
+- must read the interval from settings in the job's `configure`; an `Interval` of zero or less turns it off.
+- must not add a separate enabled flag, a catch-all or a retry loop around a pass; a failed pass is logged
+  and the next runs on schedule.
+- must set `PassTimeout` on a pass that waits on a process or a remote system.
+- must set `LogExceptionDetails = false` on a pass whose exceptions can carry input, output or secrets.
+- must not use a periodic job for work needing one runner across replicas, retries or persistence.
+- must use `BackgroundService.ExecuteAsync` for any other long-running loop, such as a queue drain.
 - must use `IHostedService.StartAsync` for a one-shot task required to complete during startup.
 - must pass the stopping token into each cancellable asynchronous operation.
 - must create and dispose an `IServiceScopeFactory` scope for each run needing scoped collaborators.
