@@ -182,6 +182,7 @@ Not started, ordered, top = next. Pulling one promotes it above and mints its ID
 | Stamp the delivery caller into the product template | feature | `create-repo` stamps no workflows, so new repos start without CI |
 | Give the be sdk a path filter, a job timeout and a separate NuGet wait | issue | Docs pushes release NuGet versions; no timeout (one 528-min run); 7-12 min of each run waits on NuGet |
 | Retarget the fe sdk `test.yml` to the live package | issue | It tests the parked React package; `pnpm test \|\| pnpm test` hides a vite race |
+| Run every repo's tests daily, whether or not anything changed | feature | Added `2026-10-26` by the user: drift in registries, dependencies, external APIs or the clock breaks builds with no commit. The domain repos' nightly `core-latest.yml` (Identity analysis Q1d) is the first instance |
 
 ### → GitHub orgs
 

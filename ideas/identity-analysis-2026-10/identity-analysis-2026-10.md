@@ -49,10 +49,12 @@ holding the evidence. Tick a line when the developer answers; the answer moves i
 - [x] Q1a (developer 2026-10-26: confirmed) repo org: `wow-two-sdk-beta.identity` (T5)
 - [x] Q1b (developer: kernel, 2026-10-25) seams: a kernel `WoW2.Sdk.Beta.Be.Abstractions` in the core repo (`ICurrentUserService`, `UserKind`,
   `Result`, `AppError`, `IEvent`); core never references `Identity.Abstractions`, a NuGet cycle → kernel (T7)
-- [ ] Q1c seven packages: Abstractions, Auth, Module, Client, Providers, Server, Testing; all of `Identity/` leaves
+- [x] Q1c (developer 2026-10-26: confirmed) seven packages: Abstractions, Auth, Module, Client, Providers, Server, Testing; all of `Identity/` leaves
   core, the auth primitives too (T7 supersedes T5's six)
-- [ ] Q1d versions from tags with no release commit; a CI job tests Identity against each core release → both (T5)
-- [ ] Q1e fe: `auth` stays in `@wow-two-beta/fe`; the sign-in kit goes to `@wow-two-beta/fe-identity` → yes (T7)
+- [x] Q1d (developer 2026-10-26: confirmed; daily runs wanted whether or not anything changed) versions from tags with
+  no release commit; a nightly CI job tests Identity against the latest core release (T5)
+- [x] Q1e (developer 2026-10-26: confirmed) fe: `auth` stays in `@wow-two-beta/fe`; `@wow-two-beta/fe-identity` ships
+  pages and widgets a consumer embeds, and can instead forward the flow to a running Identity's hosted pages (T7)
 - ✗ T5's `…Be.Auth.*` rename in core: moot once the primitives leave with Identity (T7)
 - [ ] Q2 one registration, `Identity:Mode = Module | Oidc`, same routes, claims, brokers and events → yes (T4)
 - [ ] Q3 Form 1 → 3 move: strictly config, or config plus deleting the module package → allow the delete (T4)
@@ -107,12 +109,12 @@ holding the evidence. Tick a line when the developer answers; the answer moves i
 
 ### G · Library repo and template
 
-- [ ] Q35 template: `wow-two-sdk-beta.domain-template`, a separate repo; `create-repo` gains `SHAPE=domain` → yes (T8)
+- [x] Q35 (developer 2026-10-26: confirmed) template: `wow-two-sdk-beta.domain-template`, a separate repo; `create-repo` gains `SHAPE=domain` → yes (T8)
 - [x] Q36 (developer 2026-10-25: confirmed, as a wow2 convention every new library follows) docs: the spec moves to the repo's `product/product.md`, analysis to `engineering/research/`; the hub keeps
   the catalog entry, platform-apps row and cross-capability decisions → yes (T8)
-- [ ] Q37 packages publish from a repo-local workflow, versions from tags, no release commit; images via shared
+- [x] Q37 (developer 2026-10-26: confirmed with Q1d) packages publish from a repo-local workflow, versions from tags, no release commit; images via shared
   `delivery.yml` → yes (T5, T8)
-- [ ] Q38 compat job: nightly and on dispatch, against the latest core release → yes (T5, T8)
+- [x] Q38 (developer 2026-10-26: confirmed with Q1d) compat job: nightly and on dispatch, against the latest core release → yes (T5, T8)
 - [ ] Q39 strip provider and region names from T6 before the docs move into a public repo → yes (T8)
 
 ### H · Release automation
@@ -121,8 +123,8 @@ holding the evidence. Tick a line when the developer answers; the answer moves i
   prints every GitHub write for the agent to run as its own guarded command → yes (T9)
 - [x] Q41 (developer 2026-10-26: confirmed) guard hole: a `gh` write to a repo not cloned locally reads the hub's push flag (ON) → unmatched targets read
   OFF; `gh repo create` reads the flag of the folder it clones into (P2) (T9)
-- [ ] Q42 one flag directive per folder, `workbench/wow-two-sdk-beta/*`, covering repos created later (P1) (T9)
-- [ ] Q43 clone counts as safe; a push must name a configured remote, never a URL (P3) (T9)
+- [x] Q42 (developer 2026-10-26: confirmed; the agent edits the guard) one flag directive per folder, `workbench/wow-two-sdk-beta/*`, covering repos created later (P1) (T9)
+- [x] Q43 (developer 2026-10-26: confirmed) clone counts as safe; a push must name a configured remote, never a URL (P3) (T9)
 - [ ] Q44 [parked 2026-10-26, low priority → `system/planning/pln-tasks.md` § Backlog] uninstall the Codex GitHub App: write access on 3 orgs, Codex dropped 2026-10-23 → developer, once (T9)
 - [ ] Q45 consumer re-pins: an agent sweep (`repin.py`), since no wow2 org has Renovate installed → sweep (T9)
 
