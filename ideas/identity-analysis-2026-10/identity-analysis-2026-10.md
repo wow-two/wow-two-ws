@@ -157,4 +157,5 @@ holding the evidence. Tick a line when the developer answers; the answer moves i
 - ⬜ claim vocabulary converges on `sub`, `sid`, `org_id` before an OIDC client ships (T4)
 - ⬜ release residue: npm ≥ 11.15.0 for `npm trust` (local 11.6.1); stale `NUGET_API_KEY` and `NPM_TOKEN` repo secrets in the sdks (T9)
 - ⬜ `catalog.yml` has no Identity entry; it lands at rollout step 11 ([T8 § 6](t8-library-template.md#6--rollout-checklist)), once the GitHub repo exists
-- ⬜ split prerequisites: an error-text hook in `Web/ErrorTranslation`, delete `IdentityApi/` and `Policies/`, own publish workflow (T5)
+- ✅ split prerequisites (rollout step 5) shipped in be sdk `10.0.77-beta`, 2026-10-26: kernel `WoW2.Sdk.Beta.Be.Abstractions`
+  with forwarders, `AddErrorTexts` seam, `IdentityApi/` and `Policies/` deleted; the own publish workflow comes with the template (T5, T7)
