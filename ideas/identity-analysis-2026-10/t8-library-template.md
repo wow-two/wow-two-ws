@@ -403,7 +403,7 @@ bash workbench/wow-two-sdk-beta/{repo}/engineering/scripts/test-next-version.sh
 
 ### A · Prepare, before the repo exists
 
-1. (developer) Answer queue A of the [index](identity-analysis-2026-10.md) — Q1, Q1a–d — and approve T7's package cut. Needs: T7. Blocks 8 onward.
+1. (developer) Answer queue A of the [index](https://github.com/wow-two-sdk-beta/wow-two-sdk-beta.identity/blob/main/engineering/research/identity-analysis-2026-10/identity-analysis-2026-10.md) — Q1, Q1a–d — and approve T7's package cut. Needs: T7. Blocks 8 onward.
 2. (agent) Build `wow-two-sdk-beta.domain-template` per § 1; `git init`, no remote; ledger row; catalog `template` entry. Needs: T7 layer names.
 3. (agent) Extend `create-repo` (§ 5) and prove the template with a `SCRATCH=1` scaffold: slnx tests, pnpm build, `test-next-version.sh`. Needs: 2.
 4. (agent) Edit the conventions in one pass. Needs: 1 (org and name), 2.

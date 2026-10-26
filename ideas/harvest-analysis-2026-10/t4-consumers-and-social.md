@@ -92,7 +92,7 @@ The register = `mft/career/car-events*.md` (five files, 1,848 lines); link count
 - **Media.** Poster by reference into the shared File Storage instance; the reference keeps the file after pruning (`es:190-199`).
 - **Visibility.** Two layers: Harvest container (public pool vs Ocharo's private container) and Events catalog visibility (`private` until EV1, `es:165`). A product-submitted link on an unharvested domain goes private; the developer's rule needs a domain check against public pipelines.
 - **Who is the Harvest tenant.** Events registers pipelines and receives deliveries (`es:151-155`, `es:126`); Ocharo calls Events, not Harvest. The "Ocharo private container" is therefore the Events catalog `ocharo-fashion` (`es:165`), not an Ocharo tenant.
-- **Roles.** Desk roles `owner` · `editor` · `viewer` (`W/ideas/identity-service-spec.md:72`); the app enforces membership before calling the service (`es:130-131`). Harvest sees a service key plus an actor id.
+- **Roles.** Desk roles `owner` · `editor` · `viewer` ([Identity accounts](https://github.com/wow-two-sdk-beta/wow-two-sdk-beta.identity/blob/main/product/features/accounts.md)); the app enforces membership before calling the service (`es:130-131`). Harvest sees a service key plus an actor id.
 
 ---
 
@@ -253,17 +253,17 @@ Direction: **read** · **write** · **auth** · **notify**. State: built · buil
 | X6 | Telegram | notify: alerts and deploy outcomes | bot token | Wheelhouse | `W/workbench/wow-two-platform/wow-two-platform.wheelhouse/engineering/research/feature-completeness.md:261`; SDK sender missing, `:219,269` | decided; no Telegram code found in the repo (grep of `*.py`, `*.cs`, `*.yml`) |
 | X7 | Telegram | notify: issue alerts | bot token | Feedbacks | `W/ideas/feedbacks-spec.md:46` "reuse the comms Telegram slice" | spec; slice does not exist (`feature-completeness.md:219`) |
 | S1 | Telegram | notify: OTP | bot token via a consumer-registered `ITelegramBotClient` | be sdk | `be/Identity/Otp/Telegram/TelegramOtpDeliveryHandler.cs:9-25` | built |
-| S2 | Telegram Gateway | notify: OTP | Gateway API token | be sdk | `be/Identity/Otp/TelegramGateway/TelegramGatewayOtpOptions.cs:11` | built; paid in TON, deferred (`W/ideas/identity-analysis-2026-10/t1-integrations.md:79`) |
+| S2 | Telegram Gateway | notify: OTP | Gateway API token | be sdk | `be/Identity/Otp/TelegramGateway/TelegramGatewayOtpOptions.cs:11` | built; paid in TON, deferred ([identity T1](https://github.com/wow-two-sdk-beta/wow-two-sdk-beta.identity/blob/main/engineering/research/identity-analysis-2026-10/t1-integrations.md) § 3) |
 | S3 | Telegram | read: webhook validation | secret token | be sdk | `be/Messaging/Webhooks/Inbound/Validators/TelegramWebhookSignatureValidator.cs:12-25` | built |
 | S4 | WhatsApp Cloud API | notify: OTP and messages | system-user token + phone-number id | be sdk | `be/Comms/WhatsApp/Meta/MetaWhatsAppOptions.cs:6-16`; `be/Identity/Otp/WhatsApp/` | built |
 | S5 | 17 OAuth providers | auth | client id + secret; user tokens kept in cookie auth properties (`SaveTokens`) | be sdk | `be/Identity/OAuth/oauth.md:30-36` | built; only X4 and X5 have consumers |
-| S6 | Log in with Telegram (OIDC), 17 providers via Identity | auth | bot client id + secret | Identity | `W/ideas/identity-service-spec.md:90,104,110` | planned (I20, P2) |
+| S6 | Log in with Telegram (OIDC), 17 providers via Identity | auth | bot client id + secret | Identity | [Identity sign-in methods](https://github.com/wow-two-sdk-beta/wow-two-sdk-beta.identity/blob/main/product/features/sign-in-methods.md) | planned (I20, P2) |
 | S7 | Platform link parsing | read helper | none | be sdk | `be/Media/YouTube/YouTubeUrlMapper.cs`, `YouTubeLinkExtractor.cs` | built, YouTube only |
 | M1 | Telegram user account | read: channels and groups | MTProto session | Harvest (T1 decides) | none: no MTProto client, library or spec in `W` (grep `mtproto`, `WTelegram`, `TdLib`, `Telethon`, `Pyrogram`) | not found |
 
 - The be sdk `Comms/` holds Email, Sms, Push and WhatsApp; no Telegram sender (`feature-completeness.md:219`; `be/Comms/` listing).
 - The Telegram Bot API is called from five C# code paths: O1 (raw HTTP), H1, H2, O8 and S1 (the last four on `Telegram.Bot`). X6 and X7 plan two more consumers of a sender that does not exist.
-- Account verification exists only as Marketing's O2 and O6; Identity's contact-sharing check is I20, unbuilt (`t1-integrations.md:77`).
+- Account verification exists only as Marketing's O2 and O6; Identity's contact-sharing check is I20, unbuilt ([identity T1](https://github.com/wow-two-sdk-beta/wow-two-sdk-beta.identity/blob/main/engineering/research/identity-analysis-2026-10/t1-integrations.md) § 3).
 - No platform has a durable per-account token store: Marketing reads one account per provider from configuration (`mk/OcharoMarketing.Api/Configurations/HostConfiguration.Extensions.cs:214,229,248,259`; `ExternalMarketingService.cs:19-22`); the SDK keeps OAuth tokens in the cookie.
 
 ---
@@ -276,7 +276,7 @@ Direction: **read** · **write** · **auth** · **notify**. State: built · buil
 |---|---|---|
 | connected accounts | tokens, ids, verification state, revision; Harvest reads need the same record for any platform that wants a token or session (Telegram user session, Instagram Graph, X, Reddit) | Marketing keeps verification evidence apart from secrets and binds it to a config stamp (`mk/OcharoMarketing.Domain/Marketing/Entities/DeliveryConnectionRecord.cs:3-4`; `mk/OcharoMarketing.Persistence/Marketing/Repositories/DeliveryRepository.cs:69`); no store exists elsewhere |
 | token lifecycle | refresh, expiry, revocation | X needs `offline.access` (`om/engineering/research/providers.md:112`); Instagram access gated (`providers.md` Instagram section) |
-| rate limits and budgets | one quota per app or account across publish, metrics and harvest reads | X pay-per-use credits cover posting and billable metric reads (`providers.md:112`; `mkp/XProviderOptions.cs:3`); Telegram ~30 msg/s overall, ~1 msg/s per chat (`t1-integrations.md:77`); Harvest requires per-source limits and backoff (`hs:67-68`) |
+| rate limits and budgets | one quota per app or account across publish, metrics and harvest reads | X pay-per-use credits cover posting and billable metric reads (`providers.md:112`; `mkp/XProviderOptions.cs:3`); Telegram ~30 msg/s overall, ~1 msg/s per chat ([identity T1](https://github.com/wow-two-sdk-beta/wow-two-sdk-beta.identity/blob/main/engineering/research/identity-analysis-2026-10/t1-integrations.md) § 3); Harvest requires per-source limits and backoff (`hs:67-68`) |
 | platform clients | typed calls, id handling, bounded bodies, error → outcome | `mkp/ProviderHttpTransport.cs:34-36` maps outcomes; X metrics maps 401/403/429/404 (`mkp/Brokers/XSocialMetricsBroker.cs:41-45`) |
 | media in and out | Instagram needs a public image URL; Telegram takes file, URL or `file_id`; Harvest stores media in File Storage | `providers.md` Instagram and Telegram sections; `hs:58-61`; `TelegramGroupBroker.cs:57` |
 | inbound webhooks | Telegram updates with `secret_token` | `be/Messaging/Webhooks/Inbound/Validators/TelegramWebhookSignatureValidator.cs`; Auth bots (H2, O8) |

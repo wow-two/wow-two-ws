@@ -905,4 +905,4 @@ Workspace:
 - Haven: `Haven.Database/Haven.Database.Persistence/Migrations/002-external-listings`, `008-listing-phones`; `Haven.Supply/Haven.Supply.Persistence/Intake/Repositories/ExternalListingRepository.cs` (under `hb`)
 - [harvest-service-spec.md](../harvest-service-spec.md) · [events-service-spec.md](../events-service-spec.md) § Harvest seam · [files spec](https://github.com/wow-two-sdk-beta/wow-two-sdk-beta.files/blob/main/product/product.md) § Instances per owner · [analysis index](harvest-analysis-2026-10.md)
 - [t1-messaging-sources.md](t1-messaging-sources.md) · [t2-social-sources.md](t2-social-sources.md) · [t3-web-sources.md](t3-web-sources.md) · [t4-consumers-and-social.md](t4-consumers-and-social.md)
-- format: [identity T10](../identity-analysis-2026-10/t10-schema-migrations.md)
+- format: [identity T10](https://github.com/wow-two-sdk-beta/wow-two-sdk-beta.identity/blob/main/engineering/research/identity-analysis-2026-10/t10-schema-migrations.md)

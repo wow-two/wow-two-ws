@@ -232,7 +232,7 @@ Open questions; each ends in a provisional pick.
 - [ ] S9 media: store or link → provisional pick: store only thumbnails and the first image for event and listing items; link the rest; never download YouTube video; CDN URL lifetimes tested before relying on them (T5)
 - [ ] S10 are Haven's Instagram sources business or personal accounts → provisional pick: assume personal, so Route B; confirm with a sample of 10 realtor accounts (T4)
 - [ ] S11 one Meta app for Harvest reads and the social connectors' publishing, metrics and sign-in, or separate apps → provisional pick: separate apps, so a review rejection or a ban on the reading app leaves publishing alive (T4, T8)
-- [ ] S12 personal data in captured posts (realtors, private group members) → provisional pick: store only fields a pipeline's schema needs, keep author handle but not profile data, defer the Uzbek personal-data-law read (database registration, localization; see [identity T1](../identity-analysis-2026-10/t1-integrations.md) finding, U) to the T5 pass (T5)
+- [ ] S12 personal data in captured posts (realtors, private group members) → provisional pick: store only fields a pipeline's schema needs, keep author handle but not profile data, defer the Uzbek personal-data-law read (database registration, localization; see [identity T1](https://github.com/wow-two-sdk-beta/wow-two-sdk-beta.identity/blob/main/engineering/research/identity-analysis-2026-10/t1-integrations.md) finding, U) to the T5 pass (T5)
 
 ---
 

@@ -7,7 +7,7 @@
 > Use case — splitting a domain out of core, scaffolding its repo (Identity, File Storage), or placing a package in it.
 
 Evidence and the options weighed → [SDK breakdown](../../../../ideas/identity-analysis-2026-10/t5-sdk-breakdown.md) ·
-[library architecture](../../../../ideas/identity-analysis-2026-10/t7-library-architecture.md) ·
+[library architecture](https://github.com/wow-two-sdk-beta/wow-two-sdk-beta.identity/blob/main/engineering/research/identity-analysis-2026-10/t7-library-architecture.md) ·
 [library template](../../../../ideas/identity-analysis-2026-10/t8-library-template.md).
 
 ---

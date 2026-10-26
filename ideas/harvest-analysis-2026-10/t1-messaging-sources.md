@@ -458,6 +458,6 @@ Uzbekistan
 - sample portals read: https://www.afisha.uz/ru · https://uybor.uz · https://domtut.uz (links to their Telegram channels)
 
 Workspace
-- [identity-t1] [t1-integrations.md](../identity-analysis-2026-10/t1-integrations.md) — `Telegram.Bot` wired in the be sdk
+- [identity-t1] [t1-integrations.md](https://github.com/wow-two-sdk-beta/wow-two-sdk-beta.identity/blob/main/engineering/research/identity-analysis-2026-10/t1-integrations.md) — `Telegram.Bot` wired in the be sdk
 - [platform-apps] [platform apps](../../docs/platform-apps.md) — Secrets Vault (4), File Storage (3), Harvest (17)
 - [spec] [harvest-service-spec.md](../harvest-service-spec.md) · [analysis index](harvest-analysis-2026-10.md)

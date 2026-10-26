@@ -4,7 +4,7 @@
 
 > The big cross-cutting choices still open across WoW2 products and Ocharo, ranked by what each one unblocks.
 > A made decision moves to [platform apps](platform-apps.md) § Decisions or its owning repo and leaves this list.
-> Sources: the 2026-10-21 sweep of every active service, the [Identity](../ideas/identity-service-spec.md) and
+> Sources: the 2026-10-21 sweep of every active service, the [Identity](https://github.com/wow-two-sdk-beta/wow-two-sdk-beta.identity/blob/main/product/product.md) and
 > [Files](https://github.com/wow-two-sdk-beta/wow-two-sdk-beta.files/blob/main/product/product.md) specs.
 
 ## Proposed order

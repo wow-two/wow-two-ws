@@ -6,8 +6,8 @@
 > `wow-two-sdk-beta.identity` ships 6 NuGets, 1 npm package and the service image, at the price of one hard cut
 > and a second release hop for every core change Identity needs.
 
-- Aliases `be`, `fe`, `oc` as in [T3](t3-code-and-consumers.md); modes `M0`–`M13` and package names from
-  [T4](t4-integration-modes.md); OpenIddict and Fido2 facts from [T1](t1-integrations.md); `(U)` = unverified.
+- Aliases `be`, `fe`, `oc` as in [T3](https://github.com/wow-two-sdk-beta/wow-two-sdk-beta.identity/blob/main/engineering/research/identity-analysis-2026-10/t3-code-and-consumers.md); modes `M0`–`M13` and package names from
+  [T4](https://github.com/wow-two-sdk-beta/wow-two-sdk-beta.identity/blob/main/engineering/research/identity-analysis-2026-10/t4-integration-modes.md); OpenIddict and Fido2 facts from [T1](https://github.com/wow-two-sdk-beta/wow-two-sdk-beta.identity/blob/main/engineering/research/identity-analysis-2026-10/t1-integrations.md); `(U)` = unverified.
 - Counts are from grep over `be` and the product trees on 2026-10-25; nothing was built or edited.
 
 ---
