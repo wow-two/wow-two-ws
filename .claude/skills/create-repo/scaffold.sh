@@ -15,12 +15,24 @@
 #
 # Usage:
 #   scaffold.sh <repo-name> <Brand> <org> [single|multi]
+#   SHAPE=domain scaffold.sh <repo-name> <Brand> [org]
 #     repo-name  e.g. wow-two-platform.foo   (the on-disk + git repo name)
-#     Brand      PascalCase  e.g. Foo        (.NET namespace/project prefix)
-#     org        wow-two | wow-two-platform | maxs-projects/ventures/{saas|consumer|labs} | …  (workbench subfolder)
-#     mode       single (default) | multi    (informational — drives later product work, not the mechanics)
+#     Brand      PascalCase  e.g. Foo        (.NET namespace/project prefix; for a domain also the NuGet id part)
+#     org        wow-two | wow-two-platform | maxs-projects/ventures/{saas|consumer|labs} | …  (workbench subfolder;
+#                a domain defaults to wow-two-sdk-beta)
+#     mode       single (default) | multi    (informational — drives later product work, not the mechanics; a domain
+#                ignores it)
 #
 # Env:
+#   SHAPE         product (default) | domain — which template: the product template, or the domain library template
+#                 (wow-two-sdk-beta.domain-template: be packages, fe package, service, image, tag-derived releases)
+#   SLUG          the code-dir prefix and fe package suffix; defaults to the repo name's last dot-segment
+#   PRODUCT       the lowercase product/service/catalog slug; defaults to the lowercased Brand
+#   CORE_VERSION  domain: the be sdk pin written to BackendSdkVersion (default: the template's)
+#   FE_VERSION    domain: the exact @wow-two-beta/fe pin and the fe package's peer floor (default: the template's);
+#                 a change refreshes pnpm-lock.yaml (network)
+#   SCRATCH=1     scaffold into a temp dir (SCRATCH_DIR, else mktemp): no ports.md row, no active.sh row, no git init —
+#                 a template check leaves nothing in the workbench to remove
 #   NET_VERSION   defaults to 10   (TargetFramework net{N}.0)
 #
 # Idempotency: refuses to clobber an existing repo dir; appends to active.sh only
@@ -32,13 +44,29 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 WS_DIR="$(cd "$SCRIPT_DIR/../../.." && pwd)"     # .claude/skills/create-repo → WS root
 WB="$WS_DIR/workbench"
-TEMPLATE="$WS_DIR/workbench/wow-two-sdk-beta/wow-two-sdk-beta.product-template"
 ACTIVE="$WS_DIR/scripts/active.sh"
+SHAPE="${SHAPE:-product}"
+SCRATCH="${SCRATCH:-0}"
+
+# Each shape names its template and the dev ports its example binds (https / http / vite), which the port pass moves.
+case "$SHAPE" in
+  product)
+    TEMPLATE="$WS_DIR/workbench/wow-two-sdk-beta/wow-two-sdk-beta.product-template"
+    TPL_HTTPS=8220; TPL_HTTP=8221; TPL_VITE=8224
+    DEFAULT_ORG="" ;;
+  domain)
+    TEMPLATE="$WS_DIR/workbench/wow-two-sdk-beta/wow-two-sdk-beta.domain-template"
+    TPL_HTTPS=8384; TPL_HTTP=8385; TPL_VITE=8386
+    DEFAULT_ORG="wow-two-sdk-beta" ;;
+  *) echo "SHAPE must be product or domain, not '$SHAPE'" >&2; exit 2 ;;
+esac
+TEMPLATE_NAME="$(basename "$TEMPLATE")"
 
 # ---- args ----
 REPO_NAME="${1:?repo-name required (e.g. wow-two-platform.foo)}"
 BRAND="${2:?Brand required (PascalCase, e.g. Foo)}"
-ORG="${3:?org required (wow-two | wow-two-platform | maxs-projects/ventures/<saas, consumer or labs> | …)}"
+ORG="${3:-$DEFAULT_ORG}"
+[ -n "$ORG" ] || { echo "org required (wow-two | wow-two-platform | maxs-projects/ventures/<saas, consumer or labs> | …)" >&2; exit 2; }
 case "${ORG%/}" in
   maxs-projects/ventures) echo "org must name a venture group: maxs-projects/ventures/{saas|consumer|labs}" >&2; exit 2 ;;
 esac
@@ -49,19 +77,28 @@ NET_VERSION="${NET_VERSION:-10}"
 # (wow-two-platform.secrets-vault → "secrets-vault"; keeps the hyphen — NOT the
 # lowercased brand "secretsvault"). Used for: the {{repo-slug}} doc placeholder
 # AND the two code-dir prefixes ({slug}.backend-services / {slug}.frontend-services).
-REPO_SLUG="$(printf '%s' "${REPO_NAME##*.}" | tr '[:upper:]' '[:lower:]' | tr ' .' '--')"
+REPO_SLUG="${SLUG:-$(printf '%s' "${REPO_NAME##*.}" | tr '[:upper:]' '[:lower:]' | tr ' .' '--')}"
 # short name = active.sh first column (e.g. "secrets-vault") — same as the slug.
 SHORT_NAME="$REPO_SLUG"
 # lowercase brand — for the template's lowercase `sample` tokens (sample.db, sample-data,
 # sample-frontend, docker image/container name, the deploy.yml product and service slug).
 # Brand is PascalCase → just lowercase it.
-BRAND_LC="$(printf '%s' "$BRAND" | tr '[:upper:]' '[:lower:]')"
+BRAND_LC="${PRODUCT:-$(printf '%s' "$BRAND" | tr '[:upper:]' '[:lower:]')}"
 # uppercase brand — for the template's `SAMPLE` token (the deploy.yml dev check's VERIFY_SERVICE_SAMPLE variable,
 # which the runner derives from the service slug).
-BRAND_UC="$(printf '%s' "$BRAND" | tr '[:lower:]' '[:upper:]')"
+BRAND_UC="$(printf '%s' "$BRAND_LC" | tr '[:lower:]-' '[:upper:]_')"
+# snake-case product — for SQL identifiers (the domain module's `sample_` table prefix), which refuse a hyphen.
+BRAND_SNAKE="$(printf '%s' "$BRAND_LC" | tr '-' '_')"
+# the GitHub owner in package metadata URLs: the org folder's last segment (folder name = org name).
+OWNER="${ORG##*/}"
 TODAY="$(date +%F)"
 
-REPO_DIR="$WB/$ORG/$REPO_NAME"
+if [ "$SCRATCH" = 1 ]; then
+  SCRATCH_ROOT="${SCRATCH_DIR:-$(mktemp -d "${TMPDIR:-/tmp}/create-repo.XXXXXX")}"
+  REPO_DIR="$SCRATCH_ROOT/$REPO_NAME"
+else
+  REPO_DIR="$WB/$ORG/$REPO_NAME"
+fi
 CODEBASE="$REPO_DIR/engineering/codebase"
 # the two code dirs carry the repo slug as a dot-prefix (collision-avoidance across
 # open IDEs). The template ships them as sample.backend-services / sample.frontend-services;
@@ -69,7 +106,7 @@ CODEBASE="$REPO_DIR/engineering/codebase"
 BE_DIR="$CODEBASE/$REPO_SLUG.backend-services"
 FE_DIR="$CODEBASE/$REPO_SLUG.frontend-services"
 
-echo "[scaffold] repo=$REPO_NAME brand=$BRAND org=$ORG mode=$MODE net=$NET_VERSION"
+echo "[scaffold] shape=$SHAPE repo=$REPO_NAME brand=$BRAND org=$ORG slug=$REPO_SLUG product=$BRAND_LC mode=$MODE net=$NET_VERSION scratch=$SCRATCH"
 echo "[scaffold] target=$REPO_DIR"
 
 # ---- guardrails ----
@@ -79,7 +116,7 @@ echo "[scaffold] target=$REPO_DIR"
 node "$SCRIPT_DIR/validate-frontend.mjs" "$TEMPLATE/engineering/codebase/sample.frontend-services"
 
 # ---- 1. create + copy template (incl. the complete `Sample` example) ----
-mkdir -p "$WB/$ORG"
+mkdir -p "$(dirname "$REPO_DIR")"
 cp -R "$TEMPLATE" "$REPO_DIR"
 # drop the template's own git history + any build artifacts that rode along in the copy.
 rm -rf "$REPO_DIR/.git"
@@ -88,7 +125,7 @@ find "$REPO_DIR" -type d \( -name bin -o -name obj -o -name node_modules -o -nam
 # ... and anything a local run left in the template: the built SPA in wwwroot (only .gitkeep stays), SQLite files
 # and this machine's own or a target's settings files.
 find "$REPO_DIR" -type d -name wwwroot -exec find {} -mindepth 1 -not -name .gitkeep -delete \; 2>/dev/null || true
-find "$REPO_DIR" -type f \( -name '*.db' -o -name '*.db-shm' -o -name '*.db-wal' \
+find "$REPO_DIR" -type f \( -name '*.db' -o -name '*.db-shm' -o -name '*.db-wal' -o -name '*.nupkg' -o -name '*.snupkg' -o -name '*.tgz' \
   -o -name 'appsettings.Local.json' -o -name 'appsettings.Target.json' -o -name 'appsettings.Machine.json' \) -delete
 
 # ---- 2. placeholder replacement across every template doc ----
@@ -110,7 +147,8 @@ done < <(find "$REPO_DIR" -type f \( -name '*.md' -o -name '*.json' -o -name '*.
 CODE_GLOBS=(-name '*.cs' -o -name '*.csproj' -o -name '*.sln' -o -name '*.slnx' -o -name '*.props' \
             -o -name '*.json' -o -name '*.ts' -o -name '*.tsx' -o -name '*.vue' -o -name '*.mjs' \
             -o -name '*.html' -o -name '*.css' -o -name '*.yml' -o -name '*.yaml' \
-            -o -name '*.http' -o -name 'Dockerfile' -o -name '.dockerignore' -o -name '.gitignore' -o -name '*.md')
+            -o -name '*.http' -o -name 'Dockerfile' -o -name '.dockerignore' -o -name '.gitignore' -o -name '*.md' \
+            -o -name '*.sh' -o -name '*.sql')
 
 # 2b-i. content: Sample → $BRAND (PascalCase: namespaces, usings, types, project names,
 #       paths, InternalsVisibleTo, ProjectReference, deploy.mjs Sample.Api, doc comments,
@@ -122,8 +160,21 @@ CODE_GLOBS=(-name '*.cs' -o -name '*.csproj' -o -name '*.sln' -o -name '*.slnx' 
 #       generic `sample`→$BRAND_LC rule means the longer, specific token wins and the bare
 #       rule never sees those substrings. (Path refs live in deploy.mjs, Dockerfile,
 #       .dockerignore, codebase.md.)
+# Domain-only rules run first, so the specific tokens win over the generic `sample`: the template's repo name in the
+# package metadata URLs, the fe package `fe-sample` → `fe-{slug}` (the hyphenated slug, which differs from the
+# lowercased Brand for names like FileStorage), and the module's `sample_` table prefix → snake case.
+DOMAIN_RULES=()
+if [ "$SHAPE" = domain ]; then
+  DOMAIN_RULES=(
+    -e "s|wow-two-sdk-beta/$TEMPLATE_NAME|$OWNER/$REPO_NAME|g"
+    -e "s|$TEMPLATE_NAME|$REPO_NAME|g"
+    -e "s|fe-sample|fe-$REPO_SLUG|g"
+    -e "s|sample_|${BRAND_SNAKE}_|g"
+  )
+fi
 while IFS= read -r -d '' f; do
   LC_ALL=C sed -i '' \
+    ${DOMAIN_RULES[@]+"${DOMAIN_RULES[@]}"} \
     -e "s|sample\.backend-services|$REPO_SLUG.backend-services|g" \
     -e "s|sample\.frontend-services|$REPO_SLUG.frontend-services|g" \
     -e "s|Sample|$BRAND|g" \
@@ -142,6 +193,13 @@ while IFS= read -r -d '' p; do
   mv "$p" "$(dirname "$p")/$newbase"
 done < <(find "$REPO_DIR" -depth -name '*Sample*' -not -path '*/.git/*' -print0)
 
+# 2b-ii-b. domain: rename the fe package dir fe-sample → fe-$REPO_SLUG (the content refs were rewritten in 2b-i).
+if [ "$SHAPE" = domain ]; then
+  while IFS= read -r -d '' p; do
+    mv "$p" "$(dirname "$p")/fe-$REPO_SLUG"
+  done < <(find "$REPO_DIR" -depth -type d -name 'fe-sample' -not -path '*/.git/*' -print0)
+fi
+
 # 2b-iii. rename the two code-DIRS' slug prefix on disk: sample.{backend,frontend}-services
 #         → $REPO_SLUG.{backend,frontend}-services (the hyphenated slug, matching the content
 #         refs rewritten in 2b-i and the $BE_DIR/$FE_DIR vars). These dirs are lowercase
@@ -157,7 +215,7 @@ done
 # backend pair (HTTPS even, HTTP odd = even+1) starting from ports.md's "Next free", and
 # a free vite port; scan existing launchSettings + vite configs to avoid collisions.
 PORTS_MD="$WS_DIR/conventions/deployment/hosting/ports.md"
-TPL_HTTPS=8220; TPL_HTTP=8221; TPL_VITE=8224
+# TPL_HTTPS / TPL_HTTP / TPL_VITE come from the shape (top of the script).
 
 # in-use ports across the whole workbench (every launchSettings + vite.config), minus the
 # template copy we are about to overwrite (it still reads 8220/8221/8224 at this point).
@@ -179,7 +237,7 @@ while :; do
   if [ "$NEW_HTTPS" != "$TPL_HTTPS" ] && is_free "$NEW_HTTPS" && is_free "$NEW_HTTP"; then break; fi
   NEW_HTTPS=$((NEW_HTTPS + 2))
 done
-# vite: first free even port after 8224 that isn't the new backend pair or the template's.
+# vite: first free even port after the template's that isn't the new backend pair or the template's.
 NEW_VITE="$TPL_VITE"
 while { [ "$NEW_VITE" = "$TPL_VITE" ] || ! is_free "$NEW_VITE"; } \
       || [ "$NEW_VITE" = "$NEW_HTTPS" ] || [ "$NEW_VITE" = "$NEW_HTTP" ]; do
@@ -201,7 +259,7 @@ done < <(find "$REPO_DIR" -type f \( -name 'launchSettings.json' -o -name 'vite.
 # append a ports.md row (into the table) + bump "Next free" to the next even after the
 # pair we took. The new row is inserted as the last table row — anchored on the blank line
 # that precedes the "Next free" line so it lands inside the table, not after it.
-if [ -f "$PORTS_MD" ]; then
+if [ -f "$PORTS_MD" ] && [ "$SCRATCH" != 1 ]; then
   NEXT_FREE=$((NEW_HTTPS + 2))
   LC_ALL=C awk -v sn="$SHORT_NAME" -v hs="$NEW_HTTPS" -v ht="$NEW_HTTP" -v vt="$NEW_VITE" -v nf="$NEXT_FREE" '
     # last table row before the trailing blank: emit our row right after it.
@@ -240,13 +298,50 @@ node_modules/
 EOF
 fi
 
+# ---- 3b. domain pins: core and the fe sdk ----
+# CORE_VERSION rewrites the BackendSdkVersion pin (each package's nuspec floor). FE_VERSION rewrites the exact
+# @wow-two-beta/fe pin of every workspace manifest and the fe package's peer floor (>=FE_VERSION <0.1.0), then
+# refreshes the lockfile, since a frozen install would refuse the changed manifests.
+if [ "$SHAPE" = domain ]; then
+  TPL_CORE="$(sed -n 's|.*<BackendSdkVersion>\(.*\)</BackendSdkVersion>.*|\1|p' "$BE_DIR/Directory.Packages.props")"
+  TPL_FE="$(node -p "require(process.argv[1]).dependencies['@wow-two-beta/fe']" "$FE_DIR/apps/web/package.json")"
+  CORE_VERSION="${CORE_VERSION:-$TPL_CORE}"
+  FE_VERSION="${FE_VERSION:-$TPL_FE}"
+  if [ "$CORE_VERSION" != "$TPL_CORE" ]; then
+    LC_ALL=C sed -i '' "s|<BackendSdkVersion>$TPL_CORE</BackendSdkVersion>|<BackendSdkVersion>$CORE_VERSION</BackendSdkVersion>|" \
+      "$BE_DIR/Directory.Packages.props"
+  fi
+  if [ "$FE_VERSION" != "$TPL_FE" ]; then
+    while IFS= read -r -d '' f; do
+      LC_ALL=C sed -i '' \
+        -e "s|\"@wow-two-beta/fe\": \"$TPL_FE\"|\"@wow-two-beta/fe\": \"$FE_VERSION\"|g" \
+        -e "s|\"@wow-two-beta/fe\": \">=$TPL_FE <0.1.0\"|\"@wow-two-beta/fe\": \">=$FE_VERSION <0.1.0\"|g" \
+        "$f"
+    done < <(find "$FE_DIR" -name package.json -not -path '*/node_modules/*' -print0)
+    (cd "$FE_DIR" && pnpm install --lockfile-only --silent)
+  fi
+fi
+
 # Verify the copied/rebranded frontend before registering the result as a usable scaffold.
 node "$SCRIPT_DIR/validate-frontend.mjs" "$FE_DIR"
 
+# A scratch scaffold stops here: no git, no active.sh row, no ports row — nothing to clean up in the workbench.
+if [ "$SCRATCH" = 1 ]; then
+  cat <<EOF
+
+[scaffold] scratch scaffold done — $SHAPE template copied + rebranded Sample → $BRAND (no git, no registration).
+  repo dir   : $REPO_DIR
+  backend    : $BE_DIR
+  frontend   : $FE_DIR
+  ports      : $NEW_HTTPS https / $NEW_HTTP http · $NEW_VITE vite   (was $TPL_HTTPS/$TPL_HTTP · $TPL_VITE; no ports.md row)
+EOF
+  exit 0
+fi
+
 # ---- 4. git init (NO commit — developer owns git) ----
 if [ ! -d "$REPO_DIR/.git" ]; then
-  git -C "$REPO_DIR" init -q
-  echo "[scaffold] git initialized (no commit made)"
+  git -C "$REPO_DIR" init -q -b main
+  echo "[scaffold] git initialized on main (no commit made)"
 fi
 
 # ---- 5. register in scripts/active.sh PROJECTS array ----
@@ -270,18 +365,45 @@ else
 fi
 
 # ---- summary for the skill driver ----
+if [ "$SHAPE" = domain ]; then
+  BE_SHAPE="$BRAND.BackendServices.slnx: packages/{Abstractions,Module,Client,Testing} (WoW2.Sdk.Beta.Be.$BRAND.*) + service/$BRAND.Api + tests/$BRAND.Tests.{Unit,Integration,E2E,Conformance,Migrations}"
+  FE_SHAPE="pnpm workspace: packages/fe-$REPO_SLUG (@wow-two-beta/fe-$REPO_SLUG) + apps/web (hosted pages + console)"
+else
+  BE_SHAPE="$BRAND.BackendServices.slnx + $BRAND.{Api,Application,Domain,Infrastructure,Persistence} + tests/$BRAND.Tests.{Unit,E2E,Migrations}"
+  FE_SHAPE="pnpm workspace; Vue app in apps/web; single-host deployment"
+fi
 cat <<EOF
 
-[scaffold] mechanical scaffold done — template copied + rebranded Sample → $BRAND.
+[scaffold] mechanical scaffold done — $SHAPE template copied + rebranded Sample → $BRAND.
   repo dir   : $REPO_DIR
   backend    : $BE_DIR
-               ($BRAND.BackendServices.slnx + $BRAND.{Api,Application,Domain,Infrastructure,Persistence} + tests/$BRAND.Tests.{Unit,E2E,Migrations})
+               ($BE_SHAPE)
   frontend   : $FE_DIR
-               (pnpm workspace; Vue app in apps/web; single-host deployment)
-  ports      : $NEW_HTTPS https / $NEW_HTTP http · $NEW_VITE vite   (was 8220/8221 · 8224; ports.md row added)
+               ($FE_SHAPE)
+  ports      : $NEW_HTTPS https / $NEW_HTTP http · $NEW_VITE vite   (was $TPL_HTTPS/$TPL_HTTP · $TPL_VITE; ports.md row added)
   short name : $SHORT_NAME      (scripts/active.sh $SHORT_NAME)
   net        : net$NET_VERSION.0
 
 Next (Claude): the working example is already in place — verify it
 (dotnet test "$BE_DIR/$BRAND.BackendServices.slnx") and fill the doc {{placeholders}}. No code-gen needed.
 EOF
+
+# Printed, not applied: the catalog entry (free text and quoting rules) and the git-flag directive, which only the
+# developer can send, as one whole message.
+if [ "$SHAPE" = domain ]; then
+  cat <<EOF
+
+Catalog entry for catalog.yml (fill purpose and status, then run scripts/gen-repo-registry.py):
+  - slug: $BRAND_LC
+    name: $BRAND
+    workspace: wow2-platform
+    kind: platform
+    deploy: none
+    status: "Planned"
+    purpose: "{{one line}}"
+    repositories: [$OWNER/$REPO_NAME]
+
+Git flags, once the remote exists (the developer sends this as one whole message):
+  ~git_on commit,push workbench/$ORG/$REPO_NAME
+EOF
+fi

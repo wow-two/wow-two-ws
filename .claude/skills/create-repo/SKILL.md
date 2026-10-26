@@ -9,7 +9,10 @@ description: >-
   (e.g. "create a new repo for X", "scaffold a new venture", "start a new product repo", "spin up a new
   backend+frontend repo", "bootstrap a conformant repo named foo", "new wow-two-platform repo"). Trigger
   even when the user does NOT name the template, the IDE, or "conformant" — phrases like "make me a new
-  repo for a QR tool" should use this skill. Covers single-service (default) and multi-service shapes.
+  repo for a QR tool" should use this skill. Covers single-service (default) and multi-service shapes, and
+  SHAPE=domain — a new domain repo / library plus service repo / per-domain SDK repo (e.g. "scaffold the identity
+  domain repo", "new wow-two-sdk-beta domain library with its service"): the domain template's NuGet family, npm
+  package, service and image with tag-derived releases.
 ---
 
 # create-repo
@@ -38,8 +41,10 @@ If validation fails, report the template gap; do not report the copied legacy st
 > `{folder}.md` doc (`engineering/engineering.md`, `architecture/architecture.md`,
 > `deployment/deployment.md`, …). Root keeps the single `README.md` + `CLAUDE.md`.
 
-> **Not for SDK / library repos.** Those are package-shaped — use the SDK docs +
-> `.claude/templates/CLAUDE-sdk.md`, not this skill.
+> **Shapes.** `product` (default) stamps the product template. `SHAPE=domain` stamps
+> `workbench/wow-two-sdk-beta/wow-two-sdk-beta.domain-template/`: one SDK domain's be packages, fe package, service
+> and image in one repo, per `conventions/development/repo/structure/domain-structure.md`. Package-only repos (the be
+> sdk, the fe sdk) stay out of this skill.
 
 ## 1 · Gather inputs
 
@@ -52,13 +57,29 @@ If validation fails, report the template gap; do not report the copied legacy st
 | **net** | .NET major (TargetFramework `net{N}.0`) | `10` |
 
 Ask only for what's missing; infer brand from the last repo-name segment when obvious
-(`wow-two-platform.foo` → `Foo`). Confirm the resolved `{repo, Brand, org, mode}` before scaffolding.
+(`wow-two-platform.foo` → `Foo`). Confirm the resolved `{repo, Brand, org, mode, shape}` before scaffolding.
+
+A domain repo (`SHAPE=domain`) takes these instead:
+
+| Input | `domain` meaning | Default |
+|---|---|---|
+| `SHAPE` (env) | `domain` | `product` |
+| repo name | `wow-two-sdk-beta.{slug}` | — |
+| Brand | PascalCase domain: namespaces `WoW.Two.Sdk.Beta.Be.{Brand}`, NuGet ids `WoW2.Sdk.Beta.Be.{Brand}.{Layer}` | last segment |
+| org | `workbench/{org}` and the GitHub owner in package URLs | `wow-two-sdk-beta` |
+| mode | ignored | — |
+| `SLUG` (env) | code-dir prefix and `fe-{slug}`; pass it for dotted names | last dot-segment |
+| `PRODUCT` (env) | product, service and catalog slug; must equal the Wheelhouse product | lowercased Brand |
+| `CORE_VERSION`, `FE_VERSION` (env) | be sdk pin (`BackendSdkVersion`) and fe sdk pin (+ the fe package's peer floor) | the template's |
+| `SCRATCH=1` (env) | scaffold into a temp dir (`SCRATCH_DIR`); no `active.sh`, no ports row, no `git init` | off |
 
 ## 2 · Run the mechanical scaffold
 
 ```bash
 scripts_dir=".claude/skills/create-repo"
 "$scripts_dir/scaffold.sh" <repo-name> <Brand> <org> [single|multi]
+SHAPE=domain "$scripts_dir/scaffold.sh" wow-two-sdk-beta.<slug> <Brand>          # a domain repo
+SHAPE=domain SCRATCH=1 "$scripts_dir/scaffold.sh" wow-two-sdk-beta.<slug> <Brand>   # a template check, nothing kept
 ```
 
 This (deterministic, no code-gen, no commit):
@@ -89,6 +110,15 @@ This (deterministic, no code-gen, no commit):
    (`name|backend-sln|frontend-dir` — backend = `{slug}.backend-services/{Brand}.BackendServices.slnx`,
    frontend = `{slug}.frontend-services` — paths relative to `workbench/`).
 
+`SHAPE=domain` changes these passes:
+
+- template `wow-two-sdk-beta.domain-template`; its example ports are `8384` / `8385` / `8386`, which the port pass moves;
+- before the generic brand pass: the template's repo name in the package URLs → `{owner}/{repo}`, `fe-sample` →
+  `fe-{slug}` (content and the package dir), the module's `sample_` table prefix → `{product}_` in snake case;
+- `CORE_VERSION` / `FE_VERSION` rewrite the pins; a changed fe pin refreshes `pnpm-lock.yaml` (`--lockfile-only`);
+- printed, not applied: the `catalog.yml` entry and the `~git_on commit,push workbench/{org}/{repo}` line the developer
+  sends once the remote exists.
+
 Free-text placeholders (`{{ONE_LINE_WHAT_THIS_IS}}`, guideline bodies, the per-project rows in
 `.claude/rules/file-references.md`) stay — fill them with the user's one-liner. **The `codebase/` code
 is already in place and rebranded** — no authoring needed; just verify it builds.
@@ -114,6 +144,21 @@ is already in place and rebranded** — no authoring needed; just verify it buil
 ```
 
 Planning follows `conventions/planning/version-track/version-track.md`: one backlog plus one folder per version.
+
+**Domain layout** (`SHAPE=domain`, per `domain-structure.md` § Layout):
+
+```
+{repo}/
+├── README.md (artifacts table) · CLAUDE.md · LICENSE · .claude/rules/file-references.md
+├── .github/                  renovate.json · workflows/{publish-docker-image,publish-packages,core-latest,conformance,codeql}.yml
+├── product/                  product.md (the capability spec) · product.json · context.md · features/ · flows/ · brand/
+└── engineering/
+    ├── architecture/   architecture.md · contract.md · package-registry.md · decisions/ · flows/
+    ├── codebase/       {slug}.backend-services/ (packages/ · service/ · tests/) · {slug}.frontend-services/ (packages/fe-{slug} · apps/web)
+    ├── deployment/     deployment.md · deploy.yml · Dockerfile · docker-compose.yml
+    ├── scripts/        next-version.sh · test-next-version.sh · verify-release-packages.sh · verify-published-packages.sh · pack-smoke.sh
+    └── development/ · planning/ · research/   as in the product shape
+```
 
 The template already ships this conformant shape. If a copy ever hands back a stale name
 (`business-logic/`, `platform-development/`, `src/`, `guidelines/`, a folder `README.md`) rename it to
@@ -155,6 +200,17 @@ What's there (rebranded from `Sample` → `{Brand}`):
 - **Ports** — already re-allocated by `scaffold.sh` (template's `8220`/`8221` https/http + `8224` vite →
   the next-free pair; see §2's port pass). Nothing to set by hand.
 
+**Domain backend** (`SHAPE=domain`): `{Brand}.BackendServices.slnx` groups `Packages/` · `Services/` · `Tests/`.
+
+- `packages/Abstractions` — the contract: `IGreetingsBroker`, model, constants, error catalogue; no DI, options or I/O.
+- `packages/Module` — Form 1: `AddSample()` (→ `Add{Brand}()`), the broker over its own store, embedded migrations.
+- `packages/Client` — Forms 2/3: `AddSampleClient(…)`, the broker over the service's HTTP API.
+- `packages/Testing` — `FakeGreetingsBroker` and `GreetingsBrokerConformance`, the suite every implementation passes.
+- `service/{Brand}.Api` — hosts Module by `ProjectReference`; adds hosting, the HTTP mirror and the hosted pages.
+- `tests/{Brand}.Tests.{Unit,Integration,E2E,Conformance,Migrations}` — Conformance runs the one suite against the
+  module, the client (against the host in process, or a running image with `CONFORMANCE_BASE_URL`) and the fake.
+- Packable by path (`Directory.Build.props`); versions only from `-p:Version` (tags), else `APP_VERSION`, else `0.0.0-dev`.
+
 > **Wheelhouse Canary is the nearest reference** (`workbench/wow-two-platform/wow-two-platform.wheelhouse-canary/`):
 > the same shape on PostgreSQL. Wheelhouse itself is the richer, older one; neither is copied.
 
@@ -167,6 +223,9 @@ What's there (rebranded from `Sample` → `{Brand}`):
 - `single` and `multi` use the same frontend workspace; add app siblings without moving `apps/web`.
 - Shared packages follow the convention's extraction rule; empty placeholder packages are unnecessary.
 - Verify `/api` proxy and ports against the deployment conventions after the mechanical port pass.
+- Domain: `packages/fe-{slug}` is `@wow-two-beta/fe-{slug}` (`./contracts`, `./kit`: an embeddable widget through the
+  contract, and a forward to the service's hosted page); `apps/web` routes the hosted pages and console with the fe
+  sdk router and takes the package by `workspace:*`. Root `dev`, `typecheck` and `test` build the package first.
 
 ## 5 · Single-host serving, Docker and delivery (already wired)
 
@@ -187,11 +246,20 @@ The example already serves the SPA from the API host, ships Docker and delivers 
   the tag exists. `.github/renovate.json` extends the private Renovate preset (a public repo switches to
   `renovate-product` and adds `codeql.yml`). Nothing to wire.
 
+A domain repo delivers through five workflows: `publish-docker-image.yml` (the image, shared `delivery.yml`),
+`publish-packages.yml` (NuGet and npm from `be-v*` / `fe-v*` tags, OIDC, disarmed until the repository variable
+`PUBLISH_PACKAGES` is `true`), `core-latest.yml` (nightly against the newest be sdk and fe sdk), `conformance.yml`
+(the suite against the released image) and `codeql.yml`. No release commit, no GitHub Release for a package tag.
+
 ## 6 · Git & registration (already done by scaffold.sh — verify)
 
 `scaffold.sh` ran `git init` (no commit) and added the `active.sh` entry (backend =
 `{Brand}.BackendServices.slnx`). **Do not commit** — the developer manages git. Confirm: `scripts/active.sh -l` lists
 the new short name.
+
+A domain repo also gets, from the printed lines: the `catalog.yml` entry (fill purpose and status), then
+`python3 scripts/gen-repo-registry.py`; and the developer's `~git_on commit,push workbench/{org}/{repo}` once the remote
+exists. A `SCRATCH=1` run registers nothing.
 
 ## 7 · Verify, then report
 
@@ -205,6 +273,18 @@ dotnet test "$be/{Brand}.BackendServices.slnx"
 
 fe="workbench/{org}/{repo-name}/engineering/codebase/{slug}.frontend-services"
 ( cd "$fe" && pnpm install --frozen-lockfile && pnpm lint && pnpm test && pnpm build )
+```
+
+A domain repo:
+
+```bash
+be="workbench/wow-two-sdk-beta/{repo}/engineering/codebase/{slug}.backend-services"
+dotnet test "$be/{Brand}.BackendServices.slnx"
+
+fe="workbench/wow-two-sdk-beta/{repo}/engineering/codebase/{slug}.frontend-services"
+( cd "$fe" && pnpm install --frozen-lockfile && pnpm lint && pnpm test && pnpm build && pnpm check:package )
+
+bash workbench/wow-two-sdk-beta/{repo}/engineering/scripts/test-next-version.sh
 ```
 
 Then fill the doc `{{placeholders}}` (`{{ONE_LINE_WHAT_THIS_IS}}`, guideline bodies, the per-project
