@@ -1,6 +1,6 @@
 # Migrations — wow2 analysis
 
-*Last updated: 2026-10-27 09:30 PM*
+*Last updated: 2026-10-27 09:50 PM*
 
 > How the wow2 ecosystem changes persistent state across releases: schema and data migrations, who owns, declares
 > and runs them, and how products, standalone platform services and Wheelhouse itself share one model. Written before
@@ -858,23 +858,25 @@ Parent before child; a child names its parent. Each point: the decision, its opt
   a set carries (`app migrate <verb>`), with `wow-migrate` the same tree over a manifest for developers and CI ·
   Wheelhouse runs SQL itself → the command tree in the image; only the release image knows its sets, schemas, owner
   instance and embedded SQL, and Wheelhouse already runs that image in a one-off container (`runner.py:2006-2045`).
-- [ ] M58 (M2) — What "applied" means to the external check: history rows only (today) · history plus a schema
+  Owner question 2026-10-27: "images can have commands?" → yes: arguments after the image name reach the app's
+  `Main`, which runs the migrator and exits instead of starting the web host (Identity's `migrate` does this).
+- [x] M58 (M2) — What "applied" means to the external check: history rows only (today) · history plus a schema
   fingerprint per set, recorded by each writing verb and compared by `check` · a probe query per migration (`-- @applied-when`)
   → history now, the fingerprint next; idempotent scripts make history a faithful record of what ran, while hand DDL
-  or a restore that kept another history shows only in the schema, and a probe per file costs every author.
-- [ ] M59 (M2) — Proving idempotency: Apply → Rollback → Apply (today, `sql/bespoke-migrations.md:35`) · plus Apply →
+  or a restore that kept another history shows only in the schema, and a probe per file costs every author. (owner 2026-10-27)
+- [x] M59 (M2) — Proving idempotency: Apply → Rollback → Apply (today, `sql/bespoke-migrations.md:35`) · plus Apply →
   Apply and Rollback → Rollback, each script run twice by the harness with the history bypassed · a convention only →
   the harness runs both; the 2026-10-27 recovery re-applied `033` after its history row was deleted, and a failed
-  `-- @no-transaction` file reruns.
-- [ ] M60 (M57, M16) — Forgetting history rows an image lacks: hand SQL (2026-10-27:
+  `-- @no-transaction` file reruns. (owner 2026-10-27)
+- [x] M60 (M57, M16) — Forgetting history rows an image lacks: hand SQL (2026-10-27:
   `DELETE FROM migration_history WHERE ordinal = 33`) · a guarded `forget --above N` that refuses unless every
   forgotten ordinal is an expand (M21) or the operator names the database · rely on M16 alone → the verb; images built
   before M16 keep shipping until they age out, a restore can pair an older image with a newer history, and hand SQL on
-  prod skips both the guard and the trail.
-- [ ] M61 (M57) — The trail of writing actions: rollback deletes its history rows and keeps nothing (today,
+  prod skips both the guard and the trail. (owner 2026-10-27)
+- [x] M61 (M57) — The trail of writing actions: rollback deletes its history rows and keeps nothing (today,
   `MigrationRunnerService.cs:457`) · an append-only event table per set (`{history}_events`: verb, ordinals, by, job,
   at) · history rows marked rolled back → the event table; history stays the state every older image reads, and
-  `check` can explain a gap it finds.
+  `check` can explain a gap it finds. (owner 2026-10-27)
 
 ### Ownership
 
@@ -936,6 +938,7 @@ Parent before child; a child names its parent. Each point: the decision, its opt
   (owner 2026-10-27) The per-product instance is the Identity service image (`wow-two-sdk-beta.identity`). The product's
   `deploy.yml` declares it as one of its services — image, pinned tag, settings — and Wheelhouse pulls and deploys it
   like any other service; the product's services reach it on the product's network, and no compose is hand-edited.
+  Build: the descriptor gains a service with a pinned image from another repository (owner 2026-10-27).
 - [x] M78 (M3) — What tells Wheelhouse a set's version: `migrate-result` after a run (spec `:58-59`) · plus the release
   manifest listing, per image, its sets, their levels and the package version that embeds each, which the generator
   reads from a database-free `migrate sets --json` on the built image · nothing → the manifest; Wheelhouse then knows a
@@ -1063,12 +1066,12 @@ Parent before child; a child names its parent. Each point: the decision, its opt
   Question: does Wheelhouse run the migrations, or a runner inside each product or platform service? → split: the
   migrator and the SQL ship in each app's image as `app migrate <verb>`; Wheelhouse runs that image once as a one-off
   container and gates on its exit code and `check` output ([Execution](#execution)); no resident migration service.
-- [ ] M13 — When the step runs: only when the declaring image changed (spec) · on every forward deploy · when the bundle
+- [x] M13 — When the step runs: only when the declaring image changed (spec) · on every forward deploy · when the bundle
   says migrations changed → every forward deploy; a current set exits in seconds, and a restore or a hand repair can
-  leave a set behind with no image change.
-- [ ] M14 — Place in the rollout: each step before its own service's wave (spec bullet) · every step after the pull and
+  leave a set behind with no image change. (owner 2026-10-27)
+- [x] M14 — Place in the rollout: each step before its own service's wave (spec bullet) · every step after the pull and
   before the first wave · expand before the waves, contract after the last → every step before the first wave; with
-  expand-only the running release keeps working, and a failure never leaves a product half restarted.
+  expand-only the running release keeps working, and a failure never leaves a product half restarted. (owner 2026-10-27)
 - [x] M15 — Rollback and older releases: skip the step (spec) · run `--check` from the older image and refuse an
   incompatible schema · run down scripts → the `--check` gate; it turns decision 65's promise into a checked fact and
   names the snapshot when the answer is no. (owner 2026-10-27)
@@ -1080,13 +1083,13 @@ Parent before child; a child names its parent. Each point: the decision, its opt
   Wheelhouse rollback onto an expand-only `033` (S5). Until M21 records kinds, a set that lints expand-only may set
   `AllowOrphanedHistory`, plus `LevelMismatch = Warn` once past 10.0.82. (owner 2026-10-27; orphaned history is
   defined in [Definitions](#definitions))
-- [ ] M17 — Lock safety: none (today) · migrator defaults: `lock_timeout` per batch, bounded retries, a bounded
+- [x] M17 — Lock safety: none (today) · migrator defaults: `lock_timeout` per batch, bounded retries, a bounded
   advisory-lock wait, exit `3` when it gives up · `SET LOCAL` by each author → migrator defaults with a per-file
   override; an `ALTER TABLE` queued behind a long transaction blocks every reader of that table, so the step must fail
-  fast and retry rather than stall the app.
-- [ ] M18 — Prod rehearsal: trust the dev run and the snapshot · a dry run against prod before promoting · rehearse on a
+  fast and retry rather than stall the app. (owner 2026-10-27)
+- [x] M18 — Prod rehearsal: trust the dev run and the snapshot · a dry run against prod before promoting · rehearse on a
   redacted prod copy in dev → trust dev and the snapshot in v1, then rehearse on the dev refresh once `backlog.md:123`
-  ships; a prod dry run takes the same locks as the real run (`bespoke.md:64`).
+  ships; a prod dry run takes the same locks as the real run (`bespoke.md:64`). (owner 2026-10-27)
 - [x] M19 (M12, M16) — Wheelhouse itself: boot apply forever through `ApplyWhenDeployed` · the step in its self-deploy
   and in `self-deploy.py` · boot apply only while it bumps past 10.0.82, then the step → the third, with
   `AllowOrphanedHistory` on its set from the next release (M16); Wheelhouse is the first platform app on the step,
@@ -1098,19 +1101,19 @@ Parent before child; a child names its parent. Each point: the decision, its opt
   (owner 2026-10-27) The bridge is Wheelhouse's exception alone: no other app rolls itself out, and products take
   the step only after Wheelhouse ships it (M48). After the bridge, prod's runner job runs the new Wheelhouse image's
   `migrate` before swapping either console, and `self-deploy.py` does the same when the console is down.
-- [ ] M47 (M16) — Apply paths beside the step (Hijinx's Development-only EF runner, Haven's `Schema:ApplyOnStartup`,
+- [x] M47 (M16) — Apply paths beside the step (Hijinx's Development-only EF runner, Haven's `Schema:ApplyOnStartup`,
   Files' `ApplyWhenDeployed`, Desk's `--migrate`, TNIS's CLI, products deployed by compose): each product keeps its own
   · one `migrate` command per image, run by Wheelhouse as the step and by compose as a one-shot service the app waits
   on (`depends_on: service_completed_successfully`), with every boot flag removed → one command; Hijinx shows a
   Development-only path leaves production with none, and a compose host past 10.0.82 verifies like any deployed boot
   (`IsLocalRun` is Development without `DEPLOY_ENVIRONMENT`), as does TNIS's CLI, which calls the boot helper
-  (`MigrateCommand.cs:34`).
-- [ ] M48 (M12) — The SDK spread (35 of 37 solutions below 10.0.82): bump everyone now · per product, in one release:
+  (`MigrateCommand.cs:34`). (owner 2026-10-27)
+- [x] M48 (M12) — The SDK spread (35 of 37 solutions below 10.0.82): bump everyone now · per product, in one release:
   its `migrate` command, its step, then the bump · stay below the gate until forced → per product, the step first,
   in this order: Wheelhouse (M19), the canary (rig), Identity and Files (dropping `ApplyWhenDeployed`), Harvest,
   ForeverPin and Ocharo, then each venture at its next release, the 5 on the pre-rename package taking the rename in
-  that release; a bump alone turns a boot that applied into one that refuses.
-- [ ] M49 (M14) — SQLite sets in the step, narrowed by the SQLite ban (`database/database.md:15-18`, developer
+  that release; a bump alone turns a boot that applied into one that refuses. (owner 2026-10-27)
+- [x] M49 (M14) — SQLite sets in the step, narrowed by the SQLite ban (`database/database.md:15-18`, developer
   2026-10-27): the about 28 single-instance services on SQLite move to PostgreSQL, and the question shrinks to the ones
   deployed before they move and to a service whose data may be lost, which only its owner chooses and none is today.
   For those: migrate beside the running writer (spec) · stop the writer for the step · copy, migrate and swap the file
@@ -1118,16 +1121,16 @@ Parent before child; a child names its parent. Each point: the decision, its opt
   (`bespoke.md:76`), so the old release's writes wait out `busy_timeout` and an expand keeps its rows readable. The
   dialect demands one applicant per file (`bespoke.md:10`), so the old release must verify at boot rather than apply
   (M48). The move itself: at the release that takes the step (M48), rows copied by an import job (M52), with Desk's
-  `LegacyCommerceReader` as the precedent; a product whose data is throwaway starts empty (`breaking-changes.md:14`).
-- [ ] M50 (M17) — Advisory lock keys: one bigint space shared by the migrator (FNV-1a of the set name), Desk's own key
+  `LegacyCommerceReader` as the precedent; a product whose data is throwaway starts empty (`breaking-changes.md:14`). (owner 2026-10-27)
+- [x] M50 (M17) — Advisory lock keys: one bigint space shared by the migrator (FNV-1a of the set name), Desk's own key
   and the SDK's app-level `pg_advisory_xact_lock` (`Data/EntityFrameworkCore/Locks/Extensions/TransactionLockExtensions.cs:51`)
   · the migrator moves to the two-key form under a reserved class → the reserved class; PostgreSQL keeps the two key
-  spaces apart, so no app lock can hold the step until its timeout, at the cost of one SDK change.
-- [ ] M62 (M17) — Seeing and clearing a held lock (the set's lock is session-level `pg_advisory_lock`,
+  spaces apart, so no app lock can hold the step until its timeout, at the cost of one SDK change. (owner 2026-10-27)
+- [x] M62 (M17) — Seeing and clearing a held lock (the set's lock is session-level `pg_advisory_lock`,
   `PostgresMigrationDialect.cs:41-43`): nothing beyond M17's timeout · a read-only `locks` verb (holder pid,
   application name, since, query) and a guarded `unlock` that ends the holding session · psql on the host → `locks`
   and `unlock`; a crashed step's lock ends with its session, so the stuck case is a live hung holder, rare, and
-  otherwise needs shell access to prod.
+  otherwise needs shell access to prod. (owner 2026-10-27)
 
 ### Data migrations
 
@@ -1348,7 +1351,7 @@ Open — no rule yet, or the repositories disagree:
 ## Answer batches
 
 Answered in order: each batch holds the parents of later batches' points, and lists its own points parent first.
-Front of the queue: batches 5 and 6; M5 and M6 were answered on 2026-10-27, and their
+Front of the queue: M57, then batches 7 and 8; M5 and M6 were answered on 2026-10-27, and their
 children M79 and M80 join batch 3.
 
 After the final spec: the conventions, then the migrator (be sdk verbs and the Wheelhouse step), then one sweep that
@@ -1360,8 +1363,8 @@ updates every product and platform service, Identity's follow-ups included (owne
 | 2 | one mechanism, expand only, and an older image on newer history (the confirmed rollback failure) | answered M12, M20, M21, M22, M15, M16, M19 |
 | 3 | ownership details: mappers, credentials, the cross-owner contract, references into a shared instance, package DDL, prerequisites, outside state, tenancy (M40 settled by the SQLite ban) | answered M7, M8, M79, M80, M39, M41, M42, M55 |
 | 4 | declaration and the image contract | answered M9, M10, M11, M43, M44, M45, M46, M56 |
-| 5 | the actions: one command tree, the external check, idempotency proof, forgetting history, the trail | M57, M58, M59, M60, M61 |
-| 6 | running the step: when, where, locks, rehearsal, SQLite, apply paths, the SDK spread | M13, M14, M17, M62, M18, M49, M50, M47, M48 |
+| 5 | the actions: one command tree, the external check, idempotency proof, forgetting history, the trail | M57; answered M58, M59, M60, M61 |
+| 6 | running the step: when, where, locks, rehearsal, SQLite, apply paths, the SDK spread | answered M13, M14, M17, M62, M18, M49, M50, M47, M48 |
 | 7 | data, seeds and client state | M23, M24, M25, M63, M26, M51, M54 |
 | 8 | several services and platform services | M27, M28, M29, M30, M31, M32 |
 | 9 | moves, operator actions, tests and what Wheelhouse shows | M33, M52, M34, M35, M53, M36, M37, M38 |
