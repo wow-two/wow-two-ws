@@ -298,7 +298,7 @@ if [ -f "$PORTS_MD" ] && [ "$SCRATCH" != 1 ]; then
       done=1
     }
     /^\*\*Next free backend even port:/ {
-      print "**Next free backend even port: " nf ".** Append a row whenever you allocate."
+      print "**Next free backend even port: " nf ".** Append a row whenever you allocate, and move this number past every port the row takes, its Vite port included."
       prev=$0; next
     }
     { print; prev=$0 }
