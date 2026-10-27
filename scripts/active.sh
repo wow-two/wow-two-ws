@@ -83,6 +83,7 @@ PROJECTS=(
   "identity|wow-two-sdk-beta/wow-two-sdk-beta.identity/engineering/codebase/identity.backend-services/Identity.BackendServices.slnx|wow-two-sdk-beta/wow-two-sdk-beta.identity/engineering/codebase/identity.frontend-services"
   "files|wow-two-sdk-beta/wow-two-sdk-beta.files/engineering/codebase/files.backend-services/Files.BackendServices.slnx|wow-two-sdk-beta/wow-two-sdk-beta.files/engineering/codebase/files.frontend-services"
   "harvest|wow-two-sdk-beta/wow-two-sdk-beta.harvest/engineering/codebase/harvest.backend-services/Harvest.BackendServices.slnx|wow-two-sdk-beta/wow-two-sdk-beta.harvest/engineering/codebase/harvest.frontend-services"
+  "harvest-adapters|wow-two-sdk-beta/wow-two-sdk-beta.harvest-adapters/engineering/codebase/harvest-adapters.backend-services/HarvestAdapters.BackendServices.slnx|wow-two-sdk-beta/wow-two-sdk-beta.harvest-adapters/engineering/codebase/harvest-adapters.frontend-services"
 )
 
 MODE="both"     # both | backend | frontend
