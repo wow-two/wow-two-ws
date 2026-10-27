@@ -1,6 +1,6 @@
 # Migrations — wow2 analysis
 
-*Last updated: 2026-10-27 04:03 PM*
+*Last updated: 2026-10-27 08:25 PM*
 
 > How the wow2 ecosystem changes persistent state across releases: schema and data migrations, who owns, declares
 > and runs them, and how products, standalone platform services and Wheelhouse itself share one model. Written before
@@ -288,6 +288,8 @@ Gaps:
 - contract: a change the previous release may not survive — a drop, a rename, a narrowed type, `SET NOT NULL`, rows
   deleted or rewritten that old code reads.
 - level: a set's highest applied ordinal. Rollback floor: the oldest release that can run on the current level.
+- orphaned history: history rows for migrations the running image lacks, as an older image sees after a rollback
+  (M16).
 - product, product service, platform service, instance and owner mean what [concepts](../../docs/concepts.md) says;
   an instance is one deployment of a platform service. A per-product instance serves one product and lives in that
   product's database and step; a shared instance serves several, on its own server and database, as a Wheelhouse
@@ -900,7 +902,8 @@ Parent before child; a child names its parent. Each point: the decision, its opt
   expand and contract only (M20, M21); `ON DELETE` follows the referenced owner's contract, and Identity soft-deletes
   users, so a `RESTRICT` never blocks. Follow-ups in the Identity repository: `identity_users` gains `deleted_at`
   (M75's shape) and erasure scrubs the row in place; `001-accounts`' "never by a foreign key into this schema"
-  (`Apply.sql:9-10`) and T10's "no cross-schema foreign keys" (`t10-schema-migrations.md:170`, `:336`) reverse.
+  (`Apply.sql:9-10`) and T10's "no cross-schema foreign keys" (`t10-schema-migrations.md:170`, `:336`) reverse. Both land in the product sweep that follows the final spec, the
+  conventions and the migrator (owner 2026-10-27).
 - [x] M6 — Database topology: ~~one per product environment, and an instance gets its own~~ (the first pick,
   rejected 2026-10-27) · one database per product environment holding every set that serves only that product, a
   per-product instance's included, while an instance shared by several products gets its own database on its own
@@ -1024,36 +1027,42 @@ Parent before child; a child names its parent. Each point: the decision, its opt
 
 ### Expand and contract
 
-- [ ] M20 — Who must expand only: Wheelhouse (decision 65) · every platform app, while products may contract in the same
+- [x] M20 — Who must expand only: Wheelhouse (decision 65) · every platform app, while products may contract in the same
   release when they have no external users, marking it not rollback-compatible · every set everywhere → the middle;
   platform apps promise rollback, and `breaking-changes.md:14` spares products shims for users who do not exist.
-- [ ] M21 (M20) — Recording a contract: a lint-only `-- contract:` comment (Wheelhouse) · the migrator parses
+  (owner 2026-10-27) Addition: platform apps and products both carry apply and rollback, since either can fail a
+  deployment; M2 already requires `Rollback.sql` in every set, and M20 decides only whether a release may contract.
+- [x] M21 (M20) — Recording a contract: a lint-only `-- contract:` comment (Wheelhouse) · the migrator parses
   `-- @contract since=vX.Y` and records kind and `since` in history · nothing → record it; an older image's boot and
-  Wheelhouse's rollback check then read compatibility from the database alone.
-- [ ] M22 (M20) — The lint: Wheelhouse's `ExpandOnlyTests` · a `Testing.Data` helper with expand-only and lock-risk
-  rules · an external linter (Squawk, Atlas) → the SDK helper (`backlog.md:237`); one rule set, no new toolchain.
+  Wheelhouse's rollback check then read compatibility from the database alone. (owner 2026-10-27)
+- [x] M22 (M20) — The lint: Wheelhouse's `ExpandOnlyTests` · a `Testing.Data` helper with expand-only and lock-risk
+  rules · an external linter (Squawk, Atlas) → the SDK helper (`backlog.md:237`); one rule set, no new toolchain. (owner 2026-10-27)
 
 ### Execution
 
-- [ ] M12 — Platform apps and products: one mechanism, stricter policy for platform apps · two models · platform apps
+- [x] M12 — Platform apps and products: one mechanism, stricter policy for platform apps · two models · platform apps
   keep boot apply → one mechanism; Wheelhouse, Identity and Files deploy through the same runner, and their differences
-  (always rollback-compatible, lint in CI, owner-only promotion) are policy.
+  (always rollback-compatible, lint in CI, owner-only promotion) are policy. (owner 2026-10-27)
+  Question: does Wheelhouse run the migrations, or a runner inside each product or platform service? → split: the
+  migrator and the SQL ship in each app's image as `app migrate <verb>`; Wheelhouse runs that image once as a one-off
+  container and gates on its exit code and `check` output ([Execution](#execution)); no resident migration service.
 - [ ] M13 — When the step runs: only when the declaring image changed (spec) · on every forward deploy · when the bundle
   says migrations changed → every forward deploy; a current set exits in seconds, and a restore or a hand repair can
   leave a set behind with no image change.
 - [ ] M14 — Place in the rollout: each step before its own service's wave (spec bullet) · every step after the pull and
   before the first wave · expand before the waves, contract after the last → every step before the first wave; with
   expand-only the running release keeps working, and a failure never leaves a product half restarted.
-- [ ] M15 — Rollback and older releases: skip the step (spec) · run `--check` from the older image and refuse an
+- [x] M15 — Rollback and older releases: skip the step (spec) · run `--check` from the older image and refuse an
   incompatible schema · run down scripts → the `--check` gate; it turns decision 65's promise into a checked fact and
-  names the snapshot when the answer is no.
-- [ ] M16 — An older image on newer history, in a deployed boot's level check and on the apply path interim boots still
+  names the snapshot when the answer is no. (owner 2026-10-27)
+- [x] M16 — An older image on newer history, in a deployed boot's level check and on the apply path interim boots still
   run (pins below 10.0.82, `ApplyWhenDeployed`): refuse anything but current (SDK today) · tolerate every `Ahead`
   (spec; `AllowOrphanedHistory` and `LevelMismatch = Warn` do it today, the second also letting `Behind` and `Drifted`
   boot) · tolerate `Ahead` only when compatible (M21), on both paths → only when compatible, on both paths; an older
   image boots after a rollback, but never on a schema a contract narrowed under it. Refusing already broke a real
   Wheelhouse rollback onto an expand-only `033` (S5). Until M21 records kinds, a set that lints expand-only may set
-  `AllowOrphanedHistory`, plus `LevelMismatch = Warn` once past 10.0.82.
+  `AllowOrphanedHistory`, plus `LevelMismatch = Warn` once past 10.0.82. (owner 2026-10-27; orphaned history is
+  defined in [Definitions](#definitions))
 - [ ] M17 — Lock safety: none (today) · migrator defaults: `lock_timeout` per batch, bounded retries, a bounded
   advisory-lock wait, exit `3` when it gives up · `SET LOCAL` by each author → migrator defaults with a per-file
   override; an `ALTER TABLE` queued behind a long transaction blocks every reader of that table, so the step must fail
@@ -1066,6 +1075,9 @@ Parent before child; a child names its parent. Each point: the decision, its opt
   `AllowOrphanedHistory` on its set from the next release (M16); Wheelhouse is the first platform app on the step,
   break-glass must not rest on boot behaviour the SDK removed, and without the flag its rollback fails (S5). A rollback
   to a release built before the flag still needs the history-row workaround.
+  Owner question 2026-10-27: why not drop boot apply now, when no project is mid-migration? → boot is Wheelhouse's
+  only applier until the step ships (it applied `033` and `034` that day), and each Wheelhouse release is rolled out
+  by the previous release's runner, so the release that adds the step still applies at boot and the next one stops.
 - [ ] M47 (M16) — Apply paths beside the step (Hijinx's Development-only EF runner, Haven's `Schema:ApplyOnStartup`,
   Files' `ApplyWhenDeployed`, Desk's `--migrate`, TNIS's CLI, products deployed by compose): each product keeps its own
   · one `migrate` command per image, run by Wheelhouse as the step and by compose as a one-shot service the app waits
@@ -1316,13 +1328,16 @@ Open — no rule yet, or the repositories disagree:
 ## Answer batches
 
 Answered in order: each batch holds the parents of later batches' points, and lists its own points parent first.
-Front of the queue: batch 1's M3 with its children M76–M78; M5 and M6 were answered on 2026-10-27, and their
+Front of the queue: batch 2's M19, then batch 1's M3 with its children M76–M78; M5 and M6 were answered on 2026-10-27, and their
 children M79 and M80 join batch 3.
+
+After the final spec: the conventions, then the migrator (be sdk verbs and the Wheelhouse step), then one sweep that
+updates every product and platform service, Identity's follow-ups included (owner 2026-10-27).
 
 | # | Theme | Points |
 |---|---|---|
 | 1 | what a migration is and who owns it (M1, M2, M4, M5, M6 answered 2026-10-27); open: M3 and the consumption modes | M3, M76, M77, M78; answered M1, M2, M4, M5, M6 |
-| 2 | one mechanism, expand only, and an older image on newer history (the confirmed rollback failure) | M12, M20, M21, M22, M15, M16, M19 |
+| 2 | one mechanism, expand only, and an older image on newer history (the confirmed rollback failure) | M19; answered M12, M20, M21, M22, M15, M16 |
 | 3 | ownership details: mappers, credentials, the cross-owner contract, references into a shared instance, package DDL, prerequisites, outside state, tenancy (M40 settled by the SQLite ban) | M7, M8, M79, M80, M39, M41, M42, M55 |
 | 4 | declaration and the image contract | M9, M10, M11, M43, M44, M45, M46, M56 |
 | 5 | the actions: one command tree, the external check, idempotency proof, forgetting history, the trail | M57, M58, M59, M60, M61 |
