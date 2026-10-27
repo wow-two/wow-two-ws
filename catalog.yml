@@ -284,10 +284,10 @@ entries:
     workspace: wow2-platform
     kind: platform
     deploy: none
-    status: "Planned: grows from ListingShelf (ideas/harvest-service-spec.md); repository not decided"
+    status: "In progress: v0.1 Harvest engine, iteration 1 shipped (ideas/harvest-service-spec.md)"
     purpose: "24/7 harvester: scheduled pipelines capture sources and extract records into a consumer's schema"
-    repositories: []
-    local: workbench/wow-two-platform/wow-two-platform.harvest
+    repositories: [wow-two-sdk-beta/wow-two-sdk-beta.harvest]
+    local: workbench/wow-two-sdk-beta/wow-two-sdk-beta.harvest
   - slug: wow-two-platform-github
     name: wow-two-platform/.github
     workspace: wow2-backbone

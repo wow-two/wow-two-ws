@@ -7,7 +7,7 @@
 
 # Repo Registry
 
-*Last updated: 2026-10-26*
+*Last updated: 2026-10-27*
 
 All repos use the naming convention: `{org}.{domain}[.{subdomain}]`, lowercase, dot-separated. Repo prefix matches org name exactly.
 
@@ -58,7 +58,6 @@ Org: [github.com/wow-two-platform](https://github.com/wow-two-platform) — pipe
 | `wow-two-platform.secrets-vault` | Secrets vault — envelope-encrypted store + management UI | Inactive: merging into Wheelhouse as its built-in vault (Wheelhouse decision 59) |
 | `wow-two-platform.wheelhouse-canary` | Sample Vue + .NET + PostgreSQL app Wheelhouse deploys to dev and prod to prove every deployment flow | v0.1 built; awaiting first deploy |
 | `wow-two-platform.events` | Shared event catalog fed by Harvest and curated in review, with private tracking per organization | Planned: design ready (ideas/events-service-spec.md); repository not created |
-| `wow-two-platform.harvest` | 24/7 harvester: scheduled pipelines capture sources and extract records into a consumer's schema | Planned: grows from ListingShelf (ideas/harvest-service-spec.md); repository not decided |
 | `.github` | Org-wide GitHub config | Active |
 
 ## wow-two-sdk (public libs & tools)
@@ -82,6 +81,7 @@ Org: [github.com/wow-two-sdk-beta](https://github.com/wow-two-sdk-beta) — beta
 | Repo | Purpose | Status |
 |------|---------|--------|
 | `wow-two-sdk-beta.files` | Files for every product: store, upload, transform, compress, share and serve them under one contract. | Planned: scaffolded from the domain template 2026-10-26; private until the first release; the empty `wow-two-platform/wow-two-platform.storage.file` goes to the archive |
+| `wow-two-sdk-beta.harvest` | 24/7 harvester: scheduled pipelines capture sources and extract records into a consumer's schema | In progress: v0.1 Harvest engine, iteration 1 shipped (ideas/harvest-service-spec.md) |
 | `wow-two-sdk-beta.be` | be sdk — `WoW2.Sdk.Beta.Be[.X]` (nuget.org), namespace `WoW.Two.Sdk.Beta.Be[.X]`; mono-lib: hosting, observability, web, mediator, identity, data. Code: `engineering/codebase/wow-two-sdk-beta-be/` | Active (beta) |
 | `wow-two-sdk-beta.fe` | fe sdk — `@wow-two-beta/fe` (npm), Vue 3 components, application adapters, browser capabilities. Code: `engineering/codebase/wow-two-sdk-beta-fe/`; the parked React `@wow-two-beta/ui` sits in `engineering/codebase/wow-two-front-beta-sdk/` | Active (beta) |
 | `wow-two-sdk-beta.product-template` | Copyable product-repo template — the canonical conformant structure `create-repo` stamps out (a template, not a package) | Active |
