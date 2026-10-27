@@ -1,4 +1,4 @@
-*Last updated: 2026-10-26*
+*Last updated: 2026-10-27*
 
 # Tasks
 
@@ -73,6 +73,8 @@ The [five-product analysis](../../ideas/self-serve-research-2026-10/self-serve-r
 | `app-t-004` | Buy a second VPS for Ocharo (Contabo or OVH) | `-` | `high` | `todo` | `-` | Added `2026-10-17` by the user: Ocharo is the first product to deploy and gets its own host. The purchase is the user's; Wheelhouse registers it as a server. Deploying waits for `app-t-005` |
 | `app-t-005` | Build Wheelhouse's essential modules before the first Ocharo deploy | `-` | `high` | `todo` | `wow-two-platform.wheelhouse` | Added `2026-10-17` by the user: logs and the other important modules land before Ocharo goes live. Module list and breakdown in the Wheelhouse backlog |
 | `app-t-006` | Build Almanac, the calendar view app, to its v1 ship gate | `2026-11-15` | `-` | `todo` | `wow-two-apps.almanac` | Added `2026-10-23` by the user: a readable read-only calendar for the built-in browser pane, run in Docker locally, deployed through Wheelhouse later. Google Calendar stays in use until then. Adds the calendar vector to the fe sdk. [Spec](../../ideas/calendar-spec.md) |
+| `app-t-007` | Brainstorm the capabilities wow2 needs as its own operating system | `-` | `high` | `todo` | `-` | Added `2026-10-27` by the user: a full brainstorm and improvement pass over the wow2 platform — the whole infra the ecosystem runs on — before bringing up its other components. Inputs: [platform apps](../../docs/platform-apps.md), [platform roadmap](../../docs/platform-roadmap.md), [server governance](../../docs/server-governance.md) |
+| `app-t-008` | Rename the brand-named platform apps to functional names | `-` | normal | `todo` | `-` | Added `2026-10-27` by the user: Wheelhouse → `deployments`, Secrets Vault → `secrets`, Docs site → `wiki`, FlowDeck → `flows`, AI Gateway → `ai`, Harvest → `captures`; Wheelhouse not before its burn-in ends `2026-10-31`. Rule and identifiers in [platform apps § Naming](../../docs/platform-apps.md#naming) |
 
 ---
 

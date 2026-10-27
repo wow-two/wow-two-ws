@@ -1,6 +1,6 @@
 # WoW 2.0 — Platform Apps, In Order
 
-*Last updated: 2026-10-27 11:28 AM*
+*Last updated: 2026-10-27 02:01 PM*
 
 > The order the wow-two platform apps get built and shipped — one list to focus on, top down. Scope: the internal
 > apps every product stands on (ops, observability, backbone services). Products and ventures live in the
@@ -82,9 +82,9 @@
 
 ### Renames
 
-Proposed, not settled: each row holds until the developer confirms it under *Decisions*.
+Confirmed by the developer 2026-10-27; the renames run later, under `app-t-008` in [tasks](../system/planning/pln-tasks.md).
 
-| # | App | Proposed | Note |
+| # | App | New name | Note |
 |---|---|---|---|
 | 1 | Wheelhouse | `deployments` | the developer's example; holds only if products, servers, domains and the built-in vault count as deploy targets |
 | 4 | Secrets Vault | `secrets` | — |
@@ -93,9 +93,9 @@ Proposed, not settled: each row holds until the developer confirms it under *Dec
 | 15 | AI Gateway | `ai` | mass noun; `models` would clash with every app's `Models` folders |
 | 17 | Harvest | `captures` | the snapshots its pipelines take; `pipelines` is #8 |
 | 9 | `wow` CLI | — | open: a command, not a hosted app; whether the rule covers it is undecided |
-| — | — | `repositories` | named by the developer 2026-10-27; scope undefined, no row in *Order* |
+| — | — | `repositories` | new app: wow2's own repos — organizations, the apps in them, boards, issues and PRs; no row in *Order* yet |
 
-- must rename an app only after the developer confirms its row under *Decisions*.
+- must rename an app only under `app-t-008`, never in passing.
 - must not rename Wheelhouse before its self-deploy burn-in ends 2026-10-31; the rename touches:
   - the GitHub repo `wow-two-platform.wheelhouse` and the `Wheelhouse.*` namespaces
   - the `/srv/wheelhouse` host paths and the `wheelhouse-deploy` host user
@@ -161,3 +161,5 @@ Proposed, not settled: each row holds until the developer confirms it under *Dec
   test migration runs through a Wheelhouse migration module.
 - 2026-10-27 — developer chose functional names for platform apps — `deployments`, `repositories`, `wiki` — over a
   brand per app; products and ventures keep brands. Renames of brand-named apps stay proposed → [Naming](#naming).
+- 2026-10-27 — developer confirmed the renames, to run later (`app-t-008`); `repositories` manages wow2's own repos:
+  organizations, the apps in them, boards, issues and PRs.
