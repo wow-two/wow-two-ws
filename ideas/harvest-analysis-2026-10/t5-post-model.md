@@ -874,7 +874,7 @@ Open questions; each ends in a provisional pick.
 - [x] T5-9 retention defaults → confirmed 2026-10-27: `standard` raw bodies 365 days, originals of media 90 days after `gone`, metrics 400 days; `meta` shaped like `youtube` until counsel reads (S4, P3)
 - [x] T5-10 purge result → confirmed 2026-10-27: a scrubbed stub (hashes, no body) for expiry; full row delete for data-subject requests; legal read before relying on it (U)
 - [x] T5-11 check defaults and budgets → confirmed 2026-10-27: the bands in § 5.5, `confirmChecks` 2 for embed and MTProto probes, `suspect` after one absent complete enumeration, 30% drop guard (W15); per-host request budgets in config (T7)
-- [x] T5-12 Uzbek personal-data law (S12): registration, localization, contact storage → confirmed 2026-10-27: not read in this track; `containers.residency` and subject keys exist; no raw contact storage goes live before the read (counsel with P3)
+- [x] T5-12 Uzbek personal-data law (S12): registration, localization, contact storage → answered 2026-10-27: contact numbers are stored as plain text (developer); `containers.residency` and subject keys stay
 - [x] T5-13 intake consent and withdrawal → confirmed 2026-10-27: `intake_consents` as in § 7.3; withdrawal purges within 7 days (T1-P9)
 - [x] T5-14 contributing private content to the pool → confirmed 2026-10-27: not in v1; an operator act when it comes
 - [x] T5-15 alias post versus pin → confirmed 2026-10-27: alias post with a stable private id (§ 6.3) (T7, T8)

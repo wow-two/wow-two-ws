@@ -164,10 +164,9 @@ Fixed order **D → R → E → S → L**; every capture yields the base envelop
 | G4 data class | provider allow-list for public pool vs a private container | per class |
 | G5 budget | monthly USD cap per pipeline and provider; soft 80%, hard stop | §5 (T6) |
 
-- **contact numbers:** Harvest stores **keyed hashes only** — `HMAC-SHA256(pepper, kind‖value)`, phone to the last nine
-  digits (T5 § 3.5). **No raw contact value is stored until Uzbekistan's personal-data law is read** (T5-12); raw values
-  are masked before any model sees text unless a schema sets `needsContacts` (T6-15). A plain hash of nine digits is
-  brute-forceable, so the key is an HMAC with a vault-held pepper (T5 § 3.5).
+- **contact numbers:** stored as plain text, normalized (phone to E.164), and matched directly for dedup (developer
+  2026-10-27; replaces T5-12's hash-only rule and P19). Values are masked before any model sees text unless a schema
+  sets `needsContacts` (T6-15).
 - extraction caches on `(inputHash, schemaId, schemaVersion, promptVersion)`; a changed capture re-extracts, an
   unchanged one reuses items (T6 § 3.3).
 
@@ -347,8 +346,4 @@ Fixed order **D → R → E → S → L**; every capture yields the base envelop
 - [x] H3 — consumer authentication until Identity lands → **per-tenant API keys** (`hv_` prefix, only the SHA-256 kept)
   plus an operator key holding every scope, over core `Identity/ApiKeys`; OIDC client credentials later (contract
   § *Access*, T7 § 9.1, confirmed 2026-10-27).
-
-### Open
-
-- [ ] secrets custody → **Secrets Vault** (T1, T5, T7) **vs** host files for static keys plus sealed database columns for
-  mutable sessions and tokens (T8 § 5.2). Unresolved.
+- [x] secrets custody → **Secrets Vault** (developer 2026-10-27; T1, T5, T7 over T8 § 5.2).

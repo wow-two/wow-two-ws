@@ -169,7 +169,8 @@ The tracks' own Points (T1-P1…14, S1–S12, W1–W18, T4-1…13) hold the chil
   text, a UTF-8 database locale and a boot self-test → confirmed 2026-10-27: yes (T6, T5)
 - [x] P18 retention travels downstream: deliveries carry `retention_class` and `delete_by`, and `post.purged`
   reaches consumers; derived items, tags and embeddings die with their capture → confirmed 2026-10-27: yes (T5, T6, T2)
-- [x] P19 contact keys: an HMAC with a vault-held pepper, not a plain hash of nine digits → confirmed 2026-10-27: yes
+- [x] P19 contact keys: an HMAC with a vault-held pepper, not a plain hash of nine digits → superseded 2026-10-27:
+  contact numbers are stored as plain text (developer)
   (T5)
 
 The tracks' own Points (T5-1…22, T6-1…17, T7-P1…P20) hold the children.
