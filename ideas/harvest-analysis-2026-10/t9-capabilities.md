@@ -1,6 +1,6 @@
 # T9 — Steps and capabilities
 
-*Last updated: 2026-10-26*
+*Last updated: 2026-10-27*
 
 > How a pipeline reaches a source that resists it. A pipeline is a declared sequence of steps; each step is a broker
 > call that states the capabilities it needs — egress, session, render, profile, challenge handling, pacing, an
@@ -563,6 +563,64 @@ All prices are per 1,000 solves. 2Captcha's page lists no hCaptcha price.
 
 ---
 
+## 8 · Developer, 2026-10-27
+
+> "ip servers shouldn't be part of social or events … it's more like infra component for connections … maybe a
+> separate lib inside our main be sdk?" · T9-19: "create a private repo for our adapters that will push their own
+> libraries … one broker per source" · "harvester stays as about pipelines, stats, container of harvested posts" ·
+> T9-17: is robots.txt our configuration, and should it be another format?
+
+### 8.1 Where egress belongs
+
+| Test | Egress (proxies, IP servers) | Source |
+|---|---|---|
+| domain repo: capability-forms scope plus a broker contract to version | no hosted surface, nothing for a person to operate; a consumer owns the vendor credentials and lease rows, which is Form 1 | `conventions/development/capability-forms.md:12-14,22`; `domain-structure.md:16-21` |
+| companion package: stateless, heavy dependencies, no contract | no heavy dependency: `SocketsHttpHandler` takes a proxy natively; vendor adapters are URL and credential formats | `domain-structure.md:20-21` |
+| core module: seam, default, adapters | fits: an `IEgressPool` seam, a static-list default, vendor adapters (Bright Data, Oxylabs, GeoNode, our own IP server), lease and health stores behind a seam with in-memory and EF adapters | the SDK module model |
+| neighbours in core | `Http/Safety` already owns outbound address checks; T9-18's egress option and per-lease handler sit on it | `be/Http/Safety/` |
+
+- Pick: a core module `Http/Egress` in the be sdk mono-lib (`WoW.Two.Sdk.Beta.Be.Http.Egress`), not a companion and
+  not a domain. It holds the seam, vendor adapters, leases, health per `(exit, host)`, byte meters and the
+  pre-resolving proxy handler. A vendor SDK that brings weight later becomes a companion.
+- Consumers: Harvest's resolver leases egress per step; Social's account pools pin each Telegram account to one exit;
+  any product may call it directly.
+- The IP server itself (a VPS running a proxy, its ACL denying private ranges) is operations, deployed like any
+  other host; the library holds its address, credentials and health only.
+- The same test, provisional: browser render → a core companion (`Microsoft.Playwright` is heavy, stateless per
+  call); solver clients → a core module beside egress; account pools stay in Social, since they carry account state
+  and a lifecycle (provisioning, joins, frozen accounts).
+
+### 8.2 The private adapters repo
+
+- One private repo holds every per-source broker; each source is one package that references
+  `Harvest.Abstractions` (the step and capability contract), Social's platform clients and core `Http/Egress`.
+- A host registers brokers in code (`AddHarvestBroker<OlxBroker>()`), so no recipe is bound by name from operator
+  config. This replaces T9-19's config option.
+- Packages publish to a private feed (GitHub Packages) from the private repo's CI, never to nuget.org.
+- Form 3: the private repo also builds WoW2's Harvest image — a thin host over `Harvest.Module` plus the adapter
+  packages — so the public Harvest image stays generic. Form 2 self-hosters write their own brokers against the
+  same contract.
+- Safe default: the generic family readers (RSS, ICS, JSON-LD `Event`, sitemap, link cards) stay public in Harvest,
+  so a self-hosted Harvest reads something on day one; every named source (OLX, Domtut, Afisha, iticket, mstar,
+  voyage, Instagram, Telegram) is a private broker.
+
+### 8.3 Harvest's scope
+
+- Harvest: pipelines, steps, the resolver policy and ladders, runs and stats, containers of harvested posts, dedup,
+  extraction, subscriptions and delivery, trends learning, the generic family readers.
+- Out of Harvest: named-source brokers (private repo), egress (core), platform clients and account pools (Social).
+- T9-9's pick (site adapters in Harvest) is replaced; the chain becomes core → Identity → Files → Social → Harvest →
+  adapters (private), and Events consumes Harvest.
+
+### 8.4 robots.txt
+
+- `robots.txt` is not WoW2's file: each website publishes it at its own root (RFC 9309), and crawlers read it.
+  Its format is fixed by the standard; Harvest parses it and never writes one.
+- WoW2's side is the per-source field `robots_policy` (`obey` · `ignore`) on the `sources` row in Harvest's
+  PostgreSQL, set through the console or the API; it needs no file and no format choice.
+
+---
+
 ## Findings that change the spec
 
 - **§ Concepts gains step, capability, lane and rung.** A pipeline's adapter declares steps; each step states requirements; the runner resolves them per claim. "Source adapter" means an adapter with step brokers, not a single read call.
@@ -584,14 +642,17 @@ All prices are per 1,000 solves. 2Captcha's page lists no hCaptcha price.
 ## Points
 
 - [ ] T9-1 (P20) the capability framework → provisional pick: pipelines as declared step plans; each step a broker with requirements (floor, ladder, ceiling); the resolver picks the rung at claim from learned `host_lane` state, reserves budget and leases capabilities; render is a capability, not a step (§ 1, § 3)
-- [ ] T9-2 (P1, T8-1, T8-2) the cut under answer 1 → provisional pick: Social holds every platform client (read, post, trends, own-account monitoring), every capability provider with its secrets (egress, sessions, account pools including Telegram MTProto, browser, solvers, provider runners) and the capability vocabulary; Harvest holds the engine, resolver policy, ladders, budgets and the non-social site adapters (§ 4.2)
+- [ ] T9-2 (P1, T8-1, T8-2) the cut under answer 1 → revised 2026-10-27 (§ 8): Social keeps platform clients and
+  account pools; egress goes to core (T9-24); named-source brokers go to a private repo (T9-19); Harvest keeps the
+  engine (§ 8.3). Superseded pick: Social holds every platform client (read, post, trends, own-account monitoring), every capability provider with its secrets (egress, sessions, account pools including Telegram MTProto, browser, solvers, provider runners) and the capability vocabulary; Harvest holds the engine, resolver policy, ladders, budgets and the non-social site adapters (§ 4.2)
 - [ ] T9-3 (T8-18) timing → provisional pick: slice 1 builds direct egress, anonymous jars, profiles, the detector and the ladder engine inline behind Social-shaped contracts; Social is created at the first of T8 § 1.6's triggers or Harvest's first paid capability; inline code moves at the next +0.1; the slice gate gains the ladder fixture test and Afisha (§ 4.4)
 - [ ] T9-4 (P3) posture switches → provisional pick: keep `permission`, `ai_allowed`, `pool_shareable`, `route.enabled`, `posture`, add `robots_policy`, `content_signals` and `platform.enabled`; permissive defaults; a ban or takedown is one `UPDATE` (§ 5.2)
 - [ ] T9-5 official-route obligations (YouTube 30-day refresh, X compliance events, Meta §3.c pool sharing) → provisional pick: honour them on official API routes only, because the platform revokes keys on its own; scraped and provider routes ignore them (§ 5.3)
 - [ ] T9-6 step vocabulary → provisional pick: roles `enumerate` · `detail` · `contact` · `media` · `thread` · `check` · `metrics` · `provider-job` · `account-op` · `extract`; T7 work kinds become step plans; optional steps OR-merge across subscribers and bill the pipeline (§ 1.2, § 1.3)
 - [ ] T9-7 ladder rules → provisional pick: rungs `R0`–`R8`; promote after 3 consecutive challenges or blocks; rate limits never promote; IP-scoped blocks retry a fresh exit first; demote by a probe after 24 h and 3 successes; ceiling → backoff, alert, `rung-ceiling`; per-rung `maxUsdPerSuccess`; thresholds tuned on observed outcomes (§ 3.3)
 - [ ] T9-8 lanes → provisional pick: `host_lane(host_key, lane)` beside `host_state`; a step may declare a lane; the claim checks both rows; the host row still caps total load (§ 1.5)
-- [ ] T9-9 non-social site adapters (OLX, Domtut, Afisha, iticket, mstar, voyage) → provisional pick: Harvest; a marketplace write client goes to Social when built; a site adapter a second product needs without the store becomes a Harvest edge (§ 4.3)
+- [x] T9-9 non-social site adapters (OLX, Domtut, Afisha, iticket, mstar, voyage) → answered 2026-10-27: private
+  brokers, one package per source (§ 8.2). Superseded pick: Harvest; a marketplace write client goes to Social when built; a site adapter a second product needs without the store becomes a Harvest edge (§ 4.3)
 - [ ] T9-10 (T8-10, W7) render → provisional pick: `Social.Browser` and image `social-browser`; per-call egress and session state, nothing at rest, no database credential; built inline in Harvest first; still gated on the W7 spike (§ 4.4)
 - [ ] T9-11 (T7-P17, T8-15, T4-4) sessions → provisional pick: `anonymous` (run jar or warm host jar, sealed, short time-to-live), `account` (site logins and Telegram from Social's pools), `connection` (consumer-owned, private containers only); login in render; codes and imported cookies through the console (§ 2.2)
 - [ ] T9-12 (T8-12, T1-P5, T1-P6, P5) Telegram pool → provisional pick: `Social.Accounts` and `Social.Telegram`; Harvest's adapter over `IAccountLeases`; each account pinned to one egress; public groups joined automatically within a daily budget, a human for `request_needed` invites; `ai_allowed = yes` (§ 2.5, § 6.2)
@@ -601,10 +662,17 @@ All prices are per 1,000 solves. 2Captcha's page lists no hCaptcha price.
 - [ ] T9-16 (W14) identification → provisional pick: a profile per source: `bot` with the bot page for hosts that do not block; coherent `browser` profiles elsewhere; one profile per egress session (§ 2.3)
 - [ ] T9-17 (W3, W4, W5) robots and content signals → provisional pick: `robots_policy = obey` for link intake and unknown domains, `ignore` per source by an operator; `ai-input` recorded, not enforced (§ 5.2)
 - [ ] T9-18 (T8-8) core asks → provisional pick: an egress option on `Http/Safety` that pre-resolves the target for third-party proxies; one handler per egress lease; a cookie container per session; generic resilience off on fetch clients (§ 3.5)
-- [ ] T9-19 per-site recipes in public repos → provisional pick: generic providers public; recipes (OLX friction flow, header sets, private endpoints) in a private package or operator config bound by name (§ 4.7)
+- [x] T9-19 per-site recipes in public repos → answered 2026-10-27: a private repo of brokers, one package per
+  source, published to a private feed and referenced in code; the private repo builds WoW2's Harvest image (§ 8.2)
 - [ ] T9-20 mass actions → provisional pick: v1 is reads plus bulk operations over posts (check, re-extract, re-deliver, export); mass writes (posting, joins, messages) go through Social's publish brokers and pools later (§ 4.5)
 - [ ] T9-21 (P8) credential owner widens → provisional pick: proxy, solver, unlocker and provider vendor accounts join P8's owner question; all sealed in Social's store; caps per provider account in Social (§ 3.4)
 - [ ] T9-22 (T1-P7, P6) WhatsApp linked-device route → provisional pick: allowed later as a `session.account` route (a whatsmeow sidecar); v1 stays intake plus channel snapshots, since no consumer needs WhatsApp channels yet (§ 5.1)
+- [ ] T9-24 egress home → provisional pick: a core module `Http/Egress` in the be sdk mono-lib — seam, vendor
+  adapters, leases, health, meters, the pre-resolving handler; the IP server VPS is operations (§ 8.1)
+- [ ] T9-25 render and solver homes, by the same test → provisional pick: render a core companion (Playwright),
+  solver clients a core module; account pools stay in Social (§ 8.1)
+- [ ] T9-26 generic family readers (RSS, ICS, JSON-LD, sitemap, link cards) → provisional pick: public in Harvest,
+  so a self-hosted Harvest reads something on day one (§ 8.2)
 - [ ] T9-23 (P7, W1, W2) first web sources → provisional pick: mstar.uz, voyage.uz and Afisha in slice 1; iticket through its own JSON endpoints with a contract test, render as fallback, after the slice (§ 5.1, § 6.4)
 
 ---

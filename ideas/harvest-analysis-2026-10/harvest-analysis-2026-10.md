@@ -1,6 +1,6 @@
 # Harvest — full analysis before the build
 
-*Last updated: 2026-10-26*
+*Last updated: 2026-10-27*
 
 > The analysis batch behind Harvest (#17 in [platform apps](../../docs/platform-apps.md)): every source family,
 > what Ocharo and Haven need from it, the post model with dedup and deletion checks, extraction and subscriptions,
@@ -54,6 +54,15 @@
 - terms: not honoured, because Telegram, Meta and Afisha offer no proper API to integrate with; if a platform blocks
   us, an IP server or similar handles it.
 
+### Developer, 2026-10-27
+
+- IP servers belong in neither Social nor Events: they are infrastructure for connections, perhaps a separate library
+  in the be sdk.
+- per-site workarounds go to a private repo of adapters that publishes its own libraries, one broker per source; the
+  platform references them and integrates them directly.
+- Harvest stays about pipelines, stats and the container of harvested posts.
+- asked: is robots.txt our configuration, and should it use another format?
+
 ---
 
 ## Tracks
@@ -85,6 +94,7 @@ holding the evidence. Tick a line when the developer answers; the answer moves i
   trends, posting, monitoring — and the shared integration libraries, such as IP servers; Harvest runs mass actions
   over posts, trends learning included, on top of Social's libraries (T4, T8-1)
   - T8 § 1.4 kept platform readers and the Telegram pool in Harvest; T9 redraws that cut under this answer
+  - 2026-10-27: IP servers leave Social for connection infrastructure in the be sdk (T9-24)
 - [ ] P2 (H1) Harvest's repo → provisional pick: a new `wow-two-sdk-beta.harvest` from the domain template with
   ListingShelf's generic core copied and its source commit cited; ListingShelf stays the shelf view (T8-4)
 - [ ] P2a org → provisional pick: `wow-two-sdk-beta` for Harvest, Social and Events, which repoints their catalog
@@ -157,12 +167,13 @@ The tracks' own Points (T5-1…22, T6-1…17, T7-P1…P20) hold the children.
   provisional pick: pipelines are declared step plans; each step states a floor, a ladder and a ceiling of
   capabilities; the resolver picks the cheapest working rung per `(host, lane)` at claim, reserves budget and leases
   egress and sessions (T9-1)
-  - cut: Social holds every platform client and every capability provider with its secrets, the Telegram MTProto
-    pool included; Harvest holds the engine and the non-social site adapters (T9-2, T9-9)
+  - cut, revised 2026-10-27: Social holds platform clients and account pools, the Telegram MTProto pool included;
+    egress goes to a core module `Http/Egress`; named-source brokers go to a private repo, one package per source;
+    Harvest holds the engine and the generic family readers (T9-2, T9-24, T9-19, T9-26)
   - timing: slice 1 builds direct egress, cookie jars, challenge detection and pacing inline behind Social-shaped
     contracts, which move to Social at the next +0.1; Afisha joins slice 1 (T9-3, T9-23)
   - posture: 24 earlier picks change; the posture fields stay as switches with permissive defaults (T9-4)
-  - forks for the developer: honour official-API terms only (T9-5), keep per-site recipes out of public repos
-    (T9-19), robots.txt obeyed by default (T9-17)
+  - forks for the developer: honour official-API terms only (T9-5), robots.txt obeyed by default (T9-17); T9-19
+    answered 2026-10-27 — a private adapters repo
 
 The track's own Points (T9-1…23) hold the children.

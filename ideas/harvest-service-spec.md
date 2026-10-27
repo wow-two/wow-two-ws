@@ -1,6 +1,6 @@
 # WoW Two Harvest — One 24/7 Harvester for Every Product
 
-*Last updated: 2026-10-26*
+*Last updated: 2026-10-27*
 
 > `harvest`: a standardized harvester that runs scheduled pipelines over sources — sites, Telegram channels, feeds,
 > provider APIs — captures what they publish, extracts records into a schema the consumer names, and delivers them.
@@ -75,9 +75,14 @@
 
 ## Placement
 
-- **Repos** — two, decided 2026-10-26: `social` holds everything social media (trends, posting, monitoring) and the
-  shared integration libraries, such as IP servers; Harvest runs mass actions over posts, trends learning included,
-  on top of Social's libraries.
+- **Repos** — decided 2026-10-26 and 2026-10-27:
+  - `social` holds everything social media: trends, posting, monitoring, platform clients and account pools.
+  - Harvest holds pipelines, steps, runs and stats, the container of harvested posts, dedup, extraction,
+    subscriptions and trends learning, on top of Social's libraries.
+  - a private repo holds one broker package per source, with the per-site workarounds; WoW2's own Harvest image
+    references them.
+  - IP servers and proxies are connection infrastructure in the be sdk, not Social
+    ([T9 § 8](harvest-analysis-2026-10/t9-capabilities.md#8--developer-2026-10-27)).
 - **Form 1 · library** — source adapters, pipeline runner and extraction in the be SDK.
 - **Form 2 · self-hosted service** — the `harvest` image with its console of pipelines, runs and captures.
 - **Form 3 · provided service** — WoW2's own instance serving Events and other WoW2 apps.
