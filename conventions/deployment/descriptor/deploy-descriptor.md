@@ -422,7 +422,12 @@ version in which it last changed, so services version independently and an old v
 - should move the pin to each new pipelines tag; every workflow of a repo that names the generator names one tag.
 - must trigger it on every push except `renovate/**` branches, on pull requests, and on `workflow_dispatch` with a
   `commit` input.
-- must queue `main` runs in one concurrency group (`queue: max`) and cancel superseded runs on other refs.
+- must keep one concurrency group per ref (`inputs.commit || github.ref`), queued with `queue: max`, and set no
+  `cancel-in-progress`: GitHub rejects `queue: max` with a `cancel-in-progress` that evaluates true, at run start,
+  and starts no job. A superseded branch run therefore still builds.
+- must prove a workflow change on every event and ref its expressions branch on (a `main` push, a branch push, a pull
+  request, a dispatch) before a convention, the pipelines `README.md` or a template carries it; a green `main` run
+  proves `main` only.
 - must not copy the publish steps, the CI steps or the release generator into a product repo.
 - must give a check `paths` only when every path it reads is listed; a path no check owns runs every check.
 
@@ -448,3 +453,15 @@ Full caller and check keys: the pipelines `README.md`. The shared workflow:
 - fetches the Git LFS files under `engineering/` first, so images carry real assets instead of pointer files;
 - passes every build `APP_VERSION` (the build's version) and `VCS_REF` (the full commit SHA it was built from);
 - tags and publishes images and the bundle per the table above, and moves `latest` last on a release.
+
+### Incidents
+
+- 2026-10-27: every branch push and pull request failed at run start with "The combination of 'queue: max' and
+  'cancel-in-progress: true' is not allowed", in 26 repositories; `main` stayed green.
+  - Cause: the 2026-10-19 rule asked one concurrency block for two behaviors, queue on `main` and cancel elsewhere,
+    while `queue` stayed a literal; GitHub's workflow syntax page states the restriction.
+  - Why it hid: `cancel-in-progress` evaluates false on `main`, and agents push to `main` only, so no other ref ran
+    until cloud sessions pushed `claude/*` branches eight days later.
+  - Spread: the rule → the pipelines `README.md` caller → both templates → every scaffolded repository, each proved
+    on `main` alone.
+  - Fix: no `cancel-in-progress` beside `queue: max`; a change is proved on every path it branches on (rules above).

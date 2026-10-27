@@ -92,6 +92,7 @@
 | `engineering/deployment/deploy.yml` describes every service | [deploy descriptor](../../../deployment/descriptor/deploy-descriptor.md) |
 | `deploy.yml` is `descriptor: 2` | [deploy descriptor](../../../deployment/descriptor/deploy-descriptor.md#rules) |
 | `publish-docker-image.yml` calls the shared `delivery.yml` at the newest pipelines tag | [deploy descriptor](../../../deployment/descriptor/deploy-descriptor.md#ci-workflow) |
+| `publish-docker-image.yml` sets `queue: max` and no `cancel-in-progress`; a branch push and a pull request both start their jobs | [deploy descriptor](../../../deployment/descriptor/deploy-descriptor.md#ci-workflow) |
 | `dotnetEnvironment: true`, with `appsettings.Development.json` holding defaults only | [environment files](../../../deployment/hosting/environment-files.md#settings) |
 | a deployed settings file mounts as `appsettings.Target.json`; it and `Local.json` are git- and docker-ignored | [environment files](../../../deployment/hosting/environment-files.md#settings) |
 | a product that auto-promotes declares a `verify` check | [deploy descriptor](../../../deployment/descriptor/deploy-descriptor.md#rules) |
