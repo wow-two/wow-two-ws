@@ -1,6 +1,6 @@
 # WoW 2.0 — Platform Model & Build Strategy
 
-*Last updated: 2026-10-21*
+*Last updated: 2026-10-27 03:43 PM*
 
 > How every wow-two platform capability is **shaped, shipped, and promoted**: the three distribution forms · the build-now-promote-later lifecycle · the parallel-bricks delivery rule. Read this before designing any new platform component.
 
@@ -77,6 +77,7 @@ So **"what to build first" is the wrong frame**. The right frame: *which brick u
 
 ## See also
 
+- `docs/concepts.md` — the words: product, product service, platform service, instance, owner
 - `docs/wow-two-refinement.md` — master vision & layer model (KB → Platform → SDK → Apps)
 - `docs/beta-launch.md` — beta-forever strategy, naming, `0.x` auto-bump
 - `docs/versioning-strategy.md` · `docs/branching-strategy.md`

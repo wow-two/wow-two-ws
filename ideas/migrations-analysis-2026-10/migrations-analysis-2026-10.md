@@ -1,6 +1,6 @@
 # Migrations — wow2 analysis
 
-*Last updated: 2026-10-27 03:10 PM*
+*Last updated: 2026-10-27 03:43 PM*
 
 > How the wow2 ecosystem changes persistent state across releases: schema and data migrations, who owns, declares
 > and runs them, and how products, standalone platform services and Wheelhouse itself share one model. Written before
@@ -44,9 +44,12 @@
 | 2 | How wow2 does it today | authoring, sets, local apply and tests are solid; deploy-time execution, data migrations, lock safety, compatibility and visibility are missing | [Current state](#current-state) | M10, M13 |
 | 3 | Data migrations | small: a SQL file in the set; large or code-bound: a resumable SDK background migration that a later contract waits on | [Data migrations](#data-migrations) | M23–M26 |
 | 4 | Several services | one database per product environment, one owner per set, every set migrated before any service restarts; B failing leaves A's expand harmless | [Multi-service products](#multi-service-products) | M6–M9, M14, M27, M28 |
-| 5 | Standalone services | the instance product owns, versions and runs its sets; consumers depend on its contract version, never its tables | [Platform services and instances](#platform-services-and-instances) | M29–M34 |
+| 5 | Standalone services | the [instance](../../docs/concepts.md) owns, versions and runs its sets; consumers depend on its contract version, never its tables | [Platform services and instances](#platform-services-and-instances) | M29–M34 |
 | 6 | Platform apps vs products | one mechanism, stricter policy for platform apps | [One model](#one-model) | M12, M19 |
 | 7 | Which cases occur in practice | 74 distinct cases across 50 repositories; most fit the model, and the misses are legacy mechanisms, package-owned DDL, seeds, imports, SQLite and the SDK spread | [Use cases](#use-cases) | M39–M56 |
+| 8 | Which actions we need | check, plan, rehearse, apply, rollback, forget, repair, baseline, claim, locks, seed, the background controls, snapshot and restore; one command tree in every image | [Actions](#actions) | M57–M63 |
+| 9 | Column type rules | settled: `uuid`, `timestamptz`, `date`, `text`, `boolean`, `jsonb` camelCase, native enums; open: twelve families where no rule exists or repositories disagree | [Types](#types) | M64–M75 |
+| 10 | Product service, platform service, instance | defined in one place, the developer's wording for the first two | [concepts](../../docs/concepts.md) | — |
 
 ---
 
@@ -67,9 +70,15 @@
 - **Data by size.** Small backfills are SQL files in the set; large or code-bound ones are resumable SDK background
   migrations a later contract waits on; transfers across systems (Files imports, tenant and server moves, Identity
   takeover) are Wheelhouse "move" jobs, not migrations.
-- **Platform services own their state.** An instance product (an Identity instance, a Files host) migrates its own sets
-  in its own rollout; consumers depend on its contract version, never its tables; a Form 1 module's set rides the
-  consumer's step.
+- **Platform services own their state.** An [instance](../../docs/concepts.md) (an Identity instance, a Files host)
+  migrates its own sets in its own rollout; consumers depend on its contract version, never its tables; a Form 1
+  module's set rides the consumer's step.
+- **Every action is a verb in the image.** Check, apply, rollback, forget, baseline, seed and the background controls
+  run as `app migrate <verb>` from the release image, so Wheelhouse, a developer and CI run the same code; `check`
+  writes nothing, and idempotent scripts make every rerun harmless ([Actions](#actions)).
+- **Types follow written rules, and practice drifts from them.** `uuid`, `timestamptz`, `date`, `text`, `boolean`,
+  `jsonb` with camelCase keys and native enums are settled; the uuid version, enums in practice, temporal names,
+  time-only values, durations, money, case-insensitive text, audit and soft delete are open ([Types](#types)).
 
 ---
 
@@ -263,12 +272,23 @@ Gaps:
 - contract: a change the previous release may not survive — a drop, a rename, a narrowed type, `SET NOT NULL`, rows
   deleted or rewritten that old code reads.
 - level: a set's highest applied ordinal. Rollback floor: the oldest release that can run on the current level.
+- product, product service, platform service, instance and owner mean what [concepts](../../docs/concepts.md) says;
+  an instance is one deployment of a platform service, which Wheelhouse runs as a product of its own (Q5 · B).
 
 Rules:
 
 - must express every persistent-state change the code depends on as a migration in exactly one set.
+- must name the three kinds of change apart: a migration (schema, reference data or a bounded backfill, in a set), a
+  background migration (batched and resumable, in the owner's code) and a move (across a system boundary) (M1, owner
+  2026-10-27).
+- must document and ship every action the three kinds need — schema check, schema apply and rollback, data-migration
+  apply and rollback — as verbs Wheelhouse can run ([Actions](#actions); M1 addition, owner 2026-10-27; M57).
 - must keep `Rollback.sql` and run it only locally, in tests, or as a guarded operator action; a deploy never runs it
-  (M2).
+  (M2, owner 2026-10-27).
+- must make every `Apply.sql` and `Rollback.sql` idempotent: run again on a state where it already took effect, it
+  succeeds and changes nothing (M2 addition, owner 2026-10-27; proof M59).
+- must let a read-only check tell whether each migration is applied, for every set, without running a script; a
+  script failing is never the signal (M2 addition, owner 2026-10-27; M58).
 - must not put a seed, an import or a move in a set (M26, M33, M52).
 - out of scope: files on volumes and keys (M42), and browser or device storage (M54).
 
@@ -286,7 +306,7 @@ Rules:
 - must give module and service sets a named PostgreSQL schema; a product's default set may stay in `public` (M4).
 - must not reach another set's tables by foreign key, view or query; reference by id, such as `sub` or a file id (M5).
 - must keep one database per product environment (`<product>_{env}`), holding the product's sets and its Form 1
-  modules' sets; an instance product gets its own (M6).
+  modules' sets; an instance gets its own (M6).
 - may share a set's Persistence assembly and `DbContext` across the services of one repository; must not map a set
   another repository owns (M7).
 - should give the step its own connection key, so an owner role (DDL) and a runtime role (DML) can split later without
@@ -348,6 +368,56 @@ migrate:                                      # sketch for the decision, not a s
 - must hold the target's deployment lock for the whole job and each set's advisory lock for its run (both exist).
 - the container facts in the spec stand — release image, `--pull never`, platform network, the service's volumes,
   memory limit, dropped capabilities — except the settings source (M8).
+
+---
+
+### Actions
+
+Every action on a set's schema, history and data, asked for by the M1 addition (owner 2026-10-27). One be sdk command
+tree serves them all as `app migrate <verb>` in each image that hosts a set; `wow-migrate` exposes the same tree over a
+manifest for developers and CI (M57). Snapshot and restore stay Wheelhouse's, because they span databases and volumes.
+
+| Action | Verb | Run by | Writes | be sdk today |
+|---|---|---|---|---|
+| check | `check [--set s] [--json]` | deploy (before and after `apply`; the rollback gate), Wheelhouse "check now", developer, CI | nothing | `CheckLevelAsync`, read-only, set level only (`MigrationRunnerService.cs:386-410`); CLI `check` exits `0`/`1` (`CliCommandBuilder.cs:106-111`); CLI `status` creates the schema and history table (`MigrationRunnerService.cs:363-365`) |
+| plan | `plan` | developer, CI, Wheelhouse before a promotion | nothing, no lock | missing: pending files, kinds and lint findings without a lock |
+| rehearse | `apply --dry-run` | dev deploy, developer | nothing kept; takes the DDL locks | `DryRunPendingAsync` (`IMigrationRunnerService.cs:28`), CLI `apply --dry-run` (`CliCommandBuilder.cs:86-101`); `-- @no-transaction` files not rehearsed |
+| schema apply | `apply` | the deploy step (M13, M14); a local boot | history rows, `applied_by = deploy` | `MigrateBespokeForDeployAsync` (`PostgresPersistenceStartupExtensions.cs:94`); no exit `3`, no kind, no `migrate-result` line |
+| schema rollback | `rollback --to N --confirm <db>` | developer; operator job on dev; prod only when forward fails | runs `Rollback.sql` files, deletes their rows | `RollbackAsync` behind `AllowRollback` (`MigrationRunnerService.cs:414-418`, `:457`); CLI only (`CliCommandBuilder.cs:116-144`) |
+| forget | `forget --above N --confirm <db>` | operator, when an older image refuses newer history | deletes rows above N, runs no SQL | missing; done by hand on 2026-10-27 (M60) |
+| repair | `repair --confirm <db>` | operator, developer | re-records drifted checksums | `RepairAsync` (`IMigrationRunnerService.cs:44`), CLI `verify --repair` (`CliCommandBuilder.cs:149-177`) |
+| baseline | `baseline --to N --confirm <db>` | operator, once per adoption (M46) | rows `applied_by = baseline`, the owner marker | `BaselineAsync` (`IMigrationRunnerService.cs:56`), CLI `baseline` (`CliCommandBuilder.cs:182-210`); refuses a set with history |
+| claim | `claim --owner o --instance i --confirm <db>` | operator, at a takeover (M34) | the owner marker | missing (`bespoke.md:138`) |
+| locks · unlock | `locks`; `unlock --confirm <db>` | operator, after an exit `3` | `unlock` ends the holding session | missing (M62) |
+| seed | `seed` | the deploy step, after `apply` (M51) | seed rows and their journal | missing; Haven's `database` service does it product-side |
+| data apply, small | `apply` (its own file in the set) | the deploy step | rows, a history row | exists (M23) |
+| data apply, large | — | the new release's job worker | batches, the cursor | missing (M24) |
+| data rollback | `rollback` for a small file; `bg rollback <name>` | operator | inverse batches, or a journal reset | `bg` verbs missing (M63) |
+| background control | `bg pause · resume · retry <name>` | operator | the journal's state | missing (M63) |
+| snapshot · restore | Wheelhouse, not the image | prod deploy before the step; operator | `pg_dump` per database plus volume tars | snapshot built; restore by hand (`deployment.md:956-975`) |
+| author | `wow-migrate new · promote`; the `Testing.Data` lint | developer, CI | files in the repository | `new`, `promote` (`CliCommandBuilder.cs:215-240`); lint in Wheelhouse only (M22) |
+
+- must keep `check`, `plan` and `locks` free of side effects: no schema, history table, marker or lock appears; a fresh
+  database reads as every set `Behind` (M2, M58).
+- must report per set and per migration: applied, pending, ahead (compatible or not), orphaned, drifted or claimed by
+  another owner, plus level, rollback floor and background progress (M37, M58).
+- must exit alike for every verb: `0` done or current · `1` refused (drift, orphan, owner conflict, incompatible,
+  missing confirmation; `check` when not current) · `2` failed (a script, the connection) · `3` busy (a lock not
+  acquired) — `sql/migration-tooling.md:39-59` plus M17.
+- must print one `migrate-result` JSON line per run: verb, each set's level before and after, what changed (M37).
+- must make every verb idempotent: a rerun that finds its target state exits `0` and changes nothing — `apply` at the
+  level, `rollback --to N` at N, `forget` with nothing above N, `bg pause` on a paused migration, `baseline` through
+  the same ordinal (today it refuses with `Conflict`) (M2).
+- must guard every verb that writes outside a rollout with `--confirm <database>` (`--i-understand-this-is` today,
+  `sql/migration-tooling.md:51-59`); the verb enables its own guard for its run, so `AllowRollback` stays off for the
+  app (`MigrationOptions.cs:13`) and no incident waits on a rebuild.
+- must record every writing verb: history rows for `apply` and `baseline` (exist), an event row for `rollback`,
+  `forget`, `repair`, `baseline`, `claim`, `unlock` and `bg` (M61); Wheelhouse's audit records the job that ran it.
+- must not run `rollback`, `forget`, `repair`, `baseline`, `claim` or `unlock` inside a rollout; a rollout checks,
+  applies and seeds only (M2).
+- Wheelhouse runs every verb from the chosen release's image in the one-off container (`runner.py:2006-2045`):
+  `check` and `apply` inside a rollout, the rest as operator jobs from the product page per environment and set, typed
+  confirmation on prod, audited (M34, M36, M38).
 
 ---
 
@@ -443,7 +513,7 @@ expanding keeps both safe ([parallel change](https://martinfowler.com/bliki/Para
   `studio`, `motion` — each in its own repository's `deploy.yml`; `jobs` and `image-worker` declare none; the five on
   `EnsureCreated` or hand DDL adopt a set first (M43, M46).
 - prior art: [database per service](https://microservices.io/patterns/data/database-per-service.html) wants private
-  tables per service; here the private unit is the set's schema, and the private database is the instance product's.
+  tables per service; here the private unit is the set's schema, and the private database is the instance's.
 
 ---
 
@@ -452,11 +522,11 @@ expanding keeps both safe ([parallel change](https://martinfowler.com/bliki/Para
 | Case | Declares | Owns and versions | Runs | Consumer depends on |
 |---|---|---|---|---|
 | Form 1 module in a product | the module's registration in the product host | the module repository; the level follows the product's package pin | the product's `migrate` (every registered set) | the in-process contract |
-| Form 2 instance per owner (wow2 Identity; Ocharo's Identity, decided 2026-10-21 and declared nowhere yet) | the service repository's `deploy.yml` | the service repository; the instance's release | the instance product's rollout | the HTTP contract and its version |
+| Form 2 instance per owner (wow2 Identity; Ocharo's Identity, decided 2026-10-21 and declared nowhere yet) | the service repository's `deploy.yml` | the service repository; the instance's release | the instance's rollout | the HTTP contract and its version |
 | Form 3 shared host (Files B; Ocharo starts here, decided 2026-10-26 and declared nowhere yet) | the same | the same | the host's own rollout, once for every tenant | the same |
 | takeover (Form 1 → instance) | — | ownership moves by an audited `claim` | an operator job | — |
 
-- each instance product has its own database and pace (Q5 · B); a new service release reaches instances one product at
+- each instance has its own database and pace (Q5 · B); a new service release reaches instances one product at
   a time, and a fleet roll-out over the same step can come later (M29).
 - a Form 1 module's set runs inside the product's step: `MigrateBespokeForDeployAsync` already applies every set (M30).
 - the service must keep serving the previous client contract version, proven by running the previous client's
@@ -507,9 +577,10 @@ check (M15) · level check at boot (exists, M16).
 | Layer | Test | Where | State |
 |---|---|---|---|
 | set | Apply → Rollback → Apply, idempotency, drift | the migrations tier on `MigratorHarness` | exists |
+| set | Apply → Apply and Rollback → Rollback, each script run twice with the history bypassed | the migrations tier | new (M59) |
 | set | expand-only and lock-risk lint | a `Testing.Data` helper | Wheelhouse only today |
 | host with several sets | apply all, owner conflicts | `MigratorHarness.CreatePostgres(sets)` | exists |
-| image | `migrate` exits `0`/`1`/`2`/`3` and the `migrate-result` line | each product's E2E tier | new |
+| image | every `migrate` verb: exits `0`/`1`/`2`/`3`, an idempotent rerun, no write from `check`, the `migrate-result` line | each product's E2E tier | new (M57) |
 | upgrade | N-1 schema and seed → apply N → N-1 smoke on the new schema | the rehearsal rig, platform apps first | new (M35) |
 | background migration | crash mid-run, resume, idempotent rerun | be sdk tests | new |
 | runner | step placement, `--check` on rollback, failures before any restart | runner unit tests and the rig | spec |
@@ -529,7 +600,7 @@ database each. Each case names the point that decides it.
 | **Schema ownership** | | | |
 | U1 — a product owns its schema as SQL in a default set; EF only maps | Wheelhouse, canary, both templates, ForeverPin, Desk, Haven, TranscriptForge, TNIS, TBS, Sift, Arcade, ListingShelf, Matinee, PbnStudio, 8 pilots | the product's default set in `public` | M3, M4 |
 | U2 — a domain package ships its set in a NuGet and applies it into the consumer's database (Form 1) | Identity and Harvest Modules (named sets); Files (a default set the service host registers) | a named set with the `module` marker; the product's step applies every registered set; Files moves to a named set first | M4, M30, M40 |
-| U3 — one domain in three forms; the owner marker refuses a second claimant | Identity (built); Files, Harvest (designed) | the instance product owns its sets; the marker names the instance | M29–M31 |
+| U3 — one domain in three forms; the owner marker refuses a second claimant | Identity (built); Files, Harvest (designed) | the instance owns its sets; the marker names the instance | M29–M31 |
 | U4 — two owners' sets in one database, each with its own history and lock | Identity, Harvest (a keyed data source beside the host's) | named sets; table prefixes where SQLite has no schemas | M3, M4 |
 | U5 — one set owning several schemas | Desk (7 schemas), Wheelhouse (`vault` by `CREATE SCHEMA` in its default set) | allowed: a schema belongs to the set that creates it; a second owner needs a named set | M3, M4 |
 | U6 — a package's DDL outside the product's set | Hangfire's self-created `hangfire` (TranscriptForge, Desk); SDK idempotency `EnsureTableAsync`; outbox, inbox and webhook DDL copied by consumers (ForeverPin `012`); ASP.NET Identity DDL frozen into Desk `002-access` and the pilots' EF `InitialAccess` | the package ships a named set; Hangfire's installer runs in the step | M39 |
@@ -572,7 +643,7 @@ database each. Each case names the point that decides it.
 | U40 — products calling each other over HTTP | Haven → ListingShelf; Marketing, Blog → Catalogue, Brand; Studio → Desk | a contract version, no shared tables | M31, M32 |
 | U41 — a vendored library served by another service's tables | `Ocharo.Sso` (4 copies) against Desk's `access.sso_*` | through Desk's API only | M5 |
 | **Platform services and instances** | | | |
-| U42 — a platform service as its own product | Identity (`migrate` with exits), Files, Harvest, Wheelhouse | the instance product's rollout | M12, M29 |
+| U42 — a platform service as its own product | Identity (`migrate` with exits), Files, Harvest, Wheelhouse | the instance's rollout | M12, M29 |
 | U43 — planned platform moves | Ocharo Identity (Desk accounts, memberships, `telegram_links`); Ocharo onto the shared Files host (Desk `bytea`, 3 `MediaStore` copies, Marketing blobs); Events (`008-events` by bundle import) | moves, not migrations | M33 |
 | U44 — databases placed by Wheelhouse (`needs: [postgres]`) | Wheelhouse, canary, Harvest, ForeverPin, Desk, `jobs` | a role and a database per product environment; a migrate key | M6, M8 |
 | U45 — a hosted external database | 10x-fin-nt (Supabase, planned) | the image's step if declared; no Wheelhouse snapshot | M6, M18 |
@@ -628,7 +699,7 @@ database each. Each case names the point that decides it.
 | data migrations beside schema ones | [Django data migrations](https://docs.djangoproject.com/en/stable/topics/migrations/#data-migrations) | small backfills as SQL files in the set |
 | online migrations through dual writes | [Stripe](https://stripe.com/blog/online-migrations) | the reshape sequence above |
 | lock waits and the lock queue | [PostgreSQL `lock_timeout`](https://www.postgresql.org/docs/current/runtime-config-client.html), [explicit locking](https://www.postgresql.org/docs/current/explicit-locking.html) | migrator `lock_timeout` and retries |
-| private data per service | [database per service](https://microservices.io/patterns/data/database-per-service.html) | a schema per set, a database per instance product |
+| private data per service | [database per service](https://microservices.io/patterns/data/database-per-service.html) | a schema per set, a database per instance |
 
 ---
 
@@ -638,12 +709,39 @@ Parent before child; a child names its parent. Each point: the decision, its opt
 
 ### Definitions
 
-- [ ] M1 — Words for the three kinds of change: one word "migration" for all · "migration" and "move" · "migration",
+- [x] M1 — Words for the three kinds of change: one word "migration" for all · "migration" and "move" · "migration",
   "background migration" and "move" → three words; Files' "migration module" copies bytes across systems for hours
-  with a freeze and a cutover, which shares nothing with a schema step but the container runner.
-- [ ] M2 — Down scripts: keep `Rollback.sql` mandatory, never run by a deploy · optional for expand-only files · drop
+  with a freeze and a cutover, which shares nothing with a schema step but the container runner. (owner 2026-10-27)
+  Addition: "we need schema check, schema apply & rollback and data migration apply & rollback — make sure we have
+  documented all actions we need; we may develop a CLI or actions that allow Wheelhouse smooth migration actions."
+  → [Definitions](#definitions) rules, [Actions](#actions), M57–M63.
+- [x] M2 — Down scripts: keep `Rollback.sql` mandatory, never run by a deploy · optional for expand-only files · drop
   them → keep; Apply → Rollback → Apply catches non-idempotent SQL and dev needs the undo, while prod recovers forward
-  or from the snapshot (`server-lifecycle.md:99`).
+  or from the snapshot (`server-lifecycle.md:99`). (owner 2026-10-27) Addition: "both apply and rollback must be
+  idempotent; whether they are applied or not, we should be able to check externally, not by them failing."
+  → [Definitions](#definitions) rules, M58, M59.
+- [ ] M57 (M1) — Where the actions live: `apply` and the boot check in the image, the rest in `wow-migrate` by hand
+  (today; Npgsql only, `bespoke.md:215`) · every action a verb of one be sdk command tree that every image hosting
+  a set carries (`app migrate <verb>`), with `wow-migrate` the same tree over a manifest for developers and CI ·
+  Wheelhouse runs SQL itself → the command tree in the image; only the release image knows its sets, schemas, owner
+  instance and embedded SQL, and Wheelhouse already runs that image in a one-off container (`runner.py:2006-2045`).
+- [ ] M58 (M2) — What "applied" means to the external check: history rows only (today) · history plus a schema
+  fingerprint per set, recorded by each writing verb and compared by `check` · a probe query per migration (`-- @applied-when`)
+  → history now, the fingerprint next; idempotent scripts make history a faithful record of what ran, while hand DDL
+  or a restore that kept another history shows only in the schema, and a probe per file costs every author.
+- [ ] M59 (M2) — Proving idempotency: Apply → Rollback → Apply (today, `sql/bespoke-migrations.md:35`) · plus Apply →
+  Apply and Rollback → Rollback, each script run twice by the harness with the history bypassed · a convention only →
+  the harness runs both; the 2026-10-27 recovery re-applied `033` after its history row was deleted, and a failed
+  `-- @no-transaction` file reruns.
+- [ ] M60 (M57, M16) — Forgetting history rows an image lacks: hand SQL (2026-10-27:
+  `DELETE FROM migration_history WHERE ordinal = 33`) · a guarded `forget --above N` that refuses unless every
+  forgotten ordinal is an expand (M21) or the operator names the database · rely on M16 alone → the verb; images built
+  before M16 keep shipping until they age out, a restore can pair an older image with a newer history, and hand SQL on
+  prod skips both the guard and the trail.
+- [ ] M61 (M57) — The trail of writing actions: rollback deletes its history rows and keeps nothing (today,
+  `MigrationRunnerService.cs:457`) · an append-only event table per set (`{history}_events`: verb, ordinals, by, job,
+  at) · history rows marked rolled back → the event table; history stays the state every older image reads, and
+  `check` can explain a gap it finds.
 
 ### Ownership
 
@@ -656,8 +754,8 @@ Parent before child; a child names its parent. Each point: the decision, its opt
   views the owner publishes → ids only; a foreign key ties two owners' migration order and blocks the referenced
   set's contracts (T10's side tables keyed by `sub` already follow it).
 - [ ] M6 — Database topology: one database per product environment with a schema per set (today) · one database per
-  service · one per repository → one per product environment, and an instance product gets its own; placement,
-  snapshots and settings already work that way, and isolation comes from instance products (Q5 · B).
+  service · one per repository → one per product environment, and an instance gets its own; placement,
+  snapshots and settings already work that way, and isolation comes from instances (Q5 · B).
 - [ ] M7 (M6) — `DbContext` across a product's services: share the set's Persistence assembly within a repository · a
   context per service over its own set · any repository maps any set → share within a repository, never map another
   repository's set; the mapper follows the set's owner.
@@ -794,6 +892,11 @@ Parent before child; a child names its parent. Each point: the decision, its opt
   and the SDK's app-level `pg_advisory_xact_lock` (`Data/EntityFrameworkCore/Locks/Extensions/TransactionLockExtensions.cs:51`)
   · the migrator moves to the two-key form under a reserved class → the reserved class; PostgreSQL keeps the two key
   spaces apart, so no app lock can hold the step until its timeout, at the cost of one SDK change.
+- [ ] M62 (M17) — Seeing and clearing a held lock (the set's lock is session-level `pg_advisory_lock`,
+  `PostgresMigrationDialect.cs:41-43`): nothing beyond M17's timeout · a read-only `locks` verb (holder pid,
+  application name, since, query) and a guarded `unlock` that ends the holding session · psql on the host → `locks`
+  and `unlock`; a crashed step's lock ends with its session, so the stuck case is a live hung holder, rare, and
+  otherwise needs shell access to prod.
 
 ### Data migrations
 
@@ -807,6 +910,11 @@ Parent before child; a child names its parent. Each point: the decision, its opt
   until finished · the step first finishes the remaining batches inline (GitLab's
   `ensure_batched_background_migration_is_finished`) · a convention only → the refusal; nothing may depend on a
   background migration before it finishes, and an inline remainder of unknown size runs under the step's timeout.
+- [ ] M63 (M24) — Controls and rollback of a background migration: the worker starts it and nothing else · operator
+  verbs `bg pause`, `bg resume`, `bg retry` and `bg rollback`, progress in `check` · rollback by hand SQL → the verbs;
+  `bg rollback` runs the migration's declared batched inverse, and without one pauses it and resets its journal, so
+  the expand's `Rollback.sql` drops what it filled. Data rollback then mirrors schema rollback: a small backfill rolls
+  back through its own `Rollback.sql`, a large one through `bg rollback`, a move through its own job (M33).
 - [ ] M26 — Reference data and seeds: reference rows as upserts in the set, per-environment seeds through configuration
   or a host CLI · everything in sets · everything at boot → the split; a migration runs the same in every environment,
   and a first admin or an OIDC client differs per environment.
@@ -827,8 +935,8 @@ Parent before child; a child names its parent. Each point: the decision, its opt
 
 ### Platform services and instances
 
-- [ ] M29 — Who runs a standalone service's migrations: the instance product's own rollout · each consumer product's
-  rollout · one fleet job across instances → the instance product; Q5 · B gives each instance its own product,
+- [ ] M29 — Who runs a standalone service's migrations: the instance's own rollout · each consumer product's
+  rollout · one fleet job across instances → the instance; Q5 · B gives each instance its own product,
   database and pace, and a fleet roll-out can come later over the same step.
 - [ ] M30 — A Form 1 module's set: the product's `migrate` applies every registered set (today) · a declared step per
   module · boot → the product's step; `MigrateBespokeForDeployAsync` already applies every set, the module repository
@@ -879,6 +987,121 @@ Parent before child; a child names its parent. Each point: the decision, its opt
   "check now" · nothing → staged: the spec's view first, the rest with M21, M24 and M36, which produce the floor, the
   progress and the on-demand read; rollout rows read "Migrate {set}".
 
+### Types
+
+Column types for every set. Developer, 2026-10-27: "I had a strict convention to use guid as id; we need similar for
+other types: json has a camelCase rule; we need similar for dates, date-time, time-only; enums are already pgsql
+enums." Swept: every `Apply.sql` under the workbench (137 outside Haven's `.attic`) and the entity properties of nine
+backends; persistence conventions under `conventions/development/backend/dotnet/core/mla/domains/persistence/`.
+
+Settled — written rules that stand, with their source:
+
+- engine: PostgreSQL for every product and platform service, Identity included; SQLite only for a very small service
+  whose data may be lost, and for the test speed lane (`database/database.md:15-18`, developer 2026-10-27). The
+  SQLite sets swept (Files, Identity's SQLite set, Sift, Arcade, ListingShelf, Matinee,
+  the pilots) therefore need no type rule of their own; the test lane maps through `SqliteModelBuilderExtensions.cs:9-22`.
+- key: `Guid` stored as `uuid` (`postgres.md:21`, `entity-contracts.md:21`); no database default when the
+  application makes the key (`postgres.md:14`).
+- instant: `timestamptz` holding UTC (`postgres.md:22`). Calendar date: `date`, `DateOnly` (`postgres.md:23`).
+- string: `text`; `varchar(n)` only for a meaningful limit (`postgres.md:24`).
+- boolean `boolean`, binary `bytea` (`postgres.md:25`); a list is a native enum array or `text[]` (`postgres.md:26-28`).
+- `NOT NULL` unless the value is genuinely optional (`postgres.md:11`).
+- quantity: an integer in a documented unit; no `numeric` without a scoped decision (`postgres.md:34-39`).
+- enum: a native PostgreSQL enum with snake_case labels (`postgres.md:45-46`); a label is added by a migration and used
+  after its commit (`migration-dialects.md:48-51`); no label removal is promised (`migration-dialects.md:22`).
+- JSON: a mapped property pairs `HasJsonConversion` with the provider's JSON type, `jsonb` in the example
+  (`ef-mapping.md:54-64`); stored documents take the SDK's stored options — camelCase property names, dictionary keys
+  and enum strings (`StoredJsonOptionsFactory.cs:32-37`, `stored-json.md:10`); the HTTP wire is camelCase as well
+  (`serialization.md:9-10`) and stays a separate contract (`stored-json.md:19`).
+- wire: ISO dates and times, ISO-8601 durations (`serialization.md:15-17`).
+- traits: `CreatedAt`, `UpdatedAt`, `IsDeleted`, `DeletedAt` and their `Guid` actors; the interceptor stamps creation
+  once (`entity-contracts.md:48-62`); `xmin` is the PostgreSQL concurrency token (`entity-contracts.md:71-75`).
+
+Open — no rule yet, or the repositories disagree:
+
+- [ ] M64 — Name case: snake_case, lowercase and unquoted, for tables, columns, constraints and stored values · what EF
+  generates · per repository → snake_case everywhere. No rule states it for tables and columns: `ef-mapping.md:48`
+  applies `UseSnakeCaseNamingConvention()` "for a schema following the Postgres naming convention", and
+  `postgres.md:46` covers enum labels only. Most sets follow it (Wheelhouse `001-baseline/Apply.sql:4`); quoted
+  PascalCase remains in Desk's frozen ASP.NET Identity tables (`002-access`, `"NormalizedName"`), the pilots
+  (`"CreatedAtUtc"`) and ListingShelf (`CreatedAt`), and Desk's check values are kebab-case (`'business-card'`,
+  `004-design-documents/Apply.sql:6`). One form lets SQL, lint and review read every set alike; Desk's `access`
+  tables follow M39 or leave with Ocharo's Identity move.
+- [ ] M65 — Key version and maker: v4 `Guid.NewGuid()` in the app (ForeverPin, Desk, ListingShelf) · v7
+  `Guid.CreateVersion7()` in the app (Wheelhouse, Haven, TranscriptForge, Identity: "uuid ids as TEXT (v7, made in
+  code)", `Sqlite/001-accounts/Apply.sql:7`) · a database default (Haven's `haven_uuid_v7()`,
+  `013-uuid-v7-defaults`) → v7 made in the app, no default; v7 sorts by creation so index inserts stay local, the id
+  exists before the insert, and `postgres.md:14` already bans the redundant default. Rows a migration inserts itself
+  take v7 from SQL too — PostgreSQL 18's `uuidv7()`, or Haven's function on older servers, moved into the SDK — where
+  Wheelhouse's reference rows and backfills use v4 `gen_random_uuid()` (`007`, `009`, `010`, `015`). Proposed beside
+  it: a public token (a share link, a short code) stays a separate random value, because v7 reveals its creation time;
+  `bigint GENERATED … AS IDENTITY` only for claim rows and append-only logs (Identity, Harvest); `integer CHECK (id = 1)`
+  for a singleton row (Wheelhouse `030-built-in-vault`).
+- [ ] M66 — JSON column and keys written in SQL: `jsonb` always · `json` where a document must round-trip byte for byte
+  (Desk's revision `snapshot json`, `004-design-documents/Apply.sql:18`) → `jsonb`, `json` only for a document whose
+  exact text is the value; SQL that builds or reads stored JSON uses its camelCase keys and ISO durations, as Harvest's
+  baseline (`ageUnder`, `P2D`, `001-baseline/Apply.sql:112`) and TranscriptForge's backfill (`costMicroUsd`,
+  `003-transcript-library/Apply.sql:18`) already do. A snake_case key written by SQL is one the stored contract never
+  reads.
+- [ ] M67 (M64) — Instants in code and in names: `DateTimeOffset` (every swept entity: Wheelhouse, Haven, ForeverPin,
+  TranscriptForge, Identity, ListingShelf, Matinee) · `DateTime` in UTC · NodaTime `Instant` (only the stored JSON
+  options know NodaTime, `StoredJsonOptionsFactory.cs:41`); `*_at` (Haven, TranscriptForge, Desk, Harvest, Identity,
+  most of ForeverPin) · `*_at_utc` (Wheelhouse, secrets-vault, Files, Arcade, Matinee, ForeverPin's `seen_at_utc`, the
+  pilots' `CreatedAtUtc`) → `DateTimeOffset` at offset zero, named `*_at`; `timestamptz` already stores UTC, the entity
+  contract names `CreatedAt`, and ForeverPin mixing both forms shows the suffix carries nothing.
+- [ ] M68 (M64) — Date names: `*_on` (Desk's `starts_on`, `ends_on`, `008-events`) · `*_date` · free (Haven's
+  `author_registered_at` is a `date`; TranscriptForge's `month` holds a month's first day) → `*_on`, or a noun that
+  names the day (`deadline`, `month`); never `*_at`, which reads as an instant. Package-owned names stay the package's
+  (OpenIddict's `creation_date` is a `timestamptz`, M39).
+- [ ] M69 — Time-only and zoneless date-time (no storage rule; the wire has both, `type-mapping.md:25-26`): `time` plus
+  an IANA zone column when the time belongs to a place (Harvest's schedules: `time_zone text DEFAULT 'Asia/Tashkent'`,
+  `window_start time`, `001-baseline/Apply.sql:232-234`) · `timetz` · minutes since midnight → `time` with a zone
+  column, `TimeOnly` in code; a zoneless `timestamp` only for a declared local wall-clock value beside its zone, and no
+  set has one. `timetz` keeps an offset without a zone, so it breaks across daylight saving
+  ([date/time types](https://www.postgresql.org/docs/current/datatype-datetime.html)).
+- [ ] M70 — Durations: `interval` ↔ `TimeSpan` (TranscriptForge's `duration`, `audio_duration`; Harvest's TTLs and
+  `every_interval`) · an integer with a unit suffix (`elapsed_ms` in TNIS and TBS, Sift's `duration_seconds`, Matinee's
+  `runtime_minutes`, Harvest's `min_delay_ms`, the history's `execution_ms`) · both → `interval` for a span SQL
+  computes with (a schedule, a TTL, an offset added to a `timestamptz`), `bigint` milliseconds named `*_ms` for a
+  measured elapsed time; SQL adds an `interval` to an instant directly, and integers sum and average exactly. Both
+  reach the wire as an ISO duration (`serialization.md:16`).
+- [ ] M71 — Enums in practice: `postgres.md:45` asks for native enums, and only Haven maps them
+  (`Haven.Supply.Persistence/DataContexts/SupplyPostgresEnums.cs:25-36`); Wheelhouse stores text with snake values
+  (`001-baseline/Apply.sql:4`, `002-snake-enums`), though the convention's example names `Wheelhouse.Domain`
+  (`postgres.md:54-59`); Desk and Harvest use `text` with `CHECK (… IN …)`; ForeverPin, TranscriptForge, Identity and
+  TNIS plain text columns. Options: convert every set now · change the rule to `text` + `CHECK` · native for every new
+  column, an existing one converted when its product next changes that enum → the last; it keeps the developer's rule
+  without a sweep of table rewrites, and the SQLite ban removes Identity's reason for portable text. Either way:
+  adding a label is an expand; removing or renaming one is a contract (M20, M21), and a native label leaves only by
+  rebuilding the type.
+- [ ] M72 — Money and decimals: integers in a unit (`postgres.md:34-39`; Haven's `price_amount bigint` beside
+  `price_currency currency`; `*_micro_usd` in Haven and TranscriptForge, which left `numeric` in
+  `003-transcript-library`) · `numeric(p,s)` (Harvest's `numeric(12,4)` and `(12,6)` costs, TNIS and TBS
+  `revenue_uzs numeric(18, 2)`, Haven's `usd_uzs_rate numeric`) → money as `bigint` minor or micro units with its
+  currency in a column or in the name; `numeric(p,s)` only for an exact ratio such as an exchange rate;
+  `double precision` for measurements (TNIS's coordinates and speeds; Haven's `numeric(10,7)` coordinates convert).
+  An integer stays exact in every layer and on the JSON wire within `Number.isSafeInteger` (`type-mapping.md:30`),
+  while a `numeric` reaches the browser as binary64 (`type-mapping.md:33`). Desk's event `cost text`
+  (`008-events/Apply.sql:21`) is display text, not money.
+- [ ] M73 — Case-insensitive text and lengths: `citext` (no set uses it) · `text` with a unique index on `lower(…)`
+  (Haven `005-publish-templates/Apply.sql:21`) · a stored normalized column (Identity's `normalized_email` beside
+  `email varchar(320)`, `Postgres/001-accounts/Apply.sql:18`; ASP.NET Identity's `NormalizedEmail` in Desk) → `text`
+  with a unique `lower(…)` index, and a normalized column only where a library reads one (Identity); `citext` is an
+  extension each database must install. ForeverPin's `email text` (`003-accounts/Apply.sql:15`) has no `lower()`
+  index in its set (U). Lengths: `varchar(n)` stays for a limit the domain states (an email's 320); Haven's
+  `varchar(50)` to `varchar(10000)` become `text` with a `CHECK (length(…))`, as Desk writes them, when touched;
+  widening is an expand, narrowing a contract.
+- [ ] M74 (M64, M67) — Audit columns: the interceptor stamps `created_at` and `updated_at` and the database adds
+  nothing (`entity-contracts.md:61`) · the interceptor plus `DEFAULT now()` on `created_at` for rows SQL inserts
+  (backfills, seed files, reference rows) · the database owns both (Haven's defaults and `update_updated_at()` trigger,
+  `001-baseline/Apply.sql:518-523`) → the interceptor plus the `created_at` default; `postgres.md:13` allows a
+  database-owned timestamp, migrations do insert rows without the app, and a trigger gives `updated_at` two writers.
+- [ ] M75 (M74) — Soft delete: both of the contract's `IsDeleted` and `DeletedAt` (`entity-contracts.md:56`) ·
+  `deleted_at timestamptz NULL` alone, `IsDeleted` computed from it · a flag alone (Haven's
+  `listing_triage_assignments.is_deleted`, the only soft delete swept) → `deleted_at` alone; one column cannot disagree
+  with itself, and a partial unique index `WHERE deleted_at IS NULL` frees a deleted row's name. It narrows
+  `ISoftDeletable` in the be sdk.
+
 ---
 
 ## Answer batches
@@ -887,14 +1110,17 @@ Answered in order: each batch holds the parents of later batches' points, and li
 
 | # | Theme | Points |
 |---|---|---|
-| 1 | what a migration is and who owns it | M1, M2, M3, M4, M5, M6 |
+| 1 | what a migration is and who owns it (M1, M2 answered 2026-10-27) | M1, M2, M3, M4, M5, M6 |
 | 2 | one mechanism, expand only, and an older image on newer history (the confirmed rollback failure) | M12, M20, M21, M22, M15, M16, M19 |
 | 3 | ownership details: mappers, credentials, package DDL, dialects, prerequisites, outside state, tenancy | M7, M8, M39, M40, M41, M42, M55 |
 | 4 | declaration and the image contract | M9, M10, M11, M43, M44, M45, M46, M56 |
-| 5 | running the step: when, where, locks, rehearsal, SQLite, apply paths, the SDK spread | M13, M14, M17, M18, M49, M50, M47, M48 |
-| 6 | data, seeds and client state | M23, M24, M25, M26, M51, M54 |
-| 7 | several services and platform services | M27, M28, M29, M30, M31, M32 |
-| 8 | moves, operator actions, tests and what Wheelhouse shows | M33, M52, M34, M35, M53, M36, M37, M38 |
+| 5 | the actions: one command tree, the external check, idempotency proof, forgetting history, the trail | M57, M58, M59, M60, M61 |
+| 6 | running the step: when, where, locks, rehearsal, SQLite, apply paths, the SDK spread | M13, M14, M17, M62, M18, M49, M50, M47, M48 |
+| 7 | data, seeds and client state | M23, M24, M25, M63, M26, M51, M54 |
+| 8 | several services and platform services | M27, M28, M29, M30, M31, M32 |
+| 9 | moves, operator actions, tests and what Wheelhouse shows | M33, M52, M34, M35, M53, M36, M37, M38 |
+| 10 | column types I: names, keys, JSON, time; no parent outside the batch, so it may run any time | M64, M65, M66, M67, M68, M69, M70 |
+| 11 | column types II: enums, money, text, audit, soft delete | M71, M72, M73, M74, M75 |
 
 ---
 
@@ -936,7 +1162,7 @@ reason text, and no second history table (`:119-121`).
 - S9 — Expand-only binds every product (`:44-45`) without a machine-readable marker, against `breaking-changes.md:14`
   for products without users. → M20, M21
 - S10 — Release sets of several repositories and "B fails after A" are absent; `backlog.md:134` stays open. → M27, M28
-- S11 — Identity appears only as the first consumer (`:10-11`); instance products (Q5 · B), Form 1 module sets, shared
+- S11 — Identity appears only as the first consumer (`:10-11`); instances (Q5 · B), Form 1 module sets, shared
   hosts and product ↔ service versions are absent. → M29–M32
 - S12 — The helper and contract are bespoke only (`:61`, `:130`); EF and DbUp products, such as Ocharo Marketing,
   Hijinx and the pilots' identity databases, get no `migrate`. → M11
