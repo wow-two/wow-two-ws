@@ -1,6 +1,6 @@
 # Domain structure
 
-*Last updated: 2026-10-26*
+*Last updated: 2026-10-27*
 
 > Shape of a domain repo — one SDK domain's be packages, fe package, service and image in one repo: when a domain
 > earns one, naming, layout, layers, docs and releases.
@@ -206,6 +206,9 @@ Evidence and the options weighed → [SDK breakdown](../../../../ideas/identity-
 | image | `X.Y.Z` | `vX.Y.Z` | [versioning](../versioning/versioning.md) | `publish-docker-image.yml` |
 
 - must release every package of one repo on one version line; each repo keeps its own line.
+- must keep `x` on the framework line (`10` for .NET 10 NuGet, `0` for npm); `y` and `z` have no ceiling, so
+  `10.0.99-beta` is followed by `10.0.100-beta`, and `y` moves only by the owner's decision. The core SDKs follow the
+  same rule.
 - must let the version track drive the image only; the package lines ignore it.
 - must derive a package version from tags and pass it to the pack step; CI never commits a version.
 - must not make a release commit in a domain repo;
