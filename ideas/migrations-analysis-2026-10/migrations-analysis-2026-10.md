@@ -1307,7 +1307,7 @@ Open — no rule yet, or the repositories disagree:
   (OpenIddict's `creation_date` is a `timestamptz`, M39).
   (owner 2026-10-27) Stricter: every `date` column ends in `_on`, with no noun alternative, for consistency; package-owned
   names stay the package's.
-- [ ] M69 — Time-only and zoneless date-time (no storage rule; the wire has both, `type-mapping.md:25-26`): `time` plus
+- [x] M69 — Time-only and zoneless date-time (no storage rule; the wire has both, `type-mapping.md:25-26`): `time` plus
   an IANA zone column when the time belongs to a place (Harvest's schedules: `time_zone text DEFAULT 'Asia/Tashkent'`,
   `window_start time`, `001-baseline/Apply.sql:232-234`) · `timetz` · minutes since midnight → `time` with a zone
   column, `TimeOnly` in code; a zoneless `timestamp` only for a declared local wall-clock value beside its zone, and no
@@ -1315,6 +1315,7 @@ Open — no rule yet, or the repositories disagree:
   ([date/time types](https://www.postgresql.org/docs/current/datatype-datetime.html)).
   Owner question 2026-10-27: `_at` here too? → proposed `*_time` (`window_start_time`): `_at` names an
   instant (M67), so a `time` named `_at` would read as a `timestamptz` to people and to the lint.
+  (owner 2026-10-27: `*_time` confirmed)
 - [x] M70 — Durations: `interval` ↔ `TimeSpan` (TranscriptForge's `duration`, `audio_duration`; Harvest's TTLs and
   `every_interval`) · an integer with a unit suffix (`elapsed_ms` in TNIS and TBS, Sift's `duration_seconds`, Matinee's
   `runtime_minutes`, Harvest's `min_delay_ms`, the history's `execution_ms`) · both → `interval` for a span SQL
@@ -1366,7 +1367,7 @@ Open — no rule yet, or the repositories disagree:
 ## Answer batches
 
 Answered in order: each batch holds the parents of later batches' points, and lists its own points parent first.
-Front of the queue: M69's suffix, then the final spec; M5 and M6 were answered on 2026-10-27, and their
+Front of the queue: the final spec; M5 and M6 were answered on 2026-10-27, and their
 children M79 and M80 join batch 3.
 
 After the final spec: the conventions, then the migrator (be sdk verbs and the Wheelhouse step), then one sweep that
@@ -1383,7 +1384,7 @@ updates every product and platform service, Identity's follow-ups included (owne
 | 7 | data, seeds and client state | answered M23, M24, M25, M63, M26, M51, M54 |
 | 8 | several services and platform services | answered M27, M28, M29, M30, M31, M32 |
 | 9 | moves, operator actions, tests and what Wheelhouse shows | answered M33, M52, M34, M35, M53, M36, M37, M38 |
-| 10 | column types I: names, keys, JSON, time; no parent outside the batch, so it may run any time | M69; answered M64, M65, M66, M67, M68, M70 |
+| 10 | column types I: names, keys, JSON, time; no parent outside the batch, so it may run any time | answered M64, M65, M66, M67, M68, M69, M70 |
 | 11 | column types II: enums, money, text, audit, soft delete | answered M71, M72, M73, M74, M75 |
 
 ---
