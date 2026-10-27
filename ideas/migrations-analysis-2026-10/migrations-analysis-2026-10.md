@@ -1,6 +1,6 @@
 # Migrations — wow2 analysis
 
-*Last updated: 2026-10-27 08:25 PM*
+*Last updated: 2026-10-27 08:55 PM*
 
 > How the wow2 ecosystem changes persistent state across releases: schema and data migrations, who owns, declares
 > and runs them, and how products, standalone platform services and Wheelhouse itself share one model. Written before
@@ -1070,7 +1070,7 @@ Parent before child; a child names its parent. Each point: the decision, its opt
 - [ ] M18 — Prod rehearsal: trust the dev run and the snapshot · a dry run against prod before promoting · rehearse on a
   redacted prod copy in dev → trust dev and the snapshot in v1, then rehearse on the dev refresh once `backlog.md:123`
   ships; a prod dry run takes the same locks as the real run (`bespoke.md:64`).
-- [ ] M19 (M12, M16) — Wheelhouse itself: boot apply forever through `ApplyWhenDeployed` · the step in its self-deploy
+- [x] M19 (M12, M16) — Wheelhouse itself: boot apply forever through `ApplyWhenDeployed` · the step in its self-deploy
   and in `self-deploy.py` · boot apply only while it bumps past 10.0.82, then the step → the third, with
   `AllowOrphanedHistory` on its set from the next release (M16); Wheelhouse is the first platform app on the step,
   break-glass must not rest on boot behaviour the SDK removed, and without the flag its rollback fails (S5). A rollback
@@ -1078,6 +1078,9 @@ Parent before child; a child names its parent. Each point: the decision, its opt
   Owner question 2026-10-27: why not drop boot apply now, when no project is mid-migration? → boot is Wheelhouse's
   only applier until the step ships (it applied `033` and `034` that day), and each Wheelhouse release is rolled out
   by the previous release's runner, so the release that adds the step still applies at boot and the next one stops.
+  (owner 2026-10-27) The bridge is Wheelhouse's exception alone: no other app rolls itself out, and products take
+  the step only after Wheelhouse ships it (M48). After the bridge, prod's runner job runs the new Wheelhouse image's
+  `migrate` before swapping either console, and `self-deploy.py` does the same when the console is down.
 - [ ] M47 (M16) — Apply paths beside the step (Hijinx's Development-only EF runner, Haven's `Schema:ApplyOnStartup`,
   Files' `ApplyWhenDeployed`, Desk's `--migrate`, TNIS's CLI, products deployed by compose): each product keeps its own
   · one `migrate` command per image, run by Wheelhouse as the step and by compose as a one-shot service the app waits
@@ -1328,7 +1331,7 @@ Open — no rule yet, or the repositories disagree:
 ## Answer batches
 
 Answered in order: each batch holds the parents of later batches' points, and lists its own points parent first.
-Front of the queue: batch 2's M19, then batch 1's M3 with its children M76–M78; M5 and M6 were answered on 2026-10-27, and their
+Front of the queue: batch 1's M3 with its children M76–M78; M5 and M6 were answered on 2026-10-27, and their
 children M79 and M80 join batch 3.
 
 After the final spec: the conventions, then the migrator (be sdk verbs and the Wheelhouse step), then one sweep that
@@ -1337,7 +1340,7 @@ updates every product and platform service, Identity's follow-ups included (owne
 | # | Theme | Points |
 |---|---|---|
 | 1 | what a migration is and who owns it (M1, M2, M4, M5, M6 answered 2026-10-27); open: M3 and the consumption modes | M3, M76, M77, M78; answered M1, M2, M4, M5, M6 |
-| 2 | one mechanism, expand only, and an older image on newer history (the confirmed rollback failure) | M19; answered M12, M20, M21, M22, M15, M16 |
+| 2 | one mechanism, expand only, and an older image on newer history (the confirmed rollback failure) | answered M12, M20, M21, M22, M15, M16, M19 |
 | 3 | ownership details: mappers, credentials, the cross-owner contract, references into a shared instance, package DDL, prerequisites, outside state, tenancy (M40 settled by the SQLite ban) | M7, M8, M79, M80, M39, M41, M42, M55 |
 | 4 | declaration and the image contract | M9, M10, M11, M43, M44, M45, M46, M56 |
 | 5 | the actions: one command tree, the external check, idempotency proof, forgetting history, the trail | M57, M58, M59, M60, M61 |
