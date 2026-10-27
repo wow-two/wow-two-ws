@@ -215,6 +215,9 @@ Evidence and the options weighed → [SDK breakdown](../../../../ideas/identity-
   [SDK release sync](../../dev-cycle.md#sdk-release-sync--after-every-push) does not apply to it.
 - must gate a package release on the package tests and the in-process conformance suite.
 - must push the tag before publishing, so a failed publish burns its number.
+- should unlist through the publish workflow rather than nuget.org's page, never with a stored key: a manual dispatch with `unlist` (a
+  family version, or `<id>@<version>` pairs) releases nothing and unlists those versions with the trusted-publishing
+  key; the nuget.org policy carries the unlist scope beside push. The core SDK's `publish.yml` takes the same input.
 - must not create a GitHub Release for a `be-v` or `fe-v` tag.
 - must publish packages only from `publish-packages.yml`, by registry trusted publishing; the repo stores no token.
 - must keep each publish job disarmed until its registry trusts `publish-packages.yml`.
