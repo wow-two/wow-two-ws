@@ -44,7 +44,7 @@ def fresh(**over):
 
 def created(**over):
     """The GitHub repo exists, empty, with GitHub's default settings; not cloned."""
-    base = dict(repo_exists=True, settings={"has_issues": False, "has_wiki": False, "has_projects": True,
+    base = dict(repo_exists=True, visibility="private", settings={"has_issues": False, "has_wiki": False, "has_projects": True,
                                             "has_discussions": False},
                 workflow={"default_workflow_permissions": "write", "can_approve_pull_request_reviews": False},
                 actions_enabled=True, rulesets=[], remote_main="", publish_var="", be_tags=[], fe_tags=[],
@@ -54,11 +54,11 @@ def created(**over):
 
 
 def cloned(**over):
-    """Cloned empty, settings and ruleset applied."""
+    """Cloned empty and private, settings applied; the ruleset waits for the public flip."""
     base = dict(folder="empty-clone", origin="wow-two-sdk-beta/wow-two-sdk-beta.identity", head="",
                 settings={"has_issues": False, "has_wiki": False, "has_projects": False, "has_discussions": False},
                 workflow={"default_workflow_permissions": "read", "can_approve_pull_request_reviews": False},
-                rulesets=["main-guard"])
+                rulesets=[])
     base.update(over)
     return created(**base)
 
@@ -83,7 +83,8 @@ def registered(**over):
     base = dict(catalog_entry={"slug": "identity", "deploy": "none",
                                "repositories": ["wow-two-sdk-beta/wow-two-sdk-beta.identity"]},
                 hub_committed=True, hub_pushed=True, hub_dirty=[], deploy_worktree="none", deploy_head="none",
-                deploy_origin="none", release_tag="v0.1.1", sample_content=False)
+                deploy_origin="none", release_tag="v0.1.1", sample_content=False, visibility="public",
+                rulesets=["main-guard"])
     base.update(over)
     return pushed(**base)
 
@@ -108,9 +109,9 @@ class PhaseDetection(unittest.TestCase):
         self.assertEqual(by["create"].status, "next")
         self.assertEqual(by["clone"].status, "pending")
         self.assertEqual(library.next_phase(steps)[0], 1)
-        self.assertEqual(chain_ids(steps), ["create", "clone", "settings", "ruleset"])
+        self.assertEqual(chain_ids(steps), ["create", "clone", "settings"])
         cmds = commands(steps)
-        self.assertTrue(cmds[0].startswith(GH + "repo create wow-two-sdk-beta/wow-two-sdk-beta.identity --public "))
+        self.assertTrue(cmds[0].startswith(GH + "repo create wow-two-sdk-beta/wow-two-sdk-beta.identity --private "))
         self.assertEqual(cmds[1], GH + f"repo clone wow-two-sdk-beta/wow-two-sdk-beta.identity {CLONE}")
         # settings come after the clone: the guard matches a gh write to a checkout's origin
         self.assertLess(cmds.index(cmds[1]), next(i for i, c in enumerate(cmds) if "repo edit" in c))
@@ -119,7 +120,7 @@ class PhaseDetection(unittest.TestCase):
         by, steps = plan(created())
         self.assertEqual(by["create"].status, "done")
         self.assertEqual(by["clone"].status, "next")
-        self.assertEqual(chain_ids(steps), ["clone", "settings", "ruleset"])
+        self.assertEqual(chain_ids(steps), ["clone", "settings"])
         edit = next(c for c in commands(steps) if "repo edit" in c)
         self.assertIn("--enable-projects=false", edit)
         self.assertNotIn("--enable-issues=false", edit)  # already off, so not repeated
@@ -127,7 +128,7 @@ class PhaseDetection(unittest.TestCase):
 
     def test_empty_clone_moves_to_scaffold(self):
         by, steps = plan(cloned())
-        self.assertEqual([by[i].status for i in ("clone", "settings", "ruleset")], ["done"] * 3)
+        self.assertEqual([by[i].status for i in ("clone", "settings")], ["done"] * 2)
         self.assertEqual(library.next_phase(steps)[0], 2)
         self.assertEqual(chain_ids(steps), ["scaffold", "placeholders", "commit", "push"])
         self.assertEqual(commands(steps)[0], "SHAPE=domain INTO=clone bash /ws/.claude/skills/create-repo/scaffold.sh "
@@ -154,6 +155,21 @@ class PhaseDetection(unittest.TestCase):
         self.assertEqual(by["commit"].status, "done")
         self.assertEqual(by["push"].status, "next")
         self.assertEqual(commands(steps), [f"git -C {CLONE} push origin main"])
+
+    def test_pushed_private_hands_over_the_public_flip(self):
+        by, _ = plan(pushed())
+        self.assertEqual(by["public"].status, "hand")
+        self.assertIn("repo edit wow-two-sdk-beta/wow-two-sdk-beta.identity --visibility public "
+                      "--accept-visibility-change-consequences", by["public"].hand[0])
+        self.assertEqual(by["ruleset"].status, "pending")
+        self.assertEqual(by["content"].status, "pending")
+
+    def test_public_repo_without_ruleset_applies_it(self):
+        by, steps = plan(registered(rulesets=[]))
+        self.assertEqual(by["public"].status, "done")
+        self.assertEqual(by["ruleset"].status, "next")
+        self.assertEqual(library.next_phase(steps)[0], 2)
+        self.assertEqual(chain_ids(steps), ["ruleset"])
 
     def test_pushed_without_catalog_entry_runs_the_hub_phase(self):
         by, steps = plan(pushed(platform_row="unnamed"))

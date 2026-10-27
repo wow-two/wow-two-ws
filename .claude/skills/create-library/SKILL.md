@@ -67,8 +67,8 @@ Statuses: `done` · `skip` (does not apply) · `next` (yours to run now) · `pen
 | # | Phase | Steps | Done when | Who |
 |---|---|---|---|---|
 | 0 | Preflight | tools · gh account · template with `INTO=clone` · flags · commit identity · Codex app | probes pass | agent, developer once |
-| 1 | GitHub | create (`gh repo create o/n --public`) → clone (`gh repo clone`) → settings → `main-guard` ruleset | `gh api repos/o/n` answers, `origin` = `o/n`, settings and ruleset read back | agent |
-| 2 | Scaffold | `SHAPE=domain INTO=clone scaffold.sh` → fill placeholders → verify, commit → push | `product/product.json` exists; `origin/main` has the commit | agent |
+| 1 | GitHub | create private (`gh repo create o/n --private`) → clone (`gh repo clone`) → settings | `gh api repos/o/n` answers, `origin` = `o/n`, settings read back | agent |
+| 2 | Scaffold | `SHAPE=domain INTO=clone scaffold.sh` → fill placeholders → verify, commit → push → the developer makes it public → `main-guard` ruleset | `origin/main` has the commit; the repo is public with the ruleset | agent, developer once |
 | 3 | Hub | catalog entry (`apply-local catalog`) → platform-apps row → registry → hub commit → hub push | `origin/main:catalog.yml` names the repo | agent |
 | 4 | Registries | content gate → NuGet policy → npm first version → arm `PUBLISH_PACKAGES` → be and fe published | nuget.org lists the family; npm lists a CI version | consent, developer, agent |
 | 5 | Image | first `v*` release from the scaffold push · `wheelhouse-max` on the org | a `v*` release exists | CI, developer once |
@@ -79,6 +79,10 @@ Statuses: `done` · `skip` (does not apply) · `next` (yours to run now) · `pen
   reads an uncloned `owner/name` as OFF (G8, P2). T9 § 4 listed settings first.
 - Creation reads the push flag of the folder it will be cloned into (`workbench/wow-two-sdk-beta/*`, ON); an occupied
   folder reads OFF, so `plan` blocks creation when the folder already holds something.
+- The repo starts private: auto mode refuses an agent-created public surface (2026-10-27). The agent configures,
+  scaffolds and pushes it privately; the developer runs one `gh repo edit o/n --visibility public` in Warp; the
+  `main-guard` ruleset follows, since rulesets on private repos need a paid plan. The registries wait for the flip,
+  because npm provenance needs a public source repo.
 - `scaffold.sh` with `INTO=clone` fills the empty clone and keeps its `.git` and `origin`; nobody runs `git remote add`.
 - The commit step runs the create-repo verification (`dotnet test`, `pnpm lint/test/build/check:package`,
   `test-next-version.sh`) and `git var GIT_AUTHOR_IDENT` before `git -C <repo> commit -m "…"`.
@@ -95,6 +99,7 @@ Statuses: `done` · `skip` (does not apply) · `next` (yours to run now) · `pen
 
 | Step | When | The developer does | Unblocks |
 |---|---|---|---|
+| Public flip | per library, after the scaffold push | in Warp: `gh repo edit o/n --visibility public --accept-visibility-change-consequences`, with the `GH_TOKEN` prefix `plan` prints | the ruleset; the registries |
 | NuGet trusted-publishing consent | per library, after the content gate | says "yes" in chat, and the agent signs in (email, then the developer's passkey tap) and fills nuget.org's form in the `wow2` Chrome profile; or fills it: owner `wow-two-sdk-beta`, repo, `publish-packages.yml`, packages `WoW2.Sdk.Beta.Be.{Brand}.*` | arming `PUBLISH_PACKAGES`; the be publish |
 | npm first version and `npm trust` | per library, after the content gate | in Warp, after the agent packs `fe-{slug}-0.0.1.tgz`: `npm publish <tgz> --access public`, then `npm trust github @wow-two-beta/fe-{slug} --file publish-packages.yml --repo o/n --allow-publish` (2FA; npm ≥ 11.15.0) | the fe job; npm drops a trusted publisher with no publish within 2 days, so the agent dispatches right after |
 | Wheelhouse product registration | per library, after `deploy: wheelhouse` | imports the product from the wow2 hub, picks its server, binds its sites; the agent can drive the import in the owner's console session on request | dev rollouts of each image |

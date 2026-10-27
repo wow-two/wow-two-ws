@@ -225,6 +225,7 @@ class State:
     sample_content: object = None
     # GitHub
     repo_exists: object = None
+    visibility: object = None        # private · public
     settings: object = None          # {"has_issues": …, "has_wiki": …, "has_projects": …, "has_discussions": …}
     workflow: object = None          # {"default_workflow_permissions": …, "can_approve_pull_request_reviews": …}
     actions_enabled: object = None
@@ -546,6 +547,7 @@ class Probe:
             code, body = self.gh_get(f"repos/{lib.full}")
             st.repo_exists = None if code is None else code == 200
             if st.repo_exists:
+                st.visibility = body.get("visibility") or ("private" if body.get("private") else "public")
                 st.settings = {k: body.get(k) for k in ("has_issues", "has_wiki", "has_projects", "has_discussions")}
                 code, body = self.gh_get(f"repos/{lib.full}/actions/permissions/workflow")
                 st.workflow = body if code == 200 else None
@@ -693,8 +695,9 @@ def evaluate(lib, st, confirmed=(), publish=False):
     codex.status = tri(st.org_apps, st.org_apps is not None and CODEX_APP not in st.org_apps)
     codex.hand = [f"uninstall {CODEX_APP} at github.com/organizations/{lib.owner}/settings/installations"]
 
-    # 1 · GitHub — create, then clone: the guard matches a gh write to a checkout's origin, so settings follow it
-    create = add(Step("create", 1, f"create {lib.full}, public and empty", "agent",
+    # 1 · GitHub — create private, then clone: the guard matches a gh write to a checkout's origin, so settings follow
+    # it; the developer makes the repo public once it holds the scaffold (phase 2), and the ruleset follows that
+    create = add(Step("create", 1, f"create {lib.full}, private and empty", "agent",
                       needs=("tools", "account", "template", "flags")))
     occupied = st.folder in ("foreign", "clone", "empty-clone")
     if st.repo_exists:
@@ -706,7 +709,7 @@ def evaluate(lib, st, confirmed=(), publish=False):
         create.note = (f"{lib.rel} is occupied, so the guard reads creation as OFF: the developer moves it aside")
     description = lib.description or (f"{lib.brand} domain: {lib.nuget_glob} packages, {lib.fe_package} and the "
                                       f"{lib.product} service")
-    create.commands = [gh(lib, f"repo create {lib.full} --public --disable-wiki --disable-issues -d {q(description)}")]
+    create.commands = [gh(lib, f"repo create {lib.full} --private --disable-wiki --disable-issues -d {q(description)}")]
 
     clone = add(Step("clone", 1, f"clone into {lib.rel}", "agent", needs=("create",)))
     if st.folder in ("clone", "empty-clone"):
@@ -734,14 +737,6 @@ def evaluate(lib, st, confirmed=(), publish=False):
         settings.status = "done"
     elif st.repo_exists and (st.settings is None or st.workflow is None):
         settings.status = "unknown"
-
-    ruleset = add(Step("ruleset", 1, "main ruleset main-guard: no force push, no deletion", "agent",
-                       needs=("clone",)))
-    if st.repo_exists and st.rulesets is None:
-        ruleset.status = "unknown"
-    elif st.rulesets and "main-guard" in st.rulesets:
-        ruleset.status = "done"
-    ruleset.commands = [gh(lib, f"api -X POST repos/{lib.full}/rulesets --input {q(lib.root / RULESET)}")]
 
     # 2 · Scaffold
     scaffold = add(Step("scaffold", 2, "stamp the domain template into the empty clone", "agent",
@@ -796,6 +791,25 @@ def evaluate(lib, st, confirmed=(), publish=False):
         push.status = "unknown"
     push.commands = [f"git -C {q(abs_path)} push origin main"]
 
+    # a public surface is the developer's call: one command, after the repo holds the scaffold
+    public = add(Step("public", 2, f"make {lib.full} public", "developer", needs=("push",),
+                      unblocks="the main ruleset; the registries (npm provenance needs a public source repo)"))
+    if st.visibility == "public":
+        public.status = "done"
+    elif st.repo_exists and st.visibility is None:
+        public.status = "unknown"
+    public.hand = ["in Warp: " + gh(lib, f"repo edit {lib.full} --visibility public "
+                                         "--accept-visibility-change-consequences")]
+
+    # rulesets on private repos need a paid plan, so main-guard waits for the public flip
+    ruleset = add(Step("ruleset", 2, "main ruleset main-guard: no force push, no deletion", "agent",
+                       needs=("public",)))
+    if st.repo_exists and st.rulesets is None:
+        ruleset.status = "unknown"
+    elif st.rulesets and "main-guard" in st.rulesets:
+        ruleset.status = "done"
+    ruleset.commands = [gh(lib, f"api -X POST repos/{lib.full}/rulesets --input {q(lib.root / RULESET)}")]
+
     # 3 · Hub
     hub_commit_on = bool(st.hub_flags and st.hub_flags.get("commit"))
     hub_push_on = bool(st.hub_flags and st.hub_flags.get("push"))
@@ -842,7 +856,8 @@ def evaluate(lib, st, confirmed=(), publish=False):
 
     # 4 · Registries — opens with the first real slice; nothing published carries the template's sample
     published = bool(st.nuget_versions) or bool(st.npm_versions)
-    content = add(Step("content", 4, "packages hold the first real slice", "gate", needs=("scaffold", "push")))
+    content = add(Step("content", 4, "packages hold the first real slice", "gate",
+                       needs=("scaffold", "push", "public")))
     if publish or published or (st.scaffolded and st.sample_content is False):
         content.status = "done"
         content.note = "--publish" if publish and st.sample_content else ""
