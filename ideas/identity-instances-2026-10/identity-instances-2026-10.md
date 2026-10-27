@@ -460,7 +460,7 @@ The instance runs Q20's configured defaults; nothing is tuned for wow2.
 | test mode (fake channels, personas) and conformance in CI | yes | yes | Q18, Q28 |
 | I15 durable OTP | throttles only | yes | hashed, bound, 30 s resend |
 | I20 Telegram: link on first sign-in, the bot webhook | — | yes | Log in with Telegram deferred |
-| I14 invitations | deferred | yes | an expiring, single-use link carrying the role, which the admin hands over; phone pre-registration |
+| I14 invitations | links | yes | a link carrying the role, with per-link expiry and use limit in the library; wow2 hands over expiring single-use links; phone pre-registration for Ocharo |
 | I21 admin subset: members add, role, disable, remove; sessions revoke; sign-in log read | sessions and log only | yes | the repo backlog lists I21 under P2; this subset moves to P1 |
 | OpenTelemetry meters, `/health` readiness | yes | yes | — |
 | ops notifier through a bot | deferred | yes | T6 § 7 |
@@ -482,9 +482,10 @@ The instance runs Q20's configured defaults; nothing is tuned for wow2.
 1. Finish v0.1 (the split into seven packages, tests green), then the groundwork row.
 2. I17 keys, then the I18 server core with the client registry by configuration.
 3. I16 sessions and the sign-in log, then the Data Protection ring.
-4. Hosted pages for wow2's methods, the console shell and the host CLI.
+4. Hosted pages for wow2's methods, I14 invite links with their accept page, the console shell (Wheelhouse's layout)
+   and the host CLI.
 5. I19 client module, conformance in CI, then **the wow2 instance goes live** (§ 7 M2–M5).
-6. I15 durable codes, I14 invitations, I20 Telegram link and webhook.
+6. I15 durable codes, I14 phone pre-registration, I20 Telegram link and webhook.
 7. The I21 admin subset, back-channel logout, and the phone, code and link pages.
 8. **The Ocharo instance goes live** (§ 7 M7–M10).
 
@@ -509,7 +510,7 @@ The instance runs Q20's configured defaults; nothing is tuned for wow2.
 | M4 | Wheelhouse dev signs in through the dev instance; break-glass drill passed | Wheelhouse adoption, the local login, host-side rollback | M3 |
 | M5 | **Wheelhouse signs in through the wow2 instance**: instance prod, Wheelhouse prod on SSO, step-up live | the developer's first target | M4 and a typed-confirm promotion |
 | M6 | a second real platform app (the Files console) joins | SSO with roles across apps | Files P1 |
-| M7 | the Ocharo slice green: I14, I15, I20, the I21 subset, back-channel logout | the Telegram flows on fake channels, then one real dev bot | § 6 steps 6–7 |
+| M7 | the Ocharo slice green: I14 phone pre-registration, I15, I20, the I21 subset, back-channel logout | the Telegram flows on fake channels, then one real dev bot | § 6 steps 6–7 |
 | M8 | Wheelhouse: an instance product (Q5 · B), Ocharo's domain bound, off-host backups with a restore proof | the Ocharo gates | Wheelhouse backlog |
 | M9 | Ocharo instance dev with the dev bot; Desk dev as the first client; members invited | the reset path and a member's first sign-in through the bot | M7, M8 |
 | M10 | **Ocharo's apps sign in through theirs**: instance prod, then Desk, Catalogue and Brand, Studio, Marketing and Editorial one by one; the old paths retire | Ocharo's cutover | M9, the residency check |
@@ -536,7 +537,8 @@ Continuing the hub's queue. Each line: the question → the pick.
   customer-facing clients only, no membership → yes
 - [x] Q66 Desk's accounts: reset, keep the organization id, invite members again, the bot re-links (revises Q55's
   one-time copy) → reset (2026-10-27)
-- [ ] Q67 minimum scope: Ocharo includes back-channel logout and the I21 member subset, defers Log in with Telegram;
-  wow2 defers back-channel logout and I14 → yes
+- [x] Q67 minimum scope: Ocharo includes back-channel logout and the I21 member subset, defers Log in with Telegram;
+  wow2 defers back-channel logout and I14 → yes, revised 2026-10-27: wow2 ships I14 invite links in P1, defers
+  back-channel logout
 - [ ] Q68 backups gate: only Ocharo's cutover waits on off-host backups; the wow2 instance goes live before them →
   yes
