@@ -1,6 +1,6 @@
 # Migrations — wow2 analysis
 
-*Last updated: 2026-10-27 10:10 PM*
+*Last updated: 2026-10-27 10:30 PM*
 
 > How the wow2 ecosystem changes persistent state across releases: schema and data migrations, who owns, declares
 > and runs them, and how products, standalone platform services and Wheelhouse itself share one model. Written before
@@ -1144,11 +1144,11 @@ Parent before child; a child names its parent. Each point: the decision, its opt
   until finished · the step first finishes the remaining batches inline (GitLab's
   `ensure_batched_background_migration_is_finished`) · a convention only → the refusal; nothing may depend on a
   background migration before it finishes, and an inline remainder of unknown size runs under the step's timeout. (owner 2026-10-27)
-- [ ] M63 (M24) — Controls and rollback of a background migration: the worker starts it and nothing else · operator
+- [x] M63 (M24) — Controls and rollback of a background migration: the worker starts it and nothing else · operator
   verbs `bg pause`, `bg resume`, `bg retry` and `bg rollback`, progress in `check` · rollback by hand SQL → the verbs;
   `bg rollback` runs the migration's declared batched inverse, and without one pauses it and resets its journal, so
   the expand's `Rollback.sql` drops what it filled. Data rollback then mirrors schema rollback: a small backfill rolls
-  back through its own `Rollback.sql`, a large one through `bg rollback`, a move through its own job (M33).
+  back through its own `Rollback.sql`, a large one through `bg rollback`, a move through its own job (M33). (owner 2026-10-27)
 - [x] M26 — Reference data and seeds: reference rows as upserts in the set, per-environment seeds through configuration
   or a host CLI · everything in sets · everything at boot → the split; a migration runs the same in every environment,
   and a first admin or an OIDC client differs per environment. (owner 2026-10-27)
@@ -1198,27 +1198,27 @@ Parent before child; a child names its parent. Each point: the decision, its opt
   against the bound instance · checked at the product's boot → `requires:` checked by Wheelhouse, later, for shared
   instances only; it fails a deploy before any restart instead of a request after one. A per-product instance's
   version is the product's own pin, which M78 makes visible. (owner 2026-10-27)
-- [ ] M33 — Moves (Files' migration module, tenant and server moves, a per-product instance leaving for a shared
+- [x] M33 — Moves (Files' migration module, tenant and server moves, a per-product instance leaving for a shared
   server, M6): a separate Wheelhouse job type sharing the one-off
   container and step journal · part of the migrate step · the service's CLI by hand only → a separate job type; moves
-  run for hours across hosts with a freeze and a cutover, and their product-side change is a background migration.
-- [ ] M34 — Operator actions (down script, repair, baseline, claim): Wheelhouse jobs running the image's CLI, typed and
+  run for hours across hosts with a freeze and a cutover, and their product-side change is a background migration. (owner 2026-10-27)
+- [x] M34 — Operator actions (down script, repair, baseline, claim): Wheelhouse jobs running the image's CLI, typed and
   audited · `wow-migrate` by hand · not offered → by hand now, Wheelhouse jobs later; the CLI already carries the
-  target guards, and a takeover needs `claim` first (T10).
-- [ ] M52 (M33) — Imports, adoptions and rebuilds (Desk's `--import-sourcing`, `--import-events` and
+  target guards, and a takeover needs `claim` first (T10). (owner 2026-10-27)
+- [x] M52 (M33) — Imports, adoptions and rebuilds (Desk's `--import-sourcing`, `--import-events` and
   `--provision-operator`; `LegacyCommerceReader` from SQLite into PostgreSQL; `vault import --from-db`; TNIS's derived
   tables): inside a migration · operator jobs that run the owning image's CLI with `--dry-run`, audited, beside M34's
   actions · at boot → operator jobs; their input lives outside the release (a bundle, a private folder, another
-  store), so they cannot run alike in every environment, and Desk already ships the CLI shape.
+  store), so they cannot run alike in every environment, and Desk already ships the CLI shape. (owner 2026-10-27)
 
 ### Testing
 
-- [ ] M35 — Compatibility testing: lint only · lint plus an upgrade smoke for platform apps on the rehearsal rig (N-1
+- [x] M35 — Compatibility testing: lint only · lint plus an upgrade smoke for platform apps on the rehearsal rig (N-1
   schema and seed, apply N, N-1 smoke) · the full N-1 suite on the N schema everywhere → lint plus the platform-app
-  smoke; it catches what a regex cannot, at a cost one rig absorbs.
-- [ ] M53 (M35) — A migrations tier per repository: optional (Desk, Haven, TranscriptForge and TNIS have none) ·
+  smoke; it catches what a regex cannot, at a cost one rig absorbs. (owner 2026-10-27)
+- [x] M53 (M35) — A migrations tier per repository: optional (Desk, Haven, TranscriptForge and TNIS have none) ·
   required for every set the step runs, stamped by the templates → required; the step trusts Apply → Rollback →
-  Apply, and unit tiers on `EnsureCreated` (`RelationalTestDb`) never run a set's SQL.
+  Apply, and unit tiers on `EnsureCreated` (`RelationalTestDb`) never run a set's SQL. (owner 2026-10-27)
 
 ### Client-side state
 
@@ -1229,15 +1229,15 @@ Parent before child; a child names its parent. Each point: the decision, its opt
 
 ### Observability and Wheelhouse UI
 
-- [ ] M36 — Where Wheelhouse reads schema state: job history only (spec) · history plus an on-demand read-only `--check`
+- [x] M36 — Where Wheelhouse reads schema state: job history only (spec) · history plus an on-demand read-only `--check`
   · a periodic check → history plus on demand; drift after a restore or a hand repair shows without a deploy, and no
-  second table appears.
-- [ ] M37 — The job record: the spec's record per service · per set: level before and after, applied labels with kind,
+  second table appears. (owner 2026-10-27)
+- [x] M37 — The job record: the spec's record per service · per set: level before and after, applied labels with kind,
   rollback floor, background migrations pending, lock waits → per set; the rollback floor is what the owner needs
-  before pressing roll back.
-- [ ] M38 — Product page and rollout UI: level and newest label (spec) · plus rollback floor, background progress and
+  before pressing roll back. (owner 2026-10-27)
+- [x] M38 — Product page and rollout UI: level and newest label (spec) · plus rollback floor, background progress and
   "check now" · nothing → staged: the spec's view first, the rest with M21, M24 and M36, which produce the floor, the
-  progress and the on-demand read; rollout rows read "Migrate {set}".
+  progress and the on-demand read; rollout rows read "Migrate {set}". (owner 2026-10-27)
 
 ### Types
 
@@ -1271,15 +1271,15 @@ Settled — written rules that stand, with their source:
 
 Open — no rule yet, or the repositories disagree:
 
-- [ ] M64 — Name case: snake_case, lowercase and unquoted, for tables, columns, constraints and stored values · what EF
+- [x] M64 — Name case: snake_case, lowercase and unquoted, for tables, columns, constraints and stored values · what EF
   generates · per repository → snake_case everywhere. No rule states it for tables and columns: `ef-mapping.md:48`
   applies `UseSnakeCaseNamingConvention()` "for a schema following the Postgres naming convention", and
   `postgres.md:46` covers enum labels only. Most sets follow it (Wheelhouse `001-baseline/Apply.sql:4`); quoted
   PascalCase remains in Desk's frozen ASP.NET Identity tables (`002-access`, `"NormalizedName"`), the pilots
   (`"CreatedAtUtc"`) and ListingShelf (`CreatedAt`), and Desk's check values are kebab-case (`'business-card'`,
   `004-design-documents/Apply.sql:6`). One form lets SQL, lint and review read every set alike; Desk's `access`
-  tables follow M39 or leave with Ocharo's Identity move.
-- [ ] M65 — Key version and maker: v4 `Guid.NewGuid()` in the app (ForeverPin, Desk, ListingShelf) · v7
+  tables follow M39 or leave with Ocharo's Identity move. (owner 2026-10-27)
+- [x] M65 — Key version and maker: v4 `Guid.NewGuid()` in the app (ForeverPin, Desk, ListingShelf) · v7
   `Guid.CreateVersion7()` in the app (Wheelhouse, Haven, TranscriptForge, Identity: "uuid ids as TEXT (v7, made in
   code)", `Sqlite/001-accounts/Apply.sql:7`) · a database default (Haven's `haven_uuid_v7()`,
   `013-uuid-v7-defaults`) → v7 made in the app, no default; v7 sorts by creation so index inserts stay local, the id
@@ -1288,36 +1288,40 @@ Open — no rule yet, or the repositories disagree:
   Wheelhouse's reference rows and backfills use v4 `gen_random_uuid()` (`007`, `009`, `010`, `015`). Proposed beside
   it: a public token (a share link, a short code) stays a separate random value, because v7 reveals its creation time;
   `bigint GENERATED … AS IDENTITY` only for claim rows and append-only logs (Identity, Harvest); `integer CHECK (id = 1)`
-  for a singleton row (Wheelhouse `030-built-in-vault`).
-- [ ] M66 — JSON column and keys written in SQL: `jsonb` always · `json` where a document must round-trip byte for byte
+  for a singleton row (Wheelhouse `030-built-in-vault`). (owner 2026-10-27)
+- [x] M66 — JSON column and keys written in SQL: `jsonb` always · `json` where a document must round-trip byte for byte
   (Desk's revision `snapshot json`, `004-design-documents/Apply.sql:18`) → `jsonb`, `json` only for a document whose
   exact text is the value; SQL that builds or reads stored JSON uses its camelCase keys and ISO durations, as Harvest's
   baseline (`ageUnder`, `P2D`, `001-baseline/Apply.sql:112`) and TranscriptForge's backfill (`costMicroUsd`,
   `003-transcript-library/Apply.sql:18`) already do. A snake_case key written by SQL is one the stored contract never
-  reads.
-- [ ] M67 (M64) — Instants in code and in names: `DateTimeOffset` (every swept entity: Wheelhouse, Haven, ForeverPin,
+  reads. (owner 2026-10-27)
+- [x] M67 (M64) — Instants in code and in names: `DateTimeOffset` (every swept entity: Wheelhouse, Haven, ForeverPin,
   TranscriptForge, Identity, ListingShelf, Matinee) · `DateTime` in UTC · NodaTime `Instant` (only the stored JSON
   options know NodaTime, `StoredJsonOptionsFactory.cs:41`); `*_at` (Haven, TranscriptForge, Desk, Harvest, Identity,
   most of ForeverPin) · `*_at_utc` (Wheelhouse, secrets-vault, Files, Arcade, Matinee, ForeverPin's `seen_at_utc`, the
   pilots' `CreatedAtUtc`) → `DateTimeOffset` at offset zero, named `*_at`; `timestamptz` already stores UTC, the entity
-  contract names `CreatedAt`, and ForeverPin mixing both forms shows the suffix carries nothing.
-- [ ] M68 (M64) — Date names: `*_on` (Desk's `starts_on`, `ends_on`, `008-events`) · `*_date` · free (Haven's
+  contract names `CreatedAt`, and ForeverPin mixing both forms shows the suffix carries nothing. (owner 2026-10-27)
+- [x] M68 (M64) — Date names: `*_on` (Desk's `starts_on`, `ends_on`, `008-events`) · `*_date` · free (Haven's
   `author_registered_at` is a `date`; TranscriptForge's `month` holds a month's first day) → `*_on`, or a noun that
   names the day (`deadline`, `month`); never `*_at`, which reads as an instant. Package-owned names stay the package's
   (OpenIddict's `creation_date` is a `timestamptz`, M39).
+  (owner 2026-10-27) Stricter: every `date` column ends in `_on`, with no noun alternative, for consistency; package-owned
+  names stay the package's.
 - [ ] M69 — Time-only and zoneless date-time (no storage rule; the wire has both, `type-mapping.md:25-26`): `time` plus
   an IANA zone column when the time belongs to a place (Harvest's schedules: `time_zone text DEFAULT 'Asia/Tashkent'`,
   `window_start time`, `001-baseline/Apply.sql:232-234`) · `timetz` · minutes since midnight → `time` with a zone
   column, `TimeOnly` in code; a zoneless `timestamp` only for a declared local wall-clock value beside its zone, and no
   set has one. `timetz` keeps an offset without a zone, so it breaks across daylight saving
   ([date/time types](https://www.postgresql.org/docs/current/datatype-datetime.html)).
-- [ ] M70 — Durations: `interval` ↔ `TimeSpan` (TranscriptForge's `duration`, `audio_duration`; Harvest's TTLs and
+  Owner question 2026-10-27: `_at` here too? → proposed `*_time` (`window_start_time`): `_at` names an
+  instant (M67), so a `time` named `_at` would read as a `timestamptz` to people and to the lint.
+- [x] M70 — Durations: `interval` ↔ `TimeSpan` (TranscriptForge's `duration`, `audio_duration`; Harvest's TTLs and
   `every_interval`) · an integer with a unit suffix (`elapsed_ms` in TNIS and TBS, Sift's `duration_seconds`, Matinee's
   `runtime_minutes`, Harvest's `min_delay_ms`, the history's `execution_ms`) · both → `interval` for a span SQL
   computes with (a schedule, a TTL, an offset added to a `timestamptz`), `bigint` milliseconds named `*_ms` for a
   measured elapsed time; SQL adds an `interval` to an instant directly, and integers sum and average exactly. Both
-  reach the wire as an ISO duration (`serialization.md:16`).
-- [ ] M71 — Enums in practice: `postgres.md:45` asks for native enums, and only Haven maps them
+  reach the wire as an ISO duration (`serialization.md:16`). (owner 2026-10-27)
+- [x] M71 — Enums in practice: `postgres.md:45` asks for native enums, and only Haven maps them
   (`Haven.Supply.Persistence/DataContexts/SupplyPostgresEnums.cs:25-36`); Wheelhouse stores text with snake values
   (`001-baseline/Apply.sql:4`, `002-snake-enums`), though the convention's example names `Wheelhouse.Domain`
   (`postgres.md:54-59`); Desk and Harvest use `text` with `CHECK (… IN …)`; ForeverPin, TranscriptForge, Identity and
@@ -1325,8 +1329,8 @@ Open — no rule yet, or the repositories disagree:
   column, an existing one converted when its product next changes that enum → the last; it keeps the developer's rule
   without a sweep of table rewrites, and the SQLite ban removes Identity's reason for portable text. Either way:
   adding a label is an expand; removing or renaming one is a contract (M20, M21), and a native label leaves only by
-  rebuilding the type.
-- [ ] M72 — Money and decimals: integers in a unit (`postgres.md:34-39`; Haven's `price_amount bigint` beside
+  rebuilding the type. (owner 2026-10-27)
+- [x] M72 — Money and decimals: integers in a unit (`postgres.md:34-39`; Haven's `price_amount bigint` beside
   `price_currency currency`; `*_micro_usd` in Haven and TranscriptForge, which left `numeric` in
   `003-transcript-library`) · `numeric(p,s)` (Harvest's `numeric(12,4)` and `(12,6)` costs, TNIS and TBS
   `revenue_uzs numeric(18, 2)`, Haven's `usd_uzs_rate numeric`) → money as `bigint` minor or micro units with its
@@ -1334,8 +1338,8 @@ Open — no rule yet, or the repositories disagree:
   `double precision` for measurements (TNIS's coordinates and speeds; Haven's `numeric(10,7)` coordinates convert).
   An integer stays exact in every layer and on the JSON wire within `Number.isSafeInteger` (`type-mapping.md:30`),
   while a `numeric` reaches the browser as binary64 (`type-mapping.md:33`). Desk's event `cost text`
-  (`008-events/Apply.sql:21`) is display text, not money.
-- [ ] M73 — Case-insensitive text and lengths: `citext` (no set uses it) · `text` with a unique index on `lower(…)`
+  (`008-events/Apply.sql:21`) is display text, not money. (owner 2026-10-27)
+- [x] M73 — Case-insensitive text and lengths: `citext` (no set uses it) · `text` with a unique index on `lower(…)`
   (Haven `005-publish-templates/Apply.sql:21`) · a stored normalized column (Identity's `normalized_email` beside
   `email varchar(320)`, `Postgres/001-accounts/Apply.sql:18`; ASP.NET Identity's `NormalizedEmail` in Desk) → `text`
   with a unique `lower(…)` index, and a normalized column only where a library reads one (Identity); `citext` is an
@@ -1343,23 +1347,26 @@ Open — no rule yet, or the repositories disagree:
   index in its set (U). Lengths: `varchar(n)` stays for a limit the domain states (an email's 320); Haven's
   `varchar(50)` to `varchar(10000)` become `text` with a `CHECK (length(…))`, as Desk writes them, when touched;
   widening is an expand, narrowing a contract.
-- [ ] M74 (M64, M67) — Audit columns: the interceptor stamps `created_at` and `updated_at` and the database adds
+  (owner 2026-10-27) A length limit is the default wherever the domain has a sensible bound, for predictability; unbounded
+  `text` only for free-form bodies. Form: `varchar(n)`, which EF's `HasMaxLength(n)` maps and which widens without
+  a rewrite.
+- [x] M74 (M64, M67) — Audit columns: the interceptor stamps `created_at` and `updated_at` and the database adds
   nothing (`entity-contracts.md:61`) · the interceptor plus `DEFAULT now()` on `created_at` for rows SQL inserts
   (backfills, seed files, reference rows) · the database owns both (Haven's defaults and `update_updated_at()` trigger,
   `001-baseline/Apply.sql:518-523`) → the interceptor plus the `created_at` default; `postgres.md:13` allows a
-  database-owned timestamp, migrations do insert rows without the app, and a trigger gives `updated_at` two writers.
-- [ ] M75 (M74) — Soft delete: both of the contract's `IsDeleted` and `DeletedAt` (`entity-contracts.md:56`) ·
+  database-owned timestamp, migrations do insert rows without the app, and a trigger gives `updated_at` two writers. (owner 2026-10-27)
+- [x] M75 (M74) — Soft delete: both of the contract's `IsDeleted` and `DeletedAt` (`entity-contracts.md:56`) ·
   `deleted_at timestamptz NULL` alone, `IsDeleted` computed from it · a flag alone (Haven's
   `listing_triage_assignments.is_deleted`, the only soft delete swept) → `deleted_at` alone; one column cannot disagree
   with itself, and a partial unique index `WHERE deleted_at IS NULL` frees a deleted row's name. It narrows
-  `ISoftDeletable` in the be sdk.
+  `ISoftDeletable` in the be sdk. (owner 2026-10-27)
 
 ---
 
 ## Answer batches
 
 Answered in order: each batch holds the parents of later batches' points, and lists its own points parent first.
-Front of the queue: M63, then batches 9 to 11; M5 and M6 were answered on 2026-10-27, and their
+Front of the queue: M69's suffix, then the final spec; M5 and M6 were answered on 2026-10-27, and their
 children M79 and M80 join batch 3.
 
 After the final spec: the conventions, then the migrator (be sdk verbs and the Wheelhouse step), then one sweep that
@@ -1373,11 +1380,11 @@ updates every product and platform service, Identity's follow-ups included (owne
 | 4 | declaration and the image contract | answered M9, M10, M11, M43, M44, M45, M46, M56 |
 | 5 | the actions: one command tree, the external check, idempotency proof, forgetting history, the trail | answered M57, M58, M59, M60, M61 |
 | 6 | running the step: when, where, locks, rehearsal, SQLite, apply paths, the SDK spread | answered M13, M14, M17, M62, M18, M49, M50, M47, M48 |
-| 7 | data, seeds and client state | M63; answered M23, M24, M25, M26, M51, M54 |
+| 7 | data, seeds and client state | answered M23, M24, M25, M63, M26, M51, M54 |
 | 8 | several services and platform services | answered M27, M28, M29, M30, M31, M32 |
-| 9 | moves, operator actions, tests and what Wheelhouse shows | M33, M52, M34, M35, M53, M36, M37, M38 |
-| 10 | column types I: names, keys, JSON, time; no parent outside the batch, so it may run any time | M64, M65, M66, M67, M68, M69, M70 |
-| 11 | column types II: enums, money, text, audit, soft delete | M71, M72, M73, M74, M75 |
+| 9 | moves, operator actions, tests and what Wheelhouse shows | answered M33, M52, M34, M35, M53, M36, M37, M38 |
+| 10 | column types I: names, keys, JSON, time; no parent outside the batch, so it may run any time | M69; answered M64, M65, M66, M67, M68, M70 |
+| 11 | column types II: enums, money, text, audit, soft delete | answered M71, M72, M73, M74, M75 |
 
 ---
 
