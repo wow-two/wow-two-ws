@@ -379,8 +379,7 @@ entries:
     deploy: none
     status: "Active"
     purpose: "Copyable product-repo template — the canonical conformant structure `create-repo` stamps out (a template, not a package)"
-    repositories: []
-    local: workbench/wow-two-sdk-beta/wow-two-sdk-beta.product-template
+    repositories: [wow-two-sdk-beta/wow-two-sdk-beta.product-template]
   - slug: wow-two-sdk-beta-domain-template
     name: wow-two-sdk-beta.domain-template
     workspace: wow2-backbone
