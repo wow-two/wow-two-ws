@@ -190,6 +190,11 @@ Fixed order **D → R → E → S → L**; every capture yields the base envelop
 - **claim by host, not by run** (T7 § 7.3): the frontier is the queue (`FOR UPDATE SKIP LOCKED`); `host_state` holds
   concurrency (1), `min_delay` (≥ 2 s, adaptive), `crawl_delay` (robots, ≤ 30 s), `Retry-After` and backoff; a block on
   one host never stops another; results are fenced against a lost lease. A restart resumes, never reruns.
+- **Events is a consumer, not a fork** (developer 2026-10-27): Events shows the events Harvest has gathered, so it uses
+  the same pipelines, delivery and console layout; it differs only in its AI prompts, tuned for events rather than for
+  goods-and-services posts. A consumer sets its prompts per subscription (`AiMode` plus a prompt profile), not by owning
+  a second engine. User-sent links, a batch of links, or an uploaded link file all enter through Harvest intake, which
+  Events and every other consumer call the same way.
 
 ---
 
@@ -274,9 +279,14 @@ Fixed order **D → R → E → S → L**; every capture yields the base envelop
   - **`wow-two-sdk-beta.social`** (sibling domain) — the organization's own platform integrations: publish with
     receipts, own metrics, verification, and official-API transport. Social never depends on Harvest; Harvest's
     official-API adapters call Social's read brokers (T8-1, T8-2).
-  - **a private adapters repo** — one broker package per named source, each referencing `Harvest.Abstractions`; it
-    publishes to a private feed and builds WoW2's own Harvest image. Its internals stay out of this spec and the public
-    repo (T9-19, P2d).
+  - **`wow-two-sdk-beta.harvest-adapters`** (private) — one broker package per named source, each referencing
+    `Harvest.Abstractions`; it publishes to a private feed and builds the actual images WoW2 deploys. Its internals stay
+    out of this spec and the public repos (T9-19, P2d). Scaffolded from the domain template 2026-10-27 (`3c730c2`).
+- **Public vs private split** (developer 2026-10-27): a public repo holds only what can be built in the open and what
+  should be public — contracts, the engine, generic readers, the console. The private repos hold the actual services and
+  build the deployed images, referencing the public packages rather than copying them (one-image-per-repo is not a
+  constraint; a repo may host several services). So WoW2's own Harvest image is built from `harvest-adapters`, not from
+  the public `harvest` repo, whose image stays generic.
 - **Chain:** core → Identity → Files → Social → Harvest → Events; `Harvest.Module` references core and
   `Social.Abstractions` only (T8-6, P2b).
 - **Render → a core companion package** (Playwright is heavy and stateless per call), not a Harvest or Social package
