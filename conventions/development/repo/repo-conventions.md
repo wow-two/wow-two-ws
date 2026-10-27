@@ -1,6 +1,6 @@
 # Conventions — Development — Repo
 
-*Last updated: 2026-10-25*
+*Last updated: 2026-10-27*
 
 > How a repo is shaped and equipped — repo **shape** splits by **archetype** (product / venture · SDK / library · domain),
 > grouped under `structure/`; version control + the default tech stack are the shared, cross-archetype setup. Code
@@ -56,7 +56,7 @@ Repo shape by archetype — product / venture (both stacks, one repo) vs SDK / l
 
 > The default stack for wow-two product / venture repos; an SDK repo runs the same floor. Code-style per layer: [../backend/](../backend/) · [../frontend/](../frontend/).
 
-- **Backend** — .NET 10 · ASP.NET Core · EF Core · MediatR (CQRS) · Clean Architecture. DB: SQLite (single-user / POC) → Postgres (when scaling / multi-instance). CI: GitHub Actions → GHCR.
+- **Backend** — .NET 10 · ASP.NET Core · EF Core · MediatR (CQRS) · Clean Architecture. DB: PostgreSQL ([database](../backend/dotnet/core/mla/domains/persistence/database/database.md); SQLite banned for products). CI: GitHub Actions → GHCR.
 - **Frontend** — [frontend standard](#frontend-standard).
 - **Beta SDKs** — consume these first; build-locally-then-migrate if a capability is missing.
   - frontend package and framework selection → [frontend standard](#frontend-standard).
