@@ -1,6 +1,6 @@
 # Identity analysis — hub tracks
 
-*Last updated: 2026-10-26*
+*Last updated: 2026-10-27*
 
 > The part of the Identity analysis batch that stays in the hub: T5, T8 and T9 cover domain repos and release
 > automation in general. The Identity-specific batch — index, decision queue, T1–T4, T6, T7, T10 — moved into the
@@ -46,5 +46,5 @@ The hub's share of the decision queue; queues A–F and I are in the repo's inde
 
 ### Self-served
 
-- ⬜ release residue: npm ≥ 11.15.0 for `npm trust` (local 11.6.1); stale `NUGET_API_KEY` and `NPM_TOKEN` repo secrets in the sdks (T9)
+- ⬜ release residue: stale `NUGET_API_KEY` and `NPM_TOKEN` repo secrets in the sdks (T9); npm upgraded to 11.21.1 for `npm trust` (2026-10-27; npm 12 needs Node 24.15)
 - ✅ `catalog.yml` carries the Identity entry (rollout step 11, [T8 § 6](t8-library-template.md#6--rollout-checklist))

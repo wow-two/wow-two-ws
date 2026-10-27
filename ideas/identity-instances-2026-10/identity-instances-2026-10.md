@@ -1,6 +1,6 @@
 # Identity instances — wow2 and Ocharo
 
-*Last updated: 2026-10-26*
+*Last updated: 2026-10-27*
 
 > What the first two running Identity instances need, so the build starts in the right order: the wow2 instance
 > (single sign-on with roles into every wow2 platform app, Wheelhouse first) and the Ocharo instance (Telegram code
@@ -133,7 +133,7 @@ Proposed matrix, for the first apps:
 | Who | Today | Later |
 |---|---|---|
 | the developer | `owner` + instance `admin`, enrolled by the host CLI | — |
-| operators | none | a single-use invite link, handed over by the owner (I14; no email needed); `operator` with app access |
+| operators | none | an expiring, single-use invite link that carries the role, handed over by the owner (I14; no email needed); `operator` with app access |
 | agents and programs | Wheelhouse integration keys | client credentials with the management API (P2) |
 
 ---
@@ -460,7 +460,7 @@ The instance runs Q20's configured defaults; nothing is tuned for wow2.
 | test mode (fake channels, personas) and conformance in CI | yes | yes | Q18, Q28 |
 | I15 durable OTP | throttles only | yes | hashed, bound, 30 s resend |
 | I20 Telegram: link on first sign-in, the bot webhook | — | yes | Log in with Telegram deferred |
-| I14 invitations | deferred | yes | a link the admin hands over; phone pre-registration |
+| I14 invitations | deferred | yes | an expiring, single-use link carrying the role, which the admin hands over; phone pre-registration |
 | I21 admin subset: members add, role, disable, remove; sessions revoke; sign-in log read | sessions and log only | yes | the repo backlog lists I21 under P2; this subset moves to P1 |
 | OpenTelemetry meters, `/health` readiness | yes | yes | — |
 | ops notifier through a bot | deferred | yes | T6 § 7 |
@@ -520,21 +520,22 @@ The instance runs Q20's configured defaults; nothing is tuned for wow2.
 
 Continuing the hub's queue. Each line: the question → the pick.
 
-- [ ] Q59 wow2 instance scope: operator-only, invite-only, private on the control host; Form 3 for portfolio users
-  becomes a separate later instance on a products host (narrows Q4 and Q54) → yes
+- [x] Q59 wow2 instance scope: operator-only, invite-only, private on the control host; Form 3 for portfolio users
+  becomes a separate later instance on a products host (narrows Q4 and Q54) → yes (2026-10-27); members join by
+  invite link, never by an admin typing their fields
 - [ ] Q60 first OIDC client: the canary on dev, then Wheelhouse dev, then Wheelhouse prod → yes
 - [ ] Q61 role model: one organization per instance, one role per member, app access per member, permissions
   namespaced by app with only the requesting app's namespace in its token, resource scope inside each app → yes
-- [ ] Q62 wow2 P1 methods: passkey first, password always with TOTP, recovery codes, host CLI last; no email reset;
-  the instance's default password policy (minimum 15) → yes
+- [x] Q62 wow2 P1 methods: passkey first, password always with TOTP, recovery codes, host CLI last; no email reset;
+  the instance's default password policy (minimum 15) → yes (2026-10-27)
 - [ ] Q63 two owners' instances (answers Q5): one Wheelhouse instance product per instance, naming the Identity
   repository under its own slug → B
 - [ ] Q64 Identity's `deploy.yml`: PostgreSQL and an explicit migrate step before the first instance; SQLite stays
   Form 1 only → yes
 - [ ] Q65 Ocharo users in P1: staff only, invite-only; customers later in the same instance, sign-up on
   customer-facing clients only, no membership → yes
-- [ ] Q66 Desk's accounts: reset, keep the organization id, invite members again, the bot re-links (revises Q55's
-  one-time copy) → reset
+- [x] Q66 Desk's accounts: reset, keep the organization id, invite members again, the bot re-links (revises Q55's
+  one-time copy) → reset (2026-10-27)
 - [ ] Q67 minimum scope: Ocharo includes back-channel logout and the I21 member subset, defers Log in with Telegram;
   wow2 defers back-channel logout and I14 → yes
 - [ ] Q68 backups gate: only Ocharo's cutover waits on off-host backups; the wow2 instance goes live before them →

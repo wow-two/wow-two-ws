@@ -1,6 +1,6 @@
 # T9 — Library release automation
 
-*Last updated: 2026-10-25*
+*Last updated: 2026-10-27*
 
 > One agent-run entry point, `create-library`, carries a domain library from template to published packages, image,
 > Wheelhouse product and consumer re-pins; no new stored secret and no new flag kind, three guard fixes, and a
@@ -104,7 +104,7 @@
 - npm staged publishing can create a new package: it publishes a public `0.0.0-stage` placeholder, and approval asks
   2FA.
 - npm expires a new trusted-publisher configuration that sees no successful publish within 2 days.
-- npm `trust` needs npm ≥ 11.15.0; this machine has 11.6.1.
+- npm `trust` needs npm ≥ 11.15.0; this machine has 11.21.1 since 2026-10-27.
 - npm granular tokens are created on the website only.
 - npm deprecates direct publishing with bypass-2FA tokens, with removal in January 2027.
 - npm removed legacy tokens in November 2025.
