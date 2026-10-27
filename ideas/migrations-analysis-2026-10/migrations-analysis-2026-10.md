@@ -1,6 +1,6 @@
 # Migrations — wow2 analysis
 
-*Last updated: 2026-10-27 02:56 PM*
+*Last updated: 2026-10-27 03:10 PM*
 
 > How the wow2 ecosystem changes persistent state across releases: schema and data migrations, who owns, declares
 > and runs them, and how products, standalone platform services and Wheelhouse itself share one model. Written before
@@ -30,6 +30,8 @@
 - read 2026-10-27; line numbers as of that read; `(U)` = read in code, not run.
 - [Use cases](#use-cases) merge two read-only sweeps of 2026-10-27: every registry repository and the owner folders,
   47 with server-side state and 3 with browser storage only; the claims corrected below were re-read in the cited files.
+- verified 2026-10-27 by a second read: about 80 claims re-read in the repositories and corrected in place; a real
+  Wheelhouse rollback run of the same day is recorded under [Wheelhouse as an app](#wheelhouse-as-an-app) and S5.
 - external practice is linked inline and collected in [Prior art](#prior-art).
 
 ---
@@ -44,7 +46,7 @@
 | 4 | Several services | one database per product environment, one owner per set, every set migrated before any service restarts; B failing leaves A's expand harmless | [Multi-service products](#multi-service-products) | M6–M9, M14, M27, M28 |
 | 5 | Standalone services | the instance product owns, versions and runs its sets; consumers depend on its contract version, never its tables | [Platform services and instances](#platform-services-and-instances) | M29–M34 |
 | 6 | Platform apps vs products | one mechanism, stricter policy for platform apps | [One model](#one-model) | M12, M19 |
-| 7 | Which cases occur in practice | 74 distinct cases across 50 repositories; most fit the model, and the misses are legacy mechanisms, package-owned DDL, seeds, imports, SQLite and the SDK spread | [Use cases](#use-cases) | M39–M54 |
+| 7 | Which cases occur in practice | 74 distinct cases across 50 repositories; most fit the model, and the misses are legacy mechanisms, package-owned DDL, seeds, imports, SQLite and the SDK spread | [Use cases](#use-cases) | M39–M56 |
 
 ---
 
@@ -60,7 +62,8 @@
   browser storage stay outside it.
 - **Schemas stay one release backward compatible.** Migrations expand; a contract lands a release later in its own
   marked file that history records, so an older image boots on a newer schema and Wheelhouse checks a rollback before
-  it runs. Down scripts never run on deploy; prod recovers forward or from the snapshot.
+  it runs. Down scripts never run on deploy; prod recovers forward or from the snapshot. Today an older image refuses
+  any newer history, expand or not: a real Wheelhouse rollback failed on it on 2026-10-27 (S5).
 - **Data by size.** Small backfills are SQL files in the set; large or code-bound ones are resumable SDK background
   migrations a later contract waits on; transfers across systems (Files imports, tenant and server moves, Identity
   takeover) are Wheelhouse "move" jobs, not migrations.
@@ -94,7 +97,9 @@ Gaps:
   waits without bound (`bespoke.md:826`, item 5 parked).
 - apply refuses newer history: `ApplyPendingAsync` fails on any applied ordinal the source lacks
   (`MigrationRunnerService.cs:72`, `:721-741`) unless `AllowOrphanedHistory`; the level check calls the same case
-  `Ahead` and fails too (`MigrationLevelReport.cs:73-74`).
+  `Ahead` and fails too (`MigrationLevelReport.cs:73-74`), and its only relief, `LevelMismatch = Warn`, lets `Behind`
+  and `Drifted` boot as well (`MigrationSetServiceProviderExtensions.cs:107-108`). Both refusals confirmed on a real
+  Wheelhouse rollback, 2026-10-27 ([Wheelhouse as an app](#wheelhouse-as-an-app)).
 - no migration kind: history records nothing about expand vs contract, so neither an older image nor Wheelhouse can
   tell a safe `Ahead` from an unsafe one.
 - no data-migration primitive: no batched or background migration, no progress journal, no gate a contract can wait on.
@@ -105,9 +110,11 @@ Gaps:
 - adoption: 35 of 37 backend solutions pin 10.0.71–10.0.81, before the boot gate — 10.0.71: Ocharo's 7, the canary,
   the product template; 10.0.72: ForeverPin, Pose Coach; 10.0.74: 20 ventures; 10.0.75: Matinee; 10.0.77: the domain
   template; 10.0.80: Wheelhouse; 10.0.81: Harvest. Only Files (10.0.84, back to boot apply through
-  `ApplyWhenDeployed`) and Identity (10.0.86) are past 10.0.82; core is at 10.0.87. Each bump turns a bespoke boot that
-  applied into one that refuses a pending set, whatever deploys the product; EF-run and `EnsureCreated` boots sit
-  outside the gate (U) (M48).
+  `ApplyWhenDeployed`) and Identity (10.0.86) are past 10.0.82; core is at 10.0.87. 5 more solutions stay on the
+  pre-rename `WoW2.Sdk.Backend.Beta` (TBS 10.0.45, tnis-mintrans 10.0.21, HomeAtlas and med-text-fab 10.0.63,
+  secrets-vault 10.0.56) and reach the gate only through the rename. Each bump turns a bespoke boot that applied into
+  one that refuses a pending set, whatever deploys the product; EF-run and `EnsureCreated` boots sit outside the gate
+  (U) (M48).
 
 ### Conventions
 
@@ -138,7 +145,7 @@ Gaps:
 
 ### Pipelines
 
-- the release manifest carries `rollbackCompatible`, false by default (pipelines `generator/release.py:754`); no
+- the release manifest carries `rollbackCompatible`, false by default (pipelines `generator/release.py:713`, `:754`); no
   `migrations` or `migrate` key.
 - Wheelhouse already reads an optional `migrations: bool` from a bundle (runner `transport.py:264-270`,
   `release_sets.py:208-211`) and flags changed `Migrations/` paths in changelogs (`artifacts.py:468`); the generator
@@ -151,7 +158,7 @@ Gaps:
 | steps: render, check, snapshot (prod), pull, waves, verify, publish, probe, dev check | built | Wheelhouse `deployment/deployment.md:703-723` |
 | prod snapshot before the pull: `pg_dump` per database, volume tars, newest 5 kept; restore by hand | built | `deployment.md:956-975` |
 | one-off container from a release image (`verify_release`) | built; no settings, no secrets, 512 MB | runner `runner.py:2006-2045` |
-| roll back to the previous release when the bundle or the target promises compatibility | built | `runner.py:1970-1973` |
+| roll back to the previous release when the bundle or the target promises compatibility | built; fails across a migration today (S5) | `runner.py:1970-1973` |
 | one deployment per target | built | `runner.py:1493` |
 | migrate rollout step | v0.7 Iteration 6, spec only | `planning/version-track/v0.7/v0.7.md:32-37` |
 | dry run before a rollout; dry run without long locks | backlog | `planning/backlog.md:108`, `:113` |
@@ -165,10 +172,18 @@ Gaps:
   10.0.80 (`Directory.Packages.props:4`), before the boot gate.
 - decision 65: migrations only expand, a contract takes two releases (`research/platform-ideation.md:77`); enforced
   from ordinal 031 by a regex lint with a `-- contract:` exemption (`Wheelhouse.Tests.Migrations/Tests/ExpandOnlyTests.cs`).
-- the runner rolls a failed self-promotion back on that promise (`deployment.md:148`, `:184`).
-- gap (U): the previous image applies at boot and refuses the newer release's ordinals as orphaned
-  (`MigrationRunnerService.cs:72`; `AllowOrphanedHistory` is unset), so a rollback across a migration probably fails
-  to boot today.
+- the runner rolls a failed self-promotion back on that promise (`deployment.md:149`, `:184-185`).
+- gap, confirmed by a run on 2026-10-27: the previous image refuses the newer release's ordinals, so a rollback across
+  a migration fails to boot, and both `deployment.md` lines are false today.
+  - v0.7.2 (be sdk 10.0.80) booted on a throwaway database v0.7.3 had migrated (`033`, an `ADD COLUMN IF NOT EXISTS …
+    NOT NULL DEFAULT`) and aborted in `MigrateBespokeOnStartupAsync` before any SQL: "History holds applied migrations
+    absent from the source: 033." (`MigrationRunnerService.cs:72`; `AllowOrphanedHistory` is unset).
+  - the schema did not block v0.7.2; only the history check did.
+  - on be sdk 10.0.87 the same apply call fails alike; `VerifyMigrationLevelsOnStartupAsync` fails by default
+    ("database at 033 is newer than the code (032)") and boots only with `LevelMismatch = Warn`.
+  - the runner's automatic restore after a failed probe hits the same refusal.
+  - workarounds that worked: deleting `033`'s history row (v0.7.2 boots; the re-upgrade re-applies the idempotent
+    `033`), or building with `AllowOrphanedHistory = true`, a code-only option in 10.0.80 (M16, M19).
 - gap: a bump past 10.0.82 makes its deployed boot verify-only; its self-deploy and `deployment/vps/self-deploy.py` then
   need the step, or the first release with a migration fails to boot.
 - the built-in vault (decision 59) lives in Wheelhouse's own set, schema `vault` beside `public`
@@ -186,7 +201,8 @@ Gaps:
 
 - gap: a deploy-time command exists only in Identity (`migrate`), Desk (`--migrate`) and TNIS
   (`Tnis.Ingestion.Cli migrate`); Haven applies from one service behind a flag, every other product applies at boot,
-  and Hijinx applies nowhere in production.
+  and Hijinx applies nowhere in production. TNIS's command calls the boot helper (`MigrateCommand.cs:34`), so past
+  10.0.82 it verifies instead of applying.
 - gap: Ocharo runs four mechanisms in one product — bespoke on PostgreSQL, EF on SQLite, `EnsureCreated`, hand additive
   DDL; the last two keep no history, so neither a bespoke step nor `--check` sees them. 8 swept services have no
   history at all ([Use cases](#use-cases), M46).
@@ -241,7 +257,9 @@ Gaps:
 
 - up is `Apply.sql`; down is `Rollback.sql`.
 - expand: a change the previous release survives — a new table, a nullable column, a column with a constant default,
-  an index built `CONCURRENTLY`, an enum label, a constraint `NOT VALID`, a widened type.
+  an index built `CONCURRENTLY`, an enum label the previous release can read, a constraint `NOT VALID` that its writes
+  already satisfy (new rows are still checked,
+  [ALTER TABLE](https://www.postgresql.org/docs/current/sql-altertable.html)), a widened type.
 - contract: a change the previous release may not survive — a drop, a rename, a narrowed type, `SET NOT NULL`, rows
   deleted or rewritten that old code reads.
 - level: a set's highest applied ordinal. Rollback floor: the oldest release that can run on the current level.
@@ -274,6 +292,7 @@ Rules:
 - should give the step its own connection key, so an owner role (DDL) and a runtime role (DML) can split later without
   a contract change (M8); EF's guidance is the same
   ([applying migrations](https://learn.microsoft.com/en-us/ef/core/managing-schemas/migrations/applying)).
+- tenants stay rows inside the owner's set; a schema or database per tenant waits for the SDK (M55).
 - why the set: a service may host several sets (a product with `Identity.Module`), and a set may be hosted by several
   services (ForeverPin's two images), so only the set has one owner.
 
@@ -299,6 +318,7 @@ migrate:                                      # sketch for the decision, not a s
 
 - must declare one item per hosting image, normally one per repository, even when several services read the set.
 - must keep one exit contract for bespoke, EF and DbUp sets (M11).
+- must allocate an ordinal once and never reuse it; a pending ordinal below the applied level refuses on deploy (M56).
 - should let the generator derive the bundle's existing `migrations` fact from the key, so changelogs and release facts
   read one source.
 
@@ -345,7 +365,8 @@ migrate:                                      # sketch for the decision, not a s
 
 - Wheelhouse replaces itself: the detached runner job runs the step, so the console going away runs nothing;
   `self-deploy.py` must run the new image's `migrate` before the swap (M19).
-- interim: Wheelhouse may set `ApplyWhenDeployed` for its SDK bump only, removed once its own step ships.
+- interim: Wheelhouse may set `ApplyWhenDeployed` for its SDK bump only, removed once its own step ships, together with
+  `AllowOrphanedHistory` until M21 records kinds; without it an older Wheelhouse refuses the newer history (S5).
 
 ---
 
@@ -389,8 +410,9 @@ expanding keeps both safe ([parallel change](https://martinfowler.com/bliki/Para
 - SQL or code: SQL when set-based SQL expresses it; code when it needs application keys (Identity's plaintext TOTP keys
   becoming encrypted, T10), external input (Files' id map) or per-row logic.
 - order: expand (step) → release N live → background migration → a later release's contract declaring
-  `-- @requires <name>`; `migrate` refuses that contract with exit `1` until the background migration finished (M25),
-  as GitLab requires ([batched background migrations](https://docs.gitlab.com/development/database/batched_background_migrations/)).
+  `-- @requires <name>`; `migrate` refuses that contract with exit `1` until the background migration finished (M25).
+  GitLab gates the same dependence, but its finalize helper runs the remaining batches inline
+  ([batched background migrations](https://docs.gitlab.com/development/database/batched_background_migrations/)).
 - reference data: idempotent upserts in the set; per-environment seeds (first admin, OIDC clients) through
   configuration or a host CLI (M26).
 - moves: Files imports ([T9](https://github.com/wow-two-sdk-beta/wow-two-sdk-beta.files/blob/main/engineering/research/files-analysis-2026-10/t9-wheelhouse-migration.md)),
@@ -500,7 +522,7 @@ Every distinct case the two sweeps of 2026-10-27 found, deduplicated: 18 wow2 re
 Ocharo repositories with server state, 3 with browser storage only. "Pilots" are the ten SQLite SaaS pilots
 (`retainer-balance`, `documentation-checker`, `file-watch`, `procedure-review`, `training-seats`, `epub-review`,
 `customer-promises`, `vendor-renewals`, `config-checker`, `podcast-readiness`): a product database and an identity
-database each. "gap" marks a case no point decides.
+database each. Each case names the point that decides it.
 
 | Use case | Repositories | How the model handles it | Points |
 |---|---|---|---|
@@ -513,19 +535,19 @@ database each. "gap" marks a case no point decides.
 | U6 — a package's DDL outside the product's set | Hangfire's self-created `hangfire` (TranscriptForge, Desk); SDK idempotency `EnsureTableAsync`; outbox, inbox and webhook DDL copied by consumers (ForeverPin `012`); ASP.NET Identity DDL frozen into Desk `002-access` and the pilots' EF `InitialAccess` | the package ships a named set; Hangfire's installer runs in the step | M39 |
 | U7 — one logical schema in two SQL dialects | Identity (parity tests); Files SQLite only; Harvest PostgreSQL only | a set per dialect for domain packages | M40 |
 | U8 — references across stores by id, never by key | Harvest captures across partitions checked in code; Studio and the other apps reach Desk through tickets | ids only | M5 |
-| U9 — tenants as rows | Desk `organization_id` with composite keys; Files and Harvest tenant tables; the pilots, one workspace per account | inside one set; no model change | — |
-| U10 — a schema or database per tenant | be sdk `Tenancy/PerSchema`, `PerDb` (empty folders) | not modelled; deferred until the SDK builds it | gap |
+| U9 — tenants as rows | Desk `organization_id` with composite keys; Files and Harvest tenant tables; the pilots, one workspace per account | rows inside the owner's set | M3 |
+| U10 — a schema or database per tenant | be sdk `Tenancy/PerSchema`, `PerDb` (empty folders) | deferred until the SDK builds it | M55 |
 | **Mechanisms** | | | |
 | U11 — a bespoke set on PostgreSQL | Wheelhouse, canary, Harvest, ForeverPin, Desk, Haven, TranscriptForge, TNIS, TBS | the step's native case | M10 |
 | U12 — a bespoke set on a SQLite volume | Identity, Files, both templates, Sift, Arcade, ListingShelf, Matinee, PbnStudio, 8 pilots | the step with the service's volume; one applicant per file | M49 |
-| U13 — EF migrations run at boot | Marketing, Hijinx, the pilots' identity databases, two pilots' product databases, YPD, 7 kb samples | one helper over bespoke, EF and DbUp | M11 |
+| U13 — EF migrations | at boot: Marketing, the pilots' identity databases, two pilots' product databases, YPD, the kb `jobs` sample; Development only: Hijinx; never applied: 6 other kb samples | one helper over bespoke, EF and DbUp | M11 |
 | U14 — `EnsureCreated`, no history | Brand, Catalogue, Blog, Motion, HomeAtlas, tnis-mintrans | adopt into a set | M46 |
 | U15 — hand additive DDL behind `IF NOT EXISTS` or `pragma_table_info` | Catalogue, Studio, Blog; nasiya (about 33 guarded `ALTER TABLE`s) | adopt into a set | M46 |
 | U16 — several mechanisms in one product | Ocharo (four); the pilots (a bespoke or EF product database beside an EF identity database); YPD (EF and Django) | each image runs its own `migrate`; the ones without history adopt first | M11, M43, M46 |
 | U17 — stacks other than .NET | nasiya (Python: SQLAlchemy `create_all`, raw `sqlite3`, Alembic abandoned); YPD's Django service | a language-neutral image contract | M45 |
 | U18 — adopting a store created before its migrator | ListingShelf (idempotent `001`, later drops the "pre-migrator schema ledger"); Haven (converts v1.0's `migration_history`); Sift (renames the file to avoid it) | an idempotent first file or SDK `baseline`; one journal converter in the SDK | M34, M46 |
-| U19 — dev scripts beside the set | `Migrations/Dev/` in ForeverPin, TranscriptForge, TNIS, TBS; `wow-migrate new` and `promote` | only promoted files reach the step | — (engine rule) |
-| U20 — template residue in the baseline | `greeting_logs` in PbnStudio and tnis-mintrans; dropped by Arcade, ListingShelf and Files `005` | a drop file; templates ship no sample table | S17 |
+| U19 — dev scripts beside the set | `Migrations/Dev/` in ForeverPin, TranscriptForge, TNIS, TBS; `wow-migrate new` and `promote` | only promoted files reach the step | M56 |
+| U20 — template residue in the baseline | `greeting_logs` in PbnStudio and tnis-mintrans; dropped by Arcade, ListingShelf and Files `005` | a drop file; templates ship no sample table | M56 |
 | **Data and seed** | | | |
 | U21 — re-encoding, folding and renumbering rows in SQL | Wheelhouse `002`, `006`–`015`, `025`; ForeverPin `004`, `013`; Haven `003`; ListingShelf `002` | a small backfill in its own file | M23 |
 | U22 — reshape and backfill, then a constraint | ForeverPin `006`; TranscriptForge `004`; Haven `002` | expand, backfill, contract | M20, M23 |
@@ -556,9 +578,9 @@ database each. "gap" marks a case no point decides.
 | U45 — a hosted external database | 10x-fin-nt (Supabase, planned) | the image's step if declared; no Wheelhouse snapshot | M6, M18 |
 | U46 — Wheelhouse as subject and orchestrator | Wheelhouse (boot apply on 10.0.80, expand-only from `031`) | the step in its self-deploy and `self-deploy.py` | M19 |
 | **Deploy and rollback** | | | |
-| U47 — boot apply on a pin below the gate | 35 of 37 solutions | the step first, then the bump | M48 |
+| U47 — boot apply on a pin below the gate | 35 of 37 solutions; 5 more on the pre-rename package, among them TBS (sync-over-async) and secrets-vault (unawaited, inside DI registration) | the step first, then the bump or the rename | M48 |
 | U48 — a deployed boot that opts back into apply | Files `ApplyWhenDeployed` | interim; removed with the step | M19, M47 |
-| U49 — an explicit command beside the boot | Identity `migrate` (exits `0`/`1`/`2`), Desk `--migrate`, TNIS's CLI | the be sdk helper | M10 |
+| U49 — an explicit command beside the boot | Identity `migrate` (exits `0`/`1`/`2`), Desk `--migrate`, TNIS's CLI (on the boot helper, so verify-only past the gate) | the be sdk helper | M10, M47 |
 | U50 — apply only in Development | Hijinx | a `migrate` command and the step | M47 |
 | U51 — deployed outside Wheelhouse | Haven, ListingShelf, TranscriptForge, secrets-vault (compose); TNIS, TBS (no deploy) | the same command as a compose one-shot | M47 |
 | U52 — expand-only with rollback onto the newer schema | Wheelhouse decision 65 (`ExpandOnlyTests`, self-promotion rollback) | the `--check` gate and the contract marker | M15, M16, M21 |
@@ -566,7 +588,7 @@ database each. "gap" marks a case no point decides.
 | U54 — backups outside the migrator | Haven's `backup` service; `SqliteBackupWriter` in config-checker and podcast-readiness; Wheelhouse's prod snapshot | the snapshot before the step; product backups stay theirs | M18 |
 | U55 — down scripts as operator actions | every bespoke set; Haven's HTTP rollback behind `AllowRollback`; Desk's CLI never enables rollback | a guarded operator action | M2, M34, M44 |
 | U56 — applicants and locks | the SDK lock (FNV-1a of the set name); Desk's own key; app-level `pg_advisory_xact_lock` in the same key space; SQLite's single applicant; Files' one process per store | bounded waits; a reserved key class | M17, M50 |
-| U57 — ordinals with gaps | Wheelhouse (`014`, `019`–`021`, `023`–`024`, `028`–`029` never committed) | allowed; an ordinal is never reused | — (engine rule) |
+| U57 — ordinals with gaps | Wheelhouse (`014`, `019`–`021`, `023`–`024`, `028`–`029` never committed) | allowed; an ordinal is never reused; a late lower ordinal refuses on deploy | M56 |
 | U58 — releases that prove deploy flows | wheelhouse-canary (`002` additive on purpose) | the rehearsal rig | M35 |
 | **Non-relational state** | | | |
 | U59 — SQLite, single instance by design | about 28 services | the step beside the writer | M49 |
@@ -578,7 +600,7 @@ database each. "gap" marks a case no point decides.
 | U65 — partitions kept by a function | Harvest's monthly `harvest_captures` and `harvest_ensure_capture_partitions` | DDL in the set; upkeep by the owner's job | M41 |
 | U66 — extension and encoding preflight | Harvest (`pg_trgm`, UTF-8, a Cyrillic probe) | placement creates the extension; `migrate` preflights | M41 |
 | U67 — a document in one row | HomeAtlas `AtlasSnapshot` (JSON with a `Revision`) | adopt the table; the JSON shape migrates in code, like client storage | M46, M54 |
-| U68 — state shipped in the repository or held on devices | ocharo-assets (Git LFS library), TNIS's baked payload, Matinee's device files | out of scope: it ships in the image or lives on devices | — |
+| U68 — state shipped in the repository or held on devices | ocharo-assets (Git LFS library), TNIS's baked payload, Matinee's device files | outside the step: it ships in the image or lives on devices | M42, M54 |
 | **Client-side state** | | | |
 | U69 — versioned browser storage | fe sdk `VersionedStore` and IndexedDB `upgrade`; PRISM `migrateModel` and import-time migrators; Surface Pattern refuses an unreadable key; Whiteout presets drop on clear | out of the step, in the fe sdk | M54 |
 | U70 — device data synced with the server | Arcade (device books joined with cloud books); Hijinx (playlist export and import); Studio (SQLite plus browser storage) | the server half in a set, the device half in the fe sdk; the sync payload versions like an API | M31, M54 |
@@ -644,7 +666,8 @@ Parent before child; a child names its parent. Each point: the decision, its opt
   product has external users or a takeover needs schema grants; the key keeps least privilege open without a
   contract change.
 - [ ] M39 (M3) — DDL a package owns (Hangfire's `hangfire` schema; the SDK idempotency, outbox, inbox and webhook
-  tables; ASP.NET Identity's tables): the package creates its tables at runtime (Hangfire, `EnsureTableAsync` today) ·
+  tables; ASP.NET Identity's tables): the package creates its tables at runtime (Hangfire at every boot; the
+  idempotency store's opt-in `EnsureTableAsync`) ·
   consumers copy the DDL into their own set (ForeverPin `012`, Desk `002-access`, the pilots' `InitialAccess`) · the
   package ships a named set that the product's step applies → a named set per package, and Hangfire, which versions its
   own storage, runs its installer in the step; a runtime create needs DDL rights at every boot and escapes the level
@@ -655,14 +678,19 @@ Parent before child; a child names its parent. Each point: the decision, its opt
   path.
 - [ ] M41 (M8) — Server prerequisites (Harvest's `pg_trgm`, encoding and Cyrillic probes; partitions a function must
   extend): the set creates extensions itself (today) · Wheelhouse's database placement creates allowed extensions, and
-  `migrate` preflights and refuses with exit `1` · a boot probe only → placement plus preflight; `CREATE EXTENSION`
-  needs rights the migrate key should not hold, and a refusal before any restart beats a boot that fails after one.
-  Partition upkeep stays the owner's job, never a migration.
+  `migrate` preflights and refuses with exit `1` · a boot probe only → the set creates trusted extensions, placement
+  the untrusted ones, and `migrate` preflights; `pg_trgm` is trusted, so the role Wheelhouse makes the database's owner
+  (`prepare.py:59-60`) installs it, while an untrusted one needs a superuser
+  ([CREATE EXTENSION](https://www.postgresql.org/docs/current/sql-createextension.html)), and a refusal before any
+  restart beats a boot that fails after one. Partition upkeep stays the owner's job, never a migration.
 - [ ] M42 (M6) — State outside the database (blob volumes, key rings, model and geo volumes) and rows no migration may
   rewrite (hash-chained audit, encrypted payloads): the step migrates files too · outside the step: the snapshot pairs
   the dump with volume tars (exists), a file layout change is a background migration (M24), and keys change only by an
   operator job → outside the step; no swept repository migrates files, its stores are content-addressed or append-only,
   and Wheelhouse's `vault import` already re-keys as a job.
+- [ ] M55 (M4) — Tenants by schema or database (be sdk `Tenancy/PerSchema` and `PerDb`, empty folders; no repository
+  uses either): settle it now · defer until the SDK builds them · rule them out → defer; every swept tenant is a row
+  (Desk, Files, Harvest, the pilots), and named sets with `{{schema}}` and an owner marker are the likely seam.
 
 ### Declaration
 
@@ -693,6 +721,24 @@ Parent before child; a child names its parent. Each point: the decision, its opt
   converter · rename the store and start fresh (Sift) → adopt before the product's first deploy with the step; without
   history neither `--check` nor the rollback gate can read a schema, and 8 swept services have none. EF migrations stay
   under M11.
+- [ ] M56 (M10) — A pending ordinal below the applied level (lanes on one branch allocate ordinals in parallel; the
+  engine applies every unapplied ordinal in any order, `MigrationRunnerService.cs:77-78`): apply it (today) · refuse it
+  outside a local run, so its author renumbers above the level · renumber by hand at merge only → refuse on deploy;
+  such a file runs on a schema its author never tested, and a rollback to a release above it meets an orphan below
+  its level, which M21's rule does not classify. Settled beside it: an ordinal is never reused and gaps stay
+  (Wheelhouse); `Dev/` scripts reach a set only through `wow-migrate promote`; the templates' baseline ships no sample
+  table (U20, S17).
+
+### Expand and contract
+
+- [ ] M20 — Who must expand only: Wheelhouse (decision 65) · every platform app, while products may contract in the same
+  release when they have no external users, marking it not rollback-compatible · every set everywhere → the middle;
+  platform apps promise rollback, and `breaking-changes.md:14` spares products shims for users who do not exist.
+- [ ] M21 (M20) — Recording a contract: a lint-only `-- contract:` comment (Wheelhouse) · the migrator parses
+  `-- @contract since=vX.Y` and records kind and `since` in history · nothing → record it; an older image's boot and
+  Wheelhouse's rollback check then read compatibility from the database alone.
+- [ ] M22 (M20) — The lint: Wheelhouse's `ExpandOnlyTests` · a `Testing.Data` helper with expand-only and lock-risk
+  rules · an external linter (Squawk, Atlas) → the SDK helper (`backlog.md:237`); one rule set, no new toolchain.
 
 ### Execution
 
@@ -708,9 +754,13 @@ Parent before child; a child names its parent. Each point: the decision, its opt
 - [ ] M15 — Rollback and older releases: skip the step (spec) · run `--check` from the older image and refuse an
   incompatible schema · run down scripts → the `--check` gate; it turns decision 65's promise into a checked fact and
   names the snapshot when the answer is no.
-- [ ] M16 — A deployed boot's level check: refuse anything but current (SDK today) · tolerate every `Ahead` (spec) ·
-  tolerate `Ahead` only when compatible (M21) → only when compatible; an older image boots after a rollback, but never
-  on a schema a contract narrowed under it.
+- [ ] M16 — An older image on newer history, in a deployed boot's level check and on the apply path interim boots still
+  run (pins below 10.0.82, `ApplyWhenDeployed`): refuse anything but current (SDK today) · tolerate every `Ahead`
+  (spec; `AllowOrphanedHistory` and `LevelMismatch = Warn` do it today, the second also letting `Behind` and `Drifted`
+  boot) · tolerate `Ahead` only when compatible (M21), on both paths → only when compatible, on both paths; an older
+  image boots after a rollback, but never on a schema a contract narrowed under it. Refusing already broke a real
+  Wheelhouse rollback onto an expand-only `033` (S5). Until M21 records kinds, a set that lints expand-only may set
+  `AllowOrphanedHistory`, plus `LevelMismatch = Warn` once past 10.0.82.
 - [ ] M17 — Lock safety: none (today) · migrator defaults: `lock_timeout` per batch, bounded retries, a bounded
   advisory-lock wait, exit `3` when it gives up · `SET LOCAL` by each author → migrator defaults with a per-file
   override; an `ALTER TABLE` queued behind a long transaction blocks every reader of that table, so the step must fail
@@ -718,20 +768,23 @@ Parent before child; a child names its parent. Each point: the decision, its opt
 - [ ] M18 — Prod rehearsal: trust the dev run and the snapshot · a dry run against prod before promoting · rehearse on a
   redacted prod copy in dev → trust dev and the snapshot in v1, then rehearse on the dev refresh once `backlog.md:123`
   ships; a prod dry run takes the same locks as the real run (`bespoke.md:64`).
-- [ ] M19 (M12) — Wheelhouse itself: boot apply forever through `ApplyWhenDeployed` · the step in its self-deploy and in
-  `self-deploy.py` · boot apply only while it bumps past 10.0.82, then the step → the third; Wheelhouse is the first
-  platform app on the step, and break-glass must not rest on boot behaviour the SDK removed.
+- [ ] M19 (M12, M16) — Wheelhouse itself: boot apply forever through `ApplyWhenDeployed` · the step in its self-deploy
+  and in `self-deploy.py` · boot apply only while it bumps past 10.0.82, then the step → the third, with
+  `AllowOrphanedHistory` on its set from the next release (M16); Wheelhouse is the first platform app on the step,
+  break-glass must not rest on boot behaviour the SDK removed, and without the flag its rollback fails (S5). A rollback
+  to a release built before the flag still needs the history-row workaround.
 - [ ] M47 (M16) — Apply paths beside the step (Hijinx's Development-only EF runner, Haven's `Schema:ApplyOnStartup`,
   Files' `ApplyWhenDeployed`, Desk's `--migrate`, TNIS's CLI, products deployed by compose): each product keeps its own
   · one `migrate` command per image, run by Wheelhouse as the step and by compose as a one-shot service the app waits
   on (`depends_on: service_completed_successfully`), with every boot flag removed → one command; Hijinx shows a
   Development-only path leaves production with none, and a compose host past 10.0.82 verifies like any deployed boot
-  (`IsLocalRun` is Development without `DEPLOY_ENVIRONMENT`).
+  (`IsLocalRun` is Development without `DEPLOY_ENVIRONMENT`), as does TNIS's CLI, which calls the boot helper
+  (`MigrateCommand.cs:34`).
 - [ ] M48 (M12) — The SDK spread (35 of 37 solutions below 10.0.82): bump everyone now · per product, in one release:
   its `migrate` command, its step, then the bump · stay below the gate until forced → per product, the step first,
   in this order: Wheelhouse (M19), the canary (rig), Identity and Files (dropping `ApplyWhenDeployed`), Harvest,
-  ForeverPin and Ocharo, then each venture at its next release; a bump alone turns a boot that applied into one that
-  refuses.
+  ForeverPin and Ocharo, then each venture at its next release, the 5 on the pre-rename package taking the rename in
+  that release; a bump alone turns a boot that applied into one that refuses.
 - [ ] M49 (M14) — SQLite sets in the step (about 28 single-instance services): migrate beside the running writer
   (spec) · stop the writer for the step · copy, migrate and swap the file → beside the writer, bounded by M17; the
   batch runs in `BEGIN IMMEDIATE` and holds the write lock until it commits (`bespoke.md:76`), so the old release's
@@ -742,17 +795,6 @@ Parent before child; a child names its parent. Each point: the decision, its opt
   · the migrator moves to the two-key form under a reserved class → the reserved class; PostgreSQL keeps the two key
   spaces apart, so no app lock can hold the step until its timeout, at the cost of one SDK change.
 
-### Expand and contract
-
-- [ ] M20 — Who must expand only: Wheelhouse (decision 65) · every platform app, while products may contract in the same
-  release when they have no external users, marking it not rollback-compatible · every set everywhere → the middle;
-  platform apps promise rollback, and `breaking-changes.md:14` spares products shims for users who do not exist.
-- [ ] M21 (M20) — Recording a contract: a lint-only `-- contract:` comment (Wheelhouse) · the migrator parses
-  `-- @contract since=vX.Y` and records kind and `since` in history · nothing → record it; an older image's boot and
-  Wheelhouse's rollback check then read compatibility from the database alone.
-- [ ] M22 (M20) — The lint: Wheelhouse's `ExpandOnlyTests` · a `Testing.Data` helper with expand-only and lock-risk
-  rules · an external linter (Squawk, Atlas) → the SDK helper (`backlog.md:237`); one rule set, no new toolchain.
-
 ### Data migrations
 
 - [ ] M23 — Small data changes: an idempotent SQL file of its own in the set · mixed into the DDL file · application
@@ -761,8 +803,10 @@ Parent before child; a child names its parent. Each point: the decision, its opt
 - [ ] M24 — Large or code-bound data changes: an SDK background migration (named, batched, resumable, journaled in the
   set's schema, run by `Jobs/`) · each product's own job · scripts by hand → the SDK primitive, built in the migrations
   vector pass after the step; GitLab solved the same problem this way, and every product needs one implementation.
-- [ ] M25 (M24) — A contract that needs a finished backfill: `-- @requires <name>`, refused by `migrate` until finished
-  · a convention only · nothing → the declared gate; nothing may depend on a background migration before it finishes.
+- [ ] M25 (M24) — A contract that needs a finished backfill: `-- @requires <name>`, refused by `migrate` with exit `1`
+  until finished · the step first finishes the remaining batches inline (GitLab's
+  `ensure_batched_background_migration_is_finished`) · a convention only → the refusal; nothing may depend on a
+  background migration before it finishes, and an inline remainder of unknown size runs under the step's timeout.
 - [ ] M26 — Reference data and seeds: reference rows as upserts in the set, per-environment seeds through configuration
   or a host CLI · everything in sets · everything at boot → the split; a migration runs the same in every environment,
   and a first admin or an OIDC client differs per environment.
@@ -832,7 +876,25 @@ Parent before child; a child names its parent. Each point: the decision, its opt
   rollback floor, background migrations pending, lock waits → per set; the rollback floor is what the owner needs
   before pressing roll back.
 - [ ] M38 — Product page and rollout UI: level and newest label (spec) · plus rollback floor, background progress and
-  "check now" · nothing → staged: the spec's view first, the rest with M24 and M36; rollout rows read "Migrate {set}".
+  "check now" · nothing → staged: the spec's view first, the rest with M21, M24 and M36, which produce the floor, the
+  progress and the on-demand read; rollout rows read "Migrate {set}".
+
+---
+
+## Answer batches
+
+Answered in order: each batch holds the parents of later batches' points, and lists its own points parent first.
+
+| # | Theme | Points |
+|---|---|---|
+| 1 | what a migration is and who owns it | M1, M2, M3, M4, M5, M6 |
+| 2 | one mechanism, expand only, and an older image on newer history (the confirmed rollback failure) | M12, M20, M21, M22, M15, M16, M19 |
+| 3 | ownership details: mappers, credentials, package DDL, dialects, prerequisites, outside state, tenancy | M7, M8, M39, M40, M41, M42, M55 |
+| 4 | declaration and the image contract | M9, M10, M11, M43, M44, M45, M46, M56 |
+| 5 | running the step: when, where, locks, rehearsal, SQLite, apply paths, the SDK spread | M13, M14, M17, M18, M49, M50, M47, M48 |
+| 6 | data, seeds and client state | M23, M24, M25, M26, M51, M54 |
+| 7 | several services and platform services | M27, M28, M29, M30, M31, M32 |
+| 8 | moves, operator actions, tests and what Wheelhouse shows | M33, M52, M34, M35, M53, M36, M37, M38 |
 
 ---
 
@@ -852,13 +914,24 @@ reason text, and no second history table (`:119-121`).
   image, and the deployed boot then refuses. → M13
 - S4 — A rollback skips the step and the SDK tolerates every `Ahead` (`:97`, `:131`); nothing checks that the newer
   migrations are expand, so an older image may boot on a contracted schema. → M15, M16, M21
-- S5 — The `Ahead` change covers the deployed boot only; the apply path refuses newer history as orphaned
-  (`MigrationRunnerService.cs:72`), and that is what Wheelhouse's own boot on 10.0.80 runs: its rollback across a
-  migration probably fails today (U). → M16, M19
+- S5 — The `Ahead` change covers the deployed boot's check only (`:131`); the apply path refuses newer history as
+  orphaned (`MigrationRunnerService.cs:72`, `:721-741`). Confirmed by a run on 2026-10-27:
+  - Wheelhouse v0.7.2 (be sdk 10.0.80) on a database v0.7.3 had migrated (`033`, `ADD COLUMN IF NOT EXISTS … NOT NULL
+    DEFAULT`) aborted in `MigrateBespokeOnStartupAsync` before any SQL: "History holds applied migrations absent from
+    the source: 033."; the schema itself did not block it.
+  - on 10.0.87 the apply call fails alike; `VerifyMigrationLevelsOnStartupAsync` refuses by default ("database at 033
+    is newer than the code (032)") and boots only with `LevelMismatch = Warn`, which tolerates `Behind` too.
+  - the runner's automatic restore after a failed probe hits the same refusal, so Wheelhouse `deployment.md:149` and
+    `:184-185` ("the previous release can read" the expanded database) are false today.
+  - the spec's rollback row (`:97`), Open 2 (`:160-161`) and its rig test (`:149-150`) hold only once both paths
+    tolerate a compatible `Ahead`.
+  - workarounds that worked: deleting `033`'s history row (v0.7.2 boots; the re-upgrade re-applies the idempotent
+    `033`), or building with `AllowOrphanedHistory = true` (code-only in 10.0.80). → M16, M19
 - S6 — The container mounts the service's settings file (`:84`), tying the step to the runtime role and leaving no room
   for a deploy identity. → M8
 - S7 — No lock safety: a timeout of up to 60 minutes (`:33`, `:40`), no `lock_timeout`, no retry, no "busy" exit; a
-  lock wait lands in exit `2` "script failed". → M17
+  lock wait hangs until that timeout, or, under an author's `SET LOCAL lock_timeout`, lands in exit `2` "script
+  failed". → M17
 - S8 — No data migrations: nothing on backfills, batch-held locks, background migrations or contract gates. → M23–M25
 - S9 — Expand-only binds every product (`:44-45`) without a machine-readable marker, against `breaking-changes.md:14`
   for products without users. → M20, M21
@@ -877,21 +950,23 @@ reason text, and no second history table (`:119-121`).
   floor and background status. → M37
 - S17 — The changes outside Wheelhouse (`:128-135`) miss the product and domain templates (boot only), the bespoke
   convention (sets, owner, level check), `capability-forms.md:71-72` (per schema since Q54) and the SDK bump of 35 of
-  37 backend solutions. → M3, M10, M48
+  37 backend solutions. → M3, M10, M48, M56
 - S18 — The step assumes a set with history; images on `EnsureCreated` or hand DDL (Ocharo Brand, Catalogue, Blog,
   Studio, Motion; HomeAtlas) have no level for `--check` or `migrate-result`, and "no service declares `migrate`: no
   step at all" (`:99`) leaves their boot DDL in place without a word. → M46
-- S19 — DDL outside any set still runs at the deployed boot: Hangfire creates `hangfire` and the SDK idempotency store
-  creates its table, both with the runtime role; mounting the service's settings (`:84`) hides that a runtime role then
-  needs DDL rights. → M39, M8
+- S19 — DDL outside any set still runs at the deployed boot: Hangfire creates `hangfire` with the runtime role, and the
+  SDK idempotency store ships an opt-in `EnsureTableAsync` beside its `CreateTableSql` (no swept host calls it);
+  mounting the service's settings (`:84`) hides that a runtime role then needs DDL rights. → M39, M8
 - S20 — No seed phase: Haven applies its seed files right after its migrations, and Ocharo Marketing imports a seed
   bundle at every boot; the step has no place for either. → M51
 - S21 — SQLite overlap (`:107-108`) holds for the bespoke runner, whose batch holds the write lock
   (`bespoke.md:76`), but the dialect requires one applicant per file (`bespoke.md:10`): an old release below 10.0.82
   that restarts during the step applies the same file, and EF-run SQLite sets (Marketing, Hijinx) take no such lock (U).
   → M49, M48
-- S22 — Extensions: Harvest's set runs `CREATE EXTENSION pg_trgm` and probes the encoding; under the service's role on
-  a Wheelhouse-placed database it may lack the right, and nothing in placement creates the extension. → M41, M8
+- S22 — Extensions and preflight are absent: Harvest's set runs `CREATE EXTENSION pg_trgm` and probes the encoding at
+  boot only. `pg_trgm` is trusted, so the database owner Wheelhouse places (`prepare.py:59-60`) installs it; an
+  untrusted extension, or a runtime role that no longer owns the database (M8), cannot, and nothing in placement
+  creates one. → M41, M8
 - S23 — The be sdk change (`:130-131`) reaches every product that bumps, whatever deploys it: products on compose
   (Haven, ListingShelf, TranscriptForge) and Hijinx get no step and lose boot apply; the order of the bumps across 35
   solutions is absent. → M47, M48
