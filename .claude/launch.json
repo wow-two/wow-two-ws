@@ -633,6 +633,34 @@
         "--headless"
       ],
       "port": 8382
+    },
+    {
+      "name": "files-web",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": [
+        "-C",
+        "workbench/wow-two-sdk-beta/wow-two-sdk-beta.files/engineering/codebase/files.frontend-services",
+        "dev:http"
+      ],
+      "port": 8394
+    },
+    {
+      "name": "files-api",
+      "runtimeExecutable": "dotnet",
+      "runtimeArgs": [
+        "run",
+        "--project",
+        "workbench/wow-two-sdk-beta/wow-two-sdk-beta.files/engineering/codebase/files.backend-services/service/Files.Api",
+        "--no-launch-profile",
+        "-p:BuildSpa=false",
+        "--urls",
+        "http://localhost:8393"
+      ],
+      "env": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "Files__Delivery__BaseUrl": "http://localhost:8393"
+      },
+      "port": 8393
     }
   ]
 }
