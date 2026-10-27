@@ -63,6 +63,20 @@
 - Harvest stays about pipelines, stats and the container of harvested posts.
 - asked: is robots.txt our configuration, and should it use another format?
 
+### Developer, 2026-10-27, fourth answer
+
+- all points confirmed as their provisional picks, except the defence-bypass parts, which are not pursued.
+- Harvest fetches directly and politely — robots policy, per-host pacing, `Retry-After`, conditional requests,
+  run-scoped anonymous cookies, one honest User-Agent — and records a block, rate limit or challenge as an outcome,
+  then backs off; it never works a block around.
+- not pursued: captcha solving; proxy or IP rotation and the "IP server" used to avoid blocks; the escalation ladder;
+  account or session pools for signing in to scrape; disguised or rotating client profiles; per-site bypass recipes
+  (the phone-reveal flow); ignoring source terms.
+- official API routes honour their platforms' terms (T9-5).
+- the console takes Wheelhouse's look, refined after the developer's review.
+- the spec is rewritten from this answer (2026-10-27); the defence-bypass picks are kept here as the record, marked
+  `not pursued`.
+
 ---
 
 ## Tracks
@@ -95,67 +109,67 @@ holding the evidence. Tick a line when the developer answers; the answer moves i
   over posts, trends learning included, on top of Social's libraries (T4, T8-1)
   - T8 § 1.4 kept platform readers and the Telegram pool in Harvest; T9 redraws that cut under this answer
   - 2026-10-27: IP servers leave Social for connection infrastructure in the be sdk (T9-24)
-- [ ] P2 (H1) Harvest's repo → provisional pick: a new `wow-two-sdk-beta.harvest` from the domain template with
+- [x] P2 (H1) Harvest's repo → confirmed 2026-10-27: a new `wow-two-sdk-beta.harvest` from the domain template with
   ListingShelf's generic core copied and its source commit cited; ListingShelf stays the shelf view (T8-4)
-- [ ] P2a org → provisional pick: `wow-two-sdk-beta` for Harvest, Social and Events, which repoints their catalog
+- [x] P2a org → confirmed 2026-10-27: `wow-two-sdk-beta` for Harvest, Social and Events, which repoints their catalog
   entries and edits platform-apps rows 16 and 17 (T8-5)
-- [ ] P2b chain → provisional pick: core → Identity → Files → Social → Harvest → Events, no cycle over 33 package
+- [x] P2b chain → confirmed 2026-10-27: core → Identity → Files → Social → Harvest → Events, no cycle over 33 package
   nodes; Events renames its tracking `pipeline` to `workflow` (T8-6, T8-13)
 - [x] P2c slug for Social → answered 2026-10-26: `social` (T8-2)
-- [ ] P2d research in a public repo → provisional pick: strip the analysis' private facts before it moves into the
+- [x] P2d research in a public repo → confirmed 2026-10-27: strip the analysis' private facts before it moves into the
   public Harvest repo (T8-5)
 
 ### B · Source terms — blocks the source picks
 
-- [x] P3 posture: the spec says "must honour each source's terms", and three terms collide with the plan →
-  answered 2026-10-26: not honoured, since these platforms offer no proper API; a block routes through a capability
+- [ ] P3 posture: the spec says "must honour each source's terms", and three terms collide with the plan →
+  not pursued 2026-10-27: Harvest reports blocks as outcomes and does not escalate — the 2026-10-26 answer was: not honoured, since these platforms offer no proper API; a block routes through a capability
   such as an IP server (T9). The counsel gates in T1-P1, S1, W1, W5 and P4 fall away; T9 re-reads the defaults
   (T1-P1, S1, W1, W5)
   - Telegram API Terms §1.5: no Telegram data for AI "development, enhancement or deployment" (read 2026-10-26)
   - Meta Automated Data Collection Terms (2024): no automated collection without written permission
   - Afisha terms: prior written permission to copy or use material
-- [ ] P4 licensed providers (Apify) for Instagram, Facebook and TikTok public pages → provisional pick: yes,
+- [ ] P4 licensed providers (Apify) for Instagram, Facebook and TikTok public pages → not pursued 2026-10-27: Harvest reports blocks as outcomes and does not escalate — the provisional pick was: yes,
   logged-out public data only, behind counsel's read in P3 (S1, S8)
-- [ ] P5 Telegram read route → provisional pick: `t.me/s` web preview first; two UZ-SIM user accounts for groups,
+- [ ] P5 Telegram read route → not pursued 2026-10-27: Harvest reports blocks as outcomes and does not escalate — the provisional pick was: `t.me/s` web preview first; two UZ-SIM user accounts for groups,
   comments and deletion checks; a human approves each join (T1-P2, T1-P3, T1-P6)
-- [ ] P6 WhatsApp v1 → provisional pick: an intake number plus channel page snapshots; no unofficial sidecar
+- [x] P6 WhatsApp v1 → confirmed 2026-10-27: an intake number plus channel page snapshots; no unofficial sidecar
   (T1-P7)
-- [ ] P7 Events' first web sources → provisional pick: mstar.uz and voyage.uz (JSON-LD `Event`); Afisha once it
+- [x] P7 Events' first web sources → confirmed 2026-10-27: mstar.uz and voyage.uz (JSON-LD `Event`); Afisha once it
   grants permission; iticket deferred to the render tier (W1, W2, T4-12)
-- [ ] P8 credential owner for Meta, X, Google and the Telegram SIMs → provisional pick: the parent company of
+- [x] P8 credential owner for Meta, X, Google and the Telegram SIMs → confirmed 2026-10-27: the parent company of
   `ven-t-012` (S2, T1-P3)
-- [ ] P9 discovery by search, as Ocharo's scans do today → provisional pick: a `search` adapter family after the
+- [x] P9 discovery by search, as Ocharo's scans do today → confirmed 2026-10-27: a `search` adapter family after the
   first slice (T4-3)
 
 The tracks' own Points (T1-P1…14, S1–S12, W1–W18, T4-1…13) hold the children.
 
 ### C · Model, extraction and pipelines — from wave 2
 
-- [ ] P10 pipeline and subscription split: the pipeline `(container, source, scope_key)` is the shared harvesting
+- [x] P10 pipeline and subscription split: the pipeline `(container, source, scope_key)` is the shared harvesting
   unit; the subscription is per consumer with its own delivery, AI switch and budget share; the effective config
-  derives from the subscriptions → provisional pick: yes (T7)
-- [ ] P11 post layers: `source` → `capture` → `link_readings` → `post_links` → `posts`, each in a `container`; the
+  derives from the subscriptions → confirmed 2026-10-27: yes (T7)
+- [x] P11 post layers: `source` → `capture` → `link_readings` → `post_links` → `posts`, each in a `container`; the
   canonical post is derived from its links' readings with provenance per field, never patched in place; captures
-  written only on content change → provisional pick: yes (T5)
-- [ ] P12 dedup: a deterministic ladder — exact keys, normalized-text hash, `pg_trgm` on transliterated text;
+  written only on content change → confirmed 2026-10-27: yes (T5)
+- [x] P12 dedup: a deterministic ladder — exact keys, normalized-text hash, `pg_trgm` on transliterated text;
   merges undoable with a `non_matches` veto; embeddings review-only and never over `ai_allowed = false` text →
-  provisional pick: yes (T5)
-- [ ] P13 deletion: `suspect` before `gone`; only a completed run over a complete enumeration may infer it; a post
-  is gone when all its verifiable links are; unverifiable sources abstain → provisional pick: yes (T5, T7)
-- [ ] P14 extraction: a deterministic → rules → embeddings → small model → large model cascade that always yields
-  `wow2.post.v1`; a consumer schema is a declared mapping first and the model fills only gaps → provisional pick:
+  confirmed 2026-10-27: yes (T5)
+- [x] P13 deletion: `suspect` before `gone`; only a completed run over a complete enumeration may infer it; a post
+  is gone when all its verifiable links are; unverifiable sources abstain → confirmed 2026-10-27: yes (T5, T7)
+- [x] P14 extraction: a deterministic → rules → embeddings → small model → large model cascade that always yields
+  `wow2.post.v1`; a consumer schema is a declared mapping first and the model fills only gaps → confirmed 2026-10-27:
   yes (T6)
-- [ ] P15 AI gates: pipeline `off` · `gaps` · `full`, source `ai_allowed` `yes` · `no` · `unreviewed`, host
-  `ai-input` signal, budget cap; the build runs end to end without AI → provisional pick: yes; Telegram defaults wait
+- [x] P15 AI gates: pipeline `off` · `gaps` · `full`, source `ai_allowed` `yes` · `no` · `unreviewed`, host
+  `ai-input` signal, budget cap; the build runs end to end without AI → confirmed 2026-10-27: yes; Telegram defaults wait
   on P3 (T6)
-- [ ] P16 delivery: one durable event log per subscription feeds webhooks, pull cursors, replay and dead letters;
+- [x] P16 delivery: one durable event log per subscription feeds webhooks, pull cursors, replay and dead letters;
   the be sdk's inline `WebhookPublisher` is not at-least-once, so a durable dispatcher joins the SDK, shared with
-  Identity → provisional pick: yes (T7, T8)
-- [ ] P17 text search: PostgreSQL has no Uzbek configuration; `simple` with prefix matching over Latin-transliterated
-  text, a UTF-8 database locale and a boot self-test → provisional pick: yes (T6, T5)
-- [ ] P18 retention travels downstream: deliveries carry `retention_class` and `delete_by`, and `post.purged`
-  reaches consumers; derived items, tags and embeddings die with their capture → provisional pick: yes (T5, T6, T2)
-- [ ] P19 contact keys: an HMAC with a vault-held pepper, not a plain hash of nine digits → provisional pick: yes
+  Identity → confirmed 2026-10-27: yes (T7, T8)
+- [x] P17 text search: PostgreSQL has no Uzbek configuration; `simple` with prefix matching over Latin-transliterated
+  text, a UTF-8 database locale and a boot self-test → confirmed 2026-10-27: yes (T6, T5)
+- [x] P18 retention travels downstream: deliveries carry `retention_class` and `delete_by`, and `post.purged`
+  reaches consumers; derived items, tags and embeddings die with their capture → confirmed 2026-10-27: yes (T5, T6, T2)
+- [x] P19 contact keys: an HMAC with a vault-held pepper, not a plain hash of nine digits → confirmed 2026-10-27: yes
   (T5)
 
 The tracks' own Points (T5-1…22, T6-1…17, T7-P1…P20) hold the children.
@@ -164,7 +178,7 @@ The tracks' own Points (T5-1…22, T6-1…17, T7-P1…P20) hold the children.
 
 - [ ] P20 the capability framework: pipelines as steps, integrations as brokers, and capabilities each step may
   require — sign-in, captcha avoidance, an IP server, rendering — with the cut between Social and Harvest →
-  provisional pick: pipelines are declared step plans; each step states a floor, a ladder and a ceiling of
+  not pursued 2026-10-27: Harvest reports blocks as outcomes and does not escalate — the provisional pick was: pipelines are declared step plans; each step states a floor, a ladder and a ceiling of
   capabilities; the resolver picks the cheapest working rung per `(host, lane)` at claim, reserves budget and leases
   egress and sessions (T9-1)
   - cut, revised 2026-10-27: Social holds platform clients and account pools, the Telegram MTProto pool included;

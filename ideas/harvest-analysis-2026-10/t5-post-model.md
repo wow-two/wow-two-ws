@@ -863,28 +863,28 @@ containers 1─* sources *─1 publishers          sources 1─* source_scopes �
 
 Open questions; each ends in a provisional pick.
 
-- [ ] T5-1 vocabulary in the spec: add `source`, `link`, `reading`, `post`, `container`; keep `item` as a link's reading; avoid `observation` → provisional pick: yes (T8 edits the spec)
-- [ ] T5-2 capture on change versus per run → provisional pick: on change; unchanged polls touch `link_schedule`; an optional heartbeat capture per pipeline, off by default (T7)
-- [ ] T5-3 auto-merge thresholds → provisional pick: tiers 1–2 plus trigram ≥ 0.85 with corroboration; same-publisher ≥ 0.7; 5% of auto-merges sampled; calibrate on ~200 labelled Haven and Ocharo pairs before widening (T6 for kinds)
-- [ ] T5-4 near-dup retriever → provisional pick: `pg_trgm` on transliterated `match_text`; simhash only if latency fails; embeddings stay off until T1-P1 and T6 settle AI use
-- [ ] T5-5 extensions on the host → provisional pick: require `pg_trgm` (contrib); pgvector optional behind `embeddings_enabled` (T8, Wheelhouse database image)
-- [ ] T5-6 cross-language matching → provisional pick: declared alternates only; embedding suggestions are review-only
-- [ ] T5-7 contact keys → provisional pick: HMAC with a Secrets Vault pepper, rotation job, raw values only in `link_readings.contacts`, never in pool reads (amends T4-7) (T6, T7)
-- [ ] T5-8 unverifiable sources → provisional pick: abstain from the rollup; the post carries `verifiable = false` (T7)
-- [ ] T5-9 retention defaults → provisional pick: `standard` raw bodies 365 days, originals of media 90 days after `gone`, metrics 400 days; `meta` shaped like `youtube` until counsel reads (S4, P3)
-- [ ] T5-10 purge result → provisional pick: a scrubbed stub (hashes, no body) for expiry; full row delete for data-subject requests; legal read before relying on it (U)
-- [ ] T5-11 check defaults and budgets → provisional pick: the bands in § 5.5, `confirmChecks` 2 for embed and MTProto probes, `suspect` after one absent complete enumeration, 30% drop guard (W15); per-host request budgets in config (T7)
-- [ ] T5-12 Uzbek personal-data law (S12): registration, localization, contact storage → provisional pick: not read in this track; `containers.residency` and subject keys exist; no raw contact storage goes live before the read (counsel with P3)
-- [ ] T5-13 intake consent and withdrawal → provisional pick: `intake_consents` as in § 7.3; withdrawal purges within 7 days (T1-P9)
-- [ ] T5-14 contributing private content to the pool → provisional pick: not in v1; an operator act when it comes
-- [ ] T5-15 alias post versus pin → provisional pick: alias post with a stable private id (§ 6.3) (T7, T8)
-- [ ] T5-16 partition at birth → provisional pick: `captures` and `link_metrics` monthly, no foreign keys into them; a Harvest job creates partitions unless the be sdk migrator gains `pg_partman` support (T8)
-- [ ] T5-17 ListingShelf view row (T4): per post or per link → provisional pick: per post, links expanded in the detail (T4, T8)
-- [ ] T5-18 brand linking acceptance (T1-P11) → provisional pick: auto for a header or footer link with matching name, else review (T3)
-- [ ] T5-19 dedup settle window before first delivery → provisional pick: 2 minutes, 0 for latency-critical pipelines (T7)
-- [ ] T5-20 delivery contract for retention → provisional pick: every delivery carries `retention_class`, `delete_by`; consumers must honour `post.purged` (T7)
-- [ ] T5-21 field base for guards: `starts_at` with precision, price amount and currency, contact keys, location text must be in T6's base so § 3.6 guards work → provisional pick: yes (T6)
-- [ ] T5-22 source unavailable for 30 days → provisional pick: a human retires the source; posts are never auto-`gone` (T7)
+- [x] T5-1 vocabulary in the spec: add `source`, `link`, `reading`, `post`, `container`; keep `item` as a link's reading; avoid `observation` → confirmed 2026-10-27: yes (T8 edits the spec)
+- [x] T5-2 capture on change versus per run → confirmed 2026-10-27: on change; unchanged polls touch `link_schedule`; an optional heartbeat capture per pipeline, off by default (T7)
+- [x] T5-3 auto-merge thresholds → confirmed 2026-10-27: tiers 1–2 plus trigram ≥ 0.85 with corroboration; same-publisher ≥ 0.7; 5% of auto-merges sampled; calibrate on ~200 labelled Haven and Ocharo pairs before widening (T6 for kinds)
+- [x] T5-4 near-dup retriever → confirmed 2026-10-27: `pg_trgm` on transliterated `match_text`; simhash only if latency fails; embeddings stay off until T1-P1 and T6 settle AI use
+- [x] T5-5 extensions on the host → confirmed 2026-10-27: require `pg_trgm` (contrib); pgvector optional behind `embeddings_enabled` (T8, Wheelhouse database image)
+- [x] T5-6 cross-language matching → confirmed 2026-10-27: declared alternates only; embedding suggestions are review-only
+- [x] T5-7 contact keys → confirmed 2026-10-27: HMAC with a Secrets Vault pepper, rotation job, raw values only in `link_readings.contacts`, never in pool reads (amends T4-7) (T6, T7)
+- [x] T5-8 unverifiable sources → confirmed 2026-10-27: abstain from the rollup; the post carries `verifiable = false` (T7)
+- [x] T5-9 retention defaults → confirmed 2026-10-27: `standard` raw bodies 365 days, originals of media 90 days after `gone`, metrics 400 days; `meta` shaped like `youtube` until counsel reads (S4, P3)
+- [x] T5-10 purge result → confirmed 2026-10-27: a scrubbed stub (hashes, no body) for expiry; full row delete for data-subject requests; legal read before relying on it (U)
+- [x] T5-11 check defaults and budgets → confirmed 2026-10-27: the bands in § 5.5, `confirmChecks` 2 for embed and MTProto probes, `suspect` after one absent complete enumeration, 30% drop guard (W15); per-host request budgets in config (T7)
+- [x] T5-12 Uzbek personal-data law (S12): registration, localization, contact storage → confirmed 2026-10-27: not read in this track; `containers.residency` and subject keys exist; no raw contact storage goes live before the read (counsel with P3)
+- [x] T5-13 intake consent and withdrawal → confirmed 2026-10-27: `intake_consents` as in § 7.3; withdrawal purges within 7 days (T1-P9)
+- [x] T5-14 contributing private content to the pool → confirmed 2026-10-27: not in v1; an operator act when it comes
+- [x] T5-15 alias post versus pin → confirmed 2026-10-27: alias post with a stable private id (§ 6.3) (T7, T8)
+- [x] T5-16 partition at birth → confirmed 2026-10-27: `captures` and `link_metrics` monthly, no foreign keys into them; a Harvest job creates partitions unless the be sdk migrator gains `pg_partman` support (T8)
+- [x] T5-17 ListingShelf view row (T4): per post or per link → confirmed 2026-10-27: per post, links expanded in the detail (T4, T8)
+- [x] T5-18 brand linking acceptance (T1-P11) → confirmed 2026-10-27: auto for a header or footer link with matching name, else review (T3)
+- [x] T5-19 dedup settle window before first delivery → confirmed 2026-10-27: 2 minutes, 0 for latency-critical pipelines (T7)
+- [x] T5-20 delivery contract for retention → confirmed 2026-10-27: every delivery carries `retention_class`, `delete_by`; consumers must honour `post.purged` (T7)
+- [x] T5-21 field base for guards: `starts_at` with precision, price amount and currency, contact keys, location text must be in T6's base so § 3.6 guards work → confirmed 2026-10-27: yes (T6)
+- [x] T5-22 source unavailable for 30 days → confirmed 2026-10-27: a human retires the source; posts are never auto-`gone` (T7)
 
 ---
 

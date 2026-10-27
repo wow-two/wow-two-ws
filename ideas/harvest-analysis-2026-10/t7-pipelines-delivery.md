@@ -731,26 +731,26 @@ The lead document's open policy Points must not block the design. Each is a conf
 
 ## Points
 
-- [ ] T7-P1 pipeline identity and join: `(container, source, scope_key)`, whole-site singleton per source, filtered joins on identical `scope_key` only → provisional pick: as stated.
-- [ ] T7-P2 subscriber schedule input: max staleness, not cron, on public pipelines; operator owns windows → provisional pick: staleness merged by min and clamped; cron stays on private and operator pipelines.
-- [ ] T7-P3 who may create public pipelines → provisional pick: any tenant with `pipelines:manage` may create when the source is `open`, free-route and within quota; anything gated (permission, account, paid route, new source family) is `pending-approval` for the operator.
-- [ ] T7-P4 cost attribution → provisional pick: equal split among channel subscribers against tenant caps, AI to the asking subscription, hard stops never on shares; marginal view console-only.
-- [ ] T7-P5 idle pipelines → provisional pick: pause when the last channel subscriber leaves unless `pinned`; weak readers keep nothing alive; archive after 30 days idle.
-- [ ] T7-P6 backfill on join → provisional pick: replay current live posts through the event log, throttled; `join` run only when stale; no AI on history without opt-in.
-- [ ] T7-P7 delivery unit for channel subscriptions: canonical post revision with `links[]` filtered to what the subscriber may see → provisional pick: as stated (T5 confirms the post and link model).
-- [ ] T7-P8 event retention and retry horizon, batching → provisional pick: log 30 days, 11 attempts over ~72 h, `410` suspends, one event per request in v1.
-- [ ] T7-P9 durable webhook dispatcher placement → provisional pick: in the be SDK (Identity needs it); Harvest consumes it (T8).
-- [ ] T7-P10 adaptive schedules → provisional pick: ship `manual`, `interval`, `cron` first; `adaptive` (halve / double between bounds) in the second slice.
-- [ ] T7-P11 match engine inputs → provisional pick: match on T6's normalized `search_text` (script folding, language tag); no Uzbek stemming in v1; T6 owns the shape.
-- [ ] T7-P12 proposals → provisional pick: sources are link submissions on unharvested domains and keyword coverage gaps; `search` candidates later (T4-3, P9).
-- [ ] T7-P13 link scope matching → provisional pick: registrable domain + path scope; in-scope → public; out-of-scope on a public domain → private with the shared host limiter; per-tenant daily quota (T5 for cross-container linking).
-- [ ] T7-P14 manual entries → provisional pick: private container only, new revision per edit, `provenance: manual` set server-side; Harvest checks key scope and records the actor, the product checks roles (T4-10).
-- [ ] T7-P15 tenant isolation → provisional pick: SDK per-row filter plus an architecture test now; PostgreSQL row-level security later; operator key plus same-origin guard for the console until Identity lands.
-- [ ] T7-P16 `NOTIFY` as the console backplane and long-poll wake-up → provisional pick: yes; Redis stays out (T8).
-- [ ] T7-P17 signed-in sources (T4-4) → provisional pick: `connection_ref` resolved through the connectors domain, private containers only; whether Harvest drives signed-in sessions at all waits for T3 and T8.
-- [ ] T7-P18 flood-wait handling → provisional pick: confirm T1-P5 (sticky, no failover on waits, library auto-retry off); verify the `WTelegramClient` setting in a spike (T1).
-- [ ] T7-P19 cursor type → provisional pick: `(xid8, id)` with the `pg_snapshot_xmin` horizon; fall back to a per-subscription counter if `xid8` row comparison does not index (U).
-- [ ] T7-P20 deletion-check schedules per route → provisional pick: T7 owns the `check` schedule row, `maxProbes` and the "complete enumeration" gate; T5 owns the probe method; T2 S5 sets provider cadence (weekly newest-30-days re-scrape).
+- [x] T7-P1 pipeline identity and join: `(container, source, scope_key)`, whole-site singleton per source, filtered joins on identical `scope_key` only → confirmed 2026-10-27: as stated.
+- [x] T7-P2 subscriber schedule input: max staleness, not cron, on public pipelines; operator owns windows → confirmed 2026-10-27: staleness merged by min and clamped; cron stays on private and operator pipelines.
+- [x] T7-P3 who may create public pipelines → confirmed 2026-10-27: any tenant with `pipelines:manage` may create when the source is `open`, free-route and within quota; anything gated (permission, account, paid route, new source family) is `pending-approval` for the operator.
+- [x] T7-P4 cost attribution → confirmed 2026-10-27: equal split among channel subscribers against tenant caps, AI to the asking subscription, hard stops never on shares; marginal view console-only.
+- [x] T7-P5 idle pipelines → confirmed 2026-10-27: pause when the last channel subscriber leaves unless `pinned`; weak readers keep nothing alive; archive after 30 days idle.
+- [x] T7-P6 backfill on join → confirmed 2026-10-27: replay current live posts through the event log, throttled; `join` run only when stale; no AI on history without opt-in.
+- [x] T7-P7 delivery unit for channel subscriptions: canonical post revision with `links[]` filtered to what the subscriber may see → confirmed 2026-10-27: as stated (T5 confirms the post and link model).
+- [x] T7-P8 event retention and retry horizon, batching → confirmed 2026-10-27: log 30 days, 11 attempts over ~72 h, `410` suspends, one event per request in v1.
+- [x] T7-P9 durable webhook dispatcher placement → confirmed 2026-10-27: in the be SDK (Identity needs it); Harvest consumes it (T8).
+- [x] T7-P10 adaptive schedules → confirmed 2026-10-27: ship `manual`, `interval`, `cron` first; `adaptive` (halve / double between bounds) in the second slice.
+- [x] T7-P11 match engine inputs → confirmed 2026-10-27: match on T6's normalized `search_text` (script folding, language tag); no Uzbek stemming in v1; T6 owns the shape.
+- [x] T7-P12 proposals → confirmed 2026-10-27: sources are link submissions on unharvested domains and keyword coverage gaps; `search` candidates later (T4-3, P9).
+- [x] T7-P13 link scope matching → confirmed 2026-10-27: registrable domain + path scope; in-scope → public; out-of-scope on a public domain → private with the shared host limiter; per-tenant daily quota (T5 for cross-container linking).
+- [x] T7-P14 manual entries → confirmed 2026-10-27: private container only, new revision per edit, `provenance: manual` set server-side; Harvest checks key scope and records the actor, the product checks roles (T4-10).
+- [x] T7-P15 tenant isolation → confirmed 2026-10-27: SDK per-row filter plus an architecture test now; PostgreSQL row-level security later; operator key plus same-origin guard for the console until Identity lands.
+- [x] T7-P16 `NOTIFY` as the console backplane and long-poll wake-up → confirmed 2026-10-27: yes; Redis stays out (T8).
+- [x] T7-P17 signed-in sources (T4-4) → confirmed 2026-10-27: `connection_ref` resolved through the connectors domain, private containers only; whether Harvest drives signed-in sessions at all waits for T3 and T8.
+- [ ] T7-P18 flood-wait handling → not pursued 2026-10-27: Harvest reports blocks as outcomes and does not escalate — the provisional pick was: confirm T1-P5 (sticky, no failover on waits, library auto-retry off); verify the `WTelegramClient` setting in a spike (T1).
+- [x] T7-P19 cursor type → confirmed 2026-10-27: `(xid8, id)` with the `pg_snapshot_xmin` horizon; fall back to a per-subscription counter if `xid8` row comparison does not index (U).
+- [x] T7-P20 deletion-check schedules per route → confirmed 2026-10-27: T7 owns the `check` schedule row, `maxProbes` and the "complete enumeration" gate; T5 owns the probe method; T2 S5 sets provider cadence (weekly newest-30-days re-scrape).
 
 ---
 

@@ -1,8 +1,8 @@
 # WoW Two Events — Shared Event Catalog and Tracking for Every Product
 
-*Last updated: 2026-10-25*
+*Last updated: 2026-10-27*
 
-> `wow-two-platform.events`: a catalog of dated happenings — fairs, fashion weeks, exhibitions, concerts,
+> `wow-two-sdk-beta.events`: a catalog of dated happenings — fairs, fashion weeks, exhibitions, concerts,
 > competitions, conferences — fed by sources through [Harvest](#harvest-seam) and curated by reviewers, plus private
 > tracking per organization. Shipped in the [capability forms](../conventions/development/capability-forms.md).
 > First consumer: Ocharo Desk's Events feed.
@@ -29,9 +29,9 @@
 | occurrence | one session of an event: a showtime, a day of a fair | event |
 | series | a recurring event brand, such as a fashion week; its editions are events | catalog |
 | place · organizer | deduplicated venues and organizers | catalog |
-| source | where events come from: a Harvest pipeline, an ICS or RSS feed, manual entry, an import | catalog |
+| source | where events come from: a Harvest subscription, manual entry, an import — feeds are a Harvest family, so Events keeps ICS export only (T8 § 6.2) | catalog |
 | observation | one extracted record from a source, with provenance, waiting to match or be reviewed | catalog |
-| pipeline (tracking) | the stages and custom fields one organization tracks events with | organization |
+| workflow (tracking) | the stages and custom fields one organization tracks events with (renamed from `pipeline`, T8 § 6.5) | organization |
 | tracking | one organization's record about one event: stage, priority, notes, fields, references | organization |
 
 - an event exists whoever tracks it; tracking is private and never changes the event.
@@ -101,13 +101,13 @@ Dates are honest: an unknown day is never invented.
 
 ### Tracking
 
-- **Pipeline** — per organization: `stages` (key, localized label, class `open` · `active` · `won` · `lost`),
-  `defaultStage`, and a JSON Schema for custom `fields`.
+- **Workflow** (renamed from `pipeline`, T8 § 6.5) — per organization: `stages` (key, localized label, class `open` ·
+  `active` · `won` · `lost`), `defaultStage`, and a JSON Schema for custom `fields`.
 - **Tracking** — `organization`, `event`, `stage`, `priority` (`high` · `normal` · `low`), `assignee`, `notes`
   (≤ 8,000), `fields`, `refs` (type and id pairs), `revision`, timestamps.
 - **History** — every stage change with actor and time.
 - **Scope** — derived per organization from its home country and region: `local` · `regional` · `international`.
-- **Feed subscription** — a token URL serving ICS for a saved filter (`webcal://`).
+- **Feed link** (renamed from ICS `subscription`, T8 § 6.5) — a token URL serving ICS for a saved filter (`webcal://`).
 
 ---
 
@@ -121,7 +121,7 @@ Version `v1`, `{ data }` envelopes, ProblemDetails failures, cursor paging, `Acc
 | write | `POST` · `PUT` · `DELETE …/events/{id}` (curators), `POST …/imports` (bundle `wow2.events-import.v1`, `dryRun`) |
 | review | `GET …/review` (candidates and observations), `POST …/review/{id}/accept` · `merge` · `reject` |
 | sources | `GET` · `POST` · `PUT …/sources`, `POST …/sources/{id}/run` |
-| tracking | `GET /organizations/{o}/tracking` (joined with events), `GET …/summary` (per stage, nearest deadlines), `PUT …/tracking/{eventId}`, `GET …/tracking/{eventId}/history`, `GET` · `PUT …/pipeline` |
+| tracking | `GET /organizations/{o}/tracking` (joined with events), `GET …/summary` (per stage, nearest deadlines), `PUT …/tracking/{eventId}`, `GET …/tracking/{eventId}/history`, `GET` · `PUT …/workflow` |
 | feeds | `GET …/events.ics?filter`, `GET /feeds/{token}.ics` |
 | intake | `POST /harvest/items` — signed deliveries from Harvest |
 | agents | read-only MCP tools: list, get, summary |
@@ -155,8 +155,10 @@ captures; Events is one consumer of many.
 - Events stores each item as an observation, idempotent on item id, then matches it: external id, then key, then
   fuzzy title, dates and city within the series or place.
 - a match updates the event and records provenance; no match creates a `candidate`; nothing is published unreviewed.
-- extraction runs once per content hash and prompt version; the model (DeepSeek, OpenAI) is Harvest's configuration
-  through the AI gateway.
+- intake accepts `link.state`, `pipeline.run{complete}`, `pipeline.health`, `post.merged`, `post.unmerged` and
+  `post.purged`; `post.extracted` is optional (T7 § 5.7, T8 § 6.5).
+- extraction runs once per content hash and prompt version; the model is Harvest's configuration over the be SDK
+  `Ai` seam (T6-11).
 
 ---
 
@@ -164,7 +166,7 @@ captures; Events is one consumer of many.
 
 - catalog `ocharo-fashion`, owned by Ocharo, `private` until sharing is decided; kinds: `runway`, `trade-fair`,
   `market`, `exhibition`, `competition`, `festival`, `conference`, `other`.
-- pipeline: stages `candidate` · `shortlisted` · `applying` · `applied` · `confirmed` · `attended` (won) ·
+- workflow: stages `candidate` · `shortlisted` · `applying` · `applied` · `confirmed` · `attended` (won) ·
   `skipped` · `rejected` (lost); fields `participation`, `cost`, `route` as text.
 - home `UZ`; region: the Central Asian neighbours; scope derived, no longer stored.
 - Desk keeps the Events page in its shell from the fe SDK components, proxies the routes, enforces membership, and
@@ -202,7 +204,8 @@ Decided 2026-10-25 — [instances per owner](https://github.com/wow-two-sdk-beta
 
 ## Placement
 
-- **Form 1 · library** — catalog, tracking and intake modules in the be SDK; components in the fe SDK.
+- **Form 1 · library** — catalog, tracking and intake modules in the be SDK; components in the fe SDK. Repo
+  `wow-two-sdk-beta.events`; `Events.Module` depends on `Harvest.Abstractions` (T8 § 6.5).
 - **Form 2 · self-hosted service** — `wow-two-platform.events`, hosting the module with a review console.
 - **Form 3 · provided service** — one shared catalog per domain that many products subscribe to.
 

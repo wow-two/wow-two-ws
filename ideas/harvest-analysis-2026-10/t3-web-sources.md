@@ -380,24 +380,24 @@ Source: `SourceDirectory.ts` (area and kind in parentheses).
 
 ## Points
 
-- [ ] W1 — Afisha permission: ask Afisha Media (info@afisha.uz) for written permission before scheduled or whole-site capture, or build the Afisha source later. Afisha's terms require prior written permission for copying and other use; this gates EV2 and Events' first source (T4, T7) → provisional pick: ask now; until `granted`, Afisha events come in by hand-typed entry.
-- [ ] W2 — iticket.uz: defer, spike the browser tier, or find its API and ask for partner access. The shell carries no data (T7) → provisional pick: defer; start with mstar.uz and voyage.uz (R1), add Afisha on W1, revisit iticket after an API and terms check.
-- [ ] W3 — a challenge page served at `/robots.txt` or `/sitemap.xml` (textileexpo.uz): treat as unreadable, therefore disallow, and record `challenge` → provisional pick: yes, same as an RFC 9309 5xx.
-- [ ] W4 — does `robots.txt` bind a single URL a product submits? → provisional pick: yes, and a refusal falls back to hand-typed entry (T7 roles).
-- [ ] W5 — content signals: map `ai-input=no` to "capture only, no LLM extraction" and ignore `ai-train=no`; craftfair.uz sets `ai-train=no,use=reference` with `ai-input` blank (T6) → provisional pick: as stated; revisit when T6 fixes which providers see captured text.
-- [ ] W6 — run-scoped cookie jar per host (waiting rooms, consent cookies), never persisted, never a login → provisional pick: yes.
-- [ ] W7 — render tier placement: a separate container in the Harvest bundle, 1–2 contexts per worker, per-source opt-in (T7, T8) → provisional pick: yes; spike measures memory and seconds per page first (the figures in 2.4 are U).
-- [ ] W8 — proxies: direct egress only; one static egress per source for geo reasons if a source needs it. Reachability of afisha.uz, iticket.uz, mstar.uz from the production host is untested (U) → provisional pick: none until a source needs it; test reachability from the host that will run Harvest.
-- [ ] W9 — RSSHub sidecar: allowed as an adapter for platforms without an official API, unauthenticated routes only (T2) → provisional pick: off in P1; T2 decides per platform, and any route needing a real account's cookie stays out.
-- [ ] W10 — frontier storage and claiming: PostgreSQL rows per URL with a per-host lock; the worker claims `fetch` jobs by host (T5 identity, T7 workers) → provisional pick: PostgreSQL, no Redis or external queue.
-- [ ] W11 — multi-locale sites (iticket ×3, afisha ru/uz, mstar ×3): one post with locale alternates, or one post per locale (T5) → provisional pick: one post, default locale as canonical, alternates linked.
-- [ ] W12 — lookback for Afisha-style archives: upcoming events plus the last 8 weekly buckets, not the 5,358-file history (T7) → provisional pick: as stated.
-- [ ] W13 — politeness defaults: 1 connection, ≥2 s, adaptive by latency, `Crawl-delay` honoured up to 30 s, whole-site sweeps at night UZ time → provisional pick: as stated.
-- [ ] W14 — identification: the bot page URL and contact in the UA need a WoW2 domain the developer owns → provisional pick: `https://{wow-two domain}/bots/harvest`; developer names the domain.
-- [ ] W15 — gone thresholds: `suspect` after one run absent from a complete enumeration, a direct fetch decides; enumeration suspect above ~30% URL drop (T5) → provisional pick: as stated.
-- [ ] W16 — social URL with no adapter yet: return a link card from OpenGraph/oEmbed rather than fail (T1, T2) → provisional pick: link card.
-- [ ] W17 — Ocharo's nine links: weekly or monthly `page` captures, LLM extraction, change hash; textileexpo.uz stays manual until the owner allows access (T4) → provisional pick: as stated; uzexpocentre.uz gets a table parser first.
-- [ ] W18 — the web family as be SDK code (Form 1) or inside Harvest only (T8) → provisional pick: fetcher, URL policy, robots and sitemap readers and structured readers in the be SDK; adapters and frontier in Harvest.
+- [x] W1 — Afisha permission: ask Afisha Media (info@afisha.uz) for written permission before scheduled or whole-site capture, or build the Afisha source later. Afisha's terms require prior written permission for copying and other use; this gates EV2 and Events' first source (T4, T7) → confirmed 2026-10-27: ask now; until `granted`, Afisha events come in by hand-typed entry.
+- [x] W2 — iticket.uz: defer, spike the browser tier, or find its API and ask for partner access. The shell carries no data (T7) → confirmed 2026-10-27: defer; start with mstar.uz and voyage.uz (R1), add Afisha on W1, revisit iticket after an API and terms check.
+- [x] W3 — a challenge page served at `/robots.txt` or `/sitemap.xml` (textileexpo.uz): treat as unreadable, therefore disallow, and record `challenge` → confirmed 2026-10-27: yes, same as an RFC 9309 5xx.
+- [x] W4 — does `robots.txt` bind a single URL a product submits? → confirmed 2026-10-27: yes, and a refusal falls back to hand-typed entry (T7 roles).
+- [x] W5 — content signals: map `ai-input=no` to "capture only, no LLM extraction" and ignore `ai-train=no`; craftfair.uz sets `ai-train=no,use=reference` with `ai-input` blank (T6) → confirmed 2026-10-27: as stated; revisit when T6 fixes which providers see captured text.
+- [x] W6 — run-scoped cookie jar per host (waiting rooms, consent cookies), never persisted, never a login → confirmed 2026-10-27: yes.
+- [x] W7 — render tier placement: a separate container in the Harvest bundle, 1–2 contexts per worker, per-source opt-in (T7, T8) → confirmed 2026-10-27: yes; spike measures memory and seconds per page first (the figures in 2.4 are U).
+- [x] W8 — proxies: direct egress only; one static egress per source for geo reasons if a source needs it. Reachability of afisha.uz, iticket.uz, mstar.uz from the production host is untested (U) → confirmed 2026-10-27: none until a source needs it; test reachability from the host that will run Harvest.
+- [x] W9 — RSSHub sidecar: allowed as an adapter for platforms without an official API, unauthenticated routes only (T2) → confirmed 2026-10-27: off in P1; T2 decides per platform, and any route needing a real account's cookie stays out.
+- [x] W10 — frontier storage and claiming: PostgreSQL rows per URL with a per-host lock; the worker claims `fetch` jobs by host (T5 identity, T7 workers) → confirmed 2026-10-27: PostgreSQL, no Redis or external queue.
+- [x] W11 — multi-locale sites (iticket ×3, afisha ru/uz, mstar ×3): one post with locale alternates, or one post per locale (T5) → confirmed 2026-10-27: one post, default locale as canonical, alternates linked.
+- [x] W12 — lookback for Afisha-style archives: upcoming events plus the last 8 weekly buckets, not the 5,358-file history (T7) → confirmed 2026-10-27: as stated.
+- [x] W13 — politeness defaults: 1 connection, ≥2 s, adaptive by latency, `Crawl-delay` honoured up to 30 s, whole-site sweeps at night UZ time → confirmed 2026-10-27: as stated.
+- [x] W14 — identification: the bot page URL and contact in the UA need a WoW2 domain the developer owns → confirmed 2026-10-27: `https://{wow-two domain}/bots/harvest`; developer names the domain.
+- [x] W15 — gone thresholds: `suspect` after one run absent from a complete enumeration, a direct fetch decides; enumeration suspect above ~30% URL drop (T5) → confirmed 2026-10-27: as stated.
+- [x] W16 — social URL with no adapter yet: return a link card from OpenGraph/oEmbed rather than fail (T1, T2) → confirmed 2026-10-27: link card.
+- [x] W17 — Ocharo's nine links: weekly or monthly `page` captures, LLM extraction, change hash; textileexpo.uz stays manual until the owner allows access (T4) → confirmed 2026-10-27: as stated; uzexpocentre.uz gets a table parser first.
+- [x] W18 — the web family as be SDK code (Form 1) or inside Harvest only (T8) → confirmed 2026-10-27: fetcher, URL policy, robots and sitemap readers and structured readers in the be SDK; adapters and frontier in Harvest.
 
 ---
 

@@ -572,38 +572,38 @@ tenfold Haven and 2.5× social (U). Haven's and Telegram's posts get no Harvest 
 
 Open questions; each ends in a provisional pick.
 
-- [ ] **T6-1** envelope name and strictness → `wow2.post.v1`; every field except identity nullable; `extras` namespaced
+- [x] **T6-1** envelope name and strictness → confirmed 2026-10-27: `wow2.post.v1`; every field except identity nullable; `extras` namespaced
   and versioned per family (T5 stores)
-- [ ] **T6-2** `kind` set → seven values (`event` · `listing` · `offer` · `news` · `promo` · `discussion` · `other`);
+- [x] **T6-2** `kind` set → confirmed 2026-10-27: seven values (`event` · `listing` · `offer` · `news` · `promo` · `discussion` · `other`);
   rent vs sale is a tag, not a kind
-- [ ] **T6-3** mapping dialect for the deterministic consumer pass → JSON-pointer paths plus a closed function set;
+- [x] **T6-3** mapping dialect for the deterministic consumer pass → confirmed 2026-10-27: JSON-pointer paths plus a closed function set;
   no JSONata or scripting
-- [ ] **T6-4** AI switch semantics and defaults → `off` · `gaps` · `full`; default `off`; Haven's pipelines `off`;
+- [x] **T6-4** AI switch semantics and defaults → confirmed 2026-10-27: `off` · `gaps` · `full`; default `off`; Haven's pipelines `off`;
   Events `gaps` (T7)
-- [ ] **T6-5** who pays for pool enrichment → the pipeline that enabled AI; a tag or keyword subscription never
+- [x] **T6-5** who pays for pool enrichment → confirmed 2026-10-27: the pipeline that enabled AI; a tag or keyword subscription never
   triggers model calls; a product wanting embedding tags joins or creates a pipeline with AI on (T7)
-- [ ] **T6-6** does an embedding count as AI use for the Telegram clause → yes; E, S and L all gated by `ai_allowed`;
+- [x] **T6-6** does an embedding count as AI use for the Telegram clause → confirmed 2026-10-27: yes; E, S and L all gated by `ai_allowed`;
   counsel reads API Terms §1.5 and Content Licensing (P3, T1-P1)
-- [ ] **T6-7** G2 defaults → table in section 2.2: Telegram `no`; Meta-route, X, YouTube `unreviewed`; open web `yes`;
+- [x] **T6-7** G2 defaults → confirmed 2026-10-27: table in section 2.2: Telegram `no`; Meta-route, X, YouTube `unreviewed`; open web `yes`;
   waits on P3, S1, W5
-- [ ] **T6-8** embedding model → `text-embedding-3-small` in `halfvec`, with `embedModel` per vector; replace after a
+- [x] **T6-8** embedding model → confirmed 2026-10-27: `text-embedding-3-small` in `halfvec`, with `embedModel` per vector; replace after a
   300-post Uzbek evaluation of it against `voyage-4-lite`, `gemini-embedding-2` and self-hosted `bge-m3`
-- [ ] **T6-9** taxonomy → Harvest-curated ~40-node global topics, consumer private tags with curator promotion,
+- [x] **T6-9** taxonomy → confirmed 2026-10-27: Harvest-curated ~40-node global topics, consumer private tags with curator promotion,
   `taxonomy@N` with aliases; the developer approves the seed list
-- [ ] **T6-10** Uzbek stemming → none in v1; measure keyword-subscription recall first, then port a stemmer to .NET if
+- [x] **T6-10** Uzbek stemming → confirmed 2026-10-27: none in v1; measure keyword-subscription recall first, then port a stemmer to .NET if
   low
-- [ ] **T6-11** AI gateway → build on the be SDK `Ai` seam with tier names and metering; extract the service when a
+- [x] **T6-11** AI gateway → confirmed 2026-10-27: build on the be SDK `Ai` seam with tier names and metering; extract the service when a
   second app needs shared keys; drop row 15 from Harvest's "Needs" (T8)
-- [ ] **T6-12** per-request consumer context blocks (Haven's lists) → not in v1; Haven keeps its classifier
-- [ ] **T6-13** evaluation sets → ~600 items as in section 6.3; an Uzbek-literate labeller is needed; merge-gate margin
+- [x] **T6-12** per-request consumer context blocks (Haven's lists) → confirmed 2026-10-27: not in v1; Haven keeps its classifier
+- [x] **T6-13** evaluation sets → confirmed 2026-10-27: ~600 items as in section 6.3; an Uzbek-literate labeller is needed; merge-gate margin
   set from the first run; who has the hours is the open part
-- [ ] **T6-14** database locale and boot self-test → mandatory UTF-8 locale; test `show_trgm('привет')` at startup
+- [x] **T6-14** database locale and boot self-test → confirmed 2026-10-27: mandatory UTF-8 locale; test `show_trgm('привет')` at startup
   (T5, T7, T8)
-- [ ] **T6-15** contact exposure → keyed HMAC of the last nine digits in the pool, raw to pipeline owners; phones masked
+- [x] **T6-15** contact exposure → confirmed 2026-10-27: keyed HMAC of the last nine digits in the pool, raw to pipeline owners; phones masked
   before any model sees text unless the schema sets `needsContacts` (T5, S12; cross-border transfer under the 2026
   amendment to the personal-data law is unread, U)
-- [ ] **T6-16** re-extraction → `lazy` default; `eager` only after a cost preview, through the Batch API (T7)
-- [ ] **T6-17** first-slice scope → D and R for all families, the Events mapping, source and lexicon tags; E, S, L land
+- [x] **T6-16** re-extraction → confirmed 2026-10-27: `lazy` default; `eager` only after a cost preview, through the Batch API (T7)
+- [x] **T6-17** first-slice scope → confirmed 2026-10-27: D and R for all families, the Events mapping, source and lexicon tags; E, S, L land
   after the evaluation set exists
 
 ---

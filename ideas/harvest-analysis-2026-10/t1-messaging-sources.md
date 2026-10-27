@@ -357,35 +357,35 @@ linked-device (unofficial) client · **F** forward intake.
 
 ## Points
 
-- [ ] T1-P1 Telegram AI clause: may LLM extraction run over Telegram captures? → provisional pick: Telegram sources
+- [x] T1-P1 Telegram AI clause: may LLM extraction run over Telegram captures? → confirmed 2026-10-27: Telegram sources
   default to `ai_allowed=false` (captures delivered, rule-based extraction only); `true` only for owner-installed and
   consented intake sources; ask counsel to read §1.5 before any change (T6)
-- [ ] T1-P2 Telegram public channels: preview first or user client first? → provisional pick: web preview first, `M`
+- [x] T1-P2 Telegram public channels: preview first or user client first? → confirmed 2026-10-27: web preview first, `M`
   when preview is off or deletion events/comments are needed
-- [ ] T1-P3 Account pool start: how many accounts and whose SIMs? → provisional pick: two Telegram user accounts
+- [ ] T1-P3 Account pool start: how many accounts and whose SIMs? → not pursued 2026-10-27: Harvest reports blocks as outcomes and does not escalate — the provisional pick was: two Telegram user accounts
   (one active, one spare) on UZ SIMs registered to the operator entity, no VoIP, no Premium; none for WhatsApp (T8,
   `ven-t-012`)
-- [ ] T1-P4 MTProto library → provisional pick: `WTelegramClient` for scheduled polling; revisit TDLib if live update
+- [ ] T1-P4 MTProto library → not pursued 2026-10-27: Harvest reports blocks as outcomes and does not escalate — the provisional pick was: `WTelegramClient` for scheduled polling; revisit TDLib if live update
   streams over >100 joined chats are needed
-- [ ] T1-P5 Failover on `FLOOD_WAIT` → provisional pick: sticky assignment, no reactive failover, no IP rotation;
+- [ ] T1-P5 Failover on `FLOOD_WAIT` → not pursued 2026-10-27: Harvest reports blocks as outcomes and does not escalate — the provisional pick was: sticky assignment, no reactive failover, no IP rotation;
   failover on account death only (T7)
-- [ ] T1-P6 Joining groups and private chats → provisional pick: human approves each join; public channels never need
+- [ ] T1-P6 Joining groups and private chats → not pursued 2026-10-27: Harvest reports blocks as outcomes and does not escalate — the provisional pick was: human approves each join; public channels never need
   a join; the account profile names the operator
-- [ ] T1-P7 WhatsApp scope for v1 → provisional pick: Cloud API intake number + channel page snapshots; the unofficial
+- [x] T1-P7 WhatsApp scope for v1 → confirmed 2026-10-27: Cloud API intake number + channel page snapshots; the unofficial
   sidecar waits for an explicit developer decision
-- [ ] T1-P8 Intake identity → provisional pick: one shared Harvest intake bot and one WhatsApp number, products
+- [x] T1-P8 Intake identity → confirmed 2026-10-27: one shared Harvest intake bot and one WhatsApp number, products
   attributed by a linking step (`/start` payload; sender number); separate from any notification or publishing bot
   (T4, T7, P1 social connectors)
-- [ ] T1-P9 Consent record for intake → provisional pick: store text version, timestamp and sender id per submitter;
+- [x] T1-P9 Consent record for intake → confirmed 2026-10-27: store text version, timestamp and sender id per submitter;
   deletion on request removes their captures (T5)
-- [ ] T1-P10 Metrics → provisional pick: views, forwards and reactions as a snapshot series outside the capture
+- [x] T1-P10 Metrics → confirmed 2026-10-27: views, forwards and reactions as a snapshot series outside the capture
   hash; forward origin `(chat, message_id)` is a dedup key where present, WhatsApp has none (T5)
-- [ ] T1-P11 Brand linking → provisional pick: a site source and its Telegram channel link as one canonical entity
+- [x] T1-P11 Brand linking → confirmed 2026-10-27: a site source and its Telegram channel link as one canonical entity
   (Afisha, Uybor, Domtut) (T3, T5)
-- [ ] T1-P12 TGStat → provisional pick: do not buy in v1; use the free catalog pages for UZ channel discovery only (T3)
-- [ ] T1-P13 Console and sponsored messages (API Terms §3.3) → provisional pick: the console shows extracted items
+- [x] T1-P12 TGStat → confirmed 2026-10-27: do not buy in v1; use the free catalog pages for UZ channel discovery only (T3)
+- [x] T1-P13 Console and sponsored messages (API Terms §3.3) → confirmed 2026-10-27: the console shows extracted items
   with a link to `t.me`, not channel views, so §3.3 is not triggered (U)
-- [ ] T1-P14 WhatsApp onboarding for a UZ entity (Meta verification, billing) → provisional pick: check with the
+- [x] T1-P14 WhatsApp onboarding for a UZ entity (Meta verification, billing) → confirmed 2026-10-27: check with the
   parent-company decision before any Cloud API work (U)
 
 ---
