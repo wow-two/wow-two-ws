@@ -1,6 +1,6 @@
 # Migrations — wow2 analysis
 
-*Last updated: 2026-10-27 09:05 PM*
+*Last updated: 2026-10-27 09:30 PM*
 
 > How the wow2 ecosystem changes persistent state across releases: schema and data migrations, who owns, declares
 > and runs them, and how products, standalone platform services and Wheelhouse itself share one model. Written before
@@ -924,7 +924,7 @@ Parent before child; a child names its parent. Each point: the decision, its opt
   copied and renumbered by hand (the frozen copies in ForeverPin `012` and Desk `002-access`, M39), leaves no level two
   products on one library version can compare, mixes library contracts into product history, and turns a later
   switch to a pulled image or a takeover into a hand baseline. Its only cost is a second history table per product. (owner 2026-10-27, with M3)
-- [ ] M77 (M3, M6) — Placing a pulled per-product instance in Wheelhouse: an image-only service of the owner's product,
+- [x] M77 (M3, M6) — Placing a pulled per-product instance in Wheelhouse: an image-only service of the owner's product,
   pinned by tag in its descriptor, its set in the product's database (Q5 option A,
   [identity instances](../identity-instances-2026-10/identity-instances-2026-10.md) § Two owners' instances) · an
   instance product of its own (Q5 · B) that Wheelhouse binds to the product's database · B with its own database (the
@@ -933,33 +933,40 @@ Parent before child; a child names its parent. Each point: the decision, its opt
   step. Both A and the binding need one Wheelhouse change: a descriptor's `image` names a repository without a tag, and
   the release versions every service it lists (`deploy-descriptor.md:137-138`), so no foreign image can be pinned
   today. Reopens identity-instances Q63 (B) for per-product instances; B stays for shared ones.
-- [ ] M78 (M3) — What tells Wheelhouse a set's version: `migrate-result` after a run (spec `:58-59`) · plus the release
+  (owner 2026-10-27) The per-product instance is the Identity service image (`wow-two-sdk-beta.identity`). The product's
+  `deploy.yml` declares it as one of its services — image, pinned tag, settings — and Wheelhouse pulls and deploys it
+  like any other service; the product's services reach it on the product's network, and no compose is hand-edited.
+- [x] M78 (M3) — What tells Wheelhouse a set's version: `migrate-result` after a run (spec `:58-59`) · plus the release
   manifest listing, per image, its sets, their levels and the package version that embeds each, which the generator
   reads from a database-free `migrate sets --json` on the built image · nothing → the manifest; Wheelhouse then knows a
   release's levels before the pull (the rollback floor, `requires:`), and a module set's package version shows where
-  nothing shows it today. Folds into S13's `migrations` fact (M9).
-- [ ] M79 (M5) — Declaring the cross-owner contract: the referencing set names its dependencies at registration
+  nothing shows it today. Folds into S13's `migrations` fact (M9). (owner 2026-10-27)
+- [x] M79 (M5) — Declaring the cross-owner contract: the referencing set names its dependencies at registration
   (`DependsOn("identity", level)`), the referenced set ships its referenceable tables, keys and readable columns in its
   assembly, a `Testing.Data` lint refuses a key or a mapping onto an unlisted table, and `migrate` refuses a missing or
   lower dependency with exit `1` · a convention in each repository's docs · → declared and checked; an order or a
   contract that only docs hold breaks on the first deploy that forgets it, and the lint already exists as a seam (M22).
-- [ ] M80 (M6) — References into a shared instance (`sub` from the shared wow2 Identity, a file id from Files host B):
+  (owner 2026-10-27) Where in code: the referencing set's registration in its Persistence project
+  (`AddDatabaseBespokeMigrationSet(...)` gains `DependsOn`), the referenced tables listed beside the owner's set
+  (Identity: `IdentityDatabaseOptions` in `Module/Core`), and the lint in the referencing repository's migrations tests.
+- [x] M80 (M6) — References into a shared instance (`sub` from the shared wow2 Identity, a file id from Files host B):
   ids only, orphans tolerated · loose-FK cleanup driven by the owner's events (`PersonDeleted`, T10 § 3; a file
   deleted), handled in each consumer's set · GitLab's deleted-records table polled by the consumer → events; the shared
   instance runs on another server, so no trigger reaches a consumer's database, and T10 already plans the
-  `PersonDeleted` fan-out. A consumer checks the parent exists before it writes a child, as GitLab's guide asks.
-- [ ] M7 (M6) — `DbContext` across owners: share the set's Persistence assembly within a repository, and never map
+  `PersonDeleted` fan-out. A consumer checks the parent exists before it writes a child, as GitLab's guide asks. (owner 2026-10-27)
+- [x] M7 (M6) — `DbContext` across owners: share the set's Persistence assembly within a repository, and never map
   another repository's set (the first pick, superseded 2026-10-27 by M5) · share within a repository, and map another
   owner's published tables read-only for keys and joins, writes through that owner's module or API · any repository
   maps and writes any set → the second; the developer wants keys for advanced queries, which need the mapping, while a
   write from outside the owner skips its rules and events (Identity's `PersonChanged`).
-- [ ] M8 (M6) — Credentials for the step: the service's settings file and role (spec) · a separate migrate connection
+  (owner 2026-10-27) An image-deployed Identity's tables are read, never written, by a product such as Ocharo.
+- [x] M8 (M6) — Credentials for the step: the service's settings file and role (spec) · a separate migrate connection
   key, the same role in v1 · owner and runtime roles now → a separate key with the same role, roles split once a
   product has external users or a takeover needs schema grants; the key keeps least privilege open without a
   contract change. Cross-owner keys need no grant while one role owns the product's database; once roles split, the
   referenced owner grants `REFERENCES` and `SELECT` on its published tables, the contract made executable. A pulled
-  per-product instance migrates with the product's migrate key.
-- [ ] M39 (M3) — DDL a package owns (Hangfire's `hangfire` schema; the SDK idempotency, outbox, inbox and webhook
+  per-product instance migrates with the product's migrate key. (owner 2026-10-27)
+- [x] M39 (M3) — DDL a package owns (Hangfire's `hangfire` schema; the SDK idempotency, outbox, inbox and webhook
   tables; ASP.NET Identity's tables): the package creates its tables at runtime (Hangfire at every boot; the
   idempotency store's opt-in `EnsureTableAsync`) ·
   consumers copy the DDL into their own set (ForeverPin `012`, Desk `002-access`, the pilots' `InitialAccess`) · the
@@ -967,64 +974,73 @@ Parent before child; a child names its parent. Each point: the decision, its opt
   M76 picks for domain libraries, and Hangfire, which versions its own storage, runs its installer in the step; a
   runtime create needs DDL rights at every boot and escapes the level check, and a copy freezes a schema the package
   keeps changing. Desk's ASP.NET Identity tables leave with `access.*` (identity-instances Q66).
+  (owner 2026-10-27) Wheelhouse handles nothing package-specific: the product's `migrate` applies every set its image
+  registers, package sets included, and Wheelhouse runs that one command.
 - [x] M40 (M4) — Dialects: ~~a set per dialect for domain packages, one dialect for products~~ → obsolete, settled by
   the SQLite ban (`database/database.md:15-18`, developer 2026-10-27): one dialect, PostgreSQL, for every set. Identity's
   SQLite set and its parity tests lose every deployed consumer, since a Form 1 host is a product and the SQLite test
   lane runs the EF model, never a set (`test-databases.md`); Files' SQLite-only default set is rewritten as a named
   PostgreSQL set `files`, which closes its missing schema path and its shared `migration_history`.
-- [ ] M41 (M8) — Server prerequisites (Harvest's `pg_trgm`, encoding and Cyrillic probes; partitions a function must
+- [x] M41 (M8) — Server prerequisites (Harvest's `pg_trgm`, encoding and Cyrillic probes; partitions a function must
   extend): the set creates extensions itself (today) · Wheelhouse's database placement creates allowed extensions, and
   `migrate` preflights and refuses with exit `1` · a boot probe only → the set creates trusted extensions, placement
   the untrusted ones, and `migrate` preflights; `pg_trgm` is trusted, so the role Wheelhouse makes the database's owner
   (`prepare.py:59-60`) installs it, while an untrusted one needs a superuser
   ([CREATE EXTENSION](https://www.postgresql.org/docs/current/sql-createextension.html)), and a refusal before any
   restart beats a boot that fails after one. Partition upkeep stays the owner's job, never a migration.
-- [ ] M42 (M6) — State outside the database (blob volumes, key rings, model and geo volumes) and rows no migration may
+  (owner 2026-10-27) Meaning: a set runs `CREATE EXTENSION IF NOT EXISTS` for extensions the database owner may install
+  (`pg_trgm`); the product declares the rest, which need a superuser, and Wheelhouse creates them when it places the
+  database; `migrate` refuses before any restart when a declared extension is still missing.
+- [x] M42 (M6) — State outside the database (blob volumes, key rings, model and geo volumes) and rows no migration may
   rewrite (hash-chained audit, encrypted payloads): the step migrates files too · outside the step: the snapshot pairs
   the dump with volume tars (exists), a file layout change is a background migration (M24), and keys change only by an
   operator job → outside the step; no swept repository migrates files, its stores are content-addressed or append-only,
-  and Wheelhouse's `vault import` already re-keys as a job.
-- [ ] M55 (M4) — Tenants by schema or database (be sdk `Tenancy/PerSchema` and `PerDb`, empty folders; no repository
+  and Wheelhouse's `vault import` already re-keys as a job. (owner 2026-10-27)
+- [x] M55 (M4) — Tenants by schema or database (be sdk `Tenancy/PerSchema` and `PerDb`, empty folders; no repository
   uses either): settle it now · defer until the SDK builds them · rule them out → defer; every swept tenant is a row
   (Desk, Files, Harvest, the pilots), and named sets with `{{schema}}` and an owner marker are the likely seam.
+  (owner 2026-10-27) Stronger than defer: one schema for all tenants, tenants are rows; schema- and database-per-tenant
+  are ruled out, and the be sdk's empty `Tenancy/PerSchema` and `PerDb` folders go.
 
 ### Declaration
 
-- [ ] M9 — Where the step is declared: `services.<name>.migrate` (spec) · a product-level `migrate:` list naming image,
+- [x] M9 — Where the step is declared: `services.<name>.migrate` (spec) · a product-level `migrate:` list naming image,
   command and timeout · inferred from images that register sets → a product-level list, one item per hosting image; the
-  step belongs to sets rather than to one service's wave, and one declaration ends ForeverPin's two applicants.
-- [ ] M10 — Image contract: the be sdk helper (`app migrate`, `app migrate --check`) with exits `0`/`1`/`2` and a
+  step belongs to sets rather than to one service's wave, and one declaration ends ForeverPin's two applicants. (owner 2026-10-27)
+- [x] M10 — Image contract: the be sdk helper (`app migrate`, `app migrate --check`) with exits `0`/`1`/`2` and a
   `migrate-result` line · a `wow-migrate` CLI image · each product's own code → the helper, plus `--check` and exit `3`
-  "busy" (M17), and the templates gain the command; the image already embeds the SQL and binds the settings.
-- [ ] M11 (M10) — Strategies under the step: bespoke only, EF and DbUp products convert · one helper for all three under
+  "busy" (M17), and the templates gain the command; the image already embeds the SQL and binds the settings. (owner 2026-10-27)
+- [x] M11 (M10) — Strategies under the step: bespoke only, EF and DbUp products convert · one helper for all three under
   one exit contract · a command per strategy → one helper for all three; the conventions allow three strategies
   (`migrations.md:9-12`), and Ocharo Marketing, Hijinx and the pilots' identity databases run EF on SQLite; the
-  SQLite ban moves them to PostgreSQL, where EF still runs.
-- [ ] M43 (M9) — Items in a product of several repositories and images (Ocharo: 4 repositories, 9 services, 7 holding
+  SQLite ban moves them to PostgreSQL, where EF still runs. (owner 2026-10-27)
+- [x] M43 (M9) — Items in a product of several repositories and images (Ocharo: 4 repositories, 9 services, 7 holding
   state): one item per repository · one item per image that holds a set, in that repository's `deploy.yml` · one list
   in the hub → one per image; Ocharo's platform repository builds three images with stores of their own (`desk`,
-  `brand`, `catalogue`), and the release set merges the items in M28's order.
-- [ ] M44 (M9) — A dedicated schema service (Haven's `database`: five `DbContext`s over one set; apply behind a flag;
+  `brand`, `catalogue`), and the release set merges the items in M28's order. (owner 2026-10-27)
+- [x] M44 (M9) — A dedicated schema service (Haven's `database`: five `DbContext`s over one set; apply behind a flag;
   apply, rollback, status and seed endpoints): keep apply and rollback over HTTP · its image declares the step, its
   status and seed views stay read-only, and rollback becomes an operator action (M34) · fold its DDL into each service
   → the second; it already is the one owner M3 asks for, and an HTTP rollback on prod is the down script M2 keeps out
   of deploys.
-- [ ] M45 (M10) — Images on other stacks (nasiya on Python, YPD's Django service): .NET only · a language-neutral image
+  (owner 2026-10-27) Haven conforms to the universal approach; whatever it does beyond the standard is tailored away.
+- [x] M45 (M10) — Images on other stacks (nasiya on Python, YPD's Django service): .NET only · a language-neutral image
   contract (exits `0`–`3`, the `migrate-result` line) with the be sdk helper for .NET · a contract per stack → the
   language-neutral contract; it costs nothing, and neither product deploys through Wheelhouse yet.
-- [ ] M46 (M11) — Mechanisms without history (`EnsureCreated`, hand additive DDL, an abandoned Alembic, a foreign
+  (owner 2026-10-27) Non-.NET images are avoided; when one is unavoidable, the language-neutral contract is its adapter.
+- [x] M46 (M11) — Mechanisms without history (`EnsureCreated`, hand additive DDL, an abandoned Alembic, a foreign
   `migration_history`): leave them at boot, outside the step · adopt each into a set — an idempotent `001-baseline`
   (`IF NOT EXISTS`, as ListingShelf did) or SDK `baseline`, and Haven's `LegacyJournalRepository` turned into one SDK
   converter · rename the store and start fresh (Sift) → adopt before the product's first deploy with the step; without
   history neither `--check` nor the rollback gate can read a schema, and 8 swept services have none. EF migrations stay
-  under M11.
-- [ ] M56 (M10) — A pending ordinal below the applied level (lanes on one branch allocate ordinals in parallel; the
+  under M11. (owner 2026-10-27)
+- [x] M56 (M10) — A pending ordinal below the applied level (lanes on one branch allocate ordinals in parallel; the
   engine applies every unapplied ordinal in any order, `MigrationRunnerService.cs:77-78`): apply it (today) · refuse it
   outside a local run, so its author renumbers above the level · renumber by hand at merge only → refuse on deploy;
   such a file runs on a schema its author never tested, and a rollback to a release above it meets an orphan below
   its level, which M21's rule does not classify. Settled beside it: an ordinal is never reused and gaps stay
   (Wheelhouse); `Dev/` scripts reach a set only through `wow-migrate promote`; the templates' baseline ships no sample
-  table (U20, S17).
+  table (U20, S17). (owner 2026-10-27)
 
 ### Expand and contract
 
@@ -1332,7 +1348,7 @@ Open — no rule yet, or the repositories disagree:
 ## Answer batches
 
 Answered in order: each batch holds the parents of later batches' points, and lists its own points parent first.
-Front of the queue: batch 1's M77 and M78, then batches 3 and 4; M5 and M6 were answered on 2026-10-27, and their
+Front of the queue: batches 5 and 6; M5 and M6 were answered on 2026-10-27, and their
 children M79 and M80 join batch 3.
 
 After the final spec: the conventions, then the migrator (be sdk verbs and the Wheelhouse step), then one sweep that
@@ -1340,10 +1356,10 @@ updates every product and platform service, Identity's follow-ups included (owne
 
 | # | Theme | Points |
 |---|---|---|
-| 1 | what a migration is and who owns it (M1, M2, M4, M5, M6 answered 2026-10-27); open: M3 and the consumption modes | M77, M78; answered M1, M2, M3, M4, M5, M6, M76 |
+| 1 | what a migration is and who owns it (M1, M2, M4, M5, M6 answered 2026-10-27); open: M3 and the consumption modes | answered M1–M6, M76, M77, M78 |
 | 2 | one mechanism, expand only, and an older image on newer history (the confirmed rollback failure) | answered M12, M20, M21, M22, M15, M16, M19 |
-| 3 | ownership details: mappers, credentials, the cross-owner contract, references into a shared instance, package DDL, prerequisites, outside state, tenancy (M40 settled by the SQLite ban) | M7, M8, M79, M80, M39, M41, M42, M55 |
-| 4 | declaration and the image contract | M9, M10, M11, M43, M44, M45, M46, M56 |
+| 3 | ownership details: mappers, credentials, the cross-owner contract, references into a shared instance, package DDL, prerequisites, outside state, tenancy (M40 settled by the SQLite ban) | answered M7, M8, M79, M80, M39, M41, M42, M55 |
+| 4 | declaration and the image contract | answered M9, M10, M11, M43, M44, M45, M46, M56 |
 | 5 | the actions: one command tree, the external check, idempotency proof, forgetting history, the trail | M57, M58, M59, M60, M61 |
 | 6 | running the step: when, where, locks, rehearsal, SQLite, apply paths, the SDK spread | M13, M14, M17, M62, M18, M49, M50, M47, M48 |
 | 7 | data, seeds and client state | M23, M24, M25, M63, M26, M51, M54 |
