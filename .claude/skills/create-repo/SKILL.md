@@ -121,8 +121,8 @@ This (deterministic, no code-gen, no commit):
 - printed, not applied: the `catalog.yml` entry and the `~git_on commit,push workbench/{org}/{repo}` line the developer
   sends once the remote exists.
 
-Free-text placeholders (`{{ONE_LINE_WHAT_THIS_IS}}`, guideline bodies, the per-project rows in
-`.claude/rules/file-references.md`) stay — fill them with the user's one-liner. **The `codebase/` code
+Free-text placeholders (`{{ONE_LINE_WHAT_THIS_IS}}`, in the docs and as `deploy.yml`'s quoted `description`, guideline
+bodies, the per-project rows in `.claude/rules/file-references.md`) stay — fill them with the user's one-liner. **The `codebase/` code
 is already in place and rebranded** — no authoring needed; just verify it builds.
 
 **Resulting layout** (per `conventions/development/repo/structure/repo-structure.md` — each folder leads with its
@@ -132,7 +132,7 @@ is already in place and rebranded** — no authoring needed; just verify it buil
 {repo}/
 ├── README.md · CLAUDE.md · .claude/rules/file-references.md
 ├── .github/                  renovate.json · workflows/{ci,publish-docker-image}.yml   (callers of the shared pipelines)
-├── product/                  product.md · product.json · context.md
+├── product/                  product.md · context.md
 │   ├── features/  (one spec per feature, listed in the backlog)
 │   ├── flows/     flows.md              └── marketing/  marketing.md
 └── engineering/              engineering.md
@@ -236,7 +236,8 @@ The example already serves the SPA from the API host, ships Docker and delivers 
 - `AddApiDefaults` sets `SpaHosting`, and `UseApiDefaults()` serves `wwwroot/`, the SPA fallback and `/health`
   (database readiness) — no hand-wired static files. The `BuildSpa` MSBuild target of `{Brand}.Api` installs and builds
   the frontend into `wwwroot/` on every backend build (`-p:BuildSpa=false` skips it).
-- `engineering/deployment/` holds `deploy.yml` (descriptor 2: one service, one `app` site at `/` and `/api`, the
+- `engineering/deployment/` holds `deploy.yml` (descriptor 2: the product's identity — `name`, rebranded by the brand
+  pass, and a `{{ONE_LINE_WHAT_THIS_IS}}` `description` — one service, one `app` site at `/` and `/api`, the
   `data` volume, `settings.required`, `dotnetEnvironment: true`, a `verify` dev check sending `Host: localhost`),
   `Dockerfile` (3-stage: node build SPA → dotnet publish with the SPA in `wwwroot` → aspnet runtime with `curl`;
   `APP_VERSION` build argument; no environment value in the image) and `docker-compose.yml` (local only, SQLite on a
@@ -289,8 +290,8 @@ fe="workbench/wow-two-sdk-beta/{repo}/engineering/codebase/{slug}.frontend-servi
 bash workbench/wow-two-sdk-beta/{repo}/engineering/scripts/test-next-version.sh
 ```
 
-Then fill the doc `{{placeholders}}` (`{{ONE_LINE_WHAT_THIS_IS}}`, guideline bodies, the per-project
-rows in `.claude/rules/file-references.md`) with the user's one-liner.
+Then fill the doc `{{placeholders}}` (`{{ONE_LINE_WHAT_THIS_IS}}`, also `deploy.yml`'s `description`, guideline bodies,
+the per-project rows in `.claude/rules/file-references.md`) with the user's one-liner.
 
 Report: repo path, resolved `{Brand, org, mode}`, the **ports** chosen, backend test result,
 frontend test and build result, the `active.sh` short name, and anything left as a `{{placeholder}}` for the

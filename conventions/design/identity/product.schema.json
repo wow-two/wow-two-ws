@@ -1,7 +1,9 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "wow-two/product.schema.json",
-  "title": "wow-two product manifest (product/product.json)",
+  "title": "wow-two product manifest (product/product.json), retired",
+  "description": "Retired 2026-10-27: a product's identity lives in engineering/deployment/deploy.yml (deploy.schema.json, conventions/deployment/descriptor/deploy-descriptor.md#identity). This schema only validates the files that remain until each moves.",
+  "deprecated": true,
   "type": "object",
   "additionalProperties": false,
   "required": ["manifest", "name", "description"],

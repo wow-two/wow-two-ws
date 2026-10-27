@@ -1,9 +1,10 @@
 # Deployment descriptor
 
-*Last updated: 2026-10-21*
+*Last updated: 2026-10-27*
 
-> One file per product repo, `engineering/deployment/deploy.yml`, declaring its deployable services: how each
-> builds, which paths change it, how it runs, which site paths it serves and what it needs.
+> One file per product repo, `engineering/deployment/deploy.yml`, declaring the product's identity and its deployable
+> services: what the product is called, how each service builds, which paths change it, how it runs, which site paths
+> it serves and what it needs.
 > Purpose — one source for CI, the release generator and Wheelhouse; environments, hosts and secrets stay out.
 > Use case — every product repo deployed through Wheelhouse; the product template ships one.
 
@@ -15,6 +16,8 @@ Why a custom format → [rationale](deploy-descriptor-rationale.md).
 
 - must place the file at `engineering/deployment/deploy.yml`, one per product repo.
 - must hold only product-owned facts. Hostnames, secrets, servers and environments belong to Wheelhouse targets.
+- should declare the product's identity: `name`, `description`, and `homepage` when it has a public address
+  ([identity](#identity)); it replaced `product/product.json` on 2026-10-27.
 - must build every image environment-free: no environment values at build time.
 - must let an SPA read its public settings at runtime, never from build-time variables
   ([known endpoints](../../development/backend/dotnet/shapes/service/platform/responses/known-endpoints.md)
@@ -58,6 +61,9 @@ Paths are relative to the repo's `engineering/` folder. `**` crosses folders; `*
 # yaml-language-server: $schema=<path to wow-two-ws>/conventions/deployment/descriptor/deploy.schema.json
 descriptor: 2                         # format version
 product: haven                        # runner product slug
+name: Haven                           # display name (identity, pipelines v0.11.0)
+description: Listings, leads and clients for a realtor.
+homepage: https://haven.example       # optional public address
 platform: linux/amd64                 # default; or linux/arm64
 shared:                               # a change here rebuilds every service
   - codebase/haven.backend-services/Directory.*.props
@@ -73,6 +79,8 @@ sites:                                # host roles; Wheelhouse binds each to one
   admin: { exposure: private }        # answers only on the private network
 services:
   auth:                               # service slug = Compose service = image name
+    name: Accounts                    # optional display name and one line (identity)
+    description: Sign-in and accounts.
     build:
       dockerfile: deployment/backend.Dockerfile
       context: codebase               # default
@@ -115,6 +123,8 @@ services:
 |---|---|---|
 | `descriptor` | — | Format version: `2`; `1` is deprecated |
 | `product` | — | Runner product slug |
+| `name` · `description` | none | The product's display name (1–80 characters) and one line on what it does (1–200), declared together ([identity](#identity)) |
+| `homepage` | none | The product's public `http` or `https` address, at most 300 characters |
 | `platform` | `linux/amd64` | Build and run platform |
 | `shared` | `[]` | Paths whose change rebuilds every service |
 | `dotnetEnvironment` | `false` | The runner sets `ASPNETCORE_ENVIRONMENT` and `DOTNET_ENVIRONMENT`: dev `Development`, prod `Production` |
@@ -123,6 +133,7 @@ services:
 | `sites.<site>.exposure` | `public` | `public` (internet) or `private` (private network) |
 | `sites.<site>.primary` | the first site | The front door: Open site, the apex proposal; at most one |
 | `sites.<site>.environments` | `[dev, prod]` | The environments that publish the site |
+| `services.<name>.name` · `description` | none | The service's display name and one line, same limits; a console shows the service key without them |
 | `services.<name>.image` | `<registry>/<name>` | Image repository without a tag, for a legacy name |
 | `services.<name>.build` | — | `dockerfile` (required), `context`, `target`, `args`, `contexts` |
 | `services.<name>.paths` | — | Paths whose change rebuilds this service; its Dockerfile always counts |
@@ -140,6 +151,46 @@ services:
 - Every service runs with `no-new-privileges`, all capabilities dropped, an init process, bounded logs and a restart policy.
 - Each service answers on the platform network as `<product>-<environment>-<service>`; the ingress routes sites there.
 - Every service receives `DEPLOY_ENVIRONMENT` (`dev` or `prod`) from the runner, declared or not.
+
+---
+
+## Identity
+
+What the product calls itself. The repository owns it; a console shows a cached copy and never edits it. It moved
+here from `product/product.json` on 2026-10-27 (Wheelhouse decision 7, format A); that file is
+[retired](../../design/identity/product-manifest.md).
+
+- must declare `name` and `description` together; `homepage` needs both. Pipelines `v0.11.0` or later checks them
+  and refuses a broken one.
+- must name the product as people say it (`Forever Pin`), not by its slug (`foreverpin`).
+- must write the description as one line on what the product does for whom (`QR codes that outlive the print.`),
+  never how it is built or what it is built on.
+- must write every text as one line: no control characters, no leading or trailing space. Quote a text YAML would
+  read as something else: `"{{Brand}}"`, `"Yes"`, `"2048"`.
+- must not put credentials in `homepage`; a product with no public address leaves it out.
+- may name and describe a service under its own key (`services.<name>.name`, `description`); a console shows the
+  service key for one without.
+- must keep icons as files, never descriptor keys ([product icons](../../design/identity/product-icons.md#paths)).
+- must keep slug, repository, lifecycle, release source and environments out of the identity: `product` is the slug,
+  and Wheelhouse owns the rest.
+- A product of several repositories takes its name and description from its
+  [catalog entry](../../development/repo/catalog/catalog.md#products-of-several-repositories); Wheelhouse ignores its
+  repositories' identity keys.
+- The release bundle never carries the identity. An identity change alone is a descriptor change: it releases a
+  bundle that reuses every image.
+
+How a console reads it:
+
+- must read the descriptor at a commit of the product's default branch, and key what it keeps by that commit; must
+  not expire it on a timer.
+- must replace a kept copy only with one read at a newer commit.
+- must drop the kept copy when a newer commit declares no identity; the product then falls back to its recorded
+  values.
+- must ignore an invalid identity: keep the last valid copy and show the operator the reason.
+- must not fail a request because the identity is invalid, missing or unreachable.
+- must show every field as text; must not interpret markup in it.
+- may read a retired `product/product.json` while the descriptor declares no identity, and must then tell the
+  operator to move it ([retired manifest](../../design/identity/product-manifest.md#existing-files)).
 
 ---
 
@@ -366,6 +417,8 @@ version in which it last changed, so services version independently and an old v
 - must pin `v0.8.0` or later to declare `descriptor: 2`; an older generator refuses it, and a Wheelhouse runner older
   than descriptor 2 refuses a schema 2 bundle.
 - must pin `v0.10.0` or later to type its settings under `settings.keys`; an older generator refuses the key.
+- must pin `v0.11.0` or later to declare an identity (`name`, `description`, `homepage`, or a service's `name` or
+  `description`); an older generator refuses the keys.
 - should move the pin to each new pipelines tag; every workflow of a repo that names the generator names one tag.
 - must trigger it on every push except `renovate/**` branches, on pull requests, and on `workflow_dispatch` with a
   `commit` input.

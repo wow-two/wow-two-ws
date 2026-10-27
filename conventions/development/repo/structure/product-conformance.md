@@ -1,6 +1,6 @@
 # Product conformance
 
-*Last updated: 2026-10-19*
+*Last updated: 2026-10-27*
 
 > Every check a product / venture repo owes, each linked to the convention that owns the rule.
 > Purpose — one list to audit a repo against, so a gap sweep reads the same way for every product.
@@ -113,7 +113,7 @@
 | screens carry only the copy that changes what the reader does | [UI copy](../../../design/content/ui-copy.md) |
 | a platform app's logo follows the family system | [logo system](../../../design/identity/logo-system.md) |
 | icons sit at `product/brand/icons/` under the variant names; services under `services/{service}/` | [product icons](../../../design/identity/product-icons.md#paths) |
-| name, description and homepage sit in `product/product.json`, valid against the schema | [product manifest](../../../design/identity/product-manifest.md#path) |
+| name, description and homepage sit in `deploy.yml`, and no `product/product.json` remains | [deploy descriptor](../../../deployment/descriptor/deploy-descriptor.md#identity) |
 
 ---
 

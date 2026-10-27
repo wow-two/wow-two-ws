@@ -1,6 +1,6 @@
 # Conventions — wow-two
 
-*Last updated: 2026-10-25*
+*Last updated: 2026-10-27*
 
 > **The single index to every convention.** When a task touches *how we build* — code, repo structure,
 > naming, versioning — search HERE first, then open only the file(s) you need. Lookup table,
@@ -260,7 +260,8 @@ Product UI standards, by need:
 | Per-app design spec — its path in the product repo and its shape | [design/design-conventions.md](design/design-conventions.md#per-app-specs) |
 | Logo system — WoW2 family scope · compositions · exact parent endorsement · masters · export verification | [design/identity/logo-system.md](design/identity/logo-system.md) |
 | Product icons — theme × form × color variants · `product/brand/icons/` paths for product and services · format · fallback order | [design/identity/product-icons.md](design/identity/product-icons.md) |
-| Product manifest — `product/product.json`: name, description, homepage, per-service text · format · JSON Schema · commit-keyed consumption | [design/identity/product-manifest.md](design/identity/product-manifest.md) |
+| Product identity text — name, description, homepage, per-service text: in `deploy.yml` · format · commit-keyed consumption | [deployment/descriptor/deploy-descriptor.md](deployment/descriptor/deploy-descriptor.md#identity) |
+| Retired `product/product.json` — moving one into `deploy.yml` · Wheelhouse's fallback and notice | [design/identity/product-manifest.md](design/identity/product-manifest.md) |
 
 ---
 
@@ -274,7 +275,7 @@ Product UI standards, by need:
 | Domains — site hosts bound per environment in Wheelhouse · apex, `www`, product and dev hosts · Cloudflare proxy, DNS records Wheelhouse owns, tailnet-only SSH and control path | [deployment/hosting/domains.md](deployment/hosting/domains.md) |
 | Server lifecycle — a VPS from purchase to retirement · order, bootstrap kit, tailnet policy and tags, runner key, `platform` network, product databases and settings, registry token, backups, move, retire · points to Wheelhouse's VPS runbook | [deployment/servers/server-lifecycle.md](deployment/servers/server-lifecycle.md) |
 | Redundancy (for review) — a product on primary, secondary and tertiary servers plus a backup-only storage · replication, failover, full recovery | [deployment/servers/redundancy.md](deployment/servers/redundancy.md) |
-| Deployment descriptor — `engineering/deployment/deploy.yml`: services, per-service builds and change paths, sites (public ports), settings, needs, `dependsOn` · rollouts: dependency order, restart only on own change · service versions · candidate builds · release flow: `main` only, dev then prod · CI shape · JSON Schema | [deployment/descriptor/deploy-descriptor.md](deployment/descriptor/deploy-descriptor.md) |
+| Deployment descriptor — `engineering/deployment/deploy.yml`: product identity, services, per-service builds and change paths, sites (public ports), settings, needs, `dependsOn` · rollouts: dependency order, restart only on own change · service versions · candidate builds · release flow: `main` only, dev then prod · CI shape · JSON Schema | [deployment/descriptor/deploy-descriptor.md](deployment/descriptor/deploy-descriptor.md) |
 
 ---
 
