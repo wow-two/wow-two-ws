@@ -858,10 +858,11 @@ def evaluate(lib, st, confirmed=(), publish=False):
     published = bool(st.nuget_versions) or bool(st.npm_versions)
     content = add(Step("content", 4, "packages hold the first real slice", "gate",
                        needs=("scaffold", "push", "public")))
-    if publish or published or (st.scaffolded and st.sample_content is False):
+    ready = publish or (st.scaffolded and st.sample_content is False)
+    if published or (ready and st.visibility == "public"):
         content.status = "done"
         content.note = "--publish" if publish and st.sample_content else ""
-    elif st.scaffolded:
+    elif st.scaffolded and not ready:
         content.note = ("the packages still hold the template's Greetings sample and no placeholder ships (T9 § 4): "
                         "land the first real slice, or pass --publish")
 

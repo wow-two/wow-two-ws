@@ -163,6 +163,7 @@ class PhaseDetection(unittest.TestCase):
                       "--accept-visibility-change-consequences", by["public"].hand[0])
         self.assertEqual(by["ruleset"].status, "pending")
         self.assertEqual(by["content"].status, "pending")
+        self.assertEqual(by["nuget-policy"].status, "pending")
 
     def test_public_repo_without_ruleset_applies_it(self):
         by, steps = plan(registered(rulesets=[]))
