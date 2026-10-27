@@ -95,7 +95,7 @@ Statuses: `done` · `skip` (does not apply) · `next` (yours to run now) · `pen
 
 | Step | When | The developer does | Unblocks |
 |---|---|---|---|
-| NuGet trusted-publishing consent | per library, after the content gate | says "yes" in chat, and the agent fills nuget.org's form in the `wow2` Chrome profile; or fills it: owner `wow-two-sdk-beta`, repo, `publish-packages.yml`, packages `WoW2.Sdk.Beta.Be.{Brand}.*` | arming `PUBLISH_PACKAGES`; the be publish |
+| NuGet trusted-publishing consent | per library, after the content gate | says "yes" in chat, and the agent signs in (email, then the developer's passkey tap) and fills nuget.org's form in the `wow2` Chrome profile; or fills it: owner `wow-two-sdk-beta`, repo, `publish-packages.yml`, packages `WoW2.Sdk.Beta.Be.{Brand}.*` | arming `PUBLISH_PACKAGES`; the be publish |
 | npm first version and `npm trust` | per library, after the content gate | in Warp, after the agent packs `fe-{slug}-0.0.1.tgz`: `npm publish <tgz> --access public`, then `npm trust github @wow-two-beta/fe-{slug} --file publish-packages.yml --repo o/n --allow-publish` (2FA; npm ≥ 11.15.0) | the fe job; npm drops a trusted publisher with no publish within 2 days, so the agent dispatches right after |
 | Wheelhouse product registration | per library, after `deploy: wheelhouse` | imports the product from the wow2 hub, picks its server, binds its sites; the agent can drive the import in the owner's console session on request | dev rollouts of each image |
 | Third-party secret values | per product | enters them in Wheelhouse; secrets never pass through an agent | the dev verify check |
