@@ -1,6 +1,6 @@
 # WoW 2.0 — Platform Apps, In Order
 
-*Last updated: 2026-10-26*
+*Last updated: 2026-10-27 11:28 AM*
 
 > The order the wow-two platform apps get built and shipped — one list to focus on, top down. Scope: the internal
 > apps every product stands on (ops, observability, backbone services). Products and ventures live in the
@@ -40,6 +40,69 @@
 | 15 | **AI Gateway** | `wow-two-platform.templates.ai` | shared LLM proxy: keys, routing, caching | skeleton | two apps share keys and a cache through it | 2, 4 |
 | 16 | **Events** | `wow-two-platform.events` | shared event catalog, sources and harvesting, per-organization tracking; three forms ([spec](../ideas/events-service-spec.md)) | design ready ([spec](../ideas/events-service-spec.md)); built in a WoW2 chat, Desk integrates after | two products track events through it | 2, 17 |
 | 17 | **Harvest** | new, grown from ListingShelf | 24/7 harvester: scheduled pipelines capture sources and extract records into a consumer's schema, then deliver them ([spec](../ideas/harvest-service-spec.md)) | ListingShelf pipelines, runs and captures | Events and one other product receive harvested records | 15 |
+
+---
+
+## Naming
+
+### Rule
+
+- must name a platform app for what it handles, never with a brand — `deployments`, not Wheelhouse.
+- must use the plural of what the app manages — `deployments`, `repositories`, `feedbacks`, `logs`, `events`.
+- must use a mass noun when nothing the app manages is countable — `identity`, `monitoring`, `wiki`.
+- must keep brands for products and ventures — ForeverPin, Pose Coach, Ocharo: customers see them, and a brand
+  carries a domain and a trademark → [brand naming and domains](../conventions/marketing/brand-naming-and-domains.md).
+
+### Identifiers
+
+`{name}` is the app's name as the slug, `{Name}` its PascalCase form.
+
+| Part | Pattern | Example |
+|---|---|---|
+| repo | `wow-two-platform.{name}`; a domain repo `wow-two-sdk-beta.{name}` | `wow-two-platform.deployments` |
+| code dirs | `{name}.backend-services/` · `{name}.frontend-services/` | `deployments.backend-services/` |
+| solution, projects, tests | `{Name}.BackendServices.slnx` · `{Name}.{Layer}` · `{Name}.Tests.{Tier}` | `Deployments.Api` |
+| workspace packages | `@{name}/{app}` | `@deployments/web` |
+| NuGet ids, namespace root | domain repo: `WoW2.Sdk.Beta.Be.{Name}.{Layer}` · `WoW.Two.Sdk.Beta.Be.{Name}` | `WoW.Two.Sdk.Beta.Be.Files` |
+| npm package | domain repo: `@wow-two-beta/fe-{name}` | `@wow-two-beta/fe-files` |
+
+- must take each part from its owning rule:
+  [ecosystem naming](../conventions/development/repo/structure/repo-structure.md#ecosystem-naming),
+  [slug](../conventions/development/repo/structure/repo-structure.md#slug),
+  [repo naming](../conventions/development/repo/structure/repo-structure.md#naming),
+  [workspace](../conventions/development/frontend/shapes/app/architecture/workspace.md#ownership),
+  [domain naming](../conventions/development/repo/structure/domain-structure.md#naming).
+- must give every identifier another repo references the org root — NuGet ids, their namespaces, npm packages;
+  a bare `Identity` root in a consumer is shadowed by the consumer's own `…Identity` namespaces.
+- may keep the bare `{Name}` only on projects that never leave the repo — host, layers, tests — as `Files.Api` does.
+- must place the feature the app is named for at each layer's root — `Deployments.Domain/Entities/`, never
+  `Deployments.Domain/Deployments/`.
+- must not name a namespace segment or type `{Name}` inside `{Name}.*` — inside `Deployments.Application`, a
+  `Deployments` segment shadows the root and `Deployments.Domain.…` fails with CS0234.
+
+### Renames
+
+Proposed, not settled: each row holds until the developer confirms it under *Decisions*.
+
+| # | App | Proposed | Note |
+|---|---|---|---|
+| 1 | Wheelhouse | `deployments` | the developer's example; holds only if products, servers, domains and the built-in vault count as deploy targets |
+| 4 | Secrets Vault | `secrets` | — |
+| 13 | Docs site | `wiki` | — |
+| 14 | FlowDeck | `flows` | the request flows it draws |
+| 15 | AI Gateway | `ai` | mass noun; `models` would clash with every app's `Models` folders |
+| 17 | Harvest | `captures` | the snapshots its pipelines take; `pipelines` is #8 |
+| 9 | `wow` CLI | — | open: a command, not a hosted app; whether the rule covers it is undecided |
+| — | — | `repositories` | named by the developer 2026-10-27; scope undefined, no row in *Order* |
+
+- must rename an app only after the developer confirms its row under *Decisions*.
+- must not rename Wheelhouse before its self-deploy burn-in ends 2026-10-31; the rename touches:
+  - the GitHub repo `wow-two-platform.wheelhouse` and the `Wheelhouse.*` namespaces
+  - the `/srv/wheelhouse` host paths and the `wheelhouse-deploy` host user
+  - the tailnet hostname and the GitHub OAuth app
+  - the `WHEELHOUSE_*` env vars and the self-deploy scripts
+- already functional, unchanged: Identity, Files, Feedbacks, Logs, Monitoring, Pipelines, Notifications, Events,
+  Audit Log, Admin.
 
 ---
 
@@ -96,3 +159,5 @@
 - 2026-10-26 — the files domain is named `files` (`wow-two-sdk-beta.files`, `WoW2.Sdk.Beta.Be.Files.*`,
   `@wow-two-beta/fe-files`); every analysis point confirmed; Ocharo starts on the shared files host, and its first
   test migration runs through a Wheelhouse migration module.
+- 2026-10-27 — developer chose functional names for platform apps — `deployments`, `repositories`, `wiki` — over a
+  brand per app; products and ventures keep brands. Renames of brand-named apps stay proposed → [Naming](#naming).

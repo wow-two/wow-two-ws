@@ -1,10 +1,11 @@
 # Brand Naming & Domains
 
-*Last updated: 2026-06-22*
+*Last updated: 2026-10-27 11:28 AM*
 
 > **What** — how a wow-two product / venture picks a brand name + domain: style taxonomy, a house scoring rubric, a verification runbook, domain strategy. Scope: the name+domain decision only — not visual identity or copy voice.
 > **Purpose** — make naming a repeatable, defensible decision (distinctive + legally usable + ownable) instead of a vibe, and dodge the rename / relaunch / legal tax of a bad pick.
 > **Use case** — reach for it when naming a new product, venture, or repo — and before buying any domain.
+> **Scope** — products and ventures only; platform apps take functional names → [platform apps](../../docs/platform-apps.md#naming).
 
 ## Laws (non-negotiable)
 
