@@ -1,6 +1,6 @@
 # Migrations — wow2 analysis
 
-*Last updated: 2026-10-27 09:50 PM*
+*Last updated: 2026-10-27 10:10 PM*
 
 > How the wow2 ecosystem changes persistent state across releases: schema and data migrations, who owns, declares
 > and runs them, and how products, standalone platform services and Wheelhouse itself share one model. Written before
@@ -853,13 +853,13 @@ Parent before child; a child names its parent. Each point: the decision, its opt
   or from the snapshot (`server-lifecycle.md:99`). (owner 2026-10-27) Addition: "both apply and rollback must be
   idempotent; whether they are applied or not, we should be able to check externally, not by them failing."
   → [Definitions](#definitions) rules, M58, M59.
-- [ ] M57 (M1) — Where the actions live: `apply` and the boot check in the image, the rest in `wow-migrate` by hand
+- [x] M57 (M1) — Where the actions live: `apply` and the boot check in the image, the rest in `wow-migrate` by hand
   (today; Npgsql only, `bespoke.md:215`) · every action a verb of one be sdk command tree that every image hosting
   a set carries (`app migrate <verb>`), with `wow-migrate` the same tree over a manifest for developers and CI ·
   Wheelhouse runs SQL itself → the command tree in the image; only the release image knows its sets, schemas, owner
   instance and embedded SQL, and Wheelhouse already runs that image in a one-off container (`runner.py:2006-2045`).
   Owner question 2026-10-27: "images can have commands?" → yes: arguments after the image name reach the app's
-  `Main`, which runs the migrator and exits instead of starting the web host (Identity's `migrate` does this).
+  `Main`, which runs the migrator and exits instead of starting the web host (Identity's `migrate` does this). (owner 2026-10-27)
 - [x] M58 (M2) — What "applied" means to the external check: history rows only (today) · history plus a schema
   fingerprint per set, recorded by each writing verb and compared by `check` · a probe query per migration (`-- @applied-when`)
   → history now, the fingerprint next; idempotent scripts make history a faithful record of what ran, while hand DDL
@@ -1134,62 +1134,70 @@ Parent before child; a child names its parent. Each point: the decision, its opt
 
 ### Data migrations
 
-- [ ] M23 — Small data changes: an idempotent SQL file of its own in the set · mixed into the DDL file · application
+- [x] M23 — Small data changes: an idempotent SQL file of its own in the set · mixed into the DDL file · application
   code at boot → its own SQL file, seconds on prod-size data; under batch scope a long data file holds every earlier
-  lock (`bespoke.md:75`).
-- [ ] M24 — Large or code-bound data changes: an SDK background migration (named, batched, resumable, journaled in the
+  lock (`bespoke.md:75`). (owner 2026-10-27)
+- [x] M24 — Large or code-bound data changes: an SDK background migration (named, batched, resumable, journaled in the
   set's schema, run by `Jobs/`) · each product's own job · scripts by hand → the SDK primitive, built in the migrations
-  vector pass after the step; GitLab solved the same problem this way, and every product needs one implementation.
-- [ ] M25 (M24) — A contract that needs a finished backfill: `-- @requires <name>`, refused by `migrate` with exit `1`
+  vector pass after the step; GitLab solved the same problem this way, and every product needs one implementation. (owner 2026-10-27)
+- [x] M25 (M24) — A contract that needs a finished backfill: `-- @requires <name>`, refused by `migrate` with exit `1`
   until finished · the step first finishes the remaining batches inline (GitLab's
   `ensure_batched_background_migration_is_finished`) · a convention only → the refusal; nothing may depend on a
-  background migration before it finishes, and an inline remainder of unknown size runs under the step's timeout.
+  background migration before it finishes, and an inline remainder of unknown size runs under the step's timeout. (owner 2026-10-27)
 - [ ] M63 (M24) — Controls and rollback of a background migration: the worker starts it and nothing else · operator
   verbs `bg pause`, `bg resume`, `bg retry` and `bg rollback`, progress in `check` · rollback by hand SQL → the verbs;
   `bg rollback` runs the migration's declared batched inverse, and without one pauses it and resets its journal, so
   the expand's `Rollback.sql` drops what it filled. Data rollback then mirrors schema rollback: a small backfill rolls
   back through its own `Rollback.sql`, a large one through `bg rollback`, a move through its own job (M33).
-- [ ] M26 — Reference data and seeds: reference rows as upserts in the set, per-environment seeds through configuration
+- [x] M26 — Reference data and seeds: reference rows as upserts in the set, per-environment seeds through configuration
   or a host CLI · everything in sets · everything at boot → the split; a migration runs the same in every environment,
-  and a first admin or an OIDC client differs per environment.
-- [ ] M51 (M26) — Seed files the repository ships: every one an upsert in the set (M26) · a file per table with a mode,
+  and a first admin or an OIDC client differs per environment. (owner 2026-10-27)
+- [x] M51 (M26) — Seed files the repository ships: every one an upsert in the set (M26) · a file per table with a mode,
   `upsert` (the file wins) or `insert` (the runtime owns the row once it exists), journalled and applied by the step
   after the sets, as Haven does · an import at every boot (Marketing's bundle) → per-file modes in the step; an upsert
   overwrites what the owner edited in the app, and a boot import repeats its work on every start. Per-environment and
   secret values stay configuration (M26).
+  (owner 2026-10-27) Changed to one seed file per change: it fills every table the change needs in one transaction, is
+  journalled once like a migration, and keeps its mode (`upsert` or `insert`); a correction is a new file.
 
 ### Multi-service products
 
-- [ ] M27 — B fails after A migrated (`backlog.md:134`): roll A back · keep every migration expand and migrate
+- [x] M27 — B fails after A migrated (`backlog.md:134`): roll A back · keep every migration expand and migrate
   everything before any restart · restart first, migrate after → the second; nothing restarted, A's expand is harmless
   to the running release, and B fixes forward. When B keys into A (M5), A is the set that ran first, so the case and
   its recovery stay the same.
-- [ ] M28 — Step order across sets, images and repositories: cross-repository `dependsOn`, then descriptor order · an
+  (owner 2026-10-27) Question: revert A when B depends on A? → no: A ran first and only expanded, B's failed batch
+  rolled back with its transaction, and the running release ignores A's additions; B fixes forward, and A's
+  `Rollback.sql` stays an operator action (M34).
+- [x] M28 — Step order across sets, images and repositories: cross-repository `dependsOn`, then descriptor order · an
   explicit `after:` per item · `migrate:` list order, checked by the sets' declared dependencies (M79) → list order,
   checked: an item whose sets key into a set that is missing or below the level they need refuses with exit `1` before
   any SQL, so a wrong order fails safe and needs no new key. ~~M5 bans dependencies between sets, so order rarely
-  matters~~ (superseded 2026-10-27: M5 now allows cross-set keys, so the referenced set runs first).
+  matters~~ (superseded 2026-10-27: M5 now allows cross-set keys, so the referenced set runs first). (owner 2026-10-27)
 
 ### Platform services and instances
 
-- [ ] M29 — Who runs a platform service's migrations: ~~the instance's own rollout, every instance~~ (the first pick,
+- [x] M29 — Who runs a platform service's migrations: ~~the instance's own rollout, every instance~~ (the first pick,
   superseded 2026-10-27 by M6) · by whom the instance serves: a per-product instance in its product's step, as an item
   of the product's list (M77) or inside the product's image (M30); a shared instance in its own rollout on its own
   server · each consumer product's rollout · one fleet job across instances → by whom it serves; a per-product
   instance shares its product's database, snapshot and release, and a shared one upgrades once for every tenant, with
-  a fleet roll-out over the same step later.
-- [ ] M30 — A Form 1 module's set: the product's `migrate` applies every registered set (today) · a declared step per
+  a fleet roll-out over the same step later. (owner 2026-10-27)
+- [x] M30 — A Form 1 module's set: the product's `migrate` applies every registered set (today) · a declared step per
   module · boot → the product's step; `MigrateBespokeForDeployAsync` already applies every set, the module repository
   authors it and the product's package pin sets its level. Whether it stays a named set (the pick) or merges into the
-  product's set is M76.
-- [ ] M31 — Product ↔ service compatibility: lockstep upgrades · the service keeps the previous client contract version,
+  product's set is M76. (owner 2026-10-27)
+- [x] M31 — Product ↔ service compatibility: lockstep upgrades · the service keeps the previous client contract version,
   proven by the previous client's conformance suite · no promise → the previous version; a shared host upgrades once
   for every tenant, and none can hold it back. A per-product instance upgrades inside its product's release, and its
   referenceable tables join the contract, changing by expand and contract only (M5).
-- [ ] M32 (M31) — A product's minimum service version: none · `requires:` in `deploy.yml`, checked by Wheelhouse
+  (owner 2026-10-27) A service's update ships its client package, and each product takes it at its own next release;
+  the one-version-back promise covers that window. Two services over one database update their persistence
+  together, in one product release.
+- [x] M32 (M31) — A product's minimum service version: none · `requires:` in `deploy.yml`, checked by Wheelhouse
   against the bound instance · checked at the product's boot → `requires:` checked by Wheelhouse, later, for shared
   instances only; it fails a deploy before any restart instead of a request after one. A per-product instance's
-  version is the product's own pin, which M78 makes visible.
+  version is the product's own pin, which M78 makes visible. (owner 2026-10-27)
 - [ ] M33 — Moves (Files' migration module, tenant and server moves, a per-product instance leaving for a shared
   server, M6): a separate Wheelhouse job type sharing the one-off
   container and step journal · part of the migrate step · the service's CLI by hand only → a separate job type; moves
@@ -1214,10 +1222,10 @@ Parent before child; a child names its parent. Each point: the decision, its opt
 
 ### Client-side state
 
-- [ ] M54 — Browser and device storage (the fe sdk's `VersionedStore` and IndexedDB `upgrade`; PRISM's migrators;
+- [x] M54 — Browser and device storage (the fe sdk's `VersionedStore` and IndexedDB `upgrade`; PRISM's migrators;
   Surface Pattern's refusal; Arcade's device books): inside the migration model · outside it: client data migrates on
   read through the fe sdk, every persisted key behind `VersionedStore`, and a sync endpoint versions its payload like
-  any API (M31) → outside; the data lives on devices no rollout reaches and outlives every release.
+  any API (M31) → outside; the data lives on devices no rollout reaches and outlives every release. (owner 2026-10-27)
 
 ### Observability and Wheelhouse UI
 
@@ -1351,7 +1359,7 @@ Open — no rule yet, or the repositories disagree:
 ## Answer batches
 
 Answered in order: each batch holds the parents of later batches' points, and lists its own points parent first.
-Front of the queue: M57, then batches 7 and 8; M5 and M6 were answered on 2026-10-27, and their
+Front of the queue: M63, then batches 9 to 11; M5 and M6 were answered on 2026-10-27, and their
 children M79 and M80 join batch 3.
 
 After the final spec: the conventions, then the migrator (be sdk verbs and the Wheelhouse step), then one sweep that
@@ -1363,10 +1371,10 @@ updates every product and platform service, Identity's follow-ups included (owne
 | 2 | one mechanism, expand only, and an older image on newer history (the confirmed rollback failure) | answered M12, M20, M21, M22, M15, M16, M19 |
 | 3 | ownership details: mappers, credentials, the cross-owner contract, references into a shared instance, package DDL, prerequisites, outside state, tenancy (M40 settled by the SQLite ban) | answered M7, M8, M79, M80, M39, M41, M42, M55 |
 | 4 | declaration and the image contract | answered M9, M10, M11, M43, M44, M45, M46, M56 |
-| 5 | the actions: one command tree, the external check, idempotency proof, forgetting history, the trail | M57; answered M58, M59, M60, M61 |
+| 5 | the actions: one command tree, the external check, idempotency proof, forgetting history, the trail | answered M57, M58, M59, M60, M61 |
 | 6 | running the step: when, where, locks, rehearsal, SQLite, apply paths, the SDK spread | answered M13, M14, M17, M62, M18, M49, M50, M47, M48 |
-| 7 | data, seeds and client state | M23, M24, M25, M63, M26, M51, M54 |
-| 8 | several services and platform services | M27, M28, M29, M30, M31, M32 |
+| 7 | data, seeds and client state | M63; answered M23, M24, M25, M26, M51, M54 |
+| 8 | several services and platform services | answered M27, M28, M29, M30, M31, M32 |
 | 9 | moves, operator actions, tests and what Wheelhouse shows | M33, M52, M34, M35, M53, M36, M37, M38 |
 | 10 | column types I: names, keys, JSON, time; no parent outside the batch, so it may run any time | M64, M65, M66, M67, M68, M69, M70 |
 | 11 | column types II: enums, money, text, audit, soft delete | M71, M72, M73, M74, M75 |
