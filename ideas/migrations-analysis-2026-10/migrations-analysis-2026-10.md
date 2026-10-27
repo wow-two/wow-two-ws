@@ -1,6 +1,6 @@
 # Migrations — wow2 analysis
 
-*Last updated: 2026-10-27 03:43 PM*
+*Last updated: 2026-10-27 04:03 PM*
 
 > How the wow2 ecosystem changes persistent state across releases: schema and data migrations, who owns, declares
 > and runs them, and how products, standalone platform services and Wheelhouse itself share one model. Written before
@@ -43,10 +43,10 @@
 | 1 | What is a migration | a journaled change in one set: schema, reference data or a bounded backfill; up runs on deploy, down is a guarded tool; expand before contract | [Definitions](#definitions) | M1, M2, M20, M23 |
 | 2 | How wow2 does it today | authoring, sets, local apply and tests are solid; deploy-time execution, data migrations, lock safety, compatibility and visibility are missing | [Current state](#current-state) | M10, M13 |
 | 3 | Data migrations | small: a SQL file in the set; large or code-bound: a resumable SDK background migration that a later contract waits on | [Data migrations](#data-migrations) | M23–M26 |
-| 4 | Several services | one database per product environment, one owner per set, every set migrated before any service restarts; B failing leaves A's expand harmless | [Multi-service products](#multi-service-products) | M6–M9, M14, M27, M28 |
-| 5 | Standalone services | the [instance](../../docs/concepts.md) owns, versions and runs its sets; consumers depend on its contract version, never its tables | [Platform services and instances](#platform-services-and-instances) | M29–M34 |
+| 4 | Several services | one database per product environment, one owner per set, foreign keys across sets under a contract, every set migrated before any service restarts, a referenced set first; B failing leaves A's expand harmless | [Multi-service products](#multi-service-products), [Cross-owner references](#cross-owner-references) | M5–M9, M14, M27, M28 |
+| 5 | Standalone services | by whom the [instance](../../docs/concepts.md) serves: one product → its sets are schemas in that product's database, migrated in the product's step, keyed into by foreign key; several products → its own database on its own server and its own rollout, referenced by id | [Platform services and instances](#platform-services-and-instances) | M3, M6, M29–M34, M76–M80 |
 | 6 | Platform apps vs products | one mechanism, stricter policy for platform apps | [One model](#one-model) | M12, M19 |
-| 7 | Which cases occur in practice | 74 distinct cases across 50 repositories; most fit the model, and the misses are legacy mechanisms, package-owned DDL, seeds, imports, SQLite and the SDK spread | [Use cases](#use-cases) | M39–M56 |
+| 7 | Which cases occur in practice | 74 distinct cases across 50 repositories; most fit the model, and the misses are legacy mechanisms, package-owned DDL, seeds, imports, SQLite (banned since) and the SDK spread | [Use cases](#use-cases) | M39–M56 |
 | 8 | Which actions we need | check, plan, rehearse, apply, rollback, forget, repair, baseline, claim, locks, seed, the background controls, snapshot and restore; one command tree in every image | [Actions](#actions) | M57–M63 |
 | 9 | Column type rules | settled: `uuid`, `timestamptz`, `date`, `text`, `boolean`, `jsonb` camelCase, native enums; open: twelve families where no rule exists or repositories disagree | [Types](#types) | M64–M75 |
 | 10 | Product service, platform service, instance | defined in one place, the developer's wording for the first two | [concepts](../../docs/concepts.md) | — |
@@ -70,9 +70,17 @@
 - **Data by size.** Small backfills are SQL files in the set; large or code-bound ones are resumable SDK background
   migrations a later contract waits on; transfers across systems (Files imports, tenant and server moves, Identity
   takeover) are Wheelhouse "move" jobs, not migrations.
-- **Platform services own their state.** An [instance](../../docs/concepts.md) (an Identity instance, a Files host)
-  migrates its own sets in its own rollout; consumers depend on its contract version, never its tables; a Form 1
-  module's set rides the consumer's step.
+- **A platform service's set lives where its users are.** An [instance](../../docs/concepts.md) that serves one
+  product — its image pulled beside the product, or its libraries built into the product's image — keeps its named
+  set as a schema in that product's database on the same PostgreSQL server, migrates in the product's step and
+  restores with the product's snapshot (M6, owner 2026-10-27). Only an instance shared by several products, such as the
+  Files host, gets its own database on a server apart from every product's host, and its own rollout (M6, owner
+  2026-10-27).
+- **Foreign keys cross owners inside one database.** One `users` table, Identity's, and no product copy of it: product
+  tables key into another owner's published tables, the referenced set migrates first, referenceable tables change by
+  expand and contract only, and Identity soft-deletes users so a `RESTRICT` never blocks (M5, owner 2026-10-27). A
+  shared instance is referenced by id, with loose-FK cleanup (M80). How a built-in library's set joins the product's
+  step stays open (M3, M76).
 - **Every action is a verb in the image.** Check, apply, rollback, forget, baseline, seed and the background controls
   run as `app migrate <verb>` from the release image, so Wheelhouse, a developer and CI run the same code; `check`
   writes nothing, and idempotent scripts make every rerun harmless ([Actions](#actions)).
@@ -230,6 +238,13 @@ Gaps:
   explicit migrate step (Q57) (`research/identity-analysis-2026-10/identity-analysis-2026-10.md:129-139`); one
   Wheelhouse product per instance with its own database (Q5 · B,
   [identity instances](../identity-instances-2026-10/identity-instances-2026-10.md) § Two owners' instances).
+  M6 (owner 2026-10-27) revises that database for an instance serving one product, Ocharo's included: its schema sits
+  in the product's database (M77). Identity's set has no foreign keys and tells products never to key into it
+  (`packages/Module/Migrations/Postgres/001-accounts/Apply.sql:9-10`; T10 `t10-schema-migrations.md:170`, `:336`),
+  and `identity_users` has no `deleted_at` (`:14-33`); M5 reverses the first and needs the second.
+- Identity after the SQLite ban (`database/database.md:15-18`, developer 2026-10-27): its SQLite set loses every
+  deployed consumer, because a Form 1 host is a product and the SQLite test lane runs the EF model, never a set
+  (`persistence/testing/test-databases.md`); identity-instances Q64's "SQLite stays Form 1 only" falls with it (M40).
 - Files: one image; instance A per owner, shared host B with tenants as rows (Files
   `research/files-analysis-2026-10/t1-services-tenancy.md:34-55`). Its "Wheelhouse migration module" moves bytes and
   metadata between stores and instances, and the product's own migration writes `file_id` from an id map
@@ -237,7 +252,8 @@ Gaps:
 - gap: Files' set is a default set in SQLite only, registered by the service host
   (`service/Files.Api/Configurations/HostConfiguration.Extensions.cs:35`), not by the Module; a Form 1 consumer on
   PostgreSQL has no Files schema path, and the set would share `migration_history` with the consumer's own default set
-  (M40). Its deployed boot applies through `ApplyWhenDeployed` (`HostConfiguration.cs:40`).
+  (M40). Its deployed boot applies through `ApplyWhenDeployed` (`HostConfiguration.cs:40`). The SQLite ban settles the
+  dialect: the set is rewritten as a named PostgreSQL set `files` before any product or the shared host runs it.
 - Harvest: a named set `harvest` in PostgreSQL only, tables prefixed rather than schema'd; its own boot helper
   (`service/Harvest.Api/Configurations/HostConfiguration.cs:38`) probes encoding and `pg_trgm`, applies, probes again,
   and is not deploy-gated; `001` creates the extension and monthly partitions that a job must extend; `002` drops
@@ -273,7 +289,9 @@ Gaps:
   deleted or rewritten that old code reads.
 - level: a set's highest applied ordinal. Rollback floor: the oldest release that can run on the current level.
 - product, product service, platform service, instance and owner mean what [concepts](../../docs/concepts.md) says;
-  an instance is one deployment of a platform service, which Wheelhouse runs as a product of its own (Q5 · B).
+  an instance is one deployment of a platform service. A per-product instance serves one product and lives in that
+  product's database and step; a shared instance serves several, on its own server and database, as a Wheelhouse
+  product of its own (Q5 · B) (M6, owner 2026-10-27).
 
 Rules:
 
@@ -296,25 +314,75 @@ Rules:
 
 ### Ownership
 
-| Owner | Example | Set | Schema | Marker |
-|---|---|---|---|---|
-| product | ForeverPin | the default set | `public` | none |
-| module (Form 1) | `Identity.Module` inside a product | a named set | `identity` | `module`, the product's instance |
-| service instance (Forms 2/3) | the wow2 Identity instance, Files host B | named sets | its own | `service`, the instance |
+| Owner | Example | Set | Schema | Database | Marker |
+|---|---|---|---|---|---|
+| product | ForeverPin | the default set; a further product set is named, in `public` | `public` | the product's | none |
+| module (Form 1), built into a product image | `Identity.Module` inside a product | a named set | `identity` | the product's | `module`, the product's instance |
+| per-product instance, a pulled image serving one product | Ocharo's Identity | the service's named sets | its own | the product's, on the same PostgreSQL server | `service`, the instance |
+| shared instance, serving several products | Files host B; wow2's Identity on the control host | named sets | its own | its own, on a server apart from every product's host | `service`, the instance |
 
 - must give every set exactly one owner: one repository and the assembly that embeds it (M3).
-- must give module and service sets a named PostgreSQL schema; a product's default set may stay in `public` (M4).
-- must not reach another set's tables by foreign key, view or query; reference by id, such as `sub` or a file id (M5).
-- must keep one database per product environment (`<product>_{env}`), holding the product's sets and its Form 1
-  modules' sets; an instance gets its own (M6).
-- may share a set's Persistence assembly and `DbContext` across the services of one repository; must not map a set
-  another repository owns (M7).
+- must give module and service sets a named PostgreSQL schema; the product's own sets stay in `public`, a second one
+  as a named set with its own `{name}_migration_history` (`bespoke.md:97-102`) (M4, owner 2026-10-27).
+- must keep one database per product environment (`<product>_{env}`) holding the product's sets, its Form 1 modules'
+  sets and the sets of every instance that serves only that product (M6, owner 2026-10-27: "it's the same pgsql
+  container and same database inside it, just separate schemas").
+- must give an instance shared by several products its own database, hosted on its own server apart from every
+  product's host (M6, owner 2026-10-27).
+- may reference another owner's table by foreign key inside one database, under the contract in
+  [Cross-owner references](#cross-owner-references); must reference a shared instance by id, with loose-FK cleanup
+  (M5, owner 2026-10-27; M80).
+- may share a set's Persistence assembly and `DbContext` across the services of one repository; must write only the
+  sets its repository owns, and may map another owner's published tables read-only for keys and joins (M7).
 - should give the step its own connection key, so an owner role (DDL) and a runtime role (DML) can split later without
   a contract change (M8); EF's guidance is the same
   ([applying migrations](https://learn.microsoft.com/en-us/ef/core/managing-schemas/migrations/applying)).
 - tenants stay rows inside the owner's set; a schema or database per tenant waits for the SDK (M55).
 - why the set: a service may host several sets (a product with `Identity.Module`), and a set may be hosted by several
   services (ForeverPin's two images), so only the set has one owner.
+
+---
+
+### Cross-owner references
+
+Developer, 2026-10-27, rejecting the first M5 and M6 picks: "one users table is just better all round; a copy of the
+users table — don't see any benefit of it. What stops us from having foreign keys between tables of separate owners?"
+and "Foreign keys could give us more capabilities when doing advanced queries".
+
+- PostgreSQL enforces a foreign key between schemas of one database: a schema is a namespace, and one connection
+  reaches every schema of its database ([schemas](https://www.postgresql.org/docs/current/ddl-schemas.html)). Its own
+  guidance puts interrelated projects in one database with separate schemas
+  ([managing databases](https://www.postgresql.org/docs/current/manage-ag-overview.html)).
+- it never enforces one across databases: a connection reaches one database only (same page); `postgres_fdw` and
+  `dblink` query another database but constrain nothing.
+- so nothing stops a foreign key between two owners' tables in one database. It brings these costs, each paid by a rule:
+
+| Cost | Mechanism | Rule |
+|---|---|---|
+| migration order | the referencing `REFERENCES` fails until the referenced table exists | the referencing set declares the sets it references; they migrate first (M28, M79) |
+| a contract | the referenced table and key now carry another owner's constraint; a drop, rename or type change breaks it | the referenced owner publishes which tables and keys are referenceable; they change by expand and contract only (M20, M21, M79) |
+| delete semantics | `RESTRICT` lets the referencing owner's rows block the referenced owner's delete; `CASCADE` lets that delete reach into another owner's tables | `ON DELETE` follows the referenced owner's contract: Identity soft-deletes users, so a `RESTRICT` never blocks, and erasure scrubs the row in place |
+| restores together | one `pg_dump` holds both sets | wanted: one snapshot restores the product and its per-product instances consistently, where two databases restore to two points in time |
+| rights, once roles split | creating the key needs `REFERENCES` on the referenced table ([privileges](https://www.postgresql.org/docs/current/ddl-priv.html)) | the referenced owner grants `REFERENCES` and `SELECT` on its published tables (M8) |
+
+Prior art:
+
+| Who | Where the referenced data lives | How others reference it |
+|---|---|---|
+| Supabase | Auth runs as its own service and migrates its own `auth` schema inside the app's database | app tables key into `auth.users` by its primary key only, `on delete cascade` ([managing user data](https://supabase.com/docs/guides/auth/managing-user-data)) |
+| GitLab | one database, where every association needs a foreign key with an `ON DELETE` clause ([foreign keys](https://docs.gitlab.com/development/database/foreign_keys/)); later split into `main` and `ci` databases | across the split, loose foreign keys: a delete trigger records the parent, and a worker deletes or nullifies its children in batches, so children briefly outlive it ([loose foreign keys](https://docs.gitlab.com/development/database/loose_foreign_keys/), [multiple databases](https://docs.gitlab.com/development/database/multiple_databases/)) |
+| Shopify and Rails modular monoliths | one database; each component owns its data exclusively ([deconstructing the monolith](https://shopify.engineering/deconstructing-monolith-designing-software-maximizes-developer-productivity)) | boundaries enforced in code: `packwerk` fails a pull request on a cross-component reference ([state of the monolith](https://shopify.engineering/shopify-monolith), [packwerk](https://github.com/Shopify/packwerk)) |
+| microservice shops | a database per service ([database per service](https://microservices.io/patterns/data/database-per-service.html)) | ids plus events; no key, no join |
+| Keycloak, Auth0 | an external user store that migrates itself (Keycloak's `migration-strategy`, [database](https://www.keycloak.org/server/db)) | each app keeps a local profile keyed by `iss` + `sub`, the only stable pair ([OIDC Core § 5.7](https://openid.net/specs/openid-connect-core-1_0.html#ClaimStability), [Auth0 user data storage](https://auth0.com/docs/best-practices/user-data-storage-best-practices)) |
+
+- reading: these products keep foreign keys while their data shares a database, and give them up only at a database
+  boundary, paying with cleanup workers (GitLab) or a local copy of users (Keycloak, Auth0). Supabase is the
+  per-product instance exactly: a separately run auth service whose schema sits in the app's database.
+- the pick (M5, M6, owner 2026-10-27): a platform service that serves one product keeps its set in that product's
+  database (Supabase); only one shared by several products gets its own database and server, referenced by id with
+  loose-FK cleanup (GitLab). One `users` table, Identity's; no product copy of it.
+- a per-product instance turning shared later is a move (M33) plus a contract in each referencing set: its schema
+  leaves for the shared server, and each foreign key into it becomes an id with loose cleanup, as GitLab's split did.
 
 ---
 
@@ -331,12 +399,16 @@ A repository declares three things:
 
 ```yaml
 migrate:                                      # sketch for the decision, not a spec
+  # - service: identity                       # a pulled per-product instance (M77) lists first: product sets key into it
+  #   command: [dotnet, Identity.Api.dll, migrate]
   - service: management                       # its release image hosts every set this repository owns
     command: [dotnet, ForeverPin.Api.dll, migrate]
     timeout: 10m
 ```
 
 - must declare one item per hosting image, normally one per repository, even when several services read the set.
+- must list a pulled image that serves only this product (a per-product instance) as an item like any other, before
+  the items whose sets reference its set (M28, M77).
 - must keep one exit contract for bespoke, EF and DbUp sets (M11).
 - must allocate an ordinal once and never reuse it; a pending ordinal below the applied level refuses on deploy (M56).
 - should let the generator derive the bundle's existing `migrations` fact from the key, so changelogs and release facts
@@ -357,8 +429,8 @@ migrate:                                      # sketch for the decision, not a s
 | move, takeover, baseline, down script | the owning image's CLI | an operator job: typed confirmation, audited | the migrate key or a move token |
 
 - must run every declared step on every forward deploy; a current set exits `0` in seconds (M13).
-- must run all steps after the pull and before the first wave: repository order, then descriptor order; any failure
-  stops the job before any restart (M14).
+- must run all steps after the pull and before the first wave, in `migrate:` list order with every set after the sets
+  it references (M28); any failure stops the job before any restart (M14).
 - must gate a rollback with the older image's `--check`: proceed on current or a compatible `Ahead`, refuse otherwise
   and name the snapshot (M15).
 - must keep a deployed boot read-only (M16).
@@ -498,12 +570,13 @@ expanding keeps both safe ([parallel change](https://martinfowler.com/bliki/Para
   (`deploy-descriptor.md:298`); a product may span repositories (decision 70, `deploy-descriptor.md:243-271`).
 - must keep one set per repository by default; a second set only for a module or a planned split.
 - must let the services of one repository share the set's Persistence assembly, and declare its step once.
-- must not share a set across repositories; their services talk through APIs, as Ocharo Studio reads Desk's sign-in
-  tickets through Desk.
-- must run every step of a release set before its first wave: repositories in cross-repository `dependsOn` order, then
-  descriptor order (M28).
+- must not write a set another repository owns; may key into and read its published tables (M5, M7); everything else
+  goes through APIs, as Ocharo Studio reads Desk's sign-in tickets through Desk.
+- must run every step of a release set before its first wave, in `migrate:` list order, each set after the sets it
+  references (M28).
 - B fails after A applied: nothing restarted, A's migrations are expand so the running release keeps working, the job
-  fails, B fixes forward and the redeploy finds A current. No cross-set rollback (M27; closes `backlog.md:134`).
+  fails, B fixes forward and the redeploy finds A current. No cross-set rollback (M27; closes `backlog.md:134`). When
+  B keys into A, A is the one that ran first, so the same recovery holds.
 - `dependsOn` stops sequencing migrations (Ocharo's `jobs`) and keeps only runtime readiness.
 - ForeverPin under the model: one item on `management`; both hosts verify at boot; `redirect` never meets a pending set,
   because the step ran before either wave.
@@ -511,33 +584,87 @@ expanding keeps both safe ([parallel change](https://martinfowler.com/bliki/Para
   local runs, and its HTTP apply and rollback give way to read-only status and operator actions (M44).
 - Ocharo under the model: one item per image that holds state — `desk`, `brand`, `catalogue`, `marketing`, `blog`,
   `studio`, `motion` — each in its own repository's `deploy.yml`; `jobs` and `image-worker` declare none; the five on
-  `EnsureCreated` or hand DDL adopt a set first (M43, M46).
+  `EnsureCreated` or hand DDL adopt a set first (M43, M46). After the SQLite ban all seven sets live in
+  `ocharo_{env}`, kept apart by name and schema (M4); Ocharo's Identity, a per-product instance, adds the first item,
+  and Marketing and Desk key into its `identity_users` (M5, M77).
 - prior art: [database per service](https://microservices.io/patterns/data/database-per-service.html) wants private
-  tables per service; here the private unit is the set's schema, and the private database is the instance's.
+  tables per service; here a set's schema is private to write and published to key into, and only a shared instance
+  has a private database ([Cross-owner references](#cross-owner-references)).
 
 ---
 
 ### Platform services and instances
 
-| Case | Declares | Owns and versions | Runs | Consumer depends on |
-|---|---|---|---|---|
-| Form 1 module in a product | the module's registration in the product host | the module repository; the level follows the product's package pin | the product's `migrate` (every registered set) | the in-process contract |
-| Form 2 instance per owner (wow2 Identity; Ocharo's Identity, decided 2026-10-21 and declared nowhere yet) | the service repository's `deploy.yml` | the service repository; the instance's release | the instance's rollout | the HTTP contract and its version |
-| Form 3 shared host (Files B; Ocharo starts here, decided 2026-10-26 and declared nowhere yet) | the same | the same | the host's own rollout, once for every tenant | the same |
-| takeover (Form 1 → instance) | — | ownership moves by an audited `claim` | an operator job | — |
+| Case | Declares | Set owner; level pinned by | Lives in | Runs | Consumer depends on |
+|---|---|---|---|---|---|
+| Form 1 module built into a product image (mode b) | the module's registration in the product host | the module repository; the product's package pin | the product's database, the module's schema | the product's `migrate` (every registered set) | the in-process contract; its published tables by key (M5) |
+| per-product instance, a pulled image (mode a; Ocharo's Identity, decided 2026-10-21 and declared nowhere yet) | an item in the product's `migrate:` list (M77) | the service repository; the product's pin of the image | the product's database, the service's schema, the same PostgreSQL server | the product's step, before the sets that key into it | the HTTP contract; its published tables by key (M5) |
+| shared instance (Files host B, where Ocharo starts, decided 2026-10-26 and declared nowhere yet; wow2's Identity for the platform apps) | the service repository's `deploy.yml`, a Wheelhouse product of its own (Q5 · B) | the service repository; the instance's release | its own database, on a server apart from the products it serves | its own rollout, once for every tenant | the HTTP contract and its version; ids with loose-FK cleanup (M80) |
+| takeover or mode switch | — | ownership moves by an audited `claim` | unchanged; leaving for a shared server is a move (M33) | an operator job | — |
 
-- each instance has its own database and pace (Q5 · B); a new service release reaches instances one product at
-  a time, and a fleet roll-out over the same step can come later (M29).
+- a shared instance has its own database, server and pace (Q5 · B, M6); a new service release reaches it once for
+  every tenant, and a fleet roll-out over the same step can come later (M29). A per-product instance moves at its
+  product's pace, inside the product's release (M29, M77).
 - a Form 1 module's set runs inside the product's step: `MigrateBespokeForDeployAsync` already applies every set (M30).
 - the service must keep serving the previous client contract version, proven by running the previous client's
-  conformance suite against the new image (`capability-forms.md:40`; the domain repository's compat job) (M31).
-- a product release should declare the platform services it calls and the minimum contract version (`requires:`), and
-  Wheelhouse should refuse a deploy onto an environment whose bound instance is older (M32).
+  conformance suite against the new image (`capability-forms.md:40`; the domain repository's compat job) (M31). For a
+  per-product instance its referenceable tables join that contract (M5).
+- a product release should declare the shared instances it calls and the minimum contract version (`requires:`), and
+  Wheelhouse should refuse a deploy onto an environment whose bound instance is older; a per-product instance needs
+  none, its version being the product's own pin (M32).
 - a shared host upgrades once for every tenant; no tenant pins it back.
 - Files' Wheelhouse migration module is a move job: it shares the runner's one-off container and step journal, not the
   migrate step (M33).
 - down scripts, repair, baseline and `claim` are operator actions on the image's CLI with the existing target guards
   (`sql/migration-tooling.md:51-59`) (M34).
+
+#### Consumption modes
+
+Developer, 2026-10-27, on M3: "for a product — yes it'll have one set; for other services like the identity server —
+yes a separate set IF we are pulling an image, not building a custom one for a product (since it's built based on the
+libraries it publishes) — in that case it'll be part of the product set as well. Also need to analyze how our identity
+server, file server and other services will share their migrations to Wheelhouse and other infra that'll work with
+migrations."
+
+A platform service reaches a product in one of two modes. Identity as the example; Files and Harvest follow it.
+
+| Question | (a) published image pulled beside the product | (b) its libraries built into a product image (Form 1) |
+|---|---|---|
+| example | Ocharo runs the published `identity` image as Ocharo's Identity | a venture registers `Identity.Module` in its API host |
+| set owner, who authors the SQL | the Identity repository; the SQL is embedded in the image | the Identity repository; the SQL is embedded in the NuGet |
+| instance owner, who decides releases | the product's owner | the product's owner |
+| where the set lives | named set `identity`, schema `identity`, in the product's database when it serves only that product (M6); in its own database when shared | the same set and schema, in the product's database |
+| which image runs `migrate` | the pulled image, as an item of the product's `migrate:` list, before the items that key into it | the product's image: its `migrate` applies every registered set (M30) |
+| what pins the set's level | the image tag in the product's descriptor; a shared instance's own release | the product's package pin (`Directory.Packages.props`) |
+| what Wheelhouse sees today | the tag it deployed; the level in `migrate-result` once the step exists | the same level; nothing names the package version |
+| what it should see (M78) | per image in the release manifest: each set, its level, the tag | the same, plus the package and version that embeds the set |
+| owner marker | `service`, the instance | `module`, the product's instance |
+| switch to the other mode | `claim` moves the marker; history continues (M34) | the same, the other way |
+
+How a service shares its migrations with Wheelhouse and other infra:
+
+- never as SQL files: every image embeds its sets and answers `app migrate <verb>` (M57). Wheelhouse, a compose
+  one-shot and CI run that image; `wow-migrate` loads the same embedded sets from the package over a manifest.
+- one identity per set in both modes: set name, schema, owner marker and level read alike, so Wheelhouse shows
+  `identity` at level 3 whichever image applied it, and a mode switch is a `claim`, not a migration.
+- the order comes from the sets: a set names the sets it keys into (M79), and `migrate` refuses with exit `1` when one
+  is missing or below the level it needs, so a wrong item order fails before any SQL (M28).
+
+The developer's "part of the product set" in mode (b) has two readings:
+
+| | named set riding the product's step (M30, M39) | merged into the product's default set |
+|---|---|---|
+| what it is | the product's image applies it, the product's pin sets its level, the product's database and snapshot hold it; its own `identity_migration_history`, lock and schema | the library's files take the product's next ordinals and share `migration_history` |
+| ordinals | the library's `001…` stay its own | one library file gets a different ordinal in each product; one arriving after the product's later files is a pending ordinal below the level, refused on deploy (M56) |
+| a library upgrade | bump the package; the step applies its new files | each new file copied and renumbered by hand; a bump without the copy maps columns that do not exist, as the frozen copies in ForeverPin `012` and Desk `002-access` show (M39) |
+| two products on one library version | both read `identity` at one level, and the library's migrations tier proves that schema once | no comparable level; telling two products' Identity schemas apart takes a diff |
+| contracts and rollback | `since` names library releases; an older product image checks the library set alone (M16, M21) | library contracts mix into the product's history, and `since` must name product releases |
+| switch to a pulled image, or a takeover | `claim` the set; history continues | split the history: baseline a new named set by hand against a schema copied files built |
+| cost | a second history table, shown as a second row | none visible |
+
+- reading: the developer's intent — one release, one step, one database and one snapshot per product — holds under
+  the named set; a merge adds the renumbering and breaks library upgrades, a level two products share and the mode
+  switch (M76).
 
 ---
 
@@ -599,22 +726,22 @@ database each. Each case names the point that decides it.
 |---|---|---|---|
 | **Schema ownership** | | | |
 | U1 — a product owns its schema as SQL in a default set; EF only maps | Wheelhouse, canary, both templates, ForeverPin, Desk, Haven, TranscriptForge, TNIS, TBS, Sift, Arcade, ListingShelf, Matinee, PbnStudio, 8 pilots | the product's default set in `public` | M3, M4 |
-| U2 — a domain package ships its set in a NuGet and applies it into the consumer's database (Form 1) | Identity and Harvest Modules (named sets); Files (a default set the service host registers) | a named set with the `module` marker; the product's step applies every registered set; Files moves to a named set first | M4, M30, M40 |
+| U2 — a domain package ships its set in a NuGet and applies it into the consumer's database (Form 1) | Identity and Harvest Modules (named sets); Files (a default set the service host registers) | a named set with the `module` marker, riding the product's step, never merged into the product's set; Files moves to a named PostgreSQL set first | M4, M30, M40, M76 |
 | U3 — one domain in three forms; the owner marker refuses a second claimant | Identity (built); Files, Harvest (designed) | the instance owns its sets; the marker names the instance | M29–M31 |
-| U4 — two owners' sets in one database, each with its own history and lock | Identity, Harvest (a keyed data source beside the host's) | named sets; table prefixes where SQLite has no schemas | M3, M4 |
+| U4 — two owners' sets in one database, each with its own history and lock | Identity, Harvest (a keyed data source beside the host's) | named sets, each in its own schema; foreign keys between them under the contract (the SQLite prefix case left with the ban) | M3, M4, M5 |
 | U5 — one set owning several schemas | Desk (7 schemas), Wheelhouse (`vault` by `CREATE SCHEMA` in its default set) | allowed: a schema belongs to the set that creates it; a second owner needs a named set | M3, M4 |
 | U6 — a package's DDL outside the product's set | Hangfire's self-created `hangfire` (TranscriptForge, Desk); SDK idempotency `EnsureTableAsync`; outbox, inbox and webhook DDL copied by consumers (ForeverPin `012`); ASP.NET Identity DDL frozen into Desk `002-access` and the pilots' EF `InitialAccess` | the package ships a named set; Hangfire's installer runs in the step | M39 |
-| U7 — one logical schema in two SQL dialects | Identity (parity tests); Files SQLite only; Harvest PostgreSQL only | a set per dialect for domain packages | M40 |
-| U8 — references across stores by id, never by key | Harvest captures across partitions checked in code; Studio and the other apps reach Desk through tickets | ids only | M5 |
+| U7 — one logical schema in two SQL dialects | Identity (parity tests); Files SQLite only; Harvest PostgreSQL only | obsolete under the SQLite ban: PostgreSQL only; Identity's SQLite set loses its consumers, Files' set moves to PostgreSQL | M40 |
+| U8 — references across stores by id, never by key | Harvest captures across partitions checked in code; Studio and the other apps reach Desk through tickets | inside one database a foreign key under the contract; into a shared instance an id with loose-FK cleanup | M5, M80 |
 | U9 — tenants as rows | Desk `organization_id` with composite keys; Files and Harvest tenant tables; the pilots, one workspace per account | rows inside the owner's set | M3 |
 | U10 — a schema or database per tenant | be sdk `Tenancy/PerSchema`, `PerDb` (empty folders) | deferred until the SDK builds it | M55 |
 | **Mechanisms** | | | |
 | U11 — a bespoke set on PostgreSQL | Wheelhouse, canary, Harvest, ForeverPin, Desk, Haven, TranscriptForge, TNIS, TBS | the step's native case | M10 |
-| U12 — a bespoke set on a SQLite volume | Identity, Files, both templates, Sift, Arcade, ListingShelf, Matinee, PbnStudio, 8 pilots | the step with the service's volume; one applicant per file | M49 |
+| U12 — a bespoke set on a SQLite volume | Identity, Files, both templates, Sift, Arcade, ListingShelf, Matinee, PbnStudio, 8 pilots | obsolete for products and platform services under the SQLite ban: each moves to PostgreSQL, its rows by an import, and the step then runs as on PostgreSQL | M49, M52 |
 | U13 — EF migrations | at boot: Marketing, the pilots' identity databases, two pilots' product databases, YPD, the kb `jobs` sample; Development only: Hijinx; never applied: 6 other kb samples | one helper over bespoke, EF and DbUp | M11 |
 | U14 — `EnsureCreated`, no history | Brand, Catalogue, Blog, Motion, HomeAtlas, tnis-mintrans | adopt into a set | M46 |
 | U15 — hand additive DDL behind `IF NOT EXISTS` or `pragma_table_info` | Catalogue, Studio, Blog; nasiya (about 33 guarded `ALTER TABLE`s) | adopt into a set | M46 |
-| U16 — several mechanisms in one product | Ocharo (four); the pilots (a bespoke or EF product database beside an EF identity database); YPD (EF and Django) | each image runs its own `migrate`; the ones without history adopt first | M11, M43, M46 |
+| U16 — several mechanisms in one product | Ocharo (four); the pilots (a bespoke or EF product database beside an EF identity database); YPD (EF and Django) | each image runs its own `migrate`; the ones without history adopt first; the pilots' two SQLite databases become one PostgreSQL database with an `identity` schema | M6, M11, M43, M46 |
 | U17 — stacks other than .NET | nasiya (Python: SQLAlchemy `create_all`, raw `sqlite3`, Alembic abandoned); YPD's Django service | a language-neutral image contract | M45 |
 | U18 — adopting a store created before its migrator | ListingShelf (idempotent `001`, later drops the "pre-migrator schema ledger"); Haven (converts v1.0's `migration_history`); Sift (renames the file to avoid it) | an idempotent first file or SDK `baseline`; one journal converter in the SDK | M34, M46 |
 | U19 — dev scripts beside the set | `Migrations/Dev/` in ForeverPin, TranscriptForge, TNIS, TBS; `wow-migrate new` and `promote` | only promoted files reach the step | M56 |
@@ -641,9 +768,9 @@ database each. Each case names the point that decides it.
 | U38 — a dedicated schema service | Haven `database` (5 `DbContext`s; flag-gated apply; apply, rollback and seed endpoints) | its image runs the step; the endpoints turn read-only | M44 |
 | U39 — a product of several repositories | Ocharo: 4 repositories, 9 services, 7 holding state, 1 shared database | one item per image that holds state; cross-repository order | M28, M43 |
 | U40 — products calling each other over HTTP | Haven → ListingShelf; Marketing, Blog → Catalogue, Brand; Studio → Desk | a contract version, no shared tables | M31, M32 |
-| U41 — a vendored library served by another service's tables | `Ocharo.Sso` (4 copies) against Desk's `access.sso_*` | through Desk's API only | M5 |
+| U41 — a vendored library served by another service's tables | `Ocharo.Sso` (4 copies) against Desk's `access.sso_*` | leaves with `access.*` when Ocharo's Identity arrives (Q66); until then writes through Desk's API, reads may map Desk's published tables | M5, M7 |
 | **Platform services and instances** | | | |
-| U42 — a platform service as its own product | Identity (`migrate` with exits), Files, Harvest, Wheelhouse | the instance's rollout | M12, M29 |
+| U42 — a platform service as its own product | Identity (`migrate` with exits), Files, Harvest, Wheelhouse | a shared instance's own rollout; a per-product instance rides its product's step | M12, M29, M77 |
 | U43 — planned platform moves | Ocharo Identity (Desk accounts, memberships, `telegram_links`); Ocharo onto the shared Files host (Desk `bytea`, 3 `MediaStore` copies, Marketing blobs); Events (`008-events` by bundle import) | moves, not migrations | M33 |
 | U44 — databases placed by Wheelhouse (`needs: [postgres]`) | Wheelhouse, canary, Harvest, ForeverPin, Desk, `jobs` | a role and a database per product environment; a migrate key | M6, M8 |
 | U45 — a hosted external database | 10x-fin-nt (Supabase, planned) | the image's step if declared; no Wheelhouse snapshot | M6, M18 |
@@ -662,7 +789,7 @@ database each. Each case names the point that decides it.
 | U57 — ordinals with gaps | Wheelhouse (`014`, `019`–`021`, `023`–`024`, `028`–`029` never committed) | allowed; an ordinal is never reused; a late lower ordinal refuses on deploy | M56 |
 | U58 — releases that prove deploy flows | wheelhouse-canary (`002` additive on purpose) | the rehearsal rig | M35 |
 | **Non-relational state** | | | |
-| U59 — SQLite, single instance by design | about 28 services | the step beside the writer | M49 |
+| U59 — SQLite, single instance by design | about 28 services | banned (`database/database.md:15-18`): each moves to PostgreSQL at the release that takes the step, its rows by an import; only an owner-chosen service whose data may be lost keeps SQLite, and none qualifies today | M49, M52 |
 | U60 — rows and bytes outside the database kept consistent | Files blobs; Brand, Catalogue, Blog and Marketing `blobs/`; ListingShelf photos by SHA-256; HomeAtlas media | the snapshot pairs the dump with volume tars; a layout change is a background migration | M24, M42 |
 | U61 — media as `bytea` | Desk (size CHECKs) | rows; leaving for Files is a move | M33, M42 |
 | U62 — keys outside the database | DataProtection volumes (ForeverPin, Desk, the pilots); Wheelhouse's vault root key; secrets-vault's master key; Identity's ring (database planned, Q26) | never migrated; re-keying is an operator job | M42 |
@@ -695,11 +822,15 @@ database each. Each case names the point that decides it.
 | a deploy identity with DDL, a runtime identity without | [EF: applying migrations](https://learn.microsoft.com/en-us/ef/core/managing-schemas/migrations/applying) | a separate migrate key now, roles later |
 | baseline an existing database | [Flyway baseline migrations](https://documentation.red-gate.com/fd/baseline-migrations-273973336.html) | `BaselineAsync` (exists) |
 | tagged rollback | [Liquibase rollback](https://docs.liquibase.com/commands/rollback/rollback.html) | down scripts as operator actions only |
-| dependencies on another project's change | [Sqitch changes](https://sqitch.org/docs/manual/sqitchchanges/) | none: sets do not depend on each other |
+| dependencies on another project's change | [Sqitch changes](https://sqitch.org/docs/manual/sqitchchanges/) | a set names the sets it keys into, and `migrate` refuses when one is missing or behind (M28, M79) |
 | data migrations beside schema ones | [Django data migrations](https://docs.djangoproject.com/en/stable/topics/migrations/#data-migrations) | small backfills as SQL files in the set |
 | online migrations through dual writes | [Stripe](https://stripe.com/blog/online-migrations) | the reshape sequence above |
 | lock waits and the lock queue | [PostgreSQL `lock_timeout`](https://www.postgresql.org/docs/current/runtime-config-client.html), [explicit locking](https://www.postgresql.org/docs/current/explicit-locking.html) | migrator `lock_timeout` and retries |
-| private data per service | [database per service](https://microservices.io/patterns/data/database-per-service.html) | a schema per set, a database per instance |
+| private data per service | [database per service](https://microservices.io/patterns/data/database-per-service.html) | a schema per set; a private database only for a shared instance |
+| an auth service's schema inside the app's database, keyed into | [Supabase: managing user data](https://supabase.com/docs/guides/auth/managing-user-data) | a per-product instance's set in the product's database, foreign keys allowed (M5, M6) |
+| foreign keys inside one database; loose foreign keys after a split | [GitLab: foreign keys](https://docs.gitlab.com/development/database/foreign_keys/), [loose foreign keys](https://docs.gitlab.com/development/database/loose_foreign_keys/) | keys under a contract inside a database; ids with loose cleanup into a shared instance (M5, M80) |
+| one database, ownership enforced in code | [Shopify](https://shopify.engineering/deconstructing-monolith-designing-software-maximizes-developer-productivity), [packwerk](https://github.com/Shopify/packwerk) | write only your own set; a lint over published tables (M7, M79) |
+| an external user store and a local profile by `sub` | [Keycloak database](https://www.keycloak.org/server/db), [Auth0 user data storage](https://auth0.com/docs/best-practices/user-data-storage-best-practices) | rejected for one product: one `users` table (M5) |
 
 ---
 
@@ -745,35 +876,98 @@ Parent before child; a child names its parent. Each point: the decision, its opt
 
 ### Ownership
 
-- [ ] M3 — Unit of ownership: the set · the service · the database → the set; a service may host several sets and a set
-  may be hosted by several services, so only the set has exactly one owner.
-- [ ] M4 (M3) — Schemas: every set in its own schema, products included · named schemas for module and service sets,
-  product default sets stay in `public` · `public` for all with table prefixes → named schemas for module and service
-  sets; isolation where two owners share a database, and no churn for the products already on a default set.
-- [ ] M5 (M3) — References across sets: foreign keys allowed · ids only, no key, view or query across sets · read-only
-  views the owner publishes → ids only; a foreign key ties two owners' migration order and blocks the referenced
-  set's contracts (T10's side tables keyed by `sub` already follow it).
-- [ ] M6 — Database topology: one database per product environment with a schema per set (today) · one database per
-  service · one per repository → one per product environment, and an instance gets its own; placement,
-  snapshots and settings already work that way, and isolation comes from instances (Q5 · B).
-- [ ] M7 (M6) — `DbContext` across a product's services: share the set's Persistence assembly within a repository · a
-  context per service over its own set · any repository maps any set → share within a repository, never map another
-  repository's set; the mapper follows the set's owner.
+- [ ] M3 — Unit of ownership, in both modes a platform service reaches a product (a published image pulled beside it,
+  or its libraries built into the product's image): the set, one owner each, the same named set in both modes · the
+  set for a product and a pulled image, the product's own set for built-in libraries (the developer's reading,
+  2026-10-27) · the service · the database → the set in both modes; a service may host several sets and a set may be
+  hosted by several services, so only the set has exactly one owner, and one set identity across both modes makes a
+  switch of mode a `claim` rather than a migration. Developer, 2026-10-27: a product has one set (one per repository
+  in a product of several, as Ocharo); a pulled image keeps a separate set; a built-in library's set is "part of the
+  product set as well" — read here as part of the product's step, release, database and snapshot, while the set keeps
+  its own history (M76). Every service shares its sets with Wheelhouse and other infra through its image's `migrate`
+  verbs, never as SQL files ([Consumption modes](#consumption-modes)). Children: M76, M77, M78.
+- [x] M4 (M3) — Schemas: every set in its own schema, products included · named schemas for module and service sets,
+  the product's own sets in `public` · `public` for all with table prefixes → named schemas for module and service
+  sets, the product's own sets in `public`; isolation where two owners share a database, and no churn for the products
+  already on a default set. (owner 2026-10-27)
+- [x] M5 (M3) — References across sets: ~~ids only, no key, view or query across sets~~ (the first pick, rejected
+  2026-10-27) · foreign keys inside one database under a contract, ids with loose-FK cleanup across databases ·
+  foreign keys freely · read-only views the owner publishes → foreign keys under the contract (owner 2026-10-27). The
+  developer rejected a product copy of users ("one users table is just better all round"): one `users` table,
+  Identity's. PostgreSQL enforces a key across schemas of one database and never across databases. The contract
+  ([Cross-owner references](#cross-owner-references)): the referenced set migrates first, because the referencing
+  set declares it (M28, M79); the referenced owner publishes its referenceable tables and keys and changes them by
+  expand and contract only (M20, M21); `ON DELETE` follows the referenced owner's contract, and Identity soft-deletes
+  users, so a `RESTRICT` never blocks. Follow-ups in the Identity repository: `identity_users` gains `deleted_at`
+  (M75's shape) and erasure scrubs the row in place; `001-accounts`' "never by a foreign key into this schema"
+  (`Apply.sql:9-10`) and T10's "no cross-schema foreign keys" (`t10-schema-migrations.md:170`, `:336`) reverse.
+- [x] M6 — Database topology: ~~one per product environment, and an instance gets its own~~ (the first pick,
+  rejected 2026-10-27) · one database per product environment holding every set that serves only that product, a
+  per-product instance's included, while an instance shared by several products gets its own database on its own
+  server · one database per service · one per repository → the second (owner 2026-10-27: "it's the same pgsql
+  container and same database inside it, just separate schemas"; a shared service gets its own database and ids,
+  "hosted separately, in a completely separate server to serve multiple products as well"). The developer's question:
+  under the first pick Ocharo Marketing could not key into Ocharo's Identity, because PostgreSQL enforces no key
+  across databases. The prior art splits the same way: Supabase keeps a separately run auth service's schema in the
+  app's database and keys into it; GitLab requires keys inside one database and, after splitting its databases,
+  replaced them with loose foreign keys. One snapshot restores a product with its per-product instances consistently.
+  A per-product instance turning shared later is a move (M33) plus a contract in each referencing set. Revises Q5 · B's
+  database for per-product instances (M77).
+- [ ] M76 (M3) — A built-in library's set (mode b): a named set riding the product's step — the product's image
+  applies it, the product's pin sets its level, the product's database and snapshot hold it, with its own history,
+  schema and lock (M30) · merged into the product's default set, its files renumbered into the product's ordinals →
+  the named set; a merge gives one library file a different ordinal in each product, needs every library upgrade
+  copied and renumbered by hand (the frozen copies in ForeverPin `012` and Desk `002-access`, M39), leaves no level two
+  products on one library version can compare, mixes library contracts into product history, and turns a later
+  switch to a pulled image or a takeover into a hand baseline. Its only cost is a second history table per product.
+- [ ] M77 (M3, M6) — Placing a pulled per-product instance in Wheelhouse: an image-only service of the owner's product,
+  pinned by tag in its descriptor, its set in the product's database (Q5 option A,
+  [identity instances](../identity-instances-2026-10/identity-instances-2026-10.md) § Two owners' instances) · an
+  instance product of its own (Q5 · B) that Wheelhouse binds to the product's database · B with its own database (the
+  first M6 pick) → A; the confirmed M6 needs the product's database, and A's listed drawbacks — "a Desk restore also
+  rewinds Identity", "Identity upgrades ride Ocharo's releases" — are now the point: one snapshot, one release, one
+  step. Both A and the binding need one Wheelhouse change: a descriptor's `image` names a repository without a tag, and
+  the release versions every service it lists (`deploy-descriptor.md:137-138`), so no foreign image can be pinned
+  today. Reopens identity-instances Q63 (B) for per-product instances; B stays for shared ones.
+- [ ] M78 (M3) — What tells Wheelhouse a set's version: `migrate-result` after a run (spec `:58-59`) · plus the release
+  manifest listing, per image, its sets, their levels and the package version that embeds each, which the generator
+  reads from a database-free `migrate sets --json` on the built image · nothing → the manifest; Wheelhouse then knows a
+  release's levels before the pull (the rollback floor, `requires:`), and a module set's package version shows where
+  nothing shows it today. Folds into S13's `migrations` fact (M9).
+- [ ] M79 (M5) — Declaring the cross-owner contract: the referencing set names its dependencies at registration
+  (`DependsOn("identity", level)`), the referenced set ships its referenceable tables, keys and readable columns in its
+  assembly, a `Testing.Data` lint refuses a key or a mapping onto an unlisted table, and `migrate` refuses a missing or
+  lower dependency with exit `1` · a convention in each repository's docs · → declared and checked; an order or a
+  contract that only docs hold breaks on the first deploy that forgets it, and the lint already exists as a seam (M22).
+- [ ] M80 (M6) — References into a shared instance (`sub` from the shared wow2 Identity, a file id from Files host B):
+  ids only, orphans tolerated · loose-FK cleanup driven by the owner's events (`PersonDeleted`, T10 § 3; a file
+  deleted), handled in each consumer's set · GitLab's deleted-records table polled by the consumer → events; the shared
+  instance runs on another server, so no trigger reaches a consumer's database, and T10 already plans the
+  `PersonDeleted` fan-out. A consumer checks the parent exists before it writes a child, as GitLab's guide asks.
+- [ ] M7 (M6) — `DbContext` across owners: share the set's Persistence assembly within a repository, and never map
+  another repository's set (the first pick, superseded 2026-10-27 by M5) · share within a repository, and map another
+  owner's published tables read-only for keys and joins, writes through that owner's module or API · any repository
+  maps and writes any set → the second; the developer wants keys for advanced queries, which need the mapping, while a
+  write from outside the owner skips its rules and events (Identity's `PersonChanged`).
 - [ ] M8 (M6) — Credentials for the step: the service's settings file and role (spec) · a separate migrate connection
   key, the same role in v1 · owner and runtime roles now → a separate key with the same role, roles split once a
   product has external users or a takeover needs schema grants; the key keeps least privilege open without a
-  contract change.
+  contract change. Cross-owner keys need no grant while one role owns the product's database; once roles split, the
+  referenced owner grants `REFERENCES` and `SELECT` on its published tables, the contract made executable. A pulled
+  per-product instance migrates with the product's migrate key.
 - [ ] M39 (M3) — DDL a package owns (Hangfire's `hangfire` schema; the SDK idempotency, outbox, inbox and webhook
   tables; ASP.NET Identity's tables): the package creates its tables at runtime (Hangfire at every boot; the
   idempotency store's opt-in `EnsureTableAsync`) ·
   consumers copy the DDL into their own set (ForeverPin `012`, Desk `002-access`, the pilots' `InitialAccess`) · the
-  package ships a named set that the product's step applies → a named set per package, and Hangfire, which versions its
-  own storage, runs its installer in the step; a runtime create needs DDL rights at every boot and escapes the level
-  check, and a copy freezes a schema the package keeps changing.
-- [ ] M40 (M4) — Dialects: one dialect per set, the author's choice · a set per supported dialect with the same ordinals
-  and a parity test (Identity) · one portable SQL for both → a set per dialect for domain packages, one dialect for
-  products; Identity proves the parity test, and Files' SQLite-only default set leaves a PostgreSQL consumer no schema
-  path.
+  package ships a named set that the product's step applies → a named set per package, riding the product's step as
+  M76 picks for domain libraries, and Hangfire, which versions its own storage, runs its installer in the step; a
+  runtime create needs DDL rights at every boot and escapes the level check, and a copy freezes a schema the package
+  keeps changing. Desk's ASP.NET Identity tables leave with `access.*` (identity-instances Q66).
+- [x] M40 (M4) — Dialects: ~~a set per dialect for domain packages, one dialect for products~~ → obsolete, settled by
+  the SQLite ban (`database/database.md:15-18`, developer 2026-10-27): one dialect, PostgreSQL, for every set. Identity's
+  SQLite set and its parity tests lose every deployed consumer, since a Form 1 host is a product and the SQLite test
+  lane runs the EF model, never a set (`test-databases.md`); Files' SQLite-only default set is rewritten as a named
+  PostgreSQL set `files`, which closes its missing schema path and its shared `migration_history`.
 - [ ] M41 (M8) — Server prerequisites (Harvest's `pg_trgm`, encoding and Cyrillic probes; partitions a function must
   extend): the set creates extensions itself (today) · Wheelhouse's database placement creates allowed extensions, and
   `migrate` preflights and refuses with exit `1` · a boot probe only → the set creates trusted extensions, placement
@@ -800,7 +994,8 @@ Parent before child; a child names its parent. Each point: the decision, its opt
   "busy" (M17), and the templates gain the command; the image already embeds the SQL and binds the settings.
 - [ ] M11 (M10) — Strategies under the step: bespoke only, EF and DbUp products convert · one helper for all three under
   one exit contract · a command per strategy → one helper for all three; the conventions allow three strategies
-  (`migrations.md:9-12`), and Ocharo Marketing, Hijinx and the pilots' identity databases run EF on SQLite.
+  (`migrations.md:9-12`), and Ocharo Marketing, Hijinx and the pilots' identity databases run EF on SQLite; the
+  SQLite ban moves them to PostgreSQL, where EF still runs.
 - [ ] M43 (M9) — Items in a product of several repositories and images (Ocharo: 4 repositories, 9 services, 7 holding
   state): one item per repository · one item per image that holds a set, in that repository's `deploy.yml` · one list
   in the hub → one per image; Ocharo's platform repository builds three images with stores of their own (`desk`,
@@ -883,11 +1078,15 @@ Parent before child; a child names its parent. Each point: the decision, its opt
   in this order: Wheelhouse (M19), the canary (rig), Identity and Files (dropping `ApplyWhenDeployed`), Harvest,
   ForeverPin and Ocharo, then each venture at its next release, the 5 on the pre-rename package taking the rename in
   that release; a bump alone turns a boot that applied into one that refuses.
-- [ ] M49 (M14) — SQLite sets in the step (about 28 single-instance services): migrate beside the running writer
-  (spec) · stop the writer for the step · copy, migrate and swap the file → beside the writer, bounded by M17; the
-  batch runs in `BEGIN IMMEDIATE` and holds the write lock until it commits (`bespoke.md:76`), so the old release's
-  writes wait out `busy_timeout` and an expand keeps its rows readable. The dialect demands one applicant per file
-  (`bespoke.md:10`), so the old release must verify at boot rather than apply (M48).
+- [ ] M49 (M14) — SQLite sets in the step, narrowed by the SQLite ban (`database/database.md:15-18`, developer
+  2026-10-27): the about 28 single-instance services on SQLite move to PostgreSQL, and the question shrinks to the ones
+  deployed before they move and to a service whose data may be lost, which only its owner chooses and none is today.
+  For those: migrate beside the running writer (spec) · stop the writer for the step · copy, migrate and swap the file
+  → beside the writer, bounded by M17; the batch runs in `BEGIN IMMEDIATE` and holds the write lock until it commits
+  (`bespoke.md:76`), so the old release's writes wait out `busy_timeout` and an expand keeps its rows readable. The
+  dialect demands one applicant per file (`bespoke.md:10`), so the old release must verify at boot rather than apply
+  (M48). The move itself: at the release that takes the step (M48), rows copied by an import job (M52), with Desk's
+  `LegacyCommerceReader` as the precedent; a product whose data is throwaway starts empty (`breaking-changes.md:14`).
 - [ ] M50 (M17) — Advisory lock keys: one bigint space shared by the migrator (FNV-1a of the set name), Desk's own key
   and the SDK's app-level `pg_advisory_xact_lock` (`Data/EntityFrameworkCore/Locks/Extensions/TransactionLockExtensions.cs:51`)
   · the migrator moves to the two-key form under a reserved class → the reserved class; PostgreSQL keeps the two key
@@ -928,26 +1127,36 @@ Parent before child; a child names its parent. Each point: the decision, its opt
 
 - [ ] M27 — B fails after A migrated (`backlog.md:134`): roll A back · keep every migration expand and migrate
   everything before any restart · restart first, migrate after → the second; nothing restarted, A's expand is harmless
-  to the running release, and B fixes forward.
-- [ ] M28 — Step order across a release set's repositories: cross-repository `dependsOn`, then descriptor order · an
-  explicit `after:` per item · unordered → `dependsOn`, then descriptor order; M5 bans dependencies between sets, so
-  order rarely matters and needs no new key.
+  to the running release, and B fixes forward. When B keys into A (M5), A is the set that ran first, so the case and
+  its recovery stay the same.
+- [ ] M28 — Step order across sets, images and repositories: cross-repository `dependsOn`, then descriptor order · an
+  explicit `after:` per item · `migrate:` list order, checked by the sets' declared dependencies (M79) → list order,
+  checked: an item whose sets key into a set that is missing or below the level they need refuses with exit `1` before
+  any SQL, so a wrong order fails safe and needs no new key. ~~M5 bans dependencies between sets, so order rarely
+  matters~~ (superseded 2026-10-27: M5 now allows cross-set keys, so the referenced set runs first).
 
 ### Platform services and instances
 
-- [ ] M29 — Who runs a standalone service's migrations: the instance's own rollout · each consumer product's
-  rollout · one fleet job across instances → the instance; Q5 · B gives each instance its own product,
-  database and pace, and a fleet roll-out can come later over the same step.
+- [ ] M29 — Who runs a platform service's migrations: ~~the instance's own rollout, every instance~~ (the first pick,
+  superseded 2026-10-27 by M6) · by whom the instance serves: a per-product instance in its product's step, as an item
+  of the product's list (M77) or inside the product's image (M30); a shared instance in its own rollout on its own
+  server · each consumer product's rollout · one fleet job across instances → by whom it serves; a per-product
+  instance shares its product's database, snapshot and release, and a shared one upgrades once for every tenant, with
+  a fleet roll-out over the same step later.
 - [ ] M30 — A Form 1 module's set: the product's `migrate` applies every registered set (today) · a declared step per
   module · boot → the product's step; `MigrateBespokeForDeployAsync` already applies every set, the module repository
-  authors it and the product's package pin sets its level.
+  authors it and the product's package pin sets its level. Whether it stays a named set (the pick) or merges into the
+  product's set is M76.
 - [ ] M31 — Product ↔ service compatibility: lockstep upgrades · the service keeps the previous client contract version,
   proven by the previous client's conformance suite · no promise → the previous version; a shared host upgrades once
-  for every tenant, and none can hold it back.
+  for every tenant, and none can hold it back. A per-product instance upgrades inside its product's release, and its
+  referenceable tables join the contract, changing by expand and contract only (M5).
 - [ ] M32 (M31) — A product's minimum service version: none · `requires:` in `deploy.yml`, checked by Wheelhouse
-  against the bound instance · checked at the product's boot → `requires:` checked by Wheelhouse, later; it fails a
-  deploy before any restart instead of a request after one.
-- [ ] M33 — Moves (Files' migration module, tenant and server moves): a separate Wheelhouse job type sharing the one-off
+  against the bound instance · checked at the product's boot → `requires:` checked by Wheelhouse, later, for shared
+  instances only; it fails a deploy before any restart instead of a request after one. A per-product instance's
+  version is the product's own pin, which M78 makes visible.
+- [ ] M33 — Moves (Files' migration module, tenant and server moves, a per-product instance leaving for a shared
+  server, M6): a separate Wheelhouse job type sharing the one-off
   container and step journal · part of the migrate step · the service's CLI by hand only → a separate job type; moves
   run for hours across hosts with a freeze and a cutover, and their product-side change is a background migration.
 - [ ] M34 — Operator actions (down script, repair, baseline, claim): Wheelhouse jobs running the image's CLI, typed and
@@ -1107,12 +1316,14 @@ Open — no rule yet, or the repositories disagree:
 ## Answer batches
 
 Answered in order: each batch holds the parents of later batches' points, and lists its own points parent first.
+Front of the queue: batch 1's M3 with its children M76–M78; M5 and M6 were answered on 2026-10-27, and their
+children M79 and M80 join batch 3.
 
 | # | Theme | Points |
 |---|---|---|
-| 1 | what a migration is and who owns it (M1, M2 answered 2026-10-27) | M1, M2, M3, M4, M5, M6 |
+| 1 | what a migration is and who owns it (M1, M2, M4, M5, M6 answered 2026-10-27); open: M3 and the consumption modes | M3, M76, M77, M78; answered M1, M2, M4, M5, M6 |
 | 2 | one mechanism, expand only, and an older image on newer history (the confirmed rollback failure) | M12, M20, M21, M22, M15, M16, M19 |
-| 3 | ownership details: mappers, credentials, package DDL, dialects, prerequisites, outside state, tenancy | M7, M8, M39, M40, M41, M42, M55 |
+| 3 | ownership details: mappers, credentials, the cross-owner contract, references into a shared instance, package DDL, prerequisites, outside state, tenancy (M40 settled by the SQLite ban) | M7, M8, M79, M80, M39, M41, M42, M55 |
 | 4 | declaration and the image contract | M9, M10, M11, M43, M44, M45, M46, M56 |
 | 5 | the actions: one command tree, the external check, idempotency proof, forgetting history, the trail | M57, M58, M59, M60, M61 |
 | 6 | running the step: when, where, locks, rehearsal, SQLite, apply paths, the SDK spread | M13, M14, M17, M62, M18, M49, M50, M47, M48 |
@@ -1163,7 +1374,8 @@ reason text, and no second history table (`:119-121`).
   for products without users. → M20, M21
 - S10 — Release sets of several repositories and "B fails after A" are absent; `backlog.md:134` stays open. → M27, M28
 - S11 — Identity appears only as the first consumer (`:10-11`); instances (Q5 · B), Form 1 module sets, shared
-  hosts and product ↔ service versions are absent. → M29–M32
+  hosts and product ↔ service versions are absent, and so are a pulled per-product instance as an item of the
+  product's step and foreign keys across sets, which order the items. → M3, M5, M6, M29–M32, M77, M79
 - S12 — The helper and contract are bespoke only (`:61`, `:130`); EF and DbUp products, such as Ocharo Marketing,
   Hijinx and the pilots' identity databases, get no `migrate`. → M11
 - S13 — The bundle's existing `migrations` fact (runner `transport.py:264-270`, `release_sets.py:208-211`,
@@ -1188,7 +1400,7 @@ reason text, and no second history table (`:119-121`).
 - S21 — SQLite overlap (`:107-108`) holds for the bespoke runner, whose batch holds the write lock
   (`bespoke.md:76`), but the dialect requires one applicant per file (`bespoke.md:10`): an old release below 10.0.82
   that restarts during the step applies the same file, and EF-run SQLite sets (Marketing, Hijinx) take no such lock (U).
-  → M49, M48
+  The SQLite ban narrows it to the services not yet moved to PostgreSQL. → M49, M48
 - S22 — Extensions and preflight are absent: Harvest's set runs `CREATE EXTENSION pg_trgm` and probes the encoding at
   boot only. `pg_trgm` is trusted, so the database owner Wheelhouse places (`prepare.py:59-60`) installs it; an
   untrusted extension, or a runtime role that no longer owns the database (M8), cannot, and nothing in placement
