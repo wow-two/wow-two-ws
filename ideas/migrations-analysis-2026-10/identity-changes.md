@@ -11,6 +11,7 @@ cite the [analysis](migrations-analysis-2026-10.md); the settled rules live in t
 
 - ✅ be sdk command tree and engine: `WoW2.Sdk.Beta.Be` `10.0.89-beta`
 - ✅ conventions and descriptor schema in the hub (`9e006fc`…`d4c4b02`)
+- ✅ Identity: § 1 adopted on be sdk `10.0.90-beta` — `402ee0f`, idempotency cutoff `1c3a117`
 - ⬜ pipelines: `migrate:` list and pinned foreign images (spec phase 2)
 - ⬜ Wheelhouse: the migrate step, rollback gate and bridge (spec phases 3–4)
 
