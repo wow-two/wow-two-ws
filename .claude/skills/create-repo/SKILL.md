@@ -97,11 +97,12 @@ This (deterministic, no code-gen, no commit):
    check's `VERIFY_SERVICE_*` variable), then renames every `Sample*` **file/dir** → `{Brand}*`
    (`Sample.BackendServices.slnx`→`{Brand}.BackendServices.slnx`, the 5 project dirs, `tests/Sample.Tests.*`,
    `SampleDbContext.cs`, …),
-5. **port pass** — the template binds `8220` https / `8221` http / `8224` vite; re-allocates to the
-   next-free even/odd backend pair + free even vite port (seeded from `conventions/deployment/hosting/ports.md`
-   "Next free", scanning existing `launchSettings.json`/`vite.config.ts` to avoid collisions), rewrites
-   them across launchSettings/vite proxy/`.http`/appsettings/`docker-compose.yml` (the local port is the HTTP
-   one)/the two docs that name them, and appends a `ports.md` row + bumps "Next free",
+5. **port pass** — the template binds `8220` https / `8221` http / `8224` vite, and its compose PostgreSQL publishes
+   `8222`; re-allocates to the next-free even/odd backend pair + free even vite port + free database port (seeded from
+   `conventions/deployment/hosting/ports.md` "Next free", scanning existing `launchSettings.json`/`vite.config.ts` and
+   compose loopback ports to avoid collisions), rewrites them across launchSettings/vite proxy/`.http`/appsettings/
+   `docker-compose.yml` (the app's local port is the HTTP one)/the two docs that name them, and appends a `ports.md`
+   row + bumps "Next free",
 6. **slug-prefix pass** — the template ships its code dirs as `sample.backend-services/` +
    `sample.frontend-services/`; retargets the prefix to the repo `{slug}` (the **hyphenated** last
    dot-segment, e.g. `secrets-vault` — NOT the lowercased brand `secretsvault`) on disk AND in every
@@ -114,7 +115,8 @@ This (deterministic, no code-gen, no commit):
 
 `SHAPE=domain` changes these passes:
 
-- template `wow-two-sdk-beta.domain-template`; its example ports are `8384` / `8385` / `8386`, which the port pass moves;
+- template `wow-two-sdk-beta.domain-template`; its example ports are `8384` / `8385` / `8386` and PostgreSQL `8387`,
+  which the port pass moves;
 - before the generic brand pass: the template's repo name in the package URLs → `{owner}/{repo}`, `fe-sample` →
   `fe-{slug}` (content and the package dir), the module's `sample_` table prefix → `{product}_` in snake case;
 - `CORE_VERSION` / `FE_VERSION` rewrite the pins; a changed fe pin refreshes `pnpm-lock.yaml` (`--lockfile-only`);
@@ -181,31 +183,37 @@ What's there (rebranded from `Sample` → `{Brand}`):
   `conventions/development/backend/dotnet/shapes/service/architecture/clean/clean.md`. They use the be sdk
   `WoW2.Sdk.Beta.Be` (namespaces `WoW.Two.Sdk.Beta.Be.*`): `IQuery`/`IQueryHandler`, `AppResult`, `ApiResponse`,
   `AddApiDefaults`, the bespoke SQL migrator. No hand-rolled `Results/`, `Common/IEntity`, or local mediator.
-  - `{Brand}.Domain` — `Greetings/Entities/GreetingLog : IKeyedEntity<Guid>` (be sdk trait).
+  - `{Brand}.Domain` — empty: the template ships no entity; a product's entities take the be sdk traits
+    (`IKeyedEntity<Guid>`, `IHasTableName`).
   - `{Brand}.Application` — `ApplicationAssembly` marker; one CQRS vertical `Greetings/` (query, model, FluentValidation
     validator); time comes from `TimeProvider`.
   - `{Brand}.Infrastructure` — `InfrastructureAssembly` marker; the query handler under `Greetings/QueryHandlers/`.
-  - `{Brand}.Persistence` — `{Brand}DbContext` (EF Core **SQLite**, a pure mapper), the entity configuration, and the
-    schema as `Migrations/NNN-name/{Apply,Rollback}.sql` run by the bespoke migrator on boot (**no EF migrations**,
-    no `dotnet-ef`).
-  - `{Brand}.Api` — `Program.cs` in three groups (+ `public partial class Program`) → `Configurations/HostConfiguration.cs`
-    + `HostConfiguration.Extensions.cs` (`AddApiDefaults` / `UseApiDefaults`, `AddSqliteDatabase`, `AddMediator`,
+  - `{Brand}.Persistence` — `{Brand}DbContext` (EF Core on **PostgreSQL**, a pure mapper on `AppDbContextBase`) and the
+    schema as `Migrations/NNN-name/{Apply,Rollback}.sql` for the bespoke migrator (**no EF migrations**, no
+    `dotnet-ef`). `001-baseline` creates no table (M56), so the product's first table is `002-…`; `Migrations/Dev/`
+    drafts never ship.
+  - `{Brand}.Api` — `Program.cs` in three groups (+ `public partial class Program`), answering `migrate <verb>` after
+    `Build()` and before any startup work → `Configurations/HostConfiguration.cs`
+    + `HostConfiguration.Extensions.cs` (`AddApiDefaults` / `UseApiDefaults`, `AddPostgresDatabase`, `AddMediator`,
     `AddControllers`; no layer project registers itself); `Greetings/Controllers/GreetingController` and
     `Status/Controllers/SystemController` (`api/system/status`); `appsettings.json` (+`.Development`, defaults only);
     one `https` launch profile (`LOCAL_SETTINGS=true`); `wwwroot/` empty but for `.gitkeep`, filled by `BuildSpa`.
 - **Tests** — `{Brand}.Tests.Unit` (handler + validator), `{Brand}.Tests.E2E` (the real host in-process over a
-  throwaway SQLite file: greeting, `/health`, `api/system/status`, SPA serving, host filtering replayed from
-  `deploy.yml`'s dev check), `{Brand}.Tests.Migrations` (the embedded SQL, apply / rollback). None needs Docker.
+  PostgreSQL container: greeting, `/health`, `api/system/status`, SPA serving, host filtering replayed from
+  `deploy.yml`'s dev check, and the image's `migrate` verbs on the verb harness), `{Brand}.Tests.Migrations` (required:
+  the embedded set — apply, Apply → Rollback → Apply, the be sdk lint, the idempotency proof). E2E and migrations need
+  Docker (Testcontainers).
 - **Settings** — load order `appsettings.json` → `appsettings.{Environment}.json` → `appsettings.Target.json` (a
   deployed target's) → `appsettings.Local.json` (this machine's, only with `LOCAL_SETTINGS=true` on a local run).
   `appsettings.Development.json` holds defaults only; Local and Target are git- and docker-ignored.
-- **Ports** — already re-allocated by `scaffold.sh` (template's `8220`/`8221` https/http + `8224` vite →
-  the next-free pair; see §2's port pass). Nothing to set by hand.
+- **Ports** — already re-allocated by `scaffold.sh` (template's `8220`/`8221` https/http + `8224` vite + `8222` local
+  PostgreSQL → the next-free set; see §2's port pass). Nothing to set by hand.
 
 **Domain backend** (`SHAPE=domain`): `{Brand}.BackendServices.slnx` groups `Packages/` · `Services/` · `Tests/`.
 
 - `packages/Abstractions` — the contract: `IGreetingsBroker`, model, constants, error catalogue; no DI, options or I/O.
-- `packages/Module` — Form 1: `AddSample()` (→ `Add{Brand}()`), the broker over its own store, embedded migrations.
+- `packages/Module` — Form 1: `AddSample()` (→ `Add{Brand}()`), the broker in process, and its embedded migrations as the
+  named PostgreSQL set and schema `{product}` (the baseline creates no table).
 - `packages/Client` — Forms 2/3: `AddSampleClient(…)`, the broker over the service's HTTP API.
 - `packages/Testing` — `FakeGreetingsBroker` and `GreetingsBrokerConformance`, the suite every implementation passes.
 - `service/{Brand}.Api` — hosts Module by `ProjectReference`; adds hosting, the HTTP mirror and the hosted pages.
@@ -237,11 +245,12 @@ The example already serves the SPA from the API host, ships Docker and delivers 
   (database readiness) — no hand-wired static files. The `BuildSpa` MSBuild target of `{Brand}.Api` installs and builds
   the frontend into `wwwroot/` on every backend build (`-p:BuildSpa=false` skips it).
 - `engineering/deployment/` holds `deploy.yml` (descriptor 2: the product's identity — `name`, rebranded by the brand
-  pass, and a `{{ONE_LINE_WHAT_THIS_IS}}` `description` — one service, one `app` site at `/` and `/api`, the
-  `data` volume, `settings.required`, `dotnetEnvironment: true`, a `verify` dev check sending `Host: localhost`),
+  pass, and a `{{ONE_LINE_WHAT_THIS_IS}}` `description` — one service, one `app` site at `/` and `/api`,
+  `needs: [postgres]`, `settings.required`, `dotnetEnvironment: true`, a `verify` dev check sending `Host: localhost`),
   `Dockerfile` (3-stage: node build SPA → dotnet publish with the SPA in `wwwroot` → aspnet runtime with `curl`;
-  `APP_VERSION` build argument; no environment value in the image) and `docker-compose.yml` (local only, SQLite on a
-  named volume). Build context `= engineering/codebase/`; `.dockerignore` at the context root. The brand pass already
+  `APP_VERSION` build argument; no environment value in the image) and `docker-compose.yml` (local only: PostgreSQL,
+  a one-shot `{brand}-migrate` running the image's `migrate`, then the app). Build context `= engineering/codebase/`;
+  `.dockerignore` at the context root. The brand pass already
   rewrote the `{Brand}.Api` / `{Brand}.Api.dll` / product / service / image names.
 - `.github/workflows/ci.yml` (backend and frontend checks) and `publish-docker-image.yml` (the marker Wheelhouse
   detects) publish through the shared `publish.yml` of `wow-two-platform.pipelines`, pinned to `v0.8.1`; pipelines
@@ -268,7 +277,7 @@ exists. A `SCRATCH=1` run registers nothing.
 
 The code is already present — just confirm it builds and passes, then fill placeholders. The schema comes from the
 embedded SQL migrations (**no `dotnet ef migrations` step**). The backend build runs the frontend build, so Node and
-pnpm must be on the `PATH`; no test tier needs Docker.
+pnpm must be on the `PATH`; the E2E and migrations tiers need Docker.
 
 ```bash
 be="workbench/{org}/{repo-name}/engineering/codebase/{slug}.backend-services"

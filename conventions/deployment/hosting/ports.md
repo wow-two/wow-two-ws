@@ -1,6 +1,6 @@
 # Port Ledger
 
-*Last updated: 2026-10-26*
+*Last updated: 2026-10-28*
 
 > Single source of truth for allocated dev ports — **check here before picking one** to avoid collisions.
 > Backend rule: a **single `https` profile** binds two ports per service — **HTTPS on the even port, HTTP on the adjacent odd port** (`even`, `even + 1`); TLS terminated upstream in prod — see [backend/launch-profiles.md](../../development/backend/dotnet/shapes/service/platform/startup/launch-profiles.md). Frontend (Vite) = an **even** port (HTTPS via mkcert).
@@ -23,8 +23,8 @@
 | ventures/prism | frontend (Vite) · studio — Vue rewrite (Vite) | 5180 · 8294 |
 | ventures/whiteout | game · zone-builder · lookdev (Vite) | 5181 · 5182 · 5183 |
 | wow-two-sdk-beta.fe (Vue) | playground (Vite) · atlas — layouts, patterns, themes (Vite) | 5176 · 5178 |
-| product-template (`Sample` example) | API · Vite | 8220 https / 8221 http · 8225 |
-| domain-template (`Sample` example) | API · Vite | 8384 https / 8385 http · 8386 |
+| product-template (`Sample` example) | API · Vite · local PostgreSQL | 8220 https / 8221 http · 8224 · 8222 |
+| domain-template (`Sample` example) | API · Vite · local PostgreSQL | 8384 https / 8385 http · 8386 · 8387 |
 | sift | API · Vite | 8230 https / 8231 http · 8226 |
 | 10x-ventures-transcript-forge | API · Vite (Vue) · legacy React Vite | 8232 https / 8233 http · 8274 · 8227 |
 | arcade | API · Vite | 8234 https / 8235 http · 8228 |

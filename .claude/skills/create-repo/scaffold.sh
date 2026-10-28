@@ -57,15 +57,16 @@ case "$INTO" in
   *) echo "INTO must be clone or unset, not '$INTO'" >&2; exit 2 ;;
 esac
 
-# Each shape names its template and the dev ports its example binds (https / http / vite), which the port pass moves.
+# Each shape names its template and the dev ports its example binds (https / http / vite / the local compose
+# PostgreSQL's loopback port), which the port pass moves.
 case "$SHAPE" in
   product)
     TEMPLATE="$WS_DIR/workbench/wow-two-sdk-beta/wow-two-sdk-beta.product-template"
-    TPL_HTTPS=8220; TPL_HTTP=8221; TPL_VITE=8224
+    TPL_HTTPS=8220; TPL_HTTP=8221; TPL_VITE=8224; TPL_DB=8222
     DEFAULT_ORG="" ;;
   domain)
     TEMPLATE="$WS_DIR/workbench/wow-two-sdk-beta/wow-two-sdk-beta.domain-template"
-    TPL_HTTPS=8384; TPL_HTTP=8385; TPL_VITE=8386
+    TPL_HTTPS=8384; TPL_HTTP=8385; TPL_VITE=8386; TPL_DB=8387
     DEFAULT_ORG="wow-two-sdk-beta" ;;
   *) echo "SHAPE must be product or domain, not '$SHAPE'" >&2; exit 2 ;;
 esac
@@ -239,18 +240,19 @@ for kind in backend frontend; do
 done
 
 # ---- 2c. PORT pass: re-allocate the template's dev ports to the next-free pair ----
-# Template binds 8220 (https) / 8221 (http) + 8224 (vite). Pick the next-free even/odd
-# backend pair (HTTPS even, HTTP odd = even+1) starting from ports.md's "Next free", and
-# a free vite port; scan existing launchSettings + vite configs to avoid collisions.
+# Template binds 8220 (https) / 8221 (http) + 8224 (vite), and its compose PostgreSQL publishes 8222. Pick the next-free
+# even/odd backend pair (HTTPS even, HTTP odd = even+1) starting from ports.md's "Next free", a free vite port and a
+# free database port; scan existing launchSettings, vite configs and compose files to avoid collisions.
 PORTS_MD="$WS_DIR/conventions/deployment/hosting/ports.md"
 # TPL_HTTPS / TPL_HTTP / TPL_VITE come from the shape (top of the script).
 
-# in-use ports across the whole workbench (every launchSettings + vite.config), minus the
-# template copy we are about to overwrite (it still reads 8220/8221/8224 at this point).
+# in-use ports across the whole workbench (every launchSettings + vite.config + compose loopback port), minus the
+# template copy we are about to overwrite (it still reads the template's ports at this point).
 used_ports() {
   {
     grep -rho -E 'localhost:[0-9]+' "$WB" --include=launchSettings.json 2>/dev/null | grep -o -E '[0-9]+'
     grep -rho -E 'port:[[:space:]]*[0-9]+' "$WB" --include=vite.config.ts 2>/dev/null | grep -o -E '[0-9]+'
+    grep -rho -E '127\.0\.0\.1:[0-9]+:' "$WB" --include=docker-compose.yml 2>/dev/null | grep -o -E ':[0-9]+:' | tr -d ':'
   } | sort -un
 }
 USED="$(used_ports)"
@@ -272,13 +274,25 @@ while { [ "$NEW_VITE" = "$TPL_VITE" ] || ! is_free "$NEW_VITE"; } \
   NEW_VITE=$((NEW_VITE + 2))
 done
 
-# rewrite the three ports across launchSettings, vite proxy, .http, appsettings, the local compose file and the two
-# docs that name them (ports appear only in those files; do http→http first is moot since the values are distinct).
+# database: the local compose PostgreSQL's loopback port, an even port after the pair that is not the vite port.
+NEW_DB=$((NEW_HTTPS + 2))
+while ! is_free "$NEW_DB" || [ "$NEW_DB" = "$TPL_DB" ] || [ "$NEW_DB" = "$NEW_VITE" ]; do
+  NEW_DB=$((NEW_DB + 2))
+done
+
+# rewrite the four ports across launchSettings, vite proxy, .http, appsettings, the local compose file and the two
+# docs that name them (ports appear only in those files). Each template port goes through a token first, so a new port
+# that equals another template port is never rewritten twice.
 while IFS= read -r -d '' f; do
   LC_ALL=C sed -i '' \
-    -e "s|$TPL_HTTPS|$NEW_HTTPS|g" \
-    -e "s|$TPL_HTTP|$NEW_HTTP|g" \
-    -e "s|$TPL_VITE|$NEW_VITE|g" \
+    -e "s|$TPL_HTTPS|@@PORT_HTTPS@@|g" \
+    -e "s|$TPL_HTTP|@@PORT_HTTP@@|g" \
+    -e "s|$TPL_VITE|@@PORT_VITE@@|g" \
+    -e "s|$TPL_DB|@@PORT_DB@@|g" \
+    -e "s|@@PORT_HTTPS@@|$NEW_HTTPS|g" \
+    -e "s|@@PORT_HTTP@@|$NEW_HTTP|g" \
+    -e "s|@@PORT_VITE@@|$NEW_VITE|g" \
+    -e "s|@@PORT_DB@@|$NEW_DB|g" \
     "$f"
 done < <(find "$REPO_DIR" -type f \( -name 'launchSettings.json' -o -name 'vite.config.ts' \
             -o -name '*.http' -o -name 'appsettings*.json' -o -name 'docker-compose.yml' \
@@ -291,10 +305,12 @@ if [ -f "$PORTS_MD" ] && [ "$SCRATCH" != 1 ]; then
   NEXT_FREE=$((NEW_HTTPS + 2))
   # the Vite port may sit right after the pair (domain repos take it from the same range); skip past it
   if [ "$NEW_VITE" -ge "$NEXT_FREE" ]; then NEXT_FREE=$((NEW_VITE + 2)); fi
-  LC_ALL=C awk -v sn="$SHORT_NAME" -v hs="$NEW_HTTPS" -v ht="$NEW_HTTP" -v vt="$NEW_VITE" -v nf="$NEXT_FREE" '
+  # ... and so does the database port, which always does
+  if [ "$NEW_DB" -ge "$NEXT_FREE" ]; then NEXT_FREE=$((NEW_DB + 2)); fi
+  LC_ALL=C awk -v sn="$SHORT_NAME" -v hs="$NEW_HTTPS" -v ht="$NEW_HTTP" -v vt="$NEW_VITE" -v db="$NEW_DB" -v nf="$NEXT_FREE" '
     # last table row before the trailing blank: emit our row right after it.
     prev ~ /^\| / && $0 == "" && !done {
-      print "| " sn " | API · Vite | " hs " https / " ht " http · " vt " |"
+      print "| " sn " | API · Vite · local PostgreSQL | " hs " https / " ht " http · " vt " · " db " |"
       done=1
     }
     /^\*\*Next free backend even port:/ {
@@ -363,7 +379,7 @@ if [ "$SCRATCH" = 1 ]; then
   repo dir   : $REPO_DIR
   backend    : $BE_DIR
   frontend   : $FE_DIR
-  ports      : $NEW_HTTPS https / $NEW_HTTP http · $NEW_VITE vite   (was $TPL_HTTPS/$TPL_HTTP · $TPL_VITE; no ports.md row)
+  ports      : $NEW_HTTPS https / $NEW_HTTP http · $NEW_VITE vite · $NEW_DB PostgreSQL   (was $TPL_HTTPS/$TPL_HTTP · $TPL_VITE · $TPL_DB; no ports.md row)
 EOF
   exit 0
 fi
@@ -410,7 +426,7 @@ cat <<EOF
                ($BE_SHAPE)
   frontend   : $FE_DIR
                ($FE_SHAPE)
-  ports      : $NEW_HTTPS https / $NEW_HTTP http · $NEW_VITE vite   (was $TPL_HTTPS/$TPL_HTTP · $TPL_VITE; ports.md row added)
+  ports      : $NEW_HTTPS https / $NEW_HTTP http · $NEW_VITE vite · $NEW_DB PostgreSQL   (was $TPL_HTTPS/$TPL_HTTP · $TPL_VITE · $TPL_DB; ports.md row added)
   short name : $SHORT_NAME      (scripts/active.sh $SHORT_NAME)
   net        : net$NET_VERSION.0
 
