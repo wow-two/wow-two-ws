@@ -70,7 +70,7 @@ Point ids (`M6`) cite the [migrations analysis](../../../ideas/migrations-analys
 
 ## Platform
 
-- must run PostgreSQL 16, Traefik and the `platform` network from the kit, on fixed addresses.
+- must run PostgreSQL 18 ([version rule](../../development/backend/dotnet/core/mla/domains/persistence/database/postgres/postgres.md#version)), Traefik and the `platform` network from the kit, on fixed addresses.
 - must keep the consoles on `control`, apart from workloads, so a workload never reaches a console.
 - must rerun `prepare.py` after every kit update; it keeps credentials and renders Compose again.
 - must never delete a populated PostgreSQL volume to repeat initialization.

@@ -5,6 +5,16 @@
 > PostgreSQL names, column types and stored values; access APIs belong to their provider.
 > Point ids cite the [migrations analysis](../../../../../../../../../../ideas/migrations-analysis-2026-10/migrations-analysis-2026-10.md).
 
+## Version
+
+- must run the newest stable PostgreSQL major everywhere — 18 today: hosts, compose files, CI services, test
+  containers (owner 2026-10-28).
+- must take a new major once it is generally available, never a beta or release candidate.
+- must name the image by its major (`postgres:18-alpine`), never `latest`: a major jump cannot open the old data
+  directory, so a major upgrade is a planned dump and restore.
+
+---
+
 ## Schema
 
 - must verify names and types against the [schema owner](../../persistence.md#contract) before editing models or queries.
@@ -44,7 +54,7 @@
 
 - must store each value in the column its row names.
 - must make keys in the application (`Guid.CreateVersion7()`), with no database default (M65).
-- must take v7 from SQL for rows SQL inserts itself (M65).
+- must take v7 from PostgreSQL's built-in `uuidv7()` for rows SQL inserts itself; no extension or own function (M65).
 - must keep a public token (a share link, a short code) a separate random value; v7 reveals its time (M65).
 - may key only claim rows and append-only logs by `bigint GENERATED … AS IDENTITY` (M65).
 - must key a singleton row `integer CHECK (id = 1)` (M65).
