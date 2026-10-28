@@ -55,6 +55,26 @@
         },
         "timeout": { "type": "string", "pattern": "^[1-9][0-9]*[smh]$", "default": "5m", "description": "10s-30m." }
       }
+    },
+    "migrate": {
+      "type": "array", "minItems": 1,
+      "description": "The migrate step: one item per image that hosts a migration set, run after the pull and before the first wave on every forward deploy. Pipelines v0.12.0 or later.",
+      "items": {
+        "type": "object", "additionalProperties": false, "required": ["service", "command"],
+        "properties": {
+          "service": { "$ref": "#/$defs/slug", "description": "A service of this descriptor whose release image hosts the sets." },
+          "command": {
+            "type": "array", "minItems": 1, "maxItems": 32, "items": { "type": "string", "minLength": 1, "maxLength": 1000 },
+            "description": "The program and its arguments, ending in the bare migrate verb; replaces the image's entrypoint."
+          },
+          "timeout": { "type": "string", "pattern": "^[1-9][0-9]*[smh]$", "default": "10m", "description": "10s-60m." }
+        }
+      }
+    },
+    "extensions": {
+      "type": "array", "uniqueItems": true,
+      "items": { "type": "string", "pattern": "^[a-z][a-z0-9_-]{0,62}$" },
+      "description": "Untrusted PostgreSQL extensions Wheelhouse creates as superuser when it places the product's database; a set creates trusted ones itself. Pipelines v0.12.0 or later."
     }
   },
   "dependentRequired": { "name": ["description"], "description": ["name"], "homepage": ["name", "description"] },
@@ -122,13 +142,28 @@
     "service": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["build", "paths", "health"],
+      "required": ["health"],
+      "if": { "required": ["build"] },
+      "then": {
+        "required": ["paths"],
+        "properties": { "image": { "not": { "pattern": ":[^/]*$" } } }
+      },
+      "else": {
+        "required": ["image"],
+        "properties": {
+          "image": {
+            "pattern": ":[A-Za-z0-9_][A-Za-z0-9_.-]{0,127}$", "not": { "pattern": ":latest$" },
+            "description": "A pinned image: another repository's published image with its release tag, never latest. Pipelines v0.12.0 or later."
+          },
+          "paths": false
+        }
+      },
       "properties": {
         "name": { "$ref": "#/$defs/name", "description": "Identity: the service's display name. Pipelines v0.11.0 or later." },
         "description": { "$ref": "#/$defs/description", "description": "Identity: one line on what the service does." },
         "image": {
-          "type": "string", "pattern": "^[a-z0-9][a-z0-9._/:-]*[a-z0-9]$", "not": { "pattern": ":[^/]*$" },
-          "description": "Image repository without a tag, for a legacy name. Default: <registry>/<service>."
+          "type": "string", "pattern": "^[a-z0-9][a-z0-9._/:-]*[a-z0-9](:[A-Za-z0-9_][A-Za-z0-9_.-]{0,127})?$",
+          "description": "With build: the image repository without a tag, for a legacy name (default <registry>/<service>). Without build: a pinned image with its tag."
         },
         "build": {
           "type": "object", "additionalProperties": false, "required": ["dockerfile"],
@@ -175,7 +210,7 @@
         "capabilities": { "type": "array", "items": { "type": "string", "pattern": "^[A-Z][A-Z_]{1,31}$" } },
         "dependsOn": {
           "type": "array", "uniqueItems": true, "items": { "$ref": "#/$defs/slug" },
-          "description": "Services of this product the service starts after, once each is healthy; never itself, never a cycle. Platform services go under needs. Pipelines v0.6.0 or later."
+          "description": "Services of this product the service starts after, once each is healthy; never itself, never a cycle. Backing services (postgres, valkey, broker) go under needs. Pipelines v0.6.0 or later."
         }
       }
     }

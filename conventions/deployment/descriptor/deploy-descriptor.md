@@ -1,14 +1,15 @@
 # Deployment descriptor
 
-*Last updated: 2026-10-27*
+*Last updated: 2026-10-28*
 
 > One file per product repo, `engineering/deployment/deploy.yml`, declaring the product's identity and its deployable
 > services: what the product is called, how each service builds, which paths change it, how it runs, which site paths
-> it serves and what it needs.
+> it serves, what it needs and which images migrate its sets.
 > Purpose — one source for CI, the release generator and Wheelhouse; environments, hosts and secrets stay out.
 > Use case — every product repo deployed through Wheelhouse; the product template ships one.
 
-Why a custom format → [rationale](deploy-descriptor-rationale.md).
+Why a custom format → [rationale](deploy-descriptor-rationale.md). Point ids (`M9`) cite the
+[migrations analysis](../../../ideas/migrations-analysis-2026-10/migrations-analysis-2026-10.md).
 
 ---
 
@@ -41,13 +42,15 @@ Why a custom format → [rationale](deploy-descriptor-rationale.md).
 - must not name a host, zone, address or proxy setting; Wheelhouse binds each site to one host per environment.
 - must not publish host ports; the ingress routes each site by host and path.
 - should publish one image per service at `ghcr.io/<owner>/<repo>/<service>`; `image` overrides a legacy name.
+- may run another repository's published image as a service, pinned by tag ([pinned images](#pinned-images), M77).
+- must declare a `migrate:` item for every image that hosts a migration set ([migrate](#migrate), M9).
 - must keep the product slug equal to the Wheelhouse runner product (`foreverpin`, not `forever-pin`); every repository
   of a product built from several names that product's slug ([below](#products-of-several-repositories)).
 - should set `dotnetEnvironment: true` once every .NET service's `appsettings.Development.json` holds defaults only
   ([environment files](../hosting/environment-files.md) § *Settings*); the runner then runs dev as `Development`.
 - may declare a `verify` check; a product that auto-promotes should, so a release reaches prod only after it.
 - may declare `dependsOn` for a service that cannot start before another service of the product is healthy; a
-  platform service (postgres, valkey, broker) goes under `needs`, never `dependsOn`.
+  backing service the server provides (postgres, valkey, broker) goes under `needs`, never `dependsOn`.
 - a service restarts only when its own image or settings change; a dependency's update never restarts it
   ([rollouts](#rollouts)).
 
@@ -129,14 +132,16 @@ services:
 | `shared` | `[]` | Paths whose change rebuilds every service |
 | `dotnetEnvironment` | `false` | The runner sets `ASPNETCORE_ENVIRONMENT` and `DOTNET_ENVIRONMENT`: dev `Development`, prod `Production` |
 | `verify` | none | `service`, `command` and `timeout` of the end-to-end check after a dev rollout ([below](#dev-check)) |
+| `migrate` | none | One `service`, `command` and `timeout` per image that hosts a set ([below](#migrate)) |
+| `extensions` | `[]` | Untrusted PostgreSQL extensions Wheelhouse creates when it places the database ([below](#migrate)) |
 | `sites.<site>` | `{}` | A host role; Wheelhouse binds it to one host per environment |
 | `sites.<site>.exposure` | `public` | `public` (internet) or `private` (private network) |
 | `sites.<site>.primary` | the first site | The front door: Open site, the apex proposal; at most one |
 | `sites.<site>.environments` | `[dev, prod]` | The environments that publish the site |
 | `services.<name>.name` · `description` | none | The service's display name and one line, same limits; a console shows the service key without them |
-| `services.<name>.image` | `<registry>/<name>` | Image repository without a tag, for a legacy name |
-| `services.<name>.build` | — | `dockerfile` (required), `context`, `target`, `args`, `contexts` |
-| `services.<name>.paths` | — | Paths whose change rebuilds this service; its Dockerfile always counts |
+| `services.<name>.image` | `<registry>/<name>` | Without a tag: a legacy repository name. With a tag: a [pinned image](#pinned-images) |
+| `services.<name>.build` | — | `dockerfile` (required), `context`, `target`, `args`, `contexts`; none on a pinned image |
+| `services.<name>.paths` | — | Paths whose change rebuilds this service; its Dockerfile always counts; none on a pinned image |
 | `services.<name>.port` | `8080` | The port the service listens on |
 | `services.<name>.health` | — | An HTTP path, or `{ command: [...] }` |
 | `services.<name>.memory` · `stopGrace` | `512m` · `30s` | Container memory limit and stop grace |
@@ -144,13 +149,35 @@ services:
 | `services.<name>.volumes` | `{}` | Named volume → absolute mount path |
 | `services.<name>.sites.<site>.paths` | `[/]` | The path prefixes the service serves on that site |
 | `services.<name>.sites.<site>.port` | the service port | The container port the site reaches |
-| `services.<name>.needs` | `[]` | Platform services consumed: `postgres`, `valkey`, `broker` |
+| `services.<name>.needs` | `[]` | Backing services the server provides: `postgres`, `valkey`, `broker` |
 | `services.<name>.dependsOn` | `[]` | Services of this product it starts after, once each is healthy; no cycle |
 | `services.<name>.capabilities` | `[]` | Linux capabilities added back after `cap_drop: ALL` |
 
 - Every service runs with `no-new-privileges`, all capabilities dropped, an init process, bounded logs and a restart policy.
 - Each service answers on the platform network as `<product>-<environment>-<service>`; the ingress routes sites there.
 - Every service receives `DEPLOY_ENVIRONMENT` (`dev` or `prod`) from the runner, declared or not.
+
+### Pinned images
+
+A service may run another repository's published image, such as a per-product instance of a platform service (M77).
+
+```yaml
+services:
+  identity:                           # a per-product Identity instance
+    image: ghcr.io/wow-two-sdk-beta/wow-two-sdk-beta.identity/identity:0.3.0
+    health: /health
+    settings:
+      keys:
+        DatabaseSettings:ConnectionString: { required: true }
+        # … the instance's own keys: issuer, signing and encryption certificates
+    needs: [postgres]
+```
+
+- must give a pinned image a release tag, never `latest`, and no `build` or `paths` (M77).
+- must declare its health, settings and `needs` like any service's (M77).
+- must change the tag in the descriptor to upgrade it; a tag change is a descriptor change (M77).
+- The generator resolves the tag to a digest at release and versions the service by its tag.
+- Wheelhouse pulls and deploys it like any service; the product's services reach it on the platform network.
 
 ---
 
@@ -257,6 +284,7 @@ releases from theirs.
 | Named volumes | unique across its repositories too (`studio-data`, `motion-data`): one volume is one product's storage, so Wheelhouse refuses a clash rather than share or rename one |
 | `dependsOn` | may name another repository's service once the shared generator accepts it; Wheelhouse checks the whole product when it composes a release, and refuses an unknown service or a cycle |
 | `dotnetEnvironment`, `verify` | per repository: .NET environment names apply to the services of the repositories that opt in; the first repository's dev check runs for the set |
+| `migrate`, `extensions` | per repository, for its own images and sets; Wheelhouse merges them for the release set ([migrate](#migrate)) |
 
 - A release set is one release of each repository, composed by Wheelhouse into one bundle: it deploys, rolls back
   release-wide and promotes like a single repository's release, and only its changed services restart.
@@ -267,6 +295,62 @@ releases from theirs.
   repository makes a candidate set for dev. A product has no set until each of its deploying repositories has published
   a release.
 - Prod takes the very set dev proved; the changelog before a promotion compares each repository that changed.
+
+---
+
+## Migrate
+
+The step that brings every migration set to the release's level before any service restarts. Set, verb and
+compatibility rules → [migrations](../../development/backend/dotnet/core/mla/domains/persistence/migrations/migrations.md).
+
+```yaml
+migrate:                              # one item per image that hosts a set
+  - service: identity                 # a pinned per-product instance, before the sets that key into it
+    command: [dotnet, Identity.Api.dll, migrate]
+  - service: management               # hosts every set this repository owns
+    command: [dotnet, ForeverPin.Api.dll, migrate]
+    timeout: 10m                      # default 10m; 10s-60m
+extensions: [postgres_fdw]            # untrusted extensions only; a set creates trusted ones
+```
+
+- must declare one item per image that hosts a set, never one per service that reads a set (M9, M43).
+- must name a service of this descriptor; its release image runs `command` as the entrypoint (M9).
+- must give `command` as the program and its arguments, ending in the bare `migrate` verb (M9, M51).
+- may set `timeout`: default `10m`, from `10s` to `60m` (M9).
+- must list a pinned per-product instance before every item whose sets reference its set (M28, M77).
+- must list the untrusted extensions the product's sets need under `extensions` (M41).
+
+How the runner runs it:
+
+- on every forward deploy, dev and prod, after the pull and before the first wave (M13, M14).
+- in list order within a repository, every set after the sets it depends on (M14, M28).
+- across a release set's repositories, by the sets' `DependsOn` from the manifest, then catalog order (M28, M43).
+- each item in a one-off container: the item's release image, `--pull never`, the command as entrypoint, the
+  service's environment, volumes and memory, the platform network, all capabilities dropped, the image's user (M8).
+- connected through `Migrations:ConnectionString`, filled from the target's database beside the service's rendered
+  settings; the runtime role in v1 ([settings at deploy](#settings-at-deploy), M8).
+- after the prod snapshot, under the target's deployment lock for the whole job; the dev run is the rehearsal (M18).
+- any failure stops the job before any restart: exit `1` or `2`, a crash, the timeout (M14).
+- an exit `3` retries once, then fails "busy"; a timeout stops the container (M17).
+- records per item `status` (`applied` · `current` · `refused` · `failed` · `busy` · `timed out`), `exitCode`,
+  `seconds`, and per set the levels, applied labels with kind, rollback floor, background migrations and lock waits
+  from the `migrate-result` line (M37).
+- keeps the database's history the only history; Wheelhouse keeps job records beside it (M36, M38).
+- shows per environment and set the level and newest label from the latest job, and "check now" runs `migrate check`
+  from the image the target runs (M36, M38).
+- creates the declared `extensions` as superuser when it places the database (M41).
+
+The rollback gate:
+
+- every return to an older release — an operator rollback, the automatic restore, a deploy of an older release —
+  runs the older image's `migrate check` first (M15).
+- `0` proceeds; anything else refuses and names the snapshot (M15).
+- an older release that declares no `migrate:` item falls back to `rollbackCompatible`, with a warning (M15).
+
+The generator:
+
+- runs each item image's `migrate sets --json` and writes every set and its level into the release manifest (M78).
+- derives the bundle's `migrations` fact from those levels (M9, M78).
 
 ---
 
@@ -296,6 +380,7 @@ Wheelhouse renders each service's settings file at every deploy, in layers, the 
 | Wheelhouse | The environment's stored settings and its built-in vault secrets |
 | Derived | `AllowedHosts` (the hosts of the sites the service serves, its platform name `<product>-<environment>-<service>`, `localhost`), `Sites:<site>:Url` (each published site's origin) and `Deployment:TrustedProxies` (the ingress's address) |
 | Database | A required connection key no other layer sets (`ConnectionStrings:<name>`, `<Section>:ConnectionString`), from the target's own database, for a service that `needs: [postgres]` |
+| Migrate | `Migrations:ConnectionString` from the target's database, in the [migrate](#migrate) container only (M8) |
 
 - A derived key may sit under `settings.required`; nobody fills it in.
 - Every other required key the first deploy asks for, and a deploy waits until each has a value.
@@ -419,6 +504,7 @@ version in which it last changed, so services version independently and an old v
 - must pin `v0.10.0` or later to type its settings under `settings.keys`; an older generator refuses the key.
 - must pin `v0.11.0` or later to declare an identity (`name`, `description`, `homepage`, or a service's `name` or
   `description`); an older generator refuses the keys.
+- must pin `v0.12.0` or later to declare `migrate`, `extensions` or a pinned image; an older generator refuses each.
 - should move the pin to each new pipelines tag; every workflow of a repo that names the generator names one tag.
 - must trigger it on every push except `renovate/**` branches, on pull requests, and on `workflow_dispatch` with a
   `commit` input.

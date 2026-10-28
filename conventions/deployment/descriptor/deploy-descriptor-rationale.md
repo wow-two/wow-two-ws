@@ -1,6 +1,6 @@
 # Deployment descriptor — rationale
 
-*Last updated: 2026-10-01*
+*Last updated: 2026-10-28*
 
 > Why `deploy.yml` is a house format rather than an adopted one. The rules live in the
 > [deployment descriptor](deploy-descriptor.md).
@@ -24,3 +24,15 @@
 - declared dependencies — Score.
 - runtime vocabulary — Compose; the generator writes Compose from the descriptor, so no product hand-writes the
   deployed `compose.json`.
+
+---
+
+## Migrate step
+
+Reasoning per point in the [migrations analysis](../../../ideas/migrations-analysis-2026-10/migrations-analysis-2026-10.md).
+
+- a product-level `migrate:` list, not a key per service: a set may be read by several services and hosted by one
+  image, so the step belongs to sets, not to one service's wave (M9, M43).
+- every item before the first wave: a sibling reading the same set never restarts onto a pending schema (M14).
+- a pinned image as a service: a per-product instance shares the product's database, snapshot and release (M77).
+- `extensions:` in the descriptor: an untrusted extension needs a superuser, which only placement has (M41).

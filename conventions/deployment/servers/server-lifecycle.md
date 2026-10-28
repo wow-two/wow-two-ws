@@ -1,6 +1,6 @@
 # Server lifecycle
 
-*Last updated: 2026-10-21*
+*Last updated: 2026-10-28*
 
 > The steps a VPS follows from purchase to retirement, and the rule each step keeps.
 > Purpose — one list to audit a host against; commands and values stay in the runbook.
@@ -9,6 +9,8 @@
 Runbook → [VPS runbook](../../../workbench/wow-two-platform/wow-two-platform.wheelhouse/engineering/deployment/vps/vps.md#products-host)
 · [network and access](../../../workbench/wow-two-platform/wow-two-platform.wheelhouse/engineering/deployment/vps/network.md)
 · [local rehearsal](../../../workbench/wow-two-platform/wow-two-platform.wheelhouse/engineering/deployment/deployment.md#local-server).
+
+Point ids (`M6`) cite the [migrations analysis](../../../ideas/migrations-analysis-2026-10/migrations-analysis-2026-10.md).
 
 | Host | Runs |
 |---|---|
@@ -78,6 +80,10 @@ Runbook → [VPS runbook](../../../workbench/wow-two-platform/wow-two-platform.w
 ## Products
 
 - must give each product environment its own role and database `<product>_{dev,prod}`: no superuser, no role creation.
+- must host in that database the product's sets and every per-product instance's sets; a shared instance gets its
+  own database on its own server ([migrations](../../development/backend/dotnet/core/mla/domains/persistence/migrations/migrations.md#model), M6).
+- must create the product's declared untrusted `extensions` as superuser when placing its database
+  ([descriptor](../descriptor/deploy-descriptor.md#migrate), M41).
 - must keep a service's settings at `config/<product>-<environment>/<service>.json` under the deploy root:
   `0444` in a `0700` folder.
 - must set `AllowedHosts` to `<site host>;localhost` and `Deployment:TrustedProxies` to Traefik's `platform` address.
@@ -96,7 +102,8 @@ Runbook → [VPS runbook](../../../workbench/wow-two-platform/wow-two-platform.w
 - must back up databases, key volumes and runner state, encrypted, off the provider before public cutover.
 - must keep decryption credentials off the host and set a retention before unattended operation.
 - must restore into an empty database before trusting a backup.
-- must recover a failed schema change forward or by restore; an image rollback never undoes a migration.
+- must recover a failed schema change forward or from the snapshot; an image rollback never undoes a migration, and
+  the older image's `migrate check` gates it ([migrations](../../development/backend/dotnet/core/mla/domains/persistence/migrations/migrations.md#compatibility), M2, M15).
 
 ---
 
