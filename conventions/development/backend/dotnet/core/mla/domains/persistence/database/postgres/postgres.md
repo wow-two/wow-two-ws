@@ -12,6 +12,8 @@
 - must take a new major once it is generally available, never a beta or release candidate.
 - must name the image by its major (`postgres:18-alpine`), never `latest`: a major jump cannot open the old data
   directory, so a major upgrade is a planned dump and restore.
+- must mount a PostgreSQL 18 volume at `/var/lib/postgresql`: from 18 the image keeps its data in
+  `/var/lib/postgresql/18/docker` and refuses to start with a volume at `/var/lib/postgresql/data` (tested 18.6).
 
 ---
 
