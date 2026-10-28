@@ -1,6 +1,6 @@
 # Identity instances — wow2 and Ocharo
 
-*Last updated: 2026-10-27*
+*Last updated: 2026-10-28*
 
 > What the first two running Identity instances need, so the build starts in the right order: the wow2 instance
 > (single sign-on with roles into every wow2 platform app, Wheelhouse first) and the Ocharo instance (Telegram code
@@ -8,8 +8,9 @@
 
 ## Verdict
 
-- **Build the wow2 instance first, then Ocharo's.** Both share the OIDC spine (keys, server, sessions, client module).
-  Ocharo then adds the Telegram, invitation, durable-code and member-admin slices, plus Wheelhouse work it waits on.
+- **Build Ocharo's instance first, then wow2's** (developer, 2026-10-27, reversing the first pick). Both share the OIDC
+  spine (keys, server, sessions, client module), built 2026-10-27. Ocharo adds the Telegram, invitation, durable-code
+  and member-admin slices; wow2's hosted passkey, password and TOTP pages follow.
 - **The wow2 instance is operator-only and private.** It runs on the control host beside Wheelhouse, with no public
   site and no self sign-up. A public Form 3 instance for portfolio users is a separate, later instance on a products
   host (Q4 stays as its question).
@@ -20,8 +21,9 @@
 - **Ocharo P1:** staff only, invite-only, phone + bot code. Identity owns the bot webhook (Q13) and keys each person
   on the Telegram user id (Q14). Desk's accounts are reset, not converted: the organization id is kept and members
   are invited again.
-- **One Wheelhouse product per instance** answers Q5. The Ocharo instance waits on that, on domain binding and on
-  off-host backups (Q30). The wow2 instance waits on none of them.
+- **Q5 splits by instance kind** (revised 2026-10-28, migrations M77): the shared wow2 instance is a Wheelhouse product
+  of its own (B); Ocharo's per-product instance is a service of `ocharo`, its set in Ocharo's database (A). The Ocharo
+  instance waits on Wheelhouse's migrate step, domain binding and off-host backups (Q30).
 
 ## Inputs
 
@@ -387,10 +389,10 @@ The instance runs Q20's configured defaults; nothing is tuned for wow2.
 | host (Q4) | the control host: platform apps only, private | Ocharo's products host |
 | sites | `app` private · `console` private | `app` public (hosted pages, bot webhook) · `console` private |
 | issuer | a stable private host name with a trusted certificate, set explicitly | `https://id.<ocharo domain>` after domain binding; never a baseline host |
-| Wheelhouse product (Q5) | `identity`, as the repository's `deploy.yml` names it today | an instance product of its own (below) |
+| Wheelhouse product (Q5) | `identity`, as the repository's `deploy.yml` names it today | none: a service of `ocharo`, the image pinned by tag (A, below) |
 | workspace | wow2 platform | Ocharo |
-| database (T10) | its own PostgreSQL database per environment, schema `identity` | the same, on Ocharo's host (Q55) |
-| migrations (Q57) | the image's `migrate` step before the new image serves | the same |
+| database (T10) | its own PostgreSQL database per environment, schema `identity` | Ocharo's database `ocharo_{env}`, schema `identity` (M6, M77) |
+| migrations (Q57) | the image's `migrate` step before the new image serves | Ocharo's first `migrate:` item, before every set that depends on `identity` |
 | signing keys (Q25) | X.509 host files rendered from Wheelhouse's vault, a staged `NotBefore`, one set per environment | the same, never shared |
 | Data Protection (Q26) | ring in its own database, certificate-wrapped, ASP.NET ≥ 10.0.7 | the same |
 | bot | none | its own, one per environment |
@@ -417,22 +419,23 @@ The instance runs Q20's configured defaults; nothing is tuned for wow2.
 | **B · an instance product** | a Wheelhouse product per instance, naming the Identity repository as its release source; the runner uses the product's own slug in place of the descriptor's `product:` | Wheelhouse's existing placement gives a database per instance (`<slug>_{dev,prod}`); its own vault namespace, promotion pace, workspace and domain; Files' per-owner instances reuse the model | Wheelhouse lets one repository feed several products and overrides the slug |
 | C · instances inside one product | product `identity` gains instance rows | one view of all instances | the largest change; breaks "one placement per product" |
 
-- Pick **B**. The wow2 instance needs no change, because it is the repository's own product. Only the Ocharo instance
-  waits on B.
+- ~~Pick **B**~~ → revised 2026-10-28 (migrations M77): **B for shared instances only**; a per-product instance takes
+  **A**. One snapshot, one release and one step for Ocharo turn A's drawbacks into the point. The wow2 instance needs no
+  change, because it is the repository's own product.
 
 ### Before each goes live
 
 | Gate | wow2 | Ocharo |
 |---|---|---|
 | the § 6 slices for the instance, green; conformance Basic OP and RP-initiated logout pass in CI (Q28) | yes | yes, plus back-channel logout |
-| `deploy.yml` on PostgreSQL (`needs: [postgres]`); it names SQLite today | yes | yes |
-| an explicit migrate step: Wheelhouse's planned "migrations as a rollout step", or an owner-run `migrate` before the deploy until it ships (Q57) | yes | yes |
+| `deploy.yml` on PostgreSQL (`needs: [postgres]`), done 2026-10-27 | yes | yes |
+| an explicit migrate step: Wheelhouse's step and bridge (migrations spec phases 3–4), or an owner-run `migrate` before the deploy until it ships (Q57) | yes | yes |
 | migrator follow-ups: the owner marker names the instance, a baseline | yes | yes |
 | keys and the ring certificate generated by the owner with the image CLI, held in the vault, rendered as host files | yes | yes |
 | hosted-page headers: `frame-ancestors 'none'`, no third-party assets, `Referrer-Policy` (Q19, yes) | yes | yes |
 | first admin from the host CLI; production refuses personas, ephemeral keys or no ring | yes | yes |
 | break-glass drill passed (§ 2) | yes | — |
-| instance product in Wheelhouse (Q5 · B) | — | yes |
+| the Identity service and its `migrate:` item in Ocharo's `deploy.yml` (Q5 · A) | — | yes |
 | a domain bound, the issuer on it (Q30) | — | yes |
 | off-host backups and a restore proof with the post-restore step (Q30) | — | yes |
 | one bot per environment, the webhook set with its `secret_token`, a published privacy policy for the bot profile | — | yes |
@@ -511,7 +514,7 @@ The instance runs Q20's configured defaults; nothing is tuned for wow2.
 | M5 | **Wheelhouse signs in through the wow2 instance**: instance prod, Wheelhouse prod on SSO, step-up live | the developer's first target | M4 and a typed-confirm promotion |
 | M6 | a second real platform app (the Files console) joins | SSO with roles across apps | Files P1 |
 | M7 | the Ocharo slice green: I14 phone pre-registration, I15, I20, the I21 subset, back-channel logout | the Telegram flows on fake channels, then one real dev bot | § 6 steps 6–7 |
-| M8 | Wheelhouse: an instance product (Q5 · B), Ocharo's domain bound, off-host backups with a restore proof | the Ocharo gates | Wheelhouse backlog |
+| M8 | Wheelhouse: the migrate step and bridge, Ocharo's domain bound, off-host backups with a restore proof | the Ocharo gates | Wheelhouse backlog |
 | M9 | Ocharo instance dev with the dev bot; Desk dev as the first client; members invited | the reset path and a member's first sign-in through the bot | M7, M8 |
 | M10 | **Ocharo's apps sign in through theirs**: instance prod, then Desk, Catalogue and Brand, Studio, Marketing and Editorial one by one; the old paths retire | Ocharo's cutover | M9, the residency check |
 
@@ -529,10 +532,11 @@ Continuing the hub's queue. Each line: the question → the pick.
   namespaced by app with only the requesting app's namespace in its token, resource scope inside each app → yes
 - [x] Q62 wow2 P1 methods: passkey first, password always with TOTP, recovery codes, host CLI last; no email reset;
   the instance's default password policy (minimum 15) → yes (2026-10-27)
-- [ ] Q63 two owners' instances (answers Q5): one Wheelhouse instance product per instance, naming the Identity
-  repository under its own slug → B
-- [ ] Q64 Identity's `deploy.yml`: PostgreSQL and an explicit migrate step before the first instance; SQLite stays
-  Form 1 only → yes
+- [x] Q63 two owners' instances (answers Q5): one Wheelhouse instance product per instance, naming the Identity
+  repository under its own slug → B for shared instances only; reopened 2026-10-28, per-product instances take A, a
+  service of the product (migrations M77)
+- [x] Q64 Identity's `deploy.yml`: PostgreSQL and an explicit migrate step before the first instance; ~~SQLite stays
+  Form 1 only~~ → yes; PostgreSQL only (2026-10-27, migrations M40)
 - [ ] Q65 Ocharo users in P1: staff only, invite-only; customers later in the same instance, sign-up on
   customer-facing clients only, no membership → yes
 - [x] Q66 Desk's accounts: reset, keep the organization id, invite members again, the bot re-links (revises Q55's
