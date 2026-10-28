@@ -246,16 +246,17 @@ The example already serves the SPA from the API host, ships Docker and delivers 
   the frontend into `wwwroot/` on every backend build (`-p:BuildSpa=false` skips it).
 - `engineering/deployment/` holds `deploy.yml` (descriptor 2: the product's identity — `name`, rebranded by the brand
   pass, and a `{{ONE_LINE_WHAT_THIS_IS}}` `description` — one service, one `app` site at `/` and `/api`,
-  `needs: [postgres]`, `settings.required`, `dotnetEnvironment: true`, a `verify` dev check sending `Host: localhost`),
+  `needs: [postgres]`, `settings.required`, `dotnetEnvironment: true`, a `verify` dev check sending `Host: localhost`,
+  and the `migrate:` step running `dotnet {Brand}.Api.dll migrate`),
   `Dockerfile` (3-stage: node build SPA → dotnet publish with the SPA in `wwwroot` → aspnet runtime with `curl`;
   `APP_VERSION` build argument; no environment value in the image) and `docker-compose.yml` (local only: PostgreSQL,
   a one-shot `{brand}-migrate` running the image's `migrate`, then the app). Build context `= engineering/codebase/`;
   `.dockerignore` at the context root. The brand pass already
   rewrote the `{Brand}.Api` / `{Brand}.Api.dll` / product / service / image names.
 - `.github/workflows/ci.yml` (backend and frontend checks) and `publish-docker-image.yml` (the marker Wheelhouse
-  detects) publish through the shared `publish.yml` of `wow-two-platform.pipelines`, pinned to `v0.8.1`; pipelines
-  `v0.9.0` replaces both with one call of the shared `delivery.yml` — move the pin and the workflows together once
-  the tag exists. `.github/renovate.json` extends the private Renovate preset (a public repo switches to
+  detects) publish through the shared `publish.yml` of `wow-two-platform.pipelines`, pinned to `v0.12.0`, the first
+  that carries the `migrate:` step; the shared `delivery.yml` (pipelines `v0.9.0` and later) replaces both — move the
+  pin and the workflows together. `.github/renovate.json` extends the private Renovate preset (a public repo switches to
   `renovate-product` and adds `codeql.yml`). Nothing to wire.
 
 A domain repo delivers through five workflows: `publish-docker-image.yml` (the image, shared `delivery.yml`),
