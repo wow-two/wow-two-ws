@@ -316,9 +316,11 @@ Acceptance:
   `:348-351` refuses a tag and every service builds; the generator resolves the tag to a digest, pins it in compose
   and versions the service by its tag; a tag change is a descriptor change.
 - adds `extensions:` (*proposed*), the untrusted extensions placement creates (M41).
-- adds the manifest levels (M78): runs each item image's `migrate sets --json` and writes `migrations` per service;
-  derives the boolean `migrations` fact that runner `transport.py:264-270` and `release_sets.py:208-211` read (S13).
-- leaves `requires:` for a later minor (M32); ships as the next minor tag after `v0.11.0`.
+- adds the manifest levels (M78): runs each item image's `migrate sets --json` and writes `migrationSets`
+  (`{service: [set…]}`, the sets verbatim) plus the boolean `migrations: true` that runner `transport.py:264-270` and
+  `release_sets.py:208-211` read (S13); a descriptor without `migrate:` carries neither.
+- leaves `requires:` for a later minor (M32); shipped as `v0.12.0` on 2026-10-28 (README § *Migrations, pinned images
+  and extensions*).
 - acceptance: a valid list builds; a bad timeout, an unknown service or an empty command refuses; a descriptor
   without the key builds the same bundle byte for byte; a pinned image resolves to a digest; a tagged image with
   `build` refuses; `migrations` lists the canary's set and level.
