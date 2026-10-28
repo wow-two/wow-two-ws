@@ -13,7 +13,7 @@
 - must keep argument parsing, configuration, exit mapping and confirmation in the tree, out of the engine.
 - must construct the tree through the builder role and keep command bodies in the runner role.
 - must keep `Program.cs` to composition, parse/invoke and terminal error mapping.
-- current tree → [CLI builder](../../../../../../../../../../workbench/wow-two-sdk-beta/wow-two-sdk-beta.be/engineering/codebase/wow-two-sdk-beta-be/src/Data/Migrations/cli/CliCommandBuilder.cs).
+- current tree → [verb tree builder](../../../../../../../../../../workbench/wow-two-sdk-beta/wow-two-sdk-beta.be/engineering/codebase/wow-two-sdk-beta-be/src/Data/Migrations/Commands/MigrateCommandBuilder.cs).
 
 ---
 
@@ -55,7 +55,7 @@
 - must classify both `Result` failures and thrown exceptions at the tree's boundary.
 - must not depend on removed migration-specific exception types for returned failures.
 - must print a concise sanitized failure description, then the `migrate-result` line last (M37).
-- current runner → [CLI runner source](../../../../../../../../../../workbench/wow-two-sdk-beta/wow-two-sdk-beta.be/engineering/codebase/wow-two-sdk-beta-be/src/Data/Migrations/cli/CliRunnerService.cs).
+- current runner → [verb tree runner](../../../../../../../../../../workbench/wow-two-sdk-beta/wow-two-sdk-beta.be/engineering/codebase/wow-two-sdk-beta-be/src/Data/Migrations/Commands/MigrateCommandRunner.cs).
 
 ---
 
