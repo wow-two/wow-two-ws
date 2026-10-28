@@ -12,6 +12,7 @@ cite the [analysis](migrations-analysis-2026-10.md); the settled rules live in t
 - ✅ be sdk command tree and engine: `WoW2.Sdk.Beta.Be` `10.0.89-beta`
 - ✅ conventions and descriptor schema in the hub (`9e006fc`…`d4c4b02`)
 - ✅ Identity: § 1 adopted on be sdk `10.0.90-beta` — `402ee0f`, idempotency cutoff `1c3a117`
+- ⬜ Identity: § 4, added 2026-10-28 — PostgreSQL 18, the EF ban, rewriting sets before the database reset
 - ⬜ pipelines: `migrate:` list and pinned foreign images (spec phase 2)
 - ⬜ Wheelhouse: the migrate step, rollback gate and bridge (spec phases 3–4)
 
@@ -61,7 +62,15 @@ Re-pin notes — breaking changes in this be sdk release; a scan of Identity's c
 | 17 | A shared instance (wow2's Identity for the platform apps) is a Wheelhouse product of its own, with its own database, server and rollout; tenants are rows; consumers key it by id and clean up on `PersonDeleted` | M6, M29, M55, M80 |
 | 18 | Ocharo's Identity arrives as Ocharo's first `migrate:` item when `access.*` moves (Q66) | M77 |
 
-## 4. Decisions to record in the identity analyses
+## 4. Added 2026-10-28, on the published be sdk
+
+| # | Change | Where | Points |
+|---|---|---|---|
+| 19 | PostgreSQL 18, the newest stable major, everywhere: `postgres:18-alpine` in compose, the conformance workflow and both test servers; SQL inserts take v7 from the built-in `uuidv7()` ([version rule](../../conventions/development/backend/dotnet/core/mla/domains/persistence/database/postgres/postgres.md#version)) | `engineering/deployment/docker-compose.yml:15`, `.github/workflows/conformance.yml:58`, `tests/Identity.Tests.{E2E,Integration}/PostgresTestServer.cs:43` | M65 |
+| 20 | EF migrations, `EnsureCreated` and `Database.Migrate()` are banned; test databases take their schema from the set's SQL, never from the EF model | `tests/Identity.Tests.Integration/` (`IdentityTestDatabase.cs` and the hosts that call `EnsureCreated`) | — |
+| 21 | Products drop and recreate their databases at the sweep, so Identity may rewrite its sets as if the rules held from the start — e.g. fold 004's `deleted_at` into 001 — instead of stacking corrective files; item 5's "never edit an applied `Apply.sql`" holds again once a product keeps data | `packages/Module/Migrations/Postgres/` | M5, M75 |
+
+## 5. Decisions to record in the identity analyses
 
 - Q5 · B: holds for shared instances only; a per-product instance's set lives in the product's database (M6, M77).
 - Q63 (B): reopened for per-product instances, which take option A — a service of the product (M77).

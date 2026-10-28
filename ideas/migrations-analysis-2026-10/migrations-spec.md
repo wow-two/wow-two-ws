@@ -1,6 +1,6 @@
 # Migrations — wow2 spec
 
-*Last updated: 2026-10-27*
+*Last updated: 2026-10-28*
 
 ## 1. Scope
 
@@ -400,8 +400,12 @@ Acceptance:
     (`t10-schema-migrations.md:170`, `:336`); referenceable tables in `IdentityDatabaseOptions`; retire the SQLite set
     and its parity tests (M40).
   - Haven: `migrate` on the `database` image as a compose one-shot; its HTTP apply, rollback and seed endpoints and
-    `Schema:ApplyOnStartup` go, status stays read-only; seeds become SDK seed files; its journal converter,
-    `haven_uuid_v7()` and `updated_at` trigger move to the SDK or go (M44, M46, M51, M65, M74).
+    `Schema:ApplyOnStartup` go, status stays read-only; seeds become SDK seed files; `haven_uuid_v7()` yields to
+    PostgreSQL 18's `uuidv7()`; its journal converter and `updated_at` trigger move to the SDK or go (M44, M46, M51,
+    M65, M74).
+  - every product (owner 2026-10-28): rewrites its sets as if § 2 and the type rules held from the start, converts
+    any EF set to bespoke SQL, and drops and recreates its databases; Wheelhouse keeps its data, so its own renames
+    take two releases (§ 6 item 6).
   - Ocharo: Marketing (EF) and Brand, Catalogue, Blog, Studio and Motion (`EnsureCreated`, hand DDL) move from SQLite
     into `ocharo_{env}` with rows by an import, the history-less ones adopting sets, each joining `migrate:` in that
     release; `jobs` keeps `dependsOn: [desk]` for readiness only; Hangfire's installer joins the step; Ocharo's
@@ -459,11 +463,12 @@ Acceptance:
    writing verb needs `--confirm <database>`. Proposed: `--confirm` always, plus a flag for a contract or kind-less row.
 5. Haven's boot flag: § Multi-service products keeps `Schema:ApplyOnStartup` "for local runs"; M47 removes every boot
    flag, and M44 tailors Haven to the standard. This spec follows M44 and M47.
-6. Existing columns: M64, M67, M68 and M73 do not say when existing names and unbounded `text` conform (M71 says
-   "when next changed"); a rename or a narrowing is a contract, two releases on a platform app (Wheelhouse's
-   `*_at_utc`). M26's reference-data upserts and M51's `upsert` seed files overlap; the line between them is unset.
-7. M19 keeps `AllowOrphanedHistory` from the bridge on; with M16 and M21 shipped first, recorded kinds let R tolerate a
-   compatible `Ahead` without it, and `LevelMismatch = Warn` would let `Behind` and `Drifted` boot. Keep or drop?
+6. Settled (owner 2026-10-28): existing columns conform in the product sweep — each product rewrites its sets as if
+   the rules held from the start, then drops and recreates its databases; Wheelhouse keeps its data, so a rename
+   there is a contract over two releases (`*_at_utc`). Rows the code depends on stay in migrations (M26); rows
+   content owners edit go in `upsert` seed files (M51).
+7. Settled (owner 2026-10-28): drop `AllowOrphanedHistory` from the bridge; recorded kinds let R tolerate a
+   compatible `Ahead` (M16, M21).
 8. M50 transition: an applicant on the legacy bigint key (a boot below 10.0.82, `ApplyWhenDeployed`) does not exclude
    one on the reserved class; this spec adds taking both keys for one transition line.
 9. Conventions behind the answers: `capability-forms.md:71-72` gives a Form 1 consumer the migrations and forbids
@@ -475,11 +480,14 @@ Acceptance:
     an FNV-1a hash (U56); the history table's `execution_ms integer` (`PostgresMigrationDialect.cs`) breaks M70's
     `bigint`; `self-deploy.py` needs no step of its own (S14, M19), since it runs the release's runner, but its
     `rollback` runs the older release's runner (`:376-377`), which lacks the gate until releases built after phase 3.
-12. v7 in SQL (M65): hosts run `postgres:16-alpine` (`deployment/vps/products.compose.yml:38`), so `uuidv7()` is
-    unavailable; whether the SDK's function lives in a package set (M39) or in each set is unset.
+12. Settled (owner 2026-10-28): every host, compose file and test container moves to PostgreSQL 18, the newest
+    stable major, whose built-in `uuidv7()` serves SQL inserts; the SDK ships no function. The live hosts' 16 → 18
+    move is a dump and restore (postgres convention § Version).
 13. Multi-repository order: M43 merges items "in M28's order", a per-repository list order; across repositories this
     spec orders items by the sets' `DependsOn` from the manifest, then catalog order (*proposed*).
 14. Names this spec proposes: the host helper, `Migrations:ConnectionString`, `extensions:`, a bare `migrate` =
     `apply` + `seed`, `Seeds/NNN-name.json` with `{set}_seed_history`, `{set}_background_migrations`,
     `{{schema:<set>}}`, `-- @lock-timeout`, the lock defaults (5 s, 3 attempts, 2 min), kind-less rows as
     incompatible, the gate's fallback for releases without `migrate:`.
+15. Settled (owner 2026-10-28): EF migrations are banned; every set is bespoke SQL, and an EF set converts at its
+    product's sweep. DbUp starts no set.
