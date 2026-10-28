@@ -366,10 +366,13 @@ Acceptance:
 
 - `Sample.Api` (`Configurations/HostConfiguration.cs:40`; domain `service/Sample.Api/…:35`) keeps local boot apply
   only and gains the verb helper; `engineering/deployment/deploy.yml` gains its `migrate:` item (M10).
-- `tests/Sample.Tests.Migrations` turns required, with the idempotency mode, the lint and an E2E test of the verbs
-  (M53, M59); the baseline ships no sample table (M56); a shipped compose file gains the one-shot service (M47).
+- `tests/Sample.Tests.Migrations` turns required, with the idempotency mode and the lint; the verbs' test sits in the
+  E2E tier, as `migrations.md` § Testing places it (M53, M59); the baseline `001-baseline` is a no-op with no table
+  (M56); a shipped compose file gains the one-shot service (M47).
 - acceptance: a repository stamped by `create-repo` passes its migrations tier, answers `migrate sets --json` and
   `migrate check`, and its bundle carries `migrate` and `migrations`.
+- built 2026-10-28: product template `045dcda`…`96bef67` (pushed, releases v0.1.1 and v0.1.2), domain template
+  `1fc0f1b`…`69a579f` (local, no remote), create-repo `ef62505`, `5df6265`.
 
 ---
 
