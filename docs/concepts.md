@@ -1,6 +1,6 @@
 # WoW 2.0 — Concepts
 
-*Last updated: 2026-10-27 04:03 PM*
+*Last updated: 2026-10-28*
 
 > The words wow2 uses for what it builds, runs and owns, defined once so analyses, conventions and Wheelhouse mean
 > one thing by each. A definition marked *proposed* waits for the developer. The forms a platform capability ships in:
@@ -34,15 +34,15 @@
 | per-product instance | an instance that serves one product, its published image pulled beside the product or its libraries built into the product's image as a module (Form 1): its sets are named schemas in that product's database — "the same pgsql container and same database inside it, just separate schemas" — migrated in the product's step and restored with its snapshot; product tables may key into its published tables | Ocharo's Identity | developer, 2026-10-27 |
 | shared instance | an instance that serves several products: its own database, "hosted separately, in a completely separate server" apart from every product's host, its own rollout as a Wheelhouse product of its own ([identity instances](../ideas/identity-instances-2026-10/identity-instances-2026-10.md) § Two owners' instances of one image, Q5 · B); products hold its ids, never a foreign key | the Files host serving many products as tenants; wow2's Identity for the platform apps | developer, 2026-10-27 |
 | owner | the party a product or an instance belongs to, who decides its releases | wow2, Max's ventures, Ocharo, a client | proposed |
-| migration set | ordered SQL migrations with one history table, one advisory lock and optionally one owned schema; the unit of schema ownership ([migrations analysis](../ideas/migrations-analysis-2026-10/migrations-analysis-2026-10.md) § Definitions) | a product's default set; the `identity` set | proposed (M3 open) |
-| set owner | the one repository and assembly that authors a migration set and decides its changes: a product, a module or an instance's service | `ForeverPin.Persistence`, `Identity.Module` | proposed (M3 open) |
+| migration set | ordered SQL migrations with one history table, one advisory lock and optionally one owned schema; the unit of schema ownership ([migrations](../conventions/development/backend/dotnet/core/mla/domains/persistence/migrations/migrations.md#model)) | a product's default set; the `identity` set | developer, 2026-10-27 (M3) |
+| set owner | the one repository and assembly that embeds a migration set and decides its changes: a product, a module, a package or an instance's service; databases and services host sets and own none | `ForeverPin.Persistence`, `Identity.Module` | developer, 2026-10-27 (M3) |
 
 - a per-product instance belongs to its product's owner; a shared instance serves several products, of one owner or
   many, as tenants (developer, 2026-10-27).
 - a platform service reaches a product in one of two consumption modes: its published image pulled beside the product,
-  or its libraries built into the product's image (a module, Form 1). The service's named set is the same in both, so
-  switching modes is a `claim`, not a migration (proposed, M3 open).
+  or its libraries built into the product's image (a module, Form 1). The service's named set is the same in both, with
+  its own history, so switching modes is a `claim`, not a migration (developer, 2026-10-27; M3, M76).
 - a per-product instance turning shared is a move: its schema leaves for the shared server, and every foreign key into
-  it becomes an id with loose cleanup (proposed).
+  it becomes an id with loose cleanup (developer, 2026-10-27; M6, M33).
 - an owner and a set owner differ: Ocharo owns its Identity instance, while the Identity repository owns the sets that
-  instance runs (proposed).
+  instance runs (developer, 2026-10-27; M3).

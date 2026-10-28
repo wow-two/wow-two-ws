@@ -1,11 +1,12 @@
 # Capability forms
 
-*Last updated: 2026-10-25*
+*Last updated: 2026-10-28*
 
 > How a platform capability ships: an SDK library, a self-hosted service image and a provided service, under
 > one client contract.
 > Use case — identity, file storage, secrets, notifications, audit: a concern several products need that owns
 > state or secrets.
+> Point ids cite the [migrations analysis](../../ideas/migrations-analysis-2026-10/migrations-analysis-2026-10.md).
 
 ## Scope
 
@@ -19,7 +20,7 @@
 
 | Form | Ships | Runs | Consumer owns |
 |---|---|---|---|
-| 1 · library | an SDK module | inside the consumer's process | config, tables, secrets |
+| 1 · library | an SDK module | inside the consumer's process | config, secrets |
 | 2 · self-hosted service | SDK client + Docker image | a container the consumer deploys | the container's config |
 | 3 · provided service | the SDK client only | one central deployment we operate | its client config |
 
@@ -68,7 +69,11 @@
 
 ## Ownership
 
-- must let a Form 1 consumer own the tables, migrations and secrets; the module ships the migrations.
-- must let a Form 2 or Form 3 service own its database; a consumer never reads its tables.
+- must let the domain repo own the capability's migration set: one named set in every form (M3, M76).
+- must treat a Form 1 module, or a Form 2 instance serving one product, as a per-product instance (M6, M29).
+- must treat a Form 3 instance, or a Form 2 instance serving several products, as a shared instance (M6, M29).
+- where each instance's sets live and who migrates them → [migrations](backend/dotnet/core/mla/domains/persistence/migrations/migrations.md#platform-services).
+- how a consumer keys into or reads them → [cross-owner references](backend/dotnet/core/mla/domains/persistence/migrations/migrations.md#cross-owner-references) (M5, M7, M80).
+- must let a Form 1 consumer own the module's config and secrets.
 - must store a running service's secrets per [secrets](../security/secrets/secrets.md) § Storage.
 - must list the capability, its forms and their state in the platform app order `docs/platform-apps.md`.
