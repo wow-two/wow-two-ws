@@ -12,9 +12,12 @@ cite the [analysis](migrations-analysis-2026-10.md); the settled rules live in t
 - ✅ be sdk command tree and engine: `WoW2.Sdk.Beta.Be` `10.0.89-beta`
 - ✅ conventions and descriptor schema in the hub (`9e006fc`…`d4c4b02`)
 - ✅ Identity: § 1 adopted on be sdk `10.0.90-beta` — `402ee0f`, idempotency cutoff `1c3a117`
-- ⬜ Identity: § 4, added 2026-10-28 — PostgreSQL 18, the EF ban, rewriting sets before the database reset
-- ⬜ pipelines: `migrate:` list and pinned foreign images (spec phase 2)
-- ⬜ Wheelhouse: the migrate step, rollback gate and bridge (spec phases 3–4)
+- 🔄 Identity: § 4, added 2026-10-28 — PostgreSQL 18 done on be sdk `10.0.91` (`08f002b`); the EF ban and the set
+  rewrite in progress
+- ✅ pipelines `v0.12.0`: `migrate:` list, pinned images, `extensions:`, set levels in the bundle (spec phase 2)
+- ✅ Wheelhouse `v0.7.8` on dev and prod: the migrate step, rollback gate and Check now; the console migrates itself
+  through its own step (spec phases 3–4) — § 2 and § 3 can start
+- ⬜ live hosts: PostgreSQL 16 → 18 and a product database reset (Wheelhouse v0.7 Iteration 9), before the sweep
 
 ---
 
