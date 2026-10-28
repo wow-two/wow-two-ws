@@ -1,10 +1,11 @@
 # Entity contracts
 
-*Last updated: 2026-09-10*
+*Last updated: 2026-10-28*
 
 > The interfaces a persisted type implements — identity, audit, soft-delete, tenancy and concurrency.
 > Purpose — contracts live in a zero-ORM package, so the Domain assembly never references EF Core.
 > Use case — shaping a new [entity](../../../constructs/data/entity.md), or wiring an interceptor that stamps one.
+> Point ids cite the [migrations analysis](../../../../../../../../../ideas/migrations-analysis-2026-10/migrations-analysis-2026-10.md).
 
 ## Identity
 
@@ -53,12 +54,14 @@ Single-purpose interfaces, never base classes — an entity composes exactly the
 | creation actor | `ICreationAuditableBy<TUserId>` | `CreatedBy` |
 | update actor | `IModificationAuditableBy<TUserId>` | `UpdatedBy` |
 | both actors | `IAuditableBy<TUserId>` | the union of the two |
-| soft delete | `ISoftDeletable` | `IsDeleted`, `DeletedAt` |
+| soft delete | `ISoftDeletable` | `DeletedAt` |
 | soft-delete actor | `ISoftDeletableBy<TUserId>` | `DeletedBy` |
 | tenant scope | `IHasTenant<TTenantId>` | `TenantId` |
 
 - must take creation-only audit on an append-only type — a phantom `UpdatedAt` claims a lifecycle it has not got.
-- must let the interceptor stamp creation once and pin it on update; `CreatedAt` never changes after insert.
+- must let the interceptor stamp `CreatedAt` once and `UpdatedAt` on every update; `CreatedAt` never changes (M74).
+- must soft-delete by `DeletedAt` alone: set means deleted, null means live (M75).
+- column shapes → [Postgres audit and soft delete](../database/postgres/postgres.md#audit-and-soft-delete).
 - must use a struct as `TUserId` — the `*By<TUserId>` interfaces constrain it, and `Guid` is the standard.
 - must implement a composite only when both halves apply.
 

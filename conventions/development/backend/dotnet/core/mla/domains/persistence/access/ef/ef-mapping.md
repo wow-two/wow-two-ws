@@ -1,6 +1,6 @@
 # Ef mapping
 
-*Last updated: 2026-10-16*
+*Last updated: 2026-10-28*
 
 > EF runtime mapping under an explicitly selected schema-ownership strategy.
 
@@ -45,7 +45,7 @@
 - must not add index DDL metadata to a SQL-owned model solely to mirror scripts.
 - must not expect `HasMaxLength` or `HasPrecision` to validate application inputs.
 - must verify column type, nullability and conversion compatibility against the actual schema.
-- must apply `UseSnakeCaseNamingConvention()` for a schema following the Postgres naming convention.
+- must apply `UseSnakeCaseNamingConvention()`; every schema follows the [Postgres naming](../../database/postgres/postgres.md#naming) rule.
 
 ---
 
