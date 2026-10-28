@@ -1,6 +1,6 @@
 # Host configuration
 
-*Last updated: 2026-10-26*
+*Last updated: 2026-10-28*
 
 > Product composition in the host; reusable registration contracts in the SDK.
 
@@ -32,7 +32,10 @@ Ownership rationale is [separate](host-configuration-rationale.md#ownership).
 
 - must keep three statement groups with the comments in this example.
 - must leave the public partial test marker undocumented.
-- must keep registration, middleware, migrations, seeding, warm-up and startup logs behind `Configure`.
+- must keep registration, middleware, warm-up and startup logs behind `Configure`.
+- must answer `app migrate <verb>` after `Build()` and before `Configure`, so a migrate run starts no startup work;
+  only a local run applies migrations at boot
+  ([migration tooling](../../../../core/mla/domains/persistence/migrations/sql/migration-tooling.md)).
 - must await `ConfigureAsync` when startup work is asynchronous; that replaces the second group's call.
 
 ```csharp
@@ -44,10 +47,13 @@ builder.Configure();
 
 // Build and configure the app.
 var app = builder.Build();
+if (MigrateCommand.IsCommand(args))
+    return await app.RunMigrateCommandAsync(args);
 app.Configure();
 
 // Run.
-app.Run();
+await app.RunAsync();
+return 0;
 
 public partial class Program;
 ```

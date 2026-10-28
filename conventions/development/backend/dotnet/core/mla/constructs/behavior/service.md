@@ -1,6 +1,6 @@
 # Services
 
-*Last updated: 2026-09-10*
+*Last updated: 2026-10-28*
 
 > The fallback behavior component — business logic, orchestration or compute with no narrower role.
 > Purpose — every verb that is not another component's is still a named responsibility.
@@ -26,7 +26,7 @@
 
 ```csharp
 // ✅ names the work, not the type
-/// <summary>Provides channel and pipeline seeding on application startup.</summary>
+/// <summary>Provides channel delivery with retries and dead-lettering.</summary>
 // ❌ restates the suffix, so the responsibility stays unsaid
 /// <summary>Provides the channel service.</summary>
 ```

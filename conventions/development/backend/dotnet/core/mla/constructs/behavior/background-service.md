@@ -1,10 +1,10 @@
 # Background services
 
-*Last updated: 2026-10-26*
+*Last updated: 2026-10-28*
 
 > A type the host starts and stops, doing its work off the request path.
 > Purpose — give boot work and long-running loops a lifetime the host owns rather than a request's.
-> Use case — reach here for a migration run at startup or a queue drain; a pass on an interval is a periodic job
+> Use case — reach here for a cache warm-up at startup or a queue drain; a pass on an interval is a periodic job
 > → [host configuration](../../../../shapes/service/platform/startup/host-configuration.md#background-work).
 
 ## Location
@@ -29,7 +29,7 @@
 
 ```csharp
 // ✅ the work and its trigger
-/// <summary>Runs EF Core migrations on application startup with connect-retry.</summary>
+/// <summary>Runs the search-index warm-up on application startup with connect-retry.</summary>
 /// <summary>Schedules the classification sweep on the configured interval.</summary>
 
 // ❌ names neither the work nor what starts it
