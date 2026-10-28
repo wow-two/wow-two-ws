@@ -1,14 +1,24 @@
 # Migration dialects
 
-*Last updated: 2026-09-10*
+*Last updated: 2026-10-28*
 
 > Authoring PostgreSQL and SQLite migration SQL; runner lifecycle belongs to [bespoke migrations](bespoke-migrations.md).
+> Point ids cite the [migrations analysis](../../../../../../../../../../ideas/migrations-analysis-2026-10/migrations-analysis-2026-10.md).
 
-## Quoting
+## Naming
 
-- must quote reserved identifiers consistently in creation, queries, indexes and rollback.
-- must use SQL double quotes for identifiers in both PostgreSQL and SQLite.
-- may rename a reserved identifier while the schema is still fluid.
+- must write identifiers unquoted, in [snake_case](../../database/postgres/postgres.md#naming) (M64).
+- must rename an identifier that would need quotes, such as a reserved word, rather than quote it (M64).
+- must reference an identifier with one spelling and quoting in creation, queries, indexes and rollback.
+
+---
+
+## Idempotency
+
+- the rule → [rollback contract](bespoke-migrations.md#rollback) (M2); its idioms follow.
+- must guard creation and removal with `IF NOT EXISTS` and `IF EXISTS` where the statement accepts them.
+- must write a reference-data upsert as `INSERT … ON CONFLICT (…) DO UPDATE` (M26).
+- must bound a backfill to the rows it has not filled yet, as `WHERE new_column IS NULL` (M23).
 
 ---
 
@@ -43,6 +53,17 @@
 
 ---
 
+## Lock safety
+
+The `Testing.Data` lint flags each risk below (M22); the runner's lock bounds → [execution](../migrations.md#execution).
+
+- must build an index on an existing table `CONCURRENTLY`, in a `-- @no-transaction` file (M22).
+- must add a constraint to an existing table `NOT VALID`, then `VALIDATE CONSTRAINT` it (M22).
+- must not run an `ALTER COLUMN … TYPE` that rewrites a populated table; widening a `varchar(n)` does not (M22, M73).
+- must not add a column with a volatile default to an existing table (M22).
+
+---
+
 ## Native enum changes
 
 - must add a PostgreSQL enum label through a migration.
@@ -69,6 +90,7 @@ ALTER TYPE code_status ADD VALUE IF NOT EXISTS 'archived';
 
 ## SQLite storage
 
+- applies only to a SQLite set the [model](../migrations.md#model) still allows (M40, M49).
 - must match the stored shape consumed by the product's access provider.
 - must use the [portable enum policy](../../database/postgres/postgres.md#enums) for new enum storage.
 - must preserve an existing ordinal mapping until an explicit data migration changes it.

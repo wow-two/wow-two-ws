@@ -1,22 +1,35 @@
 # Migration tooling
 
-*Last updated: 2026-10-16*
+*Last updated: 2026-10-28*
 
-> CLI composition and operational controls for the bespoke migration engine.
+> How the `migrate` command tree is composed and hosted: the image helper, the `wow-migrate` tool, exit mapping,
+> guards, secrets and configuration. The verbs and their contract live in [actions](../migrations.md#actions).
+> Point ids cite the [migrations analysis](../../../../../../../../../../ideas/migrations-analysis-2026-10/migrations-analysis-2026-10.md).
 
 ## Shape
 
-- must keep argument parsing, configuration, composition, exit codes and confirmation in the CLI host.
+- must build the verb tree once, in the be sdk library that `wow-migrate` and every host share (M11, M57).
 - must delegate migration operations to `IMigrationRunnerService`.
+- must keep argument parsing, configuration, exit mapping and confirmation in the tree, out of the engine.
+- must construct the tree through the builder role and keep command bodies in the runner role.
 - must keep `Program.cs` to composition, parse/invoke and terminal error mapping.
-- must construct the command tree through the builder role and keep command bodies in the runner role.
 - current tree → [CLI builder](../../../../../../../../../../workbench/wow-two-sdk-beta/wow-two-sdk-beta.be/engineering/codebase/wow-two-sdk-beta-be/src/Data/Migrations/cli/CliCommandBuilder.cs).
+
+---
+
+## Host
+
+- must run a verb before the web host starts: `MigrateCommand.IsCommand(args)`, then
+  `app.RunMigrateCommandAsync(args)`, ahead of `app.Run()` (M11).
+- must exit with the verb's code instead of starting the web host (M57).
+- must serve `sets --json` from the service provider alone, with no settings file and no database (M78).
+- must answer the tree for EF and DbUp sets through the same helper (M11).
 
 ---
 
 ## Packaging
 
-- must distribute as a repo-local, exact-version-pinned `dotnet tool`.
+- must distribute `wow-migrate` as a repo-local, exact-version-pinned `dotnet tool`.
 - must use `PackAsTool`, an explicit `ToolCommandName`, and a dotted package id.
 - must keep one platform-agnostic package unless the tool deliberately ships platform-specific assets.
 - must set `CreateRidSpecificToolPackages=false` for that platform-agnostic .NET 10 tool package.
@@ -38,24 +51,21 @@
 
 ## Exit codes
 
-- must return `0` for success.
-- must return `1` for invalid input, configuration, drift or a failed migration precondition.
-- must return `2` for execution failure or refusal of a destructive-operation guard.
-- must classify both `Result` failures and thrown exceptions at the CLI boundary.
+- must map every outcome to the [exit contract](../migrations.md#actions): `0`, `1`, `2`, `3` (M10, M17).
+- must classify both `Result` failures and thrown exceptions at the tree's boundary.
 - must not depend on removed migration-specific exception types for returned failures.
-- must print a concise sanitized failure description.
+- must print a concise sanitized failure description, then the `migrate-result` line last (M37).
 - current runner → [CLI runner source](../../../../../../../../../../workbench/wow-two-sdk-beta/wow-two-sdk-beta.be/engineering/codebase/wow-two-sdk-beta-be/src/Data/Migrations/cli/CliRunnerService.cs).
 
 ---
 
-## Destructive operations
+## Guards
 
-- must guard rollback, repair, truncate and reset against the resolved target, not only an environment name.
-- must require `--i-understand-this-is <target>` to match that target with ordinal comparison.
-- must prompt `[y/N]` after target confirmation unless `--force` is supplied.
-- must return `2` on refusal and provide a sanitized rerun hint.
+- must compare `--confirm <database>` ordinally with the resolved database's name, never an environment name (M2).
+- must exit `1` on a missing or mismatched `--confirm`, with a sanitized rerun hint (M2).
+- must take the typed `--confirm` as the whole confirmation; no prompt and no `--force` (M34).
 - must guard only the mutating mode of a mixed read/write verb.
-- must enable engine rollback/repair only for the guarded operation.
+- must enable the engine's guard (`AllowRollback`) only for the guarded verb's run (M2).
 - must not hard-wire `AllowRollback` on for every invocation.
 
 ---
@@ -72,6 +82,7 @@
 
 ## Configuration
 
+- must connect every set through `Migrations:ConnectionString` when it is set, else the host's connection (M8).
 - must resolve explicit flag, environment, discovered default in that precedence order.
 - must fail with sanitized searched locations on a true miss.
 - must require an explicit path when source discovery is ambiguous.
