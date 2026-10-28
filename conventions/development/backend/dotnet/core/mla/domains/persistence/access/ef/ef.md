@@ -1,22 +1,21 @@
 # Ef
 
-*Last updated: 2026-10-26*
+*Last updated: 2026-10-28*
 
-> Reaching the database through EF Core — the change tracker, the mapping, and code-first migrations.
-> Schema authority follows the selected migration strategy.
-> Use case — mapping an entity, or generating and applying a code-first migration.
+> Reaching the database through EF Core — the change tracker and the mapping over a SQL-owned schema.
+> Use case — mapping an entity.
 
 ## What lives here
 
 - [entity configuration](entity-configuration.md) — `IEntityTypeConfiguration<T>` mapping and call order
-- [ef migrations](../../migrations/ef/ef-migrations.md) — `AddEfMigrationsRunner<TContext>` and the code-first flow
+- [ef migrations](../../migrations/ef/ef-migrations.md) — banned: why, and converting an existing EF set
 
 ---
 
 ## Boundary
 
 - must keep EF types out of the Domain assembly — the entity stays provider-free.
-- must not mix EF migrations with another strategy against one database.
+- must not generate or apply EF migrations; every set is bespoke SQL.
 
 ---
 

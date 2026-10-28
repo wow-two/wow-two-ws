@@ -6,11 +6,9 @@
 
 ## Schema ownership
 
-- must choose the [migration strategy](../../migrations/migrations.md#strategy) before configuring the model.
-- must treat applied scripts as canonical under a SQL-owned strategy.
-- must not call `EnsureCreated`, `Migrate` or generate EF migrations against that SQL-owned schema.
-- must use [EF migration rules](../../migrations/ef/ef-migrations.md) when the EF model owns schema evolution.
-- must retain DDL configuration needed by EF-generated migrations under that strategy.
+- must treat the set's applied SQL scripts as canonical; the model follows the schema, never the reverse.
+- must not call `EnsureCreated`, `Migrate` or generate EF migrations; they are
+  [banned](../../migrations/ef/ef-migrations.md).
 
 ---
 

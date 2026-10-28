@@ -38,9 +38,11 @@
 ## Strategy
 
 - must choose one strategy per set; never apply two journals to one schema.
-- must use [bespoke SQL](sql/bespoke-migrations.md) by default.
-- may use [EF migrations](ef/ef-migrations.md) when the EF model owns the set's schema.
-- may use DbUp only under its [selection](dbup/dbup-migrations.md#selection) rule.
+- must use [bespoke SQL](sql/bespoke-migrations.md) for every set.
+- must not use EF migrations, `EnsureCreated` or `Database.Migrate()` for any set; EF Core only maps a SQL-owned
+  schema (owner 2026-10-28) → [why, and converting an EF set](ef/ef-migrations.md).
+- must not start a set on DbUp → [selection](dbup/dbup-migrations.md#selection).
+- must convert an existing EF or DbUp set to bespoke SQL at its product's sweep.
 - must answer the same verbs and exits whatever the strategy (M11) → [actions](#actions).
 - must retain explicit schema ownership when changing strategy.
 
@@ -48,8 +50,8 @@
 
 ## Declaration
 
-- must register each set in code: `AddDatabaseBespokeMigrations`, `AddDatabaseBespokeMigrationSet`, or the EF or DbUp
-  runner (M10, M11); file layout → [bespoke migrations](sql/bespoke-migrations.md#layout).
+- must register each set in code: `AddDatabaseBespokeMigrations` or `AddDatabaseBespokeMigrationSet`; an EF or DbUp
+  runner only until its conversion (M10, M11); file layout → [bespoke migrations](sql/bespoke-migrations.md#layout).
 - must embed every set in the image that hosts it; filesystem sources serve `wow-migrate` and local work only.
 - must ship `app migrate <verb>` in every image that hosts a set (M10, M57) → [actions](#actions).
 - must declare the step in `deploy.yml`'s `migrate:` list, one item per image that hosts a set (M9, M43) →

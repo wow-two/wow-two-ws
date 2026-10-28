@@ -2,47 +2,27 @@
 
 *Last updated: 2026-10-28*
 
-> EF-owned schema evolution for a code-first set.
+> Banned in wow2 (owner 2026-10-28): no set evolves through EF migrations, `EnsureCreated` or `Database.Migrate()`.
+> EF Core maps a SQL-owned schema only → [EF mapping](../../access/ef/ef-mapping.md); every set is
+> [bespoke SQL](../sql/bespoke-migrations.md).
 > Point ids cite the [migrations analysis](../../../../../../../../../../ideas/migrations-analysis-2026-10/migrations-analysis-2026-10.md).
 
-## Selection
+## Why
 
-- may select EF migrations when one model owns schema evolution.
-- must not combine this strategy with SQL-owned migrations over the same schema.
-- must follow the shared [migration lifecycle](../migrations.md#lifecycle).
-- must answer the same `migrate` verbs and exits as every set (M11) → [actions](../migrations.md#actions).
-
----
-
-## Registration
-
-- may register `AddEfMigrationsRunner<TContext>()` for a local run's boot apply only, when `IsLocalRun` (M16).
-- must not let it apply on any deployed boot, dev included; the step runs `app migrate` (M16, M47).
-- must validate configured connection retry counts and delays through the agreed [options recipe](../../../../components/options.md#registration).
-- actual registration and defaults → [EF migration registration](../../../../../../../../../../workbench/wow-two-sdk-beta/wow-two-sdk-beta.be/engineering/codebase/wow-two-sdk-beta-be/src/Data/Migrations/Ef/EfMigrationsServiceCollectionExtensions.cs).
+- EF decides the SQL at generation time; no reviewed script in the repository says what runs.
+- A generated rename or type change may drop and re-add a column, losing its data.
+- `Down` is generated and seldom run, so a rollback stays unproven (M2, M59).
+- It carries no migration kinds, `-- @contract since=`, lock timeout or no-transaction header (M16, M21, M50).
+- The model snapshot and designer files drift and conflict between branches.
+- `Database.Migrate()` invites an apply at boot, which deployed boots forbid (M47).
 
 ---
 
-## Authoring
+## Converting an EF set
 
-- must edit the model and generate its migration rather than hand-edit the database.
-- must review generated operations for data preservation before applying them.
-- may use migration SQL for an operation the EF model cannot express.
-- must not remove an applied migration to rewrite shared history.
-- must keep each migration's `Down` a real inverse, or an explicit no-op where none exists (M2).
-- must put a contract in a migration of its own (M21) → [compatibility](../migrations.md#compatibility).
-- must keep the model snapshot and migration files in the owning repository.
-
-```bash
-dotnet ef migrations add AddServiceColumn
-```
-
----
-
-## Execution
-
-- must verify the runner/provider's locking before allowing concurrent application → [execution](../migrations.md#execution).
-- must distinguish a transient connection failure from a failing migration statement when configuring retries.
-- must verify both model mapping and migration behavior on the target engine.
-- must keep migration-only mapping configuration when EF generates the schema.
-- runtime mapping → [EF mapping](../../access/ef/ef-mapping.md).
+- must convert at the product's sweep: script the current model once (`dotnet ef dbcontext script`) into
+  `001-<name>/Apply.sql`, hand-write its `Rollback.sql`, then delete `Migrations/`, the snapshot and the designer files.
+- must conform the scripted schema to the [PostgreSQL rules](../../database/postgres/postgres.md) while converting.
+- may drop and recreate the set's database instead of a `baseline`, while products have no external users
+  (owner 2026-10-28).
+- must answer the `migrate` verbs through `AddEfMigrationsRunner<TContext>` only until the conversion lands (M11).
