@@ -176,8 +176,10 @@ services:
 - must give a pinned image a release tag, never `latest`, and no `build` or `paths` (M77).
 - must declare its health, settings and `needs` like any service's (M77).
 - must change the tag in the descriptor to upgrade it; a tag change is a descriptor change (M77).
-- Renovate proposes each newer tag through the pipelines preset and merges it once CI passes (owner 2026-10-29); the
-  merge releases a bundle, and Wheelhouse deploys it to dev like any release.
+- Renovate pushes each newer tag to its `renovate/pinned-images` branch through the pipelines preset, with no pull
+  request: the branch push runs the product's checks, and Renovate fast-forwards `main` once they pass, opening a pull
+  request only when they fail (owner 2026-10-29: "ci doing it without a pr is preferred"). The `main` push releases a
+  bundle, and Wheelhouse deploys it to dev like any release.
 - The generator resolves the tag to a digest at release and versions the service by its tag.
 - Wheelhouse pulls and deploys it like any service; the product's services reach it on the platform network.
 
@@ -447,7 +449,7 @@ version in which it last changed, so services version independently and an old v
 | Built from | Version | Image tags | Deploys to | Kept |
 |---|---|---|---|---|
 | `main` | `X.Y.Z`, the next `Z` | `X.Y.Z`, `latest` | dev, then prod | for good: a release |
-| any other branch, or a dispatched commit | `X.Y.(Z+1)-<branch>.<n>` | `sha-<commit>` | dev, by hand | 14 days |
+| any other branch but `renovate/**`, or a dispatched commit | `X.Y.(Z+1)-<branch>.<n>` | `sha-<commit>` | dev, by hand | 14 days |
 
 - `Z` is the highest `vX.Y.*` tag plus one, so no version-bump commit lands in history; `Z` restarts at 0 on a new `X.Y`.
 - A `main` build releases only when a service or the descriptor changed; a docs-only push releases nothing.
@@ -507,9 +509,12 @@ version in which it last changed, so services version independently and an old v
 - must pin `v0.11.0` or later to declare an identity (`name`, `description`, `homepage`, or a service's `name` or
   `description`); an older generator refuses the keys.
 - must pin `v0.12.0` or later to declare `migrate`, `extensions` or a pinned image; an older generator refuses each.
+- must pin `v0.13.0` or later to trigger on `renovate/**` pushes: from it such a push runs the checks and publishes
+  nothing, and leaves a commit a pull request run verifies to that run; an older tag publishes a candidate for it.
 - should move the pin to each new pipelines tag; every workflow of a repo that names the generator names one tag.
-- must trigger it on every push except `renovate/**` branches, on pull requests, and on `workflow_dispatch` with a
-  `commit` input.
+- must trigger it on every branch push (`branches: ['**']`), on pull requests, and on `workflow_dispatch` with a
+  `commit` input, so Renovate's automerged branches get their checks (owner 2026-10-29); a pin before `v0.13.0` keeps
+  `'!renovate/**'` in the push branches.
 - must keep one concurrency group per ref (`inputs.commit || github.ref`), queued with `queue: max`, and set no
   `cancel-in-progress`: GitHub rejects `queue: max` with a `cancel-in-progress` that evaluates true, at run start,
   and starts no job. A superseded branch run therefore still builds.
@@ -535,7 +540,8 @@ Full caller and check keys: the pipelines `README.md`. The shared workflow:
 - skips a `main` push a newer push has replaced, and builds, tests and publishes nothing for a push that changes only
   docs, planning or markdown since the last delivered commit; its `gate` check still passes;
 - runs each declared check whose paths changed, then publishes once they pass; a pull request runs the checks only;
-- builds on every code push: `main` releases, every other branch builds a candidate;
+- builds on every code push but a `renovate/**` one, which runs the checks only: `main` releases, every other branch
+  builds a candidate;
 - builds a dispatched commit that has no build yet (Wheelhouse's Build action);
 - builds each changed service from `deploy.yml`, whatever its Dockerfile, target, arguments or build contexts;
 - fetches the Git LFS files under `engineering/` first, so images carry real assets instead of pointer files;
