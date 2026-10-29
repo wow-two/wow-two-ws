@@ -46,7 +46,7 @@ docs/ (strategy, playbooks) · system/sessions/ · ideas/ · scripts/ · workben
 - **No `README.md` below a repo root.** Folder lead docs use `{folder}.md` (e.g. `Data/Migrations/migrations.md`). See `conventions/development/repo/structure/repo-structure.md` § *Documents*. **Exception:** declared NuGet `PackageReadmeFile` and npm `README.md` beside `package.json` are functional package metadata; preserve them as required by SDK structure.
 - **Skills** (`.claude/skills/`): `open-active` (open the working set in Rider/WebStorm) · `create-repo` (scaffold a conformant repo) · `create-library` (a domain library from template to GitHub, packages, image, catalog and consumer re-pins, via `scripts/release/library.py plan`).
 - **Live state / roadmap:** `workbench/wow-two/wow-two.refinement`.
-- **Platform app order:** `docs/platform-apps.md` — Wheelhouse, then Secrets Vault, then the rest top down.
+- **Platform app order:** `docs/platform-apps.md` — Wheelhouse, Identity, Files, then the rest top down.
 - **Venture product order:** `system/planning/pln-tasks.md` § *Venture product order* — the user-set product queue toward subscription revenue (MRR), with the current product marked.
 
 ## Agentic workflow (parallel chats)

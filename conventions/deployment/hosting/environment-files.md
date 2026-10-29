@@ -19,7 +19,7 @@
   never commit one or copy it into an image.
 - must keep `appsettings.Target.json` and the retired `appsettings.Machine.json` gitignored and out of every image
   build context too, so a stray copy never leaks.
-- must take every deployed override from an environment variable or Secrets Vault; the repo holds defaults only.
+- must take every deployed override from an environment variable or Wheelhouse's vault; the repo holds defaults only.
 - must enter a deployed override in the Wheelhouse console: a non-secret value under Settings, a secret under Secrets.
 - must keep secret values out of the repo ([secrets](../../security/secrets/secrets.md) § *Repository content*).
 - must declare a service's required settings in its

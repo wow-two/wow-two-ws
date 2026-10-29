@@ -9,8 +9,6 @@
 
 | Repo | Service | Port(s) |
 |---|---|---|
-| secrets-vault | API | 8200 https / 8201 http |
-| secrets-vault | frontend (Vite) | 5173 |
 | wheelhouse | API | 8210 https / 8211 http |
 | wheelhouse | frontend (Vite) · HTTP preview | 5174 · 5175 |
 | wheelhouse | local console + rehearsal rig (loopback) | console 18210 · SSH target 2222 · registry 15000 · vault 18201 |

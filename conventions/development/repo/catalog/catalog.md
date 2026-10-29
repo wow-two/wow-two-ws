@@ -1,6 +1,6 @@
 # Catalog
 
-*Last updated: 2026-10-24*
+*Last updated: 2026-10-29*
 
 > `catalog.yml` at the root of each hub repository: every repository and app the hub owns, one entry per product.
 > Purpose — one machine-readable source per owner: Wheelhouse imports from every hub; `.claude/repo-registry.md` renders them all.
@@ -74,14 +74,15 @@ workspaces:
     name: wow2 platform
     description: "Platform apps that deploy and run the portfolio, and their test fixtures"
 entries:
-  - slug: secrets-vault
-    name: Secrets Vault
+  - slug: wheelhouse
+    name: Wheelhouse
     workspace: wow2-platform
     kind: platform
     deploy: wheelhouse
     status: "Active"
-    purpose: "Secrets vault — envelope-encrypted store + management UI"
-    repositories: [wow-two-platform/wow-two-platform.secrets-vault]
+    purpose: "Product ops & deploy control plane (Clean-Arch .NET 10 + Vue)"
+    repositories: [wow-two-platform/wow-two-platform.wheelhouse]
+    replaces: [secrets-vault]               # retired repository it absorbed
 ```
 
 | Key | Meaning |
@@ -152,6 +153,21 @@ Ocharo's `ocharo` entry lists Platform, Studio, Marketing and Assets.
   order.
 - must validate against the schema, then run `python3 scripts/gen-repo-registry.py` in `wow-two-ws`.
 - must commit the hub's `catalog.yml` in the hub and `.claude/repo-registry.md` in `wow-two-ws`.
+
+---
+
+## Retiring a repository
+
+A repository retires when another product absorbs it or its product is dropped: Secrets Vault merged into Wheelhouse's
+built-in vault (Wheelhouse decision 59, shipped v0.5) and was archived 2026-10-29.
+
+- must archive it on GitHub, never delete it; push its unpushed commits first, since an archive is read-only.
+- must delete its entry from the hub in the same pass; the registry keeps no row for an archived repository.
+- must name its slug in the absorbing entry's `replaces`, so Wheelhouse retires its product when nothing deployed it.
+- must drop it from the [port ledger](../../../deployment/hosting/ports.md) and `scripts/active.sh`, then regenerate the
+  registry.
+- must point hub documents that still name it as a live app at the absorbing product; dated analyses stay as written.
+- must leave the local checkout to the owner.
 
 ---
 

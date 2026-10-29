@@ -39,7 +39,6 @@ DELAY="${DELAY:-0.4}"
 PROJECTS=(
   "tbs|maxs-projects/clients/mintrans/track-2-transportbrain/engineering/codebase/tbs.backend-services/tbs.backend-services.slnx|maxs-projects/clients/mintrans/track-2-transportbrain/engineering/codebase/tbs.frontend-services"
   "wheelhouse|wow-two-platform/wow-two-platform.wheelhouse/engineering/codebase/wheelhouse.backend-services/Wheelhouse.BackendServices.slnx|wow-two-platform/wow-two-platform.wheelhouse/engineering/codebase/wheelhouse.frontend-services"
-  "secrets-vault|wow-two-platform/wow-two-platform.secrets-vault/engineering/codebase/secrets-vault.backend-services/Wow-Two-Platform.Secrets-Vault.sln|wow-two-platform/wow-two-platform.secrets-vault/engineering/codebase/secrets-vault.frontend-services"
   "forever-pin|maxs-projects/ventures/saas/10x-venture-forever-pin/engineering/codebase/forever-pin.backend-services/ForeverPin.BackendServices.slnx|maxs-projects/ventures/saas/10x-venture-forever-pin/engineering/codebase/forever-pin.frontend-services"
   "trademark-watcher|maxs-projects/ventures/saas/trademark-watcher-poc/platform/src/backend/Trademark.Watcher.sln|-"
   "acquisition-explorer|-|maxs-projects/ventures/saas/acquisition-explorer-poc/platform/acquisition-explorer-frontend"

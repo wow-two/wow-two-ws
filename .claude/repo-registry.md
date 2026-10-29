@@ -7,7 +7,7 @@
 
 # Repo Registry
 
-*Last updated: 2026-10-27*
+*Last updated: 2026-10-29*
 
 All repos use the naming convention: `{org}.{domain}[.{subdomain}]`, lowercase, dot-separated. Repo prefix matches org name exactly.
 
@@ -55,7 +55,6 @@ Org: [github.com/wow-two-platform](https://github.com/wow-two-platform) — pipe
 | `wow-two-platform.design-patterns` | Common design patterns | Active |
 | `wow-two-platform.contrimap` | POCO mapping | POC |
 | `wow-two-platform.wheelhouse` | Product ops & deploy control plane (Clean-Arch .NET 10 + Vue) | Active |
-| `wow-two-platform.secrets-vault` | Secrets vault — envelope-encrypted store + management UI | Inactive: merging into Wheelhouse as its built-in vault (Wheelhouse decision 59) |
 | `wow-two-platform.wheelhouse-canary` | Sample Vue + .NET + PostgreSQL app Wheelhouse deploys to dev and prod to prove every deployment flow | v0.1 built; awaiting first deploy |
 | `wow-two-platform.events` | Shared event catalog fed by Harvest and curated in review, with private tracking per organization | Planned: design ready (ideas/events-service-spec.md); repository not created |
 | `.github` | Org-wide GitHub config | Active |

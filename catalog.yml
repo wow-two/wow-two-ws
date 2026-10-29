@@ -246,14 +246,7 @@ entries:
     status: "Active"
     purpose: "Product ops & deploy control plane (Clean-Arch .NET 10 + Vue)"
     repositories: [wow-two-platform/wow-two-platform.wheelhouse]
-  - slug: secrets-vault
-    name: Secrets Vault
-    workspace: wow2-platform
-    kind: platform
-    deploy: none
-    status: "Inactive: merging into Wheelhouse as its built-in vault (Wheelhouse decision 59)"
-    purpose: "Secrets vault — envelope-encrypted store + management UI"
-    repositories: [wow-two-platform/wow-two-platform.secrets-vault]
+    replaces: [secrets-vault]
   - slug: wheelhousecanary
     name: Wheelhouse Canary
     workspace: wow2-platform
