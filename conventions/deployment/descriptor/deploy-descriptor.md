@@ -1,6 +1,6 @@
 # Deployment descriptor
 
-*Last updated: 2026-10-28*
+*Last updated: 2026-10-29*
 
 > One file per product repo, `engineering/deployment/deploy.yml`, declaring the product's identity and its deployable
 > services: what the product is called, how each service builds, which paths change it, how it runs, which site paths
@@ -176,6 +176,8 @@ services:
 - must give a pinned image a release tag, never `latest`, and no `build` or `paths` (M77).
 - must declare its health, settings and `needs` like any service's (M77).
 - must change the tag in the descriptor to upgrade it; a tag change is a descriptor change (M77).
+- Renovate proposes each newer tag through the pipelines preset and merges it once CI passes (owner 2026-10-29); the
+  merge releases a bundle, and Wheelhouse deploys it to dev like any release.
 - The generator resolves the tag to a digest at release and versions the service by its tag.
 - Wheelhouse pulls and deploys it like any service; the product's services reach it on the platform network.
 
