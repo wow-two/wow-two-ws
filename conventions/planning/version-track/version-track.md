@@ -1,6 +1,6 @@
 # Version Track
 
-*Last updated: 2026-10-20*
+*Last updated: 2026-10-29*
 
 The only planning convention: a repository plans with one backlog and one folder per version, the iterations and
 capabilities a product ships in that version.
@@ -64,6 +64,11 @@ A repository plans with exactly two things, both under `engineering/planning/`:
 - must hold ≤ 1 week of work — overflow goes to `engineering/planning/backlog.md`
 - must plan only the next version — future work waits in the backlog
 - a cycle is `Feature` → `Adoption`; 1 cycle = 2 versions (full model → `../../development/dev-cycle.md`)
+- must follow every `Feature` version with an `Adoption` version; the next `Feature` version opens only after it
+  (owner 2026-10-29)
+- must open the `Adoption` version even when it finds nothing to do: mark it `⏭️ Skipped`, say why in one line, close it
+- must start an `Adoption` version with a sweep — infrastructure the `Feature` version built inline, SDK capabilities
+  the product duplicates or has not adopted, SDK pins behind the newest release — and plan its iterations from that
 - must number a `Feature` version with an odd minor and an `Adoption` version with an even minor (`v0.5` · `v0.6`)
 - may hold `Polish` iterations beside its capability iterations, whatever its type (below)
 
@@ -148,12 +153,13 @@ The task-form rules govern task lines. This governs everything else on the page,
 
 ## Lifecycle
 
-- `⏳ Planned` → `🚧 In Progress` → `✅ Complete`
+- `⏳ Planned` → `🚧 In Progress` → `✅ Complete`; an `Adoption` version the sweep finds nothing for is `⏭️ Skipped`
 - must open a version when planning it and close it when its tasks are done — set `Completed`, flip `Status`; one active at a time
+- may close a `Feature` version early, on the developer's word, to run its `Adoption` version first; its unshipped tasks move to the next `Feature` version
 - must not advance to the next version until the current is `✅ Complete` **and** the developer explicitly says to proceed — never pre-declare, queue, or auto-begin the next version (in chat or in the plan); finish, report, and stop
 - must **verify completion with the developer** before marking a version / iteration complete — never self-declare it
 - must treat a `Verification` iteration's checks as the **developer's manual pass** — they tick on the developer's word, not on evidence in the tree; every other task ticks only on shipped code
-- must **move an unshipped task to the next version** when closing a version — a closed version's task list describes only what shipped. Carry it to the iteration whose focus it fits, or open a new one named for that focus; never name the new iteration after where the task came from, and never leave a note that it moved
+- must **move an unshipped task to the next version of its type** when closing a version — a closed version's task list describes only what shipped; a `Feature` task skips the `Adoption` version between. Carry it to the iteration whose focus it fits, or open a new one named for that focus; never name the new iteration after where the task came from, and never leave a note that it moved
 - must not apply that rule **within** an open version — a closed iteration inside an in-progress version may sit beside open ones, since iterations are not worked in order
 - must **strip a completed iteration's sub-steps** once verified — a sub-step itemizes *how* to build something already built, so it is spent the moment the iteration closes; git holds it
 - must leave the completed iteration's **tasks** in place, one compact line each, as the record of what the version delivered — rewrite any that were never compact rather than carrying the sprawl forward
