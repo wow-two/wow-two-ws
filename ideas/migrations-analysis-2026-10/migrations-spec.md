@@ -411,6 +411,9 @@ Acceptance:
   - every product (owner 2026-10-28): rewrites its sets as if § 2 and the type rules held from the start, converts
     any EF set to bespoke SQL, and drops and recreates its databases; Wheelhouse keeps its data, so its own renames
     take two releases (§ 6 item 6).
+  - every product on pipelines older than `v0.13.0` (owner 2026-10-29, Renovate without pull requests): moves its
+    pins to `v0.13.0`, triggers its delivery on every push including `renovate/**`, and drops any
+    `cancel-in-progress` expression; Wheelhouse, its canary and the domain template did this first.
   - Ocharo: Marketing (EF) and Brand, Catalogue, Blog, Studio and Motion (`EnsureCreated`, hand DDL) move from SQLite
     into `ocharo_{env}` with rows by an import, the history-less ones adopting sets, each joining `migrate:` in that
     release; `jobs` keeps `dependsOn: [desk]` for readiness only; Hangfire's installer joins the step; Ocharo's
