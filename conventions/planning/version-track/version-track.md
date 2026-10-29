@@ -49,6 +49,8 @@ A repository plans with exactly two things, both under `engineering/planning/`:
 - must treat the newest folder as the active one
 - the active version's `X.Y` is the product's code version; CI assigns the patch `Z` to each release from `main`
   ([versioning](../../development/repo/versioning/versioning.md))
+- an SDK repository's track version scopes its plan only; its packages keep their own versions (`10.0.N-beta`,
+  `0.0.N`)
 
 ---
 
@@ -66,9 +68,14 @@ A repository plans with exactly two things, both under `engineering/planning/`:
 - a cycle is `Feature` → `Adoption`; 1 cycle = 2 versions (full model → `../../development/dev-cycle.md`)
 - must follow every `Feature` version with an `Adoption` version; the next `Feature` version opens only after it
   (owner 2026-10-29)
+- must run that cycle in every repository with a version track: products, domain libraries (Identity, Files,
+  Harvest) and both core SDKs (owner 2026-10-29)
 - must open the `Adoption` version even when it finds nothing to do: mark it `⏭️ Skipped`, say why in one line, close it
 - must start an `Adoption` version with a sweep — infrastructure the `Feature` version built inline, SDK capabilities
   the product duplicates or has not adopted, SDK pins behind the newest release — and plan its iterations from that
+- must sweep an SDK repository's `Adoption` version in both directions: a domain library moves generic code into the
+  core SDKs and adopts newer core and sibling-library releases; a core SDK takes back generic code its domain libraries
+  and products built, and moves dependency pins to their newest release
 - must number a `Feature` version with an odd minor and an `Adoption` version with an even minor (`v0.5` · `v0.6`)
 - may hold `Polish` iterations beside its capability iterations, whatever its type (below)
 
