@@ -1,6 +1,6 @@
 # Version Track
 
-*Last updated: 2026-10-29*
+*Last updated: 2026-10-30*
 
 The only planning convention: a repository plans with one backlog and one folder per version, the iterations and
 capabilities a product ships in that version.
@@ -90,7 +90,8 @@ A repository plans with exactly two things, both under `engineering/planning/`:
 - must keep one capability per task on one line — no `— detail` clause; join closely-related with `and`, split unrelated
 - must follow the **Task form** below
 - must stay capability-grained — never per-endpoint, per-field, or naming a table / class / file; Polish tasks excepted
-- may close with a `### Verification` iteration — always last, bare noun, ordered `[ ] {action} → {expected}` checks
+- must close with a `### Verification` iteration — always last, bare noun, ordered `[ ] {action} → {expected}`
+  checks the agent runs itself (below)
 - must carry meta `**Status:** … · **Type:** … · **Started:** … · **Completed:** …` (those four only); declare a `Type`; title is a plain noun phrase
 
 ---
@@ -158,14 +159,34 @@ The task-form rules govern task lines. This governs everything else on the page,
 
 ---
 
+## Verification [REQUIRED]
+
+The agent runs a version's checks itself, with the tools a person would use: the test suites, a deploy, the built-in
+browser, Claude in Chrome, computer use and simulators (developer, 2026-10-30).
+
+- must update the `Verification` list in the same edit whenever an iteration's tasks are added, changed or dropped
+- must cover each user-visible capability with one check, plus one for the test suites and one per environment
+  the version deploys to
+- must run every check once the other iterations are done: tests first, then the deploy, then each check in the
+  running app, on localhost or the live console as the check names
+- must tick a check only on what the agent saw in that run — a test result, a deploy job, a page read or screenshot;
+  the evidence goes to the developer in chat, the doc keeps only the tick
+- must turn each failed check, and each gap the run exposes, into a new iteration placed before `Verification`,
+  named for its focus, with `Fix …` or `Ability to …` tasks; build it, then re-run every check it touches
+- must hand a check to the developer only at a real line — a password or passkey, a payment, a physical device,
+  an irreversible action — naming the check and the exact step
+- must report the run as passed checks, failed checks and the iteration opened for them
+
+---
+
 ## Lifecycle
 
 - `⏳ Planned` → `🚧 In Progress` → `✅ Complete`; an `Adoption` version the sweep finds nothing for is `⏭️ Skipped`
 - must open a version when planning it and close it when its tasks are done — set `Completed`, flip `Status`; one active at a time
 - may close a `Feature` version early, on the developer's word, to run its `Adoption` version first; its unshipped tasks move to the next `Feature` version
 - must not advance to the next version until the current is `✅ Complete` **and** the developer explicitly says to proceed — never pre-declare, queue, or auto-begin the next version (in chat or in the plan); finish, report, and stop
-- must **verify completion with the developer** before marking a version / iteration complete — never self-declare it
-- must treat a `Verification` iteration's checks as the **developer's manual pass** — they tick on the developer's word, not on evidence in the tree; every other task ticks only on shipped code
+- must mark a version `✅ Complete` only after every `Verification` check passed in the agent's run **and** the developer confirms the close — never self-declare it
+- must tick a `Verification` check on the agent's own run ([Verification](#verification-required)); every other task ticks only on shipped code
 - must **move an unshipped task to the next version of its type** when closing a version — a closed version's task list describes only what shipped; a `Feature` task skips the `Adoption` version between. Carry it to the iteration whose focus it fits, or open a new one named for that focus; never name the new iteration after where the task came from, and never leave a note that it moved
 - must not apply that rule **within** an open version — a closed iteration inside an in-progress version may sit beside open ones, since iterations are not worked in order
 - must **strip a completed iteration's sub-steps** once verified — a sub-step itemizes *how* to build something already built, so it is spent the moment the iteration closes; git holds it
@@ -212,8 +233,10 @@ The task-form rules govern task lines. This governs everything else on the page,
 - [ ] Split the classifier into rule loading and matching
 - [ ] Rename `ListingJob` to `IngestJob`
 
-### Iteration 4 — Verification
+### Verification
 
+- [ ] Run the test suites → all pass.
+- [ ] Deploy to dev → the release runs healthy.
 - [ ] Run a scrape → new listings stored, duplicates skipped.
 - [ ] Run classify → each listing recorded, matches flagged.
 
