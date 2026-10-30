@@ -1,6 +1,6 @@
 # Irreversible migration changes — wow2 analysis
 
-*Last updated: 2026-10-29*
+*Last updated: 2026-10-30*
 
 > What wow2 does when a migration destroys data that `Rollback.sql` cannot bring back: a dropped column re-added comes
 > back empty. Owner question of 2026-10-29, with two ideas to weigh — a backup before the step, or a copy of exactly
@@ -10,11 +10,10 @@
 
 ## Status
 
-- ⬜ Analysis for the owner; nothing built. Points IR1–IR8 open.
+- ⬜ Analysis for the owner; nothing built. IR1 and IR7 settled 2026-10-30; IR2–IR6 and IR8 open.
+- ✅ The live hosts run PostgreSQL 18 (Wheelhouse v0.9, 2026-10-30).
 - ✅ Read 2026-10-29: be sdk `10.0.93-beta` (kinds, `since`, rollback floor, guarded `rollback`, lint), Wheelhouse
   `v0.7.8` (migrate step, rollback gate, prod snapshot), the migrations and PostgreSQL conventions.
-- ⬜ The live hosts still run PostgreSQL 16 (Wheelhouse v0.7 Iteration 9, paused), so the recommended mechanism must
-  work on 16 as well as 18; it does.
 
 | Short | Path under the hub |
 |---|---|
@@ -275,9 +274,10 @@ migration whose batches preserve into the same catalog (lane C, M24, M63), or re
 
 Each point: the decision, its options, the proposed pick and why.
 
-1. [ ] IR1 — Lossy files: the engine's `@preserve`, required by the lint, with `-- @irreversible <reason>` as the
+1. [x] IR1 — Lossy files: the engine's `@preserve`, required by the lint, with `-- @irreversible <reason>` as the
    opt-out · the snapshot alone (today) · author-written copies → `@preserve`; atomic with the change, restores only
    what changed, enforced and proven per file, while the snapshot rewinds every set.
+   - Owner 2026-10-30: yes, `@preserve`, with the prod snapshot as the fallback.
 2. [ ] IR2 — Retention of a backup: K later owner releases and D days, whichever comes later → 3 releases, matching
    the three releases whose images Wheelhouse keeps, and 30 days.
 3. [ ] IR3 — Same-release contracts in products (M20): keep them, with `@preserve` required, so the release reads
@@ -291,9 +291,10 @@ Each point: the decision, its options, the proposed pick and why.
 6. [ ] IR6 — A return also runs the newer release's expand inverses, losing what it wrote into its own tables: accept
    it, and prefer a forward `@restore` once a release has served for hours · build a contract-only revert, which leaves
    a gap in history that M56 refuses → accept.
-7. [ ] IR7 — PITR (L3): build the WAL archive and base backups now, before the first product with external users ·
+7. [x] IR7 — PITR (L3): build the WAL archive and base backups now, before the first product with external users ·
    with redundancy's storage role · not at all → now, on both hosts; the off-host storage is a bill only the owner
    approves, and the provider is the owner's pick.
+   - Owner 2026-10-30: build backups now, on the same host first; copies to another VPS or storage come later.
 8. [ ] IR8 — Personal data in backups: an erasure also scrubs `migration_backup` rows by key · personal columns are
    never preserved, always `@irreversible` → scrub; Identity already scrubs erased rows in place (M5), and one more
    table keyed by the same id costs little.
