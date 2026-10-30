@@ -10,7 +10,7 @@
 
 ## Status
 
-- ⬜ Analysis for the owner; nothing built. IR1, IR2 and IR7 settled 2026-10-30; IR3–IR6 and IR8 open.
+- ⬜ Analysis for the owner; nothing built. IR1–IR3 and IR7 settled 2026-10-30; IR4–IR6 and IR8 open.
 - ✅ The live hosts run PostgreSQL 18 (Wheelhouse v0.9, 2026-10-30).
 - ✅ Read 2026-10-29: be sdk `10.0.93-beta` (kinds, `since`, rollback floor, guarded `rollback`, lint), Wheelhouse
   `v0.7.8` (migrate step, rollback gate, prod snapshot), the migrations and PostgreSQL conventions.
@@ -281,9 +281,10 @@ Each point: the decision, its options, the proposed pick and why.
 2. [x] IR2 — Retention of a backup: K later owner releases and D days, whichever comes later → 3 releases, matching
    the three releases whose images Wheelhouse keeps, and 30 days.
    - Owner 2026-10-30: yes, 3 later releases and 30 days, whichever comes later.
-3. [ ] IR3 — Same-release contracts in products (M20): keep them, with `@preserve` required, so the release reads
+3. [x] IR3 — Same-release contracts in products (M20): keep them, with `@preserve` required, so the release reads
    restorable · forbid them, contracting a release later like platform apps → keep; breaking changes spare shims for
    users who do not exist, and a header line costs less than a release.
+   - Owner 2026-10-30: agreed, keep them for products with `@preserve` required.
 4. [ ] IR4 — The automatic restore after a failed rollout: return with restore automatically (a rollout running
    `rollback`, against M2) · an operator job only, typed on prod → operator only until a rig drill proves it, then
    automatic on dev, then prod.
