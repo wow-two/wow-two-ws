@@ -416,7 +416,13 @@ def git_verdict(sub, args, cwd=None):
             return hard
         return lane
     if sub == "pull":
-        return hard if STRICT else lane  # allowed outside eis-ws, lane check aside
+        if STRICT:
+            return hard  # allowed outside eis-ws only
+        # A fast-forward-only pull refuses rather than overwrite a modified file and makes no commit, so it cannot
+        # sweep up another lane's edits; only a stash would carry them away and back, so an autostash keeps the check.
+        if "--ff-only" in flags and "--autostash" not in flags and not autostash(cwd):
+            return None
+        return lane
     if sub == "clone":
         # A clone writes only the new repository and its own `origin`; options that write configuration, install
         # hooks or run a command on the remote side never run.
@@ -866,6 +872,17 @@ def published(cwd, revisions):
     if every is None or local is None:
         return None
     return every.strip() != local.strip()
+
+
+def autostash(cwd):
+    """True when the repository stashes on its own before a pull, or when the call hides its repository."""
+    if not cwd:
+        return True
+    for key in ("merge.autoStash", "rebase.autoStash"):
+        value = git_out(cwd, ["config", "--type=bool", "--get", key])
+        if value is not None and value.strip() == "true":
+            return True
+    return False
 
 
 def lane_family(sub, args):
