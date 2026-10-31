@@ -175,8 +175,8 @@ services:
 
 - must give a pinned image a release tag, never `latest`, and no `build` or `paths` (M77).
 - must pin only a public package: a platform service's image is public on GHCR, so every Wheelhouse pulls it without a
-  registry login (owner 2026-10-31). Its organization must allow public packages; the flip itself is a package
-  settings click, since GitHub has no API for it.
+  registry login (owner 2026-10-31). Every wow2 organization allows public package creation (owner 2026-10-31); the
+  flip itself is a package settings click, since GitHub has no API for it.
 - must declare its health, settings and `needs` like any service's (M77).
 - must change the tag in the descriptor to upgrade it; a tag change is a descriptor change (M77).
 - Renovate pushes each newer tag to its `renovate/pinned-images` branch through the pipelines preset, with no pull
