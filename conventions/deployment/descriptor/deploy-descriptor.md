@@ -1,6 +1,6 @@
 # Deployment descriptor
 
-*Last updated: 2026-10-29*
+*Last updated: 2026-10-31*
 
 > One file per product repo, `engineering/deployment/deploy.yml`, declaring the product's identity and its deployable
 > services: what the product is called, how each service builds, which paths change it, how it runs, which site paths
@@ -174,6 +174,9 @@ services:
 ```
 
 - must give a pinned image a release tag, never `latest`, and no `build` or `paths` (M77).
+- must pin only a public package: a platform service's image is public on GHCR, so every Wheelhouse pulls it without a
+  registry login (owner 2026-10-31). Its organization must allow public packages; the flip itself is a package
+  settings click, since GitHub has no API for it.
 - must declare its health, settings and `needs` like any service's (M77).
 - must change the tag in the descriptor to upgrade it; a tag change is a descriptor change (M77).
 - Renovate pushes each newer tag to its `renovate/pinned-images` branch through the pipelines preset, with no pull
