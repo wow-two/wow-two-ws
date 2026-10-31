@@ -1,6 +1,6 @@
 # Settings
 
-*Last updated: 2026-10-16*
+*Last updated: 2026-10-31*
 
 > Configuration-section values, applied through the [settings construct](../constructs/data/settings.md).
 
@@ -37,3 +37,21 @@
 
 - helper signatures → [validated registration](../../../../../../../workbench/wow-two-sdk-beta/wow-two-sdk-beta.be/engineering/codebase/wow-two-sdk-beta-be/src/Foundation/Options/OptionsRegistrationExtensions.cs).
 - environment overrides → [host configuration](../../../shapes/service/platform/startup/host-configuration.md).
+
+---
+
+## Stored data
+
+Settings can change under rows written by an earlier release: a stricter password rule over stored passwords, a
+removed country over stored phones (developer, 2026-10-31).
+
+- must refuse to start on a value invalid on its own; the log names the setting, never a secret value.
+- must refuse a deployed start while a setting conflicts with stored rows; log `Critical` the setting, the count and
+  the resolving command.
+- must apply at once a change that loosens a rule, or that only adds a step at a person's next action.
+- must ship a read-only `config check` verb when settings can conflict with stored rows; exit `0` consistent, `1`
+  refused, `2` failed, as `migrate`.
+- must let the deploy run `config check` after `migrate` and before the restart, so a refusal leaves the old release
+  serving.
+- must keep on each row the settings revision it was checked against, when the check cannot re-read the value (a
+  hashed password).
