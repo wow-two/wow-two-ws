@@ -71,7 +71,7 @@ Statuses: `done` · `skip` (does not apply) · `next` (yours to run now) · `pen
 | 2 | Scaffold | `SHAPE=domain INTO=clone scaffold.sh` → fill placeholders → verify, commit → push → the developer makes it public → `main-guard` ruleset | `origin/main` has the commit; the repo is public with the ruleset | agent, developer once |
 | 3 | Hub | catalog entry (`apply-local catalog`) → platform-apps row → registry → hub commit → hub push | `origin/main:catalog.yml` names the repo | agent |
 | 4 | Registries | content gate → NuGet policy → npm first version → arm `PUBLISH_PACKAGES` → be and fe published | nuget.org lists the family; npm lists a CI version | consent, developer, agent |
-| 5 | Image | first `v*` release from the scaffold push · `wheelhouse-max` on the org | a `v*` release exists | CI, developer once |
+| 5 | Image | first `v*` release from the scaffold push · `wheelhouse-max` on the org · the image package made public | a `v*` release exists; an anonymous pull token answers 200 | CI, developer |
 | 6 | Wheelhouse | catalog `deploy: wheelhouse` (`apply-local deploy`) → product import → secrets and DNS | `--confirmed wheelhouse,secrets` | agent, developer |
 | 7 | Consumers | `repin` each stale consumer → build, test → commit, push per repo | every pin equals the newest version | agent |
 
@@ -106,6 +106,7 @@ Statuses: `done` · `skip` (does not apply) · `next` (yours to run now) · `pen
 | Third-party secret values | per product | enters them in Wheelhouse; secrets never pass through an agent | the dev verify check |
 | Public DNS | per public site | points DNS and binds the domain | the public site; prod promotion stays the owner's |
 | `wheelhouse-max` App on the org | once per org | installs it with all repositories | Wheelhouse pulls GHCR images; T8 step 21 vanishes |
+| Image package public (`image-public`) | org setting once, then per library after the first `v*` release | org Settings → Packages → Package creation → tick Public → Save; then the package's settings → Danger Zone → Change visibility → Public, typing the package name (`o/n/{product}`) to confirm; GitHub has no REST endpoint for it; `plan` probes it anonymously | other products pull the image as a pinned service without a registry login; not a gate on `deploy` |
 | Codex connector removal | once per org | uninstalls `chatgpt-codex-connector` | closes a dropped app's write access to every new repo |
 | Folder flags | once | `~git_on commit,push workbench/wow-two-sdk-beta/*` as one whole message (set 2026-10-26) | every library under the folder |
 

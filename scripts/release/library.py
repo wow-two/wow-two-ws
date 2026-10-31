@@ -145,6 +145,11 @@ class Library:
         return f"WoW2.Sdk.Beta.Be.{self.brand}.*"
 
     @property
+    def image_path(self):
+        """The GHCR package, as the delivery workflow pushes it: lowercase owner/repo/product."""
+        return f"{self.full}/{self.product}".lower()
+
+    @property
     def pin_property(self):
         return f"{self.brand}SdkVersion"
 
@@ -237,6 +242,7 @@ class State:
     release_tag: object = None       # the newest release's tag, "" when none
     packages_run: object = None      # Run of publish-packages.yml
     image_run: object = None         # Run of publish-docker-image.yml
+    image_public: object = None      # True when ghcr.io hands an anonymous pull token for the image, False when private
     org_apps: object = None          # app slugs installed on the org
     # hub
     catalog_entry: object = None     # {"slug", "deploy", "repositories", …} or None
@@ -476,6 +482,21 @@ class Probe:
         except (urllib.error.URLError, OSError, ValueError):
             return None, None
 
+    def anonymous_pull(self, image):
+        """True when ghcr.io answers an anonymous pull-token request 200, False on 401 / 403, else None. No credentials
+        go out, and the token in a 200 body is never read."""
+        if self.offline:
+            return None
+        request = urllib.request.Request(f"https://ghcr.io/token?scope=repository:{image}:pull",
+                                         headers={"User-Agent": "wow2-create-library"})
+        try:
+            with urllib.request.urlopen(request, timeout=TIMEOUT) as response:
+                return True if response.status == 200 else None
+        except urllib.error.HTTPError as error:
+            return False if error.code in (401, 403) else None
+        except (urllib.error.URLError, OSError):
+            return None
+
     def flags_of(self, target):
         # the helper resolves paths against its working directory, so it runs from the workspace root
         done = self.run([sys.executable, "-B", self.lib.root / FLAGS_HELPER, "status", "--repo", target],
@@ -569,6 +590,8 @@ class Probe:
                     next((t for t in tags or [] if re.fullmatch(r"v\d+\.\d+\.\d+", t)), "")
                 st.packages_run = self.latest_run("publish-packages.yml")
                 st.image_run = self.latest_run("publish-docker-image.yml")
+                if st.release_tag:  # a package that does not exist yet answers 403 like a private one
+                    st.image_public = self.anonymous_pull(lib.image_path)
             code, body = self.gh_get(f"orgs/{lib.owner}/installations")
             st.org_apps = [i.get("app_slug") for i in (body or {}).get("installations") or []] if code == 200 else None
 
@@ -954,6 +977,24 @@ def evaluate(lib, st, confirmed=(), publish=False):
                     unblocks="Wheelhouse pulls the image (phase 6); T8 step 21 needs nothing per repo after it"))
     ghcr.status = tri(st.org_apps, st.org_apps is not None and WHEELHOUSE_APP in st.org_apps)
     ghcr.hand = [f"install the {WHEELHOUSE_APP} GitHub App on org {lib.owner}, all repositories"]
+
+    # platform service images are public: any Wheelhouse pulls the pinned image without a registry login. GitHub has no
+    # REST endpoint for package visibility, so this stays a UI step; the anonymous token probe reads the result back.
+    # Not a `deploy` need: Wheelhouse pulls through its App (ghcr-app), public or not.
+    visible = add(Step("image-public", 5, f"package ghcr.io/{lib.image_path} public", "developer", needs=("image",),
+                       unblocks="other products pull the image as a pinned service without a registry login"))
+    if st.image_public is True:
+        visible.status = "done"
+    elif st.image_public is None and st.release_tag:
+        visible.status = "unknown"
+    owner, _, package = lib.image_path.partition("/")
+    visible.hand = [
+        f"once per org: https://github.com/organizations/{owner}/settings/packages "
+        "→ Package creation → tick Public → Save",
+        f"per library: https://github.com/orgs/{owner}/packages/container/{package.replace('/', '%2F')}/settings "
+        "→ Danger Zone → Change visibility → Public, typing the package name to confirm "
+        "(GitHub has no REST endpoint for package visibility)",
+    ]
 
     # 6 · Wheelhouse
     deploy = add(Step("deploy", 6, "catalog entry deploy: wheelhouse, pushed",

@@ -6,12 +6,14 @@ edits and the consumer repin. Nothing here touches GitHub, a registry, the hub's
 import importlib.util
 import io
 import re
+import urllib.error
 import shutil
 import sys
 import tempfile
 import unittest
 from contextlib import redirect_stdout
 from pathlib import Path
+from unittest import mock
 
 HERE = Path(__file__).resolve().parent
 SPEC = importlib.util.spec_from_file_location("library", HERE / "library.py")
@@ -248,6 +250,28 @@ class PhaseDetection(unittest.TestCase):
         by, _ = plan(registered(nuget_versions=["10.0.0-beta"], publish_var="true", consumers=[]))
         self.assertEqual(by["consumers"].status, "skip")
 
+    def test_image_public_probe_reads_back_into_the_step(self):
+        by, _ = plan(registered(image_public=True))
+        self.assertEqual(by["image-public"].status, "done")
+        by, _ = plan(registered(image_public=False))
+        self.assertEqual(by["image-public"].status, "hand")
+        self.assertEqual(by["image-public"].owner, "developer")
+        hand = "\n".join(by["image-public"].hand)
+        self.assertIn("https://github.com/organizations/wow-two-sdk-beta/settings/packages", hand)
+        self.assertIn("https://github.com/orgs/wow-two-sdk-beta/packages/container/"
+                      "wow-two-sdk-beta.identity%2Fidentity/settings", hand)
+        by, steps = plan(registered(image_public=None))
+        self.assertEqual(by["image-public"].status, "unknown")
+        self.assertIn("[check] image-public", library.render_next(lib(), steps))
+
+    def test_image_public_waits_for_the_image_and_never_gates_deploy(self):
+        by, _ = plan(pushed())  # no release yet: the probe did not run
+        self.assertEqual(by["image"].status, "waiting")
+        self.assertEqual(by["image-public"].status, "pending")
+        self.assertNotIn("image-public", by["deploy"].needs)
+        by, _ = plan(registered(image_public=False))
+        self.assertEqual(by["deploy"].status, "next")  # a private image does not hold the Wheelhouse flip
+
     def test_occupied_folder_blocks_creation(self):
         by, steps = plan(fresh(folder="foreign", origin=None))
         self.assertEqual(by["create"].status, "blocked")
@@ -346,6 +370,38 @@ class Probes(unittest.TestCase):
         self.assertEqual(library.parse_flags(text),
                          {"commit": True, "push": False, "source": "folder workbench/wow-two-sdk-beta/*"})
         self.assertIsNone(library.parse_flags("Cannot inspect repository flags: nope"))
+
+    def test_image_path_is_lowercase_owner_repo_product(self):
+        self.assertEqual(lib().image_path, "wow-two-sdk-beta/wow-two-sdk-beta.identity/identity")
+        self.assertEqual(lib(product="ident").image_path, "wow-two-sdk-beta/wow-two-sdk-beta.identity/ident")
+
+    def test_anonymous_pull_probe_reads_the_status_only(self):
+        probe = library.Probe(lib())
+        image = lib().image_path
+        response = mock.MagicMock()
+        response.__enter__.return_value = response
+        response.status = 200
+        with mock.patch.object(library.urllib.request, "urlopen", return_value=response) as opened:
+            self.assertIs(probe.anonymous_pull(image), True)
+        request = opened.call_args[0][0]
+        self.assertEqual(request.full_url, f"https://ghcr.io/token?scope=repository:{image}:pull")
+        self.assertFalse([h for h in request.headers if h.lower() in ("authorization", "cookie")])
+        response.read.assert_not_called()  # the token in the body is never read
+        for code, expected in ((401, False), (403, False), (404, None), (429, None), (500, None)):
+            error = urllib.error.HTTPError(request.full_url, code, "x", {}, None)
+            with mock.patch.object(library.urllib.request, "urlopen", side_effect=error):
+                self.assertIs(probe.anonymous_pull(image), expected, code)
+        for failure in (urllib.error.URLError("down"), TimeoutError()):
+            with mock.patch.object(library.urllib.request, "urlopen", side_effect=failure):
+                self.assertIsNone(probe.anonymous_pull(image))
+        response.status = 204
+        with mock.patch.object(library.urllib.request, "urlopen", return_value=response):
+            self.assertIsNone(probe.anonymous_pull(image))
+
+    def test_anonymous_pull_probe_stays_off_the_network_when_offline(self):
+        with mock.patch.object(library.urllib.request, "urlopen", side_effect=AssertionError("network")) as opened:
+            self.assertIsNone(library.Probe(lib(), offline=True).anonymous_pull(lib().image_path))
+        opened.assert_not_called()
 
     def test_placeholders_and_sample(self):
         target = lib(root=self.tmp)
