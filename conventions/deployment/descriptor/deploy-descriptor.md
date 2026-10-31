@@ -169,7 +169,7 @@ services:
     settings:
       keys:
         DatabaseSettings:ConnectionString: { required: true }
-        # … the instance's own keys: issuer, signing and encryption certificates
+        # … the instance's own keys, generated or linked: § Generated and linked keys
     needs: [postgres]
 ```
 
@@ -388,8 +388,10 @@ Wheelhouse renders each service's settings file at every deploy, in layers, the 
 | Derived | `AllowedHosts` (the hosts of the sites the service serves, its platform name `<product>-<environment>-<service>`, `localhost`), `Sites:<site>:Url` (each published site's origin) and `Deployment:TrustedProxies` (the ingress's address) |
 | Database | A required connection key no other layer sets (`ConnectionStrings:<name>`, `<Section>:ConnectionString`), from the target's own database, for a service that `needs: [postgres]` |
 | Migrate | `Migrations:ConnectionString` from the target's database, in the [migrate](#migrate) container only (M8) |
+| Linked | A `from` key's value: its source's value from the layers above ([generated and linked keys](#generated-and-linked-keys)) |
 
 - A derived key may sit under `settings.required`; nobody fills it in.
+- Wheelhouse makes a missing `generate` key's value before the deploy; nobody fills it in either.
 - Every other required key the first deploy asks for, and a deploy waits until each has a value.
 - A value goes to each service that requires its key; a key no service requires goes to every service.
 
@@ -406,6 +408,8 @@ plain text key).
 | `default` | none | An optional plain key's value when no layer sets one; checked against `type`; refused on a secret or a required key |
 | `values` | — | A `choice`'s values, 1–50; refused on other types |
 | `format` | `yyyy-MM-dd` | A `date`'s format: `yyyy`, `MM`, `dd`, `HH`, `mm`, `ss` and `- . / : T` or space; refused on other types |
+| `generate` | none | How Wheelhouse makes a secret's missing value: [generated and linked keys](#generated-and-linked-keys) |
+| `from` | none | Another key whose value this key takes: [generated and linked keys](#generated-and-linked-keys) |
 
 - must pin pipelines `v0.10.0` or later to declare `keys`; an older generator refuses it, and the bundle reaches a
   Wheelhouse runner from v0.5 (`settings.<service>.types`), which an older runner refuses.
@@ -413,6 +417,69 @@ plain text key).
 - Owners may add keys of their own per product in Wheelhouse's console, typed the same way; a release's declaration
   wins over one the owner added.
 - Wheelhouse checks a value against its type on every save, field by field; a deploy applies what is saved.
+
+### Generated and linked keys
+
+A secret key may say how Wheelhouse makes its value (`generate`), and any key may take another key's value (`from`), so
+no secret passes through a person or an agent (owner 2026-10-31). A product pinning Identity declares its keys so:
+
+```yaml
+services:
+  identity:
+    image: ghcr.io/wow-two-sdk-beta/wow-two-sdk-beta.identity/identity:0.3.6
+    settings:
+      keys:
+        Identity:Server:Keys:Signing:0:
+          secret: true
+          required: true
+          generate: { command: [dotnet, Identity.Api.dll, keys, generate, --role, signing] }
+        Identity:Server:Clients:0:ClientSecret:
+          secret: true
+          required: true
+          generate: { random: 32 }                      # 32 random bytes, base64url
+        Identity:Server:Issuer:
+          from: Sites:identity:Url                      # the identity site's origin, per environment
+  desk:
+    settings:
+      keys:
+        Auth:ClientSecret:
+          from: Identity:Server:Clients:0:ClientSecret  # the same value Identity holds
+```
+
+| Field | Form | Value |
+|---|---|---|
+| `generate` | `{ random: N, encoding: base64url \| hex }` | `N` random bytes, 16–64, `base64url` by default |
+| `generate` | `{ command: [argv…], timeout: 2m }` | The command's standard output, run from the service's own release image |
+| `from` | a configuration path | Another declared key's value, or a derived key's (`Sites:<site>:Url`) |
+
+`generate`:
+
+- must sit on a `secret: true` text key; refused beside `default` or `from`.
+- Wheelhouse makes the value once per environment, before the deploy would wait on it; dev and prod never share one.
+- A deploy only fills a missing value and never replaces a stored one; the console's Regenerate adds a new version,
+  which the next deploy applies.
+- A command runs on the target in a one-off container from the declaring service's release image: no network, no
+  settings file, no secret, all capabilities dropped, as the image's user, 512 MB of memory; `timeout` defaults to
+  `2m`, at most `10m`.
+- must print the value alone to standard output and anything else to standard error. Exit 0 with output stores it,
+  without its trailing newline; anything else fails the deploy before a restart, keeping the last standard-error line
+  and never standard output.
+- A value holding a PEM certificate sets its version's expiry to the certificate's end date (`notAfter`).
+- The audit records which deploy generated which key, never the value.
+
+`from`:
+
+- must name one configuration path: a key any service of the same product declares, or a derived key.
+- must stand alone on its key: refused beside any other field; the key takes its source's type and secrecy, and a
+  deploy waits on it only while its source waits.
+- must not name a key that itself has `from`: one hop, so no cycle.
+- Wheelhouse renders the source's value for the same environment at every deploy, so a regenerated source reaches
+  every linked key in one deploy.
+- A secret source's linked value stays in the vault render; it never reaches the settings store or a console read.
+- The console shows a linked key read-only, with its source.
+
+- must pin pipelines `v0.14.0` or later to declare `generate` or `from`; an older generator refuses both, and the
+  bundle needs a Wheelhouse runner from v0.11.
 
 ### Snapshots of file databases
 
