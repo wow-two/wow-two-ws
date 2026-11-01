@@ -1,6 +1,6 @@
 # Migrations
 
-*Last updated: 2026-10-28*
+*Last updated: 2026-11-01*
 
 > How every set of persistent state changes across releases, whatever its strategy: kinds, owners, the `migrate`
 > verbs, execution, compatibility, data and cross-owner references.
@@ -72,6 +72,10 @@
 ## Lifecycle
 
 - must preserve an applied migration's content and identity; correct it by a new migration.
+- may edit an applied migration in place only while no environment holds real people's data
+  ([breaking changes](../../../../../../../breaking-changes.md)); never once one does.
+- must resolve the drift that edit causes with the deploy tool's one-click set reset in each environment that applied
+  it, never an automatic reset (developer, 2026-11-01).
 - must apply development migrations before accepting work that depends on the new schema.
 - must not infer production safety from an environment name alone; a guard names the database (M2).
 
