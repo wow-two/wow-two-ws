@@ -217,6 +217,7 @@ Product UI standards, by need:
 | Context behind a panel's info button — legends, gestures, a control's reach | [guidance](development/frontend/core/mla/domains/guidance/guidance.md) |
 | Colour mode, brand tokens, the stylesheet entry | [styling](development/frontend/shapes/app/platform/styling.md) |
 | Screens — device targets, screen classes, bottom bar, stacked tables, phone dialogs, list and detail, motion | [responsive](development/frontend/shapes/app/responsive/responsive.md) |
+| Dialogs — a fixed or fitting height, by what the content does while open | [modal](development/frontend/core/mla/components/overlays/modal.md#height) |
 
 ---
 
