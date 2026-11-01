@@ -148,7 +148,7 @@ Cross-area: **[dev-cycle.md](development/dev-cycle.md)** — 2-cycle app↔SDK m
 Cross-area: **[breaking-changes.md](development/breaking-changes.md)** — any infrastructure change may break the SDKs, products and their data when it improves something, while a product has no external users.
 Cross-area: **[swappable-modules.md](development/swappable-modules.md)** — engine-wrapping SDK modules: house contract + adapter subpaths (optional peers) + one shared conformance suite + app-side one-line engine pin.
 Cross-area: **[sdk-extraction.md](development/sdk-extraction.md)** — extract, keep or remove: generic goes to the SDK, app-bound stays, a wrapper for DRY alone is removed.
-Cross-area: **[capability-forms.md](development/capability-forms.md)** — a platform capability ships as an SDK library, a self-hosted service image and a provided service under one client contract; the service hosts the library, and its hosted pages take an SDK theme by name.
+Cross-area: **[capability-forms.md](development/capability-forms.md)** — a platform capability ships as an SDK library, a self-hosted service image and a provided service under one client contract, its UI as embedded parts or hosted pages; the service hosts the library, and its hosted pages take an SDK theme by name.
 
 ### repo/ — repo shape & setup · [repo-conventions.md](development/repo/repo-conventions.md)
 

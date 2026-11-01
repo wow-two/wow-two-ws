@@ -1,9 +1,9 @@
 # Capability forms
 
-*Last updated: 2026-10-28*
+*Last updated: 2026-11-01*
 
 > How a platform capability ships: an SDK library, a self-hosted service image and a provided service, under
-> one client contract.
+> one client contract; its UI reaches people as embedded parts or hosted pages.
 > Use case — identity, file storage, secrets, notifications, audit: a concern several products need that owns
 > state or secrets.
 > Point ids cite the [migrations analysis](../../ideas/migrations-analysis-2026-10/migrations-analysis-2026-10.md).
@@ -27,6 +27,29 @@
 - may offer one, two or all three forms; the capability's spec names which.
 - must start with the cheapest form a named consumer needs now.
 - must add a form when a named consumer needs it: isolation for Form 2, no operations for Form 3.
+
+---
+
+## Frontend forms
+
+| Form | Ships | Shows | Fits |
+|---|---|---|---|
+| embedded parts | components and widgets in `fe-{slug}` | the parts inside the consumer's pages, on its theme | a view inside the product: a profile card, a file picker |
+| hosted pages | the service's `apps/web` | the capability's own pages, then a return to the consumer | a flow that sets the capability's own session: sign-in, consent, the admin console |
+
+| Backend form | Embedded parts call | Hosted pages served by |
+|---|---|---|
+| 1 · library | the consumer's backend, where the module maps the routes | none by default; the consumer may serve the pages build |
+| 2 · self-hosted, 3 · provided | the consumer's backend, which calls the service through the client | the service |
+
+- must build every embedded part against one base URL, so one part calls the consumer's backend or the service.
+- must route embedded parts through the consumer's backend when the service sits on another site; browsers block
+  cross-site cookies.
+- must send a flow that sets the service's own session through the hosted pages under Forms 2 and 3.
+- must let `fe-{slug}` build the forward to a hosted page, carrying the return path.
+- must return only to a local path or to a URL registered for the consuming app.
+- must default to hosted pages for a flow the capability owns end to end, and to embedded parts for views inside the
+  product (developer, 2026-11-01).
 
 ---
 
@@ -63,6 +86,7 @@
 - must build hosted pages, such as sign-in and the admin console, on the fe SDK so every SDK theme ships in the image.
 - must pick the hosted pages' theme by its SDK name from the instance's configuration.
 - may override that theme per registered app, so one instance shows each app's pages in its own theme.
+- may set a background image per registered app beside its theme; the pages keep a readable card over it.
 - must leave embedded UI parts on the consuming app's theme; they take no theme setting of their own.
 
 ---
