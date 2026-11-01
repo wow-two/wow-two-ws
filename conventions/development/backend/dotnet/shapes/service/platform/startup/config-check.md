@@ -12,7 +12,7 @@
 
 | Finding | `config check` | Deployed boot | Local run |
 |---|---|---|---|
-| a value invalid on its own | exit `1` | refuses | may start, logs |
+| a missing required value, or a value its rules reject | exit `1` | refuses | may start, logs |
 | an unknown key under the service's own sections | exit `1` | refuses | may start, logs |
 | stranding: people left no way to use the service | exit `1` | refuses, logs `Critical` | may start, logs |
 | a stricter rule over stored rows | no finding | applies at each row's next use | same |
@@ -35,6 +35,8 @@
 ## Invalid values
 
 - must refuse the start on a value its own rule rejects, whatever rows exist.
+- must report a missing required setting as `invalid`, code `required`.
+- must check rules across settings too, such as a minimum above its maximum (`range`).
 - must exit `1` for it from `config check`, before any container restarts.
 - must state the rule in the setting's `validate` → [settings registration](../../../../core/mla/components/settings.md#registration).
 - must name the setting in the log, never a secret value.
@@ -120,13 +122,15 @@ config-result {"verb":"check","exit":2,"service":"identity","error":"database un
 
 ## Deploy
 
-- must run `config check` in a one-off container with the service's settings, as the runner runs
-  [`migrate`](../../../../../../../deployment/descriptor/deploy-descriptor.md#migrate), after `migrate` and before the
-  restart.
-- must run it on every release deploy.
-- must run it on every settings-only apply.
+How the runner runs it → [config check at deploy](../../../../../../../deployment/descriptor/deploy-descriptor.md#config-check).
+
+- must declare the verb in the descriptor's `configCheck:` item, one per service that has settings.
+- must need only the service's own settings and database: no other network, no file outside the image.
+- must finish within the item's `timeout`, `2m` by default; a run past it counts as failed (`2`).
+- must run it in a one-off container after `migrate` and before the restart, on every release deploy.
+- must run it on every settings-only apply, from the image the target runs.
 - must run it on a return to an older release: that release's own check, after its `migrate check`.
-- must stop the deploy on a refusal, with the old release still serving; a failure (`2`) stops it too, as for `migrate`.
+- must stop the deploy on a refusal or a failure, with the old release still serving.
 
 ---
 

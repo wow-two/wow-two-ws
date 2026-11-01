@@ -71,6 +71,21 @@
         }
       }
     },
+    "configCheck": {
+      "type": "array", "minItems": 1,
+      "description": "The config check step: one item per service that has settings, run after migrate and before the first wave, and on every settings-only apply. Planned with Wheelhouse v0.13; the generator refuses it until a pipelines release accepts it.",
+      "items": {
+        "type": "object", "additionalProperties": false, "required": ["service", "command"],
+        "properties": {
+          "service": { "$ref": "#/$defs/slug", "description": "A service of this descriptor whose release image runs the check." },
+          "command": {
+            "type": "array", "minItems": 1, "maxItems": 32, "items": { "type": "string", "minLength": 1, "maxLength": 1000 },
+            "description": "The program and its arguments, ending in config check; replaces the image's entrypoint."
+          },
+          "timeout": { "type": "string", "pattern": "^[1-9][0-9]*[smh]$", "default": "2m", "description": "10s-10m." }
+        }
+      }
+    },
     "extensions": {
       "type": "array", "uniqueItems": true,
       "items": { "type": "string", "pattern": "^[a-z][a-z0-9_-]{0,62}$" },

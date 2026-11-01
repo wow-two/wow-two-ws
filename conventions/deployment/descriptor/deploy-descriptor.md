@@ -1,6 +1,6 @@
 # Deployment descriptor
 
-*Last updated: 2026-10-31*
+*Last updated: 2026-11-01*
 
 > One file per product repo, `engineering/deployment/deploy.yml`, declaring the product's identity and its deployable
 > services: what the product is called, how each service builds, which paths change it, how it runs, which site paths
@@ -44,6 +44,8 @@ Why a custom format → [rationale](deploy-descriptor-rationale.md). Point ids (
 - should publish one image per service at `ghcr.io/<owner>/<repo>/<service>`; `image` overrides a legacy name.
 - may run another repository's published image as a service, pinned by tag ([pinned images](#pinned-images), M77).
 - must declare a `migrate:` item for every image that hosts a migration set ([migrate](#migrate), M9).
+- must declare a `configCheck:` item for every service that has settings, once the generator accepts it
+  ([config check](#config-check)).
 - must keep the product slug equal to the Wheelhouse runner product (`foreverpin`, not `forever-pin`); every repository
   of a product built from several names that product's slug ([below](#products-of-several-repositories)).
 - should set `dotnetEnvironment: true` once every .NET service's `appsettings.Development.json` holds defaults only
@@ -133,6 +135,7 @@ services:
 | `dotnetEnvironment` | `false` | The runner sets `ASPNETCORE_ENVIRONMENT` and `DOTNET_ENVIRONMENT`: dev `Development`, prod `Production` |
 | `verify` | none | `service`, `command` and `timeout` of the end-to-end check after a dev rollout ([below](#dev-check)) |
 | `migrate` | none | One `service`, `command` and `timeout` per image that hosts a set ([below](#migrate)) |
+| `configCheck` | none | One `service`, `command` and `timeout` per service that has settings ([below](#config-check)) |
 | `extensions` | `[]` | Untrusted PostgreSQL extensions Wheelhouse creates when it places the database ([below](#migrate)) |
 | `sites.<site>` | `{}` | A host role; Wheelhouse binds it to one host per environment |
 | `sites.<site>.exposure` | `public` | `public` (internet) or `private` (private network) |
@@ -358,6 +361,49 @@ The generator:
 
 - runs each item image's `migrate sets --json` and writes every set and its level into the release manifest (M78).
 - derives the bundle's `migrations` fact from those levels (M9, M78).
+
+---
+
+## Config check
+
+The step that runs each service's
+[`config check`](../../development/backend/dotnet/shapes/service/platform/startup/config-check.md) with the settings
+the deploy applies, so a bad setting stops the deploy before any restart. Planned: Wheelhouse v0.13 runs it, and the
+generator refuses the key until a pipelines release accepts it.
+
+```yaml
+configCheck:                          # one item per service that has settings
+  - service: identity
+    command: [dotnet, Identity.Api.dll, config, check]
+  - service: management
+    command: [dotnet, ForeverPin.Api.dll, config, check]
+    timeout: 2m                       # default 2m; 10s-10m
+```
+
+- must declare one item per service that has settings; two services of one image each get one.
+- must name a service of this descriptor; its release image runs `command` as the entrypoint.
+- must give `command` as the program and its arguments, ending in `config check`.
+- may set `timeout`: default `2m`, from `10s` to `10m`.
+
+How the runner runs it:
+
+- on every forward deploy, dev and prod, after [migrate](#migrate) and before the first wave.
+- on every settings-only apply, from the image the target runs, before the changed services restart.
+- each item in a one-off container, as for `migrate`: the item's release image, `--pull never`, the command as
+  entrypoint, the service's rendered settings and environment, secrets included, the platform network, all
+  capabilities dropped, the image's user; never `Migrations:ConnectionString`.
+- every item, even after one refuses, so one deploy names every finding.
+- any refusal or failure stops the job before any restart: exit `1` or `2`, a crash, the timeout. The levels `migrate`
+  reached stay, and the running release keeps serving.
+- records per item `status` (`consistent` · `refused` · `failed` · `timed out`), `exitCode`, `seconds` and the
+  `config-result` findings: setting names, codes and counts, never a value.
+- shows the findings on the deployment and names each setting to fix.
+
+The rollback gate:
+
+- every return to an older release runs the older image's `config check` after its `migrate check`.
+- `0` proceeds; anything else refuses.
+- an older release that declares no `configCheck:` item skips the step, with a warning.
 
 ---
 
