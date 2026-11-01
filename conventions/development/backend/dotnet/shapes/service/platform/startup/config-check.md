@@ -46,8 +46,8 @@
 ## Unknown keys
 
 - must refuse a key under the service's own sections that no settings record binds, and exit `1` for it at the check.
-- must bind each own section with `ErrorOnUnknownConfiguration`.
-- must also walk the service's root section, so a key under a section no record binds is found too.
+- must declare the service's root section with the be sdk's `AddSettingsRoot`; the check walks every key under it
+  against the bound settings records, so a key under a section no record binds is found too.
 - must let a retired or misspelt key refuse the start, never fall back silently to a default.
 - must name the key in `unknown` and in the log, never its value.
 - must not check a section the framework or another component owns, such as `Logging` or `AllowedHosts`.

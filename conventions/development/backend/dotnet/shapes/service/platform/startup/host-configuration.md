@@ -30,34 +30,35 @@ Ownership rationale is [separate](host-configuration-rationale.md#ownership).
 
 ## Program.cs
 
-- must keep three statement groups with the comments in this example.
+- must hand `args` to the be sdk's `ServiceHost.RunAsync`, which answers a verb or builds and serves the host.
 - must leave the public partial test marker undocumented.
 - must keep registration, middleware, warm-up and startup logs behind `Configure`.
-- must answer `app migrate <verb>` after `Build()` and before `Configure`, so a migrate run starts no startup work;
-  only a local run applies migrations at boot
-  ([migration tooling](../../../../core/mla/domains/persistence/migrations/sql/migration-tooling.md)).
-- must answer `app config check` in the same slot, so a check starts no listener, hosted service or startup work
-  ([config check](config-check.md#verb)).
-- must await `ConfigureAsync` when startup work is asynchronous; that replaces the second group's call.
+- must pass `ConfigureAsync` when startup work is asynchronous.
+- `migrate <verb>` and `config check` are built in: they run on the built host and start no listener, hosted service
+  or startup work; only a local run applies migrations at boot
+  ([migration tooling](../../../../core/mla/domains/persistence/migrations/sql/migration-tooling.md),
+  [config check](config-check.md#verb)).
+- must register a service verb that needs no host, such as `keys generate` printing to stdout, with `AddPreHostVerb`;
+  one that needs the host's services with `AddHostVerb`.
+- must not hand-write verb dispatch in `Program.cs`.
 
 ```csharp
 using {Brand}.{Service}.Configurations;
 
-// Build and configure the host.
-var builder = WebApplication.CreateBuilder(args);
-builder.Configure();
-
-// Build and configure the app.
-var app = builder.Build();
-if (MigrateCommand.IsCommand(args))
-    return await app.RunMigrateCommandAsync(args);
-app.Configure();
-
-// Run.
-await app.RunAsync();
-return 0;
+// Answer a verb, or build, configure and serve the host.
+return await ServiceHost.RunAsync(args, builder => builder.Configure(), app => app.Configure());
 
 public partial class Program;
+```
+
+With asynchronous startup and a service verb:
+
+```csharp
+return await ServiceHost.RunAsync(
+    args,
+    builder => builder.Configure(),
+    app => app.ConfigureAsync(),
+    verbs => verbs.AddPreHostVerb("keys", verb => SigningKeyCommand.Run(verb.Arguments, verb.Output, verb.Error, TimeProvider.System)));
 ```
 
 ---
@@ -200,7 +201,7 @@ Every boot runs the checks `app config check` runs ([config check](config-check.
 - may start on a local run and log each failed check.
 - must log a stranding refusal `Critical`: the setting, the count and how to resolve it.
 - must name the setting in every failure log, never a secret value.
-- must bind each service-owned section with `ErrorOnUnknownConfiguration` in its `Add{Domain}`
+- must declare the service's root section with `AddSettingsRoot`, so unknown keys under it refuse
   ([unknown keys](config-check.md#unknown-keys)).
 - must register a setting's stored-data checks in the `Add{Domain}` that binds it.
 - must apply a stricter rule over stored rows where the value is used, at each row's next use, never in the boot
