@@ -1,6 +1,6 @@
 # Version Track
 
-*Last updated: 2026-10-30*
+*Last updated: 2026-11-01*
 
 The only planning convention: a repository plans with one backlog and one folder per version, the iterations and
 capabilities a product ships in that version.
@@ -68,8 +68,13 @@ A repository plans with exactly two things, both under `engineering/planning/`:
 - a cycle is `Feature` → `Adoption`; 1 cycle = 2 versions (full model → `../../development/dev-cycle.md`)
 - must follow every `Feature` version with an `Adoption` version; the next `Feature` version opens only after it
   (owner 2026-10-29)
-- must run that cycle in every repository with a version track: products, domain libraries (Identity, Files,
-  Harvest) and both core SDKs (owner 2026-10-29)
+- must run that cycle in every repository with a version track, product and platform deliveries alike: products,
+  platform apps (Wheelhouse), domain libraries (Identity, Files, Harvest) and both core SDKs (owner 2026-10-29,
+  2026-11-01)
+- must plan a library's extraction in its `Adoption` version — Identity's Telegram delivery moving to a communications
+  library is one; the `Feature` version that built it inline never moves it
+- must close the previous version, its `Adoption` included, before the next one opens; an open older version beside a
+  newer folder leaves two active versions
 - must open the `Adoption` version even when it finds nothing to do: mark it `⏭️ Skipped`, say why in one line, close it
 - must start an `Adoption` version with a sweep — infrastructure the `Feature` version built inline, SDK capabilities
   the product duplicates or has not adopted, SDK pins behind the newest release — and plan its iterations from that
