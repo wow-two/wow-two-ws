@@ -1,6 +1,6 @@
 # Host configuration
 
-*Last updated: 2026-10-28*
+*Last updated: 2026-11-01*
 
 > Product composition in the host; reusable registration contracts in the SDK.
 
@@ -36,6 +36,8 @@ Ownership rationale is [separate](host-configuration-rationale.md#ownership).
 - must answer `app migrate <verb>` after `Build()` and before `Configure`, so a migrate run starts no startup work;
   only a local run applies migrations at boot
   ([migration tooling](../../../../core/mla/domains/persistence/migrations/sql/migration-tooling.md)).
+- must answer `app config check` in the same slot, so a check starts no listener, hosted service or startup work
+  ([config check](config-check.md#verb)).
 - must await `ConfigureAsync` when startup work is asynchronous; that replaces the second group's call.
 
 ```csharp
@@ -186,6 +188,23 @@ Deployed dev runs as `Development`, so `Development` alone never means the devel
 var builder = WebApplication.CreateBuilder(args);
 builder.AddSettingsFiles();   // idempotent; only when the host reads settings before AddApiDefaults
 ```
+
+---
+
+## Config check
+
+Every boot runs the checks `app config check` runs ([config check](config-check.md)).
+
+- must run every settings and stored-data check at each boot, and finish them before the host accepts traffic.
+- must refuse to start on a failed check when `DEPLOY_ENVIRONMENT` is set, as a failed mandatory startup task does.
+- may start on a local run and log each failed check.
+- must log a stranding refusal `Critical`: the setting, the count and how to resolve it.
+- must name the setting in every failure log, never a secret value.
+- must bind each service-owned section with `ErrorOnUnknownConfiguration` in its `Add{Domain}`
+  ([unknown keys](config-check.md#unknown-keys)).
+- must register a setting's stored-data checks in the `Add{Domain}` that binds it.
+- must apply a stricter rule over stored rows where the value is used, at each row's next use, never in the boot
+  ([changes over stored data](config-check.md#changes-over-stored-data)).
 
 ---
 

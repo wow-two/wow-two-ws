@@ -9,6 +9,7 @@
 ## What lives here
 
 - [host configuration](host-configuration.md) — the `Configure` / Extensions split, settings, env overrides
+- [config check](config-check.md) — the `config check` verb, its `config-result` line, exits and deploy step
 - [startup defaults](startup-defaults.md) — the `AddApiDefaults()` / `UseApiDefaults()` boot floor
 - [launch profiles](launch-profiles.md) — `launchSettings.json`, one `https` profile, the even/odd port pair
 

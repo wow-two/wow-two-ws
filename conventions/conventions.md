@@ -276,6 +276,7 @@ Product UI standards, by need:
 | Server lifecycle — a VPS from purchase to retirement · order, bootstrap kit, tailnet policy and tags, runner key, `platform` network, product databases and settings, registry token, backups, move, retire · points to Wheelhouse's VPS runbook | [deployment/servers/server-lifecycle.md](deployment/servers/server-lifecycle.md) |
 | Redundancy (for review) — a product on primary, secondary and tertiary servers plus a backup-only storage · replication, failover, full recovery | [deployment/servers/redundancy.md](deployment/servers/redundancy.md) |
 | Deployment descriptor — `engineering/deployment/deploy.yml`: product identity, services, per-service builds and change paths, sites (public ports), settings, needs, `dependsOn`, the `migrate:` list, images pinned by tag, `extensions:` · rollouts: dependency order, restart only on own change · service versions · candidate builds · release flow: `main` only, dev then prod · CI shape · JSON Schema | [deployment/descriptor/deploy-descriptor.md](deployment/descriptor/deploy-descriptor.md) |
+| Config check — the `app config check` verb on every service with settings: boot validation run without serving · invalid values, unknown keys, stranded people · read-only count queries · the `config-result` line, exits `0`/`1`/`2` · run in the deploy after `migrate`, before the restart | [development/backend/dotnet/shapes/service/platform/startup/config-check.md](development/backend/dotnet/shapes/service/platform/startup/config-check.md) |
 
 ---
 
