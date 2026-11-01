@@ -85,8 +85,9 @@
 
 - must build hosted pages, such as sign-in and the admin console, on the fe SDK so every SDK theme ships in the image.
 - must pick the hosted pages' theme by its SDK name from the instance's configuration.
-- may override that theme per registered app, so one instance shows each app's pages in its own theme.
-- may set a background image per registered app beside its theme; the pages keep a readable card over it.
+- must give an instance one look — brand name, theme and an optional background — since an instance serves one
+  product; no per-app override (developer, 2026-11-01).
+- must keep the pages readable over a background: a solid card holds every form.
 - must leave embedded UI parts on the consuming app's theme; they take no theme setting of their own.
 
 ---

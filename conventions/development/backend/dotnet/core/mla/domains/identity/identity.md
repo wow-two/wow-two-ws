@@ -1,6 +1,6 @@
 # Identity
 
-*Last updated: 2026-09-10*
+*Last updated: 2026-11-01*
 
 > Who the caller is, and what the service lets them do.
 > Purpose — the claim set is the contract; how it arrives is the provider's business.
@@ -20,6 +20,15 @@
 - must key every auth concern under `Identity:` — `Identity:GitHub:ClientId`, never `OAuth:` or `Auth:`.
 - must name the namespace and folder `Identity`, nesting a provider under it — `Identity.OAuth.GitHub`.
 - must bind values through the [settings recipe](../../components/settings.md#registration).
+
+---
+
+## Naming
+
+- must name the three actions sign in, sign up and sign out in routes, members, settings, messages and docs; never
+  log in, log out, login, logout or register (developer, 2026-11-01).
+- must mount a product's own session routes under `/api/identity/`: `session`, `sign-in`, `sign-out`, `callback`.
+- must name an Identity instance's account routes the same way: `/api/account/sign-in`, `/sign-up`, `/sign-out`.
 
 ---
 

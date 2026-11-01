@@ -1,6 +1,6 @@
 # Auth
 
-*Last updated: 2026-10-19*
+*Last updated: 2026-11-01*
 
 > The session state machine an app renders against, and the sign-in shapes that settle it.
 > Purpose — a page reads a status and a user; how the credential was obtained stays behind the strategy.
@@ -21,6 +21,8 @@
   ([hooks](../../constructs/behavior/hooks.md) § *Lifecycle rules*).
 - must type the user generically; its shape is the app's, never the contract's.
 - must ship no UI — gates, splash surfaces and sign-in pages stay app-side.
+- must name the actions sign in, sign up and sign out in members, routes and copy — `signIn`, `/sign-up`, "Sign out";
+  never login, logout or register (developer, 2026-11-01).
 - must access browser APIs inside supported client actions; import safety alone is not SSR support.
 
 ---

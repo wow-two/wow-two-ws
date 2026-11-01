@@ -26,6 +26,9 @@
 - must keep product-specific host wiring and auth helpers in the product test project.
 - must not copy generic SDK host factories or fixtures for a later extraction.
 - must stub only genuinely external third-party services; use WireMock for HTTP stubs.
+- must keep fakes, message sinks and test doubles in test projects; never ship a test mode, fake channel or sink in a
+  service's runtime code (developer, 2026-11-01).
+- must run dev and manual end-to-end flows against real accounts: wow2's dev mailboxes and bots (`wks-t-006`).
 - must run in-process code generation, detectors and queues for real when exercising their integration.
 - must wait for asynchronous work with bounded polling, not fixed sleeps.
 - must run required container-backed checks locally and in CI before shipping.
