@@ -129,6 +129,7 @@ The [five-product analysis](../../ideas/self-serve-research-2026-10/self-serve-r
 | `wks-t-004` | Remove material that should not be public from `wow-two-ws` | `-` | normal | `todo` | `wow-two-ws` | Added `2026-10-20` by the user: the repo stays public because wow2 is a public community. Inventory and move out personal business material — e.g. `ideas/parent-company-2026-10/` (tax, banking), client names, private venture plans. Removed files stay in git history; decide whether to rewrite it |
 | `wks-t-005` | Ask Anthropic, via `/feedback` in the Claude desktop app, for a permanent JavaScript grant in the built-in browser | `-` | low | `todo` | `-` | Added `2026-10-21` by the user: on Wheelhouse's tailnet console host the pane says site-level permissions are disabled and offers only Allow once, so every JavaScript check asks again. Agents use JavaScript there when it is more accurate than screenshots |
 | `wks-t-006` | Set up wow2 development accounts: sender and receiver mailboxes and Telegram bots for dev and test flows | `-` | `high` | `todo` | `-` | Added `2026-11-01` by the user, marked important: products verify email and Telegram flows against real accounts, never a built-in test mode; Identity's dev and local runs need a sender mailbox, receiver mailboxes and a bot per environment |
+| `wks-t-007` | Copy the compose `Stop` hook from 10x-ws into this workspace's `check-style.py` | `-` | normal | `todo` | `wow-two-ws` | Added `2026-11-02` by the user: the hook continues a turn once when mid-turn text held `### Queue`, `### Plan` or 3+ lines; 10x-ws has it, with tests. Starts after this workspace's hook lane commits its `check-style.py` edits |
 
 ---
 
@@ -145,6 +146,7 @@ Not started, ordered, top = next. Pulling one promotes it above and mints its ID
 | `ApiResponse<T>` envelope → `Web.Contracts` | feature | products drop the inline copy |
 | Remaining v0.2 extract items | feature | 13-item list, detail in wheelhouse's backlog |
 | `ToCommand` / `ApiRequest` support | idea | evaluate once apps adopt the convention |
+| Open the be sdk version track at `v0.1` (Feature), from the top of its backlog | decision | Asked `2026-10-29`: both core SDKs follow the adoption rule (hub `316cc01`); the fe sdk is on `v0.1`, the be sdk has no track yet; the owner decides when |
 
 ### Conventions
 
