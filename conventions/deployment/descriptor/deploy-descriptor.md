@@ -44,8 +44,7 @@ Why a custom format → [rationale](deploy-descriptor-rationale.md). Point ids (
 - should publish one image per service at `ghcr.io/<owner>/<repo>/<service>`; `image` overrides a legacy name.
 - may run another repository's published image as a service, pinned by tag ([pinned images](#pinned-images), M77).
 - must declare a `migrate:` item for every image that hosts a migration set ([migrate](#migrate), M9).
-- must declare a `configCheck:` item for every service that has settings, once the generator accepts it
-  ([config check](#config-check)).
+- must declare a `configCheck:` item for every service that has settings ([config check](#config-check)).
 - must keep the product slug equal to the Wheelhouse runner product (`foreverpin`, not `forever-pin`); every repository
   of a product built from several names that product's slug ([below](#products-of-several-repositories)).
 - should set `dotnetEnvironment: true` once every .NET service's `appsettings.Development.json` holds defaults only
@@ -368,8 +367,8 @@ The generator:
 
 The step that runs each service's
 [`config check`](../../development/backend/dotnet/shapes/service/platform/startup/config-check.md) with the settings
-the deploy applies, so a bad setting stops the deploy before any restart. Planned: Wheelhouse v0.13 runs it, and the
-generator refuses the key until a pipelines release accepts it.
+the deploy applies, so a bad setting stops the deploy before any restart. Pipelines `v0.15.0` accepts the key, and
+Wheelhouse v0.12 runs it; an older pipelines tag refuses it.
 
 ```yaml
 configCheck:                          # one item per service that has settings
