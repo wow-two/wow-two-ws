@@ -1,6 +1,6 @@
 # Port Ledger
 
-*Last updated: 2026-10-28*
+*Last updated: 2026-11-02*
 
 > Single source of truth for allocated dev ports — **check here before picking one** to avoid collisions.
 > Backend rule: a **single `https` profile** binds two ports per service — **HTTPS on the even port, HTTP on the adjacent odd port** (`even`, `even + 1`); TLS terminated upstream in prod — see [backend/launch-profiles.md](../../development/backend/dotnet/shapes/service/platform/startup/launch-profiles.md). Frontend (Vite) = an **even** port (HTTPS via mkcert).
@@ -79,8 +79,9 @@
 | ocharo-marketing review | isolated Editorial API · editor frontend | 8350 https / 8351 http · 8352 |
 | ocharo-marketing review | isolated Marketing API | 8354 https / 8355 http |
 | ocharo-platform image worker review | private loopback HTTP worker | 8360 |
+| ocharo-identity (Ocharo's local Identity instance, compose) | Identity · PostgreSQL · mailpit UI / SMTP | 8404 https / 8405 http · 8406 · 8408 / 8409 |
 
-**Next free backend even port: 8404.** Append a row whenever you allocate, and move this number past every port the row takes, its Vite port included.
+**Next free backend even port: 8410.** Append a row whenever you allocate, and move this number past every port the row takes, its Vite port included.
 
 Ocharo Marketing Vite moved from the duplicate `8242` allocation to `8358` on 2026-09-29.
 Ocharo Desk Vite moved from `8266` (home-atlas) to `8378`, and its Compose API from `8268`/`8269` (surface-pattern) to `8376` https / `8377` http, on 2026-10-17.
