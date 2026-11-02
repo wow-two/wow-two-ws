@@ -302,7 +302,7 @@
         "--project",
         "workbench/maxs-projects/ventures/consumer/ventures.pose-coach/engineering/codebase/pose-coach.backend-services/PoseCoach.Api/PoseCoach.Api.csproj",
         "--launch-profile",
-        "http"
+        "https"
       ],
       "port": 8259
     },
