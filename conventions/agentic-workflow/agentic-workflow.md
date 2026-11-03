@@ -61,9 +61,10 @@ Distinguish it from the version-track's **transient iteration plan** (`v{X.Y}/{i
 
 ---
 
-## Built-in browser
+## Live consoles
 
-- must use the built-in browser on live consoles, prod included, as the developer does: navigate, read, click, type.
+- must drive live consoles, Wheelhouse dev and prod included, as the developer does — navigate, read, click, type,
+  save, deploy — through Claude in Chrome or the built-in browser; a console step is the agent's, never a handover.
 - must not run JavaScript on a tailnet (`*.ts.net`) host: the app asks the developer on every call there, even with
   permissions bypassed. Read the page, find elements, screenshot or zoom instead; JavaScript is fine on localhost.
 - must keep subagents' browsers off tailnet hosts, since each of their actions asks the developer; a subagent verifies
@@ -72,8 +73,11 @@ Distinguish it from the version-track's **transient iteration plan** (`v{X.Y}/{i
 
 ---
 
-## Wheelhouse prod promotion
+## Wheelhouse deploys and promotion
 
+- may set settings, run one-offs, deploy and promote every product in Wheelhouse, prod included, without asking
+  (developer, 2026-11-03: "this is why claude extension exists - you have full access to all products in wheelhouse,
+  even for prod env"); a product reaches prod only on the release that passed on its dev target.
 - may promote Wheelhouse's own prod without asking (developer's grant, 2026-10-24): until self-deploy is active,
   dispatch `promote-prod.yml` with an empty release and approve its `prod` environment; after, the prod console's
   Ready to promote with `wheelhouse-prod` typed and a reason.
@@ -82,7 +86,8 @@ Distinguish it from the version-track's **transient iteration plan** (`v{X.Y}/{i
   minute.
 - must confirm afterwards that prod answers and runs the promoted release, then report the release in one line.
 - must treat the dispatch and the approval as GitHub writes, so the repository's push flag stays the switch.
-- must not stretch the grant to any other product's prod; those promotions stay the developer's call.
+- must expect auto mode to refuse a prod Deploy click (`Production Deploy`) until `~/.claude/settings.json` carries
+  the `WoW2 Wheelhouse Deploys` allow rule; until then fill the dialog and hand over that one click.
 
 ---
 
