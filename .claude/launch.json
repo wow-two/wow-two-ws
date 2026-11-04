@@ -507,7 +507,8 @@
         "dev:editorial"
       ],
       "port": 8284,
-      "url": "https://localhost:8284/studio/"
+      "env": { "VITE_API_CA_PATH": "../../../../../../ocharo-platform/.local/identity/certs/localhost.pem" },
+      "url": "https://localhost:8284"
     },
     {
       "name": "ocharo-marketing-web",
@@ -518,6 +519,7 @@
         "dev"
       ],
       "port": 8358,
+      "env": { "VITE_API_CA_PATH": "../../../../../../ocharo-platform/.local/identity/certs/localhost.pem" },
       "url": "https://localhost:8358"
     },
     {
