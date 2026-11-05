@@ -58,6 +58,7 @@ Offline tokens stay valid until they expire, so a signal closes that gap.
 - must refuse a matching token through a deny list kept until that token would have expired.
 - must check Identity live only for actions a service names as dangerous, such as deleting an organization.
 - a lost signal leaves staleness bounded by the token lifetime.
+- a service's own token has no `sid` or `org_id`, so no signal revokes it; only its lifetime limits it.
 
 ## Outside this mechanism
 
