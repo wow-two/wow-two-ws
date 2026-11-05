@@ -437,10 +437,9 @@
         "run",
         "--project",
         "/Users/max/Projects/10x-ws/workbench/career/engineering/wow-two/wow-two-ws/workbench/mfts-projects/ventures/ocharo-hq/ocharo-ws/workbench/ocharo-studio/engineering/codebase/ocharo-studio.backend-services/OcharoStudio.Api",
-        "--no-launch-profile",
-        "-p:BuildSpa=false",
-        "--urls",
-        "http://127.0.0.1:8261;http://[::1]:8261"
+        "--launch-profile",
+        "https",
+        "-p:BuildSpa=false"
       ],
       "env": {
         "ASPNETCORE_ENVIRONMENT": "Development",
@@ -458,7 +457,8 @@
         "dev"
       ],
       "env": {
-        "STUDIO_API_URL": "http://127.0.0.1:8261"
+        "STUDIO_API_URL": "https://localhost:8260",
+        "VITE_API_CA_PATH": "../../../../../../ocharo-platform/.local/identity/certs/localhost.pem"
       },
       "port": 8262,
       "url": "https://localhost:8262"
