@@ -543,8 +543,9 @@ services:
 - The console shows a linked key read-only, with its source.
 
 - must pin pipelines `v0.14.0` or later to declare `generate` or `from`; an older generator refuses both, and the
-  bundle needs a Wheelhouse runner from v0.11. The `{ repository, key }` form needs pipelines `v0.16.0` or later, and a
-  Wheelhouse runner that reads the bundle's `linkRepositories`.
+  bundle needs a Wheelhouse runner from v0.11. The `{ repository, key }` form needs pipelines at commit
+  `e0d2bf3520e13becbd2ea6484f7f15a348c4d178` or later, pinned by its full SHA while it is untagged, and a Wheelhouse
+  runner that reads the bundle's `linkRepositories`.
 
 ### Snapshots of file databases
 
