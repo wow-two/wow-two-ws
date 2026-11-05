@@ -1,6 +1,6 @@
 # HLA — between our own services
 
-*Last updated: 2026-08-16*
+*Last updated: 2026-11-05*
 
 > High-level architecture: rules that only exist once there is more than one of our services.
 > Purpose — keep fleet-shaped decisions out of `mla/`, where a single service would silently adopt them as defaults.
@@ -14,10 +14,12 @@
 
 ---
 
-## Empty by design
+## Contents
 
-Nothing here yet; the folder is named ahead of its contents on purpose. Without it, the first gateway or gRPC
-rule lands in `shapes/service/platform/` and becomes a single-service default that every later service inherits by accident.
+- [API communication](api-communication.md) — service tokens, long-running work and revocation.
+
+The folder was named ahead of its contents on purpose. Without it, the first gateway or gRPC rule lands in
+`shapes/service/platform/` and becomes a single-service default that every later service inherits by accident.
 
 Candidates, as they arrive:
 
