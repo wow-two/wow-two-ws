@@ -292,6 +292,7 @@ releases from theirs.
 | Front door | the primary repository's primary site; another repository's primary site is an ordinary one |
 | Named volumes | unique across its repositories too (`studio-data`, `motion-data`): one volume is one product's storage, so Wheelhouse refuses a clash rather than share or rename one |
 | `dependsOn` | may name another repository's service once the shared generator accepts it; Wheelhouse checks the whole product when it composes a release, and refuses an unknown service or a cycle |
+| `from` | may name another repository's key or site as `{ repository, key }` ([generated and linked keys](#generated-and-linked-keys)); Wheelhouse checks it when it composes a release, and refuses a source that repository's release lacks |
 | `dotnetEnvironment`, `verify` | per repository: .NET environment names apply to the services of the repositories that opt in; the first repository's dev check runs for the set |
 | `migrate`, `extensions` | per repository, for its own images and sets; Wheelhouse merges them for the release set ([migrate](#migrate)) |
 
@@ -491,11 +492,25 @@ services:
           from: Identity:Server:Clients:0:ClientSecret  # the same value Identity holds
 ```
 
+A repository of a product built from several takes another repository's key or site by naming it:
+
+```yaml
+services:
+  marketing:                                            # in ocharo-hq/ocharo-marketing
+    settings:
+      keys:
+        Identity:Client:ClientSecret:
+          from: { repository: platform, key: Identity:Server:Clients:3:ClientSecret }
+        Identity:Client:Authority:
+          from: { repository: platform, key: Sites:identity:Url }
+```
+
 | Field | Form | Value |
 |---|---|---|
 | `generate` | `{ random: N, encoding: base64url \| hex }` | `N` random bytes, 16–64, `base64url` by default |
 | `generate` | `{ command: [argv…], timeout: 2m }` | The command's standard output, run from the service's own release image |
 | `from` | a configuration path | Another declared key's value, or a derived key's (`Sites:<site>:Url`) |
+| `from` | `{ repository: <short name>, key: <path> }` | The same from another repository of the product; the short name is the one a release set's label gives it (`ocharo-hq/ocharo-platform` is `platform`) |
 
 `generate`:
 
@@ -514,7 +529,11 @@ services:
 
 `from`:
 
-- must name one configuration path: a key any service of the same product declares, or a derived key.
+- must name one configuration path: a key a service of the same descriptor declares, or a derived key; a key or site of
+  another repository takes the `{ repository, key }` form.
+- A `{ repository, key }` source is checked when Wheelhouse composes the release set: a set without that repository, or
+  whose release of it lacks the key or site, refuses the deploy, and only the named repository's services supply the
+  value. Its `key` must differ from the key that takes it, and a release that is not a set refuses the form.
 - must stand alone on its key: refused beside any other field; the key takes its source's type and secrecy, and a
   deploy waits on it only while its source waits.
 - must not name a key that itself has `from`: one hop, so no cycle.
@@ -524,7 +543,8 @@ services:
 - The console shows a linked key read-only, with its source.
 
 - must pin pipelines `v0.14.0` or later to declare `generate` or `from`; an older generator refuses both, and the
-  bundle needs a Wheelhouse runner from v0.11.
+  bundle needs a Wheelhouse runner from v0.11. The `{ repository, key }` form needs pipelines `v0.16.0` or later, and a
+  Wheelhouse runner that reads the bundle's `linkRepositories`.
 
 ### Snapshots of file databases
 
