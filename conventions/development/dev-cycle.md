@@ -1,6 +1,6 @@
 # Development cycle
 
-*Last updated: 2026-10-25*
+*Last updated: 2026-11-08*
 
 > Two cycles per active app — implement a version in-app, then extract its stable blocks to the SDK + conventions and adopt across the active apps.
 > Purpose — mature the apps and the shared SDK in parallel: ship fast in one product, harden once, propagate everywhere — never in isolation.
@@ -103,6 +103,22 @@ commit, so it needs no sync ([domain structure](repo/structure/domain-structure.
 - may hand the wait to a background agent or shell that waits the average release time, then pulls.
 - the average release time — fe sdk ≈ 7 min, be sdk ≈ 10 min; `gh run list --workflow` gives today's figure.
 - a failed release run lands no release commit; fix forward, and the next push releases.
+
+---
+
+## Cross-repository goals — one lane per repository
+
+A goal that moves several repositories at once — a domain (Identity, Files), an Ocharo or WoW2 product, Wheelhouse —
+runs as one orchestrator chat plus one lane chat per repository, by `~/.claude/conventions/agentic-workflow.md`
+§ Orchestrated sessions (developer, 2026-11-08: "since it's work between 4 repos 4 forks are always better").
+
+- must start one lane per repository the goal writes: four repositories, four lanes.
+- must write every prompt for such a goal as an orchestrator prompt that names each lane, its repository and its slice,
+  and says the prompt is the go-ahead to start them; a prompt with no lanes leaves one chat writing every repository.
+- the developer writes only to the orchestrator; lanes send their decisions there.
+- a one-off SDK fix inside a product chat stays the SDK change loop above.
+- example: Files with Identity, Ocharo and Wheelhouse, `wow-two-sdk-beta.files`
+  `engineering/research/files-analysis-2026-10/prompt-identity-needs.md`.
 
 ---
 
