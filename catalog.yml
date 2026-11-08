@@ -259,8 +259,8 @@ entries:
     name: Files
     workspace: wow2-platform
     kind: platform
-    deploy: none
-    status: "Planned: scaffolded from the domain template 2026-10-26; private until the first release; the empty `wow-two-platform/wow-two-platform.storage.file` goes to the archive"
+    deploy: wheelhouse
+    status: "Active (beta): dev deploys through Wheelhouse since 2026-11-09; the empty `wow-two-platform/wow-two-platform.storage.file` goes to the archive"
     purpose: "Files for every product: store, upload, transform, compress, share and serve them under one contract."
     repositories: [wow-two-sdk-beta/wow-two-sdk-beta.files]
   - slug: events
