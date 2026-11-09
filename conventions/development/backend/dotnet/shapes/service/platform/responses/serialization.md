@@ -1,12 +1,13 @@
 # Serialization
 
-*Last updated: 2026-09-10*
+*Last updated: 2026-11-09*
 
 > The API JSON contract; stored documents have a separate versioned contract.
 
 ## Contract
 
-- must serialize property names and dictionary keys as camelCase.
+- must serialize property names as camelCase.
+- must write dictionary keys as they are: they carry data such as size labels, locales and ids.
 - must serialize enum values as camelCase strings; numeric enum input and ordinal output are not the wire contract.
 - must reject values without a declared wire name rather than serialize an integer ordinal.
 - must omit null properties on write with `WhenWritingNull`.
