@@ -365,6 +365,14 @@ entries:
     status: "Active (beta)"
     purpose: "fe sdk — `@wow-two-beta/fe` (npm), Vue 3 components, application adapters, browser capabilities. Code: `engineering/codebase/wow-two-sdk-beta-fe/`; the parked React `@wow-two-beta/ui` sits in `engineering/codebase/wow-two-front-beta-sdk/`"
     repositories: [wow-two-sdk-beta/wow-two-sdk-beta.fe]
+  - slug: wow-two-sdk-beta-ios
+    name: wow-two-sdk-beta.ios
+    workspace: wow2-backbone
+    kind: sdk
+    deploy: none
+    status: "Active (beta)"
+    purpose: "ios sdk — `WoW2SdkBetaIos` (SwiftPM, resolved by git tag), modules `WoW2Ios[{Layer}]`: themed SwiftUI components, theme tokens, API client, config, logging. Code: `engineering/codebase/wow-two-sdk-beta-ios/`"
+    repositories: [wow-two-sdk-beta/wow-two-sdk-beta.ios]
   - slug: wow-two-sdk-beta-product-template
     name: wow-two-sdk-beta.product-template
     workspace: wow2-backbone
