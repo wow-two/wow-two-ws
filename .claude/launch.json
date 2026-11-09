@@ -562,12 +562,12 @@
       "url": "https://localhost:8288"
     },
     {
-      "name": "ocharo-motion-web",
+      "name": "ocharo-assets-web",
       "runtimeExecutable": "pnpm",
       "runtimeArgs": [
         "-C",
-        "workbench/mfts-projects/ventures/ocharo-hq/ocharo-ws/workbench/ocharo-assets/engineering/codebase/ocharo-motion.frontend-services/apps/web",
-        "dev:http"
+        "workbench/mfts-projects/ventures/ocharo-hq/ocharo-ws/workbench/ocharo-assets/engineering/codebase/ocharo-assets.frontend-services/apps/web",
+        "dev"
       ],
       "port": 8298
     },

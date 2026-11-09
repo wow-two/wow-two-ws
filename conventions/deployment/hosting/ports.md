@@ -39,7 +39,7 @@
 | ocharo-blog | API · Vite | 8280 https / 8281 http · 8284 |
 | ocharo-brand | API · Vite | 8286 https / 8287 http · 8288 |
 | pbn-studio | API · Vite | 8290 https / 8291 http · 8292 |
-| ocharo-motion | API · Vite | 8296 https / 8297 http · 8298 |
+| ocharo-assets (motion lab) | API · Vite | 8296 https / 8297 http · 8298 |
 | retainer-balance | API · Vite | 8300 https / 8301 http · 8332 |
 | documentation-checker | API · Vite | 8302 https / 8303 http · 8334 |
 | file-watch | API · Vite | 8304 https / 8305 http · 8336 |
