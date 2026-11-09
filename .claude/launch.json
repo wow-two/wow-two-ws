@@ -487,6 +487,17 @@
       "url": "https://localhost:8282"
     },
     {
+      "name": "ocharo-desk-web",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": [
+        "-C",
+        "workbench/mfts-projects/ventures/ocharo-hq/ocharo-ws/workbench/ocharo-platform/engineering/codebase/brand-workspace.frontend-services",
+        "dev"
+      ],
+      "port": 8378,
+      "url": "https://localhost:8378"
+    },
+    {
       "name": "ocharo-blog-api",
       "runtimeExecutable": "dotnet",
       "runtimeArgs": [
