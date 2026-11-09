@@ -1,6 +1,6 @@
 # Port Ledger
 
-*Last updated: 2026-11-02*
+*Last updated: 2026-11-09*
 
 > Single source of truth for allocated dev ports — **check here before picking one** to avoid collisions.
 > Backend rule: a **single `https` profile** binds two ports per service — **HTTPS on the even port, HTTP on the adjacent odd port** (`even`, `even + 1`); TLS terminated upstream in prod — see [backend/launch-profiles.md](../../development/backend/dotnet/shapes/service/platform/startup/launch-profiles.md). Frontend (Vite) = an **even** port (HTTPS via mkcert).
@@ -78,6 +78,10 @@
 | ocharo-studio review | isolated API · frontend | 8348 https / 8349 http · 8356 |
 | ocharo-marketing review | isolated Editorial API · editor frontend | 8350 https / 8351 http · 8352 |
 | ocharo-marketing review | isolated Marketing API | 8354 https / 8355 http |
+| ocharo-marketing | Atlas publication preview (static, loopback) | 8772 |
+| ocharo-marketing | Wear publication preview (static, loopback) | 8773 |
+| ocharo-marketing | Blog publication preview (static, loopback) | 8774 |
+| ocharo-marketing | Catalogue publication preview (static, loopback) | 8775 |
 | ocharo-platform image worker review | private loopback HTTP worker | 8360 |
 | ocharo-identity (Ocharo's local Identity instance, compose) | Identity · PostgreSQL · mailpit UI / SMTP | 8404 https / 8405 http · 8406 · 8408 / 8409 |
 
