@@ -1,12 +1,13 @@
 # ProblemDetails
 
-*Last updated: 2026-10-02*
+*Last updated: 2026-11-09*
 
 > RFC 9457 errors at the HTTP boundary.
 
 ## Wire contract
 
 - must return a `ProblemDetails` object with `application/problem+json` for every writable HTTP `4xx` or `5xx` response, including endpoint, middleware, proxy and framework failures.
+- must let a public site's document routes (HTML pages a visitor opens, such as a blog's `/journal/*`) answer their own HTML error page in the site's look, with `noindex`; the endpoint opts out of the problem rewrite by the SDK's endpoint metadata, and `/api/*`, media and every other route keep problem JSON (orchestrator, 2026-11-09: a mistyped Blog link showed visitors raw JSON).
 - must set `status` to the HTTP status and provide a stable `type`, safe `title`, and request correlation identifiers.
 - must retain field errors in `ValidationProblemDetails` or the shared application validation extension.
 - must normalize empty status responses and existing string or alternate JSON error bodies at their owning boundary.
