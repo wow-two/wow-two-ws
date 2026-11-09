@@ -1,6 +1,6 @@
 # SDK structure
 
-*Last updated: 2026-10-25*
+*Last updated: 2026-11-09*
 
 > On-disk layout and naming of an SDK / library repo under `wow-two-ws/workbench/` — the package-shaped
 > counterpart of [repo structure](repo-structure.md).
@@ -19,17 +19,17 @@
 
 ## Naming
 
-| Part | be sdk | fe sdk |
-|---|---|---|
-| repo | `wow-two-sdk-beta.be` | `wow-two-sdk-beta.fe` |
-| code dir | `engineering/codebase/wow-two-sdk-beta-be/` | `engineering/codebase/wow-two-sdk-beta-fe/` |
-| package | `WoW2.Sdk.Beta.Be[.{Module}]` on NuGet | `@wow-two-beta/fe` on npm |
-| namespace | `WoW.Two.Sdk.Beta.Be[.{Module}]` | — |
+| Part | be sdk | fe sdk | ios sdk |
+|---|---|---|---|
+| repo | `wow-two-sdk-beta.be` | `wow-two-sdk-beta.fe` | `wow-two-sdk-beta.ios` |
+| code dir | `engineering/codebase/wow-two-sdk-beta-be/` | `engineering/codebase/wow-two-sdk-beta-fe/` | `engineering/codebase/wow-two-sdk-beta-ios/` |
+| package | `WoW2.Sdk.Beta.Be[.{Module}]` on NuGet | `@wow-two-beta/fe` on npm | `WoW2SdkBetaIos` by SwiftPM git tag |
+| namespace | `WoW.Two.Sdk.Beta.Be[.{Module}]` | — | modules `WoW2Ios[{Layer}]` |
 
-- must name a beta SDK repo `wow-two-sdk-beta.{stack}` — `be` for .NET, `fe` for the frontend.
+- must name a beta SDK repo `wow-two-sdk-beta.{stack}` — `be` for .NET, `fe` for the frontend, `ios` for native iOS.
 - must name its code dir `{slug}` — the repo name with the dot as a hyphen.
 - must name an extra be sdk package and its namespace by appending `.{Module}` to the root.
-- must call them "be sdk" and "fe sdk" in prose, lowercase — never "backend SDK", "UI SDK" or "frontend SDK".
+- must call them "be sdk", "fe sdk" and "ios sdk" in prose, lowercase — never "backend SDK", "UI SDK" or "frontend SDK".
 
 ---
 
@@ -74,6 +74,9 @@
 - must reach the package from CI with `working-directory: engineering/codebase/{slug}`.
 - must set `repository.directory` in `package.json` to `engineering/codebase/{slug}`.
 - must update the `wow-two-ws/scripts/active.sh` entry when the package moves.
+- must keep a Swift package's `Package.swift` at the repo root, pointing every target into
+  `engineering/codebase/{slug}/` with `path:` — SwiftPM resolves a git dependency's manifest only at the root.
+- must publish a Swift package by git tag `0.0.y` from CI on `main`; SwiftPM needs no registry.
 
 ---
 
