@@ -1,6 +1,6 @@
 # Migrations
 
-*Last updated: 2026-11-01*
+*Last updated: 2026-11-09*
 
 > How every set of persistent state changes across releases, whatever its strategy: kinds, owners, the `migrate`
 > verbs, execution, compatibility, data and cross-owner references.
@@ -25,8 +25,15 @@
 - must not merge a library's files into the product's default set (M76).
 - must give module, package and service sets a named schema (M4).
 - must keep the product's own sets in `public`; a second one is a named set with `{name}_migration_history` (M4).
-- must keep one database per product environment, `<product>_{env}`, on one PostgreSQL server: the product's sets,
-  its modules' and packages' sets and every per-product instance's sets (M6).
+- should keep one database per product environment on one PostgreSQL server: the product's sets, its modules' and
+  packages' sets and every per-product instance's sets, each app's set in its named schema (M6). A second database only
+  when the product has a reason one can't serve, such as another server, its own backup or retention, or load it must
+  not share (developer, 2026-11-09: "multiple databases per product when it makes sense").
+- must name a product database `<product>_{env}` (`ocharo_dev`, `ocharo_prod`) and a second one
+  `<product>_<purpose>_{env}`, lowercase with `_`. The environment in the name keeps dev and prod apart on one server
+  and shows in every connection string, dump and `psql` prompt, so a prod session never passes for dev. One name in
+  every environment (`ocharo_db`) saves nothing, since Wheelhouse fills each target's connection string anyway
+  (developer, 2026-11-09).
 - must give a shared instance its own database on a server apart from every product's host (M6, M29).
 - must keep tenants as rows of the owner's set; no schema or database per tenant (M55).
 - must use PostgreSQL for every set; SQLite only where the owner accepts losing the data (M40, M49).
