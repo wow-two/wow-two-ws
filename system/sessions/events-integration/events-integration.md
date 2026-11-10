@@ -174,6 +174,10 @@ Developer, 2026-10-24 to 2026-11-10; not reopened.
   3. Analyse and iterate until the results are right.
   4. Iterate the layout.
   5. Close with the layout of Ocharo's own Events page in Desk.
+  - Inputs, from the ai-providers chat's update (`5f8fb06`), after the developer's corrections there:
+    - OpenAI billing already works ("I have already been using gpt for haven for example"), so `gpt-6-luna` is a ready fallback.
+    - The eval runs on live SCFD deliveries in the shadow week ("we'll run it with actual data after the integration").
+    - Haven's `Haven.Platform.Ai` already has Anthropic and OpenAI-compatible brokers, the source for the be sdk's `IChatClient` pass.
 - #11 Out of scope: Ocharo prod; Haven's OLX intake through SCFD; reminders, webhooks, AI extraction and translation
   (EV4, P2); a second product tracking events; CodeQL on the private adapters repo. After this goal: FSS's
   whole-vector pass.
