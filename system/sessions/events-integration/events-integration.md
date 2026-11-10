@@ -17,9 +17,12 @@ uncommitted, another chat's), [the Files track](../../../workbench/wow-two-sdk-b
 ## Status
 
 - 🔄 M1 analysis (#12): four lanes started 2026-11-10; each verifies its snapshot slice first (#34)
+  - ✅ events #34, 2026-11-10: the slice holds; `workbench/wow-two-sdk-beta/*` has commit and push ON, so repo creation runs; the `catalog.yml` `events` row's `purpose` line carries #39's uncommitted SCFD hunk (`:272`), so the lane's #41 hunk comes with context against `HEAD`
 - ⬜ M2 build (#13)
 - ⬜ Asked of the developer 2026-11-10: whose is the uncommitted SCFD work (#39)
 - Every lane records what it builds in its repos' active version track (#42)
+- Findings outside the lanes, 2026-11-10:
+  - ⬜ fe sdk: an empty leftover folder `presentation/display/eventCalendar/` (2026-09-10) beside `eventCalendarViewer/` (events lane)
 
 ## Goal
 
