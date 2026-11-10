@@ -218,6 +218,11 @@ Developer, 2026-10-24 to 2026-11-10; not reopened.
     Wheelhouse's look (glass edges, the 56 px bar, the persisted collapse, its profile menu) is local to its
     `AppLayout.vue`. SCFD's console is one 1,283-line component with tabs instead of routes, light only, with an ~80 px
     bar. Events' console has a local shell; FSS has none. The stale version badge is baked at build (`__APP_VERSION__`).
+  - Confirmed by the developer, 2026-11-10 ("confirmed the layout - implement it - we'll iterate and improve it by multiple
+    iterations anyway"): Overview (Home) · Collect (Sources, Pipelines, Runs) · Content (Posts) · Deliver (Subscriptions) ·
+    System (Hosts, Access); a pipeline opens as its own page; the container switch sits in the top bar. The scfd lane
+    builds iteration 1 in harvest's frontend (routes, one `AppLayout` on the SDK shell, a 56 px bar, the SDK
+    `AccountMenu`, a persisted collapse, light and dark), verified in the local preview with screenshots per page.
 - #58 SCFD's source model (developer, 2026-11-10): "I want us to add sources ourselves - because as we had discussion
   each source may need different things / steps to reach the posts - so that's why we have adapters - so instead of
   typing the source url etc - we allow the subscriber just choose a source - later we'll add tags based on the source
