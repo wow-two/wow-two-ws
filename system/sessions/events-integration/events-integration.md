@@ -106,6 +106,7 @@ uncommitted, another chat's), [the Files track](../../../workbench/wow-two-sdk-b
 | scfd | `ev-scfd`, `local_5fcf8705-55eb-4154-ac09-8cebe12c8852` | `workbench/wow-two-sdk-beta/wow-two-sdk-beta.harvest` and `…/wow-two-sdk-beta.harvest-adapters`, one product, work in series | #36 |
 | platform | `ev-platform`, `local_017f2bcd-6de5-41e8-93aa-14530829cbde` | `workbench/mfts-projects/ventures/ocharo-hq/ocharo-ws/workbench/ocharo-platform` | #37 |
 | wheelhouse | `ev-wheelhouse`, `local_31ee8aa4-c16a-48e1-a4b8-03be478bdb3b` | `workbench/wow-two-platform/wow-two-platform.wheelhouse` | #38 |
+| fe sdk | `ev-fe-shell`, `local_1e8e569c-52ac-42f1-b4b9-4dc28dfe799f`, started 2026-11-10 | `workbench/wow-two-sdk-beta/wow-two-sdk-beta.fe` | #59 |
 
 - Analysis chat `ocharo - ai providers for classification` (`ai-providers`, `local_d43d41f6-c1c8-4017-88ed-fcc05c7c0689`),
   started 2026-11-10 at the developer's request: compares AI providers for SCFD's relevance pass and Ocharo's later
@@ -117,7 +118,7 @@ uncommitted, another chat's), [the Files track](../../../workbench/wow-two-sdk-b
 - The orchestrator is `ocharo - events server` (`local_4597465c-ca6d-445b-b4f1-77546f8511b4`); it writes this file and
   its own `wow-two-ws` hunks (#41), and no lane's code.
 - The developer writes only to the orchestrator; lanes send their decisions there by `SendMessage`.
-- No identity, be sdk or fe sdk lane at start (#40).
+- No identity, be sdk or fe sdk lane at start (#40); the fe sdk lane started 2026-11-10 on the developer's yes (#59).
 
 ## Order
 
@@ -276,6 +277,29 @@ Developer, 2026-10-24 to 2026-11-10; not reopened.
     Catalogue pilot is the live side on dev while the docs disagree on the canonical writer (E3); Marketing and Blog
     read the pilots (E4); Desk and Marketing both receive Studio imports (E6); Desk holds two approval stores (E7).
     From outside, only Editorial calls Desk (background removal); one product database, a schema per domain.
+- #59 One shared shell in the fe sdk (developer, 2026-11-10, answering "Start an fe sdk lane to move Wheelhouse's shell
+  into the shared SDK? Yes: one bar, edges and account menu for every console and Ocharo app": "confirmed this,
+  proceed"). Lane `ev-fe-shell` writes only `wow-two-sdk-beta.fe`: the shell's contract (what the SDK fixes: the 56 px
+  bar, edges and layout lines, sidebar and its persisted collapse, account menu, breadcrumb, content width, a version
+  badge that follows the running version; what a consumer passes: brand mark, nav groups, app-switcher items, a
+  top-bar slot, a language picker, the theme), frame dimensions as theme tokens shared by the default theme and
+  `theme-ocharo`, a generic app switcher, a showcase page and tests, and a migration note per consumer kind. Done when
+  a published `@wow-two-beta/fe` exports it with the bar read as 56 px in light and dark for both themes. Consumers
+  adopt through their own lanes, Ocharo's seven apps first (platform lane), the consoles in their UI iterations (#60).
+- #60 Order from here (developer, 2026-11-10): "so that's ocharo work right ? complete it, then we'll review the scfd
+  together, improve it's ui with a few more iterations then get back to ocharo, then we'll improve the scfd itself
+  only, ai integration, and create 100 event sources registries, get back to ocharo again to refine the integrations,
+  rendering etc so complete the integration fully there". It replaces #55's order where they differ:
+  1. Ocharo now: the shared shell (#59) onto Ocharo's apps, and the open integration items (the old-store retirement,
+     client 9's removal, the sweep fixes, Desk's Events page reading the city).
+  2. SCFD reviewed together with the developer; its console UI improved over a few iterations (#56, #58).
+  3. Ocharo again.
+  4. SCFD itself: AI integration (#54, #55) and the 100 event source registries (#51, #58).
+  5. Ocharo again: the integrations and rendering refined, the integration completed there.
+  - Orchestrator's reading of step 1, put to the developer: the shell and the open integration items; splitting Desk
+    into services (#57) waits for the developer's cut decisions and is asked as its own point.
+  - Meanwhile the scfd lane starts no new console iteration before the joint review, and the ai-providers chat keeps
+    holding until step 4.
 
 ## Contracts
 
