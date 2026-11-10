@@ -12,7 +12,8 @@ build only from a saved final iteration. Developer inputs: `events-integration` 
 - ✅ Mocks, iteration 1, final for the operator's Sources area (developer, 2026-11-10: "if you think sources are ready for this iteration - can update the site itself and we'll do aother iteration"): Sources (cards, rows), a source's Overview, Posts (rows, cards, a post opened), Activity and Settings
 - ⬜ Decisions #26–#29 and #37–#39 settle on the mocks, one per turn; #23–#25 and #30–#36 are settled
 - 🔄 Mocks, iteration 2, the client's view: Sources, a followed source's Posts in both modes; Overview and Following not mocked yet
-- 🔄 Hand-over to the scfd lane: the operator's Sources area and the menu (#41, #42); the client's view waits for iteration 2
+- ✅ Built from iteration 1 by the scfd lane, 2026-11-10: harvest `v0.1.15` (`0ed89cf`), adapters `v0.1.13` (`1693c79`), tags checked on GitHub; 11 pages in [`built-from-mock-1/`](built-from-mock-1/) (demo build, light); the orchestrator read Sources, a source and a post against the mocks
+- ⬜ The developer's review of the built console at `https://localhost:8400/`, once the lane's local harvest fills it
 
 ---
 
@@ -170,6 +171,16 @@ Orchestrator's picks. Each settles on the mocks, then becomes the page map the s
   subscriber's public page may show stays under `events-integration` #32 and #50.
 - #45 Later, not in iteration 1: a choice of outgoing server per source once a second server exists (no proxy pools,
   `events-integration` #50); AI use per source (#54, #55); Home; Subscribers; the client's Following page (#37).
+
+- #48 Built differently from the mocks, the lane's choices nearest Wheelhouse, open to the developer's review:
+  `workspace` for the engine's container, with the switch shown only for 2 or more; sources with no group last under
+  `Other`; the registry's publisher name as the group name (`Afisha Uzbekistan`); a section an adapter lists in 2
+  languages reads `Fashion · Russian`; Subscribers makes a subscription from subscriber, source and section, with no
+  typed tag; the account trigger shows initials only, as Wheelhouse's does.
+- #49 Not built, with the lane's reasons: `See the capture` (a post link carries a capture id and no route shows a
+  capture); the branch icon (no `branch` source family yet); naming a run the first harvest (runs cannot prove it).
+- #50 Images on dev: 14 of 14 Afisha posts hold image links; no step stores copies. The post view shows the links,
+  loaded with no referrer, inside SCFD only.
 
 ---
 

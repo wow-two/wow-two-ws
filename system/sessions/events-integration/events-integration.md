@@ -472,6 +472,11 @@ Developer, 2026-10-24 to 2026-11-10; not reopened.
     Analysis #44 and #46; both relayed to the scfd lane mid-build.
   - Developer, 2026-11-10, on a client's pages: no feed page, posts inside each followed source ("it shouldn't be one
     feed page, but more like sources -> posts"). Analysis #37 settled; #47 opens for iteration 2.
+  - Built, 2026-11-10: the scfd lane released console iteration 1 for Sources as harvest `v0.1.15` (`0ed89cf`) and
+    adapters `v0.1.13` (`1693c79`), tags checked on GitHub, tests and conformance passing per the lane; screenshots of
+    11 pages in `scfd-console/built-from-mock-1/`. The lane's own choices and what it did not build are analysis
+    #48–#50. Next: a real local harvest so the developer can review at `https://localhost:8400/`; adapters `v0.1.13`
+    and `ocharo setup --group afisha` on `harvestadapters-dev` (wheelhouse). The console is still not served on dev.
 
 ## Contracts
 
