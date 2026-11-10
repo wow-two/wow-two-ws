@@ -236,6 +236,19 @@ Developer, 2026-10-24 to 2026-11-10; not reopened.
     System (Hosts, Access); a pipeline opens as its own page; the container switch sits in the top bar. The scfd lane
     builds iteration 1 in harvest's frontend (routes, one `AppLayout` on the SDK shell, a 56 px bar, the SDK
     `AccountMenu`, a persisted collapse, light and dark), verified in the local preview with screenshots per page.
+  - Iteration 1 built, 2026-11-10: harvest `d0aedb5` = `v0.1.14` ("split the SCFD console into routed pages on the sdk
+    shell"; tag checked on GitHub), pinned by adapters `v0.1.11` (`fecff2e`). The lane captured every page in light and
+    dark from `https://localhost:8400/` (nine pages: home, sources, pipelines, pipeline, runs, posts, subscriptions,
+    hosts, access); the orchestrator read home, pipeline and sources and found the confirmed groups, the 56 px bar with
+    the collapse toggle, breadcrumb, container switch and account menu, a pipeline as its own page, and "New pipeline
+    from this source" on each source card. One bug fixed on the way: on `/pipelines/:id` the client's relative `api/…`
+    path got `index.html` from nginx; paths are absolute now, with a regression test. Iteration 2 gaps, in harvest's
+    backlog: an existing pipeline's URL is still editable by hand (#58); Home's delivery lag, a container-wide runs list
+    and API-key listing on Access each need an API read that does not exist; the Sources card repeats the section chips.
+    The developer reviews the screenshots next.
+  - Adapters `v0.1.12` (`9d87b24`, tag checked) adds the read-only `ocharo status [--group <id>]` verb (one JSON line
+    under 500 characters: each pipeline's schedules, next due times and latest run per kind; exit 1 when setup has not
+    run); the wheelhouse lane runs it on `harvestadapters-dev`. Events copies the contract pages from harvest `v0.1.14`.
 - #58 SCFD's source model (developer, 2026-11-10): "I want us to add sources ourselves - because as we had discussion
   each source may need different things / steps to reach the posts - so that's why we have adapters - so instead of
   typing the source url etc - we allow the subscriber just choose a source - later we'll add tags based on the source
