@@ -442,6 +442,12 @@ Developer, 2026-10-24 to 2026-11-10; not reopened.
     Sources as a grouped gallery (cards and rows), a source page with result pills and tabs (Overview, Posts,
     Activity, Settings), Posts gone from the menu. Sources-first is settled (analysis #23); open next: what a group is
     (analysis #30).
+  - Second round on the mocks, developer 2026-11-10: no section pills and no delivery figures on a card; last and next
+    harvest under the name; an icon for how a source is read instead of "site" and a place; one pill for what the last
+    harvest found; a group is a publisher with its channels or branches; "I think client login fits this"; the grouping
+    page drawn as Wheelhouse draws products; idle sections hidden on a source's Overview; posts only on their tab, in
+    cards and rows. Settled as analysis #30–#36; the mock holds 6 pages (operator's Sources in cards and rows, a
+    source's Overview, its Posts in rows and cards, a client's Sources).
 
 ## Contracts
 

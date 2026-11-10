@@ -1,6 +1,6 @@
 # SCFD console analysis
 
-*Last updated: 2026-11-10 10:05 PM*
+*Last updated: 2026-11-10 11:10 PM*
 
 First full analysis of the SCFD console as built in iteration 1 (harvest `v0.1.14`, `d0aedb5`), read from its 9 pages.
 It feeds the mocks in [`mocks/`](mocks/), which are iterated in the orchestrator chat and saved per iteration. Lanes
@@ -9,8 +9,8 @@ build only from a saved final iteration. Developer inputs: `events-integration` 
 ## Status
 
 - ✅ Pages read: 9 of 9, light mode, screenshots in [`iter-1-built/`](iter-1-built/)
-- 🔄 Mocks: iteration 1 covers Sources as cards and as rows, a source's Overview and Posts tabs, and Subscriptions
-- ⬜ Decisions #24–#31 settle on the mocks, one per turn; #23 is settled
+- 🔄 Mocks: iteration 1 covers the operator's Sources (cards, rows), a source's Overview and Posts (rows, cards), and a client's Sources
+- ⬜ Decisions #26–#29 and #37–#39 settle on the mocks, one per turn; #23–#25 and #30–#36 are settled
 - ⬜ Hand-over to the scfd lane after the final iteration is saved
 
 ---
@@ -110,14 +110,40 @@ Orchestrator's picks. Each settles on the mocks, then becomes the page map the s
 - #28 Who may add a source: operators only, through an adapter release (#58), with the console read-only for the
   catalog.
 - #29 Where the console runs: local only today; a deployed target needs a site route beside `/api`.
-- #30 What a group is: made and named by the operator, as a Wheelhouse workspace is, or fixed by the source's kind.
-- #31 What the pills and the chart count: posts captured, events among them, deliveries, partial and failed runs.
+- #30 Settled 2026-11-10: a group is a publisher whose channels or branches are its sources (developer: "group is
+  like afisha has telegram, instagram, website - it's this, or like teplo store has multiple branches in it - we just
+  group them under teplo"). The operator names groups; a source's icon says how it is read (site, Telegram,
+  Instagram, branch), and no place is shown, since one site carries events from many cities.
+- #31 Settled 2026-11-10: a card carries one pill, what the last harvest found (`4 new of 23 found · partial`), the
+  last and next harvest under the name, and the 14-day chart of new posts; no section pills and no delivery figures
+  (developer: "what the last harvest found - within the last harvest pill should be enough").
+
+- #32 Settled 2026-11-10, client access: client login, not a client page inside the operator's console (developer:
+  "we either need to allow client logins or show sources at a client page - because admin seeing all deliveries is not
+  needed imo ... I think client login fits this"). #58 has the subscriber choose a source, which needs the subscriber
+  signed in; the console's sign-in already maps a person's organization to a tenant (`events-integration` #39); a
+  client page would keep the operator choosing for every client and reading every delivery.
+- #33 One console, 2 menus (#32). Operator: Home, Sources, Activity, Clients, Access. Client: Sources, Following. The
+  operator sees how many clients follow a section, never who received which post; deliveries show only to the client.
+  #24 and #25 close with it: Subscriptions leaves the operator's menu, Hosts folds into a source's health.
+- #34 Settled 2026-11-10: the Sources page follows Wheelhouse's Products page: group tiles first (name, count,
+  description, a pill, a trend), then a collapsible section per group with a rule beside its name; Cards shows a
+  3-column grid, Rows a bordered list per group (developer: "gropuing page looks off - look how wheelhouse looks").
+- #35 Settled 2026-11-10: a source's Overview lists only the sections being harvested and folds the rest into one
+  closed line; it shows no posts, which have their own tab (developer: "need to somehow hide not following channels",
+  "latest posts - remove from overview").
+- #36 Posts have a Cards and a Rows view (developer). Orchestrator's pick for the switch: the top bar, shown only on
+  pages with a gallery (Sources, a source's Posts), one remembered choice for both; the bar stays in view while a long
+  gallery scrolls, and the shared `AppFrame` gives every console the same place for it (`bar-end`).
+- #37 Open: a client's pages beyond Sources and Following, such as a feed of delivered posts.
+- #38 Open: the operator's Clients page and a source's Settings and Activity tabs.
+- #39 Open: the word for a part of a source the developer called category and channel, here `section`.
 
 ---
 
 ## Mocks
 
 - [`mocks/iter-1/`](mocks/iter-1/) holds iteration 1: `sources` (cards), `sources-rows`, `source-afisha` (Overview),
-  `source-afisha-posts` and `subscriptions`, each an `.html` with its `.png`. `build.py` writes the pages from one
+  `source-afisha-posts` (rows), `source-afisha-posts-cards` and `client-sources`, each an `.html` with its `.png`. `build.py` writes the pages from one
   frame; `render-html.sh` renders each at 1440 px.
 - An iteration is final when the developer says so; the next one copies it into `mocks/iter-N/` before changing it.
