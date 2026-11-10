@@ -116,6 +116,9 @@ Developer, 2026-10-24 to 2026-11-10; not reopened.
   tracking; a catalog fed by SCFD stays private to its owner organization; captures stay review evidence; nothing
   sourced is republished. Reading stays polite and open: identified user agent, `robots.txt`, one paced connection per
   host, a challenge or block pauses the source. This goal configures no CAPTCHA, proxy or account-session provider.
+- #51 Order (developer, 2026-11-10): "our target was to integrate 100 sources - but that's after we integrate scfd
+  itself to ocharo". The 100-source push is the goal after this one. #39's work came from a ChatGPT chat, whose
+  handover (the private SCFD console's first account on the local preview) went to the scfd lane, local only.
 - #11 Out of scope: Ocharo prod; Haven's OLX intake through SCFD; reminders, webhooks, AI extraction and translation
   (EV4, P2); a second product tracking events; CodeQL on the private adapters repo. After this goal: FSS's
   whole-vector pass.
