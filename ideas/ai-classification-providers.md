@@ -11,8 +11,9 @@
 
 - Anthropic wins on value: the $200 monthly Console credit (org `WoW 2.0`) prices both workloads at $0 until it runs out, and unused credit expires.
 - Haiku 5.5 costs $0.10 / $0.50 per 1M tokens, matching the cheapest closed models (`gpt-6-luna`, `gemini-2.5-flash-lite`). Paying cash would not undercut it by more than ~$10 a month.
-- Anthropic is the only provider here that needs no new account or card: Uzbekistan is on its supported list, and the org already exists. Every other provider's Uzbek card or billing route is unverified (#8).
-- Uzbek quality is unproven for every current model, Haiku 5.5 included (#6). The default holds only after the eval in #10 passes; the fallback is the same vendor one tier up, so a failed eval changes a model id, not the integration.
+- Anthropic and OpenAI need no new account: the credit org exists, and Haven already pays for GPT (developer, 2026-11-10). Every other provider's billing from Uzbekistan is unverified (#8).
+- Haiku 5.5 and `gpt-6-luna` cost the same per token (#11), so the credit decides between them. OpenAI stays the ready reserve.
+- Uzbek quality is unproven for every current model, Haiku 5.5 included (#6). The shadow week on real data confirms the default (#10); the fallback is the same vendor one tier up, so a failed eval changes a model id, not the integration.
 - Run the relevance pass on every event-kind post (`AiMode.Full`) instead of only the keyword filter's gaps. At base volume, full mode costs $11.78 a month against $4.71 for gaps mode, and it catches the posts `ocharo-fashion-v1`'s lexicon misses.
 - Both workloads together at base volume cost $50 a month paid-equivalent: a quarter of the credit, which other product AI (Haven's classification) shares.
 
@@ -89,12 +90,34 @@ Prices in USD per 1M tokens. "Disc." is the Batch API discount, or DeepSeek's of
 - The cheapest rows (`qwen3.7-flash`, Nemotron, `gpt-oss-20b`) save at most ~$10 a month against Haiku at base volume, and none has any Uzbek evidence.
 - Ollama fits only as an eval baseline: a 27B model takes ~10–15 s per post on a 32–64 GB Apple Silicon Mac (estimate), and 1–2 min per post on a CPU-only VPS, too slow for 1,000 posts a day.
 
+### #11 Claude vs GPT
+
+Same cost model as #3: prices per 1M tokens; W1 at base volume in full mode, W2 at base volume; monthly figures standard / batch. Claude's figures are paid-equivalent: the $200 credit pays them, while GPT is paid in cash on Haven's OpenAI account.
+
+| Tier | Model id | In | Cached in | Out | W1 $ per 1k posts | W1 month | W2 month | Reasoning off | Context | Uzbek or Russian evidence |
+|---|---|---|---|---|---|---|---|---|---|---|
+| Small | `claude-haiku-5-5` | 0.10 | 0.01 | 0.50 | 0.36 | 11.78 / 5.89 | 3.84 / 1.92 | yes, `disabled` at effort `high` or below | 1M; prompts over 100K tokens cost 5x | Global-MMLU per language, without Russian or Uzbek; weakest of the three Claude tiers on low-resource languages |
+| Small | `gpt-6-luna` | 0.10 | 0.01 | 0.50 | 0.36 | 11.78 / 5.89 | 3.84 / 1.92 | low effort; reasoning tokens bill as output | 1.05M | none published |
+| Mid | `gpt-6.1-terra` | 1.00 | 0.05 | 5.00 | 3.54 | 116.66 / 58.33 | 38.20 / 19.10 | low effort | 1.05M | none published |
+| Mid | `claude-sonnet-5-5` | 2.00 | 0.10 | 10.00 | 7.07 | 233.31 / 116.66 | 76.40 / 38.20 | yes, `between_tools` | 1M | Global-MMLU, as for Haiku |
+| Mid | `gpt-6.1-sol` | 2.00 | 0.10 | 10.00 | 7.07 | 233.31 / 116.66 | 76.40 / 38.20 | low effort | 1.05M | none published |
+| Top | `claude-opus-5-5` | 4.00 | 0.20 | 20.00 | 14.14 | 466.62 / 233.31 | 152.79 / 76.40 | no; effort `low` is the floor | 1M | Global-MMLU, as for Haiku |
+| Top | `gpt-6-astra` | 10.00 | 1.00 | 50.00 | 35.70 | 1,178.10 / 589.05 | 384.45 / 192.23 | not read | not read | none published |
+| Haven today | `gpt-5-mini` (Haven Supply's Lite tier) | 0.25 | 0.025 | 2.00 | 1.04 | 34.40 / 17.20 | 13.32 / 6.66 | — | — | — |
+
+- Both vendors take a 50% batch discount, cache reads at 0.1x or below, and cache writes at 1.25x. Neither trains on API inputs by default.
+- At the small tier the two match per token, so the credit makes Haiku free and Luna cash.
+- At the mid tier `gpt-6.1-terra` costs half of Sonnet 5.5 and has no Claude counterpart. Terra is the cheaper W2 option once the credit runs out, if the eval shows equal quality.
+- Opus 5.5 costs 40% of `gpt-6-astra`.
+- `gpt-6-luna` costs 40% of Haven's `gpt-5-mini` on input and 25% on output.
+- Sources: [Anthropic pricing](https://platform.claude.com/docs/en/about-claude/pricing) and [OpenAI pricing](https://developers.openai.com/api/docs/pricing); Haven's tiers from `Haven.Supply.Api/appsettings.json`.
+
 ### #4 Provider facts
 
 | Provider | Training on API inputs | Retention | Structured output | Uzbekistan: availability and billing | .NET route |
 |---|---|---|---|---|---|
 | Anthropic | no, under the [Commercial Terms](https://www.anthropic.com/legal/commercial-terms) | deleted within 30 days ([privacy center](https://privacy.claude.com/en/articles/7996866-how-long-do-you-store-my-organization-s-data), dated 2026-07-01); ZDR by agreement | `output_config.format` JSON schema | listed for the API ([supported regions](https://www.anthropic.com/supported-countries)); org `WoW 2.0` already billed | official NuGet `Anthropic`, with an `IChatClient` integration |
-| OpenAI | no, unless opted in ([your data](https://developers.openai.com/api/docs/guides/your-data)) | abuse logs up to 30 days; Batch not ZDR-eligible | strict JSON schema | listed ([supported countries](https://developers.openai.com/api/docs/supported-countries)); card acceptance unverified, the billing page returned 404 | NuGet `OpenAI` 2.15.0 + `Microsoft.Extensions.AI.OpenAI` |
+| OpenAI | no, unless opted in ([your data](https://developers.openai.com/api/docs/guides/your-data)) | abuse logs up to 30 days; Batch not ZDR-eligible | strict JSON schema | listed ([supported countries](https://developers.openai.com/api/docs/supported-countries)); billing works, since Haven already pays for GPT (developer, 2026-11-10) | NuGet `OpenAI` 2.15.0 + `Microsoft.Extensions.AI.OpenAI` |
 | Google | paid tier no; **free tier yes, with human review** ([terms](https://ai.google.dev/gemini-api/terms)) | abuse logging, period not stated | JSON schema | API region listed ([regions](https://ai.google.dev/gemini-api/docs/available-regions)); Uzbekistan missing from the Cloud Billing country table, so paying is unverified | NuGet `Google.GenAI`, `AsIChatClient()`; OpenAI-compatible endpoint in beta |
 | DeepSeek | not stated for the API; terms allow broad use | stored in the PRC, no period stated; PRC law ([terms](https://cdn.deepseek.com/policies/en-US/deepseek-open-platform-terms-of-service.html)) | `json_object` only | not stated | OpenAI-compatible |
 | Moonshot (Kimi) | content "helps optimize our models", no opt-out in the policy | Singapore, no period stated | `json_object` only | not stated | OpenAI-compatible, `https://api.moonshot.ai/v1` |
@@ -137,6 +160,7 @@ All be sdk links pin [`bd1d317`](https://github.com/wow-two-sdk-beta/wow-two-sdk
   - Verify that the official Anthropic `IChatClient` maps `ChatResponseFormat.ForJsonSchema` to `output_config.format`. If it does not, the W1 path calls the native client.
   - Thinking and effort ride `ChatOptions.AdditionalProperties` or the raw-request hook.
   - `UsageDetails` feeds SCFD's `AiStamp.Tokens` and the G5 budget.
+- Haven already holds both brokers: [`Haven.Platform.Ai`](https://github.com/sulton-max/10x-ven-haven/tree/9bc72ec0707203906cc4f871fbf4cba28cafde99/engineering/codebase/haven.backend-services/Haven.Platform/Haven.Platform.Ai) routes Anthropic and OpenAI-compatible (OpenAI, Gemini, DeepSeek) calls over raw HTTP, with model tiers, per-token pricing and strict-schema cleanup. Its `AiCompletionService` names itself the extraction candidate for the SDK providers, so the be sdk pass extracts it instead of starting fresh.
 - Per the SDK doctrine, both brokers land in the be sdk as one vector pass, never inside SCFD.
 
 ## Integration
@@ -144,7 +168,8 @@ All be sdk links pin [`bd1d317`](https://github.com/wow-two-sdk-beta/wow-two-sdk
 ### #8 Access before building
 
 - Anthropic needs nothing new: the key comes from the `WoW 2.0` Console org that holds the credit.
-- Each reserve provider needs an account and a card that works from Uzbekistan, unverified for all of them. Open one (OpenAI first, for `gpt-6-luna` and `gpt-6.1-terra`) only if the default fails the eval or the credit runs out.
+- OpenAI needs nothing new either: Haven's account already pays for GPT (developer, 2026-11-10), so `gpt-6-luna` and `gpt-6.1-terra` are a key away.
+- Every other reserve needs an account and a card that works from Uzbekistan, unverified for all of them.
 
 ### #9 Plugging into SCFD and Events
 
@@ -166,7 +191,7 @@ SCFD links pin harvest [`6254896`](https://github.com/wow-two-sdk-beta/wow-two-s
 
 ### #10 Plan
 
-Nothing paid runs until the orchestrator approves. Anthropic-only runs cost under $10 in total and draw on the credit.
+The eval runs on real data after the integration (developer, 2026-11-10), with no offline run first. The shadow week in #9 step 7 produces the items: Haiku 5.5 classifies live SCFD deliveries while Events keeps the filter classifier. An agent then labels a sample, and Sonnet 5.5 re-runs the same captures as the ceiling. The re-runs cost under $10 and draw on the credit.
 
 | Slice | Items | Source | Expected label |
 |---|---|---|---|
@@ -192,9 +217,9 @@ Metrics and pass bars:
 | Summary faithfulness, 20 sampled | ≥ 19 of 20 |
 | Baseline | beat `ocharo-fashion-v1`'s recall on the same set at equal or better precision |
 
-- Run order: Haiku 5.5, then Sonnet 5.5 and Opus 5.5 as the ceiling, then local Ollama `qwen3.8:27b` as a free baseline.
+- Run order: Haiku 5.5 live, then Sonnet 5.5 and Opus 5.5 on the same captures as the ceiling.
 - Pick the cheapest model that clears every bar; on a tie, pick the credit-funded one.
-- Add `gpt-6-luna` and `gemini-3.1-flash-lite` only if Sonnet 5.5 fails too, since each needs a new paid account (#8).
+- Add `gpt-6-luna` through Haven's OpenAI account if Haiku fails the Uzbek slice; it costs the same per token.
 - W2's eval waits for its fields. It reuses the 40 Desk positives, whose `facts` (kind, organizer, place, deadlines) are the expected values.
 
 ## Sources
