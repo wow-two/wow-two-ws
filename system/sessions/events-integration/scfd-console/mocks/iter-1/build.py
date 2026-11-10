@@ -250,7 +250,9 @@ POST_FILTERS = """<div class="row" style="margin-bottom:14px"><span class="searc
 
 POST_MODAL = f"""<div class="veil"><div class="card modal">
   <div class="row"><h2 style="margin:0">Показ мод The Fashion Show Line 2026</h2><span class="grow"></span><span class="x">&#10005;</span></div>
-  <div class="pills" style="margin:10px 0 16px">{pill("event", "on")}{pill("Fashion")}{pill("Afisha.uz")}</div>
+  <div class="pills" style="margin:10px 0 14px">{pill("event", "on")}{pill("Fashion")}{pill("Afisha.uz")}</div>
+  <div class="shots"><div class="thumb shot">post image 1 of 3</div>
+    <div class="shot-col"><div class="thumb">2</div><div class="thumb">3</div></div></div>
   <div class="kv wide-kv"><span>Starts</span><b>21 Nov 2026, 17:00</b>
     <span>Place</span><b>Дворец творчества молодёжи, Ташкент</b>
     <span>Address</span><b>просп. Мустакиллик, 2</b>
@@ -274,17 +276,18 @@ def source_posts(view: str, modal: bool = False) -> str:
         )
         content = (f'<div class="card"><table><tr><th>Post</th><th>Kind</th><th>Section</th><th>Harvested</th></tr>'
                    f"{table}</table></div>")
-        note = ("A post opens over the page, with no address of its own: its facts, its revisions and the evidence."
+        note = ("A post opens over the page, with no address of its own: its images, its facts, its revisions and the "
+                "evidence. Images show inside SCFD only."
                 if modal else "The Rows view lists every post with its kind, section and harvest time.")
     else:
         cards = "".join(
-            f"""<div class="card pcard"><div class="thumb">{"no image kept" if kind == "article" else "image link kept"}</div>
+            f"""<div class="card pcard"><div class="thumb">post image</div>
   <div class="pills">{pill(kind, "on" if kind == "event" else "")}{pill(section)}</div>
   <b>{title}</b><div class="desc">{when or "no date"}</div></div>"""
             for title, kind, when, section, _ in POSTS
         )
         content = f'<div class="tiles four">{cards}</div>'
-        note = "The Cards view shows each post as a tile."
+        note = "The Cards view shows each post as a tile with its first image."
     body = source_head("Posts") + POST_FILTERS + content + f"""
 <div class="note"><b>Mock, iteration 1, the operator's view.</b> {note} The pool keeps posts of every kind; a
 subscriber receives only its matches. Revisions show inside a post, not in the list. Titles other than the fashion

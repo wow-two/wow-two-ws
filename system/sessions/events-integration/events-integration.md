@@ -464,6 +464,9 @@ Developer, 2026-10-24 to 2026-11-10; not reopened.
     you think sources are ready for this iteration - can update the site itself and we'll do aother iteration".
     Iteration 1 is final for the operator's Sources area (analysis #40–#45, 9 mock pages) and goes to the scfd lane to
     build. Open with the developer: who sets a section's harvest interval (analysis #44).
+  - Developer, 2026-11-10, after the hand-over: a post's view shows its images ("images are part of the harvest - so
+    we should def show them"), and the operator sets a section's harvest interval ("we setting is the best imo").
+    Analysis #44 and #46; both relayed to the scfd lane mid-build.
 
 ## Contracts
 

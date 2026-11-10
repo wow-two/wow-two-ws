@@ -152,10 +152,15 @@ Orchestrator's picks. Each settles on the mocks, then becomes the page map the s
   won't be available for client login").
 - #43 The pool keeps posts of every kind; a subscriber receives only its matches, so Ocharo sees events only
   (developer, 2026-11-10).
-- #44 Open: who sets how often a section is harvested. Orchestrator's pick: the operator, per source section, from how
+- #44 Settled 2026-11-10 (developer: "with subscriber's smallest we lose events I think, so we setting is the best
+  imo"): the operator sets how often a section is harvested. The reasoning: the operator, per source section, from how
   often the source changes and how politely it can be read; never the smallest interval a subscriber asks for, which
   would let one client drive load on a source. A subscriber's own schedule is how it receives: it pulls its matches,
   and a webhook ping to its server can tell it to pull now; SignalR fits a browser page, not a service.
+- #46 Settled 2026-11-10: a post's view shows its images, in the opened post and as the first image on a card
+  (developer: "images are part of the harvest - so we should def show them"). The engine models them (`PostMedia`,
+  `CaptureMedia`, the `Media` step that copies images into file storage). They show inside SCFD only; what a
+  subscriber's public page may show stays under `events-integration` #32 and #50.
 - #45 Later, not in iteration 1: a choice of outgoing server per source once a second server exists (no proxy pools,
   `events-integration` #50); AI use per source (#54, #55); Home; Subscribers; the client's Following page (#37).
 

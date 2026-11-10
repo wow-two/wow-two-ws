@@ -134,3 +134,7 @@ tr.more td { color: var(--muted); font-weight: 600; background: #f8f7f1; }
 .x { color: var(--muted); font-size: 16px; }
 .wide-kv { grid-template-columns: 110px 1fr; }
 table.plain td { padding: 7px 12px 7px 0; border-bottom: 1px solid #ebe9de; }
+.shots { display: grid; grid-template-columns: 1fr 120px; gap: 10px; margin-bottom: 16px; }
+.shot { height: 210px; }
+.shot-col { display: grid; gap: 10px; } .shot-col .thumb { height: 100px; }
+.veil { padding-top: 90px; }
