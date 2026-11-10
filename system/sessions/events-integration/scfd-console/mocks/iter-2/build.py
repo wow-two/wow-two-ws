@@ -244,9 +244,8 @@ POSTS = [
     ("Exhibition article", "article", "", "Exhibitions", "today 13:12"),
     ("Exhibition article", "article", "", "Exhibitions", "today 13:12"),
 ]
-POST_FILTERS = """<div class="row" style="margin-bottom:14px"><span class="search">Search this source's posts</span>
-  <span class="filter on">All 8</span><span class="filter">Fashion 4</span><span class="filter">Exhibitions 4</span>
-  <span class="filter">Events 2</span><span class="filter">Articles 6</span></div>"""
+POST_FILTERS = """<div class="row" style="margin-bottom:14px"><span class="search">Search this source's 8 posts</span>
+  <span class="btn">Filters &#9662;</span></div>"""
 
 POST_MODAL = f"""<div class="veil"><div class="card modal">
   <div class="row"><h2 style="margin:0">Показ мод The Fashion Show Line 2026</h2><span class="grow"></span><span class="x">&#10005;</span></div>
@@ -377,7 +376,13 @@ CLIENT_POSTS = [
 ]
 
 
-def client_source_posts(show_all: bool) -> str:
+FILTER_PANEL = f"""<div class="card fpanel"><div class="kv">
+  <span>Section</span><b><span class="pick on">Fashion</span><span class="pick on">Exhibitions</span></b>
+  <span>Kind</span><b><span class="pick on">event</span><span class="pick on">article</span></b>
+  <span>Tags</span><b><span class="pick dim">from AI classification, later</span></b></div></div>"""
+
+
+def client_source_posts(show_all: bool, filters_open: bool = False) -> str:
     rows = ""
     for title, kind, when, section, result, matched in CLIENT_POSTS:
         if not matched and not show_all:
@@ -387,6 +392,10 @@ def client_source_posts(show_all: bool) -> str:
                  f'{"<br><small>" + when + "</small>" if when else ""}</td>'
                  f'<td>{pill(kind, "on" if kind == "event" else "")}</td><td>{section}</td><td>{state}</td></tr>')
     matched_on, all_on = ("", " on") if show_all else (" on", "")
+    if filters_open:
+        note_extra = (" The other filters stay folded behind Filters; open, they show sections, kinds and, later, tags.")
+    else:
+        note_extra = " Section, kind and tag filters fold behind the Filters button."
     note = ("All is on: every harvested post of the sections you follow, in the same list. The ones that did not match "
             "are dimmed and say why, so you can judge the filter without leaving the page."
             if show_all else
@@ -394,9 +403,10 @@ def client_source_posts(show_all: bool) -> str:
     body = client_head("Posts", 1) + f"""
 <div class="row" style="margin-bottom:14px"><span class="search">Search this source's posts</span>
   <span class="seg"><span class="{matched_on.strip()}">Matched 1</span><span class="{all_on.strip()}">All 8</span></span>
-  <span class="filter on">Both sections</span><span class="filter">Fashion</span><span class="filter">Exhibitions</span></div>
+  <span class="btn">Filters {"&#9652;" if filters_open else "&#9662;"}</span></div>
+{FILTER_PANEL if filters_open else ""}
 <div class="card"><table><tr><th>Post</th><th>Kind</th><th>Section</th><th>For you</th></tr>{rows}</table></div>
-<div class="note"><b>Mock, iteration 2, a client's view.</b> {note} A client has no feed page; posts sit inside
+<div class="note"><b>Mock, iteration 2, a client's view.</b> {note}{note_extra} A client has no feed page; posts sit inside
 each source it follows. Titles other than the fashion show are placeholders.</div>"""
     return frame("Sources", "Sources &rsaquo; Afisha &rsaquo; Afisha.uz &rsaquo; <b>Posts</b>", body, client=True, view="rows")
 
@@ -413,6 +423,7 @@ PAGES = {
     "client-sources": lambda: gallery("cards", client=True),
     "client-source-posts": lambda: client_source_posts(False),
     "client-source-posts-all": lambda: client_source_posts(True),
+    "client-source-posts-filters": lambda: client_source_posts(True, filters_open=True),
 }
 
 if __name__ == "__main__":

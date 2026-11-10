@@ -143,7 +143,11 @@ Orchestrator's picks. Each settles on the mocks, then becomes the page map the s
 - #47 Iteration 2, a client's Posts tab inside a followed source: matched posts by default, and a `Matched | All`
   switch that adds the rest to the same list, dimmed, each saying why it did not match (developer, 2026-11-10: "only
   matched and can switch to all ... maybe in the same panel but with dimmed ?"). One list, no second panel: the
-  contrast shows what the filter dropped. Mocked; awaiting his reaction.
+  contrast shows what the filter dropped. Confirmed by the developer ("yes").
+- #52 Iteration 2, filters: the search and the `Matched | All` switch stay visible; section, kind and, later, tag
+  filters fold behind an expandable Filters panel, on the operator's Posts tab too (developer, 2026-11-10: "for the
+  other tags - hide with extendable panel is better I think"; read as the other filters, to be corrected if he
+  meant something else).
 - #38 Open: the operator's Clients page and a source's Settings and Activity tabs.
 - #39 Open: the word for a part of a source the developer called category and channel, here `section`.
 
@@ -181,6 +185,12 @@ Orchestrator's picks. Each settles on the mocks, then becomes the page map the s
   capture); the branch icon (no `branch` source family yet); naming a run the first harvest (runs cannot prove it).
 - #50 Images on dev: 14 of 14 Afisha posts hold image links; no step stores copies. The post view shows the links,
   loaded with no referrer, inside SCFD only.
+- #51 The local console holds real data since 2026-11-10 (scfd lane): Fashion · Russian and Exhibitions · Russian
+  turned on through Settings, harvests of 4 new of 17 and 4 new of 26 found, 10 posts, 9 with image links, both
+  sections harvesting every 6 hours while the stack runs. Found on the way, held for the developer's review: no
+  console, API or host verb grants a restricted source (the lane opened `afisha.uz` by hand on the local database;
+  an operator grant is in harvest's backlog); the post modal's Place shows the venue without the city; Home and
+  Activity count a harvest that stopped at its page limit as failed or needing attention.
 
 ---
 
@@ -192,5 +202,6 @@ Orchestrator's picks. Each settles on the mocks, then becomes the page map the s
   with its `.png`. `build.py` writes the pages from one
   frame; `render-html.sh` renders each at 1440 px.
 - [`mocks/iter-2/`](mocks/iter-2/) starts iteration 2 from a copy of iteration 1 and adds a client's view:
-  `client-sources`, `client-source-posts` (matched) and `client-source-posts-all` (all, the rest dimmed).
+  `client-sources`, `client-source-posts` (matched), `client-source-posts-all` (all, the rest dimmed) and
+  `client-source-posts-filters` (the Filters panel open).
 - An iteration is final when the developer says so; the next one copies it into `mocks/iter-N/` before changing it.

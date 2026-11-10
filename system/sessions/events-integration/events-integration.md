@@ -477,6 +477,19 @@ Developer, 2026-10-24 to 2026-11-10; not reopened.
     11 pages in `scfd-console/built-from-mock-1/`. The lane's own choices and what it did not build are analysis
     #48–#50. Next: a real local harvest so the developer can review at `https://localhost:8400/`; adapters `v0.1.13`
     and `ocharo setup --group afisha` on `harvestadapters-dev` (wheelhouse). The console is still not served on dev.
+  - ✅ Ocharo's Events app, the platform lane's done-when on dev, 2026-11-10 (tags checked on GitHub): R1
+    `ocharo-platform` `v0.3.11` (`eb434ed`, deployment `3f330109`) added service and site `events` and Identity
+    client 11 `ocharo-events`; signed in as the owner, the app lists 69 events through its own origin, a tracking save
+    answers 200 twice (revisions 3 → 5), another organization's path answers 404. R2 `v0.3.12` (`2aad1b3`) removed
+    Desk's Events slice, page, routes and client 0's `events` exchange: Desk's events routes answer 404, its old
+    address redirects to the Events app. Every app with a switcher lists Events (`ocharo-marketing` `v0.1.18`,
+    `ocharo-studio` `v0.1.24`). Tests per the lane: Events backend 61 unit and 22 E2E, app 73; Desk 99 unit, 157 E2E,
+    362 frontend. Design: `ocharo-platform` `engineering/research/events-app.md`. Not promoted to prod: the `events`
+    service and client 11 need the same 3 URL keys there. First extraction of #61's order done; Sourcing, Image,
+    Brand, Catalogue and the drafts stay queued, unbuilt.
+  - SCFD adapters `v0.1.13` runs on `harvestadapters-dev` (wheelhouse lane, deployment `6fb89b4b`, migration
+    `006-source-groups`); `ocharo setup --group afisha` put both subscriptions in group `afisha`; `ocharo status`
+    shows both schedules unchanged (6-hour capture, daily check).
 
 ## Contracts
 
