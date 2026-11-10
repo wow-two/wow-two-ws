@@ -176,9 +176,14 @@ owning lane verifies them. `Confirmed` holds the owning lane's verified pick.
 - #48 P2, outside this goal: where a published event's image lives. The events lane proposes a copy into FSS under
   the owner's tenant (`ocharo`); the platform lane would keep catalog images out of Ocharo's tenant; one FSS runs on
   dev. Settled when P2 opens.
-- #49 Whether Ocharo's Identity requires a `SignalUrl` on every resource: the wheelhouse lane says it does, the
-  platform lane registers `harvest` without one (service tokens only). Platform confirms from Identity's boot rules;
-  scfd says whether it serves `{Uri}signals/identity`.
+- #49 Settled 2026-11-10 (platform lane, checked by the orchestrator): a resource needs no `SignalUrl`.
+  `OidcResourceOptions.SignalUrl` is `string?` (Identity `OidcResourceOptions.cs:29`), and
+  `OidcServerOptionsValidator.CheckSignalUrls` checks only the URLs a resource or client names; `harvest` carries none,
+  since only service tokens reach it. Platform's draft registrations: resource 3 `events` (5 scopes, namespace,
+  `SignalUrl`), resource 4 `harvest` (11 scopes), client 8 `events`, client 9 `harvest-operator`, client 10
+  `events-console` (code flow), Desk's client 0 exchanging to `events.read events.track events.import`; clients 8–10
+  `generate` their secrets; they push once wheelhouse has typed resource 3's `Uri` and `SignalUrl`, resource 4's `Uri`,
+  and client 10's redirect, sign-out redirect and `SignalUrl`.
 - #46 Settled 2026-11-10: the private `harvestadapters` image pulls with the control host's token file (Registry access
   passed); no developer step.
 
