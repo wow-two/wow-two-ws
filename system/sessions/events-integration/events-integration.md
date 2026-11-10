@@ -18,6 +18,7 @@ uncommitted, another chat's), [the Files track](../../../workbench/wow-two-sdk-b
 
 - 🔄 M1 analysis (#12): four lanes started 2026-11-10; each verifies its snapshot slice first (#34)
   - ✅ events #34, 2026-11-10: the slice holds; `workbench/wow-two-sdk-beta/*` has commit and push ON, so repo creation runs; the `catalog.yml` `events` row's `purpose` line carries #39's uncommitted SCFD hunk (`:272`), so the lane's #41 hunk comes with context against `HEAD`
+  - ✅ scfd #34, 2026-11-10, read-only (#39 hold kept): harvest's tags reach `v0.1.9` (`bc0c8ac`) on GitHub, unfetched locally; `d77daf6` (harvest) and `18b083a`, `1b58b9d` (adapters) are local only, unpushed and unreleased; harvest's NuGet family `WoW2.Sdk.Beta.Be.Harvest.*` and npm `@wow-two-beta/fe-harvest` were never published (#43); the registry keeps colon scopes (`events:read`) and `CallerResolver` maps a token's dot names onto them, so Ocharo's Identity would carry `events.read` (#16); `api/subscriptions` needs `subscriptions:manage`, `…/{id}` and `…/{id}/events` need `events:read` (#15); mapper audit 7 yes, 15 partial, 11 no of 33 fields (`scfd-mapper-audit.md`, #18); the adapters pin be sdk `10.0.106-beta` and build harvest from source
 - ⬜ M2 build (#13)
 - ⬜ Asked of the developer 2026-11-10: whose is the uncommitted SCFD work (#39)
 - Every lane records what it builds in its repos' active version track (#42)
@@ -28,7 +29,7 @@ uncommitted, another chat's), [the Files track](../../../workbench/wow-two-sdk-b
 
 | # | Milestone | Done when |
 |---|---|---|
-| #12 | M1 analysis | the Events spec is reconciled with what is built (pull delivery, service tokens, evidence, migration); every contract #14–#33 has a verdict (provided, change, add or drop) and a phase; each lane has written its picks into its backlog and this doc |
+| #12 | M1 analysis | the Events spec is reconciled with what is built (pull delivery, service tokens, evidence, migration); every contract #14–#33 and #43 has a verdict (provided, change, add or drop) and a phase; each lane has written its picks into its backlog and this doc |
 | #13 | M2 build | each lane's P1 rows built, released and deployed to dev, and on dev: (a) a live Afisha record pulled from SCFD becomes a review candidate in Events, and nothing publishes unreviewed; (b) an accepted event shows on Desk's Events page, which calls Events through Desk's backend; (c) every `events.showcase_events` row is imported with a stable id map, its stage, priority, notes, provenance and date precision kept, and Desk's old writer frozen; (d) Events' tests cover replay, out-of-order revisions, a crash around the cursor commit, a malformed record and a cross-organization read |
 
 - Pass/fail for M1: each of #14–#33 shows the owning lane's pick in the Contracts table's `Confirmed` column, and each
@@ -117,6 +118,7 @@ owning lane verifies them. `Confirmed` holds the owning lane's verified pick.
 | #31 | Event images | open | the spec puts images in WoW2's own Files instance, which does not exist; FSS on `files-dev` holds only tenant `ocharo` | events proposes, with platform and wheelhouse input | — |
 | #32 | EV2 Afisha intake route and terms of use | open | provider API, HTTP capture or a feed; the terms of use | scfd proposes | — |
 | #33 | Operating controls | P1 minimal, P2 the rest | change: request budgets in transport, retention purge, freshness and consumer lag, pause, resume, replay (review § Operation before expansion) | scfd; events exposes its cursor lag and quarantine | — |
+| #43 | SCFD packages for Events | P1 | add: `WoW2.Sdk.Beta.Be.Harvest.*` and `@wow-two-beta/fe-harvest` were never published; `publish-packages.yml` waits on the repo variable `PUBLISH_PACKAGES` and a nuget.org trusted-publishing policy (scfd lane, 2026-11-10) | scfd publishes the family, or events calls SCFD's HTTP API with no package | — |
 
 ## Lane slices
 
@@ -136,7 +138,13 @@ owning lane verifies them. `Confirmed` holds the owning lane's verified pick.
   `DeliveryTagFilter`, `packages/Caex`) to 2026-11-10 07:24 local (Hosting access, `SubscriptionsController`, Identity
   configuration, console pages, `deployment.md`). `wow-two-ws` holds matching hunks in `catalog.yml` and
   `docs/platform-apps.md`. No desktop transcript names `CallerResolver` or `HostConfiguration.Identity`. The scfd lane
-  writes nothing in either repo until the developer says whose it is.
+  writes nothing in either repo until the developer says whose it is. Its content (scfd lane, 2026-11-10): the brand
+  rename Harvest → SCFD in docs, descriptor, solutions and brand assets, the product id kept `harvest`; in harvest, the
+  console's browser sign-in that `d77daf6` removed, back as an Identity authorization-code BFF beside service access,
+  with `CallerResolver` mapping sessions through operator subjects and an organization → tenant map, plus
+  `DeliveryTagFilter`, `PipelineScope` and a console source picker; in adapters, a CAEx venue-calendar reader
+  (`packages/Caex`), a JSON source registry replacing the Ocharo presets, Afisha URL fixes, host Identity configuration
+  and E2E tests. None of it touches `EventSchemaMapper` or the payload renderer.
 - #40 No lane writes Identity, the be sdk or the fe sdk. A change a lane needs there goes to the orchestrator as a
   blocker, and the orchestrator starts a lane for that repo then (Files #31).
 - #41 `wow-two-ws`: the events lane hands `create-library`'s `catalog.yml` and `scripts/active.sh` changes to the
