@@ -86,6 +86,11 @@ uncommitted, another chat's), [the Files track](../../../workbench/wow-two-sdk-b
 | platform | `ev-platform`, `local_017f2bcd-6de5-41e8-93aa-14530829cbde` | `workbench/mfts-projects/ventures/ocharo-hq/ocharo-ws/workbench/ocharo-platform` | #37 |
 | wheelhouse | `ev-wheelhouse`, `local_31ee8aa4-c16a-48e1-a4b8-03be478bdb3b` | `workbench/wow-two-platform/wow-two-platform.wheelhouse` | #38 |
 
+- Analysis chat `ocharo - ai providers for classification` (`ai-providers`, `local_d43d41f6-c1c8-4017-88ed-fcc05c7c0689`),
+  started 2026-11-10 at the developer's request: compares AI providers for SCFD's relevance pass and Ocharo's later
+  classification; writes `ideas/ai-classification-providers.md`. Meanwhile #53's auto review accepts records that pass
+  SCFD's `ocharo-fashion-v1` filter (orchestrator default, option (a)); AI swaps in after the analysis. The local SCFD
+  console's first account exists (test values from the developer; the scfd lane makes it the operator).
 - The orchestrator is `ocharo - events server` (`local_4597465c-ca6d-445b-b4f1-77546f8511b4`); it writes this file and
   its own `wow-two-ws` hunks (#41), and no lane's code.
 - The developer writes only to the orchestrator; lanes send their decisions there by `SendMessage`.
