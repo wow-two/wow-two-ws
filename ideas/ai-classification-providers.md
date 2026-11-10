@@ -4,15 +4,16 @@
 
 ## Recommendation
 
-| Workload | Default | Fallback | Off-Anthropic reserve | Month at base volume |
+| Workload | Default | Quality escalation | Runtime fallback (GPT) | Month at base volume |
 |---|---|---|---|---|
 | W1 relevance pass (summary + close / loose / none + reason) | `claude-haiku-5-5`, `effort: low` with thinking disabled, structured output, synchronous | `claude-sonnet-5-5` for the whole profile, `effort: low`, structured output, batch | `gpt-6-luna` (same price, strict JSON schema) | $11.78 paid-equivalent; **$0 paid** under the monthly credit |
-| W2 precise classification (route, exhibitor vs visitor, fees, deadlines, garment categories) | `claude-sonnet-5-5`, adaptive thinking at `effort: medium`, structured output, Batch API | `claude-opus-5-5`, only where the eval shows Sonnet below the bar on fees, deadlines or route | `gpt-6.1-terra` ($1 / $5) or `mistral-large-4-0` ($0.70 / $2.10) | $38.20 paid-equivalent; **$0 paid** under the credit |
+| W2 precise classification (route, exhibitor vs visitor, fees, deadlines, garment categories) | `claude-sonnet-5-5`, adaptive thinking at `effort: medium`, structured output, Batch API | `claude-opus-5-5`, only where the eval shows Sonnet below the bar on fees, deadlines or route | `gpt-6.1-terra` ($1 / $5) | $38.20 paid-equivalent; **$0 paid** under the credit |
 
 - Anthropic wins on value: the $200 monthly Console credit (org `WoW 2.0`) prices both workloads at $0 until it runs out, and unused credit expires.
 - Haiku 5.5 costs $0.10 / $0.50 per 1M tokens, matching the cheapest closed models (`gpt-6-luna`, `gemini-2.5-flash-lite`). Paying cash would not undercut it by more than ~$10 a month.
 - Anthropic and OpenAI need no new account: the credit org exists, and Haven already pays for GPT (developer, 2026-11-10). Every other provider's billing from Uzbekistan is unverified (#8).
-- Haiku 5.5 and `gpt-6-luna` cost the same per token (#11), so the credit decides between them. OpenAI stays the ready reserve.
+- Haiku 5.5 and `gpt-6-luna` cost the same per token (#11), so the credit decides between them.
+- GPT is the runtime fallback for AI inference (developer, 2026-11-10; track #55): a failed or refused Claude call retries on the GPT model in its row. The quality escalation applies only if the eval shows the default below the bar.
 - Uzbek quality is unproven for every current model, Haiku 5.5 included (#6). The shadow week on real data confirms the default (#10); the fallback is the same vendor one tier up, so a failed eval changes a model id, not the integration.
 - Run the relevance pass on every event-kind post (`AiMode.Full`) instead of only the keyword filter's gaps. At base volume, full mode costs $11.78 a month against $4.71 for gaps mode, and it catches the posts `ocharo-fashion-v1`'s lexicon misses.
 - Both workloads together at base volume cost $50 a month paid-equivalent: a quarter of the credit, which other product AI (Haven's classification) shares.
@@ -191,7 +192,9 @@ SCFD links pin harvest [`6254896`](https://github.com/wow-two-sdk-beta/wow-two-s
 
 ### #10 Plan
 
-The eval runs on real data after the integration (developer, 2026-11-10), with no offline run first. The shadow week in #9 step 7 produces the items: Haiku 5.5 classifies live SCFD deliveries while Events keeps the filter classifier. An agent then labels a sample, and Sonnet 5.5 re-runs the same captures as the ceiling. The re-runs cost under $10 and draw on the credit.
+The first eval covers 10 real posts, run after Claude is wired in with GPT as fallback (developer, 2026-11-10; track #55). One of the 10 is a real relevant post, such as TITF on Afisha. Analyse the results and iterate the prompt on those 10 until they hold.
+
+The 100-item set below is the later scale-up, built from the shadow week in #9 step 7. There Haiku 5.5 classifies live SCFD deliveries while Events keeps the filter classifier. An agent labels a sample, and Sonnet 5.5 re-runs the same captures as the ceiling; the re-runs cost under $10 and draw on the credit.
 
 | Slice | Items | Source | Expected label |
 |---|---|---|---|
