@@ -125,26 +125,14 @@
       "port": 5181
     },
     {
-      "name": "whiteout-2",
+      "name": "whiteout-studio",
       "runtimeExecutable": "pnpm",
       "runtimeArgs": [
         "-C",
-        "workbench/maxs-projects/ventures/consumer/whiteout/engineering/codebase/whiteout.frontend-services",
-        "dev",
-        "--port",
-        "5188"
-      ],
-      "port": 5188
-    },
-    {
-      "name": "whiteout-zone-builder",
-      "runtimeExecutable": "pnpm",
-      "runtimeArgs": [
-        "-C",
-        "workbench/maxs-projects/ventures/consumer/whiteout/engineering/codebase/whiteout-zone-builder.frontend-services",
+        "workbench/maxs-projects/ventures/consumer/whiteout/engineering/codebase/whiteout-studio.frontend-services",
         "dev"
       ],
-      "port": 5182
+      "port": 5183
     },
     {
       "name": "transcript-forge",
@@ -518,7 +506,9 @@
         "dev:editorial"
       ],
       "port": 8284,
-      "env": { "VITE_API_CA_PATH": "../../../../../../ocharo-platform/.local/identity/certs/localhost.pem" },
+      "env": {
+        "VITE_API_CA_PATH": "../../../../../../ocharo-platform/.local/identity/certs/localhost.pem"
+      },
       "url": "https://localhost:8284"
     },
     {
@@ -530,7 +520,9 @@
         "dev"
       ],
       "port": 8358,
-      "env": { "VITE_API_CA_PATH": "../../../../../../ocharo-platform/.local/identity/certs/localhost.pem" },
+      "env": {
+        "VITE_API_CA_PATH": "../../../../../../ocharo-platform/.local/identity/certs/localhost.pem"
+      },
       "url": "https://localhost:8358"
     },
     {
