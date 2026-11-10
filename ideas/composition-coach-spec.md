@@ -2,14 +2,16 @@
 
 *Last updated: 2026-11-10 12:08 PM*
 
-> A camera that teaches composition. Live overlays guide the photographer behind the phone — placement, horizon,
-> lead room, edges, background — then drills and shot reviews train the eye until the overlays are no longer needed.
+> A camera that teaches composition. A Reels-style feed of shot recipes shows what to shoot; tapping one opens the camera
+> with that composition's overlay; results post back under the recipe for votes. Live overlays guide placement, horizon,
+> lead room, edges and background, while drills and shot reviews train the eye until the overlays are no longer needed.
 > Sibling of [PoseCoach](pose-coach-spec.md): PoseCoach directs the people in front of the lens; FrameCoach directs the person behind it.
 
 - Working name only — `FrameCoach` is unchecked for trademarks and store collisions.
 - Content source: the composition knowledge base in 10x-ws, `context/domains/external/world/hobbies/mobilography/mob-knowledge.md`
   (principles P1–P9, technique catalog A–M, decision tree, exercises). The rule engine and drills below map to it.
 - Status: idea stage. No prototype, benchmark or user test exists; every number below is a proposal.
+- Decision (2026-11-10): build FrameCoach as an own product — competitor overlap shapes the plan, it doesn't gate it.
 
 ---
 
@@ -24,9 +26,18 @@
 
 ---
 
-## 2. Concept — 4 modes
+## 2. Concept — 5 modes
 
-### 2.1 Live coach (in the camera)
+### 2.1 Recipe feed (Reels-style)
+
+- Show a vertical, full-screen feed of shot recipes: a 5–10 s clip of an ordinary scene → technique overlay → final photo.
+- Tag each recipe with its technique (catalog A–M), scene type, light, difficulty, and photo or video.
+- Tap "Shoot this" → the camera opens with the recipe's overlay (target zone, horizon, guide lines) plus the live coach.
+- Post the result back under the recipe; votes rank the results, so the best execution becomes the next example.
+- Seed recipes from the founder's own shooting — no scraped social content.
+- Add video recipes after the photo loop works: subject inside the safe zone clear of captions and UI, movement along lines.
+
+### 2.2 Live coach (in the camera)
 
 - Detect the subject and the scene, then pick 1–2 fitting techniques from the decision tree (symmetry → center,
   strong line → leading lines, clean space → negative space, fallback → thirds).
@@ -35,14 +46,14 @@
 - Confirm a hit with a haptic tick and a green target; optional auto-capture burst once the frame holds.
 - Speak nothing by default — the photographer looks at the screen, so overlays beat voice; voice stays optional.
 
-### 2.2 Shot review (after the shot, or any camera-roll photo)
+### 2.3 Shot review (after the shot, or any camera-roll photo)
 
 - Score a photo per principle (placement, horizon, edges, subject clarity, background, space) and name the top 1–2 fixes.
 - Propose a re-composed crop and show before → after.
 - Explain in one sentence, linked to the technique card — the review teaches, not only grades.
 - Import old photos for a "what's wrong with my last 50 shots" report: the most frequent mistake becomes the next drill.
 
-### 2.3 Drills (training)
+### 2.4 Drills (training)
 
 - Turn each `mob-knowledge.md` exercise into a drill with a measurable pass check:
   negative space → subject mask ≤ 20% of frame; rule of thirds → subject centroid within the intersection zone;
@@ -51,7 +62,7 @@
 - Progress through the skill tree (Tier 1 vision → Tier 2 light → …); unlock techniques as drills pass.
 - Fade the coach: as a technique's pass rate rises, its overlay shrinks, then turns off — the goal is an eye that no longer needs it.
 
-### 2.4 Technique library
+### 2.5 Technique library
 
 - One card per catalog technique (A–M): definition, when to use it, 2–3 example photos, the drill that trains it.
 - Use original or licensed example photos only — shoot them during dogfooding.
@@ -69,8 +80,9 @@
 | Cloud need | Realtime voice + frames during the shoot | Sparse: shot reviews and scene ideas only |
 | Cost per session | Engineering target $0.10–$0.50 per 5-min shoot | Live coach ≈ $0 (on-device); reviews per image |
 | Works offline | Degraded | Live coach and drills fully; reviews need network |
-| Retention driver | New poses and trends | Skill progression and drills |
+| Retention driver | Trending pose feed | Recipe feed, skill progression, drills |
 
+- Both run on a Reels-style recipe feed; one feed and one recipe format can carry pose and composition recipes — OQ-1.
 - The September [photo director analysis](ai-photo-director-market-analysis.md) lists composition (camera position,
   distance, background, crop) as one of the 5 parts of creativity and "set_camera" as a session state.
   FrameCoach's engine is that part, built standalone — a later photo director can reuse it for people shoots.
@@ -112,23 +124,56 @@ Rating counts show traction signals only — downloads and revenue stay unknown.
 ### 4.3 Reading
 
 - The category exists on iOS: 5+ live composition coaches and as many post-shot critics shipped in 2025–2026.
-- No app shows traction: every listing has 0–10 ratings, so no winner and no demand proof exists.
-- GudoCam already advertises most of FrameCoach's surface — live guides, catalog, reviews, challenges, tiers.
-- Features alone won't differentiate; guidance quality and distribution decide.
+- No coaching app shows traction: every listing has 0–10 ratings, so no winner and no demand proof exists.
+  WayShot's 4.7K ratings belong to a filter/editor listing; its coaching claims come from press only.
+- GudoCam is the strongest coach — 51-composition catalog, weekly challenges, streaks, leaderboard, tiers — with no feed and no posting.
+- No product checked (~25, pose, ghost-overlay and photo-spot apps included) has a Reels-style feed or links a post to an in-camera guide.
+- Community exists only in 365Frames (likes, comments, follows), stale since 2025-03 and without camera guidance.
+- No product states composition guidance for video.
 - Pixel Camera Coach is the only large player, and it doesn't reach iPhone.
+
+### 4.4 Feature matrix
+
+Audited 2026-11-10 from full listings, What's New and product sites. `partial` = a narrower version; `?` = the source is silent.
+
+| Feature | GudoCam | Klick | SnapFrame | ShutterCoach | PostFrame | 365Frames | Pixel Coach | FrameCoach |
+|---|---|---|---|---|---|---|---|---|
+| Live composition guidance | yes | yes (thirds, center, symmetry) | yes + 1–5 score | partial (optional tips) | partial (re-shoot overlay) | no | yes (cloud) | yes |
+| Rules named, with the why | partial (catalog) | geometric only | partial (7 guides) | no | no | no | partial | yes |
+| Composition templates | yes (51) | partial (3) | partial (7) | no | no | no | no | yes (recipes) |
+| Ghost / reference overlay | no | no | no | no | yes (AI reframe) | no | no | yes (recipe) |
+| Reels-style feed | no | no | no | no | no (search browse) | no | no | yes |
+| Feed post → camera | no | no | no | no | no | no | no | yes |
+| Post back + votes / community | no (leaderboard) | no | no | no | no | yes (stale) | no | yes |
+| Challenges, streaks, XP | yes | no | no | yes | no | yes | no | yes (drills) |
+| Lessons / skill tree | partial | partial | partial | partial (insights) | no | yes | no | yes |
+| Post-shot critique | yes (tokens) | yes (paid) | live score only | yes | no | yes | no | yes |
+| Auto-recompose crop | ? | partial (manual) | no | no | yes | no | no | yes |
+| Video composition guidance | ? (records video) | no | no | no | no | no | ? | v2 |
+| Light / location planning | no | no | no | yes (light planner) | no | no | no | no |
+| On-device AI | ? | mostly | yes | no (cloud) | ? | ? | no (cloud) | yes (live) |
+
+- Raw audits with per-app notes stay outside the repo; re-run the audit before a launch decision — every listing ships monthly.
 
 ---
 
 ## 5. Where it can win
 
-- **Guidance quality.** Pick the technique per scene (decision tree), gate nudges on confidence, explain the principle;
-  the one reviewed competitor is called geometric, not aesthetic. Prove it head-to-head in #10.
-- **Measured learning.** No competitor advertises skill transfer; FrameCoach tracks coach-off improvement as its core metric.
-- **Drills checked live.** Competitor challenges score a finished photo; FrameCoach verifies drill criteria in the viewfinder, before the shot.
-- **Coach fade.** Overlays retire per technique as pass rates rise — the product promise is an eye that needs no app.
-- **Zero marginal cost for the core loop.** Live coach and drills run on-device, so a free tier costs nothing to serve.
-- **Distribution from the hobby.** The founder's mobilography journey supplies dogfood, example photos and
-  learning-in-public content (ventures `content-creation`) — the channel the 0–10-rating competitors lack.
+The unclaimed position is the loop **feed → shoot this → post back → votes**, for composition.
+Each piece exists alone — GudoCam's catalog, PostFrame's ghost overlay, 365Frames' community — and no product joins them (#4.4).
+
+- **Recipe feed.** Ideas are endless where rules are finite — the feed carries retention after the basics are learned.
+- **Feed post → camera.** A recipe opens the camera with its overlay; GudoCam's 51 guides have no content around them.
+- **Post back + votes.** Users' results become the next examples — the only network effect in a category of solo tools.
+- **Video composition.** Mobilography includes Reels; no competitor states guidance for vertical video.
+- **Guidance quality.** Pick the technique per scene (decision tree), gate nudges on confidence, name the principle;
+  competitors' live rules are unnamed or geometric only.
+- **Measured learning.** Skill tree, live-checked drills and coach-off improvement — no competitor advertises skill transfer.
+- **Zero marginal cost for the core loop.** Feed overlays, live coach and drills run on-device; only reviews call the cloud.
+- **Founder supply.** The mobilography hobby produces the first recipes, example photos and learning-in-public content
+  (ventures `content-creation`) — the channel the 0–10-rating competitors lack.
+- Features copy fast — GudoCam can add a feed in a quarter. The moat is the recipe library and the community voting on it,
+  so the feed ships first, before polish on rules.
 
 ---
 
@@ -187,22 +232,25 @@ flowchart TD
 
 ## 8. MVP scope (iOS only)
 
+- Recipe feed with 30 founder-made photo recipes, each opening the camera with its overlay.
 - Live coach with 6 rules: horizon, thirds/phi placement, cut-off, edge crowding, lead room (faces), negative space.
+- Post back + votes under each recipe, with report and hide; accounts only for posting.
 - 5 drills from the starred exercises: rule of thirds, negative space, gaze room, 5-angle ladder, 5-foot shuffle.
 - Shot review on camera-roll photos with crop suggestion.
 - Technique library: 10 cards (the MVP rules + their drills).
-- No accounts, no social features, no Android.
+- No Android; video recipes wait until the photo loop proves itself.
 
 ### Build sequence
 
 | Stage | Estimate | Gate |
 |---|---|---|
-| Spike | 1–2 weeks | 6 rules on a live preview at target rate; overlay feels stable, not jittery |
-| Dogfood | 2–3 weeks | Founder shoots daily with it; rule false-positive rate logged per rule |
+| Spike | 1–2 weeks | 6 rules + a recipe overlay on a live preview at target rate; overlay stable, not jittery |
+| Dogfood + recipes | 2–3 weeks | Founder shoots daily; 30 recipes recorded; false-positive rate logged per rule |
+| Feed + posting | 2–3 weeks | Vertical feed, "Shoot this", post back, votes, report/hide moderation |
 | Drills + review | 2–3 weeks | 5 drills verify frames correctly; review names the right top fix on a labeled set |
 | Pilot | 2 weeks | 10 hobbyists, 2 weeks each — see #10 |
 
-- Estimates assume 1 iOS engineer part-time; total roughly 7–10 weeks, conditional on the spike.
+- Estimates assume 1 iOS engineer part-time; total roughly 9–13 weeks, conditional on the spike.
 
 ---
 
@@ -220,14 +268,15 @@ flowchart TD
 ## 10. Validation
 
 - Before building: shoot 1 week each with SnapFrame, GudoCam and Klick; log every wrong or missing nudge.
-  If one already coaches well, use it for the hobby and park FrameCoach.
+  The log becomes the gap list FrameCoach builds against.
 - Dogfood: 4 weeks of the founder's own shooting, before/after sets rated blind by 3 people.
 - Pilot: 10 phone-photography hobbyists, 2 weeks, half with drills, half with the live coach only.
 - Compare first-week vs last-week photos in a blind rating, app labels hidden.
-- Track: drills completed, coach-on vs coach-off shots, return after day 7, offers taken.
+- Track: recipe opens → shots → posts, drills completed, coach-on vs coach-off shots, return after day 7, offers taken.
 
 Suggested pilot targets, not statistical proof:
 
+- At least 1 in 5 recipe opens ends in a posted result.
 - At least 7 of 10 participants' last-week sets rate higher than their first-week sets.
 - At least 5 of 10 still shoot with the app in week 2 without reminders.
 - Coach-off shots in week 2 keep at least half of the coached improvement — proof the eye learned, not the overlay.
@@ -236,14 +285,15 @@ Suggested pilot targets, not statistical proof:
 
 ## 11. Risks and open questions
 
-- **Teacher churn.** A coach that works makes itself unnecessary; retention needs depth beyond the basics
-  (catalog has ~55 techniques, light and genre tiers) or a community/challenge layer.
+- **Teacher churn.** A coach that works makes itself unnecessary; the recipe feed must carry retention past the basics.
+- **Feed cold start.** 30 recipes run dry within a week of daily use; supply needs a weekly founder cadence, then invited creators.
+- **Moderation.** App Store rules require filtering, reporting and blocking for user posts — ship report/hide and a review queue on day 1.
 - **Wrong nudges.** Saliency picks the wrong subject in busy scenes; one bad "move left" breaks trust — gate on confidence, let the user tap the subject.
 - **Rules vs taste.** Rule-following frames can be dull; breaking rules on purpose must stay possible — a "rule off" toggle per principle.
-- **Platform risk.** Apple can ship composition hints in Camera; Google already ships Camera Coach on Pixel — the drill/skill layer must be the moat.
+- **Platform risk.** Apple can ship composition hints in Camera; Google already ships Camera Coach on Pixel — the recipe library and its community must be the moat.
 - **Custom camera quality.** A third-party camera may not match Apple Camera processing; measure output against it in the spike.
 - **Overlay clutter.** Several warnings at once overwhelm; show one correction at a time, prioritized.
-- OQ-1: one app with PoseCoach as a mode, or a standalone product? Decide after the spike — the engine is shared either way.
+- OQ-1: one app with PoseCoach — a shared feed carrying pose and composition recipes — or two products? The feed, recipe format and engine are shared either way.
 - OQ-2: is the buyer a hobbyist learner (drills) or a casual shooter (live fix)? The pilot's split answers it.
 
 ---
@@ -251,9 +301,9 @@ Suggested pilot targets, not statistical proof:
 ## Verdict
 
 - **Promise:** solid as a learning product — composition rules are measurable, and the curriculum already exists.
-- **Market:** crowded and unproven — 10+ indie iOS apps, none with traction; GudoCam covers most features.
-- **Defensibility:** low for overlays and features; medium for guidance quality, measured learning and a content channel.
-- **Effort:** low-medium — on-device APIs cover the MVP rules; the cloud part is a sparse review call.
-- **Likely failure mode:** one more indie composition camera with 2 ratings — distribution, not features, kills it.
-- **First test:** a week each with SnapFrame, GudoCam and Klick; build only where they demonstrably fail.
+- **Market:** crowded with solo tools and unproven — 15+ indie iOS apps, none with traction, none with a feed or community loop.
+- **Defensibility:** low for overlays and rules; medium-high once the recipe library and its voting community grow.
+- **Effort:** medium — on-device APIs cover the MVP rules; the feed adds posting, votes and moderation.
+- **Likely failure mode:** the feed launches thin or goes stale, and FrameCoach becomes one more composition camera with 2 ratings.
+- **First step:** a week each with SnapFrame, GudoCam and Klick turns their failures into FrameCoach's backlog.
   Then the 6-rule spike plus 4 weeks of dogfooding; if blind-rated photos don't improve, drills and reviews won't save it.
