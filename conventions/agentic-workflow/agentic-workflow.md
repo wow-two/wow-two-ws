@@ -73,6 +73,19 @@ Distinguish it from the version-track's **transient iteration plan** (`v{X.Y}/{i
 
 ---
 
+## Manual work
+
+- must do one-time operational work by hand, as the developer would: a data move, an import, a seed or bootstrap
+  row, a console step; never write code that runs once (developer, 2026-11-10: "you need to be able to handle any
+  manual work yourself - just we don't need to implement code for any one time stuff ( like migrating from sql lite
+  to pgsql, but cloning from one server to another is fine - since wheelhouse needs to be able to handle that )").
+- must build it as code only when it recurs or is a product's job: moving data between servers is Wheelhouse's, so
+  it ships there.
+- must hand the developer only what stays theirs: a password, a passkey, a 2FA prompt, a final account-settings
+  submit.
+
+---
+
 ## Wheelhouse deploys and promotion
 
 - may set settings, run one-offs, deploy and promote every product in Wheelhouse, prod included, without asking
