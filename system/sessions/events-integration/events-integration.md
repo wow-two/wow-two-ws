@@ -119,6 +119,13 @@ uncommitted, another chat's), [the Files track](../../../workbench/wow-two-sdk-b
   its own `wow-two-ws` hunks (#41), and no lane's code.
 - The developer writes only to the orchestrator; lanes send their decisions there by `SendMessage`.
 - No identity, be sdk or fe sdk lane at start (#40); the fe sdk lane started 2026-11-10 on the developer's yes (#59).
+- Models (developer, 2026-11-10: "want to use fable 100% naturally - can archive the chats when they finish their job
+  and use fable for the fork chats"): every lane runs on Fable (`claude-fable-5-2`); the four lanes started on
+  `claude-opus-5-5` were switched in place and take it from their next turn; `ev-fe-shell` started on it. A lane is
+  archived once its job is done; `ai-providers` (idle on Opus until #60's step 4) is offered to the developer.
+- Afisha schedules read back on `harvestadapters-dev` by the wheelhouse lane with `ocharo status --group afisha`
+  (adapters `v0.1.12` runs there; Wheelhouse `00674d9` records it): both pipelines carry the 6-hour capture and the
+  daily check.
 
 ## Order
 
