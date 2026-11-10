@@ -322,8 +322,18 @@ Developer, 2026-10-24 to 2026-11-10; not reopened.
     contract `AppFrame.spec.md`, version track v0.1 iterations 22–24. Not proven in a product yet: Ocharo's adoption
     is the proof, handed to the platform lane (pilot on one app, then one release per repo). Relayed to the events
     lane (its session reader can go) and the scfd lane (the glass change on its next pin).
-  - ⬜ hub follow-up after the first app adopts: `conventions/development/frontend/shapes/app/shell/shell.md` still
-    tells an app to compose `AppShell` and `Navbar`; it names `AppFrame` then (orchestrator's own hunk).
+  - ✅ Ocharo's adoption, platform lane's done-when, 2026-11-10 (tags checked on GitHub): all 7 apps render through
+    `AppFrame` (fe `0.0.45`), each local `AppLayout` keeping only its app list, nav, trail, bar controls, account and
+    notices. Read on dev by the lane at 1200 px: bar 56 px in every app; sidebar and rail 248 / 64 px in Brand,
+    Catalogue and Desk (`ocharo-platform` `v0.3.10`), Marketing and Editorial (`ocharo-marketing` `v0.1.17`) and Studio
+    (`ocharo-studio` `v0.1.23`, rail by default); Assets (`ocharo-assets` `v0.1.9`) has no sidebar; version badges show
+    the served release; Desk's Events page still lists 69. Tests pass in all 7 (Brand 83, Catalogue 235, Desk 415,
+    Marketing 214, Editorial 66, Studio 170, Assets 14 + 2), CI green on the 4 repos. No frame gap came back for the
+    fe sdk lane. Pattern: `ocharo-platform` `engineering/research/shell-adoption.md` #6. Finding passed to the
+    wheelhouse lane: dev's Assets tailnet site is unrouted (ingress 404). The lane moves to the service map in
+    Ocharo's docs, then the Events app.
+  - ✅ hub follow-up: `conventions/development/frontend/shapes/app/shell/shell.md` names `AppFrame` since the first
+    adoption.
 - #60 Order from here (developer, 2026-11-10): "so that's ocharo work right ? complete it, then we'll review the scfd
   together, improve it's ui with a few more iterations then get back to ocharo, then we'll improve the scfd itself
   only, ai integration, and create 100 event sources registries, get back to ocharo again to refine the integrations,

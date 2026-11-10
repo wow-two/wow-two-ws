@@ -1,6 +1,6 @@
 # Shell
 
-*Last updated: 2026-10-16*
+*Last updated: 2026-11-10*
 
 > The frame every routed place renders inside — the bar, the navigation, the account menu and the page heading.
 > Purpose — a product's places share one frame, so chrome is decided once and no page rebuilds it.
@@ -10,9 +10,14 @@
 
 - must build one frame, `AppLayout`, in `bootstrap/`, and mount it through a layout route
   ([routing](../routing/routing.md#places)).
-- must compose it from the SDK `AppShell` and `Navbar`; never hand-roll the grid or the scroll container
-  ([AppShell](../../../core/mla/components/layout/appShell.md) ·
-  [Navbar](../../../core/mla/components/layout/navbar.md)).
+- must render it through the SDK `AppFrame` (`@wow-two-beta/fe/presentation/layout`, fe `0.0.45`+), which fixes the
+  bar height (56 px), the sidebar and rail widths (248 / 64 px), the collapse and where the account menu sits, so
+  every console and app keeps one frame; the local `AppLayout` holds only its app list, nav, trail, bar controls,
+  account and notices. Never hand-roll the grid or the scroll container, and never compose `AppShell` and `Navbar`
+  directly in a product ([AppShell](../../../core/mla/components/layout/appShell.md) ·
+  [Navbar](../../../core/mla/components/layout/navbar.md) are its parts). Contract and migration: the fe sdk's
+  `AppFrame.spec.md` and `engineering/architecture/app-frame-migration.md`; first adopted by Ocharo's 7 apps,
+  2026-11-10.
 - must open the frame with a skip link to the single `<main>`
   ([landmarks](../../../core/lla/constructs/html/landmarks.md)).
 - must return the main region to its top when the place changes.
