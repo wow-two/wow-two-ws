@@ -391,6 +391,19 @@ Developer, 2026-10-24 to 2026-11-10; not reopened.
     rendering (E5) stay per service now, shared modules later, outside this goal; Ocharo's copied frame pieces get one
     small Ocharo package, proposed by the platform lane with the shell adoption; extraction order: the Events app, then
     Sourcing, Image, Brand, Catalogue, the drafts to Marketing, and Desk removed last.
+  - Catalogue's base (E3), comparison by a read-only agent, 2026-11-10, spot-checked by the orchestrator (28 commits on
+    the Catalogue app since 2026-10-25 against 6 on Desk's Commerce and designs; no `organization_id` or `brand_id` in
+    the app's baseline against 14 in `005-commerce`; Desk's Domain project references the app's). Recommendation: the
+    Catalogue app is the base. It already runs as a standalone service on schema `catalogue` with dev's data, 11
+    operator routes (stock, product history and restore, collections, settings, exports, the public reader `/c/:slug`)
+    and the feed Marketing and Blog read; Desk's side has 3 routes, no reader page, and keeps a brand's products in one
+    JSON snapshot rewritten on every save, typed with the app's own types. To port from Desk before it retires: a
+    release gate for the product feed (live today), per-image rights approval, who saved and who published; the agent
+    estimates 1.5–3k new lines with no data move, against about 10k lines moved or rebuilt plus a data migration if
+    Desk's side were the base (`LegacyCommerceReader` reads only the retired SQLite files). What would change it: one
+    Catalogue serving several organizations or brands at once (the app binds one organization by config), or approved
+    Desk releases already read on dev. Without a catalogue home: business-card designs (orchestrator's pick: Brand).
+    Unknown read-only: whether Desk's `commerce.*` and `design_documents.*` hold rows on dev. Put to the developer.
 
 ## Contracts
 
