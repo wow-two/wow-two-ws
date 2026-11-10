@@ -235,6 +235,12 @@ Developer, 2026-10-24 to 2026-11-10; not reopened.
   change the navbar height etc". Desk holds Commerce, Sourcing, Events (leaving), Preparation and DesignDocuments;
   the open boundary points are E2–E7 in `ocharo-ws` `docs/app-boundaries.md`. Two read-only agents map Desk's domain
   coupling and every Ocharo app's shell first; the cut is then iterated with the developer, one point per turn.
+  - Ocharo shell facts (agent, 2026-11-10, `scratchpad/sweep/ocharo-shells.md`): all seven apps use the SDK `AppShell`,
+    `AccountMenu` and `ColorModeProvider` with `theme-ocharo` on fe `0.0.42`, but each keeps a local `AppLayout`, nav and
+    app list. The bar is 60 px in Desk, Brand, Catalogue, Marketing and Editorial and 56 px in Studio and Assets; content
+    widths run 1400–1800 px; headings are sans in Desk and Georgia elsewhere; the language picker is in four apps; the
+    same `AppLayout` skeleton, nav files and the 9-key app list are copied across five to six apps; the only shared
+    package is the repo-local `@ocharomarketing/connect` (Marketing, Editorial).
 
 ## Contracts
 
