@@ -19,6 +19,7 @@ uncommitted, another chat's), [the Files track](../../../workbench/wow-two-sdk-b
 - 🔄 M1 analysis (#12): four lanes started 2026-11-10; each verifies its snapshot slice first (#34)
   - ✅ events #34, 2026-11-10: the slice holds; `workbench/wow-two-sdk-beta/*` has commit and push ON, so repo creation runs; the `catalog.yml` `events` row's `purpose` line carries #39's uncommitted SCFD hunk (`:272`), so the lane's #41 hunk comes with context against `HEAD`
   - ✅ scfd #34, 2026-11-10, read-only (#39 hold kept): harvest's tags reach `v0.1.9` (`bc0c8ac`) on GitHub, unfetched locally; `d77daf6` (harvest) and `18b083a`, `1b58b9d` (adapters) are local only, unpushed and unreleased; harvest's NuGet family `WoW2.Sdk.Beta.Be.Harvest.*` and npm `@wow-two-beta/fe-harvest` were never published (#43); the registry keeps colon scopes (`events:read`) and `CallerResolver` maps a token's dot names onto them, so Ocharo's Identity would carry `events.read` (#16); `api/subscriptions` needs `subscriptions:manage`, `…/{id}` and `…/{id}/events` need `events:read` (#15); mapper audit 7 yes, 15 partial, 11 no of 33 fields (`scfd-mapper-audit.md`, #18); the adapters pin be sdk `10.0.106-beta` and build harvest from source
+  - ✅ platform #34, 2026-11-10, read-only: dev's `events.showcase_events` exists (`008-events` applied) with 0 rows; local Desk on the Mac holds all 68 rows, 1 organization `Ocharo`, from 3 bundle imports (2026-10-08, 10-13, 10-30), none edited in Desk; stages 64 candidate, 1 applying, 3 skipped; precision day 35, month 5, estimated 18 (all first-of-month), unknown 10; titles Latin-script, mostly English, none Uzbek-only; notes on all 68, source URL 51, website 46, deadline 9; the source bundles are not under `~/Projects`; Desk's own bundle is `ocharo.events-import.v1`; `EventImportService` skips existing keys at `:35`; `b2cb4e3` sits one commit past `v0.2.9`, untagged; the lane opens v0.3 for this work (#44)
 - ⬜ M2 build (#13)
 - ⬜ Asked of the developer 2026-11-10: whose is the uncommitted SCFD work (#39)
 - Every lane records what it builds in its repos' active version track (#42)
@@ -111,7 +112,7 @@ owning lane verifies them. `Confirmed` holds the owning lane's verified pick.
 | #24 | Service token acquisition | P1 | unverified: Events → SCFD by client credentials and Desk → Events by token exchange need a token handler; whether Identity's `packages/Client` ships both is unchecked | identity, only if missing (a blocker, #40) | — |
 | #25 | `IEventsClient` and the fe package | P1 | add: be `Client` package and npm package, released from tags | events → platform | — |
 | #26 | Import bundle | P1 | add: `wow2.events-import.v1` with `dryRun` and a stable old → new id map; keeps stage, priority, notes, provenance, language and date precision (a stored first-of-month stays month precision; `estimated` never becomes confirmed); titles not assumed Uzbek | events defines and imports; platform produces it from `showcase_events` | — |
-| #27 | Desk cutover | P1 | change: `EventsController`, `EventImportService` (skips existing keys, `:21`) and the Vue screens under `apps/web/src/presentation/events` move onto the Events contract through Desk's proxy; the old writer frozen; export and rollback kept until reconciliation passes | platform | — |
+| #27 | Desk cutover | P1 | change: `EventsController`, `EventImportService` (skips existing keys, `:35`) and the Vue screens under `apps/web/src/presentation/events` move onto the Events contract through Desk's proxy; the old writer frozen; export and rollback kept until reconciliation passes | platform | — |
 | #28 | Events deploy | P1 | add: `deploy.yml` with service, PostgreSQL database, settings, secrets, signal URL and the review console | events → wheelhouse | — |
 | #29 | SCFD and SCFD Adapters on dev | P1 | unverified: Wheelhouse's repo docs name no Events or SCFD product; targets live in Wheelhouse's store; which images run (the adapters host reuses public SCFD) and the private image pull are unchecked | wheelhouse | — |
 | #30 | Review console | P1 | add: reviewers accept, merge or reject candidates; who signs in through which Identity (#4) is the events lane's proposal | events; platform registers the console's client | — |
@@ -151,6 +152,9 @@ owning lane verifies them. `Confirmed` holds the owning lane's verified pick.
   orchestrator, which commits only those hunks (`git apply --cached`), since other chats hold edits in both files.
 - #42 Every lane records what it builds in its repos' active version track, in the commit that builds it. Its turn-end
   recap reaches the orchestrator cut to ~400 characters, so the report leads it.
+- #44 #13 (c) reads local Desk's 68 rows, since dev's `showcase_events` holds none: the producer exports them into the
+  bundle and imports them into Events on dev; dev Desk's empty table needs no reconciliation, and its writer is frozen
+  all the same (platform lane pick, orchestrator accepted 2026-11-10 under #9).
 
 ## Cross-lane contracts
 
