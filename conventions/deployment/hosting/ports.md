@@ -59,6 +59,7 @@
 | files | API · Vite | 8392 https / 8393 http · 8394 |
 | harvest | API · Vite | 8396 https / 8397 http · 8398 |
 | harvest-adapters | API · Vite | 8400 https / 8401 http · 8402 |
+| events | API · Vite · local PostgreSQL | 8410 https / 8411 http · 8412 · 8414 |
 
 | transportbrain (hackathon Track 2 submission) | API | 8246 https / 8247 http |
 | tbs.demo | demo — jury-facing solution page, own repo + Vercel (Vite) | 8248 |
@@ -85,7 +86,7 @@
 | ocharo-platform image worker review | private loopback HTTP worker | 8360 |
 | ocharo-identity (Ocharo's local Identity instance, compose) | Identity · PostgreSQL · mailpit UI / SMTP | 8404 https / 8405 http · 8406 · 8408 / 8409 |
 
-**Next free backend even port: 8410.** Append a row whenever you allocate, and move this number past every port the row takes, its Vite port included.
+**Next free backend even port: 8416.** Append a row whenever you allocate, and move this number past every port the row takes, its Vite port included.
 
 Ocharo Marketing Vite moved from the duplicate `8242` allocation to `8358` on 2026-09-29.
 Ocharo Desk Vite moved from `8266` (home-atlas) to `8378`, and its Compose API from `8268`/`8269` (surface-pattern) to `8376` https / `8377` http, on 2026-10-17.

@@ -38,7 +38,7 @@
 | 13 | **Docs site** | new | the platform's knowledge site (Starlight / Docusaurus) | — | conventions + SDK docs published | — |
 | 14 | **FlowDeck** | new | visual request-flow debugger over live traces ([spec](../ideas/flowdeck-spec.md)) | idea | one backend's flows browsable live | 6 |
 | 15 | **AI Gateway** | `wow-two-platform.templates.ai` | shared LLM proxy: keys, routing, caching | skeleton | two apps share keys and a cache through it | 1, 2 |
-| 16 | **Events** | `wow-two-platform.events` | shared event catalog, sources and harvesting, per-organization tracking; three forms ([spec](../ideas/events-service-spec.md)) | design ready ([spec](../ideas/events-service-spec.md)); built in a WoW2 chat, Desk integrates after | two products track events through it | 2, 17 |
+| 16 | **Events** | `wow-two-sdk-beta.events` | shared event catalog, sources and harvesting, per-organization tracking; three forms ([spec](../ideas/events-service-spec.md)) | repository created 2026-11-10; built under the Events integration, Desk integrates after | two products track events through it | 2, 17 |
 | 17 | **Harvest** | `wow-two-sdk-beta.harvest` | 24/7 harvester: scheduled pipelines capture sources and extract records into a consumer's schema, then deliver them ([spec](../ideas/harvest-service-spec.md)) | ListingShelf pipelines, runs and captures | Events and one other product receive harvested records | 15 |
 
 ---

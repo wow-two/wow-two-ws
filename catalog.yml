@@ -267,11 +267,10 @@ entries:
     name: Events
     workspace: wow2-platform
     kind: platform
-    deploy: none
-    status: "Planned: design ready (ideas/events-service-spec.md); repository not created"
+    deploy: wheelhouse
+    status: "In progress: repository created 2026-11-10; built under the Events integration (system/sessions/events-integration)"
     purpose: "Shared event catalog fed by Harvest and curated in review, with private tracking per organization"
-    repositories: []
-    local: workbench/wow-two-platform/wow-two-platform.events
+    repositories: [wow-two-sdk-beta/wow-two-sdk-beta.events]
   - slug: harvest
     name: Harvest
     workspace: wow2-platform
