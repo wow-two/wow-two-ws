@@ -307,6 +307,21 @@ Developer, 2026-10-24 to 2026-11-10; not reopened.
   - Lane's snapshot deltas, 2026-11-10: `AppSwitcherMenu` already ships in fe `0.0.42`; `theme-platform` has no glass
     tokens, so Wheelhouse's edges are local; consumer pins are Wheelhouse `0.0.38`, SCFD `0.0.41`, FSS `0.0.32`;
     sidebars measure 248/64 against Ocharo's 244/68. No developer fork; the lane's picks follow Wheelhouse.
+  - ✅ Lane's done-when, 2026-11-10: `@wow-two-beta/fe` `0.0.45` is npm `latest` (checked; `0.0.43` `4843c0a9` the
+    frame, `0.0.44` `16824928` the BFF organization `name` and `slug`, `0.0.45` `bfba3f50` and `4444aeaf` the frame
+    options). Exports `AppFrame` (`presentation/layout`), `VersionBadge`, `useRunningVersion`; CSS variables in every
+    theme: `--frame-bar-height` 56px, `--frame-sidebar-width` 248px, `--frame-rail-width` 64px, `--frame-content-max`
+    1536px. Of Ocharo's 27 needs (`ocharo-platform` `engineering/research/shell-adoption.md` #1, `22d6699`) 20 were in
+    `0.0.43`, 6 came with `0.0.45`, one is declined (a phone top-bar menu as a frame mode); the 6 conflicts are props
+    or slots, the bar and sidebar widths kept unified. Breaking: `theme-platform` carries glass tokens (SCFD's bar and
+    cards change on its next pin); a hand-built `BffUser` adds `name` and `slug`. Lane's evidence: 473 SFCs compile,
+    3,358 unit, SSR and DOM tests, 96 browser tests, the showcase bar reading 56px in the default theme and
+    `theme-ocharo`, light and dark. Docs in the fe sdk: `engineering/architecture/app-frame-migration.md`, the
+    contract `AppFrame.spec.md`, version track v0.1 iterations 22–24. Not proven in a product yet: Ocharo's adoption
+    is the proof, handed to the platform lane (pilot on one app, then one release per repo). Relayed to the events
+    lane (its session reader can go) and the scfd lane (the glass change on its next pin).
+  - ⬜ hub follow-up after the first app adopts: `conventions/development/frontend/shapes/app/shell/shell.md` still
+    tells an app to compose `AppShell` and `Navbar`; it names `AppFrame` then (orchestrator's own hunk).
 - #60 Order from here (developer, 2026-11-10): "so that's ocharo work right ? complete it, then we'll review the scfd
   together, improve it's ui with a few more iterations then get back to ocharo, then we'll improve the scfd itself
   only, ai integration, and create 100 event sources registries, get back to ocharo again to refine the integrations,
