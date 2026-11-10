@@ -19,7 +19,7 @@
 | haven | backend services | Auth 7010/7011 · Supply 7012/7013 · Location 7014/7015 · Settings 7016/7017 · Database 7018/7019 |
 | haven | frontends (Vite) · compose edge | web 7520 · channels 7522 · admin 7524 · map 7526 · landing 7528 · edge 7530 |
 | ventures/prism | frontend (Vite) · studio — Vue rewrite (Vite) | 5180 · 8294 |
-| whiteout | game · studio (Vite) | 5181 · 5183 |
+| whiteout | game · studio (Vite) | 5182 · 5188 |
 | wow-two-sdk-beta.fe (Vue) | playground (Vite) · atlas — layouts, patterns, themes (Vite) | 5176 · 5178 |
 | product-template (`Sample` example) | API · Vite · local PostgreSQL | 8220 https / 8221 http · 8224 · 8222 |
 | domain-template (`Sample` example) | API · Vite · local PostgreSQL | 8384 https / 8385 http · 8386 · 8387 |

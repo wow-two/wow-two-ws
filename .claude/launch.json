@@ -122,7 +122,20 @@
         "workbench/maxs-projects/ventures/consumer/whiteout/engineering/codebase/whiteout.frontend-services",
         "dev"
       ],
-      "port": 5181
+      "port": 5182
+    },
+    {
+      "name": "whiteout-http",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": [
+        "-C",
+        "workbench/maxs-projects/ventures/consumer/whiteout/engineering/codebase/whiteout.frontend-services",
+        "dev"
+      ],
+      "env": {
+        "VITE_HTTPS": "false"
+      },
+      "port": 5182
     },
     {
       "name": "whiteout-studio",
@@ -132,7 +145,20 @@
         "workbench/maxs-projects/ventures/consumer/whiteout/engineering/codebase/whiteout-studio.frontend-services",
         "dev"
       ],
-      "port": 5183
+      "port": 5188
+    },
+    {
+      "name": "whiteout-studio-http",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": [
+        "-C",
+        "workbench/maxs-projects/ventures/consumer/whiteout/engineering/codebase/whiteout-studio.frontend-services",
+        "dev"
+      ],
+      "env": {
+        "VITE_HTTPS": "false"
+      },
+      "port": 5188
     },
     {
       "name": "transcript-forge",
