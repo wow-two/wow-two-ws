@@ -153,6 +153,13 @@ Developer, 2026-10-24 to 2026-11-10; not reopened.
   The events lane builds an automatic review policy per intake source; which classifier feeds it first (SCFD's
   `ocharo-fashion-v1` filter today, AI relevance next) is asked of the developer. #13 (b) closes on an event the
   policy accepted.
+- #54 AI provider pick (ai-providers chat, `wow-two-ws` `cf2c28e`, `ideas/ai-classification-providers.md`): SCFD
+  relevance on `claude-haiku-5-5` (fallback `claude-sonnet-5-5`, outside reserve `gpt-6-luna`); Ocharo's precise
+  fields on `claude-sonnet-5-5` batch, Opus only if the eval demands; ~$50 a month at 100 sources × 10 posts a day,
+  all within the monthly Anthropic credit. Plug-in: SCFD writes Events' `classification` (close → relevant 0.9, loose →
+  relevant 0.6, none → irrelevant 0.9), Events `Classifier = payload`, `MinConfidence = 0.5`, a week in shadow first;
+  the be sdk needs Anthropic and OpenAI-compatible `IChatClient` brokers (a be sdk lane, #40). No model has a
+  published Uzbek score, so a 100-item eval (under $10 of credit) gates the pick; it waits for the developer.
 - #11 Out of scope: Ocharo prod; Haven's OLX intake through SCFD; reminders, webhooks, AI extraction and translation
   (EV4, P2); a second product tracking events; CodeQL on the private adapters repo. After this goal: FSS's
   whole-vector pass.
