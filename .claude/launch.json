@@ -138,6 +138,16 @@
       "port": 5182
     },
     {
+      "name": "games-room-server",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": [
+        "-C",
+        "workbench/wow-two-games/wow-two-games.play/engineering/codebase/play.frontend-services/apps/room-server",
+        "dev"
+      ],
+      "port": 8416
+    },
+    {
       "name": "games-studio",
       "runtimeExecutable": "pnpm",
       "runtimeArgs": [

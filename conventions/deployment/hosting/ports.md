@@ -20,6 +20,7 @@
 | haven | frontends (Vite) · compose edge | web 7520 · channels 7522 · admin 7524 · map 7526 · landing 7528 · edge 7530 |
 | ventures/prism | frontend (Vite) · studio — Vue rewrite (Vite) | 5180 · 8294 |
 | wow-two-games.play | web (Vite) | 5182 |
+| wow-two-games.play | room server (Node WebSocket, HTTP) | 8416 |
 | wow-two-games.engine | studio (Vite) | 5188 |
 | wow-two-sdk-beta.fe (Vue) | playground (Vite) · atlas — layouts, patterns, themes (Vite) | 5176 · 5178 |
 | product-template (`Sample` example) | API · Vite · local PostgreSQL | 8220 https / 8221 http · 8224 · 8222 |
@@ -87,7 +88,7 @@
 | ocharo-platform image worker review | private loopback HTTP worker | 8360 |
 | ocharo-identity (Ocharo's local Identity instance, compose) | Identity · PostgreSQL · mailpit UI / SMTP | 8404 https / 8405 http · 8406 · 8408 / 8409 |
 
-**Next free backend even port: 8416.** Append a row whenever you allocate, and move this number past every port the row takes, its Vite port included.
+**Next free backend even port: 8418.** Append a row whenever you allocate, and move this number past every port the row takes, its Vite port included.
 
 Ocharo Marketing Vite moved from the duplicate `8242` allocation to `8358` on 2026-09-29.
 Ocharo Desk Vite moved from `8266` (home-atlas) to `8378`, and its Compose API from `8268`/`8269` (surface-pattern) to `8376` https / `8377` http, on 2026-10-17.
