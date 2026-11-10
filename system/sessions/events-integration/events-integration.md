@@ -448,6 +448,12 @@ Developer, 2026-10-24 to 2026-11-10; not reopened.
     page drawn as Wheelhouse draws products; idle sections hidden on a source's Overview; posts only on their tab, in
     cards and rows. Settled as analysis #30–#36; the mock holds 6 pages (operator's Sources in cards and rows, a
     source's Overview, its Posts in rows and cards, a client's Sources).
+  - Third round, developer 2026-11-10: client login confirmed; revisions inside a post that opens in a modal; the
+    Pipelines, Runs, Hosts, Posts and Subscriptions pages go, their content moving into a source's Settings, Activity
+    and Health; the operator's menu is Home, Sources, Subscribers, Access, a client's Sources and Following; and "if
+    you think sources are ready for this iteration - can update the site itself and we'll do aother iteration".
+    Iteration 1 is final for the operator's Sources area (analysis #40–#45, 9 mock pages) and goes to the scfd lane to
+    build. Open with the developer: who sets a section's harvest interval (analysis #44).
 
 ## Contracts
 

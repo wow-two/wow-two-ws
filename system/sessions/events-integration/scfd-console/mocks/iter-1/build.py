@@ -2,14 +2,14 @@
 
 Run from this folder: python3 build.py, then render each .html with render-html.sh at 1440.
 Two roles share one console: the operator (us) and a client (a subscriber's member).
-The gallery follows Wheelhouse's Products page: group tiles, then a collapsible section per group.
+The gallery follows Wheelhouse's Products page; a source follows Wheelhouse's product page.
 """
 from pathlib import Path
 
 OPERATOR_NAV = [
     ("Overview", [("Home", "")]),
-    ("Collect", [("Sources", "12"), ("Activity", "")]),
-    ("Clients", [("Clients", "1")]),
+    ("Collect", [("Sources", "12")]),
+    ("Deliver", [("Subscribers", "1")]),
     ("System", [("Access", "")]),
 ]
 CLIENT_NAV = [("Ocharo", [("Sources", "12"), ("Following", "2")])]
@@ -33,14 +33,18 @@ def view_switch(view: str) -> str:
     return f'<span class="seg"><span class="{cards}">&#9638; Cards</span><span class="{rows}">&#9776; Rows</span></span>'
 
 
-def frame(active: str, crumb: str, body: str, client: bool = False, view: str = "") -> str:
+def frame(active: str, crumb: str, body: str, client: bool = False, view: str = "", tree: bool = False,
+          overlay: str = "") -> str:
     side = ""
     for group, items in CLIENT_NAV if client else OPERATOR_NAV:
         side += f'<div class="group">{group}</div>'
         for name, count in items:
-            on = " on" if name == active else ""
+            on = " on" if name == active and not tree else ""
             small = f"<small>{count}</small>" if count else ""
             side += f'<span class="nav{on}">{name}{small}</span>'
+            if tree and name == "Sources":
+                side += ('<span class="nav sub">Afisha</span>'
+                         f'<span class="nav sub leaf on">{icon("site", "mini")} Afisha.uz</span>')
     switch = view_switch(view) if view else ""
     who = '<i>OM</i> Ocharo member' if client else '<i>TO</i> Test operator'
     return f"""<!doctype html>
@@ -53,6 +57,7 @@ def frame(active: str, crumb: str, body: str, client: bool = False, view: str = 
       <span class="avatar">{who} &#9662;</span></div>
     <div class="page">{body}</div>
   </main>
+  {overlay}
 </div></body></html>"""
 
 
@@ -70,6 +75,10 @@ def pill(text: str, kind: str = "") -> str:
 
 def plural(count: int, word: str) -> str:
     return f"{count} {word}{'' if count == 1 else 's'}"
+
+
+def toggle(is_on: bool) -> str:
+    return f'<span class="toggle{" on" if is_on else ""}"><i></i></span>'
 
 
 SAMPLE = [0, 2, 0, 1, 3, 0, 0, 4, 1, 0, 2, 0, 5, 8]  # sample heights; Afisha's first real harvests ran on the last day
@@ -160,9 +169,9 @@ def gallery(view: str, client: bool = False) -> str:
             body += '<div class="glist">' + "".join(source_row(*item) for item in items) + "</div>"
         body += "</section>"
     if client:
-        note = """<b>Mock, iteration 1, a client's view.</b> A member of a subscribing organization signs in and sees
-the same gallery with one difference: Follow, or the state following. Their menu holds Sources and Following only;
-nothing about other clients, hosts or access."""
+        note = """<b>Mock, a client's view, not built in iteration 1.</b> A member of a subscribing organization
+signs in and sees the same gallery with one difference: Follow, or the state following. Their menu holds Sources and
+Following only; nothing about subscribers, settings or access."""
     elif view == "cards":
         note = """<b>Mock, iteration 1, the operator's view.</b> Built as Wheelhouse's Products page: the group tiles
 first, then one collapsible section per group with a rule beside its name. A group is a publisher: Afisha with its
@@ -181,14 +190,19 @@ list, as Wheelhouse draws it."""
 def source_head(tab: str) -> str:
     tabs = "".join(
         f'<span class="tab{" on" if name == tab else ""}">{name}{f" <small>{count}</small>" if count else ""}</span>'
-        for name, count in [("Overview", ""), ("Posts", "8"), ("Activity", "3"), ("Settings", "")]
+        for name, count in [("Overview", ""), ("Posts", "8"), ("Activity", "4"), ("Settings", "")]
     )
     return f"""
-<div class="row">{icon("site", "big")}<div><h1>Afisha.uz <span class="tag">healthy</span></h1>
-<p class="sub" style="margin:0">last harvest 13:12 · next 19:12</p></div>
-<span class="grow"></span><span class="btn">Pause source</span><span class="btn go">Harvest now</span></div>
-<div class="pills" style="margin:14px 0 4px">{HARVEST}</div>
+<div class="card hcard"><div class="row">{icon("site", "big")}<div><h1>Afisha.uz <span class="tag">healthy</span></h1>
+<p class="sub" style="margin:0 0 8px">last harvest 13:12 · next 19:12</p>
+<div class="pills"><span class="pill">&#9776; Afisha</span>{HARVEST}</div></div>
+<span class="grow"></span><span class="btn">Open the site &#9662;</span><span class="btn go">Harvest now</span></div></div>
 <div class="tabs">{tabs}</div>"""
+
+
+def source_crumb(last: str = "") -> str:
+    tail = f"Afisha.uz &rsaquo; <b>{last}</b>" if last else "<b>Afisha.uz</b>"
+    return f"Collect &rsaquo; Sources &rsaquo; Afisha &rsaquo; {tail}"
 
 
 def source_overview() -> str:
@@ -196,12 +210,12 @@ def source_overview() -> str:
 <div class="cols">
 <div>
   <div class="card"><div class="pad" style="padding-bottom:6px"><h2>Sections being harvested</h2></div><table>
-  <tr><th>Section</th><th>Harvests</th><th>Last</th><th>Next</th><th>Posts</th><th>Followed by</th><th></th></tr>
+  <tr><th>Section</th><th>Harvests</th><th>Last</th><th>Next</th><th>Posts</th><th>Followed by</th></tr>
   <tr><td><b>Fashion</b></td><td>every 6 hours<br><small>checks daily</small></td>
-    <td>13:12 <span class="tag warn">partial</span><br><small>5-page limit</small></td><td>19:12</td><td>4</td><td>1 client</td><td><span class="btn sm">Edit</span></td></tr>
+    <td>13:12 <span class="tag warn">partial</span><br><small>5-page limit</small></td><td>19:12</td><td>4</td><td>1 subscriber</td></tr>
   <tr><td><b>Exhibitions</b></td><td>every 6 hours<br><small>checks daily</small></td>
-    <td>13:12 <span class="tag">completed</span></td><td>19:12</td><td>4</td><td>1 client</td><td><span class="btn sm">Edit</span></td></tr>
-  <tr class="more"><td colspan="7"><span class="chev side-chev">&#9656;</span> 4 more sections nobody follows</td></tr>
+    <td>13:12 <span class="tag">completed</span></td><td>19:12</td><td>4</td><td>1 subscriber</td></tr>
+  <tr class="more"><td colspan="6"><span class="chev side-chev">&#9656;</span> 4 more sections nobody follows</td></tr>
   </table></div>
 </div>
 <div>
@@ -214,61 +228,125 @@ def source_overview() -> str:
     <div class="row end" style="margin-top:6px">{bars(SAMPLE, 96)}</div>
     <div class="row" style="margin-top:8px"><small>28 Oct</small><span class="grow"></span><small>today</small></div></div>
 </div></div>
-<div class="note"><b>Mock, iteration 1, the operator's view.</b> Overview lists only the sections being harvested;
-the ones nobody follows fold into one closed line. Posts have their own tab, so none repeat here. Chart heights are
-samples.</div>"""
-    return frame("Sources", "Collect &rsaquo; Sources &rsaquo; Afisha &rsaquo; <b>Afisha.uz</b>", body)
+<div class="note"><b>Mock, iteration 1, the operator's view.</b> A source opens as a Wheelhouse product does: a
+header card, then tabs, with the source under its group in the menu. Overview lists only the sections being
+harvested; the rest fold into one closed line. Schedules are changed on Settings. Chart heights are samples.</div>"""
+    return frame("Sources", source_crumb(), body, tree=True)
 
 
 POSTS = [
-    ("Показ мод The Fashion Show Line 2026", "event", "21 Nov 2026", "Fashion", "2"),
-    ("Fashion article", "article", "", "Fashion", "1"),
-    ("Fashion article", "article", "", "Fashion", "1"),
-    ("Fashion article", "article", "", "Fashion", "1"),
-    ("Exhibition listing", "event", "past", "Exhibitions", "1"),
-    ("Exhibition article", "article", "", "Exhibitions", "1"),
-    ("Exhibition article", "article", "", "Exhibitions", "1"),
-    ("Exhibition article", "article", "", "Exhibitions", "1"),
+    ("Показ мод The Fashion Show Line 2026", "event", "21 Nov 2026", "Fashion", "today 13:11"),
+    ("Fashion article", "article", "", "Fashion", "today 13:12"),
+    ("Fashion article", "article", "", "Fashion", "today 13:12"),
+    ("Fashion article", "article", "", "Fashion", "today 13:12"),
+    ("Exhibition listing", "event", "past", "Exhibitions", "today 13:12"),
+    ("Exhibition article", "article", "", "Exhibitions", "today 13:12"),
+    ("Exhibition article", "article", "", "Exhibitions", "today 13:12"),
+    ("Exhibition article", "article", "", "Exhibitions", "today 13:12"),
 ]
 POST_FILTERS = """<div class="row" style="margin-bottom:14px"><span class="search">Search this source's posts</span>
   <span class="filter on">All 8</span><span class="filter">Fashion 4</span><span class="filter">Exhibitions 4</span>
-  <span class="filter">Events 2</span></div>"""
+  <span class="filter">Events 2</span><span class="filter">Articles 6</span></div>"""
 
-
-def source_posts(view: str) -> str:
-    if view == "rows":
-        table = "".join(
-            f'<tr class="{"sel" if index == 0 else ""}"><td><b>{title}</b>{"<br><small>" + when + "</small>" if when else ""}</td>'
-            f'<td>{pill(kind, "on" if kind == "event" else "")}</td><td>{section}</td><td>revision {rev}</td></tr>'
-            for index, (title, kind, when, section, rev) in enumerate(POSTS)
-        )
-        content = f"""<div class="cols" style="grid-template-columns:1fr 400px">
-<div class="card"><table><tr><th>Post</th><th>Kind</th><th>Section</th><th>Revision</th></tr>{table}</table></div>
-<div class="card pad"><h2>Показ мод The Fashion Show Line 2026</h2>
-  <div class="pills" style="margin-bottom:12px">{pill("event", "on")}{pill("Fashion", "on")}{pill("revision 2")}</div>
-  <div class="kv"><span>Starts</span><b>21 Nov 2026, 17:00</b>
+POST_MODAL = f"""<div class="veil"><div class="card modal">
+  <div class="row"><h2 style="margin:0">Показ мод The Fashion Show Line 2026</h2><span class="grow"></span><span class="x">&#10005;</span></div>
+  <div class="pills" style="margin:10px 0 16px">{pill("event", "on")}{pill("Fashion")}{pill("Afisha.uz")}</div>
+  <div class="kv wide-kv"><span>Starts</span><b>21 Nov 2026, 17:00</b>
     <span>Place</span><b>Дворец творчества молодёжи, Ташкент</b>
     <span>Address</span><b>просп. Мустакиллик, 2</b>
     <span>Offers</span><b>1</b>
     <span>Posted</span><b>14 Oct 2026</b>
-    <span>Harvested</span><b>today 13:11</b>
-    <span>Changed</span><b>the city was added</b></div>
-  <p style="margin:14px 0 0"><span class="btn sm">Open the original</span> <span class="btn sm">See the capture</span></p></div>
-</div>"""
-        note = "The Rows view keeps the pane with a post's facts and evidence beside the list."
+    <span>Harvested</span><b>today 13:11</b></div>
+  <h3>Revisions</h3>
+  <table class="plain"><tr><td><b>Revision 2</b></td><td>today 13:11</td><td>the city was added</td></tr>
+    <tr><td><b>Revision 1</b></td><td>today 05:20</td><td>first harvest</td></tr></table>
+  <p style="margin:18px 0 0"><span class="btn sm">Open the original</span> <span class="btn sm">See the capture</span></p>
+</div></div>"""
+
+
+def source_posts(view: str, modal: bool = False) -> str:
+    if view == "rows":
+        table = "".join(
+            f'<tr class="{"sel" if modal and index == 0 else ""}"><td><b>{title}</b>'
+            f'{"<br><small>" + when + "</small>" if when else ""}</td>'
+            f'<td>{pill(kind, "on" if kind == "event" else "")}</td><td>{section}</td><td>{harvested}</td></tr>'
+            for index, (title, kind, when, section, harvested) in enumerate(POSTS)
+        )
+        content = (f'<div class="card"><table><tr><th>Post</th><th>Kind</th><th>Section</th><th>Harvested</th></tr>'
+                   f"{table}</table></div>")
+        note = ("A post opens over the page, with no address of its own: its facts, its revisions and the evidence."
+                if modal else "The Rows view lists every post with its kind, section and harvest time.")
     else:
         cards = "".join(
             f"""<div class="card pcard"><div class="thumb">{"no image kept" if kind == "article" else "image link kept"}</div>
   <div class="pills">{pill(kind, "on" if kind == "event" else "")}{pill(section)}</div>
-  <b>{title}</b><div class="desc">{when or "no date"} · revision {rev}</div></div>"""
-            for title, kind, when, section, rev in POSTS
+  <b>{title}</b><div class="desc">{when or "no date"}</div></div>"""
+            for title, kind, when, section, _ in POSTS
         )
         content = f'<div class="tiles four">{cards}</div>'
-        note = "The Cards view shows each post as a tile; opening one shows its facts and evidence."
+        note = "The Cards view shows each post as a tile."
     body = source_head("Posts") + POST_FILTERS + content + f"""
-<div class="note"><b>Mock, iteration 1, the operator's view.</b> {note} The same Cards and Rows switch in the top
-bar governs Sources and Posts, with one remembered choice. Titles other than the fashion show are placeholders.</div>"""
-    return frame("Sources", "Collect &rsaquo; Sources &rsaquo; Afisha &rsaquo; Afisha.uz &rsaquo; <b>Posts</b>", body, view=view)
+<div class="note"><b>Mock, iteration 1, the operator's view.</b> {note} The pool keeps posts of every kind; a
+subscriber receives only its matches. Revisions show inside a post, not in the list. Titles other than the fashion
+show are placeholders.</div>"""
+    return frame("Sources", source_crumb("Posts"), body, view=view, tree=True, overlay=POST_MODAL if modal else "")
+
+
+def source_activity() -> str:
+    runs = [
+        ("today 13:12", "Fashion", "harvest", '<span class="tag warn">partial</span>',
+         "4 new of 23 found · stopped at the 5-page limit"),
+        ("today 13:12", "Exhibitions", "harvest", '<span class="tag">completed</span>', "4 new of 26 found"),
+        ("today 13:11", "Fashion", "refresh", '<span class="tag">completed</span>', "1 post changed: the city was added"),
+        ("today 05:20", "Fashion", "harvest", '<span class="tag">completed</span>', "first harvest · 4 new"),
+    ]
+    table = "".join(
+        f"<tr><td>{when}</td><td><b>{section}</b></td><td>{kind}</td><td>{state}</td><td>{found}</td></tr>"
+        for when, section, kind, state, found in runs
+    )
+    body = source_head("Activity") + f"""
+<div class="row" style="margin-bottom:14px"><span class="filter on">All 4</span><span class="filter">Needs attention 1</span>
+  <span class="filter">Fashion 3</span><span class="filter">Exhibitions 1</span></div>
+<div class="card"><table><tr><th>When</th><th>Section</th><th>Run</th><th>Result</th><th>What it found</th></tr>{table}</table></div>
+<div class="note"><b>Mock, iteration 1, the operator's view.</b> A source's runs live on its Activity tab; the Runs
+page is gone. A failure reads as a label and a sentence, and a refusal that pauses the source shows here and on
+Health. Times before 13:11 are placeholders.</div>"""
+    return frame("Sources", source_crumb("Activity"), body, tree=True)
+
+
+def source_settings() -> str:
+    sections = [("Fashion", True), ("Exhibitions", True), ("Concerts", False), ("Theatre", False),
+                ("Festivals", False), ("For children", False)]
+    rows = "".join(
+        f'<tr><td><b>{name}</b></td><td>{toggle(is_on)}</td>'
+        f'<td>{"<span class=select>every 6 hours &#9662;</span>" if is_on else ""}</td>'
+        f'<td>{"<span class=select>daily &#9662;</span>" if is_on else ""}</td>'
+        f'<td>{"<span class=select>5 pages &#9662;</span>" if is_on else ""}</td></tr>'
+        for name, is_on in sections
+    )
+    body = source_head("Settings") + f"""
+<div class="cols">
+<div class="card"><div class="pad" style="padding-bottom:6px"><h2>Sections</h2>
+  <p class="desc" style="margin:0">Turn a section on to harvest it. A section also turns on when a subscriber follows it.</p></div>
+  <table><tr><th>Section</th><th>Harvest</th><th>Every</th><th>Check for changes</th><th>Stop after</th></tr>{rows}</table></div>
+<div>
+  <div class="card pad"><h2>Reading</h2><div class="kv">
+    <span>Source</span><b>{toggle(True)} on</b>
+    <span>Reading pace</span><b><span class="select">a page every 5 s &#9662;</span></b>
+    <span>When refused</span><b>pause this source only</b>
+    <span>Read from</span><b>our main server</b></div></div>
+  <div class="card pad" style="margin-top:20px"><h2>AI</h2><div class="kv">
+    <span>Read posts with AI</span><b>{toggle(False)} off</b>
+    <span>Used for</span><b>relevance and a summary, later</b>
+    <span>This month</span><b>0 posts</b></div></div>
+  <div class="card pad" style="margin-top:20px"><h2>Group</h2><div class="kv">
+    <span>Group</span><b><span class="select">Afisha &#9662;</span></b>
+    <span>Reader</span><b>Afisha, from an adapter release</b></div></div>
+</div></div>
+<div class="note"><b>Mock, iteration 1, operators only.</b> This tab replaces the Pipelines page: what is harvested,
+how often, how politely, and whether AI reads the posts. A subscriber never sees it. The AI card and the server line
+are placeholders for later.</div>"""
+    return frame("Sources", source_crumb("Settings"), body, tree=True)
 
 
 PAGES = {
@@ -277,6 +355,9 @@ PAGES = {
     "source-afisha": source_overview,
     "source-afisha-posts": lambda: source_posts("rows"),
     "source-afisha-posts-cards": lambda: source_posts("cards"),
+    "source-afisha-post": lambda: source_posts("rows", modal=True),
+    "source-afisha-activity": source_activity,
+    "source-afisha-settings": source_settings,
     "client-sources": lambda: gallery("cards", client=True),
 }
 

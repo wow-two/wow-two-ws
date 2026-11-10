@@ -1,6 +1,6 @@
 # SCFD console analysis
 
-*Last updated: 2026-11-10 11:10 PM*
+*Last updated: 2026-11-10 11:55 PM*
 
 First full analysis of the SCFD console as built in iteration 1 (harvest `v0.1.14`, `d0aedb5`), read from its 9 pages.
 It feeds the mocks in [`mocks/`](mocks/), which are iterated in the orchestrator chat and saved per iteration. Lanes
@@ -9,9 +9,9 @@ build only from a saved final iteration. Developer inputs: `events-integration` 
 ## Status
 
 - ✅ Pages read: 9 of 9, light mode, screenshots in [`iter-1-built/`](iter-1-built/)
-- 🔄 Mocks: iteration 1 covers the operator's Sources (cards, rows), a source's Overview and Posts (rows, cards), and a client's Sources
+- ✅ Mocks, iteration 1, final for the operator's Sources area (developer, 2026-11-10: "if you think sources are ready for this iteration - can update the site itself and we'll do aother iteration"): Sources (cards, rows), a source's Overview, Posts (rows, cards, a post opened), Activity and Settings
 - ⬜ Decisions #26–#29 and #37–#39 settle on the mocks, one per turn; #23–#25 and #30–#36 are settled
-- ⬜ Hand-over to the scfd lane after the final iteration is saved
+- 🔄 Hand-over to the scfd lane: the operator's Sources area and the menu (#41, #42); the client's view waits for iteration 2
 
 ---
 
@@ -139,11 +139,33 @@ Orchestrator's picks. Each settles on the mocks, then becomes the page map the s
 - #38 Open: the operator's Clients page and a source's Settings and Activity tabs.
 - #39 Open: the word for a part of a source the developer called category and channel, here `section`.
 
+- #40 Settled 2026-11-10: a post opens over the page in a modal with no route of its own, since SCFD is not a place to
+  read posts; revisions show inside it, never in the list (developer: "revisions - do we really need to show it in the
+  posts page ? or maybe inside a post when user clicks it ?").
+- #41 Settled 2026-11-10: the Pipelines, Runs, Hosts, Posts and Subscriptions pages go. A source's Settings tab, for
+  operators only, holds what Pipelines held (each section on or off, how often it is harvested and checked, the page
+  limit, the reading pace, AI on or off); its Activity tab holds the runs; its Health card holds what Hosts showed
+  (developer: "pipelines and sources now clash in the name, I think all those configurations must be be part of
+  sources then", "runs - this should be part of pipelines as well", "hosts. - not sure why we need this").
+- #42 Settled 2026-11-10, the menus: an operator gets Home, Sources, Subscribers and Access; a client gets Sources and
+  Following and never Access (developer: "this will be subscribers page on the menu when admin logs in", "access -
+  won't be available for client login").
+- #43 The pool keeps posts of every kind; a subscriber receives only its matches, so Ocharo sees events only
+  (developer, 2026-11-10).
+- #44 Open: who sets how often a section is harvested. Orchestrator's pick: the operator, per source section, from how
+  often the source changes and how politely it can be read; never the smallest interval a subscriber asks for, which
+  would let one client drive load on a source. A subscriber's own schedule is how it receives: it pulls its matches,
+  and a webhook ping to its server can tell it to pull now; SignalR fits a browser page, not a service.
+- #45 Later, not in iteration 1: a choice of outgoing server per source once a second server exists (no proxy pools,
+  `events-integration` #50); AI use per source (#54, #55); Home; Subscribers; the client's Following page (#37).
+
 ---
 
 ## Mocks
 
 - [`mocks/iter-1/`](mocks/iter-1/) holds iteration 1: `sources` (cards), `sources-rows`, `source-afisha` (Overview),
-  `source-afisha-posts` (rows), `source-afisha-posts-cards` and `client-sources`, each an `.html` with its `.png`. `build.py` writes the pages from one
+  `source-afisha-posts` (rows), `source-afisha-posts-cards`, `source-afisha-post` (a post opened),
+  `source-afisha-activity`, `source-afisha-settings` and `client-sources` (a preview of iteration 2), each an `.html`
+  with its `.png`. `build.py` writes the pages from one
   frame; `render-html.sh` renders each at 1440 px.
 - An iteration is final when the developer says so; the next one copies it into `mocks/iter-N/` before changing it.
