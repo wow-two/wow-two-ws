@@ -324,6 +324,30 @@ Developer, 2026-10-24 to 2026-11-10; not reopened.
     no lane builds a split before the map settles.
   - Meanwhile the scfd lane starts no new console iteration before the joint review, and the ai-providers chat keeps
     holding until step 4.
+- #61 Desk's division (developer, 2026-11-10; iterated in the orchestrator chat, one point per turn; no lane builds a
+  split before the map and its order settle). His frame: "each service is doing one job really great - catalogue,
+  sourcing, brand, events etc - but what is the job of desk ?" Desk has no job of its own once Sourcing, Catalogue and
+  Brand leave, so it dissolves and each remaining piece joins the service that owns that job.
+  - Settled by him piece by piece: the Events page becomes its own Events app over WoW2 Events ("events app -
+    confirmed"); the Studio imports page goes to Catalogue ("studio imports page - confirmed catalogues", E6 on Desk's
+    side); the media library gets no standalone gallery, media stays with Files and opens from the apps that use it
+    ("we won't open just plain gallery of all media anyway"); the background removal relay becomes a separate small
+    service now, a proper image worker later ("we can extract this to some kind of separate service for now and improve
+    later"); Marketing stays its own app, since its channels (Telegram, WhatsApp, Instagram, TikTok) "won't overlap
+    with other services anyway".
+  - Studio will have two sides: a public interactive one for Ocharo's websites and the internal tool with advanced
+    features.
+  - Checked by the orchestrator: Desk's content draft is a post draft (`DraftContent`: brand, title, caption, language,
+    destination, source notes, media; approvals and a manual export ZIP beside it), while Marketing already holds
+    cards, captions, deliveries, publications and Telegram and Instagram publishing brokers; the drafts belong with
+    Marketing.
+  - The organization chooser (his question: "why we need it ? it's not branding right ?"): it picks which organization's
+    data a person opens; Ocharo has one organization today; proposed as a switch in the shared shell's account menu,
+    with no page and no service.
+  - Open, in order: Sourcing as an Ocharo service now or a WoW2 module (E2); Catalogue's one writer (E3; a read-only
+    agent compares Desk's Commerce and designs with the Catalogue app); the one public reader (E4); approvals (E7) and
+    rendering (E5); one home for Ocharo's copied frame pieces and the cross-app theme and language choice
+    (`ocharo-platform` `engineering/research/shell-adoption.md` #2, #3); the repos and the extraction order.
 
 ## Contracts
 
