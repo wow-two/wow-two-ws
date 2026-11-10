@@ -241,6 +241,15 @@ Developer, 2026-10-24 to 2026-11-10; not reopened.
     widths run 1400–1800 px; headings are sans in Desk and Georgia elsewhere; the language picker is in four apps; the
     same `AppLayout` skeleton, nav files and the 9-key app list are copied across five to six apps; the only shared
     package is the repo-local `@ocharomarketing/connect` (Marketing, Editorial).
+  - Desk domain facts (agent, 2026-11-10, `scratchpad/sweep/desk-domains.md`; sizes in files / lines across all layers):
+    Commerce 82 / 4,082 (commerce draft snapshots, releases, public feed, Studio creative imports); Sourcing 76 / 3,947
+    (supplier CRM and media); Events 37 / 2,267 (leaving); Preparation 49 / 2,121 (brands, media, drafts, approvals,
+    exports); DesignDocuments 30 / 1,509; Access 14 / 448; Files 11 / 464; MediaProcessing 7 / 210. Coupling: the only
+    cross-schema foreign key is commerce → `preparation.brands`; Commerce and DesignDocuments depend on each other; one
+    `DeskFileIdRepository` writes three domains' tables; every domain shares Access and Foundation. Overlaps: the
+    Catalogue pilot is the live side on dev while the docs disagree on the canonical writer (E3); Marketing and Blog
+    read the pilots (E4); Desk and Marketing both receive Studio imports (E6); Desk holds two approval stores (E7).
+    From outside, only Editorial calls Desk (background removal); one product database, a schema per domain.
 
 ## Contracts
 
