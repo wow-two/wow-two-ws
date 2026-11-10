@@ -20,6 +20,7 @@ uncommitted, another chat's), [the Files track](../../../workbench/wow-two-sdk-b
   - ✅ events #34, 2026-11-10: the slice holds; `workbench/wow-two-sdk-beta/*` has commit and push ON, so repo creation runs; the `catalog.yml` `events` row's `purpose` line carries #39's uncommitted SCFD hunk (`:272`), so the lane's #41 hunk comes with context against `HEAD`
   - ✅ scfd #34, 2026-11-10, read-only (#39 hold kept): harvest's tags reach `v0.1.9` (`bc0c8ac`) on GitHub, unfetched locally; `d77daf6` (harvest) and `18b083a`, `1b58b9d` (adapters) are local only, unpushed and unreleased; harvest's NuGet family `WoW2.Sdk.Beta.Be.Harvest.*` and npm `@wow-two-beta/fe-harvest` were never published (#43); the registry keeps colon scopes (`events:read`) and `CallerResolver` maps a token's dot names onto them, so Ocharo's Identity would carry `events.read` (#16); `api/subscriptions` needs `subscriptions:manage`, `…/{id}` and `…/{id}/events` need `events:read` (#15); mapper audit 7 yes, 15 partial, 11 no of 33 fields (`scfd-mapper-audit.md`, #18); the adapters pin be sdk `10.0.106-beta` and build harvest from source
   - ✅ platform #34, 2026-11-10, read-only: dev's `events.showcase_events` exists (`008-events` applied) with 0 rows; local Desk on the Mac holds all 68 rows, 1 organization `Ocharo`, from 3 bundle imports (2026-10-08, 10-13, 10-30), none edited in Desk; stages 64 candidate, 1 applying, 3 skipped; precision day 35, month 5, estimated 18 (all first-of-month), unknown 10; titles Latin-script, mostly English, none Uzbek-only; notes on all 68, source URL 51, website 46, deadline 9; the source bundles are not under `~/Projects`; Desk's own bundle is `ocharo.events-import.v1`; `EventImportService` skips existing keys at `:35`; `b2cb4e3` sits one commit past `v0.2.9`, untagged; the lane opens v0.3 for this work (#44)
+  - ✅ wheelhouse #34, 2026-11-10: Wheelhouse `v0.14.9` runs, tree clean; every product's dev target (`ocharo-dev`, `files-dev`) sits in the prod console, which holds no Events, SCFD or SCFD Adapters product; the adapters image builds `HarvestSources.Api` from adapters source plus public SCFD at `bc0c8ac` (`v0.1.9`), one container with its own database, so Afisha records exist only on product `harvestadapters` (#45); private release reads work through the GitHub App, but a private image pull needs the control host's classic `read:packages` token file, and no product has pulled a private image yet (#46); released SCFD bundles (harvest `v0.1.9`, adapters `v0.1.1`) predate service access, so #13 (a) needs new SCFD releases, behind #39; Wheelhouse imports a product only from a catalog entry with `deploy: wheelhouse`, a repository, and a slug equal to the bundle prefix: `wow-two-ws` `2f7b151` added `harvestadapters` (#41); `events` gets `deploy: wheelhouse` with the events lane's #41 hunk
 - ⬜ M2 build (#13)
 - ⬜ Asked of the developer 2026-11-10: whose is the uncommitted SCFD work (#39)
 - Every lane records what it builds in its repos' active version track (#42)
@@ -114,7 +115,7 @@ owning lane verifies them. `Confirmed` holds the owning lane's verified pick.
 | #26 | Import bundle | P1 | add: `wow2.events-import.v1` with `dryRun` and a stable old → new id map; keeps stage, priority, notes, provenance, language and date precision (a stored first-of-month stays month precision; `estimated` never becomes confirmed); titles not assumed Uzbek | events defines and imports; platform produces it from `showcase_events` | — |
 | #27 | Desk cutover | P1 | change: `EventsController`, `EventImportService` (skips existing keys, `:35`) and the Vue screens under `apps/web/src/presentation/events` move onto the Events contract through Desk's proxy; the old writer frozen; export and rollback kept until reconciliation passes | platform | — |
 | #28 | Events deploy | P1 | add: `deploy.yml` with service, PostgreSQL database, settings, secrets, signal URL and the review console | events → wheelhouse | — |
-| #29 | SCFD and SCFD Adapters on dev | P1 | unverified: Wheelhouse's repo docs name no Events or SCFD product; targets live in Wheelhouse's store; which images run (the adapters host reuses public SCFD) and the private image pull are unchecked | wheelhouse | — |
+| #29 | SCFD and SCFD Adapters on dev | P1 | add: neither console holds an Events, SCFD or SCFD Adapters product; P1 runs `harvestadapters` only (#45); the private image pull rests on #46; the released bundles predate service access | wheelhouse; scfd releases first | — |
 | #30 | Review console | P1 | add: reviewers accept, merge or reject candidates; who signs in through which Identity (#4) is the events lane's proposal | events; platform registers the console's client | — |
 | #31 | Event images | open | the spec puts images in WoW2's own Files instance, which does not exist; FSS on `files-dev` holds only tenant `ocharo` | events proposes, with platform and wheelhouse input | — |
 | #32 | EV2 Afisha intake route and terms of use | open | provider API, HTTP capture or a feed; the terms of use | scfd proposes | — |
@@ -155,6 +156,14 @@ owning lane verifies them. `Confirmed` holds the owning lane's verified pick.
 - #44 #13 (c) reads local Desk's 68 rows, since dev's `showcase_events` holds none: the producer exports them into the
   bundle and imports them into Events on dev; dev Desk's empty table needs no reconciliation, and its writer is frozen
   all the same (platform lane pick, orchestrator accepted 2026-11-10 under #9).
+- #45 SCFD on dev for this goal is product `harvestadapters` alone: its image carries the public SCFD engine plus the
+  Afisha readers, so Events' subscription lives there. Public `harvest` keeps `deploy: none` until a consumer needs the
+  engine without private sources (Haven, out of scope #11). Whether SCFD and SCFD Adapters merge into one catalog
+  product (catalog § Products of several repositories) is the scfd lane's M1 call (orchestrator pick 2026-11-10 under
+  #9, from the wheelhouse lane's #34).
+- #46 The private `harvestadapters` image needs the control host's classic `read:packages` token file; its presence is
+  unverified until the first target's Registry access check. If it is missing, the developer creates the token and
+  Wheelhouse stores it; nobody prints it.
 
 ## Cross-lane contracts
 
