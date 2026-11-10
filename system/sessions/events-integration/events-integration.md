@@ -209,6 +209,16 @@ Developer, 2026-10-24 to 2026-11-10; not reopened.
   page separation is iterated with the developer in the orchestrator chat, one point per turn; an agent maps the four
   consoles' shells (Wheelhouse, SCFD, Events, FSS) and the fe sdk's shell exports first. Nothing is built until the
   separation settles.
+  - Corrected by the developer the same day: SCFD's pages are not mapped onto Wheelhouse's ("no I didn't say it must be
+    mapped, I said it must be clean separation, like we did in wheelhouse, but this is a separate service"). The
+    separation comes from SCFD's own flow; consoles share the shell, not the page map.
+- #57 Ocharo's own boundaries (developer, 2026-11-10): Desk's old Events store is retired with no rollback ("yes drop
+  completely"; platform lane, v0.3 Iteration 5). Next for Ocharo: "we need clear boundaries - and I want to work on
+  services separation - desk service handling everything - I don't like it - should we separate servcies ? also need to
+  improve ui across all ocharo services plus make them similar across all apps so that switch between the apps doesn't
+  change the navbar height etc". Desk holds Commerce, Sourcing, Events (leaving), Preparation and DesignDocuments;
+  the open boundary points are E2–E7 in `ocharo-ws` `docs/app-boundaries.md`. Two read-only agents map Desk's domain
+  coupling and every Ocharo app's shell first; the cut is then iterated with the developer, one point per turn.
 
 ## Contracts
 
