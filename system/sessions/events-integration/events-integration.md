@@ -27,6 +27,8 @@ uncommitted, another chat's), [the Files track](../../../workbench/wow-two-sdk-b
 - ⬜ Developer step: make `wow-two-sdk-beta.events` public, which unblocks its `main-guard` ruleset, npm provenance and the registries
 - ✅ M1 picks, 2026-11-10: every contract #14–#33 and #43 carries a pick in the Contracts table; events (backlog § Integration picks, `product/product.md`), platform (`ocharo-platform` `94fd5a7`), wheelhouse (`b4cae16`); scfd writes its backlog rows with its first commits after #39. Open between lanes: #49. No developer decision came out of M1
 - 🔄 M2 build: events builds contract first; scfd commits #39's work, then the #47 release order; platform builds `export events` and the dry run; wheelhouse builds the cross-product owner link
+  - ✅ platform: Desk verb `export events` (`ocharo-platform` `866b097`, on `origin/main`); the local dry run writes 68 of 68 rows to `wow2.events-import.v1` (68 unique source ids, 18 estimated → month + estimated, 5 month, 10 undated, tracking and provenance equal to the rows); 141 unit and 180 E2E tests pass (platform lane); the draft shape `EventExportBundle.cs` went to the events lane for #26
+  - ✅ wheelhouse #46: the private adapters image pulls ("Registry access: Passed, GHCR images read with the token file"); `harvestadapters` imported from the catalog, environment `harvestadapters-dev` on the Ocharo host with site `app`; readiness passes for `v0.1.1` but the database string, which placement fills; nothing deployed until an adapters release carries service access (#47)
 - Every lane records what it builds in its repos' active version track (#42)
 - Findings outside the lanes, 2026-11-10:
   - ⬜ fe sdk: an empty leftover folder `presentation/display/eventCalendar/` (2026-09-10) beside `eventCalendarViewer/` (events lane)
@@ -177,9 +179,8 @@ owning lane verifies them. `Confirmed` holds the owning lane's verified pick.
 - #49 Whether Ocharo's Identity requires a `SignalUrl` on every resource: the wheelhouse lane says it does, the
   platform lane registers `harvest` without one (service tokens only). Platform confirms from Identity's boot rules;
   scfd says whether it serves `{Uri}signals/identity`.
-- #46 The private `harvestadapters` image needs the control host's classic `read:packages` token file; its presence is
-  unverified until the first target's Registry access check. If it is missing, the developer creates the token and
-  Wheelhouse stores it; nobody prints it.
+- #46 Settled 2026-11-10: the private `harvestadapters` image pulls with the control host's token file (Registry access
+  passed); no developer step.
 
 ## Cross-lane contracts
 
