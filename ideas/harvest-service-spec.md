@@ -1,6 +1,8 @@
 # WoW Two Harvest — One 24/7 Harvester for Every Product
 
-*Last updated: 2026-10-27*
+*Last updated: 2026-11-05*
+
+> Superseded in part (Events integration, 2026-11-10): SCFD's own issuer and its `hv_` keys no longer hold; callers use Ocharo's Identity (client credentials with a tenant map) and `harvest.{noun}-{verb}` scopes. The as-built record is the harvest repo's `product/product.md` and `engineering/deployment/deployment.md`.
 
 > `harvest`: a standardized harvester that runs scheduled pipelines over sources — web pages, public channels, feeds,
 > official provider APIs — captures what they publish, extracts records into a schema the consumer names, and delivers
@@ -190,11 +192,9 @@ Fixed order **D → R → E → S → L**; every capture yields the base envelop
 - **claim by host, not by run** (T7 § 7.3): the frontier is the queue (`FOR UPDATE SKIP LOCKED`); `host_state` holds
   concurrency (1), `min_delay` (≥ 2 s, adaptive), `crawl_delay` (robots, ≤ 30 s), `Retry-After` and backoff; a block on
   one host never stops another; results are fenced against a lost lease. A restart resumes, never reruns.
-- **Events is a consumer, not a fork** (developer 2026-10-27): Events shows the events Harvest has gathered, so it uses
-  the same pipelines, delivery and console layout; it differs only in its AI prompts, tuned for events rather than for
-  goods-and-services posts. A consumer sets its prompts per subscription (`AiMode` plus a prompt profile), not by owning
-  a second engine. User-sent links, a batch of links, or an uploaded link file all enter through Harvest intake, which
-  Events and every other consumer call the same way.
+- **Events consumes Harvest** (developer 2026-10-27): it reads the shared delivery API and owns review, catalog
+  facts and tracking. Each consumer configures its extraction needs at subscription time. Consumers send links and
+  batches to the shared intake API.
 
 ---
 
@@ -274,19 +274,16 @@ Fixed order **D → R → E → S → L**; every capture yields the base envelop
 
 - **Repos** (T8-4, T8-5, T9 § 8):
   - **`wow-two-sdk-beta.harvest`** (public) — the engine: steps, scheduler, runs and stats, containers of harvested
-    posts, dedup, extraction, subscriptions, delivery, retention, and the generic family readers (RSS, ICS, JSON-LD,
+    posts, dedup, extraction, subscriptions, delivery, retention, machine access, and the generic family readers (RSS, ICS, JSON-LD,
     sitemap, link cards).
   - **`wow-two-sdk-beta.social`** (sibling domain) — the organization's own platform integrations: publish with
     receipts, own metrics, verification, and official-API transport. Social never depends on Harvest; Harvest's
     official-API adapters call Social's read brokers (T8-1, T8-2).
   - **`wow-two-sdk-beta.harvest-adapters`** (private) — one broker package per named source, each referencing
-    `Harvest.Abstractions`; it publishes to a private feed and builds the actual images WoW2 deploys. Its internals stay
-    out of this spec and the public repos (T9-19, P2d). Scaffolded from the domain template 2026-10-27 (`3c730c2`).
-- **Public vs private split** (developer 2026-10-27): a public repo holds only what can be built in the open and what
-  should be public — contracts, the engine, generic readers, the console. The private repos hold the actual services and
-  build the deployed images, referencing the public packages rather than copying them (one-image-per-repo is not a
-  constraint; a repo may host several services). So WoW2's own Harvest image is built from `harvest-adapters`, not from
-  the public `harvest` repo, whose image stays generic.
+    `Harvest.Abstractions`. It builds the shared runtime image from pinned public source and private readers.
+    Scaffolded from the domain template 2026-10-27 (`3c730c2`).
+- **Egress** (developer 2026-11-05) uses the backend SDK's guarded transport. Private adapters own the OLX route,
+  provider configuration and leases. Haven Supply owns the consumer's intake and classification.
 - **Chain:** core → Identity → Files → Social → Harvest → Events; `Harvest.Module` references core and
   `Social.Abstractions` only (T8-6, P2b).
 - **Render → a core companion package** (Playwright is heavy and stateless per call), not a Harvest or Social package
@@ -320,7 +317,7 @@ Fixed order **D → R → E → S → L**; every capture yields the base envelop
 7. post layer: link upsert, dedup tiers 0–2, post resolve, link state machine and rollup.
 8. delivery: the transactional event log and pull cursor (`xid8` horizon), tenants and API keys over core
    `Identity/ApiKeys`; webhook push once the core durable dispatcher releases.
-9. console: pipelines, runs, queue and hosts, subscriptions and deliveries — the `fe-harvest` minimum.
+9. scoped machine access for operators and product backends, with a separate client binding per tenant.
 10. image, `deploy.yml`, dev rollout through Wheelhouse.
 
 - **Gate:** two JSON-LD event sources are harvested on schedule; a fake Events intake receives each event once with
@@ -331,15 +328,12 @@ Fixed order **D → R → E → S → L**; every capture yields the base envelop
 
 ---
 
-## Console
+## API access
 
-- built on the fe SDK, served single-host, SignalR merged by revision (T7 § 10) — **in Wheelhouse's look, refined after
-  the developer's review**.
-- screens: Overview · Pipelines (requested vs effective config per subscriber) · Runs (steps, counts, outcomes) ·
-  Captures and posts · Queue and hosts · Sources (posture switches) · Subscriptions and deliveries (lag, dead letters,
-  redrive) · Budgets · Review queues (low-confidence items, `suspect` gone, unrecognized pages, consent and deletion
-  requests) · Tenants and keys · Settings.
-- a tenant admin sees only its own containers, its subscriptions and the public pipelines it joined.
+Harvest runs once per environment as an API and worker. Operators and product backends use confidential OAuth
+clients registered in the Harvest issuer. Operator grants cover explicit administration scopes. Consumer grants
+bind each client to an active tenant and its scopes. Each product owns its own user sign-in and presentation.
+The standalone frontend package remains available for embedding. [Shared access](events-infrastructure-next.md#shared-harvest-access)
 
 ---
 
@@ -347,13 +341,11 @@ Fixed order **D → R → E → S → L**; every capture yields the base envelop
 
 ### Closed
 
-- [x] H1 — repository → **a new `wow-two-sdk-beta.harvest`** from the domain template, ListingShelf's generic core
-  copied with its source commit cited; ListingShelf stays the shelf view and keeps serving its dependants until it cuts
-  over (T8-4, confirmed 2026-10-27).
+- [x] H1 — repository → **`wow-two-sdk-beta.harvest`** owns the reusable engine. Harvest supersedes the ListingShelf
+  product idea. The legacy collector serves Domtut and the rollback path until consumer cutover.
 - [x] H2 — first adapters → the **generic family readers** (`structured` JSON-LD, `site`, `page`, `feed` RSS/ICS) and
   public Telegram preview ship in slice 1; events sites are read by JSON-LD `Event`; an events site that requires
   permission waits for it (T8 § 7, W1, confirmed 2026-10-27).
-- [x] H3 — consumer authentication until Identity lands → **per-tenant API keys** (`hv_` prefix, only the SHA-256 kept)
-  plus an operator key holding every scope, over core `Identity/ApiKeys`; OIDC client credentials later (contract
-  § *Access*, T7 § 9.1, confirmed 2026-10-27).
+- [x] H3 — shared authentication uses scoped OAuth client credentials. Local verification can use
+  `hv_` keys over core `Identity/ApiKeys`.
 - [x] secrets custody → **Secrets Vault** (developer 2026-10-27; T1, T5, T7 over T8 § 5.2).

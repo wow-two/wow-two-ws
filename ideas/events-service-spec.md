@@ -2,6 +2,8 @@
 
 *Last updated: 2026-10-27*
 
+> Superseded in part (Events integration, 2026-11-10): webhook intake `POST /harvest/items`, API keys for own callers, "nothing is published unreviewed" (now automatic review by classification policy, never public) and the `wow-two-platform.events` host (Events is `wow-two-sdk-beta.events`, a Wheelhouse product) no longer hold. The as-built record is the repo `wow-two-sdk-beta.events` `product/product.md` and `system/sessions/events-integration/events-integration.md`.
+
 > `wow-two-sdk-beta.events`: a catalog of dated happenings — fairs, fashion weeks, exhibitions, concerts,
 > competitions, conferences — fed by sources through [Harvest](#harvest-seam) and curated by reviewers, plus private
 > tracking per organization. Shipped in the [capability forms](../conventions/development/capability-forms.md).
