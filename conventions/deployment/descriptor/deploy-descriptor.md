@@ -464,7 +464,7 @@ plain text key).
 - Owners may add keys of their own per product in Wheelhouse's console, typed the same way; a release's declaration
   wins over one the owner added.
 - Wheelhouse checks a value against its type on every save, field by field; a deploy applies what is saved.
-- must deploy the release that declares a key or name before typing a value for it on a target, or land both in the same step; a value typed first stops the product's config check (Events integration, 2026-11-10: it happened three times).
+- must deploy the release that declares a key or name before typing a value for it on a target, or land both in the same step; a value typed first stops the product's config check (Events integration, 2026-11-10: it happened twice, on `ocharo-platform` `v0.3.0` and `v0.3.2`).
 
 ### Generated and linked keys
 
