@@ -140,6 +140,12 @@ Developer, 2026-10-24 to 2026-11-10; not reopened.
   written into `conventions/agentic-workflow/agentic-workflow.md` § Manual work (`999f784`). The console `/imports`
   page is dropped unless it belongs to Events' vector; the 68-row import is re-picked as an agent-run call on Events'
   import API; `catalog ensure` and `workflow put` stay, since provisioning recurs per tenant.
+- #53 No human accepts sourced events (developer, 2026-11-10: "why someone needs to accept anything ? we'll use ai
+  classification ofc"). This replaces #6's "nothing publishes unreviewed": Events accepts or holds intake candidates
+  by classification, and since the catalog is private (#50), accepted means visible to Ocharo on Desk, never public.
+  The events lane builds an automatic review policy per intake source; which classifier feeds it first (SCFD's
+  `ocharo-fashion-v1` filter today, AI relevance next) is asked of the developer. #13 (b) closes on an event the
+  policy accepted.
 - #11 Out of scope: Ocharo prod; Haven's OLX intake through SCFD; reminders, webhooks, AI extraction and translation
   (EV4, P2); a second product tracking events; CodeQL on the private adapters repo. After this goal: FSS's
   whole-vector pass.
