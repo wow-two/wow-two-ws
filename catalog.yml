@@ -49,6 +49,10 @@ orgs:
     description: "no public repos yet"
     notes:
       - "> **Note**: Apps like Feedback.Analyzer, DDLParser, StudyMate etc. are still in the old `WoW-2-0-Projects` org and haven't been migrated yet."
+  - slug: wow-two-games
+    url: https://github.com/wow-two-games
+    label: games platform
+    description: "the browser games platform: the engine, the player-facing client and its services"
 
 workspaces:
   - slug: personal
@@ -63,6 +67,9 @@ workspaces:
   - slug: wow2-apps
     name: wow2 apps
     description: "Community apps built on the ecosystem"
+  - slug: wow2-games
+    name: wow2 games
+    description: "The browser platform of real-time multiplayer 3D games: engine, client and services"
 
 entries:
   # wow-two (core)
@@ -595,3 +602,29 @@ entries:
     purpose: "Private home reference mapping and layered Vue/.NET 3D renovation workbench"
     repositories: []
     local: workbench/wow-two-apps/wow-two-apps.home-atlas
+
+  # wow-two-games (games platform)
+  - slug: wow-two-games-engine
+    name: wow-two-games.engine
+    workspace: wow2-games
+    kind: sdk
+    deploy: none
+    status: "v0.1 open; linked, not published"
+    purpose: "Browser 3D game engine on three.js WebGPU: `@wow-two-games/engine`, its studio and character tools. Code: `engineering/codebase/wow-two-games-engine/`"
+    repositories: [wow-two-games/wow-two-games.engine]
+  - slug: wow-two-games-play
+    name: wow-two-games.play
+    workspace: wow2-games
+    kind: app
+    deploy: none
+    status: "v0.1 open; the co-op sniper prototype; links the engine checkout"
+    purpose: "The player-facing client: the Vue web app over the engine today, a room server and game modes later. Code: `engineering/codebase/play.frontend-services/`"
+    repositories: [wow-two-games/wow-two-games.play]
+  - slug: wow-two-games-services
+    name: wow-two-games.services
+    workspace: wow2-games
+    kind: app
+    deploy: none
+    status: "Empty; scaffolded with the two-player skeleton"
+    purpose: "The platform's backend services: Content and Rooms"
+    repositories: [wow-two-games/wow-two-games.services]

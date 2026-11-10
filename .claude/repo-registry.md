@@ -128,6 +128,16 @@ Org: [github.com/wow-two-apps](https://github.com/wow-two-apps) — no public re
 
 > **Note**: Apps like Feedback.Analyzer, DDLParser, StudyMate etc. are still in the old `WoW-2-0-Projects` org and haven't been migrated yet.
 
+## wow-two-games (games platform)
+
+Org: [github.com/wow-two-games](https://github.com/wow-two-games) — the browser games platform: the engine, the player-facing client and its services.
+
+| Repo | Purpose | Status |
+|------|---------|--------|
+| `wow-two-games.engine` | Browser 3D game engine on three.js WebGPU: `@wow-two-games/engine`, its studio and character tools. Code: `engineering/codebase/wow-two-games-engine/` | v0.1 open; linked, not published |
+| `wow-two-games.play` | The player-facing client: the Vue web app over the engine today, a room server and game modes later. Code: `engineering/codebase/play.frontend-services/` | v0.1 open; the co-op sniper prototype; links the engine checkout |
+| `wow-two-games.services` | The platform's backend services: Content and Rooms | Empty; scaffolded with the two-player skeleton |
+
 ## 10x Ventures
 
 Hub: [sulton-max/10x-ventures](https://github.com/sulton-max/10x-ventures) — The owner's venture portfolio from idea to live, and ventures and client work run for others.

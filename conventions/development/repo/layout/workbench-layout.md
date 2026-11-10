@@ -1,6 +1,6 @@
 # Workbench Layout
 
-*Last updated: 2026-10-19*
+*Last updated: 2026-11-10*
 
 > Where each repository is checked out under `workbench/`: one folder per wow2 org, one folder per owner for the rest.
 > Use case — cloning, scaffolding or moving a checkout; choosing a catalog entry's `local`.
@@ -9,7 +9,7 @@
 
 ```text
 workbench/
-├── wow-two/ · wow-two-meta/ · wow-two-platform/ · wow-two-sdk/ · wow-two-sdk-beta/ · wow-two-kb/ · wow-two-apps/
+├── wow-two/ · wow-two-meta/ · wow-two-platform/ · wow-two-sdk/ · wow-two-sdk-beta/ · wow-two-kb/ · wow-two-apps/ · wow-two-games/
 ├── maxs-projects/                     ← the owner's
 │   ├── ventures/                      ← own ventures in three groups; the 10x-ventures hub beside them
 │   │   ├── saas/                      ← hosted software that accounts or institutions pay for

@@ -115,21 +115,21 @@
       "port": 5173
     },
     {
-      "name": "whiteout",
+      "name": "games-play",
       "runtimeExecutable": "pnpm",
       "runtimeArgs": [
         "-C",
-        "workbench/maxs-projects/ventures/consumer/whiteout/engineering/codebase/whiteout.frontend-services",
+        "workbench/wow-two-games/wow-two-games.play/engineering/codebase/play.frontend-services/apps/web",
         "dev"
       ],
       "port": 5182
     },
     {
-      "name": "whiteout-http",
+      "name": "games-play-http",
       "runtimeExecutable": "pnpm",
       "runtimeArgs": [
         "-C",
-        "workbench/maxs-projects/ventures/consumer/whiteout/engineering/codebase/whiteout.frontend-services",
+        "workbench/wow-two-games/wow-two-games.play/engineering/codebase/play.frontend-services/apps/web",
         "dev"
       ],
       "env": {
@@ -138,21 +138,21 @@
       "port": 5182
     },
     {
-      "name": "whiteout-studio",
+      "name": "games-studio",
       "runtimeExecutable": "pnpm",
       "runtimeArgs": [
         "-C",
-        "workbench/maxs-projects/ventures/consumer/whiteout/engineering/codebase/whiteout-studio.frontend-services",
+        "workbench/wow-two-games/wow-two-games.engine/engineering/codebase/wow-two-games-engine/apps/studio",
         "dev"
       ],
       "port": 5188
     },
     {
-      "name": "whiteout-studio-http",
+      "name": "games-studio-http",
       "runtimeExecutable": "pnpm",
       "runtimeArgs": [
         "-C",
-        "workbench/maxs-projects/ventures/consumer/whiteout/engineering/codebase/whiteout-studio.frontend-services",
+        "workbench/wow-two-games/wow-two-games.engine/engineering/codebase/wow-two-games-engine/apps/studio",
         "dev"
       ],
       "env": {

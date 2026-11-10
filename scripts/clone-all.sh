@@ -29,7 +29,7 @@ set -euo pipefail
 WORKSPACE_REPO_ORG="wow-two"
 WORKSPACE_REPO_NAME="wow-two-ws"
 
-ORGS="wow-two wow-two-meta wow-two-platform wow-two-sdk wow-two-sdk-beta wow-two-kb wow-two-apps"
+ORGS="wow-two wow-two-meta wow-two-platform wow-two-sdk wow-two-sdk-beta wow-two-kb wow-two-apps wow-two-games"
 
 # Folder name == org name (1:1 mapping). Kept as a function for future exceptions.
 org_to_folder() {
