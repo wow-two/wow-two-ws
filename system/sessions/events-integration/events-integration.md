@@ -123,6 +123,12 @@ Developer, 2026-10-24 to 2026-11-10; not reopened.
 - #51 Order (developer, 2026-11-10): "our target was to integrate 100 sources - but that's after we integrate scfd
   itself to ocharo". The 100-source push is the goal after this one. #39's work came from a ChatGPT chat, whose
   handover (the private SCFD console's first account on the local preview) went to the scfd lane, local only.
+- #52 One-time work is done by hand by the agents, never as code (developer, 2026-11-10: "you need to be able to handle
+  any manual work yourself - just we don't need to implement code for any one time stuff ( like migrating from sql lite
+  to pgsql, but cloning from one server to another is fine - since wheelhouse needs to be able to handle that )");
+  written into `conventions/agentic-workflow/agentic-workflow.md` § Manual work (`999f784`). The console `/imports`
+  page is dropped unless it belongs to Events' vector; the 68-row import is re-picked as an agent-run call on Events'
+  import API; `catalog ensure` and `workflow put` stay, since provisioning recurs per tenant.
 - #11 Out of scope: Ocharo prod; Haven's OLX intake through SCFD; reminders, webhooks, AI extraction and translation
   (EV4, P2); a second product tracking events; CodeQL on the private adapters repo. After this goal: FSS's
   whole-vector pass.
