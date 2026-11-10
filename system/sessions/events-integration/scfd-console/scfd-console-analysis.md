@@ -11,6 +11,7 @@ build only from a saved final iteration. Developer inputs: `events-integration` 
 - ✅ Pages read: 9 of 9, light mode, screenshots in [`iter-1-built/`](iter-1-built/)
 - ✅ Mocks, iteration 1, final for the operator's Sources area (developer, 2026-11-10: "if you think sources are ready for this iteration - can update the site itself and we'll do aother iteration"): Sources (cards, rows), a source's Overview, Posts (rows, cards, a post opened), Activity and Settings
 - ⬜ Decisions #26–#29 and #37–#39 settle on the mocks, one per turn; #23–#25 and #30–#36 are settled
+- 🔄 Mocks, iteration 2, the client's view: Sources, a followed source's Posts in both modes; Overview and Following not mocked yet
 - 🔄 Hand-over to the scfd lane: the operator's Sources area and the menu (#41, #42); the client's view waits for iteration 2
 
 ---
@@ -138,8 +139,10 @@ Orchestrator's picks. Each settles on the mocks, then becomes the page map the s
 - #37 Settled 2026-11-10: a client gets Sources and Following and no feed page; its posts sit inside each source it
   follows, as an operator's do (developer: "it shouldn't be one feed page, but more like sources -> posts", "a feed
   included inside each source they are following").
-- #47 Open, for iteration 2: what a client's Posts tab lists inside a followed source, only the posts matched and
-  delivered to it, or every harvested post with its matches marked.
+- #47 Iteration 2, a client's Posts tab inside a followed source: matched posts by default, and a `Matched | All`
+  switch that adds the rest to the same list, dimmed, each saying why it did not match (developer, 2026-11-10: "only
+  matched and can switch to all ... maybe in the same panel but with dimmed ?"). One list, no second panel: the
+  contrast shows what the filter dropped. Mocked; awaiting his reaction.
 - #38 Open: the operator's Clients page and a source's Settings and Activity tabs.
 - #39 Open: the word for a part of a source the developer called category and channel, here `section`.
 
@@ -177,4 +180,6 @@ Orchestrator's picks. Each settles on the mocks, then becomes the page map the s
   `source-afisha-activity`, `source-afisha-settings` and `client-sources` (a preview of iteration 2), each an `.html`
   with its `.png`. `build.py` writes the pages from one
   frame; `render-html.sh` renders each at 1440 px.
+- [`mocks/iter-2/`](mocks/iter-2/) starts iteration 2 from a copy of iteration 1 and adds a client's view:
+  `client-sources`, `client-source-posts` (matched) and `client-source-posts-all` (all, the rest dimmed).
 - An iteration is final when the developer says so; the next one copies it into `mocks/iter-N/` before changing it.
