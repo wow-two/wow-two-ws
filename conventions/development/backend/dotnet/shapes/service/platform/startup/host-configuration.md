@@ -41,6 +41,7 @@ Ownership rationale is [separate](host-configuration-rationale.md#ownership).
 - must register a service verb that needs no host, such as `keys generate` printing to stdout, with `AddPreHostVerb`;
   one that needs the host's services with `AddHostVerb`.
 - must not hand-write verb dispatch in `Program.cs`.
+- must run provisioning (`catalog ensure`, `workflow put`, `import`, `intake check`) as idempotent host verbs that end on one result line carrying every status, since the host runner keeps only the last line (Events integration, 2026-11-10: `intake check` showed only `ok=false`).
 
 ```csharp
 using {Brand}.{Service}.Configurations;

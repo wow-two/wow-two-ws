@@ -52,6 +52,7 @@ Why a custom format → [rationale](deploy-descriptor-rationale.md). Point ids (
 - may declare a `verify` check; a product that auto-promotes should, so a release reaches prod only after it.
 - may declare `dependsOn` for a service that cannot start before another service of the product is healthy; a
   backing service the server provides (postgres, valkey, broker) goes under `needs`, never `dependsOn`.
+- must not deploy an interim scaffold image tag (the template sample) to a target; it waits for its repo's first real release (Events integration, 2026-11-10).
 - a service restarts only when its own image or settings change; a dependency's update never restarts it
   ([rollouts](#rollouts)).
 
@@ -463,6 +464,7 @@ plain text key).
 - Owners may add keys of their own per product in Wheelhouse's console, typed the same way; a release's declaration
   wins over one the owner added.
 - Wheelhouse checks a value against its type on every save, field by field; a deploy applies what is saved.
+- must deploy the release that declares a key or name before typing a value for it on a target, or land both in the same step; a value typed first stops the product's config check (Events integration, 2026-11-10: it happened three times).
 
 ### Generated and linked keys
 

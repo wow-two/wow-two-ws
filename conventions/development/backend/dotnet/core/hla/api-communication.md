@@ -24,7 +24,8 @@ Settled for Ocharo's move to Identity, developer, 2026-11-05. Shapes: Files'
 - must set the audience to the target's URI, so a token for one service is refused by every other.
 - must keep tokens short, 5-10 minutes, with no refresh token; the caller renews near expiry.
 - must cache by session and target when acting for a person, and by target when acting as the service.
-- must name scopes `{service}.{action}`, such as `files.write`.
+- must name scopes `{service}.{action}`, such as `files.write`; where an action needs two words, `{service}.{noun}-{verb}`, such as `harvest.events-read` (Events integration, 2026-11-10).
+- must name exactly one target with `resource` on a client-credentials token request; Identity answers `invalid_target` without it (Events integration, 2026-11-10).
 
 ## What a call may do
 
