@@ -1,6 +1,6 @@
 # Version Track
 
-*Last updated: 2026-11-01*
+*Last updated: 2026-11-10*
 
 The only planning convention: a repository plans with one backlog and one folder per version, the iterations and
 capabilities a product ships in that version.
@@ -75,7 +75,7 @@ A repository plans with exactly two things, both under `engineering/planning/`:
   library is one; the `Feature` version that built it inline never moves it
 - must close the previous version, its `Adoption` included, before the next one opens; an open older version beside a
   newer folder leaves two active versions
-- must open the `Adoption` version even when it finds nothing to do: mark it `⏭️ Skipped`, say why in one line, close it
+- must open the `Adoption` version even when it finds nothing to do: mark it `✅ Skipped`, say why in one line, close it
 - must start an `Adoption` version with a sweep — infrastructure the `Feature` version built inline, SDK capabilities
   the product duplicates or has not adopted, SDK pins behind the newest release — and plan its iterations from that
 - must sweep an SDK repository's `Adoption` version in both directions: a domain library moves generic code into the
@@ -186,7 +186,8 @@ browser, Claude in Chrome, computer use and simulators (developer, 2026-10-30).
 
 ## Lifecycle
 
-- `⏳ Planned` → `🚧 In Progress` → `✅ Complete`; an `Adoption` version the sweep finds nothing for is `⏭️ Skipped`
+- `⬜ Planned` → `🔄 In Progress` → `✅ Complete`; an `Adoption` version the sweep finds nothing for is `✅ Skipped`
+- must take the status symbol from the four-symbol status set (`✅` `🔄` `⬜` `✗`) — never `🚧`, `⏳` or `⏭️`
 - must open a version when planning it and close it when its tasks are done — set `Completed`, flip `Status`; one active at a time
 - may close a `Feature` version early, on the developer's word, to run its `Adoption` version first; its unshipped tasks move to the next `Feature` version
 - must not advance to the next version until the current is `✅ Complete` **and** the developer explicitly says to proceed — never pre-declare, queue, or auto-begin the next version (in chat or in the plan); finish, report, and stop
@@ -223,7 +224,7 @@ browser, Claude in Chrome, computer use and simulators (developer, 2026-10-30).
 
 *Last updated: {YYYY-MM-DD}*
 
-**Status:** ⏳ Planned · **Type:** {Feature | Adoption} · **Started:** {YYYY-MM-DD} · **Completed:** —
+**Status:** ⬜ Planned · **Type:** {Feature | Adoption} · **Started:** {YYYY-MM-DD} · **Completed:** —
 
 ### Iteration 1 — Listing ingest
 
