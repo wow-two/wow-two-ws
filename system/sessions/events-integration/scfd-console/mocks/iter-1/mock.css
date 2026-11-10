@@ -65,3 +65,33 @@ td b { font-weight: 650; } td small, .small { color: var(--muted); font-size: 12
 .cols { grid-template-columns: 1fr 330px; }
 .wide { min-width: 168px; }
 main, .cols > div { min-width: 0; }
+.pills { display: flex; flex-wrap: wrap; gap: 6px; }
+.pill { display: inline-block; padding: 3px 9px; border-radius: 999px; font-size: 12px; font-weight: 600;
+  border: 1px solid var(--line); background: var(--panel); color: var(--muted); white-space: nowrap; }
+.pill b { color: var(--ink); } .pill.on { background: var(--accent-soft); border-color: #bcd3c5; color: var(--accent); }
+.pill.warn { background: var(--warn-soft); border-color: #ecd9ae; color: var(--warn); } .pill.warn b { color: var(--warn); }
+.pill.muted { border-style: dashed; }
+.bars { display: inline-flex; align-items: flex-end; gap: 3px; }
+.bars i { width: 6px; border-radius: 2px; background: var(--accent); display: block; }
+.bars i.zero { background: #dcdacf; }
+.row.end { align-items: flex-end; }
+.seg { display: inline-flex; border: 1px solid #b9b7aa; border-radius: 8px; overflow: hidden; background: var(--panel); }
+.seg span { padding: 7px 12px; font-weight: 600; color: var(--muted); }
+.seg span.on { background: var(--accent-soft); color: var(--accent); }
+.groups { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 8px; }
+.gcard { padding: 14px 16px; display: grid; gap: 14px; }
+.ghead { display: flex; align-items: baseline; gap: 10px; margin: 22px 0 10px; font-size: 16px; }
+.tiles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.tile { padding: 16px 18px; display: grid; gap: 14px; }
+.tile.quiet { background: rgba(255,255,255,.6); }
+.ico { width: 36px; height: 36px; border-radius: 9px; background: var(--accent-soft); color: var(--accent);
+  display: grid; place-items: center; font-weight: 800; flex: none; }
+.ico.big { width: 52px; height: 52px; font-size: 22px; border-radius: 12px; }
+.tile.quiet .ico { background: #eceae0; color: var(--muted); }
+.tabs { display: flex; gap: 6px; border-bottom: 1px solid var(--line); margin: 14px 0 20px; }
+.tab { padding: 9px 14px; font-weight: 600; color: var(--muted); border-bottom: 2px solid transparent; margin-bottom: -1px; }
+.tab.on { color: var(--accent); border-bottom-color: var(--accent); }
+tr.grow-row td { background: #f6f5ee; padding: 8px 14px; }
+tr.sel td { background: var(--accent-soft); }
+.card table td, .card table th { padding-left: 12px; padding-right: 12px; }
+.gcard .row { flex-wrap: wrap; }

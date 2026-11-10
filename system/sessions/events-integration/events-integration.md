@@ -435,6 +435,13 @@ Developer, 2026-10-24 to 2026-11-10; not reopened.
   - The analysis and mocks live in `system/sessions/events-integration/scfd-console/`: `scfd-console-analysis.md`
     (findings #4–#18, proposed structure #19–#22, open decisions #23–#29), the 9 built pages in `iter-1-built/`, and
     `mocks/iter-1/` (Sources, a source page, Subscriptions; `.html` plus `.png`).
+  - Developer on the mocks, 2026-11-10: "we def need to remove posts in the menu - it must be part of sourves page
+    instead, plus we need to show the sources like a gallery - like wheelhouse does ... group the sources like
+    wheelhouse grouping the products, and have grid and list view here as well"; "for each source we can then add their
+    statistics chart in the bottom right for quick look and pills for the results". Iteration 1 was rebuilt on it:
+    Sources as a grouped gallery (cards and rows), a source page with result pills and tabs (Overview, Posts,
+    Activity, Settings), Posts gone from the menu. Sources-first is settled (analysis #23); open next: what a group is
+    (analysis #30).
 
 ## Contracts
 

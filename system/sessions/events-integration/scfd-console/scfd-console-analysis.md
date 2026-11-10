@@ -1,6 +1,6 @@
 # SCFD console analysis
 
-*Last updated: 2026-11-10 09:10 PM*
+*Last updated: 2026-11-10 10:05 PM*
 
 First full analysis of the SCFD console as built in iteration 1 (harvest `v0.1.14`, `d0aedb5`), read from its 9 pages.
 It feeds the mocks in [`mocks/`](mocks/), which are iterated in the orchestrator chat and saved per iteration. Lanes
@@ -9,8 +9,8 @@ build only from a saved final iteration. Developer inputs: `events-integration` 
 ## Status
 
 - ✅ Pages read: 9 of 9, light mode, screenshots in [`iter-1-built/`](iter-1-built/)
-- 🔄 Mocks: iteration 1 covers Sources, a source page and Subscriptions
-- ⬜ Decisions #23–#29 settle on the mocks, one per turn
+- 🔄 Mocks: iteration 1 covers Sources as cards and as rows, a source's Overview and Posts tabs, and Subscriptions
+- ⬜ Decisions #24–#31 settle on the mocks, one per turn; #23 is settled
 - ⬜ Hand-over to the scfd lane after the final iteration is saved
 
 ---
@@ -35,7 +35,10 @@ build only from a saved final iteration. Developer inputs: `events-integration` 
   No working adapter is disabled.
 - #2 The real readers live in the private `harvest-adapters` repo, one package each: `Afisha`, `Uzexpocentre`, `Olx`,
   `Caex`, `Craftfair`, `Anons`, `Instagram`. On `harvestadapters-dev` Afisha's 2 pipelines capture every 6 hours.
-- #3 A mock uses the real source names, so a page is judged on the content it will hold.
+  The local stack registers one source, `www.afisha.uz` (adapter `afisha-uz`), with 2 pipelines, Fashion and
+  Concerts; the host compiles the other readers, yet none is registered as a source there (scfd lane, 2026-11-10).
+- #3 A mock uses the real source names, so a page is judged on the content it will hold. The 6 sources beside Afisha
+  in `mocks/iter-1/sources` are compiled readers shown as if registered.
 
 ---
 
@@ -80,14 +83,17 @@ Orchestrator's picks. Each settles on the mocks, then becomes the page map the s
 | # | Group | Page | Answers | Replaces |
 |---|---|---|---|---|
 | #19 | Overview | Home | what needs attention, what was captured and delivered today | Home |
-| #20 | Collect | Sources | which sources exist, which are followed, which are unhealthy; search and filters for 100 rows | Sources, Pipelines, Hosts |
-| #20 | Collect | a source page | its sections, each followed or not, with schedule, last and next capture, posts, subscribers; the source's pacing and pauses | Pipeline, Hosts |
+| #20 | Collect | Sources | a gallery of sources by group, as Wheelhouse shows products: the groups first with pills and a trend, then each group's sources as cards or rows (one switch), each with result pills and a 14-day chart at the bottom right; search and filters for 100 sources | Sources, Pipelines, Hosts |
+| #20 | Collect | a source page | result pills under the name, then tabs: Overview (sections with schedule, last and next capture, posts, subscribers; health; the chart), Posts (every post with its result and evidence), Activity, Settings | Pipeline, Hosts, Posts |
 | #21 | Collect | Activity | every run across sources, with a path to its source and posts | Runs |
-| #22 | Content | Posts | what was captured, filtered by source, section, kind and date, with evidence | Posts |
 | #22 | Deliver | Subscriptions | who receives which source and section; made by choosing subscriber, source, sections | Subscriptions |
 | #22 | Deliver | Subscribers | the products that receive posts | Access's tenants |
 | #22 | System | Access | the session's permissions in words, containers explained | Access |
 
+- Developer, 2026-11-10: "we def need to remove posts in the menu - it must be part of sourves page instead"; "show
+  the sources like a gallery - like wheelhouse does ... group the sources like wheelhouse grouping the products, and
+  have grid and list view here as well"; "for each source we can then add their statistics chart in the bottom right
+  for quick look and pills for the results". The Content group leaves the menu.
 - A section a subscriber follows is a pipeline underneath; the word stays in the engine and leaves the pages.
 - A schedule reads as a sentence, `captures every 6 hours, checks daily`, with the form behind an edit action.
 - Tags appear on a subscription as a later, disabled choice until AI classification exists (#58).
@@ -96,7 +102,7 @@ Orchestrator's picks. Each settles on the mocks, then becomes the page map the s
 
 ## Open decisions
 
-- #23 Collect: sources first with no Pipelines page (#20), or Pipelines kept beside Sources.
+- #23 Settled 2026-11-10: Collect is sources first, as a grouped gallery, with posts inside a source (#20).
 - #24 Deliver: Subscribers and Subscriptions as 2 pages, or one page.
 - #25 Hosts: folded into a source's health (#20), or kept as a page.
 - #26 Words: `subscriber` for tenant, `section` for a pipeline's scope, and what a container is called.
@@ -104,11 +110,14 @@ Orchestrator's picks. Each settles on the mocks, then becomes the page map the s
 - #28 Who may add a source: operators only, through an adapter release (#58), with the console read-only for the
   catalog.
 - #29 Where the console runs: local only today; a deployed target needs a site route beside `/api`.
+- #30 What a group is: made and named by the operator, as a Wheelhouse workspace is, or fixed by the source's kind.
+- #31 What the pills and the chart count: posts captured, events among them, deliveries, partial and failed runs.
 
 ---
 
 ## Mocks
 
-- [`mocks/iter-1/`](mocks/iter-1/) holds iteration 1: `sources`, `source-afisha` and `subscriptions`, each an `.html`
-  with its `.png`, rendered by `render-html.sh` at 1440 px.
+- [`mocks/iter-1/`](mocks/iter-1/) holds iteration 1: `sources` (cards), `sources-rows`, `source-afisha` (Overview),
+  `source-afisha-posts` and `subscriptions`, each an `.html` with its `.png`. `build.py` writes the pages from one
+  frame; `render-html.sh` renders each at 1440 px.
 - An iteration is final when the developer says so; the next one copies it into `mocks/iter-N/` before changing it.
