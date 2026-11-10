@@ -344,7 +344,9 @@ Developer, 2026-10-24 to 2026-11-10; not reopened.
   - The organization chooser (his question: "why we need it ? it's not branding right ?"): it picks which organization's
     data a person opens; Ocharo has one organization today; proposed as a switch in the shared shell's account menu,
     with no page and no service.
-  - Open, in order: Sourcing as an Ocharo service now or a WoW2 module (E2); Catalogue's one writer (E3; a read-only
+  - Sourcing (E2), settled 2026-11-10 ("Ocharo service now"): the supplier CRM leaves Desk as an Ocharo service of its
+    own now; it becomes a shared WoW2 module when a second product needs it.
+  - Open, in order: where the new services live (inside `ocharo-platform` or a repo each); Catalogue's one writer (E3; a read-only
     agent compares Desk's Commerce and designs with the Catalogue app); the one public reader (E4); approvals (E7) and
     rendering (E5); one home for Ocharo's copied frame pieces and the cross-app theme and language choice
     (`ocharo-platform` `engineering/research/shell-adoption.md` #2, #3); the repos and the extraction order.
