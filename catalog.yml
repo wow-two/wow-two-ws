@@ -268,7 +268,7 @@ entries:
     workspace: wow2-platform
     kind: platform
     deploy: wheelhouse
-    status: "In progress: repository created 2026-11-10; built under the Events integration (system/sessions/events-integration)"
+    status: "In progress: image v0.1.8 runs on events-dev, NuGet 10.0.3-beta, npm 0.0.3; Desk reads it (system/sessions/events-integration)"
     purpose: "Shared event catalog fed by SCFD and curated in review, with private tracking per organization"
     repositories: [wow-two-sdk-beta/wow-two-sdk-beta.events]
   - slug: harvest
@@ -276,7 +276,7 @@ entries:
     workspace: wow2-platform
     kind: platform
     deploy: none
-    status: "In progress: v0.1 engine, iteration 1 shipped (ideas/harvest-service-spec.md)"
+    status: "In progress: v0.1 engine, v0.1.11 released with client credentials and pull delivery (system/sessions/events-integration)"
     purpose: "Source Collection and Feed Delivery. Scheduled pipelines capture, normalize and deliver records to connected products."
     repositories: [wow-two-sdk-beta/wow-two-sdk-beta.harvest]
     local: workbench/wow-two-sdk-beta/wow-two-sdk-beta.harvest
@@ -285,7 +285,7 @@ entries:
     workspace: wow2-platform
     kind: platform
     deploy: wheelhouse
-    status: "In progress: v0.1.1 released 2026-11-05; dev deploy under the Events integration (system/sessions/events-integration)"
+    status: "In progress: v0.1.6 runs on harvestadapters-dev (system/sessions/events-integration)"
     purpose: "SCFD's private source readers and Ocharo relevance policy, hosted with the SCFD engine"
     repositories: [wow-two-sdk-beta/wow-two-sdk-beta.harvest-adapters]
   - slug: wow-two-platform-github

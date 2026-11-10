@@ -38,8 +38,8 @@
 | 13 | **Docs site** | new | the platform's knowledge site (Starlight / Docusaurus) | — | conventions + SDK docs published | — |
 | 14 | **FlowDeck** | new | visual request-flow debugger over live traces ([spec](../ideas/flowdeck-spec.md)) | idea | one backend's flows browsable live | 6 |
 | 15 | **AI Gateway** | `wow-two-platform.templates.ai` | shared LLM proxy: keys, routing, caching | skeleton | two apps share keys and a cache through it | 1, 2 |
-| 16 | **Events** | `wow-two-sdk-beta.events` | shared event catalog, sources and harvesting, per-organization tracking; three forms ([spec](../ideas/events-service-spec.md)) | repository created 2026-11-10; built under the Events integration, Desk integrates after | two products track events through it | 2, 17 |
-| 17 | **SCFD** | `wow-two-sdk-beta.harvest` | Source Collection and Feed Delivery. Scheduled pipelines capture, normalize and deliver records ([spec](../ideas/harvest-service-spec.md)) | Public engine and private source adapters | Events and one other product receive harvested records | 15 |
+| 16 | **Events** | `wow-two-sdk-beta.events` | shared event catalog, sources and harvesting, per-organization tracking; three forms ([spec](../ideas/events-service-spec.md)) | image v0.1.8 on `events-dev`, NuGet `10.0.3-beta`, npm `0.0.3`; Desk reads it | two products track events through it | 2, 17 |
+| 17 | **SCFD** | `wow-two-sdk-beta.harvest` | Source Collection and Feed Delivery. Scheduled pipelines capture, normalize and deliver records ([spec](../ideas/harvest-service-spec.md)) | v0.1.11 released; adapters `v0.1.6` on `harvestadapters-dev` | Events and one other product receive harvested records | 15 |
 
 ---
 
