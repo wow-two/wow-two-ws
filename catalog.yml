@@ -620,6 +620,7 @@ entries:
     status: "v0.1 open; the co-op sniper prototype; links the engine checkout"
     purpose: "The player-facing client: the Vue web app over the engine today, a room server and game modes later. Code: `engineering/codebase/play.frontend-services/`"
     repositories: [wow-two-games/wow-two-games.play]
+    replaces: [whiteout]
   - slug: wow-two-games-services
     name: wow-two-games.services
     workspace: wow2-games
