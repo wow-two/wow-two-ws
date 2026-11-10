@@ -161,6 +161,19 @@ Developer, 2026-10-24 to 2026-11-10; not reopened.
   relevant 0.6, none → irrelevant 0.9), Events `Classifier = payload`, `MinConfidence = 0.5`, a week in shadow first;
   the be sdk needs Anthropic and OpenAI-compatible `IChatClient` brokers (a be sdk lane, #40). No model has a
   published Uzbek score, so a 100-item eval (under $10 of credit) gates the pick; it waits for the developer.
+- #55 Next phase, after the integration completes (developer, 2026-11-10: "eval - not needed now, let's complete the
+  integration, then we'll work on 2 things at the same time - improving the events feed ui, integrating afisha and
+  claude and gpt as fallback for ai inferece, then do our first evaluations on 10 posts, 1 includes actual relevant
+  result ( maybe TITF from afisha ) - then we'll analyze and iterate to get the result we need, finally we'll iterate on
+  layout more and close with improving the layout of events page for ocharo itself"). The 100-item eval in #54 is
+  dropped. Order:
+  1. In parallel:
+     - the Events feed UI
+     - Afisha through AI inference: Claude (#54's picks), GPT as fallback; needs the be sdk's `IChatClient` brokers (#40)
+  2. A first eval on 10 posts, at least one truly relevant (TITF on Afisha, for example).
+  3. Analyse and iterate until the results are right.
+  4. Iterate the layout.
+  5. Close with the layout of Ocharo's own Events page in Desk.
 - #11 Out of scope: Ocharo prod; Haven's OLX intake through SCFD; reminders, webhooks, AI extraction and translation
   (EV4, P2); a second product tracking events; CodeQL on the private adapters repo. After this goal: FSS's
   whole-vector pass.
