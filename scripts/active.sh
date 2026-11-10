@@ -80,7 +80,7 @@ PROJECTS=(
   "wheelhouse-canary|wow-two-platform/wow-two-platform.wheelhouse-canary/engineering/codebase/wheelhouse-canary.backend-services/WheelhouseCanary.BackendServices.slnx|wow-two-platform/wow-two-platform.wheelhouse-canary/engineering/codebase/wheelhouse-canary.frontend-services"
   "matinee|maxs-projects/ventures/consumer/ventures.matinee/engineering/codebase/matinee.backend-services/Matinee.BackendServices.slnx|maxs-projects/ventures/consumer/ventures.matinee/engineering/codebase/matinee.frontend-services"
   "identity|wow-two-sdk-beta/wow-two-sdk-beta.identity/engineering/codebase/identity.backend-services/Identity.BackendServices.slnx|wow-two-sdk-beta/wow-two-sdk-beta.identity/engineering/codebase/identity.frontend-services"
-  "files|wow-two-sdk-beta/wow-two-sdk-beta.files/engineering/codebase/files.backend-services/Files.BackendServices.slnx|wow-two-sdk-beta/wow-two-sdk-beta.files/engineering/codebase/files.frontend-services"
+  "files|wow-two-sdk-beta/wow-two-sdk-beta.files/engineering/codebase/files.backend-services/FSS.BackendServices.slnx|wow-two-sdk-beta/wow-two-sdk-beta.files/engineering/codebase/files.frontend-services"
   "harvest|wow-two-sdk-beta/wow-two-sdk-beta.harvest/engineering/codebase/harvest.backend-services/Harvest.BackendServices.slnx|wow-two-sdk-beta/wow-two-sdk-beta.harvest/engineering/codebase/harvest.frontend-services"
   "harvest-adapters|wow-two-sdk-beta/wow-two-sdk-beta.harvest-adapters/engineering/codebase/harvest-adapters.backend-services/HarvestAdapters.BackendServices.slnx|wow-two-sdk-beta/wow-two-sdk-beta.harvest-adapters/engineering/codebase/harvest-adapters.frontend-services"
 )

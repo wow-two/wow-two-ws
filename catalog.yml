@@ -256,12 +256,12 @@ entries:
     purpose: "Sample Vue + .NET + PostgreSQL app Wheelhouse deploys to dev and prod to prove every deployment flow"
     repositories: [wow-two-platform/wow-two-platform.wheelhouse-canary]
   - slug: files
-    name: Files
+    name: FSS
     workspace: wow2-platform
     kind: platform
     deploy: wheelhouse
     status: "Active (beta): dev deploys through Wheelhouse since 2026-11-09; the empty `wow-two-platform/wow-two-platform.storage.file` goes to the archive"
-    purpose: "Files for every product: store, upload, transform, compress, share and serve them under one contract."
+    purpose: "File Storage and Sharing for every product: store, upload, transform, share and serve its files under one contract."
     repositories: [wow-two-sdk-beta/wow-two-sdk-beta.files]
   - slug: events
     name: Events
