@@ -150,7 +150,7 @@ Hub: [sulton-max/10x-ventures](https://github.com/sulton-max/10x-ventures) — T
 | `ventures.config-checker` · `workbench/maxs-projects/ventures/saas/ventures.config-checker` | Config Checker — first-ten SaaS pilot | Local v0.1 implemented and tested; authenticated Vue/.NET pilot; launch gates remain |
 | `ventures.podcast-readiness` · `workbench/maxs-projects/ventures/saas/ventures.podcast-readiness` | Podcast Readiness — first-ten SaaS pilot | Local v0.1 implemented and tested; authenticated Vue/.NET pilot; launch gates remain |
 | `sulton-max/10x-ventures-prism` · `workbench/maxs-projects/ventures/saas/10x-ventures-prism` | PRISM: browser parametric room and interior modeler — 2D plan editor and live 3D | v0.15 shipped; v0.16 parked for the engine rewrite; v0.17 planned |
-| `sulton-max/10x-ventures-whiteout` · `workbench/maxs-projects/ventures/consumer/whiteout` | Whiteout: browser tactical sniper FPS on WebGPU (React Three Fiber); the presets repository holds its Blender asset library | v0.7 in progress (crate hero asset); v0.8 and v0.9 drafted |
+| `sulton-max/10x-ventures-whiteout` · `workbench/maxs-projects/ventures/consumer/whiteout` | Whiteout: browser tactical sniper FPS on its own TypeScript engine (three.js WebGPU) with a Vue 3 shell; the presets repository keeps the retired Blender asset library | v0.6 in progress (engine re-foundation) |
 | `sulton-max/10x-ventures-transcript-forge` · `workbench/maxs-projects/ventures/saas/10x-ventures-transcript-forge` | TranscriptForge: YouTube transcription engine (captions first, Whisper fallback) under a creator repurposing suite | v0.8 in progress |
 | `ventures.hijinx` · `workbench/maxs-projects/ventures/consumer/ventures.hijinx` | Hijinx: web-first party and fun apps (web, PWA and native shells) fed by Fun Vault packs | v0.1 in progress; no remote |
 | `ventures.fun-vault` · `workbench/maxs-projects/ventures/consumer/ventures.fun-vault` | Fun Vault: curated fun-content library (pranks, party games, icebreakers) that Hijinx and Arcade consume as packs | Usable content library; no remote |
@@ -185,6 +185,6 @@ Six main repositories plus the `.github` profile repository belong to Ocharo. Bl
 
 | Repo / local folder | Purpose | Status |
 |---|---|---|
-| `ocharo-platform` · `workbench/mfts-projects/ventures/ocharo-hq/ocharo-ws/workbench/ocharo-platform` | Ocharo: Desk (platform), Studio, Marketing and the motion lab (assets) under one brand and one domain | One product of four repositories since 2026-10-21 (Wheelhouse decision 70); Marketing deploys nothing yet |
+| `ocharo-platform` · `workbench/mfts-projects/ventures/ocharo-hq/ocharo-ws/workbench/ocharo-platform` | Ocharo: Desk (platform), Studio, Marketing and the motion lab (assets) under one brand and one domain | One product of four repositories since 2026-10-21 (Wheelhouse decision 70); Desk, Brand, Catalogue, Studio, Marketing and Blog run on dev |
 | `ocharo-hq` · `workbench/mfts-projects/ventures/ocharo-hq/ocharo-ws/workbench/ocharo-hq` | Main brand overview and public portfolio README | Published, private; public visibility recommended |
 | `.github` · `workbench/mfts-projects/ventures/ocharo-hq/ocharo-ws/workbench/.github` | GitHub organization profile at profile/README.md | Public; organization profile published |
