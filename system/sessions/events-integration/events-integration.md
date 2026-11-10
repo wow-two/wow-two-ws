@@ -89,8 +89,10 @@ uncommitted, another chat's), [the Files track](../../../workbench/wow-two-sdk-b
 - Analysis chat `ocharo - ai providers for classification` (`ai-providers`, `local_d43d41f6-c1c8-4017-88ed-fcc05c7c0689`),
   started 2026-11-10 at the developer's request: compares AI providers for SCFD's relevance pass and Ocharo's later
   classification; writes `ideas/ai-classification-providers.md`. Meanwhile #53's auto review accepts records that pass
-  SCFD's `ocharo-fashion-v1` filter (orchestrator default, option (a)); AI swaps in after the analysis. The local SCFD
-  console's first account exists (test values from the developer; the scfd lane makes it the operator).
+  SCFD's `ocharo-fashion-v1` filter (option (a), confirmed by the developer 2026-11-10: "confirmed"); AI swaps in after the
+  analysis. The local SCFD console's first account exists (test values from the developer, subject
+  `01a1c526-84f5-7c2b-8fcf-2871ff560663`, sign-up back to Invite); it is an operator, and sign-in at
+  `https://localhost:8400/` opens the operator view (verified by the orchestrator).
 - The orchestrator is `ocharo - events server` (`local_4597465c-ca6d-445b-b4f1-77546f8511b4`); it writes this file and
   its own `wow-two-ws` hunks (#41), and no lane's code.
 - The developer writes only to the orchestrator; lanes send their decisions there by `SendMessage`.
