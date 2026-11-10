@@ -138,6 +138,18 @@
       "port": 5182
     },
     {
+      "name": "games-rooms-service",
+      "runtimeExecutable": "dotnet",
+      "runtimeArgs": [
+        "run",
+        "--project",
+        "workbench/wow-two-games/wow-two-games.services/engineering/codebase/services.backend-services/Rooms/Rooms.Api",
+        "--launch-profile",
+        "https"
+      ],
+      "port": 8419
+    },
+    {
       "name": "games-room-server",
       "runtimeExecutable": "pnpm",
       "runtimeArgs": [

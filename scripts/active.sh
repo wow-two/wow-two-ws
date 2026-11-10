@@ -50,6 +50,7 @@ PROJECTS=(
   "prism|-|maxs-projects/ventures/saas/10x-ventures-prism/engineering/codebase/prism.frontend-services"
   "games-engine|-|wow-two-games/wow-two-games.engine/engineering/codebase/wow-two-games-engine"
   "games-play|-|wow-two-games/wow-two-games.play/engineering/codebase/play.frontend-services"
+  "games-services|wow-two-games/wow-two-games.services/engineering/codebase/services.backend-services/Services.BackendServices.slnx|-"
   "arcade|maxs-projects/ventures/consumer/ventures.arcade/engineering/codebase/arcade.backend-services/Arcade.BackendServices.slnx|maxs-projects/ventures/consumer/ventures.arcade/engineering/codebase/arcade.frontend-services"
   "museums-gallery|maxs-projects/ventures/consumer/ventures.museums-gallery/engineering/codebase/museums-gallery.backend-services/MuseumsGallery.BackendServices.slnx|maxs-projects/ventures/consumer/ventures.museums-gallery/engineering/codebase/museums-gallery.frontend-services"
   "hijinx|maxs-projects/ventures/consumer/ventures.hijinx/engineering/codebase/hijinx.backend-services/Hijinx.BackendServices.slnx|maxs-projects/ventures/consumer/ventures.hijinx/engineering/codebase/hijinx.frontend-services"

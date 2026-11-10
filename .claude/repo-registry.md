@@ -136,7 +136,7 @@ Org: [github.com/wow-two-games](https://github.com/wow-two-games) — the browse
 |------|---------|--------|
 | `wow-two-games.engine` | Browser 3D game engine on three.js WebGPU: `@wow-two-games/engine`, its studio and character tools. Code: `engineering/codebase/wow-two-games-engine/` | v0.1 open; linked, not published |
 | `wow-two-games.play` | The player-facing client: the Vue web app over the engine today, a room server and game modes later. Code: `engineering/codebase/play.frontend-services/` | v0.1 open; the co-op sniper prototype; links the engine checkout |
-| `wow-two-games.services` | The platform's backend services: Content and Rooms | Empty; scaffolded with the two-player skeleton |
+| `wow-two-games.services` | The platform's backend services: Rooms now, Content next | Rooms service v0.1: rooms by code, signed join tickets; in memory, not deployed |
 
 ## 10x Ventures
 

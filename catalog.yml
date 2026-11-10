@@ -626,6 +626,6 @@ entries:
     workspace: wow2-games
     kind: app
     deploy: none
-    status: "Empty; scaffolded with the two-player skeleton"
-    purpose: "The platform's backend services: Content and Rooms"
+    status: "Rooms service v0.1: rooms by code, signed join tickets; in memory, not deployed"
+    purpose: "The platform's backend services: Rooms now, Content next"
     repositories: [wow-two-games/wow-two-games.services]
