@@ -406,6 +406,26 @@ Developer, 2026-10-24 to 2026-11-10; not reopened.
     Catalogue serving several organizations or brands at once (the app binds one organization by config), or approved
     Desk releases already read on dev. Without a catalogue home: business-card designs (orchestrator's pick: Brand).
     Unknown read-only: whether Desk's `commerce.*` and `design_documents.*` hold rows on dev. Put to the developer.
+  - Catalogue's base (E3), settled by the developer 2026-11-10 ("yes it's own servcie is better"): the Catalogue app is
+    the base; the map is complete. Handed to the platform lane behind its shell adoption: the map written into Ocharo's
+    own docs, then Ocharo's Events app (the main plan's next build); Sourcing, Image, Brand, Catalogue and the drafts'
+    move queue behind it, unbuilt.
+  - Developer actions: merged branches cleared by him later ("yes we'll clear branches later"); Renovate questioned
+    ("why we need renovate ?"), answered as optional: a bot that proposes a pin bump when a version falls behind, not
+    needed while lanes re-pin after each SDK release.
+- #62 SCFD console review, started by the developer 2026-11-10 ("yes let's analyze it"), from the 18 screenshots of
+  iteration 1 (harvest `v0.1.14`). Orchestrator's reading of all nine pages: the frame is right (five groups, 56 px
+  bar, collapse, breadcrumb, container switch, account menu) but lacks the shared frame's glass edges and version
+  badge; the pages speak adapter language ("fetch lane", "ownFetch", "Available operations", raw scope names, run-on
+  error kinds); two places contradict #58 (a pipeline's typed URL; a subscriber picking a pipeline and typing a tag);
+  lists are thin (no next run, counts, filters or search); Hosts and tenants sit under System though they belong to
+  collecting and delivering; Home's delivery lag has no data.
+  - Iteration 2a, mechanical, sent to the scfd lane: adopt `AppFrame` (fe `0.0.45`), an existing pipeline's URL
+    read-only, error kind and message separated, the pause reason labelled, singular and plural wording.
+  - Held for the developer, one point per turn: Collect sources-first (a source page listing its sections, each with
+    schedule, runs and posts, no separate Pipelines page) or Pipelines kept; subscriptions by source and section with
+    no typed tag, subscribers under Deliver; where Hosts and Access sit; plain labels for adapter terms; list
+    substance; what Home answers; the console on a deployed target.
 
 ## Contracts
 
