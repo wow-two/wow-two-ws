@@ -330,7 +330,10 @@ Developer, 2026-10-24 to 2026-11-10; not reopened.
     the served release; Desk's Events page still lists 69. Tests pass in all 7 (Brand 83, Catalogue 235, Desk 415,
     Marketing 214, Editorial 66, Studio 170, Assets 14 + 2), CI green on the 4 repos. No frame gap came back for the
     fe sdk lane. Pattern: `ocharo-platform` `engineering/research/shell-adoption.md` #6. Finding passed to the
-    wheelhouse lane: dev's Assets tailnet site is unrouted (ingress 404). The lane moves to the service map in
+    wheelhouse lane: dev's Assets tailnet site is unrouted (ingress 404). Fixed in Wheelhouse `v0.15.6` (`8635197`, on
+    prod per the lane): a finished placement now stores each private site's node host on its environment; `ocharo-dev`
+    redeployed (`c51cf8bf`), 10 of 10 services healthy, the `motion` site answering 200; no `ocharo-assets` change;
+    prod's route picks the stored host up at its next deploy, unchecked. The lane moves to the service map in
     Ocharo's docs, then the Events app.
   - ✅ hub follow-up: `conventions/development/frontend/shapes/app/shell/shell.md` names `AppFrame` since the first
     adoption.
@@ -467,6 +470,8 @@ Developer, 2026-10-24 to 2026-11-10; not reopened.
   - Developer, 2026-11-10, after the hand-over: a post's view shows its images ("images are part of the harvest - so
     we should def show them"), and the operator sets a section's harvest interval ("we setting is the best imo").
     Analysis #44 and #46; both relayed to the scfd lane mid-build.
+  - Developer, 2026-11-10, on a client's pages: no feed page, posts inside each followed source ("it shouldn't be one
+    feed page, but more like sources -> posts"). Analysis #37 settled; #47 opens for iteration 2.
 
 ## Contracts
 

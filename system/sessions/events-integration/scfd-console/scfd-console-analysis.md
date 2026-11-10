@@ -135,7 +135,11 @@ Orchestrator's picks. Each settles on the mocks, then becomes the page map the s
 - #36 Posts have a Cards and a Rows view (developer). Orchestrator's pick for the switch: the top bar, shown only on
   pages with a gallery (Sources, a source's Posts), one remembered choice for both; the bar stays in view while a long
   gallery scrolls, and the shared `AppFrame` gives every console the same place for it (`bar-end`).
-- #37 Open: a client's pages beyond Sources and Following, such as a feed of delivered posts.
+- #37 Settled 2026-11-10: a client gets Sources and Following and no feed page; its posts sit inside each source it
+  follows, as an operator's do (developer: "it shouldn't be one feed page, but more like sources -> posts", "a feed
+  included inside each source they are following").
+- #47 Open, for iteration 2: what a client's Posts tab lists inside a followed source, only the posts matched and
+  delivered to it, or every harvested post with its matches marked.
 - #38 Open: the operator's Clients page and a source's Settings and Activity tabs.
 - #39 Open: the word for a part of a source the developer called category and channel, here `section`.
 
