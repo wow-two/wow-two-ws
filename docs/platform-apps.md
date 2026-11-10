@@ -39,7 +39,7 @@
 | 14 | **FlowDeck** | new | visual request-flow debugger over live traces ([spec](../ideas/flowdeck-spec.md)) | idea | one backend's flows browsable live | 6 |
 | 15 | **AI Gateway** | `wow-two-platform.templates.ai` | shared LLM proxy: keys, routing, caching | skeleton | two apps share keys and a cache through it | 1, 2 |
 | 16 | **Events** | `wow-two-sdk-beta.events` | shared event catalog, sources and harvesting, per-organization tracking; three forms ([spec](../ideas/events-service-spec.md)) | repository created 2026-11-10; built under the Events integration, Desk integrates after | two products track events through it | 2, 17 |
-| 17 | **Harvest** | `wow-two-sdk-beta.harvest` | 24/7 harvester: scheduled pipelines capture sources and extract records into a consumer's schema, then deliver them ([spec](../ideas/harvest-service-spec.md)) | ListingShelf pipelines, runs and captures | Events and one other product receive harvested records | 15 |
+| 17 | **SCFD** | `wow-two-sdk-beta.harvest` | Source Collection and Feed Delivery. Scheduled pipelines capture, normalize and deliver records ([spec](../ideas/harvest-service-spec.md)) | Public engine and private source adapters | Events and one other product receive harvested records | 15 |
 
 ---
 
@@ -47,15 +47,25 @@
 
 ### Rule
 
-- must name a platform app for what it handles, never with a brand — `deployments`, not Wheelhouse.
-- must use the plural of what the app manages — `deployments`, `repositories`, `feedbacks`, `logs`, `events`.
-- must use a mass noun when nothing the app manages is countable — `identity`, `monitoring`, `wiki`.
+- must name a platform service for its function.
+- must use a plural noun for countable entities or a mass noun for an uncountable domain when one noun covers the function.
 - must keep brands for products and ventures — ForeverPin, Pose Coach, Ocharo: customers see them, and a brand
   carries a domain and a trademark → [brand naming and domains](../conventions/marketing/brand-naming-and-domains.md).
 
+### Descriptive initialisms
+
+- may shorten a multi-part function to a descriptive initialism read letter by letter. SCFD stands for Source Collection and Feed Delivery.
+- must choose the plain-language expansion first, using the service's durable responsibilities.
+- should use three to five letters and check the platform catalog for names that users could confuse with it.
+- must use uppercase initials in display names, logos and solution filenames. Expand the name on first use in introductory docs.
+- may append a role to a related repo or solution, as in SCFD Adapters and `SCFD.Adapters.BackendServices.slnx`.
+
 ### Identifiers
 
-`{name}` is the app's name as the slug, `{Name}` its PascalCase form.
+`{name}` is the lowercase slug. `{Name}` is the PascalCase identifier for projects and namespaces.
+For a new service named with an initialism, use lowercase for its slug, uppercase in its solution filename and
+[PascalCase for C# symbols](../conventions/development/backend/dotnet/core/lla/notation/naming/naming.md#acronyms).
+SCFD uses `SCFD.BackendServices.slnx` alongside the existing `harvest` deployment ID and `Harvest` package names.
 
 | Part | Pattern | Example |
 |---|---|---|
@@ -90,11 +100,10 @@ Confirmed by the developer 2026-10-27; the renames run later, under `app-t-008` 
 | 13 | Docs site | `wiki` | — |
 | 14 | FlowDeck | `flows` | the request flows it draws |
 | 15 | AI Gateway | `ai` | mass noun; `models` would clash with every app's `Models` folders |
-| 17 | Harvest | `captures` | the snapshots its pipelines take; `pipelines` is #8 |
 | 9 | `wow` CLI | — | open: a command, not a hosted app; whether the rule covers it is undecided |
 | — | — | `repositories` | new app: wow2's own repos — organizations, the apps in them, boards, issues and PRs; no row in *Order* yet |
 
-- must rename an app only under `app-t-008`, never in passing.
+- must coordinate repository and integration ID changes under `app-t-008`.
 - must not rename Wheelhouse before its self-deploy burn-in ends 2026-10-31; the rename touches:
   - the GitHub repo `wow-two-platform.wheelhouse` and the `Wheelhouse.*` namespaces
   - the `/srv/wheelhouse` host paths and the `wheelhouse-deploy` host user

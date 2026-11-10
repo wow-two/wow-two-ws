@@ -81,8 +81,8 @@ PROJECTS=(
   "matinee|maxs-projects/ventures/consumer/ventures.matinee/engineering/codebase/matinee.backend-services/Matinee.BackendServices.slnx|maxs-projects/ventures/consumer/ventures.matinee/engineering/codebase/matinee.frontend-services"
   "identity|wow-two-sdk-beta/wow-two-sdk-beta.identity/engineering/codebase/identity.backend-services/Identity.BackendServices.slnx|wow-two-sdk-beta/wow-two-sdk-beta.identity/engineering/codebase/identity.frontend-services"
   "files|wow-two-sdk-beta/wow-two-sdk-beta.files/engineering/codebase/files.backend-services/FSS.BackendServices.slnx|wow-two-sdk-beta/wow-two-sdk-beta.files/engineering/codebase/files.frontend-services"
-  "harvest|wow-two-sdk-beta/wow-two-sdk-beta.harvest/engineering/codebase/harvest.backend-services/Harvest.BackendServices.slnx|wow-two-sdk-beta/wow-two-sdk-beta.harvest/engineering/codebase/harvest.frontend-services"
-  "harvest-adapters|wow-two-sdk-beta/wow-two-sdk-beta.harvest-adapters/engineering/codebase/harvest-adapters.backend-services/HarvestAdapters.BackendServices.slnx|wow-two-sdk-beta/wow-two-sdk-beta.harvest-adapters/engineering/codebase/harvest-adapters.frontend-services"
+  "harvest|wow-two-sdk-beta/wow-two-sdk-beta.harvest/engineering/codebase/harvest.backend-services/SCFD.BackendServices.slnx|wow-two-sdk-beta/wow-two-sdk-beta.harvest/engineering/codebase/harvest.frontend-services"
+  "harvest-adapters|wow-two-sdk-beta/wow-two-sdk-beta.harvest-adapters/engineering/codebase/harvest-adapters.backend-services/SCFD.Adapters.BackendServices.slnx|wow-two-sdk-beta/wow-two-sdk-beta.harvest-adapters/engineering/codebase/harvest-adapters.frontend-services"
   "events|wow-two-sdk-beta/wow-two-sdk-beta.events/engineering/codebase/events.backend-services/Events.BackendServices.slnx|wow-two-sdk-beta/wow-two-sdk-beta.events/engineering/codebase/events.frontend-services"
 )
 

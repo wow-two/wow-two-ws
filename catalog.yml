@@ -269,15 +269,15 @@ entries:
     kind: platform
     deploy: wheelhouse
     status: "In progress: repository created 2026-11-10; built under the Events integration (system/sessions/events-integration)"
-    purpose: "Shared event catalog fed by Harvest and curated in review, with private tracking per organization"
+    purpose: "Shared event catalog fed by SCFD and curated in review, with private tracking per organization"
     repositories: [wow-two-sdk-beta/wow-two-sdk-beta.events]
   - slug: harvest
-    name: Harvest
+    name: SCFD
     workspace: wow2-platform
     kind: platform
     deploy: none
-    status: "In progress: v0.1 Harvest engine, iteration 1 shipped (ideas/harvest-service-spec.md)"
-    purpose: "24/7 harvester: scheduled pipelines capture sources and extract records into a consumer's schema"
+    status: "In progress: v0.1 engine, iteration 1 shipped (ideas/harvest-service-spec.md)"
+    purpose: "Source Collection and Feed Delivery. Scheduled pipelines capture, normalize and deliver records to connected products."
     repositories: [wow-two-sdk-beta/wow-two-sdk-beta.harvest]
     local: workbench/wow-two-sdk-beta/wow-two-sdk-beta.harvest
   - slug: harvestadapters
