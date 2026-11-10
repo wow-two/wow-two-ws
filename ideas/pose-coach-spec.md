@@ -1,9 +1,10 @@
 # PoseCoach — Trending Photo Pose Library + AR/AI Guide
 
-*Last updated: 2026-04-26 12:00 PM*
+*Last updated: 2026-11-10 12:08 PM*
 
 > Research update (2026-09-10): [current market and iPhone build analysis](ai-photo-director-market-analysis.md)
 > supersedes the competitive assessment and launch recommendation below. The remaining concept is an April snapshot.
+> Sibling idea (2026-11-10): [FrameCoach](composition-coach-spec.md) coaches the photographer's composition instead of the subject's pose.
 
 > Browse a library of trending/iconic photo poses (Follow-Me, candid selfie, jump shot, etc.). Pick one → AR mask overlays the target silhouette on camera → AI coaches you in real time until your pose, framing, and angle match.
 
