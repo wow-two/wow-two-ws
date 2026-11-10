@@ -350,6 +350,32 @@ Developer, 2026-10-24 to 2026-11-10; not reopened.
     agent compares Desk's Commerce and designs with the Catalogue app); the one public reader (E4); approvals (E7) and
     rendering (E5); one home for Ocharo's copied frame pieces and the cross-app theme and language choice
     (`ocharo-platform` `engineering/research/shell-adoption.md` #2, #3); the repos and the extraction order.
+  - Developer, 2026-11-10: "complete the breaking down of services then we'll focus on events and platform and ocharo
+    service of it - as was our main plan". Read as: the orchestrator completes the map now, with its own picks on the
+    open points, and the build then returns to the main plan, whose first piece is Ocharo's Events app; the other
+    extractions queue behind it.
+  - The map (services and the one job each does):
+
+    | Service | Its one job | Built from |
+    |---|---|---|
+    | Catalogue | products, collections, designs, releases, the public catalogue | Desk's Commerce and DesignDocuments, the Catalogue app, Studio imports (base: E3, pending the comparison) |
+    | Brand | brand identity, logos, the brands list | the Brand app plus Desk's `preparation.brands` |
+    | Sourcing | suppliers and their contacts | Desk's Sourcing, as is |
+    | Events | tracking trade events | a new Events app over WoW2 Events (Desk's page and proxy) |
+    | Marketing | posts and channels (Telegram, WhatsApp, Instagram, TikTok) | Marketing plus Desk's content drafts, approvals and exports |
+    | Editorial | stories and the blog | as today |
+    | Studio | garment editor: the internal tool and a public interactive side | as today |
+    | Assets | garment library and animation | as today |
+    | Image | background removal | Desk's relay plus the image worker |
+    | Desk | none | removed last; the organization switch moves to the shell's account menu |
+
+    Shared WoW2 services stay as they are: Identity (sign-in, organizations), Files (media), Events (the events catalog).
+  - Orchestrator's picks on the open points, each open to the developer's change: the new services live inside
+    `ocharo-platform`, each with its own backend, app, schema and deploy entry and no code shared across services, one
+    database; the Catalogue service owns the one public feed that Marketing and Blog read (E4); approvals (E7) and
+    rendering (E5) stay per service now, shared modules later, outside this goal; Ocharo's copied frame pieces get one
+    small Ocharo package, proposed by the platform lane with the shell adoption; extraction order: the Events app, then
+    Sourcing, Image, Brand, Catalogue, the drafts to Marketing, and Desk removed last.
 
 ## Contracts
 
