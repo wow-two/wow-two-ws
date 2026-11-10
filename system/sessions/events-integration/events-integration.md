@@ -426,6 +426,15 @@ Developer, 2026-10-24 to 2026-11-10; not reopened.
     schedule, runs and posts, no separate Pipelines page) or Pipelines kept; subscriptions by source and section with
     no typed tag, subscribers under Deliver; where Hosts and Access sit; plain labels for adapter terms; list
     substance; what Home answers; the console on a deployed target.
+  - Developer, 2026-11-10: "why we are using sythentic pipelines?" Answered from the code: the large screenshots come
+    from the console's `demo` build (in-memory records, no backend); no working adapter is disabled, the private
+    adapters repo holds 7 readers and Afisha runs on dev.
+  - Process set by the developer, 2026-11-10: "let's first finish our first full analysis, then we'll share ot to the
+    implementation lanes" and "we'll generate mocks here, iterate on them and save as iteration final". Iteration 2a
+    is withdrawn from the scfd lane; lanes build only from a saved final iteration.
+  - The analysis and mocks live in `system/sessions/events-integration/scfd-console/`: `scfd-console-analysis.md`
+    (findings #4–#18, proposed structure #19–#22, open decisions #23–#29), the 9 built pages in `iter-1-built/`, and
+    `mocks/iter-1/` (Sources, a source page, Subscriptions; `.html` plus `.png`).
 
 ## Contracts
 
