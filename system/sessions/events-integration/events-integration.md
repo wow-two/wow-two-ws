@@ -113,6 +113,7 @@ uncommitted, another chat's), [the Files track](../../../workbench/wow-two-sdk-b
 | platform | `ev-platform`, `local_017f2bcd-6de5-41e8-93aa-14530829cbde` | `workbench/mfts-projects/ventures/ocharo-hq/ocharo-ws/workbench/ocharo-platform` | #37 |
 | wheelhouse | `ev-wheelhouse`, `local_31ee8aa4-c16a-48e1-a4b8-03be478bdb3b` | `workbench/wow-two-platform/wow-two-platform.wheelhouse` | #38 |
 | fe sdk | `ev-fe-shell`, `local_1e8e569c-52ac-42f1-b4b9-4dc28dfe799f`, started 2026-11-10 | `workbench/wow-two-sdk-beta/wow-two-sdk-beta.fe` | #59 |
+| scfd console live edits | `ev-scfd-live`, `local_1671803a-b7a5-45b3-a972-c818697a7e01`, started 2026-11-11, Sonnet 5.5 | `wow-two-sdk-beta.harvest` console frontend only (`harvest.frontend-services/`); `ev-scfd` holds that folder meanwhile | #62 |
 
 - Analysis chat `ocharo - ai providers for classification` (`ai-providers`, `local_d43d41f6-c1c8-4017-88ed-fcc05c7c0689`),
   started 2026-11-10 at the developer's request: compares AI providers for SCFD's relevance pass and Ocharo's later
@@ -490,6 +491,12 @@ Developer, 2026-10-24 to 2026-11-10; not reopened.
   - SCFD adapters `v0.1.13` runs on `harvestadapters-dev` (wheelhouse lane, deployment `6fb89b4b`, migration
     `006-source-groups`); `ocharo setup --group afisha` put both subscriptions in group `afisha`; `ocharo status`
     shows both schedules unchanged (6-hour capture, daily check).
+  - Live review, developer 2026-11-11: "I think we can spin a sonnet 5.5 extra chat and I'll point out each change and
+    it will immediately apply the changes so we can work faster then you'll analyze all the changes to see if you can
+    improve the sdk". Lane `ev-scfd-live` applies each change he points out in the console frontend, commits locally,
+    pushes harvest when he ends the round, and records each change in harvest's version track with an `sdk-candidate`
+    tag where it builds a pattern another console would reuse. After the round the orchestrator analyses that list for
+    fe sdk work. The mock rounds pause; iteration 2's open point (Following as its own page) waits.
 
 ## Contracts
 
