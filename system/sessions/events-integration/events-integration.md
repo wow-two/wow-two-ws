@@ -520,6 +520,16 @@ Developer, 2026-10-24 to 2026-11-10; not reopened.
     (Events' `xid8` cursors stay valid only on the same cluster), settings copied with only the connection string
     changed, Events' `Intake:Sources:0` and `:1` pointed at `harvest-dev`, then product `harvestadapters` retired with
     its database kept. Hub: `catalog.yml` `harvest` gets `deploy: wheelhouse`; `harvestadapters` marked retiring.
+  - ✅ Dev move done (wheelhouse lane, 2026-11-13): Wheelhouse `v0.15.7` (`3988e34`, on prod) copies a database between
+    environments on one server; `harvest` imported, target `harvest-dev` placed, `harvestadapters-dev` stopped, copy
+    `895b3215` 37 of 37 tables and 1,571 of 1,571 rows equal, source untouched; `v0.2.0` on `harvest-dev` (`96e32afd`,
+    migrations at 6, config check consistent, healthy); Events' `Intake:Sources:0` points at `harvest-dev`, `:1` links
+    to it, subscription ids and credentials unchanged (apply `6329a28c`); `intake check` reads `subscription=ok` for
+    both Afisha sources (`pull=200`, 2 and 1 records); `ocharo status` keeps the 6-hour capture and daily check;
+    product `harvestadapters` inactive and stopped, `harvestadapters_dev` kept. The console is not served on dev
+    (`harvest-dev` publishes only `/api`). Seen: Events' end-to-end check after a deploy can run before the first poll
+    at a new intake address and read Degraded; intake read ok within a minute. Hub: the `harvestadapters` catalog
+    entry removed.
 - Chats, 2026-11-12: the forks whose jobs are done were archived: `ev-fe-shell`, `ev-events`, `ai-providers`,
   `ev-platform` (Ocharo's queued extractions start a fresh lane). Kept: `ev-scfd` (the merge), `ev-scfd-live`,
   `ev-wheelhouse` (the deploy move).

@@ -287,14 +287,6 @@ entries:
     purpose: "Source Collection and Feed Delivery. Scheduled pipelines capture, normalize and deliver records to connected products; its source readers ship in the same repo."
     repositories: [wow-two-sdk-beta/wow-two-sdk-beta.harvest]
     local: workbench/wow-two-sdk-beta/wow-two-sdk-beta.harvest
-  - slug: harvestadapters
-    name: SCFD Adapters
-    workspace: wow2-platform
-    kind: platform
-    deploy: wheelhouse
-    status: "Retiring: merged into harvest v0.2 (events-integration #63); removed once harvest-dev takes over"
-    purpose: "SCFD's former private source readers, now in wow-two-sdk-beta.harvest"
-    repositories: [wow-two-sdk-beta/wow-two-sdk-beta.harvest-adapters]
   - slug: wow-two-platform-github
     name: wow-two-platform/.github
     workspace: wow2-backbone
