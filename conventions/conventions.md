@@ -1,6 +1,6 @@
 # Conventions — wow-two
 
-*Last updated: 2026-10-28*
+*Last updated: 2026-10-29*
 
 > **The single index to every convention.** When a task touches *how we build* — code, repo structure,
 > naming, versioning — search HERE first, then open only the file(s) you need. Lookup table,
@@ -80,6 +80,9 @@ Rules:
   into bullets (→ *A table degrades to bullets*).
 - **Citation** — concrete symbols (`IKeyedEntity<TId>`, `AddDatabaseBespokeMigrations`) + file paths, **never namespaces** (they go stale — grep the
   symbol). Verify a symbol exists in source before citing; examples come from real code.
+- **Grep the SDK before a product-side rule** — a rule drawn from one product's code may restate what the SDK already
+  owns (`/health` in `ApiDefaultsOptions`, SPA serving in `SpaHosting`). Component names follow the fe sdk
+  `MIGRATION.md`.
 - **No duplication** — reference another convention inline; don't restate it. Supersede a stale note in place rather than stacking.
 - **Link section to section, never bullet to bullet** — a doc that inherits a rule cites the owning section once, as a heading or one bullet, and states only what it overrides or extends. A reader who opens the child doc alone still sees the chain: base → construct → component.
 - **A restatement is allowed only when the rule cannot be lifted** — two docs may carry the same sentence when the things they govern share no parent that could hold it. `Constants` and `Extensions` are different roles that happen to both declare a `public static class`; nothing above them is only-those-two, so each states it. Lift instead the moment a shared parent exists.
@@ -125,6 +128,10 @@ Rules every product obeys, whatever the stack. A convention that touches one lin
 - **GWDNBM — Get The Work Done & Never Bother Me.**
 - must register, subscribe and wire nothing automatically — every wire is an explicit opt-in the caller states.
 - must ship no ad, engagement prompt, nag, or unrequested email; a capability with nothing wired is a no-op.
+- must send no email after sign-up except receipts.
+- must not hoard or sell user data.
+- must charge honestly — paid or one-shot, never freemium held back by friction.
+- must screen every product idea against GWDNBM; a model that needs engagement loops, ad revenue or data sales fails it.
 
 ---
 

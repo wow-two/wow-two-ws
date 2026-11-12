@@ -1,6 +1,6 @@
 # Architecture
 
-*Last updated: 2026-10-16*
+*Last updated: 2026-10-29*
 
 > Source and dependency boundaries inside a reusable .NET SDK.
 
@@ -22,5 +22,7 @@
 - must expose explicit registration contracts rather than self-register on import.
 - must preserve caller opt-in boundaries when adding capabilities.
 - must keep the package's supported dependency surface documented beside its source.
+- must offer a registration beside the model (a registry or spec) when a seam reads per-type knowledge, and keep
+  the attribute form as the zero-setup default; ship both, never fold one into the other.
 
 Concrete ownership: [package layout](../../../../../../../workbench/wow-two-sdk-beta/wow-two-sdk-beta.be/engineering/architecture/package-layout.md) and [package registry](../../../../../../../workbench/wow-two-sdk-beta/wow-two-sdk-beta.be/engineering/architecture/package-registry.md).

@@ -1,6 +1,6 @@
 # Testing
 
-*Last updated: 2026-09-13*
+*Last updated: 2026-10-29*
 
 > Service test tiers, method names and shared harness ownership.
 
@@ -42,6 +42,8 @@
 - must use `Unit`, `Integration` or `E2E` for those tiers.
 - may use a single subject noun for a specialized suite, such as `Migrations`.
 - must not use the ambiguous bare `{Product}.Tests` name for a product suite.
+- must drop the stock Visual Studio `*.e2e` ignore line once a repo has an E2E tier: on macOS it matches
+  `{Product}.Tests.E2E/`, so the tier never stages (`git status --short --ignored tests` shows it).
 - must group test projects in the virtual `Tests/` solution folder from [solution organization](../architecture.md).
 - must keep any physical test directory distinct from its virtual solution-folder name.
 - must document prerequisites and suite coverage in the project's folder lead document.

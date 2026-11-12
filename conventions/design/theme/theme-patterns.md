@@ -1,6 +1,6 @@
 # Theme patterns
 
-*Last updated: 2026-10-20*
+*Last updated: 2026-10-29*
 
 > The named visual patterns a product theme follows: how each looks, which fe sdk pieces build it, when to pick it.
 > A product's own colours stay in its design spec ([per-app specs](../design-conventions.md#per-app-specs)).
@@ -12,6 +12,8 @@
 | **Ambient glass** | glassmorphism: blurred translucent surfaces over a gradient backdrop | Wheelhouse, `platform` |
 | **Solid** | opaque surfaces on a flat background | the fe sdk default theme |
 
+- must read "the Wheelhouse UI" as its applied Studio workspace (`bootstrap/AppLayout.vue`), never the parked
+  boards in its `engineering/research/design-directions/`.
 - must name a product's pattern in its design spec, beside its token tables.
 - must pick one pattern per product; the marketing pages and the app share it.
 - should pick ambient glass for a product with few dense tables and a brand colour worth showing.

@@ -1,6 +1,6 @@
 # Product conformance
 
-*Last updated: 2026-10-27*
+*Last updated: 2026-10-29*
 
 > Every check a product / venture repo owes, each linked to the convention that owns the rule.
 > Purpose — one list to audit a repo against, so a gap sweep reads the same way for every product.
@@ -59,6 +59,11 @@
 | controller JSON comes from `AddControllersWithSdkJson()` | [serialization](../../backend/dotnet/shapes/service/platform/responses/serialization.md#wiring) |
 | time comes from `TimeProvider` | [time](../../backend/dotnet/core/mla/components/time.md) |
 | schema changes run through migrations stamped with the product version | [migrations](../../backend/dotnet/core/mla/domains/persistence/migrations/migrations.md) |
+
+- must treat adopting `AddControllersWithSdkJson()` as a wire change: it omits nulls and writes `TimeSpan` as
+  ISO-8601 while backend tests stay green. Retype response models per
+  [type mapping](../../frontend/core/mla/domains/api/type-mapping.md#absence), then follow `vue-tsc`.
+- must `curl` a host on `AddApiDefaults()` at its HTTPS port; its HTTP port answers `307`.
 
 ---
 
