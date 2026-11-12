@@ -530,6 +530,8 @@ Developer, 2026-10-24 to 2026-11-10; not reopened.
     (`harvest-dev` publishes only `/api`). Seen: Events' end-to-end check after a deploy can run before the first poll
     at a new intake address and read Degraded; intake read ok within a minute. Hub: the `harvestadapters` catalog
     entry removed.
+  - The old repo `wow-two-sdk-beta.harvest-adapters` archived on GitHub, 2026-11-13, at the developer's ask ("let's
+    archive the private repo now"); private, read-only; the local checkout stays for the developer to remove.
 - Chats, 2026-11-12: the forks whose jobs are done were archived: `ev-fe-shell`, `ev-events`, `ai-providers`,
   `ev-platform` (Ocharo's queued extractions start a fresh lane). Kept: `ev-scfd` (the merge), `ev-scfd-live`,
   `ev-wheelhouse` (the deploy move).
