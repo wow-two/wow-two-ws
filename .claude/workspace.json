@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "name": "wow-two-ws",
+  "doc": "~/.claude/hooks/sys-hooks-context.md -- read by the user-level hook dispatcher",
+  "instructions": {"inheritParent": false},
+  "hooks": {
+    "SessionStart": [{"run": "commit-switch.py"}],
+    "UserPromptSubmit": [{"run": "style-pulse.sh"}, {"run": "check-style.py"}],
+    "PreToolUse": [{"matcher": "Bash|Write|Edit|MultiEdit|NotebookEdit", "run": "guard-git.py"}],
+    "PostToolUse": [{"matcher": "Write|Edit|MultiEdit|NotebookEdit", "run": "track-touch.py"}],
+    "Stop": [{"run": "check-style.py"}]
+  }
+}

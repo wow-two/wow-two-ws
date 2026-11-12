@@ -1,6 +1,6 @@
 # Repository git flags
 
-*Last updated: 2026-10-26 01:00 PM*
+*Last updated: 2026-11-10 02:20 PM*
 
 > Claude Code integration for the workspace git flags in `wow-two-ws`. Only commands that are risky and
 > used often get a flag; risky commands that are rarely needed never run; safe commands need no flag.
@@ -121,8 +121,8 @@ The following fenced examples are documentation, not consent:
 - `~git_on|off <kinds> <folder>/*` records one override for every repository under that folder, present and future,
   in the store that owns the folder; a deeper folder or a repository override wins over it.
 - a repository's flags live in the innermost workspace store that contains it: a nested workspace with its own store
-  (ocharo-ws) owns its repositories, whichever workspace the chat runs in; without one, its repositories fall under
-  this store.
+  owns its repositories, whichever workspace the chat runs in; without one, its repositories fall under this store
+  -- ocharo-ws has none, so this store holds the Ocharo overrides (checked 2026-11-10).
 - every change appends one log entry (revision, time, changes, session, turn, prompt, recording workspace, the store
   hash, the previous entry's hash), then replaces the store atomically under the lock.
 - a store that fails its schema or disagrees with its log reads as every flag `OFF`; an `on` directive is refused and
