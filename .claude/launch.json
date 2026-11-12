@@ -714,6 +714,29 @@
         "Files__Delivery__BaseUrl": "http://localhost:8393"
       },
       "port": 8393
+    },
+    {
+      "name": "scfd-console",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": [
+        "-C",
+        "workbench/wow-two-sdk-beta/wow-two-sdk-beta.harvest/engineering/codebase/harvest.frontend-services",
+        "dev"
+      ],
+      "env": {
+        "VITE_API_TARGET": "https://localhost:8400"
+      },
+      "port": 8398
+    },
+    {
+      "name": "scfd-console-demo",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": [
+        "-C",
+        "workbench/wow-two-sdk-beta/wow-two-sdk-beta.harvest/engineering/codebase/harvest.frontend-services",
+        "dev:demo"
+      ],
+      "port": 8398
     }
   ]
 }
