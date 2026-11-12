@@ -282,9 +282,9 @@ entries:
     name: SCFD
     workspace: wow2-platform
     kind: platform
-    deploy: none
-    status: "In progress: v0.1 engine, v0.1.11 released with client credentials and pull delivery (system/sessions/events-integration)"
-    purpose: "Source Collection and Feed Delivery. Scheduled pipelines capture, normalize and deliver records to connected products."
+    deploy: wheelhouse
+    status: "In progress: v0.2, one product with its source readers (system/sessions/events-integration #63)"
+    purpose: "Source Collection and Feed Delivery. Scheduled pipelines capture, normalize and deliver records to connected products; its source readers ship in the same repo."
     repositories: [wow-two-sdk-beta/wow-two-sdk-beta.harvest]
     local: workbench/wow-two-sdk-beta/wow-two-sdk-beta.harvest
   - slug: harvestadapters
@@ -292,8 +292,8 @@ entries:
     workspace: wow2-platform
     kind: platform
     deploy: wheelhouse
-    status: "In progress: v0.1.6 runs on harvestadapters-dev (system/sessions/events-integration)"
-    purpose: "SCFD's private source readers and Ocharo relevance policy, hosted with the SCFD engine"
+    status: "Retiring: merged into harvest v0.2 (events-integration #63); removed once harvest-dev takes over"
+    purpose: "SCFD's former private source readers, now in wow-two-sdk-beta.harvest"
     repositories: [wow-two-sdk-beta/wow-two-sdk-beta.harvest-adapters]
   - slug: wow-two-platform-github
     name: wow-two-platform/.github

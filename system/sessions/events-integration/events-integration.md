@@ -508,6 +508,18 @@ Developer, 2026-10-24 to 2026-11-10; not reopened.
   close v0.1, open v0.2). A dedicated outgoing server per source is allowed; rotating proxy pools to get past a
   site's limits stay out (#50). The live-edit chat pushes its 3 console commits first and holds until the merged
   repo is ready.
+  - Merge built by the scfd lane, 2026-11-12: harvest `0f315ca` (the readers, their host `HarvestSources.Api`, tests and
+    frontend in one solution, one image, one `deploy.yml` for product `harvest`) and `d685286` (`endsAt` on a source's
+    posts); 729 backend and 67 frontend tests and image conformance 41 of 41 per the lane. The history scan found no
+    secret, but the old history held a private first name in the source registry, so the tree came in without
+    history and the name was removed. Version: both repos stood at v0.1 (harvest `v0.1.15`, adapters `v0.1.13`); v0.1
+    closed with a summary, the readers' track kept as `v0.1-sources.md`, v0.2 opened, so the release is `v0.2.0`.
+    Public with it: an unused OLX proxy integration for residential pools (no credentials; off on dev). Auto mode
+    refused the lane's push as "Data Exfiltration" (private code into a public repo); the developer pushed it
+    (`9ab4d92..d685286`). Deploy move, the lane's pick: product `harvest` with a database copy on the same server
+    (Events' `xid8` cursors stay valid only on the same cluster), settings copied with only the connection string
+    changed, Events' `Intake:Sources:0` and `:1` pointed at `harvest-dev`, then product `harvestadapters` retired with
+    its database kept. Hub: `catalog.yml` `harvest` gets `deploy: wheelhouse`; `harvestadapters` marked retiring.
 - Chats, 2026-11-12: the forks whose jobs are done were archived: `ev-fe-shell`, `ev-events`, `ai-providers`,
   `ev-platform` (Ocharo's queued extractions start a fresh lane). Kept: `ev-scfd` (the merge), `ev-scfd-live`,
   `ev-wheelhouse` (the deploy move).

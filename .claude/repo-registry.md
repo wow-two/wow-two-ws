@@ -7,7 +7,7 @@
 
 # Repo Registry
 
-*Last updated: 2026-11-10*
+*Last updated: 2026-11-12*
 
 All repos use the naming convention: `{org}.{domain}[.{subdomain}]`, lowercase, dot-separated. Repo prefix matches org name exactly.
 
@@ -80,8 +80,8 @@ Org: [github.com/wow-two-sdk-beta](https://github.com/wow-two-sdk-beta) — beta
 |------|---------|--------|
 | `wow-two-sdk-beta.files` | File Storage and Sharing for every product: store, upload, transform, share and serve its files under one contract. | Active (beta): dev deploys through Wheelhouse since 2026-11-09; the empty `wow-two-platform/wow-two-platform.storage.file` goes to the archive |
 | `wow-two-sdk-beta.events` | Shared event catalog fed by SCFD and curated in review, with private tracking per organization | In progress: image v0.1.8 runs on events-dev, NuGet 10.0.3-beta, npm 0.0.3; Desk reads it (system/sessions/events-integration) |
-| `wow-two-sdk-beta.harvest` | Source Collection and Feed Delivery. Scheduled pipelines capture, normalize and deliver records to connected products. | In progress: v0.1 engine, v0.1.11 released with client credentials and pull delivery (system/sessions/events-integration) |
-| `wow-two-sdk-beta.harvest-adapters` | SCFD's private source readers and Ocharo relevance policy, hosted with the SCFD engine | In progress: v0.1.6 runs on harvestadapters-dev (system/sessions/events-integration) |
+| `wow-two-sdk-beta.harvest` | Source Collection and Feed Delivery. Scheduled pipelines capture, normalize and deliver records to connected products; its source readers ship in the same repo. | In progress: v0.2, one product with its source readers (system/sessions/events-integration #63) |
+| `wow-two-sdk-beta.harvest-adapters` | SCFD's former private source readers, now in wow-two-sdk-beta.harvest | Retiring: merged into harvest v0.2 (events-integration #63); removed once harvest-dev takes over |
 | `wow-two-sdk-beta.be` | be sdk — `WoW2.Sdk.Beta.Be[.X]` (nuget.org), namespace `WoW.Two.Sdk.Beta.Be[.X]`; mono-lib: hosting, observability, web, mediator, identity, data. Code: `engineering/codebase/wow-two-sdk-beta-be/` | Active (beta) |
 | `wow-two-sdk-beta.fe` | fe sdk — `@wow-two-beta/fe` (npm), Vue 3 components, application adapters, browser capabilities. Code: `engineering/codebase/wow-two-sdk-beta-fe/`; the parked React `@wow-two-beta/ui` sits in `engineering/codebase/wow-two-front-beta-sdk/` | Active (beta) |
 | `wow-two-sdk-beta.ios` | ios sdk — `WoW2SdkBetaIos` (SwiftPM, resolved by git tag), modules `WoW2Ios[{Layer}]`: themed SwiftUI components, theme tokens, API client, config, logging. Code: `engineering/codebase/wow-two-sdk-beta-ios/` | Active (beta) |
