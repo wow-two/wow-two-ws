@@ -1,6 +1,6 @@
 # Package registries
 
-*Last updated: 2026-10-27*
+*Last updated: 2026-10-29*
 
 > Who may publish what on nuget.org and npm: every trusted-publishing policy and publisher, with enough detail to
 > recreate each one after losing a policy, a repository or an account. No secret lives here; workflows publish through
@@ -24,6 +24,7 @@
   variable `PUBLISH_PACKAGES=true`; Files and Harvest have neither yet.
 - Unlisting runs through each publish workflow's `unlist` input ([domain structure](../conventions/development/repo/structure/domain-structure.md)
   § Releases); relisting is nuget.org's web UI.
+- Deprecation has no CLI either: it runs per package in nuget.org's web UI.
 
 ### Recreate a policy
 
@@ -38,6 +39,8 @@
 - A package's first version is published by hand, then `npm trust github <package> --file <workflow> --repo
   <owner/repo> --allow-publish` (npm ≥ 11.15) adds its trusted publisher; later versions publish from CI with
   provenance. npm drops a trusted publisher that publishes nothing within two days, so CI publishes right after.
+- `npm publish` failing with `E404 Not Found - PUT …` means an expired CLI login (`npm whoami` answers `E401`):
+  `npm login --auth-type=web`, then publish; 2FA asks again in the browser for `publish` and `npm deprecate`.
 
 | Package | Repository | Workflow | Publishes by | State |
 |---|---|---|---|---|
