@@ -4,7 +4,7 @@ Full-stack .NET + Vue developer ecosystem. `wow-two-ws` is a meta-repo (workspac
 
 ## Instruction sources
 
-General response, git and tool conventions load for every project from `~/.claude/CLAUDE.md`; `.claude/rules/response-style.md` holds only workspace overrides. Required instruction files load at startup; indexes and domain content remain on demand.
+General response, git, tool and agentic-workflow conventions load for every project from `~/.claude/CLAUDE.md`; `agentic-workflow.md` is the main workflow for every chat here -- how work splits between the chat, agents, forks and lanes, and which model runs each part; `.claude/rules/response-style.md` holds only workspace overrides. Required instruction files load at startup; indexes and domain content remain on demand.
 
 ## Response style
 
@@ -51,7 +51,7 @@ docs/ (strategy, playbooks) · system/sessions/ · ideas/ · scripts/ · workben
 
 ## Agentic workflow (parallel chats)
 
-> Multiple chats / agents edit the **same working tree on one branch** at once. Full rule: `conventions/agentic-workflow/agentic-workflow.md`.
+> The main workflow -- agents, forks, lanes, models -- is the shared `~/.claude/conventions/agentic-workflow.md`, loaded in every chat. This section and `conventions/agentic-workflow/agentic-workflow.md` add the rules for many chats on one tree: multiple chats / agents edit the **same working tree on one branch** at once.
 
 - **Assume existing changes are intentional** — another lane's in-flight (or crashed-mid-task) work. A change that looks incomplete / out-of-scope is **not yours to revert**.
 - **Never** `git checkout -- .` / `restore` / `stash` / `reset --hard` to "clean up" changes you didn't author — it silently destroys uncommitted work. Found unexpected changes → **stop and ask the human**.

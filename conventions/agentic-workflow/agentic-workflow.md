@@ -1,7 +1,8 @@
 # Agentic workflow
 
-*Last updated: 2026-10-24*
+*Last updated: 2026-11-12*
 
+> Adds to the main workflow, the shared `~/.claude/conventions/agentic-workflow.md` (agents, forks, lanes, models), loaded in every chat; on a conflict the shared file wins.
 > How parallel Claude chats / agents share one repo without clobbering each other — lane discipline, no-revert, scope containment.
 > Purpose — multiple chats edit the same working tree at once; a wrong "cleanup" silently destroys another lane's uncommitted work.
 > Use case — reach for this before spawning agents, before touching a tree you didn't just create, and any time you find unexpected changes.
@@ -101,6 +102,18 @@ Distinguish it from the version-track's **transient iteration plan** (`v{X.Y}/{i
 - must treat the dispatch and the approval as GitHub writes, so the repository's push flag stays the switch.
 - must expect auto mode to refuse a prod Deploy click (`Production Deploy`) until `~/.claude/settings.json` carries
   the `WoW2 Wheelhouse Deploys` allow rule; until then fill the dialog and hand over that one click.
+
+---
+
+## Fan-out
+
+- must check `list_sessions` for a live chat on a product before spawning an agent on it; a parallel agent collides
+  with the developer's own chat.
+- must brief agents to stop a server by its port, never `pkill -f` a pattern that kills other lanes' previews.
+- must bound a fan-out by machine load, not by the agent count the task allows: 18 agents drove load to ~200 on
+  2026-10-20, E2E reruns turned flaky and Docker images filled the VM disk.
+- must plan a fan-out around the one human reviewer, the scarce resource: decisions serialize through the developer,
+  whatever the agent throughput.
 
 ---
 
