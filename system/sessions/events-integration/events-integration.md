@@ -497,6 +497,20 @@ Developer, 2026-10-24 to 2026-11-10; not reopened.
     pushes harvest when he ends the round, and records each change in harvest's version track with an `sdk-candidate`
     tag where it builds a pattern another console would reuse. After the round the orchestrator analyses that list for
     fe sdk work. The mock rounds pause; iteration 2's open point (Following as its own page) waits.
+- #63 SCFD becomes one public repo (developer, 2026-11-12): "want to combine 2 scfd repos into one since now we only
+  use scfd for internal use plus we have authentication I don't think we have to hide it behind a private repo (
+  registries ) plus I don't think using ip server is a bad thing to avoid wrongful rate limting"; then "so merge both
+  prs, optimize scfd itself, update versions, anaylze which version it is in, then I'll continue with incremental
+  updates with sonnet". The scfd lane merges `wow-two-sdk-beta.harvest-adapters` into `wow-two-sdk-beta.harvest`
+  (public) after a read-only history scan for secrets, host addresses and personal data; optimizes away what existed
+  only for 2 repos (`harvest-runtime.json`, the image build that downloads public harvest) and dead console code;
+  keeps the dev data and Events' subscription ids through the deploy move; sets the version (orchestrator's pick:
+  close v0.1, open v0.2). A dedicated outgoing server per source is allowed; rotating proxy pools to get past a
+  site's limits stay out (#50). The live-edit chat pushes its 3 console commits first and holds until the merged
+  repo is ready.
+- Chats, 2026-11-12: the forks whose jobs are done were archived: `ev-fe-shell`, `ev-events`, `ai-providers`,
+  `ev-platform` (Ocharo's queued extractions start a fresh lane). Kept: `ev-scfd` (the merge), `ev-scfd-live`,
+  `ev-wheelhouse` (the deploy move).
 
 ## Contracts
 
