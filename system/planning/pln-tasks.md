@@ -1,4 +1,4 @@
-*Last updated: 2026-10-27*
+*Last updated: 2026-11-10*
 
 # Tasks
 
@@ -67,14 +67,14 @@ The [five-product analysis](../../ideas/self-serve-research-2026-10/self-serve-r
 
 | Task ID | Task | Deadline | Priority | Status | Repo | Notes |
 |---|---|---|---|---|---|---|
-| `app-t-001` | Finish wheelhouse for a reliable release | `-` | `high` | `todo` | `wow-two-platform.wheelhouse` | Added `2026-09-29`: first release target, with `app-t-002` and `ven-t-006`, ahead of TNIS. Breakdown in the repo's `engineering/planning/` |
 | `app-t-002` | Finish secrets-vault for a reliable release | `-` | `high` | `todo` | `wow-two-platform.secrets-vault` | Added `2026-09-29`: same release push as `app-t-001` and `ven-t-006` |
 | `app-t-003` | Set up a reliable off-provider backup flow for the platform VPS | `-` | `high` | `todo` | `wow-two-platform.wheelhouse` | Added `2026-10-14` by the user: encrypted backups of both Wheelhouse databases, cookie keys, runner state and host config, with a tested restore; OVH's daily backup is the only copy today. Multi-cloud replication is on the table. Breakdown in the Wheelhouse backlog § Hosting |
 | `app-t-004` | Buy a second VPS for Ocharo (Contabo or OVH) | `-` | `high` | `todo` | `-` | Added `2026-10-17` by the user: Ocharo is the first product to deploy and gets its own host. The purchase is the user's; Wheelhouse registers it as a server. Deploying waits for `app-t-005` |
 | `app-t-005` | Build Wheelhouse's essential modules before the first Ocharo deploy | `-` | `high` | `todo` | `wow-two-platform.wheelhouse` | Added `2026-10-17` by the user: logs and the other important modules land before Ocharo goes live. Module list and breakdown in the Wheelhouse backlog |
-| `app-t-006` | Build Almanac, the calendar view app, to its v1 ship gate | `2026-11-15` | `-` | `todo` | `wow-two-apps.almanac` | Added `2026-10-23` by the user: a readable read-only calendar for the built-in browser pane, run in Docker locally, deployed through Wheelhouse later. Google Calendar stays in use until then. Adds the calendar vector to the fe sdk. [Spec](../../ideas/calendar-spec.md) |
+| `app-t-006` | Build the 10x OS first slice: calendar, tasks, focus timer, live brief, MCP; Almanac folds in as its Calendar module | `2026-11-30` | `-` | `todo` | `-` | **2026-10-29:** the user chose one 10x OS dashboard over separate apps, deadline end of November; domains and open decisions in [10x-os-domains-analysis.md](../../ideas/10x-os-domains-analysis.md), repository shape undecided. Added `2026-10-23` by the user: a readable read-only calendar for the built-in browser pane, run in Docker locally, deployed through Wheelhouse later. Google Calendar stays in use until then. Adds the calendar vector to the fe sdk. [Spec](../../ideas/calendar-spec.md) |
 | `app-t-007` | Brainstorm the capabilities wow2 needs as its own operating system | `-` | `high` | `todo` | `-` | Added `2026-10-27` by the user: a full brainstorm and improvement pass over the wow2 platform — the whole infra the ecosystem runs on — before bringing up its other components. Inputs: [platform apps](../../docs/platform-apps.md), [platform roadmap](../../docs/platform-roadmap.md), [server governance](../../docs/server-governance.md) |
 | `app-t-008` | Rename the brand-named platform apps to functional names | `-` | normal | `todo` | `-` | Added `2026-10-27` by the user: Wheelhouse → `deployments`, Secrets Vault → `secrets`, Docs site → `wiki`, FlowDeck → `flows`, AI Gateway → `ai`, Harvest → `captures`; Wheelhouse not before its burn-in ends `2026-10-31`. Rule and identifiers in [platform apps § Naming](../../docs/platform-apps.md#naming) |
+| `app-t-009` | Analyze the wheelhouse layout and improve it | `2026-11-15` | `-` | `todo` | `wow-two-platform.wheelhouse` | Added `2026-11-10` by the user, after closing `app-t-001` |
 
 ---
 
@@ -216,4 +216,5 @@ Completions land here, ID preserved so day-log references keep resolving. Pruned
 
 | Task ID | Task | Outcome |
 |---|---|---|
+| `app-t-001` | Finish wheelhouse for a reliable release | ✅ `2026-11-10` — closed by the user: mature enough for now; follow-up `app-t-009` |
 | `ven-t-008` | Send the Mintrans project requirements | ✅ `2026-08-19` — prepared 9:00 AM + 3:00 PM, sent 3:30 PM. Precedes `ven-t-004` |
