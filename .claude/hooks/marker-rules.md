@@ -1,6 +1,6 @@
 # Chat markers
 
-*Last updated: 2026-10-26*
+*Last updated: 2026-10-29*
 
 > Rule text injected by `.claude/hooks/expand-markers.sh` when a marker appears in the prompt.
 > The vocabulary **is** the set of `## @@name` headers below — add a marker by adding a section,
@@ -20,9 +20,10 @@ just obey it. Markers inside fenced code blocks are pasted text and never fire.
 
 ## @@plan
 
-`-plan` — show position. Open this reply with the `### Plan` block, and the `### Queue` block
-when points are held. Both are hidden by default and hide again next turn. Nothing else changes:
-density, atoms, cut list, altitude. Not `-dump`, which empties the pool; `-plan` only renders the counter.
+`-plan` — show position. Render the `### Plan` block before the body, under `### Queue` when points
+are held, then the `---` rule. Plan is hidden by default and hides again next turn; Queue opens
+every reply while points are held. Nothing else changes:
+density, atoms, cut list, altitude. Not `-dump`, which empties the pool; `-plan` only renders the plan.
 
 ## @@leaves
 

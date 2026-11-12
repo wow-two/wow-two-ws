@@ -76,6 +76,30 @@ class StyleHookTests(unittest.TestCase):
         self.assertIn('chat text outside bullets', verdict)
         self.assertIn('bullet cap 15 words', verdict)
 
+    def test_opening_queue_passes_with_long_counter_line(self):
+        reply = ('### Queue\n\n'
+                 '- 5 / 15 from ui re-design · 2 open · open: which breakpoint owns the overflow\n'
+                 '- 7 / 17 (+2) from models renaming\n\n---\n\n- Verdict.\n- Which breakpoint owns it?')
+        self.check('Stop', last_assistant_message=reply)
+        self.assertNotIn('STYLE CHECK', self.check('UserPromptSubmit', prompt='continue'))
+
+    def test_queue_then_plan_then_rule_passes(self):
+        reply = ('### Queue\n\n- 1 / 2 from ui\n\n### Plan\n\n- ✅ Audited rules\n- ✅ Ported hooks\n'
+                 '- 🔄 Discuss the point\n- ⬜ Implement agreed changes\n\n---\n\n- Verdict.')
+        self.check('Stop', last_assistant_message=reply)
+        self.assertNotIn('STYLE CHECK', self.check('UserPromptSubmit', prompt='continue'))
+
+    def test_queue_shape_is_flagged(self):
+        cases = {'empty block': '### Queue\n\n---\n\n- Verdict.',
+                 'not `{remaining}': '### Queue\n\n- ui re-design, five left\n\n---\n\n- Verdict.',
+                 'pool at 0': '### Queue\n\n- 0 / 4 from models renaming\n\n---\n\n- Verdict.',
+                 "not the reply's first block": '- Verdict.\n\n### Queue\n\n- 1 / 2 from ui',
+                 'no `---` rule': '### Queue\n\n- 1 / 2 from ui\n\n### Notes\n\n- Verdict.'}
+        for finding, reply in cases.items():
+            with self.subTest(finding=finding):
+                self.check('Stop', last_assistant_message=reply)
+                self.assertIn(finding, self.check('UserPromptSubmit', prompt='continue'))
+
 
 if __name__ == '__main__':
     unittest.main()

@@ -44,6 +44,8 @@ BULLET = re.compile(r"^(\s*)([-*+])\s+(.*)$")
 FENCE = re.compile(r"^\s*(```|~~~)")
 HEADING = re.compile(r"^\s*#{1,6}\s")
 PLAN_HDR = re.compile(r"^\s*#{2,4}\s*Plan\s*$", re.I)
+QUEUE_HDR = re.compile(r"^\s*#{2,4}\s*Queue\s*$", re.I)
+COUNTER = re.compile(r"^(\d+) / (\d+)(?: \(\+\d+\))? from \S")
 LONG_RUN = re.compile(
     r"`[^`]{%d,}`|\"[^\"]{%d,}\"|'[^']{%d,}'|“[^”]{%d,}”"
     % (VERBATIM_RUN, VERBATIM_RUN, VERBATIM_RUN, VERBATIM_RUN)
@@ -108,10 +110,10 @@ def exempt_bullet(text):
     return False
 
 
-def over_cap(lines, flags):
+def over_cap(lines, flags, skip=()):
     hits = []
     for i, (line, (fence, table, quote)) in enumerate(zip(lines, flags), start=1):
-        if fence or table or quote:
+        if fence or table or quote or (i - 1) in skip:
             continue
         text = bullet_text(line)
         if text is None:
@@ -126,25 +128,66 @@ def over_cap(lines, flags):
     return hits
 
 
-def plan_block(lines, flags):
-    """Return (start_index, bullet_texts) for the ### Plan block, or (None, [])."""
+def heading_block(lines, flags, header):
+    """Return (start, end, [(index, bullet_text)]) for a `### X` block, or (None, None, []).
+
+    The block runs from its header to the next heading or `---` rule; `end` is the
+    index of that boundary, or len(lines) when the block closes the reply.
+    """
     start = None
     for i, (line, (fence, _t, _q)) in enumerate(zip(lines, flags)):
         if fence:
             continue
-        if PLAN_HDR.match(line):
+        if header.match(line):
             start = i
             break
     if start is None:
-        return None, []
-    bullets = []
-    for line in lines[start + 1:]:
+        return None, None, []
+    bullets, end = [], len(lines)
+    for i in range(start + 1, len(lines)):
+        line = lines[i]
         if HEADING.match(line) or line.strip().startswith("---"):
+            end = i
             break
         text = bullet_text(line)
         if text is not None:
-            bullets.append(text.rstrip())
-    return start, bullets
+            bullets.append((i, text.rstrip()))
+    return start, end, bullets
+
+
+def plan_block(lines, flags):
+    """Return (start_index, bullet_texts) for the ### Plan block, or (None, [])."""
+    start, _end, bullets = heading_block(lines, flags, PLAN_HDR)
+    return start, [t for _i, t in bullets]
+
+
+def queue_findings(lines, flags):
+    """Shape of a rendered ### Queue block, plus the line indices its counters occupy.
+
+    Its absence is never a finding: whether points are held is invisible here.
+    """
+    start, end, bullets = heading_block(lines, flags, QUEUE_HDR)
+    if start is None:
+        return [], set()
+    findings = []
+    if not bullets:
+        findings.append("`### Queue`: empty block (rule: render only while points are held)")
+    counters = [(i, COUNTER.match(t)) for i, t in bullets]
+    bad = [i for i, m in counters if m is None]
+    if bad:
+        findings.append("`### Queue`: %d line(s) not `{remaining} / {total} from {pool}`" % len(bad))
+    if any(m and m.group(1) == "0" for _i, m in counters):
+        findings.append("`### Queue`: a pool at 0 rendered (rule: drop it the turn it empties)")
+    before = [l for l in lines[:start] if l.strip()]
+    if before:
+        findings.append("`### Queue`: not the reply's first block (%d line(s) precede it)" % len(before))
+    # On a `-plan` turn the Plan block sits between the Queue and the rule.
+    if end < len(lines) and PLAN_HDR.match(lines[end]):
+        _s, end, _b = heading_block(lines, flags, PLAN_HDR)
+    rest = [l for l in lines[end:] if l.strip()]
+    if rest and not rest[0].strip().startswith("---"):
+        findings.append("`### Queue`: no `---` rule between it and the body")
+    return findings, {i for i, m in counters if m is not None}
 
 
 def unbulleted_lines(lines, flags):
@@ -174,10 +217,13 @@ def measure(reply, cfg):
 
     findings = []
 
+    # A counter line is a fixed format, exempt from the word cap like a table cell.
+    queue, counters = queue_findings(lines, flags)
+
     # A walkthrough turn is exempt from the bullet cap and the line cap by name,
     # "on the same ground as a deliverable". Skip the shape checks, keep the
     # structural ones -- those the ruleset never exempts.
-    hits = [] if walkthrough else over_cap(lines, flags)
+    hits = [] if walkthrough else over_cap(lines, flags, counters)
     if hits:
         detail = ["  L%d  %d words  %s" % (i, n, t[:120] + "…" if len(t) > 120 else t)
                   for i, n, t in hits[:MAX_SHOWN]]
@@ -198,6 +244,8 @@ def measure(reply, cfg):
         if bad:
             findings.append("`### Plan`: %d bullet(s) carry no status from %s"
                             % (len(bad), " ".join(STATUSES)))
+
+    findings.extend(queue)
 
     if not walkthrough and len(readable) > LINE_CAP:
         findings.append("reply length: %d lines, tables and fences already excluded (aim %d, cap %d)"
