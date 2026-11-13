@@ -40,6 +40,19 @@ Deltas the lanes verify first:
 - Event types: `DeliveryEventTypes.cs` carries `link.state` (live, suspect, gone, relisted) and `post.merged`, which
   Haven drops today, so a rented flat stays live in Haven.
 
+Haven lane, verified 2026-11-14:
+
+- Scope: SCFD's `events:read` maps to Identity `harvest.events-read` (`HarvestScopeConstants.ToIdentityScope`);
+  Haven's `events.read` is stale, fixed in Haven's doc. Haven's settings accept OAuth only; a tenant API key needs a
+  settings branch in Haven.
+- Wire: `link.state` carries the whole post with `linkId`; a `post.merged` loser has `mergedInto` and no links, the
+  survivor follows as `post.changed`; `post.unmerged` ships too. Haven keys listings by OLX `externalKey`, so merges
+  need acknowledgement only.
+- `external_listings.external_status` (active/deleted) exists, never written; classification filters on it, search
+  and publishing do not — gone/relisted write it, and those two filters follow.
+- Classifier on `main`: Anthropic `claude-sonnet-4-6`, fallback OpenAI `gpt-5.4`; the move is model IDs plus the key.
+  Production v1.0's config is not in the repo; the 2026-03 record says Sonnet 4.6 with a DeepSeek fallback.
+
 ---
 
 ## #2 What to build
@@ -82,8 +95,17 @@ Other writers in the SCFD repo, from the `ocharo - scfd integration` goal (`syst
 
 - Delivery: `wow2.post.v1`, types per `packages/Abstractions/Delivery/DeliveryEventTypes.cs`, pages as
   `{ data: { data, next, hasMore } }`.
-- Haven's credential at SCFD — OAuth client plus grant, or a tenant API key — picked by the SCFD lane, recorded here.
-- Setup output (tenant, container, subscription IDs) → Haven's target settings (`HARVEST_OLX_*`).
+- Credential (SCFD lane, 2026-11-14): a tenant API key as `X-Api-Key`, `events:read` only, revocable — OAuth on dev
+  needs an `ocharo-platform` Identity release and prod has no issuer yet. Haven adds an API-key mode.
+- Subscriptions are one per pipeline (`SubscriptionDeclaration.PipelineId`): setup prints one per OLX search URL, and
+  Haven's settings hold a list with one cursor each.
+- Scope (`rent-res`, Haven `product.md`: monthly, daily, weekly): apartments and houses on long-term rent
+  (`.../arenda-dolgosrochnaya/tashkent/`), apartments on daily rent, newest first. v1.0 read
+  `nedvizhimost/kvartiry/tashkent/` (sale and rent).
+- A relist arrives as `link.state` `relisted`; `post.relisted` is reserved. `post.unmerged`, `pipeline.run` and
+  `pipeline.health` need no handling in Haven.
+- Setup output (tenant, container, subscription IDs, the key) → Haven's target settings (`HARVEST_OLX_*`); the key
+  goes to the vault, never to chat or git.
 
 ---
 
@@ -101,5 +123,19 @@ Other writers in the SCFD repo, from the `ocharo - scfd integration` goal (`syst
 ## #6 Asks held for the developer
 
 - An OLX proxy credential, only if the direct probe is refused.
-- An Anthropic key in the Console org `WoW 2.0` for Haven's target settings.
-- The go-ahead for the production upgrade on Haven's VPS.
+- An Anthropic key in the Console org `WoW 2.0` (`haven-classifier`), in Haven's gitignored
+  `engineering/deployment/.env` as `ANTHROPIC_API_KEY` — asked 2026-11-14.
+- The go-ahead for the production upgrade on Haven's VPS, with one read of the listing count.
+
+---
+
+## #7 Built
+
+- Haven `a564b342`: a gone link hides the listing from search, publishing and alerts; a relist restores it; stale
+  events are ignored. Its push carried the developer's unpushed `aa83078a`.
+- Haven `e0ef191d`: classification on Claude Haiku 5.5 (`Lite`) with Sonnet 5.5 (`Core`) as fallback; OpenAI left
+  the route. 198 tests pass (lane report).
+- Credit (Haven lane estimate: 18K cached prompt tokens, 5 listings a call): Haiku 5.5 ≈ $1 per 1,000 listings,
+  Sonnet 5.5 ≈ $26 per 1,000. Plan: a 50-listing paired sample on both (≈ $1.40, approved by the orchestrator as
+  inside the goal), then the stored backlog on Haiku after the production upgrade, Sonnet only for agent-queued
+  reclassifications.
