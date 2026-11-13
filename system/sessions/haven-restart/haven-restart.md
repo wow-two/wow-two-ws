@@ -128,7 +128,7 @@ Other writers in the SCFD repo, from the `ocharo - scfd integration` goal (`syst
 - The go-ahead for the production upgrade on Haven's VPS, in the runbook's order (`upgrade-v1.0.md`, Haven
   `e199eff0`): read-only pre-flight (H1–H6 shell, Q1–Q10 database, Cloudflare SSL mode) → a v1.0 dump for a local
   rehearsal → publishing `v1.2.0` so images exist → the upgrade day. Asked 2026-11-14.
-- Tailscale connected on the Mac — the SCFD lane's dev Run needs the Wheelhouse console. Asked 2026-11-14.
+- Tailscale connected on the Mac — asked 2026-11-14; back the same day (the dev Run went through).
 
 ---
 
@@ -149,6 +149,28 @@ Other writers in the SCFD repo, from the `ocharo - scfd integration` goal (`syst
   the VPS), v1.0's `haven-caddy` on :80, compose's fixed `Host=postgres`, write loss in the old order. New flow:
   freeze writers, dump, restore into compose Postgres; rollback restarts v1.0. Open risk: production must hold exactly
   one `1 · baseline` journal row (Q1). SCFD's OLX `externalKey` matches v1.0's `-ID…` token, so intake updates rows.
+- SCFD local stack for Haven's end-to-end run: Compose project `haven-scfd-local` on `http://127.0.0.1:8411`
+  (loopback HTTP; Haven accepts `http` for loopback in Development only), three subscriptions, a local-only tenant
+  key; values in the orchestrator's side-session notes file `haven-local-scfd.env` (mode 600).
+- Haven `30981ec3`: the local end-to-end run against `haven-scfd-local` passed — 3 subscriptions, 5 OLX listings
+  stored under their `-ID` tokens, every cursor written after storage, a second run found nothing new
+  (`dotnet test tests/Haven.Tests.E2E --filter HarvestOlxLive` with `HAVEN_LIVE_SCFD_ENV`). Loopback HTTP needs
+  `HarvestOlx:AllowLoopbackHttp`, on in Development only. Not yet shown live: a gone and a relisted link.
+- SCFD marked `4dOKf` gone locally through `POST api/posts/observations` (two `direct_404` strong negatives: suspect,
+  then gone). The three searches share one OLX source, so `link.state` lands on every subscription; Haven applies
+  it by `externalKey`, idempotently.
+- Haven `4a19dcd7`: gone shown live — `4dOKf` left search on `gone`, `suspect` hid nothing, three copies changed it
+  once (`--filter A_link_SCFD`). States apply by provider + `external_id` from the link's own state; an equal or
+  older `occurredAtUtc` is ignored; a state for a link Haven never stored is dropped until a later copy or capture.
+- SCFD harvest-dev `v0.2.4`: Wheelhouse Run `marketplace setup --profile haven --run` (job `148b9526`, exit 0) —
+  tenant `01a1d688-3a57-772b-ae2d-70b6c60bc23f`, container `01a1d688-3be0-7f42-84bb-368210282d4b`, subscriptions
+  apartments-rent `01a1d688-434e-704d-a747-a55a7aa88b21`, houses-rent `01a1d688-43b1-7d03-bc6d-6080ec86a033`,
+  daily-rent `01a1d688-43d0-7d39-828c-09c257e90097`; schedules off. The direct probe delivered 46 apartments-rent
+  events, then OLX refused a fetch; `v0.2.5` (`3e98337`) adds run outcomes and host health to `marketplace status`
+  for the diagnosis. No dev tenant key issued yet: Wheelhouse keeps it for one owner read within 15 min, so it is
+  issued when Haven's cutover is scheduled.
+- SCFD `842a03a`: a Domtut reader (new-build sale only; Domtut serves rent through JavaScript search). No Haven
+  subscription — sale sits outside this goal (orchestrator, 2026-11-14); ListingShelf can retire.
 - Credit (Haven lane estimate: 18K cached prompt tokens, 5 listings a call): Haiku 5.5 ≈ $1 per 1,000 listings,
   Sonnet 5.5 ≈ $26 per 1,000. Plan: a 50-listing paired sample on both (≈ $1.40, approved by the orchestrator as
   inside the goal), then the stored backlog on Haiku after the production upgrade, Sonnet only for agent-queued
