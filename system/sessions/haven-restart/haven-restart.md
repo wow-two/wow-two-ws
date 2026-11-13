@@ -125,7 +125,10 @@ Other writers in the SCFD repo, from the `ocharo - scfd integration` goal (`syst
 - An OLX proxy credential, only if the direct probe is refused.
 - An Anthropic key in the Console org `WoW 2.0` (`haven-classifier`), in Haven's gitignored
   `engineering/deployment/.env` as `ANTHROPIC_API_KEY` — asked 2026-11-14.
-- The go-ahead for the production upgrade on Haven's VPS, with one read of the listing count.
+- The go-ahead for the production upgrade on Haven's VPS, in the runbook's order (`upgrade-v1.0.md`, Haven
+  `e199eff0`): read-only pre-flight (H1–H6 shell, Q1–Q10 database, Cloudflare SSL mode) → a v1.0 dump for a local
+  rehearsal → publishing `v1.2.0` so images exist → the upgrade day. Asked 2026-11-14.
+- Tailscale connected on the Mac — the SCFD lane's dev Run needs the Wheelhouse console. Asked 2026-11-14.
 
 ---
 
@@ -135,6 +138,17 @@ Other writers in the SCFD repo, from the `ocharo - scfd integration` goal (`syst
   events are ignored. Its push carried the developer's unpushed `aa83078a`.
 - Haven `e0ef191d`: classification on Claude Haiku 5.5 (`Lite`) with Sonnet 5.5 (`Core`) as fallback; OpenAI left
   the route. 198 tests pass (lane report).
+- Haven `c0f4a031`: the tenant key in `HARVEST_OLX_API_KEY` as `X-Api-Key` (OAuth stays the second mode), a
+  comma-separated `HARVEST_OLX_SUBSCRIPTION_IDS` with one cursor each, relist through `link.state`. 203 tests pass
+  (lane report). The local end-to-end run waits on the SCFD lane's local base URL, subscription IDs and key location.
+- SCFD `8128bc4`, `e73d03d`: the marketplace setup verb and routes with Haven's profile, delivered counts in
+  status; three subscriptions (apartments-rent, houses-rent, daily-rent). A local live run pulled 5 OLX listings in
+  the shape `HarvestOlxClient` parses. The dev Run waits on Tailscale (stopped on the Mac, 2026-11-14).
+- Haven `e199eff0`: the v1.0 upgrade rewritten as a checked runbook. Migrations `002`–`016` drop, truncate or delete
+  nothing; `001` equals v1.0's baseline. Fixed blockers: no published images (private repo, so a `ghcr.io` login on
+  the VPS), v1.0's `haven-caddy` on :80, compose's fixed `Host=postgres`, write loss in the old order. New flow:
+  freeze writers, dump, restore into compose Postgres; rollback restarts v1.0. Open risk: production must hold exactly
+  one `1 · baseline` journal row (Q1). SCFD's OLX `externalKey` matches v1.0's `-ID…` token, so intake updates rows.
 - Credit (Haven lane estimate: 18K cached prompt tokens, 5 listings a call): Haiku 5.5 ≈ $1 per 1,000 listings,
   Sonnet 5.5 ≈ $26 per 1,000. Plan: a 50-listing paired sample on both (≈ $1.40, approved by the orchestrator as
   inside the goal), then the stored backlog on Haiku after the production upgrade, Sonnet only for agent-queued
