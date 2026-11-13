@@ -7,7 +7,9 @@
 - ✅ OQ-1 home of the AI layer: (a), one domain repo `wow-two-sdk-beta.ai` (developer, 2026-11-13: "yes let's extract it and let's get it working")
 - ✅ #7 prompts live in tables only, one table for both modes (developer, 2026-11-13)
 - ✅ #9–#11 evals as proposed (developer, 2026-11-13: "great")
-- 🔄 #14 build order: step 1, the repo
+- ✅ #14 steps 1–4: repo `wow-two-sdk-beta.ai` built and pushed (`aaab511`); its version track v0.1 holds the state
+- 🔄 HTTP API with queued eval runs (developer, 2026-11-14), paused 2026-11-14 for the weekly usage limit; resumes 2026-11-18
+- ⬜ #14 step 5: the first 10-post eval, then SCFD's relevance step
 
 ## Findings
 
