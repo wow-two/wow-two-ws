@@ -87,6 +87,7 @@ Org: [github.com/wow-two-sdk-beta](https://github.com/wow-two-sdk-beta) — beta
 | `wow-two-sdk-beta.product-template` | Copyable product-repo template — the canonical conformant structure `create-repo` stamps out (a template, not a package) | Active |
 | `wow-two-sdk-beta.domain-template` | Copyable domain-repo template — one SDK domain's NuGet family, npm package, service and image with tag-derived releases; `create-repo` stamps it with `SHAPE=domain` (a template, not a package) | Active |
 | `wow-two-sdk-beta.identity` | Our own identity: user store, OIDC provider, hosted sign-in and admin console, shipped as an SDK library, a self-hosted image or a provided service. | Planned |
+| `wow-two-sdk-beta.ai` | Provider routing with fallback, versioned prompts, an inference log with prices, and model evals. | Planned |
 
 ## wow-two-kb (knowledge base)
 

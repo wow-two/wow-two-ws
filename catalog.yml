@@ -404,6 +404,14 @@ entries:
     status: "Planned"
     purpose: "Our own identity: user store, OIDC provider, hosted sign-in and admin console, shipped as an SDK library, a self-hosted image or a provided service."
     repositories: [wow-two-sdk-beta/wow-two-sdk-beta.identity]
+  - slug: ai
+    name: Ai
+    workspace: wow2-platform
+    kind: platform
+    deploy: none
+    status: "Planned"
+    purpose: "Provider routing with fallback, versioned prompts, an inference log with prices, and model evals."
+    repositories: [wow-two-sdk-beta/wow-two-sdk-beta.ai]
 
   # wow-two-kb (knowledge base)
   - slug: wow-two-kb-welcome
