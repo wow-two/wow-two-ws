@@ -162,6 +162,9 @@ Other writers in the SCFD repo, from the `ocharo - scfd integration` goal (`syst
 - Haven `4a19dcd7`: gone shown live — `4dOKf` left search on `gone`, `suspect` hid nothing, three copies changed it
   once (`--filter A_link_SCFD`). States apply by provider + `external_id` from the link's own state; an equal or
   older `occurredAtUtc` is ignored; a state for a link Haven never stored is dropped until a later copy or capture.
+- Haven `e839508f`: relist shown live — `4dOKf` gone then relisted, search 5 → 4 → 5; both live tests pass
+  (`--filter HarvestOlxLive`). `deployment.md` § Harvest OLX cutover holds the dev IDs, the key delivery and the live
+  check. Haven's local steps 2–3 are done; the rest waits on the key and the production go-ahead.
 - SCFD harvest-dev `v0.2.4`: Wheelhouse Run `marketplace setup --profile haven --run` (job `148b9526`, exit 0) —
   tenant `01a1d688-3a57-772b-ae2d-70b6c60bc23f`, container `01a1d688-3be0-7f42-84bb-368210282d4b`, subscriptions
   apartments-rent `01a1d688-434e-704d-a747-a55a7aa88b21`, houses-rent `01a1d688-43b1-7d03-bc6d-6080ec86a033`,
