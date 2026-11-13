@@ -113,6 +113,7 @@ uncommitted, another chat's), [the Files track](../../../workbench/wow-two-sdk-b
 | platform | `ev-platform`, `local_017f2bcd-6de5-41e8-93aa-14530829cbde` | `workbench/mfts-projects/ventures/ocharo-hq/ocharo-ws/workbench/ocharo-platform` | #37 |
 | wheelhouse | `ev-wheelhouse`, `local_31ee8aa4-c16a-48e1-a4b8-03be478bdb3b` | `workbench/wow-two-platform/wow-two-platform.wheelhouse` | #38 |
 | fe sdk | `ev-fe-shell`, `local_1e8e569c-52ac-42f1-b4b9-4dc28dfe799f`, started 2026-11-10 | `workbench/wow-two-sdk-beta/wow-two-sdk-beta.fe` | #59 |
+| ai classification | `ev-ai`, `local_c49d3acf-d4c7-40e6-93cf-65adf32f7524`, started 2026-11-13, Opus 5.5 `xhigh`, driven by the developer | the be sdk (chat-client brokers), harvest backend (relevance step), `wow-two-sdk-beta.events` (classifier); `ev-scfd` holds harvest meanwhile | #54, #55 |
 | scfd console live edits | `ev-scfd-live`, `local_1671803a-b7a5-45b3-a972-c818697a7e01`, started 2026-11-11, Sonnet 5.5 | `wow-two-sdk-beta.harvest` console frontend only (`harvest.frontend-services/`); `ev-scfd` holds that folder meanwhile | #62 |
 
 - Analysis chat `ocharo - ai providers for classification` (`ai-providers`, `local_d43d41f6-c1c8-4017-88ed-fcc05c7c0689`),
@@ -535,6 +536,12 @@ Developer, 2026-10-24 to 2026-11-10; not reopened.
 - Chats, 2026-11-12: the forks whose jobs are done were archived: `ev-fe-shell`, `ev-events`, `ai-providers`,
   `ev-platform` (Ocharo's queued extractions start a fresh lane). Kept: `ev-scfd` (the merge), `ev-scfd-live`,
   `ev-wheelhouse` (the deploy move).
+- #64 AI classification starts (developer, 2026-11-13: "spin one more fork chat to work on ai integrations - opus 5.5
+  extra, can ignore it's responses - I'll handle them myself"): lane `ev-ai` builds #55's next step with him, Claude
+  for SCFD's relevance pass and Events' classifier with an OpenAI fallback, then the first eval on 10 Afisha posts
+  with one truly relevant (TITF). He drives it; the orchestrator relays nothing from it.
+- Harvest `v0.2.1` (`de4b85a`, tag checked) removed the leftover `Harvest.Api` host; 729 backend tests and image
+  conformance pass per the scfd lane; the live chat repointed the console's dev proxy to the source host.
 
 ## Contracts
 
