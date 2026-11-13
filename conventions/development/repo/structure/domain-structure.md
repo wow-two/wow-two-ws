@@ -17,8 +17,10 @@ Evidence and the options weighed → [SDK breakdown](../../../../ideas/identity-
 - must give a domain its own repo when it falls under [capability forms](../../capability-forms.md#scope) and has a
   broker contract to version.
 - must split it from core only once core's own code reads nothing of it but [kernel](#kernel) seams.
-- must keep a stateless library with heavy dependencies and no contract — media, codes, AI providers — in the core
-  repo as a companion package.
+- must keep a stateless library with heavy dependencies and no contract — media, codes — in the core repo as a
+  companion package.
+- must move a companion package into a domain repo once that domain owns the state its calls produce — AI providers
+  live in `wow-two-sdk-beta.ai` beside the prompt registry, inference log and evals (developer, 2026-11-13).
 - must treat a domain repo as an archetype of its own, whatever its org; [SDK structure](sdk-structure.md) governs
   package-only repos.
 - must follow [repo structure](repo-structure.md) wherever this doc states no delta.
