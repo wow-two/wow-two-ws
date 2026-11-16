@@ -542,6 +542,20 @@ Developer, 2026-10-24 to 2026-11-10; not reopened.
   with one truly relevant (TITF). He drives it; the orchestrator relays nothing from it.
 - Harvest `v0.2.1` (`de4b85a`, tag checked) removed the leftover `Harvest.Api` host; 729 backend tests and image
   conformance pass per the scfd lane; the live chat repointed the console's dev proxy to the source host.
+- Live-edit round 11-13..15: harvest `v0.2.2`-`v0.2.6` and fe `0.0.46`-`0.0.48` released; `ev-ai` built the AI layer
+  v0.1 (`aaab511`), paused with uncommitted WIP, resuming 11-18; API keys not set, no eval run yet.
+- #65 ChatGPT (Codex) work, 2026-11-14..16, reviewed read-only by the orchestrator's agents on 11-16; all uncommitted,
+  Codex still writing in harvest and fe at 21:17:
+  - harvest: Discover / Harvest / Process stages per section (migration `008`, 5 routes), BirBir and Joymee readers,
+    `wow2.listing.v1` listing model, `ListingReplay` tool, server-side post paging, console Pipelines pages (the
+    developer reversed #41 in Codex: "so add page with a route"). Open: `StoreBootTests` expects 001-007, 3 lint
+    errors, 5 files unformatted, version track and `contract.md` not updated, two schedule paths (Settings and
+    Pipelines), Process calls OpenAI directly instead of the AI layer (#64). A commit publishes the BirBir collector.
+  - fe: toast overhaul (priority, deadlines, pin, remind later, grouping, overflow, motion presets); typecheck, lint,
+    builds and 4,524 tests pass. Open: `engineering/features.md` against the version-track rule, numeric and
+    kebab-case enum values, `RemindLaterAction` built with `h()`, SCFD and Ocharo rows in the SDK playground.
+  - Elsewhere: Haven's per-subscription listing intake through SCFD, Ocharo Trends (new local repo plus a Trends
+    service in `ocharo-platform`), Pose Coach and Hijinx fixes; the 70K-credit plan's other items not started.
 
 ## Contracts
 
