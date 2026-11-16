@@ -556,6 +556,10 @@ Developer, 2026-10-24 to 2026-11-10; not reopened.
     kebab-case enum values, `RemindLaterAction` built with `h()`, SCFD and Ocharo rows in the SDK playground.
   - Elsewhere: Haven's per-subscription listing intake through SCFD, Ocharo Trends (new local repo plus a Trends
     service in `ocharo-platform`), Pose Coach and Hijinx fixes; the 70K-credit plan's other items not started.
+- #66 ChatGPT builds next (developer, 2026-11-16: "so chatgpt will implement them - so can write them as a spec
+  somewhere and as a oneliner in backlog only"): 109 specced tasks in [tasks/tasks.md](tasks/tasks.md) with a pull
+  order; each repo's backlog carries one row per task under `## Specced next`. The first live check of SCFD inside
+  Ocharo Events on dev found 3 sourced events of 71, none after 11-13, in Russian, with no images or source label.
 
 ## Contracts
 
