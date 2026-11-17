@@ -1,6 +1,6 @@
 # Port Ledger
 
-*Last updated: 2026-11-10*
+*Last updated: 2026-11-17*
 
 > Single source of truth for allocated dev ports — **check here before picking one** to avoid collisions.
 > Backend rule: a **single `https` profile** binds two ports per service — **HTTPS on the even port, HTTP on the adjacent odd port** (`even`, `even + 1`); TLS terminated upstream in prod — see [backend/launch-profiles.md](../../development/backend/dotnet/shapes/service/platform/startup/launch-profiles.md). Frontend (Vite) = an **even** port (HTTPS via mkcert).
@@ -23,6 +23,7 @@
 | wow-two-games.play | room server (Node WebSocket, HTTP) | 8416 |
 | wow-two-games.services | Rooms API | 8418 https / 8419 http |
 | wow-two-games.engine | studio (Vite) | 5188 |
+| wow-two-games.engine | level designer (Vite) | 5190 |
 | wow-two-sdk-beta.fe (Vue) | playground (Vite) · atlas — layouts, patterns, themes (Vite) | 5176 · 5178 |
 | product-template (`Sample` example) | API · Vite · local PostgreSQL | 8220 https / 8221 http · 8224 · 8222 |
 | domain-template (`Sample` example) | API · Vite · local PostgreSQL | 8384 https / 8385 http · 8386 · 8387 |

@@ -183,6 +183,29 @@
       "port": 5188
     },
     {
+      "name": "games-designer",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": [
+        "-C",
+        "workbench/wow-two-games/wow-two-games.engine/engineering/codebase/wow-two-games-engine/apps/designer",
+        "dev"
+      ],
+      "port": 5190
+    },
+    {
+      "name": "games-designer-http",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": [
+        "-C",
+        "workbench/wow-two-games/wow-two-games.engine/engineering/codebase/wow-two-games-engine/apps/designer",
+        "dev"
+      ],
+      "env": {
+        "VITE_HTTPS": "false"
+      },
+      "port": 5190
+    },
+    {
       "name": "transcript-forge",
       "runtimeExecutable": "pnpm",
       "runtimeArgs": [
