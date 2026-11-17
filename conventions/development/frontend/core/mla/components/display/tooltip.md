@@ -1,13 +1,15 @@
 # Tooltip
 
-*Last updated: 2026-09-10*
+*Last updated: 2026-11-16*
 
 > One short label on hover or focus — the smallest thing that floats.
 > Kind → [overlay](../../constructs/visual/overlay.md).
 
 ## Reach for it when
 
-- may explain an already named icon-only control or expand a truncated label
+- must use the FE SDK `Tooltip` for product and platform UI hints on hover and keyboard focus
+- must give icon-only controls a visible hint through `Tooltip` and preserve their accessible names
+- may expand a truncated label
 - must carry text only; it takes no focus and holds nothing operable
 - should stay optional — the app must work for a reader who never hovers
 
@@ -24,8 +26,6 @@
 ---
 
 ## Values
-
-- must preserve the trigger's accessible name and use the tooltip for description.
 
 - should leave `openDelay` at `700` ms and `closeDelay` at `0` — the OS pattern
 - should leave `placement` at `top`

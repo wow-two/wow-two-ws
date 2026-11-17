@@ -1,6 +1,6 @@
 # ImagePreview
 
-*Last updated: 2026-09-10*
+*Last updated: 2026-11-16*
 
 > A picture with a fallback for when it fails to load.
 > What a display is → [display](../../constructs/visual/display.md).
@@ -8,7 +8,8 @@
 ## Reach for it when
 
 - must render content the reader looks at — a photo, a screenshot, a cover
-- must fill the fallback slot; without one a broken source leaves a broken image
+- must supply the `fallback` slot and handle missing `src` before rendering `ImagePreview`
+  ([image fallback](../../constructs/visual/display.md#image-fallback))
 - should wrap it in `AspectRatioLayout` when the box must not resize as the file loads
 
 ---

@@ -26,7 +26,7 @@ dependencies. Each repo's backlog carries one row per task under `## Specced nex
 ## Pull order
 
 1. Finish open work: S01-S07 (ChatGPT's harvest work, released as `v0.2.7`), F01-F04 (the toast overhaul, released).
-2. SCFD's events reach Ocharo: E00, E01, S18, S08, S09, E02, E03, E04, E30.
+2. SCFD's events reach Ocharo: E00, E01, S08, S09, S18, E02, E03, E04, E30.
 3. Facts shown right in Ocharo: E25, E33, E12, E05, E06, S13, E07, E08, E09, E10, E11, E15, E16, E13, E14.
 4. Tests and scale: E26, E27, E28, E29, E19, E20, E21, E22, E23, E24, E17, E18.
 5. Sources toward the 100 registries (#51): S10, S19, S20, S11, S12, S21-S26.

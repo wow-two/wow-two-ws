@@ -1,6 +1,6 @@
 # Display
 
-*Last updated: 2026-10-01*
+*Last updated: 2026-11-16*
 
 > A render of content the component does not own — it shows what it is given and changes nothing.
 > Purpose — the largest kind gets one rule set: take data in, render it, emit intent, never mutate.
@@ -92,6 +92,19 @@
 ✅ EventCalendarViewer → MonthView; DataTable → empty row; TabsGroup → TabsGroupPanel
 ❌ DataTable → a product-specific API client
 ```
+
+---
+
+## Image fallback
+
+- must render an app-provided icon in each visible image slot when `src` is missing
+  or the image fails to load or decode.
+- must replace the failed `<img>` with the fallback to suppress the browser's broken-image UI.
+- must use [Lucide](../../domains/icons/lucide/lucide.md) `ImageOff` by default
+  in product and platform service frontends.
+- may use a domain-specific icon when it identifies the asset's role more clearly.
+- must give the icon a meaningful accessible name, such as “Image unavailable”,
+  when nearby text leaves its status unlabeled.
 
 ---
 

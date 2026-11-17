@@ -31,7 +31,8 @@
 - must add `overscroll-contain` to any scroll area inside an overlay, so the page behind does not scroll with it.
 - must check every ancestor for `overflow-hidden` before debugging a clipped popover or a dead `sticky`
   ([position](position.md)).
-- must reach for `truncate` or `line-clamp-*` for text, and give the full value another route — a `title`, a tooltip.
+- must use `truncate` or `line-clamp-*` for text and give the full value another route
+  ([Tooltip](../../../mla/components/display/tooltip.md) for a short label on hover or focus).
 - must make a scroll container focusable and named where its content is the point.
 
 ---
@@ -51,7 +52,9 @@
 ```vue
 <!-- ✅ bounded height, contained scroll, ellipsis where text is clipped -->
 <div class="max-h-72 overflow-y-auto overscroll-contain">
-  <p v-for="row in rows" :key="row.id" class="truncate" :title="row.label">{{ row.label }}</p>
+  <Tooltip v-for="row in rows" :key="row.id" :content="row.label">
+    <a :href="row.href" class="block truncate">{{ row.label }}</a>
+  </Tooltip>
 </div>
 
 <!-- ❌ a plain clip: text cut mid-word, and the dropdown inside is clipped to the card -->

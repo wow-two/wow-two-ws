@@ -141,7 +141,7 @@ These tasks cover SCFD's own side: sources, harvesting, matching, delivery, the 
   - Precondition: no file under `engineering/` has changed for 10 minutes, and no Codex session is open on the tree.
   - Scan the staged files for tokens, `+998` phone numbers, emails and IPs. `engineering/research/housing-listing-analysis-2026-11/` must hold aggregates only.
   - Commit one cohesive slice per commit:
-    - the stage engine, migration 008, its routes and tests
+    - the stage engine, migrations 008 and 009, its routes and tests
     - the section catalogs in the readers
     - the server-side posts query and console paging
     - the listing model, BirBir, Joymee, OLX fields, the marketplace import, ListingReplay and the research
@@ -152,7 +152,8 @@ These tasks cover SCFD's own side: sources, harvesting, matching, delivery, the 
   - On dev, check by hand that Afisha's Uzbek passive pipelines from the old catalog stay paused. This is a manual step with no code (#52).
 - Done when:
   - `gh release view v0.2.7 --repo wow-two-sdk-beta/wow-two-sdk-beta.harvest` succeeds.
-  - `harvest-dev` reports `0.2.7` at `/api/system/status`, with migration history ending at `008-pipeline-stages`.
+  - `harvest-dev` reports `0.2.7` at `/api/system/status`, with both `008-pipeline-stages` and
+    `009-step-operations` applied and migration history ending at `009-step-operations`.
   - `ocharo status --group afisha` (Wheelhouse Run) still shows the 6-hour capture and daily check.
   - Events' `intake check` reads `subscription=ok` for `afisha-fashion` and `afisha-exhibitions`.
 - Depends: S01, S02, S03, S04, S05, S06
@@ -176,7 +177,8 @@ These tasks cover SCFD's own side: sources, harvesting, matching, delivery, the 
 - Repo: wow-two-sdk-beta.harvest · Area: backend · Type: feature
 - Why: a subscription follows one pipeline (`ck_harvest_subscriptions_channel`) and Events binds one intake source per subscription (`Events:Intake:Sources:N:SubscriptionId`), so each new Ocharo channel costs an Events deploy entry, while 100 sources need one cursor.
 - Do:
-  - Migration `009-subscription-sections`:
+  - Migration `010-subscription-sections` (next free ordinal on 17 November; 009 is `step-operations`;
+    recheck the migration directory before implementation):
     - a table `harvest_subscription_pipelines(subscription_id, container_id, pipeline_id, added_at)` with primary key (subscription_id, pipeline_id)
     - kind check adds `sections`
     - `sections` requires a null `pipeline_id`

@@ -1,6 +1,6 @@
 # Conventions — Development — Frontend
 
-*Last updated: 2026-10-16*
+*Last updated: 2026-11-16*
 
 > Conventions for every frontend under `wow-two-ws/`. Lookup table — open a file when the task
 > touches it; do not pre-read. The tree splits twice, and the cuts are orthogonal.
@@ -124,6 +124,7 @@ The lead is [mla](core/mla/mla.md) — the three buckets, SDK boundary and the s
 |---|---|
 | [constructs](core/mla/constructs/constructs.md) | The authoring pass: kind → name → docs → props → gate |
 | [visual](core/mla/constructs/visual/visual.md) | The 16 kinds that render, suffix routing, where a group is placed |
+| [image fallback](core/mla/constructs/visual/display.md#image-fallback) | Unavailable images in visible slots |
 | [behavior](core/mla/constructs/behavior/behavior.md) | The seams a component consumes, and the `use*` state it owns |
 | [data](core/mla/constructs/data/data.md) | The `*Dto` family, `*Model`, `*Content`, and the `Result` carrier |
 | [compound](core/mla/constructs/compound/compound.md) | A root that owns named subparts, and how both halves export |
