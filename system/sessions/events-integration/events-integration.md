@@ -587,6 +587,21 @@ Developer, 2026-10-24 to 2026-11-10; not reopened.
   chooses matching tags to that prompt"; plus "choosing specific sources as well ... choose tags with inclusion /
   exclusion of sources and prompt with inclusion / exclusion as well". `ev-build` holds E01, E02, S09, S10 and S11
   until the design settles; a read-only design map is in progress.
+- #69 Lanes' first day (2026-11-17), pushed and released:
+  - `ev-build`: harvest `v0.2.8`-`v0.2.11` (S03 leftovers, S36, S37, S39, S08, E03, S13 + E07, S18 code); be sdk
+    `10.0.112-beta` (B01; Files CI green again); Events `10.0.9-beta` (E00 recorded, E04, E06, E08, E11, E12, E15, E33,
+    V07 digests); Identity `0.5.22`/`0.5.23` (I01 notices, member list); Ocharo Events app (E05, E09, E10, E13, E14,
+    E16, E25, O17; digests default to `role:member`). Dev rollout started after the developer's GitHub sign-in to
+    Wheelhouse ("signed in, continue").
+  - `ev-fe`: fe `0.0.50` (toast overhaul, F01 except `features.md`, F05, F11) and `0.0.51` (F06-F10); SCFD pins
+    `0.0.51`. Archived; only the `features.md` call remains.
+  - Craftfair (S18) stays paused: Cloudflare's passive JSD script on a complete 200 page trips
+    `GenericChallengeDetector`; narrowing it waits on the developer (auto mode refused the change).
+  - A ChatGPT (Codex) session keeps writing Haven's OLX + AI work in harvest, uncommitted; `ev-build` routes around it
+    and re-checks `MarketplaceProvisioner.cs`, `HarvestEngine.cs` and `RunPlanner.cs` after its commits.
+  - Subscription modes: the design map recommends one `selector` subscription (sources include/exclude, type,
+    category → sub-category; a prompt compiled once into editable tags; tags from publisher mapping plus one AI pass
+    per post); 14 decision points, 7 the developer's. First asked: one selector or a kind per mode.
 
 ## Contracts
 
