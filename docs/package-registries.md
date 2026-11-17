@@ -1,6 +1,6 @@
 # Package registries
 
-*Last updated: 2026-10-29*
+*Last updated: 2026-11-17*
 
 > Who may publish what on nuget.org and npm: every trusted-publishing policy and publisher, with enough detail to
 > recreate each one after losing a policy, a repository or an account. No secret lives here; workflows publish through
@@ -18,6 +18,7 @@
 |---|---|---|---|---|---|
 | `wow-two-beta-be-publish` | `WoW2.0` | `wow-two-sdk-beta/wow-two-sdk-beta.be` | `publish.yml` | push new packages and versions · unlist or relist | `*` |
 | `wow-two-beta-identity-publish` | `WoW2.0` | `wow-two-sdk-beta/wow-two-sdk-beta.identity` | `publish-packages.yml` | push new packages and versions · unlist or relist | `WoW2.Sdk.Beta.Be.Identity.*` |
+| `wow-two-beta-ai-publish` | `WoW2.0` | `wow-two-sdk-beta/wow-two-sdk-beta.ai` | `publish-packages.yml` | push new packages and versions | `WoW2.Sdk.Beta.Be.Ai.*` |
 
 - Every policy: CI provider GitHub Actions, no environment.
 - A domain library adds its row when its policy is created (`create-library` phase 4), then sets the repository
@@ -29,7 +30,7 @@
 ### Recreate a policy
 
 1. nuget.org → Trusted Publishing → Create: the row's name, package owner, repository owner and name, workflow file,
-   both scopes (push new packages and versions; unlist or relist) and its globs.
+   the scopes listed in that row and its globs. The AI policy permits publishing only.
 2. Editing a policy blanks its globs field: enter the row's globs again before Save.
 3. A policy binds the repository's permanent GitHub id, so a repository deleted and created again needs a new policy.
 

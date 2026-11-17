@@ -8,8 +8,8 @@
 - ✅ #7 prompts live in tables only, one table for both modes (developer, 2026-11-13)
 - ✅ #9–#11 evals as proposed (developer, 2026-11-13: "great")
 - ✅ #14 steps 1–4: repo `wow-two-sdk-beta.ai` built and pushed (`aaab511`); its version track v0.1 holds the state
-- 🔄 HTTP API with queued eval runs (developer, 2026-11-14), paused 2026-11-14 for the weekly usage limit; resumes 2026-11-18
-- ⬜ #14 step 5: the first 10-post eval, then SCFD's relevance step
+- ⬜ HTTP API with queued eval runs: queue and catalog are uncommitted; HTTP routes are pending. Verified state and resume order: [#15](#15-implementation-follow-up).
+- ⬜ Run the first `afisha-10` comparison and pilot `ocharo-relevance` in SCFD before Haven adoption.
 
 ## Findings
 
@@ -163,9 +163,56 @@ var answer = await ai.RunAsync<RelevanceAnswer>(
 2. `Ai.Providers` with the router and prices; core drops its LLM folders in the same pass; sift re-pins.
 3. Prompts (both modes) and the inference log.
 4. Eval sets, runs, scores, the report and the verbs; the local bench.
-5. SCFD's relevance step on the layer, then the first 10-post eval (#55).
-6. Haven moves to the layer, in Haven's own chat.
+5. Run the first 10-post CLI eval and finish the queued API; pilot the relevance step in SCFD (#15).
+6. Roll out Haven's existing SCFD intake after the SCFD pilot. Migrate Haven's classifier separately (#15).
 7. Later: the provided service and console pages, budgets (gate G5), batch APIs, LLM-judge scorers.
+
+### #15 Implementation follow-up
+
+*Baseline inspected 2026-11-14: AI tree at `394ead7` plus paused edits, SCFD at `3e98337`, Haven at `e839508f`.
+Release and integration update: 2026-11-17. Bench counts below are the dated baseline, not a fresh live read.*
+
+**Release and bench baseline**
+
+- The [AI repo](https://github.com/wow-two-sdk-beta/wow-two-sdk-beta.ai) published all five backend packages as
+  `10.0.0-beta` from `d71898b` / `be-v10.0.0-beta`; [publish run 44042733179](https://github.com/wow-two-sdk-beta/wow-two-sdk-beta.ai/actions/runs/44042733179)
+  succeeded. A clean consumer restored the public packages, built and passed its smoke check. The paused queue/API
+  edits are outside that release. The NuGet trusted publisher has push-only scope.
+- Read-only bench check: migration `003`; `afisha-10` has 10 Russian posts with draft labels (4 `close`, 2 `loose`, 4 `none`). It has 0 eval runs and 2 logged `not_configured` attempts. Both provider keys are absent from `Ai.Api` user-secrets and the current shell overrides.
+- On the November 14 paused tree: 113 provider tests and 31 integration tests passed. 15/16 migration tests passed. The failing lint test found 3 write-blocking indexes in `004-eval-run-queue`. These are historical checks of unreleased queue work; they do not exercise a queued HTTP run or a live provider call.
+
+**First patch: make queued comparisons repeatable**
+
+- Recheck and fix `004` before releasing the paused queue work. Build the 3 indexes concurrently outside the migration transaction, recover invalid indexes left by interrupted builds, and test upgrade from `003` with existing eval history. [PostgreSQL index build behavior](https://www.postgresql.org/docs/18/sql-createindex.html#SQL-CREATEINDEX-CONCURRENTLY).
+- `ModuleEvalsBroker` selects the sample at enqueue and selects again at worker start. It also resolves the prompt again, so a rewrite can change the text while version stays constant. Pin the selected item IDs, label/scoring revision and each cell's resolved prompt hash, parameters and schema. If a pinned input changes or is purged, fail that run explicitly. Use immutable prompt versions for the pilot; reject rewrite-mode queues until their snapshot semantics are defined.
+- Keep the first shared `Ai.Hosting` slice to the provider catalog, queue (`202` with batch/run IDs), status, cancel and per-run report (`json`, `csv`, `md`). Keep the CLI for the bench and ops. Apply Identity's `ai.*` scopes and SCFD operator access; a generic read scope must not expose cross-tenant datasets or raw report inputs. Keep prompt editing, data import/export and full console UI out of the first HTTP slice.
+- Test the worker with scripted providers: the same sample across all cells, no double claim, cancellation, stale heartbeat, and all-provider failure. Test `401`/`403` and `202` → report end to end. Bound model × sample size and concurrency; distinguish completed work from usable results, new spend from cached results, and missing prices from zero cost.
+
+**Live baseline: run independently of the HTTP build**
+
+- When the two keys are set locally, confirm each provider can return a schema-valid answer on the intended route. Use CLI `--fresh` with explicit prompt `--version 1` for Haiku, Sonnet and GPT on the same reviewed set. Then compare GPT on version `2` (`gpt-*`, low effort) to isolate the variant's effect.
+- Verify the draft labels and include a confirmed must-catch opportunity. The handoff found no TITF item and used Visa Fashion Week and TFT Expo as stand-ins; keep the set as a smoke test and add non-Russian cases and hard negatives to a separate holdout before promotion.
+- Compare to `ocharo-fashion-v1`. Report relevant misses, false accepts, invalid output, estimated cost per post and p95 latency. A matrix cell pins a single model; test fallback separately on the configured route and measure its rate in shadow. Record aggregates only. Set cost and latency limits before increasing volume.
+
+**SCFD: prove the integration on one Afisha pipeline**
+
+- The November 17 SCFD commit-preparation patch embeds the published AI module in `HarvestSources.Api` behind
+  `Harvest:Processing:Ai:Enabled`, off by default. OLX `rental-terms@2` uses saved captures, versioned database
+  prompts, explicit source permission, model/prompt readiness, repeat suppression and separate evidence results.
+  This supplies shared infrastructure; Ocharo relevance, its evaluation subject source and Afisha shadow remain
+  S14–S15 work. The old `3e98337` hardcoded-mode finding is historical. Use the current Process contracts and
+  preserve opt-in when extending the Ocharo provisioner.
+- Run relevance on persisted normalized post revisions, outside the capture lease. Key work by tenant/container, post revision and classifier configuration; skip completed work on replay. Stamp the result with inference ID, provider/model and resolved prompt version/hash. Keep unavailable or invalid calls undecided; harvesting and existing deliveries continue.
+- Start in shadow on in-scope Afisha event posts, including rule rejects. Keep the current filter for live Events delivery so the pilot can find what that filter misses without changing the feed. Test timeout/fallback, replay and purge, including removal of text in eval inputs and stored answers linked to the post.
+- Promote only when the holdout has no missed must-catch examples, the weekly shadow comparison stays inside the agreed error/cost/latency limits, and turning `AiMode.Off` restores rules-only behavior. [`EventSchemaMapper`](https://github.com/wow-two-sdk-beta/wow-two-sdk-beta.harvest/blob/3e983377b67f80f7c05a7fbbbeb06f7ff07729a6/engineering/codebase/harvest.backend-services/packages/Module/Extraction/EventSchemaMapper.cs#L37-L43) already emits `classification`. Rehearse the Events payload classifier on an isolated subscription before switching it; the delivery filter must allow AI-positive posts the rules miss.
+
+**Haven: roll out the feed, then adopt shared AI**
+
+- [Haven v1.2](https://github.com/sulton-max/10x-ven-haven/blob/e839508fee30f4a9a8d4aa6697dfd281f4832df9/engineering/planning/version-track/v1.2/v1.2.md#L149-L163) records a local OLX/SCFD pass: 3 subscriptions, cursor advancement after storage, no-op replay, gone and relist. The next feed milestone is a dev rollout of that path against the intended SCFD target. Verify tenant credentials and per-search cursors, then rehearse the switch back before cutover.
+- SCFD owns collection, normalized records and link lifecycle. Haven owns listing classification, CRM rules and publishing. After the pilot, compare shared AI to the current [`ListingClassifier`](https://github.com/sulton-max/10x-ven-haven/blob/e839508fee30f4a9a8d4aa6697dfd281f4832df9/engineering/codebase/haven.backend-services/Haven.Supply/Haven.Supply.Infrastructure/Classification/FoundationServices/ListingClassifier.cs#L27-L95) on Haven's planned 50-listing sample. Keep the existing batch shape and result history; check field accuracy, missing listing IDs, retries, cost per listing and p95. Run the comparison without updating CRM or publishing, and switch the classifier behind a separate flag after it meets the baseline.
+- Verify the shared AI package restore and current core compatibility in Haven before wiring it in; the package
+  versions noted in the November 14 analysis are not a current pin inventory. Keep any core upgrade separate
+  from the OLX feed cutover. Per the November 17 handoff, finish and close Ocharo acceptance before resuming Haven.
 
 ## Open questions
 
