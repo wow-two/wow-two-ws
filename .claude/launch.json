@@ -138,6 +138,24 @@
       "port": 5182
     },
     {
+      "name": "games-play-fresh",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": [
+        "-C",
+        "workbench/wow-two-games/wow-two-games.play/engineering/codebase/play.frontend-services/apps/web",
+        "dev",
+        "--port",
+        "5183",
+        "--strictPort",
+        "--force"
+      ],
+      "env": {
+        "VITE_HTTPS": "false"
+      },
+      "port": 5183,
+      "url": "http://localhost:5183"
+    },
+    {
       "name": "games-rooms-service",
       "runtimeExecutable": "dotnet",
       "runtimeArgs": [
