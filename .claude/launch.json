@@ -193,6 +193,20 @@
       "port": 5190
     },
     {
+      "name": "games-designer-fresh",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": [
+        "-C",
+        "workbench/wow-two-games/wow-two-games.engine/engineering/codebase/wow-two-games-engine/apps/designer",
+        "dev",
+        "--port",
+        "5191",
+        "--force"
+      ],
+      "port": 5191,
+      "url": "https://localhost:5191"
+    },
+    {
       "name": "games-designer-http",
       "runtimeExecutable": "pnpm",
       "runtimeArgs": [

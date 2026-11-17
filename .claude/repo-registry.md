@@ -7,7 +7,7 @@
 
 # Repo Registry
 
-*Last updated: 2026-11-13*
+*Last updated: 2026-11-14*
 
 All repos use the naming convention: `{org}.{domain}[.{subdomain}]`, lowercase, dot-separated. Repo prefix matches org name exactly.
 
@@ -185,7 +185,7 @@ Hub: [sulton-max/10x-ventures](https://github.com/sulton-max/10x-ventures) — T
 
 Org: [github.com/ocharo-hq](https://github.com/ocharo-hq) — Ocharo's brand organization: platform, studio, marketing and assets, independent of WoW2.
 
-Six main repositories plus the `.github` profile repository belong to Ocharo. Blog, Brand and Catalogue are adopted components, not additional repository targets. Current paths: [Ocharo repository map](../workbench/mfts-projects/ventures/ocharo-hq/ocharo-ws/docs/repositories.md).
+See the [Ocharo repository map](../workbench/mfts-projects/ventures/ocharo-hq/ocharo-ws/docs/repositories.md) for active repositories and the adopted Blog, Brand and Catalogue sources.
 
 - `workbench/mfts-projects/ventures/ocharo-hq/ocharo-ws/` owns Ocharo setup and repository navigation.
 - Its Git history and GitHub organization remain independent of WoW2.
@@ -197,3 +197,4 @@ Six main repositories plus the `.github` profile repository belong to Ocharo. Bl
 | `ocharo-platform` · `workbench/mfts-projects/ventures/ocharo-hq/ocharo-ws/workbench/ocharo-platform` | Ocharo: Desk (platform), Studio, Marketing and the motion lab (assets) under one brand and one domain | One product of four repositories since 2026-10-21 (Wheelhouse decision 70); Desk, Brand, Catalogue, Studio, Marketing and Blog run on dev |
 | `ocharo-hq` · `workbench/mfts-projects/ventures/ocharo-hq/ocharo-ws/workbench/ocharo-hq` | Main brand overview and public portfolio README | Published, private; public visibility recommended |
 | `.github` · `workbench/mfts-projects/ventures/ocharo-hq/ocharo-ws/workbench/.github` | GitHub organization profile at profile/README.md | Public; organization profile published |
+| `ocharo-trends` · `workbench/mfts-projects/ventures/ocharo-hq/ocharo-ws/workbench/ocharo-trends` | Short-form video trend references, filming instructions and use cases | Local-only |

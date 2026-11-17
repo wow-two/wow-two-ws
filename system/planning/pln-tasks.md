@@ -1,4 +1,4 @@
-*Last updated: 2026-11-10*
+*Last updated: 2026-11-17*
 
 # Tasks
 
@@ -194,6 +194,12 @@ Not started, ordered, top = next. Pulling one promotes it above and mints its ID
 | Item | Type | Notes |
 |---|---|---|
 | Uninstall the Codex GitHub App | chore | Added `2026-10-26`, low priority: write access on 3 orgs though Codex was dropped `2026-10-23`; org setting, developer only. Identity analysis Q44 (`ideas/identity-analysis-2026-10/t9-release-automation.md`) |
+
+### → WoW2 workspace
+
+| Item | Type | Notes |
+|---|---|---|
+| Register a WoW2 domain and set up operations email | chore | Added `2026-11-17`. Proposed `wowtwo.dev` through Cloudflare Registrar, a Zoho mailbox at `ops@wowtwo.dev`, and `scfd-meta@wowtwo.dev` as SCFD's permanent Meta signup and recovery alias. The Instagram pilot can use an available account while domain and mail setup are pending. |
 
 ---
 
