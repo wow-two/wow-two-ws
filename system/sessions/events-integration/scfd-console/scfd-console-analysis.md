@@ -513,14 +513,15 @@ build is served at `http://127.0.0.1:8468/sources`; it uses synthetic data and n
 
 ## Publication and next checks
 
-*17 November 2026 — documentation and publication requested; release acceptance remains open.*
+*17 November 2026 — changes pushed and backend v0.2.7 published; target acceptance remains open.*
 
 The [Harvest v0.2 track](../../../../workbench/wow-two-sdk-beta/wow-two-sdk-beta.harvest/engineering/planning/version-track/v0.2/v0.2.md)
-is the canonical change list and release record. This review does not treat the current working-tree checks as
-proof of a published package, deployed image or migrated target. Record commit, CI, package and target outcomes
-there as each is verified; preserve unrelated listings and toast work in their owning lanes.
+is the canonical change list and release record. Backend release CI passed all 863 tests; the final console re-pin
+passed 139 frontend tests. The shared tooltip SDK is published as `0.0.49`. Harvest's own package publication was
+skipped, and its image contains only the backend; console hosting remains S33. No deployment or migration was
+verified in this publication pass. Preserve unrelated listings and toast work in their owning lanes.
 
-1. Finish the scoped publication and S07 target checks: the released backend, migrations 008/009, Afisha's Russian
+1. Finish S07 target checks: the released backend, migrations 008/009, Afisha's Russian
    schedules with old Uzbek pipelines still paused, and Events' two Afisha subscription checks.
    Upgrade local port 8400 separately before accepting the source Enabled/Disabled control there.
 2. Finish the responsive/theme and real-data Sources review against the updated backend, including source
@@ -543,8 +544,9 @@ was observed on 16 November and has not been re-checked live in this publication
 Cross-repository publication: Files backlog commit `2e8f248` is pushed. Its documentation delivery run
 `44024924066` passed without publishing a new image. Conformance run `44024958750` failed during restore on
 `Microsoft.AspNetCore.SignalR.StackExchangeRedis` 10.0.3 (`NU1903`, `GHSA-wr8v-9x5q-ggcm`); the same failure is
-present in the preceding run `43863078391`. The tooltip fix is pushed as FE SDK commit `b73b0b91`; its release
-and Harvest re-pin are tracked in the Harvest version record after observation.
+present in the preceding run `43863078391`. The tooltip fix is pushed as FE SDK commit `b73b0b91`, released as
+`0.0.49` at `6168acdf`, and re-pinned in Harvest at `3fb024a`. FE SDK release CI passed 4,921 tests with 216
+skipped. Commit/release links and the backend image digest are recorded in the Harvest version track.
 
 ---
 
