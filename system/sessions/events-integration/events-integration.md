@@ -560,6 +560,25 @@ Developer, 2026-10-24 to 2026-11-10; not reopened.
   somewhere and as a oneliner in backlog only"): 109 specced tasks in [tasks/tasks.md](tasks/tasks.md) with a pull
   order; each repo's backlog carries one row per task under `## Specced next`. The first live check of SCFD inside
   Ocharo Events on dev found 3 sourced events of 71, none after 11-13, in Russian, with no images or source label.
+- #67 ChatGPT's first batch verified (2026-11-17, three read-only reviews):
+  - harvest: S01, S02, S04, S05, S06 done; S03 and S07 partial. `v0.2.7` released (863 + 139 tests, 42 image checks),
+    running on `harvest-dev` with migrations 008 and 009; 16 of 18 Sources review points done in code, none checked on
+    real data. Found: S36 (stage permissions disagree), S37 (Afisha crawls spill, 79 pages a run since v0.2.6),
+    S38 (Joymee and BirBir keep sellers' names, addresses and coordinates in a public repo; needs the developer),
+    S39 (small findings).
+  - fe sdk: tooltip `0.0.49` correct, F11 (Escape regression); F02 and F03 done but uncommitted, F01 partial, F04 not
+    released. be sdk: B01 (SignalR Redis NU1903 fails Files CI daily since 11-12). Workspace: W01 (6aceeac's convention
+    defects; the scope of two new `must`s needs the developer).
+  - E00 answered: no stage stopped; Events polls cleanly and its cursors match SCFD's, but no new Afisha post passed
+    `ocharo-fashion-v1` since 11-13, and 3 of 4 sourced events are off-topic (E02). E01 needs S18 on dev.
+  - Telegram delivery added (developer, 2026-11-17: "add to backlog - to add tg bot delivery of events in a ocharo
+    configured schedule"): I01 (Identity sends app notices), V07 (Events digests with a delivery seam), O17 (Ocharo
+    schedule), after stage 3 of the pull order.
+  - Order (developer, 2026-11-17: "we can do integration first then work on registries of other 700 sources for
+    ocharo"): stages 1-4 and Telegram delivery first, then ~700 more source registries.
+  - Lanes: `ev-scfd-live`, `ev-scfd` and `ev-wheelhouse` archived; `ev-ai` kept for 11-18. Proposed `ev-build`
+    (`ocharo - scfd integration build`, Opus): the backend fixes, stages 2-3 and Telegram delivery; ChatGPT keeps the
+    fe sdk and the console frontend.
 
 ## Contracts
 

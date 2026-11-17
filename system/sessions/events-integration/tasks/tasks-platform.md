@@ -316,6 +316,16 @@ console's adoption of each is the SCFD lane's.
 - Done when: a DOM test reads the `label` as the item's text for assistive technology and maps each tone to its class; existing `MetaInlineText` tests pass.
 - Depends: —
 
+### F11 Escape keeps a dismissed tooltip closed
+- Repo: wow-two-sdk-beta.fe · Area: overlays · Type: fix
+- Why: since 0.0.49 (`b73b0b91`), Escape in `src/presentation/overlays/tooltip/Tooltip.vue` (`useEscape` →
+  `clearTimers(); setOpen(false)`) leaves the hover and focus flags set, so with both active the tooltip reopens when
+  one of them leaves.
+- Do: Escape clears both trigger flags; the tooltip stays closed until a new pointer enter or focus.
+- Done when: a component test hovers and focuses, presses Escape, moves the pointer out and finds it closed; a new
+  pointer enter opens it.
+- Depends: —
+
 ---
 
 ## AI
@@ -468,3 +478,105 @@ Every A task: owner `ev-ai` lane (resumes 2026-11-18); the AI layer's design is 
   - Tests in `tests/Events.Tests.Unit/Calendar/CalendarWriterTests.cs`.
 - Done when: a unit test exporting `Asia/Tashkent` and `Europe/Paris` events finds exactly one `VTIMEZONE` per zone with the right offsets and transitions for the range; existing calendar tests pass.
 - Depends: —
+
+---
+
+## Telegram delivery
+
+The developer asked on 2026-11-17 for Ocharo's events to go out through the Ocharo Telegram bot on a schedule Ocharo
+sets. Identity owns the bot and apps never talk to it directly (ocharo-platform
+`engineering/architecture/telegram-bots.md`), so the build crosses three repos: Identity sends, Events picks and
+schedules, Ocharo configures.
+
+### I01 Identity sends app notices to a linked Telegram account
+- Repo: `wow-two-sdk-beta.identity` · Area: telegram · Type: feature
+- Why: `ITelegramNoticeSender` (`packages/Module/Telegram/TelegramNoticeSender.cs`) works only inside Identity, so no
+  other service can reach a person through the bot.
+- Do:
+  - Service-to-service `POST /api/identity/v1/notices`: client credentials with a new scope `identity.notices.send`,
+    granted per client in the declaration. Body: target `sub`, text (Telegram's HTML subset, 4,096 characters at most),
+    optional URL buttons (no callback buttons), an idempotency key.
+  - Send through `ITelegramNoticeSender` and its ledger. Answer `202` with the ledger id, `404` for a `sub` with no
+    Telegram link, `409` for a reused idempotency key, `429` past a per-client rate limit; stay inside Telegram's
+    30 messages a second overall and 1 a second per chat.
+  - Per-person opt-out: `/stop`, or a mute button on each notice, mutes that client's notices; access codes and
+    security notices still reach a muted account.
+  - Contract, conformance, and `SendNoticeAsync` on the Identity client package.
+  - Out of scope: groups and channels, which need BotFather's Allow groups on (`telegram-bots.md`); the developer
+    decides that later.
+- Done when: integration tests with `FakeTelegramBotClient`: a scoped client's notice reaches the linked chat once per
+  idempotency key, an unscoped client gets `403`, an unlinked `sub` `404`, a muted person nothing (the call reads
+  `muted`), and an access code still reaches a muted account.
+- Depends: —
+
+### V07 Scheduled event digests with a delivery seam
+- Repo: `wow-two-sdk-beta.events` · Area: delivery · Type: feature
+- Why: the whole vector behind Ocharo's Telegram delivery: any product picks which events go out, when and through
+  which channel. Telegram through Identity is the first adapter; email and V05's webhooks can follow.
+- Do:
+  - Digest definitions per organization and catalog (`events.admin`): name, schedule (days and times in an IANA zone,
+    such as Monday 09:00 `Asia/Tashkent`), selection (new since the last run, starting within N days, deadline within
+    N days, statuses, formats, cities, tracked only), recipients (Identity `sub`s or an organization role), language
+    (`uz-Latn`, `ru`, `en`), item cap.
+  - A scheduler job runs each due occurrence once (a run row unique on digest and occurrence), renders one message per
+    recipient language (title, dates, city, deadline, a link built from a configured URL template) and hands it to
+    `IDigestDelivery`.
+  - `IDigestDelivery` seam; adapter `IdentityTelegramDigestDelivery` calls I01 with the run's idempotency key; a `log`
+    adapter for local and tests.
+  - Run history: selected count and per-recipient result (`sent`, `not_linked`, `muted`, `failed`); a preview verb
+    renders without sending.
+  - Console page under the catalog (list, editor, run history) and `fe-events` components a product embeds.
+  - Contract, conformance, migration.
+- Done when: integration tests on a fake clock: a Monday 09:00 Tashkent digest runs once at 04:00 UTC and not again
+  for that occurrence after a restart; "new since the last run" skips events the previous run sent; a recipient
+  without a Telegram link reads `not_linked`; the preview's text equals the sent text.
+- Depends: I01 (Telegram adapter only); E25, E33 (sourced events in Latin script before they go out)
+
+### O17 Telegram delivery of Ocharo events on an Ocharo-set schedule
+- Repo: `ocharo-platform` (+ its Wheelhouse dev settings) · Area: events app · Type: feature
+- Why: the developer asked for Ocharo's events to reach the team through the Ocharo bot on a schedule Ocharo sets
+  (2026-11-17).
+- Do:
+  - Events app settings page "Telegram delivery" for organization admins, embedding V07's digest editor for catalog
+    `ocharo-fashion`. Default digest: weekly, Monday 09:00 `Asia/Tashkent`; new events and those starting within
+    30 days, plus deadlines within 14 days; language `uz-Latn`; recipients are the organization's members with a
+    Telegram link.
+  - Links in each message open the Events app's event page.
+  - `deploy.yml`: Events' delivery settings link to Ocharo's Identity, using Events' Identity client with
+    `identity.notices.send` granted in Ocharo's Identity declaration.
+  - On dev: a preview, then one real digest through `@ocharo_dev_bot` to the owner's linked account.
+- Done when: on dev a saved schedule shows its next run in Tashkent time; "send now" delivers one message through
+  `@ocharo_dev_bot` listing the expected events with working links; a member without a Telegram link reads
+  `not_linked` in run history.
+- Depends: I01, V07, E00 (sourced events flowing again)
+
+---
+
+## be sdk
+
+### B01 Lift SignalR.StackExchangeRedis past NU1903
+- Repo: `wow-two-sdk-beta.be` · Area: packages · Type: security fix
+- Why: `Microsoft.AspNetCore.SignalR.StackExchangeRedis` 10.0.3 (GHSA-wr8v-9x5q-ggcm, fixed in 10.0.15), pinned in
+  `src/Directory.Packages.props:49`, has failed Files' `conformance` and `core-latest` jobs daily since 11-12; every be
+  sdk release carries it, `10.0.111-beta` included.
+- Do: pin 10.0.15 or later with its `Microsoft.AspNetCore.*` siblings; release the be sdk; re-pin Files first, then
+  Events, Identity and harvest, per the SDK change loop.
+- Done when: `dotnet list package --vulnerable --include-transitive` in Files reports none and its next `conformance`
+  run is green.
+- Depends: —
+
+---
+
+## Workspace
+
+### W01 Fix the console review's convention edits
+- Repo: `wow-two-ws` · Area: conventions · Type: fix
+- Why: commit `6aceeac` left `conventions/development/frontend/core/lla/constructs/html/global-attributes.md:32` with
+  prose in the Verdict column, and `lla/constructs/tailwind/overflow.md:34` routes truncated text only to `Tooltip`, which
+  touch screens cannot reach; `system/sessions/events-integration/scfd-console/scfd-console-live-edits-handoff.md:96`
+  writes the developer's personal email into this public repo. Two new ecosystem-wide `must`s (a `Tooltip` on every
+  icon-only control; Lucide `ImageOff` for failed images) go past the SCFD-only rule the developer approved.
+- Do: restore a verdict in the cell; give truncated text a touch route (tap to expand, or a sheet); replace the email
+  with a role; set the two `must`s' scope as the developer answers.
+- Done when: on re-read each defect is gone, and the two rules state the scope the developer chose.
+- Depends: the developer's call on scope

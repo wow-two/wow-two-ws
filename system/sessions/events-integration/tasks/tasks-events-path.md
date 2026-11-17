@@ -82,6 +82,12 @@ Ocharo Events dev `0.3.11`, signed in as the owner, read through the app's own A
 - Done when: a new matching Afisha post appears in Ocharo dev within one harvest interval, or the record shows
   every stage healthy with zero new matches.
 - Depends: —
+- Result (2026-11-17, read-only check): no stage stopped. Events polls SCFD every 5 minutes with 0 failures since
+  11-13, and both cursors match SCFD's newest delivery record. 46 new Afisha posts arrived from 11-13 to 11-16 and
+  none passed `ocharo-fashion-v1`; one more event came on 11-16 19:17Z (an off-topic CAEx Build & Co expo). 3 of the 4
+  SCFD events are off-topic (matched on `шелк`, `украшен`, `аксессуар`/`ткани`), which is E02's case. What is left:
+  record this in the events track and delete the row; E01 waits on S18 on dev (no craftfair, anons or uzexpocentre
+  pipeline or subscription exists there).
 
 ### E01 Pull all five default Ocharo SCFD subscriptions into Events
 - Repo: wow-two-sdk-beta.events · Area: intake config · Type: fix

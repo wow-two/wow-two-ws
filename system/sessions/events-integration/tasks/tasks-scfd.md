@@ -78,6 +78,11 @@ These tasks cover SCFD's own side: sources, harvesting, matching, delivery, the 
   - A new integration test runs `rental-terms@1` with a scripted `IChatClient` and stores only evidence-checked terms in `harvest_processing_results`.
   - All tiers pass.
 - Depends: S01
+- Left after v0.2.7 (2026-11-17 review):
+  - the generic engine still routes a model set to a `legacy-model` processor and stores rental results under
+    `saved-reading@1:{model}`; remove the shim (the data is unreleased, so the breaking-changes rule allows it)
+  - rental-terms can never run on a Haven source: the provisioner forces `AiAllowed=false`, the processor requires
+    `true`; resolve it before S14 and S15
 
 ### S04 Give each section one schedule path
 - Repo: wow-two-sdk-beta.harvest · Area: backend · Type: fix
@@ -157,6 +162,72 @@ These tasks cover SCFD's own side: sources, harvesting, matching, delivery, the 
   - `ocharo status --group afisha` (Wheelhouse Run) still shows the 6-hour capture and daily check.
   - Events' `intake check` reads `subscription=ok` for `afisha-fashion` and `afisha-exhibitions`.
 - Depends: S01, S02, S03, S04, S05, S06
+- Left after v0.2.7 (2026-11-17): released and running on `harvest-dev` as `0.2.7+76eec2d`, migrations 008 and 009
+  applied at 06:00Z. The work shipped as 2 feature commits, not slices; accepted as is. The Uzbek and concerts Afisha
+  pipelines have no schedules, as #52 intends. Still open: the source disable/re-enable check and the visual review of
+  the Sources review points R01-R18 on real data, both waiting on S33 (dev serves no console).
+
+## Found in the v0.2.7 review
+
+### S36 Give stage settings one permission
+- Repo: wow-two-sdk-beta.harvest · Area: backend · Type: fix
+- Why: `PUT /api/pipelines/{id}/stages` needs an operator with `sources:manage`
+  (`be/packages/Hosting/Registration/Controllers/PipelinesController.cs:122`), while `PUT /api/pipelines/{id}` writes the
+  same stage settings with only `pipelines:manage` (`:52`, `ModuleRegistrationBroker.cs:500-518`). The console enables
+  stage edits on `pipelines:manage` (`hc/PipelineStageCard.vue:27`, `hc/PipelinePanel.vue:38-39`), so some callers get
+  a `403`.
+- Do:
+  - Both routes check `pipelines:manage` for stage settings, since stages belong to a pipeline; the console gate stays.
+  - The server sends each processor's label with `ProcessorKeys`; `fe-harvest` drops its hard-coded `rental-terms@1`
+    label.
+- Done when: an E2E matrix shows a `pipelines:manage` caller saving stages through both routes (200) and a caller
+  without it refused on both (403); a console test disables the editor exactly when the server would refuse.
+- Depends: —
+
+### S37 Keep each Afisha crawl inside its section and its page limit
+- Repo: wow-two-sdk-beta.harvest · Area: sources · Type: fix
+- Why: since v0.2.6 the Russian Afisha pipelines read 79 pages a run (~5-6 min, completion `exhausted`) against
+  `maxPages: 5` and `maxRequests: 180`; before, 5 pages ended `page_limit` in ~18 s. `AfishaUrls.Sections` gained
+  `concerts`, and `AfishaCaptureReader.cs:146` follows any other category page as a listing, so each section's crawl
+  spills into its siblings: both pipelines walk the same 78 entries every 6 hours, and 32 `ru/concerts` posts entered
+  the Ocharo container from 11-15. That is heavier than the paced posture (#50).
+- Do:
+  - A section's crawl follows only its own category's listing pages.
+  - Trace why `maxPages` stopped binding (probably enumerate work items queued per found category) and make the run
+    stop at the limit.
+  - A replay test from a recorded Afisha listing page that links sibling categories.
+- Done when: the replay test reads 5 pages for the fashion section and ends `page_limit`; on dev the next fashion run
+  reads 5 pages or fewer in under a minute and captures no `ru/concerts` post.
+- Depends: —
+
+### S38 Decide what the marketplace collectors keep about people
+- Repo: wow-two-sdk-beta.harvest · Area: sources (Haven) · Type: decision, then fix
+- Why: the public repo now ships schedulable collectors (every 2 h under `--schedules`): Joymee stores a seller's first
+  and last name, street address and exact coordinates, read from its undocumented app API; BirBir stores seller
+  names.
+- Do, after the developer decides:
+  - either drop names and street addresses and coarsen coordinates to the district, or keep them under a written
+    retention and access rule;
+  - record the posture beside #50's sourcing posture; keep these sources unscheduled on dev until then.
+- Done when: a replay test shows the stored fields match the chosen rule, and the posture is recorded.
+- Depends: the developer's call
+
+### S39 Clear the v0.2.7 review's small findings
+- Repo: wow-two-sdk-beta.harvest · Area: backend, docs, CI · Type: engineering
+- Why: the 2026-11-17 review's low-severity list.
+- Do:
+  - `engineering/planning/version-track/v0.2/v0.2.md`: bring ChatGPT's entries into the iteration and task form, and
+    remove local environment names (`scfd-internal-local-harvest-1`, `localhost:8400`, `$scfd_live`) from this public
+    file.
+  - Run `typecheck` and `format:check` in the active CI workflow.
+  - Fix the CS8604 warning at `RentalTermsProcessingTests.cs:104`; remove the dead `RequiresGrant` /
+    `AwaitingSourceAccess` path.
+  - 008's rollback deletes the staged `discover` rows that old code would run as legacy discovery.
+  - Settings wording matches S04's spec ("Harvested by stages").
+- Done when: CI runs typecheck and format:check green; the build has no new warnings; `grep -rn "localhost:8400\|scfd-internal-local" engineering/` finds nothing.
+- Depends: S03
+
+---
 
 ## Matching and delivery
 
