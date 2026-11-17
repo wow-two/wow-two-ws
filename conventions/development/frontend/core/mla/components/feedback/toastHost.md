@@ -1,6 +1,6 @@
 # ToastHost
 
-*Last updated: 2026-10-02*
+*Last updated: 2026-11-15*
 
 > The one toast viewport — a store, a portal, a stack, and a timer per card.
 > What a host is → [host](../../constructs/visual/host.md).
@@ -28,8 +28,12 @@
 
 - must follow the [host scope](../../constructs/visual/host.md#gate) and the bus's delivery contract.
 
-- must place the toast viewport at `top-right`, respecting the viewport safe area
+- must default the toast viewport to `top-right` and respect the safe area at the selected edge
+- must offset the viewport below a fixed app bar and fit the cards within the available width
 - must show the SDK severity icon beside each notice
 - must keep close as an icon-only control with an accessible label
+- must remove the selected toast's countdown while pinned and restart it at full duration on unpin
+- must offer pin on standard timed toasts by default
+- must keep actual deadlines independent of the stack order and interaction holds
 - must not remove retained history when a toast closes or expires
 - retention and deletion → [NotificationCenterGroup](notificationCenterGroup.md#values).

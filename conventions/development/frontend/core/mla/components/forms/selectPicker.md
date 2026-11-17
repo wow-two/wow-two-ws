@@ -32,7 +32,7 @@
 
 ## Product adoption
 
-- must use the SDK picker for visible application dropdowns; CSS on native `select` cannot style the operating-system popup consistently
+- must use the SDK picker for every application dropdown that sets a value. Visible native `<select>` and `<datalist>` controls are prohibited.
 - must keep popup surfaces, selected indicators, focus, keyboard navigation and disabled handling in the SDK
 - may compose an application wrapper for translated labels and product layout; must not duplicate popup mechanics
 - must pass semantic values to application handlers, preserving number and string identity

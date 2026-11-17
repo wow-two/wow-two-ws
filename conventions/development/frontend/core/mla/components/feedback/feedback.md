@@ -1,6 +1,6 @@
 # Feedback
 
-*Last updated: 2026-10-16*
+*Last updated: 2026-11-14*
 
 > Which report to reach for, and with what values — the application register over the SDK's `feedback/` group.
 > Use case — picking between two reports that both work, or fixing the value one carries here.
@@ -37,6 +37,22 @@
 | [TrendIndicator](trendIndicator.md) | a metric's delta reads as a signed arrow |
 | [TypingIndicator](typingIndicator.md) | someone is composing a message right now |
 | [UndoBar](undoBar.md) | a destructive act stays reversible for a few seconds |
+
+---
+
+## Message placement
+
+| Message | Place |
+|---|---|
+| A command was accepted or failed | One app-level [toast](feedbackToastHost.md) that stays visible across navigation |
+| An invalid field needs correction | [Field error](../../domains/forms/submission.md) beside the input |
+| A task is queued, running or finished | Status on the task or resource, with details in its activity view |
+| A condition affects one region and needs attention | [Alert](alert.md) beside the affected content |
+| A persistent condition affects the whole app | [Banner](banner.md) in the shell |
+
+- must report what the command confirmed, such as `2 harvests queued` when the work runs later.
+- must reserve page-top space for conditions that belong to the page or shell.
+- must use the app toast host for [request failures](../../domains/data/state-and-data.md#error-adaptation).
 
 ---
 

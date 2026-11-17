@@ -20,9 +20,9 @@
 | `<input type="hidden">` | a value submitted but never shown | `use with care` |
 | `<input type="submit">` · `<input type="image">` | a submit control that is not a `<button>` | `banned` |
 | `<textarea>` | a multi-line value | `use` |
-| `<select>` · `<option>` · `<optgroup>` | a native choice from a fixed list | `use` |
+| `<select>` · `<option>` · `<optgroup>` | a native choice from a fixed list | [SDK picker required for visible dropdowns](../../../mla/components/forms/selectPicker.md#product-adoption) |
 | `<fieldset>` · `<legend>` | a named group of controls, disabled together | `use` |
-| `<datalist>` | suggestions over a free-text input | `use with care` |
+| `<datalist>` | suggestions over a free-text input | [SDK picker required for visible dropdowns](../../../mla/components/forms/selectPicker.md#product-adoption) |
 | `<output>` · `<progress>` · `<meter>` | a computed result, a task's progress, a gauge | `use with care` |
 | `disabled` · `readonly` · `required` · `autocomplete` | the native control states | `use` |
 | `<button type="submit">` inside `<form>` | the submit path a form needs to exist | `use` |
