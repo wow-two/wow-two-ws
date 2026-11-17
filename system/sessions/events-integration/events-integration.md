@@ -602,6 +602,16 @@ Developer, 2026-10-24 to 2026-11-10; not reopened.
   - Subscription modes: the design map recommends one `selector` subscription (sources include/exclude, type,
     category → sub-category; a prompt compiled once into editable tags; tags from publisher mapping plus one AI pass
     per post); 14 decision points, 7 the developer's. First asked: one selector or a kind per mode.
+- #70 SCFD v0.2 close (developer, 2026-11-17: "update version docs etc if not updated, analyze if we should close the
+  current version of scfd and what's next"). Audit: all 41 code commits and 12 tags are recorded, but `v0.2.md` has no
+  Verification iteration, 8 open tasks sit in prose, and the public file holds dev ids. Close after: Codex commits its
+  OLX + AI work into v0.2 (developer: "another chat from chatgpt will prep and commit it's latest work now"), `ev-build`
+  applies the corrected doc, finishes S18's dev schedules and S37's dev run, runs the Verification checks; then the
+  developer confirms. Next: v0.3 Adoption (be sdk 112, shared AI SDK, fe 0.0.51 lifts, tooling, source polish), then
+  v0.4 Feature: the subscription selector. ChatGPT resumes in harvest after our Ocharo part is done, and this chat
+  closes then.
+  - The local `:8400` stack ran a stale 11-16 build that cannot report source enablement, so its toggles were off;
+    the orchestrator rebuilt it from tag `v0.2.11` (migrations 008-010 applied, healthy).
 
 ## Contracts
 
