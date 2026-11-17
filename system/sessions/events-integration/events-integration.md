@@ -576,9 +576,17 @@ Developer, 2026-10-24 to 2026-11-10; not reopened.
     schedule), after stage 3 of the pull order.
   - Order (developer, 2026-11-17: "we can do integration first then work on registries of other 700 sources for
     ocharo"): stages 1-4 and Telegram delivery first, then ~700 more source registries.
-  - Lanes: `ev-scfd-live`, `ev-scfd` and `ev-wheelhouse` archived; `ev-ai` kept for 11-18. Proposed `ev-build`
-    (`ocharo - scfd integration build`, Opus): the backend fixes, stages 2-3 and Telegram delivery; ChatGPT keeps the
-    fe sdk and the console frontend.
+  - Lanes: `ev-scfd-live`, `ev-scfd` and `ev-wheelhouse` archived; `ev-ai` kept for 11-18. `ev-build`
+    (`ocharo - scfd integration build`, `local_a56742f7-fe6e-408a-be3f-eea2aa3efa5f`, Opus) takes the backend fixes,
+    stages 2-3 and Telegram delivery. ChatGPT's sessions are deleted (developer, 2026-11-17: "I had deleted both
+    sessions in chatgpt actually, so you can use agents to complete that work if needed"), so `ev-fe` (`ocharo - fe sdk
+    toast release`, `local_54bc2c82-cad7-4d53-abe3-00bc92ae4475`, Opus) takes F01-F04, F11, F05-F10; the console tasks
+    S27-S32 are unassigned.
+- #68 Subscription modes (developer, 2026-11-17): "subscribers to subscribe with 2 modes - either use those categories
+  and types of posts ( or should I say category and sub category ) or subscribe with a prompt so that our own ai in scfd
+  chooses matching tags to that prompt"; plus "choosing specific sources as well ... choose tags with inclusion /
+  exclusion of sources and prompt with inclusion / exclusion as well". `ev-build` holds E01, E02, S09, S10 and S11
+  until the design settles; a read-only design map is in progress.
 
 ## Contracts
 
