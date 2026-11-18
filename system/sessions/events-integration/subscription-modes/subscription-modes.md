@@ -20,6 +20,11 @@
 - Proposed in `ev-ai`, not decided: one canonical shape per (kind, category), a base type shape plus a category block.
   It is a child of point 2.
 - Open with the developer: point 1 (one selector, or a kind per mode).
+- Entity model (developer in `ev-ai`, 2026-11-18: "we need entity type based architecture and we'll break it down as
+  such later"; "basically one entity / one source of truth for events we need"; due end of November): draft in
+  [scfd-entity-model.md](../../../../ideas/scfd-entity-model.md). Proposed there, open: posts and entities joined by a
+  role relation; a posts feed and an entity-changes feed a subscription can pick; point 2's type axis split into
+  entity type and post form. `ev-ai` streams those points and reports each one that settles.
 
 
 *Written 2026-11-17, read-only, for events-integration #68. Code: harvest `main` `559c7e2` (clean tree), events `73b390e`
