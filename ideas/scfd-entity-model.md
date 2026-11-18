@@ -8,7 +8,9 @@ deadline 2026-11-30. Builds on [scfd-ai-layers](scfd-ai-layers.md) (two AI layer
 
 - ✅ #1 entity-type architecture: a basic collector with entity-type modules on top (developer, 2026-11-18)
 - ✅ #2 events become one record per real event, with history by year and a predicted next edition (developer, 2026-11-18)
-- ⬜ #3 posts and entities are two things, joined by a relation — proposed
+- ✅ #3 posts and entities are two things, joined by a relation (developer, 2026-11-18: "looks perfect to me")
+- ✅ #3.1 the relation's role: four roles, cancellations inside `update` (developer, 2026-11-19: "great")
+- ✅ #9 every AI-chosen value has an unsure way out that flags the post for a prompt or enum fix (developer, 2026-11-19)
 - ⬜ #4 the entity-type list — proposed
 - ⬜ #5 the post-form list — proposed
 - ⬜ #6 domains and subdomains — proposed
@@ -38,22 +40,32 @@ deadline 2026-11-30. Builds on [scfd-ai-layers](scfd-ai-layers.md) (two AI layer
   makes the cadence monthly or quarterly.
 - Uses: analyze events on a calendar, predict the next one, audit recurring events.
 
-## #3 Posts and entities (proposed)
+## #3 Posts and entities
 
 - A post is what a source published; an entity is the real-world thing it is about. Many posts, many sources, one
-  entity.
-- A relation joins them, with a role:
+  entity (developer, 2026-11-18: "looks perfect to me").
+- The Met Gala case: the post is news that mentions the Met Gala 2027 edition; whether Ocharo cares is a question about
+  the entity, and the post stays in the post feed as context for it (developer: "100% agreed").
+- The relation's role is refined field by field, one per iteration (developer: "we'll work in a few iterations, mark it
+  complete then work on other fields").
 
-| Role | The post… | Example |
-|---|---|---|
-| `announces` | names a future edition: dates, place, how to take part | "Visa Fashion Week Tashkent 2026 will unite…" |
-| `reports` | describes an edition that happened | "First day of TFT Expo 2026. Photos" |
-| `mentions` | is about something else, or about the entity without dates | "Met Gala 2027 theme announced" |
-| `lists` | is the entity's own offer | an OLX rental listing |
-| `calls` | opens applications or a deadline | "Applications open for the XI Tashkent Biennale" |
+### #3.1 Role
 
-- The Met Gala case: the post is news that `mentions` the Met Gala 2027 edition. Whether Ocharo cares is a question
-  about the entity (an event Ocharo cannot attend), not about the post; the post stays in the post feed as context.
+Iteration 2 listed 15 roles. The developer asked to merge them: "one for first announcement, one for any update including
+cancellations, mentions only mention like not announcement yet". Four roles cover every entity type:
+
+| Role | The post… | Effect on the entity | Folds in from iteration 2 |
+|---|---|---|---|
+| `announcement` | states the entity's facts: an edition's dates and place, an offer's terms, a call's deadline | the earliest one creates the entity or confirms a predicted one; a later one with the same facts changes nothing | `announcement`, `listing`, `reminder`, `promotion` when it carries the facts |
+| `update` | changes a fact already known | applies each change in `changes`, keeping the old value in history | `program`, `registration`, `postponement`, `cancellation`, `extension`, `result`, `withdrawal` |
+| `report` | covers an edition while or after it happens | marks the edition held | `report`, `review` of a held edition |
+| `mention` | refers to the entity without its facts, often before any announcement | none; attaches as context | `mention`, `promotion` or `review` without facts |
+
+- An `update` relation names what changed, one or more of: `dates` (a postponement), `place`, `price`, `program`,
+  `registration`, `deadline`, `results`, `status` (`cancelled`, `postponed`, `sold-out`, `withdrawn`).
+- "First announcement" is computed, not tagged: the earliest `announcement` relation of an entity.
+- A digest post holds one relation per entity it lists.
+- A source's own lifecycle signals, such as an OLX link going gone or relisted, stay link states.
 
 ## #4 Entity types (proposed)
 
@@ -94,3 +106,15 @@ deadline 2026-11-30. Builds on [scfd-ai-layers](scfd-ai-layers.md) (two AI layer
 - The post feed stays as today: every collected post with its tags.
 - The entity feed carries entity changes: created, edition added, dates confirmed, predicted, merged.
 - A subscription chooses posts, entities or both; Ocharo's calendar reads the entity feed.
+
+## #9 Unsure flags
+
+- The developer: "if unsure - we need a way to just flag the post so that we can fix the prompt, add a new enum if
+  needed".
+- Every value the AI picks from a list (role, entity type, post form, domain, change kind) allows `unsure`, with a short
+  reason and, when it fits, a proposed new value.
+- A flagged post still gets its other fields; only the unsure field waits.
+- Flags gather in a review list per use case and field, counted by proposed value, so a value proposed often becomes a
+  new enum entry and a new prompt version, checked by an eval before it ships.
+- Where it lives: the AI library keeps the flags beside the inference log, so every product's prompts get the same loop
+  (proposed; built with the first SCFD use case that needs it).
