@@ -11,9 +11,9 @@ deadline 2026-11-30. Builds on [scfd-ai-layers](scfd-ai-layers.md) (two AI layer
 - ✅ #3 posts and entities are two things, joined by a relation (developer, 2026-11-18: "looks perfect to me")
 - ✅ #3.1 the relation's role: four roles, cancellations inside `update` (developer, 2026-11-19: "great")
 - ✅ #9 every AI-chosen value has an unsure way out that flags the post for a prompt or enum fix (developer, 2026-11-19)
-- ⬜ #4 the entity-type list — proposed
-- ⬜ #5 the post-form list — proposed
-- ⬜ #6 domains and subdomains — proposed
+- ✅ #4 entity types: `event` and `listing` now; `opportunity` later with job boards (developer, 2026-11-19)
+- ✗ #5 a separate post-form field: dropped, since the relation's role plus the entity type say what a post is
+- 🔄 #6 domains and subdomains — proposal under review
 - ⬜ #7 event identity: editions, series, cadence — proposed
 - ⬜ #8 two feeds: posts and entities — proposed
 
@@ -67,20 +67,17 @@ cancellations, mentions only mention like not announcement yet". Four roles cove
 - A digest post holds one relation per entity it lists.
 - A source's own lifecycle signals, such as an OLX link going gone or relisted, stay link states.
 
-## #4 Entity types (proposed)
+## #4 Entity types
 
-| Type | What it is | Sources seen |
-|---|---|---|
-| `event` | one edition of a happening, with dates and a place | Afisha, iTicket, ShowGo, expo sites, Instagram |
-| `event-series` | the recurring event its editions belong to | derived from editions (#7) |
-| `listing` | an offer: a good, a property, a vehicle, a service or a job, with its own subtype | OLX, BirBir, Joymee, Domtut |
-| `organization` | an organizer, brand, venue operator or publisher | named by events and listings |
-| `place` | a venue or address | named by events and listings |
-| `opportunity` | a call, competition entry, grant or tender with a deadline | Hunarmand calls, contests, biennale calls |
+- Two now (developer, 2026-11-19: "I can only see 2 value things here - event and listing"):
+  - `event`: something organized, with dates and a place. A recurring event is one record; each run of it is an
+    occurrence inside that record (#7), so the history by year needs no second type.
+  - `listing`: an offer of a good, a property, a vehicle or a service.
+- `opportunity` (jobs, calls, grants) comes later, with job-board sources (developer: "we can source collect job boards
+  for this but I don't need this right now").
+- News is not an entity type: an article is a post that announces, updates, covers or mentions entities.
 
-- News has no entity of its own: an article is a post that `mentions` or `reports` entities.
-
-## #5 Post forms (proposed)
+## #5 Post forms (dropped)
 
 - `announcement`, `report`, `news`, `listing`, `call`, `schedule`, `review`, `promo`, `interview`, `gallery`
 - The tagging pass (layer 1) gives the form; the relation role (#3) follows from form plus entity.
