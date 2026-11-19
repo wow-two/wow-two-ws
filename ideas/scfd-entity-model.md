@@ -14,8 +14,8 @@ deadline 2026-11-30. Builds on [scfd-ai-layers](scfd-ai-layers.md) (two AI layer
 - ✅ #4 entity types: `event` and `listing` now; `opportunity` later with job boards (developer, 2026-11-19)
 - ✗ #5 a separate post-form field: dropped, since the relation's role plus the entity type say what a post is
 - ✅ #6 domains: one list for every entity type, built on IAB Content Taxonomy 3.1 tier 1 with our own labels (developer, 2026-11-19: "confirmed one list of iab with different labels")
-- 🔄 #6.1 which IAB tier-1 entries are domains — proposal under review
-- ⬜ #6.2 subdomains — after #6.1
+- ✅ #6.1 34 of IAB's 37 tier-1 entries are domains; `Events`, `Genres` and `Sensitive Topics` are not (developer, 2026-11-19: "yes correct")
+- 🔄 #6.2 subdomains and exact searches such as textile — proposal under review
 - ⬜ #7 event identity: editions, series, cadence — proposed
 - ⬜ #8 two feeds: posts and entities — proposed
 
@@ -69,6 +69,8 @@ cancellations, mentions only mention like not announcement yet". Four roles cove
 - A digest post holds one relation per entity it lists.
 - A source's own lifecycle signals, such as an OLX link going gone or relisted, stay link states.
 - `report` keeps its name; `coverage` was weighed and found vaguer (developer, 2026-11-19: "we can stick to report").
+- The same author's later ad or edit is an `update`; another author's ad is an `announcement` (developer, 2026-11-19:
+  "from the same author - update, from others - announcement").
 - A second ad for the same listing, by another author or on another site, is another `announcement`; deduplication is
   the binding, not a role. Each announcement keeps its own author, price and link, so the listing shows every offer and
   its price spread; the earliest is the first announcement.
@@ -100,7 +102,7 @@ cancellations, mentions only mention like not announcement yet". Four roles cove
 - Basis: IAB Tech Lab Content Taxonomy 3.1 tier 1 (37 entries, [IAB file](https://github.com/InteractiveAdvertisingBureau/Taxonomies/blob/main/Content%20Taxonomies/Content%20Taxonomy%203.1.tsv)),
   each domain keyed by our own slug, carrying the IAB ID, with labels in ru, uz and en.
 
-### #6.1 Which entries are domains (proposed)
+### #6.1 Which entries are domains
 
 - Keep 34: Attractions, Automotive, Books and Literature, Business and Finance, Careers, Communication, Crime, Disasters,
   Education, Entertainment, Family and Relationships, Fine Art, Food & Drink, Healthy Living, Hobbies & Interests,
@@ -110,10 +112,21 @@ cancellations, mentions only mention like not announcement yet". Four roles cove
 - Leave out 3 that are not subjects: `Events` (our entity type), `Genres` (media genres), `Sensitive Topics` (a
   brand-safety flag).
 
-### #6.2 Subdomains (next)
+### #6.2 Subdomains and exact searches (proposed)
 
-- IAB tier 2 is the start; it misses what Ocharo needs: Style & Fashion's 10 children have no textile, and handmade sits
-  under Hobbies & Interests › Arts and Crafts. Our own subdomains extend it where a subscriber needs them.
+The developer: "how one subscriber can search for textile exactly?" IAB has no textile node: the closest are
+Business and Finance › Industries › Apparel Industry (`113`, the trade) and Hobbies & Interests › Arts and Crafts ›
+Needlework (`253`, the craft). Three layers answer it:
+
+| Layer | What it is | Textile example |
+|---|---|---|
+| category | closed tree: IAB tiers 1-4 plus our own extension nodes, each with an ID and ru, uz, en labels; a post or entity carries a primary and secondary categories | our node Style & Fashion › Textiles (fabrics, yarn, weaving, atlas and ikat), beside IAB `113` for a textile trade fair |
+| topic | open tags the tagging pass writes in normalized form, merging ru, uz and en words | `textile` from "текстиль", "ткань", "to'qimachilik", "atlas" |
+| prompt | a subscriber's sentence compiled once into categories and topics (selector design) | "textile trade fairs in Central Asia" |
+
+- A subscriber picks the Textiles node and gets exactly that; a topic catches what no node names yet.
+- Topics that recur under no node become proposed extension nodes in the unsure-flag review (#9).
+- IAB itself marks rows with an `Extension` column, so our nodes sit in the same table under our own IDs.
 
 ## #7 Event identity (proposed)
 
