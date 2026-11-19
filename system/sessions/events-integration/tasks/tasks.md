@@ -46,6 +46,5 @@ dependencies. Each repo's backlog carries one row per task under `## Specced nex
 - S16: promote AI relevance into Ocharo's delivery after the shadow week.
 - S34: drop IP-lease pools and CAPTCHA solving from the public image.
 - E31, E32: a triage view for untracked sourced events; a per-source thumbnail policy.
-- F01: `engineering/features.md` in the fe sdk, asked for in ChatGPT, is against the version-track convention.
 - S38: what the Joymee and BirBir collectors may keep about sellers (names, street address, exact coordinates).
 - W01: whether the two new `must`s (tooltip on icon-only controls, `ImageOff`) apply ecosystem-wide or to SCFD only.
