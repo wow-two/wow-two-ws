@@ -158,7 +158,7 @@ Needlework (`253`, the craft). Three layers answer it:
 
 ## Build plan (app-t-010)
 
-Held here until SCFD v0.2 closes; each shipped step is recorded in harvest's v0.2 track in the commit that ships it, and
+Shipped so far, each recorded in harvest's v0.2 track: A (`51ae0da`), B (`46f7076`), C (`6b0e922`), D (`ed3f2f4`); all off by default until enabled on a target. Held here until SCFD v0.2 closes; each shipped step is recorded in harvest's v0.2 track in the commit that ships it, and
 the remaining steps move to the next version's track then. Harvest today (HEAD `f5a75a0`): a Process stage runs
 processors on captures (`harvest_processing_results`), nothing writes `PostEnvelope.Tags` or `Classification`, no entity
 exists beyond a post, and S09 (the selector) is the subscription design's lane.
