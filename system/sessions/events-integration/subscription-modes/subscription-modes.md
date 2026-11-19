@@ -19,6 +19,9 @@
   - geography stays a location filter, not a tag
 - Proposed in `ev-ai`, not decided: one canonical shape per (kind, category), a base type shape plus a category block.
   It is a child of point 2.
+- Points 2-4 settled in `ev-ai` (2026-11-18/19): IAB 3.1 tier-1 domains (minus `Events`, `Genres`, `Sensitive Topics`)
+  with subdomains, open English topics, entity types `event` and `listing` only (`opportunity` later); every tag,
+  topic and label English only. Layer 1's keys are the selector's keys.
 - Open with the developer: point 1 (one selector, or a kind per mode).
 - Entity model (developer in `ev-ai`, 2026-11-18: "we need entity type based architecture and we'll break it down as
   such later"; "basically one entity / one source of truth for events we need"; due end of November): draft in
