@@ -612,6 +612,14 @@ Developer, 2026-10-24 to 2026-11-10; not reopened.
   closes then.
   - The local `:8400` stack ran a stale 11-16 build that cannot report source enablement, so its toggles were off;
     the orchestrator rebuilt it from tag `v0.2.11` (migrations 008-010 applied, healthy).
+- #71 SCFD v0.2 grew an AI layer (2026-11-18/19): `ev-ai` built Layer 1 tagging (IAB 3.1 domains, English topics,
+  `titleEn`), demand-driven extraction, event and listing entities with an entity change feed, evals, relevance and
+  estimated dates (S15-S17 replaced) and per-source `modelProcessing` modes, released through `v0.2.27`, with AI on
+  for harvest-dev. The first close run (`ev-build`, 23 of 27 checks) predates it, so `ev-build` brings `v0.2.md` into
+  convention over Iterations 10-19, adds their Verification checks and re-runs them (developer, 2026-11-19: "should we
+  close v0.2 ? can you update version files as well ?"). Recommendation: close after that pass, moving every open task
+  (the AI iterations' and Haven's blocked ones) to the next Feature version: entities and the subscription selector,
+  after a short v0.3 Adoption.
 
 ## Contracts
 
