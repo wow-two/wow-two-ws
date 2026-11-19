@@ -22,7 +22,12 @@
 - Points 2-4 settled in `ev-ai` (2026-11-18/19): IAB 3.1 tier-1 domains (minus `Events`, `Genres`, `Sensitive Topics`)
   with subdomains, open English topics, entity types `event` and `listing` only (`opportunity` later); every tag,
   topic and label English only. Layer 1's keys are the selector's keys.
-- Open with the developer: point 1 (one selector, or a kind per mode).
+- Point 1 settled (developer, relayed by `ev-ai` 2026-11-19): one selector each subscriber sets — "scfd mustn't have
+  any prompts specific for products, it's purpose is to just analyze the type of event"; "client must be able to
+  configure what it needs dynamically right ?". Ocharo's selector: `event` AND (`style-fashion` excluding
+  `style-fashion/beauty`, or topics `textile`, `ikat`, `garment`); the beauty exclusion waits on the developer's word.
+  Built by the `ev-selector` lane with the map's picks for points 8-11 and 14; still the developer's: 7 (prompt-mode
+  subscriptions) and 13 (the shadow-to-live switch).
 - Entity model (developer in `ev-ai`, 2026-11-18: "we need entity type based architecture and we'll break it down as
   such later"; "basically one entity / one source of truth for events we need"; due end of November): draft in
   [scfd-entity-model.md](../../../../ideas/scfd-entity-model.md). Proposed there, open: posts and entities joined by a
