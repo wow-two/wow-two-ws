@@ -15,7 +15,8 @@ deadline 2026-11-30. Builds on [scfd-ai-layers](scfd-ai-layers.md) (two AI layer
 - ✗ #5 a separate post-form field: dropped, since the relation's role plus the entity type say what a post is
 - ✅ #6 domains: one list for every entity type, built on IAB Content Taxonomy 3.1 tier 1 with our own labels (developer, 2026-11-19: "confirmed one list of iab with different labels")
 - ✅ #6.1 34 of IAB's 37 tier-1 entries are domains; `Events`, `Genres` and `Sensitive Topics` are not (developer, 2026-11-19: "yes correct")
-- 🔄 #6.2 subdomains and exact searches such as textile — proposal under review
+- ✅ #6.2 subdomains: IAB tiers plus our own extension nodes when a subscriber needs one, beside open topics; textile is parked until a subscriber needs it (developer, 2026-11-19: "since we don't textile right now, let's move on")
+- ✅ #6.3 tags, topics and labels are English only (developer, 2026-11-19: "let's stick to en tags only actually since subscribers set this once via cli or smth")
 - ⬜ #7 event identity: editions, series, cadence — proposed
 - ⬜ #8 two feeds: posts and entities — proposed
 
@@ -100,7 +101,7 @@ cancellations, mentions only mention like not announcement yet". Four roles cove
 - One list serves events and listings alike: a `fashion` domain holds fashion weeks and clothing ads, so Ocharo can
   follow both. Type-specific detail, such as OLX's category path or an event's format, is a later field of its type.
 - Basis: IAB Tech Lab Content Taxonomy 3.1 tier 1 (37 entries, [IAB file](https://github.com/InteractiveAdvertisingBureau/Taxonomies/blob/main/Content%20Taxonomies/Content%20Taxonomy%203.1.tsv)),
-  each domain keyed by our own slug, carrying the IAB ID, with labels in ru, uz and en.
+  each domain keyed by our own slug, carrying the IAB ID, with an English label.
 
 ### #6.1 Which entries are domains
 
@@ -112,7 +113,7 @@ cancellations, mentions only mention like not announcement yet". Four roles cove
 - Leave out 3 that are not subjects: `Events` (our entity type), `Genres` (media genres), `Sensitive Topics` (a
   brand-safety flag).
 
-### #6.2 Subdomains and exact searches (proposed)
+### #6.2 Subdomains and exact searches
 
 The developer: "how one subscriber can search for textile exactly?" IAB has no textile node: the closest are
 Business and Finance › Industries › Apparel Industry (`113`, the trade) and Hobbies & Interests › Arts and Crafts ›
@@ -120,8 +121,8 @@ Needlework (`253`, the craft). Three layers answer it:
 
 | Layer | What it is | Textile example |
 |---|---|---|
-| category | closed tree: IAB tiers 1-4 plus our own extension nodes, each with an ID and ru, uz, en labels; a post or entity carries a primary and secondary categories | our node Style & Fashion › Textiles (fabrics, yarn, weaving, atlas and ikat), beside IAB `113` for a textile trade fair |
-| topic | open tags the tagging pass writes in normalized form, merging ru, uz and en words | `textile` from "текстиль", "ткань", "to'qimachilik", "atlas" |
+| category | closed tree: IAB tiers 1-4 plus our own extension nodes, each with an ID and an English label; a post or entity carries a primary and secondary categories | our node Style & Fashion › Textiles (fabrics, yarn, weaving, atlas and ikat), beside IAB `113` for a textile trade fair |
+| topic | open English tags the tagging pass writes in normalized form, whatever the post's language | `textile` from "текстиль", "ткань", "to'qimachilik", "atlas" |
 | prompt | a subscriber's sentence compiled once into categories and topics (selector design) | "textile trade fairs in Central Asia" |
 
 - A subscriber picks the Textiles node and gets exactly that; a topic catches what no node names yet.
