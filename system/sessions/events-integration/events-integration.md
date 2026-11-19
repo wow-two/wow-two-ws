@@ -624,6 +624,20 @@ Developer, 2026-10-24 to 2026-11-10; not reopened.
     challenge, provider key, Meta grant, eval run waiting on S33); 16 tasks open. Close timing (developer, 2026-11-19):
     "only after "ocharo - ai classification" finishs it's job fully"; then `ev-build` re-runs the checks and the
     developer confirms.
+- #72 Ocharo's events logic and SCFD's state (2026-11-19/20):
+  - Ocharo events review (`tasks/tasks-ocharo-events.md`, OE01-OE12): `ev-build` shipped OE03-OE08 and OE12, read back
+    on dev (Ocharo `v0.3.25`); OE01-OE02 folded into the selector; OE09-OE10 wait on the entity model; OE11 later.
+  - Selector: one client-set selector per subscription (developer: "client must be able to configure what it needs
+    dynamically right ?"), built by `ev-build` (developer: "maybe build chat analzes and implements with sonnet ?").
+    Ocharo's: `event` AND (`style-fashion` except beauty, personal care and body art, or clothing topics such as
+    `clothing`, `textile`, `footwear`, `ikat`, `garment`), past reports out; beauty only without clothing (developer:
+    "we can exclude them IF they don't have any clothing related things planned").
+  - `ev-ai` finished SCFD's AI layer (harvest-dev `v0.2.37`); open: labelled samples (the developer), shadow week,
+    entities review, native structured output, Haven utilities words. The developer wants AI evals and stats console
+    pages from a separate SCFD orchestrator.
+  - Source health (developer: "first we'll analyze and fix this for wired sources first then for all 700+ sources
+    meant for ocharo"): 7 of 86 failed or partial runs are real (ANONS behind a Cloudflare challenge); Afisha has read
+    no new post since S37; `ev-build` fixes the planner, ANONS pacing and the console labels before the harvest week.
 
 ## Contracts
 
