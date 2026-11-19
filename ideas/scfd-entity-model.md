@@ -13,7 +13,9 @@ deadline 2026-11-30. Builds on [scfd-ai-layers](scfd-ai-layers.md) (two AI layer
 - ✅ #9 every AI-chosen value has an unsure way out that flags the post for a prompt or enum fix (developer, 2026-11-19)
 - ✅ #4 entity types: `event` and `listing` now; `opportunity` later with job boards (developer, 2026-11-19)
 - ✗ #5 a separate post-form field: dropped, since the relation's role plus the entity type say what a post is
-- 🔄 #6 domains and subdomains — proposal under review
+- ✅ #6 domains: one list for every entity type, built on IAB Content Taxonomy 3.1 tier 1 with our own labels (developer, 2026-11-19: "confirmed one list of iab with different labels")
+- 🔄 #6.1 which IAB tier-1 entries are domains — proposal under review
+- ⬜ #6.2 subdomains — after #6.1
 - ⬜ #7 event identity: editions, series, cadence — proposed
 - ⬜ #8 two feeds: posts and entities — proposed
 
@@ -67,6 +69,9 @@ cancellations, mentions only mention like not announcement yet". Four roles cove
 - A digest post holds one relation per entity it lists.
 - A source's own lifecycle signals, such as an OLX link going gone or relisted, stay link states.
 - `report` keeps its name; `coverage` was weighed and found vaguer (developer, 2026-11-19: "we can stick to report").
+- A second ad for the same listing, by another author or on another site, is another `announcement`; deduplication is
+  the binding, not a role. Each announcement keeps its own author, price and link, so the listing shows every offer and
+  its price spread; the earliest is the first announcement.
 - Listings use `announcement` (the ad) and `update` (a new price or terms, a "sold" post); `mention` is rare and
   `report` never applies, since a listing is not held. A re-captured ad whose price changed is an `update` read from the
   revision diff, with no model call.
@@ -76,7 +81,9 @@ cancellations, mentions only mention like not announcement yet". Four roles cove
 - Two now (developer, 2026-11-19: "I can only see 2 value things here - event and listing"):
   - `event`: something organized, with dates and a place. A recurring event is one record; each run of it is an
     occurrence inside that record (#7), so the history by year needs no second type.
-  - `listing`: an offer of a good, a property, a vehicle or a service.
+  - `listing`: an offer of a good, a property, a vehicle or a service. Like an event, it is one record across sources
+    (developer, 2026-11-19: "we'll need a single entity just like events for dedup here as well"): every ad for the same
+    flat or item, by any author on any site, binds to it.
 - `opportunity` (jobs, calls, grants) comes later, with job-board sources (developer: "we can source collect job boards
   for this but I don't need this right now").
 - News is not an entity type: an article is a post that announces, updates, covers or mentions entities.
@@ -86,12 +93,27 @@ cancellations, mentions only mention like not announcement yet". Four roles cove
 - `announcement`, `report`, `news`, `listing`, `call`, `schedule`, `review`, `promo`, `interview`, `gallery`
 - The tagging pass (layer 1) gives the form; the relation role (#3) follows from form plus entity.
 
-## #6 Domains (proposed)
+## #6 Domains
 
-- Domains reuse the selector design's 14 subject areas (category → sub-category) so one vocabulary serves tags,
-  subscriptions and entities: fashion and crafts, arts and culture, music, business and trade, tech, medicine and
-  health, education, food, sport, real estate, auto, tourism, kids and family, other.
-- Fashion's subdomains: apparel, textile, accessories and jewelry, handmade and crafts, design, beauty.
+- One list serves events and listings alike: a `fashion` domain holds fashion weeks and clothing ads, so Ocharo can
+  follow both. Type-specific detail, such as OLX's category path or an event's format, is a later field of its type.
+- Basis: IAB Tech Lab Content Taxonomy 3.1 tier 1 (37 entries, [IAB file](https://github.com/InteractiveAdvertisingBureau/Taxonomies/blob/main/Content%20Taxonomies/Content%20Taxonomy%203.1.tsv)),
+  each domain keyed by our own slug, carrying the IAB ID, with labels in ru, uz and en.
+
+### #6.1 Which entries are domains (proposed)
+
+- Keep 34: Attractions, Automotive, Books and Literature, Business and Finance, Careers, Communication, Crime, Disasters,
+  Education, Entertainment, Family and Relationships, Fine Art, Food & Drink, Healthy Living, Hobbies & Interests,
+  Holidays, Home & Garden, Law, Medical Health, Personal Celebrations & Life Events, Personal Finance, Pets, Politics,
+  Pop Culture, Real Estate, Religion & Spirituality, Science, Shopping, Sports, Style & Fashion, Technology & Computing,
+  Travel, Video Gaming, War and Conflicts.
+- Leave out 3 that are not subjects: `Events` (our entity type), `Genres` (media genres), `Sensitive Topics` (a
+  brand-safety flag).
+
+### #6.2 Subdomains (next)
+
+- IAB tier 2 is the start; it misses what Ocharo needs: Style & Fashion's 10 children have no textile, and handmade sits
+  under Hobbies & Interests › Arts and Crafts. Our own subdomains extend it where a subscriber needs them.
 
 ## #7 Event identity (proposed)
 
