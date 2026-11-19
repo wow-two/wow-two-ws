@@ -157,7 +157,8 @@ class SetupTests(unittest.TestCase):
             calls.append((argv, input))
             return mock.Mock(returncode=0, stderr="", stdout="")
 
-        with mock.patch.object(wow2.subprocess, "run", run), mock.patch.object(wow2, "link_on_path", lambda: ""):
+        with mock.patch.object(wow2.subprocess, "run", run), mock.patch.object(wow2, "link_on_path", lambda: ""), \
+                mock.patch.object(wow2, "check", lambda credentials: "key reaches the console"):
             out = wow2.cmd_setup(args("setup", "--url", "https://wheelhouse.example.ts.net/"), ask=lambda prompt: KEY)
         self.assertEqual([argv for argv, _ in calls], [["security", "-i"], ["security", "-i"]])
         self.assertIn("-a url", calls[0][1])
@@ -165,6 +166,17 @@ class SetupTests(unittest.TestCase):
         self.assertIn("-a key", calls[1][1])
         self.assertTrue(all(KEY not in " ".join(argv) for argv, _ in calls), "the key never reaches argv")
         self.assertNotIn(KEY, out)
+        self.assertIn("key reaches the console", out)
+
+    def test_setup_keeps_the_key_and_says_so_when_the_check_fails(self):
+        def refuse(credentials):
+            raise wow2.CliError("403: the stored key does not grant settings:write")
+
+        ok = mock.Mock(returncode=0, stderr="", stdout="")
+        with mock.patch.object(wow2.subprocess, "run", return_value=ok), mock.patch.object(wow2, "link_on_path", lambda: ""), \
+                mock.patch.object(wow2, "check", refuse):
+            out = wow2.cmd_setup(args("setup", "--url", "https://wheelhouse.example.ts.net"), ask=lambda prompt: KEY)
+        self.assertIn("stored, but the check failed: 403", out)
 
     def test_setup_refuses_a_malformed_key_or_a_plain_http_url(self):
         with mock.patch.object(wow2.subprocess, "run") as run:

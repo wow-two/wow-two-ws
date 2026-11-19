@@ -172,6 +172,10 @@ def cmd_setup(args, ask=getpass.getpass) -> str:
     keychain_write("key", key)
     lines = [f"stored the console URL and key {key[:11]}… in the Keychain ({KEYCHAIN_SERVICE})"]
     lines.append(link_on_path())
+    try:
+        lines.append(check(Credentials(url, key)))
+    except CliError as error:
+        lines.append(f"stored, but the check failed: {error}")
     return "\n".join(line for line in lines if line)
 
 
@@ -192,6 +196,10 @@ def link_on_path() -> str:
 
 
 def cmd_check(args, credentials: Credentials, opener=urllib.request.urlopen) -> str:
+    return check(credentials, opener)
+
+
+def check(credentials: Credentials, opener=urllib.request.urlopen) -> str:
     # An empty save is refused by validation (400) only after the key passed authentication and its scope.
     try:
         save_settings(credentials, "wow2-check", [], opener)
