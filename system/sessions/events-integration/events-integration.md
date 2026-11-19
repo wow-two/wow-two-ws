@@ -638,6 +638,18 @@ Developer, 2026-10-24 to 2026-11-10; not reopened.
   - Source health (developer: "first we'll analyze and fix this for wired sources first then for all 700+ sources
     meant for ocharo"): 7 of 86 failed or partial runs are real (ANONS behind a Cloudflare challenge); Afisha has read
     no new post since S37; `ev-build` fixes the planner, ANONS pacing and the console labels before the harvest week.
+- #73 What's left and the calendar (2026-11-20). The developer: "close after the selector, and we'll analyze what's
+  left in the scfd or ocharo in our integration, then work on ocharo itself to refine a few things - first how events
+  are displayed there, search filtering, favoring event entity and post entity, and need to analyze where we can build
+  overall calendar".
+  - [tasks/integration-whats-left.md](tasks/integration-whats-left.md): of 131 task ids, 60 shipped, 56 open, 15
+    superseded. `ev-build` takes E17 (before the selector switch), E23 with E24's stale half, E18, E29 and the OE
+    read-backs, and a Sonnet sweep of 22 stale backlog rows.
+  - [calendar/ocharo-calendar-analysis.md](calendar/ocharo-calendar-analysis.md): recommends one main Ocharo calendar
+    fed by each service: a schedule-feed contract in the be sdk, the fe sdk's calendar component styled per app, and a
+    thin `ocharo-calendar` host; first slice CAL01-CAL04 (Events and Marketing feeds). Asked of the developer.
+  - SCFD v0.2 closes after the selector (developer: "yes close after the selector"); workflow sync moves from admin
+    page visits to deploy time; W01's email and two convention defects fixed (`bfa2269`).
 
 ## Contracts
 
