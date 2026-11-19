@@ -11,6 +11,7 @@ dependencies. Each repo's backlog carries one row per task under `## Specced nex
 | [tasks-scfd.md](tasks-scfd.md) | S01-S39 | SCFD's own side: finishing ChatGPT's uncommitted work, sources, matching, delivery, console, release |
 | [tasks-events-path.md](tasks-events-path.md) | E00-E33 | SCFD → WoW2 Events → Ocharo Events: field map, live dev check, intake, facts, duplicates, tests |
 | [tasks-platform.md](tasks-platform.md) | O01-O17, F01-F11, A01-A08, V01-V07, I01, B01, W01 | Ocharo services and prod release, fe sdk, AI, Events server, Telegram delivery, be sdk, workspace |
+| [tasks-ocharo-events.md](tasks-ocharo-events.md) | OE01-OE12 | Ocharo's events logic: what enters, the team's workflow, what the app shows, digests (review 2026-11-19) |
 
 ## Rules
 
