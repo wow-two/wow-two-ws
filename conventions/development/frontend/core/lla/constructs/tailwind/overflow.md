@@ -32,7 +32,8 @@
 - must check every ancestor for `overflow-hidden` before debugging a clipped popover or a dead `sticky`
   ([position](position.md)).
 - must use `truncate` or `line-clamp-*` for text and give the full value another route
-  ([Tooltip](../../../mla/components/display/tooltip.md) for a short label on hover or focus).
+  ([Tooltip](../../../mla/components/display/tooltip.md) for a short label on hover or focus; touch screens cannot
+  reach it, so also let a tap expand the text inline or open a sheet showing the full value).
 - must make a scroll container focusable and named where its content is the point.
 
 ---
@@ -51,9 +52,11 @@
 
 ```vue
 <!-- ✅ bounded height, contained scroll, ellipsis where text is clipped -->
+<!-- pointer: Tooltip shows the full value; touch: a tap toggles it inline -->
 <div class="max-h-72 overflow-y-auto overscroll-contain">
   <Tooltip v-for="row in rows" :key="row.id" :content="row.label">
-    <a :href="row.href" class="block truncate">{{ row.label }}</a>
+    <a :href="row.href" class="block" :class="open === row.id ? 'break-words' : 'truncate'"
+       @click="onTouch && toggle(row.id)">{{ row.label }}</a>
   </Tooltip>
 </div>
 

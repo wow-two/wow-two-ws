@@ -29,7 +29,7 @@
 | `tabindex="0"` · `tabindex="-1"` | a focus stop, and a programmatic-only target | `use with care` |
 | `tabindex` above `0` | a tab order that ignores the document | `banned` |
 | `hidden` | content removed from render and from the tree | `use` |
-| `title` | native advisory text | UI hints follow [Tooltip](../../../mla/components/display/tooltip.md) |
+| `title` | native advisory text; UI hints use [Tooltip](../../../mla/components/display/tooltip.md) | `use with care` |
 | `lang` · `dir` · `translate` | the language, writing direction and translation opt-out | `use with care` |
 | `inert` | a subtree removed from focus and interaction | `use with care` |
 | `popover` · `popovertarget` | native top-layer anchoring | `use with care` |

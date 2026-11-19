@@ -93,7 +93,7 @@ Handoff of the live-edit round on the SCFD operator console, from Claude (Sonnet
 
 ## Git
 
-- Identity: before every commit run `git var GIT_AUTHOR_IDENT`; it must show the personal Gmail (`sultonbek.rakhimov@gmail.com`); stop otherwise. Never set identity by flag or global config.
+- Identity: before every commit run `git var GIT_AUTHOR_IDENT`; it must show the developer's personal identity; stop otherwise. Never set identity by flag or global config.
 - Flags: commit and push are ON for the harvest repo and the fe sdk repo (agents may commit; push only as below). Nothing in other repos.
 - Message: `{type}: {past-tense verb} {what}`, 50–70 characters including the type, lower case except identifiers, subject only, no body, no trailer.
 - Stage explicit paths only and check `git diff --cached --name-only` first; the index must hold only your files. The fe sdk working tree holds another chat's edit to `engineering/development/rules.md` (AI integrations work): leave it alone.
