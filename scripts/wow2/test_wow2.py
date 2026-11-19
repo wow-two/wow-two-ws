@@ -149,6 +149,45 @@ class OtherCommandTests(unittest.TestCase):
             args("secret", "set", "harvest", "staging", "A:B")
 
 
+class InstallTests(unittest.TestCase):
+    def setUp(self):
+        import tempfile
+        self.home = Path(tempfile.mkdtemp())
+        self.script = self.home / "repo" / "wow2.py"
+        self.script.parent.mkdir()
+        self.script.write_text("")
+
+    def test_install_links_and_adds_path_once_even_when_path_lacks_the_folder(self):
+        (self.home / ".zprofile").write_text('export PATH="$PATH:/Users/x/.docker/bin"')
+        with mock.patch.dict(wow2.os.environ, {"SHELL": "/bin/zsh", "PATH": "/usr/bin"}):
+            first = wow2.link_on_path(self.home, self.script)
+            second = wow2.link_on_path(self.home, self.script)
+        link = self.home / ".local" / "bin" / "wow2"
+        self.assertEqual(link.resolve(), self.script.resolve())
+        self.assertIn("linked", first)
+        self.assertIn("added ~/.local/bin to PATH", first)
+        self.assertEqual(second, "")
+        profile = (self.home / ".zprofile").read_text()
+        self.assertEqual(profile.count(wow2.PATH_MARKER), 1)
+        self.assertTrue(profile.startswith('export PATH="$PATH:/Users/x/.docker/bin"\n'))
+        self.assertIn('export PATH="$PATH:$HOME/.local/bin"', profile)
+
+    def test_install_leaves_a_profile_that_already_has_the_folder(self):
+        (self.home / ".zshrc").write_text('export PATH="$HOME/.local/bin:$PATH"\n')
+        with mock.patch.dict(wow2.os.environ, {"SHELL": "/bin/zsh"}):
+            out = wow2.link_on_path(self.home, self.script)
+        self.assertFalse((self.home / ".zprofile").exists())
+        self.assertNotIn("PATH", out)
+
+    def test_install_never_replaces_another_wow2(self):
+        (self.home / ".local" / "bin").mkdir(parents=True)
+        (self.home / ".local" / "bin" / "wow2").write_text("other")
+        with mock.patch.dict(wow2.os.environ, {"SHELL": "/bin/zsh"}):
+            out = wow2.link_on_path(self.home, self.script)
+        self.assertIn("left", out)
+        self.assertEqual((self.home / ".local" / "bin" / "wow2").read_text(), "other")
+
+
 class SetupTests(unittest.TestCase):
     def test_setup_stores_the_url_and_a_wellformed_key_through_stdin_only(self):
         calls = []
@@ -188,7 +227,9 @@ class SetupTests(unittest.TestCase):
 
     def test_main_reports_a_missing_setup_on_stderr(self):
         err = io.StringIO()
-        with mock.patch.object(wow2, "keychain_read", lambda account: None), redirect_stderr(err), redirect_stdout(io.StringIO()):
+        with mock.patch.object(wow2, "keychain_read", lambda account: None), \
+                mock.patch.object(wow2.subprocess, "run", side_effect=AssertionError("touched the real Keychain")), \
+                redirect_stderr(err), redirect_stdout(io.StringIO()):
             code = wow2.main(["secret", "set", "harvest", "dev", "A:B"])
         self.assertEqual(code, 1)
         self.assertIn("wow2 setup", err.getvalue())

@@ -2,6 +2,7 @@
 """wow2 -- the WoW2 command line. First slice: write-only settings and secrets in Wheelhouse.
 
   wow2 setup --url <console>                       store the console URL and an integration key in the Keychain
+  wow2 install                                     link `wow2` into ~/.local/bin and put it on PATH (setup does too)
   wow2 check                                       prove the stored key reaches the settings save
   wow2 secret set <product> <env> <key>            type a secret at a hidden prompt, or pipe it on stdin
   wow2 secret generate <product> <env> <key>       Wheelhouse makes a random value; nobody ever sees it
@@ -67,7 +68,8 @@ def keychain_write(account: str, value: str) -> None:
         raise CliError(f"the Keychain refused {account}: {done.stderr.strip().splitlines()[-1] if done.stderr.strip() else done.returncode}")
 
 
-def stored_credentials(read: Callable[[str], str | None] = keychain_read) -> Credentials:
+def stored_credentials(read: Callable[[str], str | None] | None = None) -> Credentials:
+    read = read or keychain_read  # looked up per call, so a test's patch holds
     url, key = read("url"), read("key")
     if not url or not key:
         raise CliError("no Wheelhouse console stored; run `wow2 setup --url <console>` first")
@@ -179,20 +181,46 @@ def cmd_setup(args, ask=getpass.getpass) -> str:
     return "\n".join(line for line in lines if line)
 
 
-def link_on_path() -> str:
-    """Links ~/.local/bin/wow2 to this script when that directory is on PATH and the name is free."""
-    bin_dir = Path.home() / ".local" / "bin"
+PATH_MARKER = "# wow2: ~/.local/bin on PATH"
+
+
+def link_on_path(home: Path | None = None, script: Path | None = None) -> str:
+    """Links ~/.local/bin/wow2 to this script and puts ~/.local/bin on a login shell's PATH; both idempotent."""
+    home = home or Path.home()
+    script = (script or Path(__file__)).resolve()
+    bin_dir = home / ".local" / "bin"
     link = bin_dir / "wow2"
-    script = Path(__file__).resolve()
+    lines = []
     if link.is_symlink() and link.resolve() == script:
-        return ""
-    if link.exists() or link.is_symlink():
-        return f"left {link} as it is; run this script by its path"
-    if str(bin_dir) not in os.environ.get("PATH", "").split(os.pathsep):
-        return f"add {bin_dir} to PATH, or run this script by its path"
-    bin_dir.mkdir(parents=True, exist_ok=True)
-    link.symlink_to(script)
-    return f"linked {link} -> {script}"
+        pass
+    elif link.exists() or link.is_symlink():
+        lines.append(f"left {link} as it is (it is not this script); run this script by its path")
+    else:
+        bin_dir.mkdir(parents=True, exist_ok=True)
+        link.symlink_to(script)
+        lines.append(f"linked {link} -> {script}")
+    lines.append(ensure_on_path(home))
+    return "\n".join(line for line in lines if line)
+
+
+def ensure_on_path(home: Path) -> str:
+    """Appends ~/.local/bin to PATH in the login profile (zsh: ~/.zprofile, which Warp's login tabs read) unless a
+    startup file already puts it there."""
+    shell = os.path.basename(os.environ.get("SHELL", "zsh"))
+    if shell == "bash":
+        profile, startup = home / ".bash_profile", [home / ".bash_profile", home / ".bashrc", home / ".profile"]
+    else:
+        profile, startup = home / ".zprofile", [home / ".zprofile", home / ".zshrc", home / ".zshenv"]
+    for path in startup:
+        text = path.read_text() if path.is_file() else ""
+        if PATH_MARKER in text or any(".local/bin" in line and "PATH" in line and not line.lstrip().startswith("#")
+                                      for line in text.splitlines()):
+            return ""
+    existing = profile.read_text() if profile.is_file() else ""
+    separator = "" if not existing or existing.endswith("\n") else "\n"
+    with profile.open("a") as handle:
+        handle.write(f'{separator}\n{PATH_MARKER}\nexport PATH="$PATH:$HOME/.local/bin"\n')
+    return f"added ~/.local/bin to PATH in {profile}; open a new terminal tab for `wow2`"
 
 
 def cmd_check(args, credentials: Credentials, opener=urllib.request.urlopen) -> str:
@@ -244,6 +272,7 @@ def parser() -> argparse.ArgumentParser:
 
     setup = commands.add_parser("setup", help="store the console URL and an integration key in the Keychain")
     setup.add_argument("--url", help="the console's https origin")
+    commands.add_parser("install", help="link wow2 into ~/.local/bin and put that on PATH; no key needed")
     commands.add_parser("check", help="prove the stored key reaches the settings save")
 
     def addressed(sub):
@@ -274,6 +303,9 @@ def main(argv: list[str] | None = None) -> int:
     try:
         if args.command == "setup":
             print(cmd_setup(args))
+            return 0
+        if args.command == "install":
+            print(link_on_path() or "wow2 is already linked and on PATH")
             return 0
         credentials = stored_credentials()
         if args.command == "check":
