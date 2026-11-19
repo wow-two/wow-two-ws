@@ -620,6 +620,10 @@ Developer, 2026-10-24 to 2026-11-10; not reopened.
   close v0.2 ? can you update version files as well ?"). Recommendation: close after that pass, moving every open task
   (the AI iterations' and Haven's blocked ones) to the next Feature version: entities and the subscription selector,
   after a short v0.3 Adoption.
+  - Re-check done (`ev-build`, harvest `c98cf24`): 34 of 39 checks pass, OLX fails on dev, 4 blocked (BirBir
+    challenge, provider key, Meta grant, eval run waiting on S33); 16 tasks open. Close timing (developer, 2026-11-19):
+    "only after "ocharo - ai classification" finishs it's job fully"; then `ev-build` re-runs the checks and the
+    developer confirms.
 
 ## Contracts
 
