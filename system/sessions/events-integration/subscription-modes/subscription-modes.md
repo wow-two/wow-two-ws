@@ -25,7 +25,8 @@
 - Point 1 settled (developer, relayed by `ev-ai` 2026-11-19): one selector each subscriber sets — "scfd mustn't have
   any prompts specific for products, it's purpose is to just analyze the type of event"; "client must be able to
   configure what it needs dynamically right ?". Ocharo's selector: `event` AND (`style-fashion` excluding
-  `style-fashion/beauty`, or topics `textile`, `ikat`, `garment`); the beauty exclusion waits on the developer's word.
+  `style-fashion/beauty`, or clothing topics such as `textile`, `ikat`, `garment`); beauty is excluded only without a
+  clothing topic (developer, 2026-11-19: "we can exclude them IF they don't have any clothing related things planned").
   Built by `ev-build` (developer, 2026-11-19: "maybe build chat analzes and implements with sonnet ?"; Opus
   plans, Sonnet agents build) with the map's picks for points 8-11 and 14; still the developer's: 7 (prompt-mode
   subscriptions) and 13 (the shadow-to-live switch).
