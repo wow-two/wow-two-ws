@@ -21,6 +21,8 @@
 | ventures/prism | frontend (Vite) · studio — Vue rewrite (Vite) | 5180 · 8294 |
 | wow-two-games.play | web (Vite) | 5182 |
 | wow-two-games.play | room server (Node WebSocket, HTTP) | 8416 |
+| wow-two-games.play | web on a second room server, for level publish checks (Vite) | 5185 |
+| wow-two-games.play | second room server, for level publish checks | 8426 |
 | wow-two-games.services | Rooms API | 8418 https / 8419 http |
 | wow-two-games.engine | studio (Vite) | 5188 |
 | wow-two-games.engine | level designer (Vite) | 5190 |

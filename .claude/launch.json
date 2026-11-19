@@ -792,6 +792,36 @@
         "dev:demo"
       ],
       "port": 8398
+    },
+    {
+      "name": "games-room-server-level",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": [
+        "-C",
+        "workbench/wow-two-games/wow-two-games.play/engineering/codebase/play.frontend-services/apps/room-server",
+        "dev"
+      ],
+      "env": {
+        "PORT": "8426",
+        "NODE_ENV": "development"
+      },
+      "port": 8426
+    },
+    {
+      "name": "games-play-level",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": [
+        "-C",
+        "workbench/wow-two-games/wow-two-games.play/engineering/codebase/play.frontend-services/apps/web",
+        "dev",
+        "--port",
+        "5185",
+        "--strictPort"
+      ],
+      "env": {
+        "ROOM_SERVER": "http://127.0.0.1:8426"
+      },
+      "port": 5185
     }
   ]
 }
