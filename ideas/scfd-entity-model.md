@@ -155,3 +155,18 @@ Needlework (`253`, the craft). Three layers answer it:
   new enum entry and a new prompt version, checked by an eval before it ships.
 - Where it lives: the AI library keeps the flags beside the inference log, so every product's prompts get the same loop
   (proposed; built with the first SCFD use case that needs it).
+
+## Build plan (app-t-010)
+
+Held here until SCFD v0.2 closes; each shipped step is recorded in harvest's v0.2 track in the commit that ships it, and
+the remaining steps move to the next version's track then. Harvest today (HEAD `f5a75a0`): a Process stage runs
+processors on captures (`harvest_processing_results`), nothing writes `PostEnvelope.Tags` or `Classification`, no entity
+exists beyond a post, and S09 (the selector) is the subscription design's lane.
+
+| Step | Builds | Depends on |
+|---|---|---|
+| A | Layer 1 `post-tags`: the IAB 3.1 taxonomy table (34 domains and their tiers, English), a per-revision tagging pass queued on post write and by a backfill verb, tags written back to the post as a new revision (`post.changed`), unsure flags, `IEvalSubjectSource` for `harvest:post:{id}@{rev}` | AI `10.0.x` |
+| B | Layer 2 extraction, demand-driven: `extract-event` (base event fields, plus a `fashion` block when the domain is Style & Fashion) and `extract-listing` (base listing fields, plus rental terms for Real Estate rent, folding in `rental-terms@2`), run only for the (type, domain) pairs a setting names until the selector exists | A |
+| C | Entity layer: events (one record, occurrences, cadence and a predicted next occurrence) and listings (one record across authors and sites, each ad an offer), post-to-entity relations with roles and update changes | B |
+| D | Entity reads: a search by name and domain returning entities, their years and every source's posts per year; an entity change feed beside the post feed | C |
+| E | Evals per use case from stored posts on the local bench: `post-tags`, `extract-event`, `extract-listing`; summaries in the track, posts and answers never in git | A, B |
