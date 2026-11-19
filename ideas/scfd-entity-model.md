@@ -66,6 +66,10 @@ cancellations, mentions only mention like not announcement yet". Four roles cove
 - "First announcement" is computed, not tagged: the earliest `announcement` relation of an entity.
 - A digest post holds one relation per entity it lists.
 - A source's own lifecycle signals, such as an OLX link going gone or relisted, stay link states.
+- `report` keeps its name; `coverage` was weighed and found vaguer (developer, 2026-11-19: "we can stick to report").
+- Listings use `announcement` (the ad) and `update` (a new price or terms, a "sold" post); `mention` is rare and
+  `report` never applies, since a listing is not held. A re-captured ad whose price changed is an `update` read from the
+  revision diff, with no model call.
 
 ## #4 Entity types
 
