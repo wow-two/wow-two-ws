@@ -114,8 +114,7 @@ All paths are relative to the `wow-two-ws` root.
 - The detail lists sources by name, state and first and last seen only (`EventDetail.vue:358-378`); a source post's
   own title, language, posted date and role are not shown. Observations, which hold them, are readable only with
   `events.review` (`{ev}/service/Events.Api/Review/Controllers/ReviewController.cs:15`, `:114-124`).
-- Images: Ocharo shows curated images only; Afisha's terms keep its photos out (track #32), and the per-source
-  thumbnail policy (E32) waits for the developer. Most events have no image, so an image-first card mostly shows its
+- Images: Ocharo shows curated images only until SCFD's image copy lands (track #75). Most events have no image, so an image-first card mostly shows its
   fallback.
 - No design spec declares the Events app's screens: `{pl}/engineering/research/design-research/design-research.md:5-8`
   covers Catalogue only, and responsive work needs declared targets
@@ -134,7 +133,7 @@ All paths are relative to the `wow-two-ws` root.
   - a series: the event across years, with its cadence and a predicted next edition; one SCFD entity.
 - Post entity: what a source published about an edition, with its role (`announcement`, `update`, `report`,
   `mention`, `{h}/Abstractions/Entities/EntityRoles.cs`), source, posted date, own title and link. Ocharo shows it as
-  evidence, never its text or photos (track #32).
+  evidence, never its text (track #32).
 - On the page:
   - the feed lists editions, one card each, deduplicated across sources; the card names its sources;
   - the event page shows the edition, its posts by source, and the series' editions by year with the predicted next.
@@ -286,15 +285,13 @@ The developer's "a feed of events that just scrolls to see all events posts from
   linking to its edition.
 - Pick: (a) now; (c)'s Updates view once OE09 brings each post's role.
 
-### OQ-2 Card media while sourced images stay out
+### OQ-2 Card media
 
-The SCFD card is image-first, but Ocharo shows only curated images: Afisha's terms ask written permission for its
-photos (track #32), and E32 (which sources' thumbnails Ocharo may show) is still open.
+Settled (developer, 2026-11-20): SCFD copies every image to Files, and subscribers read them with a read-only key
+(track #75).
 
-- (a) `MediaCard` with a date tile wherever no curated image exists; E32 stays held.
-- (b) Decide E32 now and show sourced thumbnails for the sources whose terms allow them.
-- (c) A text card in the SCFD pill style, with no media zone.
-- Pick: (a): the SCFD look without a rights question, and a curated image still fills the card.
+- The card shows the post's image from Files; the date tile stays the fallback when a post has no image.
+- Supersedes the earlier pick (a) and E32 (developer, 2026-11-20); see #75.
 
 ### OQ-3 Event identity: one Events event per SCFD edition
 

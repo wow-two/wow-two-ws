@@ -119,7 +119,7 @@ Groups for open ids: (a) Ocharo integration · (b) SCFD-only · (c) Ocharo refin
 | E29 | local SCFD → Events → Ocharo smoke | open | platform row | (a); its E01 dependency now reads the selector |
 | E30 | harvest tests on the workspace SDK | shipped | harvest `559c7e2` | |
 | E31 | triage view for untracked events | open | platform row | (c), needs the developer |
-| E32 | per-source thumbnail policy | open | events row | (c), needs the developer |
+| E32 | per-source thumbnail policy | superseded | events row | Superseded (developer, 2026-11-20): SCFD copies every image to Files and any subscriber reads it with a read-only key; see #75 |
 | E33 | city names in the app's script | shipped | events `a848026` | |
 | E34 | (extra id) SCFD date certainty | shipped | events `3597efc`; Ocharo `e01da3c` | not counted |
 
@@ -224,7 +224,6 @@ Groups for open ids: (a) Ocharo integration · (b) SCFD-only · (c) Ocharo refin
     `posts:read`, which Events' client lacks.
 - How events are displayed:
   - E31 triage view, minimal slice "new since your last visit" — needs the developer.
-  - E32 per-source thumbnail policy — needs the developer.
   - V04 custom field schemas, so participation and cost leave `fields`.
   - V02 places and organizers as entities (place and organizer filters, dedup).
   - OE11 assign a teammate — low value while dev has one member.

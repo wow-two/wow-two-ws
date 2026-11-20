@@ -38,7 +38,7 @@ the catalog through the tracking broker (`EventsServiceRepository`) and maps eac
 | Website | `contentLinks[kind=site]`: every in-page link is `site` (`RulesPostExtractor.cs:42`) | first `site` link (`ScfdEventMapper.cs:130`); the golden test pins Afisha's venue page as the website | `website`, shown as "Website" | Wrong: the aggregator's own page shows as the event's website (E06) |
 | Original link | `links[].url` (post links, `role: primary`) | `Sources[].Url` + observation links | `sourceUrl` = first source URL | OK |
 | Source name | `links[].sourceId` (UUID); subscription `context.sourceGroup/sourceChannel` | `Sources[] {Kind scfd, Id "{instance}/{postId}"}`; context not stored | none | No "via Afisha"; Ocharo can't tell sources apart (E15, E16) |
-| Images | `media[] {url, width, height}` (sizes null in fixtures) | dropped by design (`Images` empty, #31, #50) | none | By design for Afisha (#32); no per-source policy (E32) |
+| Images | `media[] {url, width, height}` (sizes null in fixtures) | dropped until #75 (`Images` empty) | none | Superseded (developer, 2026-11-20): SCFD copies every image to Files; see #75 |
 | Language | `language {code, script, mixed, confidence}` | `Languages ["ru-Cyrl"]` | none | (E25) |
 | Posted | `postedAt {value, precision, timeZone}` | ignored | none | Can't order or triage by announcement time (E15, E31) |
 | Contacts | `contacts[]` | ignored (#18 P2, contact ownership) | none | By design for now |
@@ -63,7 +63,7 @@ Ocharo Events dev `0.3.11`, signed in as the owner, read through the app's own A
   arrived after 11-13 (E00).
 - The 3 SCFD events are in Russian: titles and the city `Ташкент`, while curated events say `Tashkent` (E25, E33).
 - All 3 have format `other`, a fashion show included; participation, notes and organizer are empty (E12, E10).
-- No image field exists in the list or detail reads, so SCFD's pictures never reach Ocharo (E32).
+- No image field exists in the list or detail reads, so SCFD's pictures never reach Ocharo until #75 lands.
 - The list read omits `venue` and `sourceUrl`, which the detail read has; nothing marks an event as sourced
   (E15, E16).
 
@@ -439,11 +439,12 @@ Ocharo Events dev `0.3.11`, signed in as the owner, read through the app's own A
 - Depends: E13, E15, E22
 
 ### E32 Decide a per-source policy for event thumbnails
+- Superseded (developer, 2026-11-20): SCFD copies every image to Files and any subscriber reads it with a read-only key; see #75.
 - Repo: wow-two-sdk-beta.events · Area: intake policy · Type: product
-- Why: images are dropped for every source, though only Afisha's terms forbid showing them (#32); organizer sites may allow it.
+- Why: images are dropped for every source today.
 - Do:
   - Add `MediaPolicy` (`none` default, `reference`) to `EventsIntakeSourceOptions`; under `reference`, map `media[kind=image]` to `facts.Images` as `{Url, SourceUrl, Attribution}` with no bytes copied.
-  - Record the policy and which sources may use `reference` in `product/product.md` § Intake (never Afisha); keep `none` for all sources until the owner picks.
+  - Record the policy and which sources may use `reference` in `product/product.md` § Intake; keep `none` for all sources until the owner picks.
   - Ocharo shows a thumbnail with attribution when `Images` is non-empty (follow-up in `ocharo-platform`).
 - Done when: a unit test maps a Craftfair-shaped page to one image reference under `reference` and `01-new.json` to none under `none`.
 - Depends: —

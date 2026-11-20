@@ -197,8 +197,7 @@ The 17 posts that passed the filter, with SCFD's English title and AI primary do
 - **Source label shows the group handle.** Cards read "via afisha", not a display name; the source name falls back to
   the subscription's `sourceGroup`.
   - Covered by: E19, which the selector design changes (provenance into the payload).
-- **No images or description.** By design: #32, #50, `ScfdEventMapper.cs:11`. The per-source thumbnail policy waits
-  for the developer (E32).
+- **No images or description.** Dropped until #75 lands (`ScfdEventMapper.cs:11`). E32 superseded (developer, 2026-11-20): SCFD copies every image to Files; see #75.
 - **Sorting is fixed.** Start date, then title (`EventsServiceRepository.cs:50-54`). There is no "recently added", "by
   deadline" or "by priority" sort.
 - **Filters are missing.** No priority, city, source (curated or sourced), has-deadline or tracked/untracked filter.
@@ -284,7 +283,7 @@ The 17 posts that passed the filter, with SCFD's English title and AI primary do
 - **Open and held:**
   - E01, E19, E20 (selector #68).
   - A07 (shadow week + the developer).
-  - E31, E32 (the developer).
+  - E31 (the developer).
   - O14–O16 (prod, the developer).
 - **E02 (harvest):** a regex stopgap; it re-judges no history. OE01 below makes it unnecessary for Ocharo.
 

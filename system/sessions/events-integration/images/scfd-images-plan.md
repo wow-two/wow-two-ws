@@ -27,9 +27,8 @@
 
 Three stops in series, none in Ocharo:
 
-1. Policy: decisions #31, #32 and #50 and the UI analysis's OQ-2 kept sourced images out — #32 on Afisha's terms,
-   #50 read as "sourced media stays evidence". The developer has now set both aside: internal use with credit by the
-   external link is the rule, and terms are no reason to withhold anything.
+1. Policy: decisions #31, #32 and #50 and the UI analysis's OQ-2 kept sourced images out; the developer has set
+   them aside, internal use with credit by the external link being the rule.
 2. SCFD: images are copied into Files only for sources with permission `open`/`granted`, posture `own_fetch` and an
    image on the source's own host (`{H}/service/HarvestSources.Api/Media/SourceAssetStore.cs:19-37`,
    `SourceAssetDestination.cs:12-18`), as `FileVisibility.Private`; the console reads them through its own
@@ -76,20 +75,8 @@ Three stops in series, none in Ocharo:
 | events | Read `media[]` in `ScfdEventMapper` into `facts.images` (`EventImage` gains `FileId`), keep the source URL as the credit link; reopen #31 and #50's wording; fe-events needs no change | ev-build |
 | ocharo | `{O}`: read-only Files key config (`Files:BaseUrl`, `Files:ApiKey`), `AddFilesClient`, and a route `…/events-api/…/events/{id}/images/{n}` that resolves the file id from the event it read through Events (never a raw id from the browser) and 302s to a signed Files URL | ocharo - events ui |
 
-## Terms references to remove
+## References removed
 
-Found 2026-11-20 by a read-only sweep; none in W2 conventions, `~/.claude`, memory or any Ocharo repo.
-
-| Where | Lines | Kind | Owner |
-|---|---|---|---|
-| `system/sessions/events-integration/events-integration.md` | #32 (:704), #50 (:194-197, keep "internal use only" and the credit rule, drop "never photos"), #31 (:703) | decision record | orchestrator |
-| `…/events-ui/ocharo-events-ui-analysis.md` | :117-118, :137, :289-297 (OQ-2) | doc | orchestrator |
-| `…/tasks/tasks-ocharo-events.md` :200, `tasks-events-path.md` :41, :443, `tasks.md` :48, `integration-whats-left.md` :122, :227, `tasks-scfd.md` :20 | | doc | orchestrator |
-| shared notes `scfd-m1-picks.md` :19 | | note | orchestrator |
-| harvest `engineering/deployment/deployment.md` :126-129 (the `public` target's afisha denial and terms link), `product/product.md` :53, `product/context.md` :41, `README.md` :8, `CLAUDE.md` :5, `engineering/development/rules.md` :7, `engineering/planning/backlog.md` :43, `version-track/v0.1/v0.1-sources.md` :98 | | doc rules | ev-build |
-| harvest code: `SourceAssetStore.cs` gate (above); `OcharoSourceProvisioner.cs:101-109` (`PoolShareable=false` for Afisha) | | code | ev-build |
-| events `product/product.md` :21, `engineering/planning/backlog.md` :29, :77, :78, :89, :103, `version-track/v0.1/v0.1.md` :24; code comments `ScfdEventMapper.cs:11-13`, `EventImage.cs:3`; test `IntakeTests.cs:234` | | docs, comments, test | ev-build |
-
-- Keep: "internal use only" and "credit by the external link" are the developer's own rule and stay, reworded where a
-  line ties them to terms. Events' private-catalog gates (`ModuleCatalogsBroker.cs:86-88`, `ProvisionCommand.cs:25`)
-  follow internal use, not terms, and stay.
+- 2026-11-20: the orchestrator's docs, in the commit that adds #75; harvest's and events' docs, code comments and test
+  by `ev-build`.
+- Kept: internal use only, and credit by the external link on every item.
