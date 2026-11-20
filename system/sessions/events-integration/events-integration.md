@@ -662,10 +662,19 @@ Developer, 2026-10-24 to 2026-11-10; not reopened.
     Cloudflare question included; SCFD's AI evals and stats console pages, labelled samples included; SCFD v0.3 on.
   - OE05's "Deadline reminders" preset is dropped (developer: "we'll build a different system for this, reminder
     system with a scheduler with select channels with configurations"); design in
-    [reminders/ocharo-reminders-analysis.md](reminders/ocharo-reminders-analysis.md), being written.
+    [reminders/ocharo-reminders-analysis.md](reminders/ocharo-reminders-analysis.md).
   - OE03 approved (developer: "proceed with "OE03 checks""): `ev-build` adds a test editor account on dev through
     Identity for the read-back.
-  - Events UI plan in [events-ui/ocharo-events-ui-analysis.md](events-ui/ocharo-events-ui-analysis.md), being written.
+  - Events UI plan in [events-ui/ocharo-events-ui-analysis.md](events-ui/ocharo-events-ui-analysis.md).
+  - Lane `ocharo - events ui` (`local_9985d457-7d48-4886-ba97-339de1af58e4`, Opus) owns `ocharo-platform` from
+    2026-11-20 (`ev-build`'s last commit there `0f7bbf5`): UI01, UI02, UI06 and the calendar's year view. `ev-build`
+    keeps `wow-two-sdk-beta.events` and `.harvest`: UI03-UI05 beside the selector.
+  - Events UI picks taken by the orchestrator, open to the developer: OQ-1 (a) one card per edition, OQ-2 (a) a date
+    tile wherever no curated image exists, OQ-3 (a) one Events event per SCFD edition. OQ-4 (E31's marker) waits.
+  - OE03 ran as the owner (dev Identity allows only Telegram sign-in by invitation); editor posting stays covered by
+    the E2E suite.
+  - Reminders: the analysis recommends a new Notifications domain (`wow-two-sdk-beta.notifications`) reading each
+    service's schedule feed; its four decisions wait for the developer.
 
 ## Contracts
 
