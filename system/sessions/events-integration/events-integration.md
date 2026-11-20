@@ -650,6 +650,22 @@ Developer, 2026-10-24 to 2026-11-10; not reopened.
     thin `ocharo-calendar` host; first slice CAL01-CAL04 (Events and Marketing feeds). Asked of the developer.
   - SCFD v0.2 closes after the selector (developer: "yes close after the selector"); workflow sync moves from admin
     page visits to deploy time; W01's email and two convention defects fixed (`bfa2269`).
+- #74 Close scope (developer, 2026-11-20): "so our goal was to integrate scfd, make sure it can get events from afisha
+  with schedules, classify them, ocharo events can get updates and display them in ocharo events, improved ocharo
+  events ui, calendar for it, scheduled reminder system - and refinements and we can close here honestly, because I
+  want to work on other platform systems as well, for example marketing, so any other tasks like registering all 700+
+  sources in scfd can be done by separate chats not this orchestrator".
+  - In this orchestrator: the selector and its switch, Afisha on schedules (source health), classification, Events
+    updates shown in Ocharo, the Ocharo events UI, the calendar, a scheduled reminder system, refinements, and the
+    SCFD v0.2 close.
+  - Out, to separate chats: registering the 700+ Ocharo sources; health of the other wired sources, craftfair's
+    Cloudflare question included; SCFD's AI evals and stats console pages, labelled samples included; SCFD v0.3 on.
+  - OE05's "Deadline reminders" preset is dropped (developer: "we'll build a different system for this, reminder
+    system with a scheduler with select channels with configurations"); design in
+    [reminders/ocharo-reminders-analysis.md](reminders/ocharo-reminders-analysis.md), being written.
+  - OE03 approved (developer: "proceed with "OE03 checks""): `ev-build` adds a test editor account on dev through
+    Identity for the read-back.
+  - Events UI plan in [events-ui/ocharo-events-ui-analysis.md](events-ui/ocharo-events-ui-analysis.md), being written.
 
 ## Contracts
 

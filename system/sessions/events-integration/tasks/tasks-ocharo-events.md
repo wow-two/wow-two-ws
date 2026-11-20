@@ -420,6 +420,8 @@ Gate above all of these, for the developer: the team sees nothing until members 
   digest leaves a skipped event out and the reminder preset previews only shortlisted or applying events with a deadline
   within 7 days.
 - Depends: OE04
+- Changed (developer, 2026-11-20): the "Deadline reminders" preset is dropped; reminders move to a scheduled reminder
+  system with selectable channels and configurations (track doc #74). The feed and default-digest parts stay.
 
 ### OE06 Carry SCFD's English title to Events and Ocharo
 - Repo: `wow-two-sdk-beta.harvest`, then `wow-two-sdk-beta.events` · Area: delivery projection, intake mapping · Type: feature
