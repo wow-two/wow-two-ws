@@ -28,12 +28,18 @@ apartment listing platforms along the way as well".
 - ✅ #4 Spend guard (plan B3): harvest `98aff1a`, checker pass, backend suite green; settings
   `Harvest:Processing:Budget:{LimitUsd, SoftShare, CycleStartDay, SinceUtc}`, read by `processing budget`; dev values
   set once its release reaches `harvest-dev`
-- ⬜ #5 Eval set and Haiku evals (plan B4, O6): labels from Claude Code agents, API spend only on Haiku runs
+- 🔄 #5 Eval set and Haiku evals (plan B4, O6): `olx-listings-v1`, 80 OLX ads, labels from Claude Code agents; v7 on
+  Haiku 5.5 is Haven's prompt (`harvest-prod` `extract-listing` version 2): offer 0.988, period 0.950, price 0.912,
+  rooms 0.988, terms 0.963, tenants 0.812, author kind 0.600 strict / 0.713 rule 12 / 0.850 coarse (bar 0.90), 0 leaks,
+  1/80 schema-invalid, $0.00061 an ad; v8 scored lower; next round reads `harvest-prod` volume answers; evals spent
+  $0.28
 - 🔄 #6 Provisioned on `harvest-prod` 2026-11-21 (`manual`, 7 searches, v5 as prompt version 1, no key issued, no
-  schedules); OLX pace and single runs wait on two host verbs (next harvest slot after #15), since `harvest-prod` has no
-  operator route yet. Plan: `--model-processing manual`, a ~50-listing sanity batch, then `auto`;
+  schedules); `pipelines pace|run|schedule|show` host verbs committed harvest `60cef0b` (all tiers green), eval record `8d2f28e`;
+  the 15 s pace and first OLX capture on `harvest-prod` follow the release. Plan: `--model-processing manual`, a ~50-listing sanity batch, then `auto`;
   volume does not wait for #5 -- prompt iterations draw on the volume answers and the eval set
-- ⬜ #7 Monitor processing and iterate prompts: per-field accuracy, invalid rate, cost per listing
+- ⬜ #7 Schedules and AI `auto` on every Haven collection source (OLX ×3, Joymee, BirBir), then improve prompts and
+  sources from the volume answers (developer, 2026-11-21: "set the schedules, set the ai processing in all sources and
+  work on improving them"); after the scheduler UTC hotfix reaches `harvest-prod`
 - ⬜ #8 BirBir, Joymee, Domtut on the same listing route
 - ⬜ #9 10K listings classified on Haiku 5.5, measured spend inside the cap
 - ⬜ #15 Available sources: the instance turns registered sources on in its database; Sources shows only those, a
@@ -41,20 +47,30 @@ apartment listing platforms along the way as well".
   sources will be ever turned on - saved in db"); off = disabled, never removed ("like disable not completely
   remove"); Haven's instance turns on listing sources only, Ocharo's `harvest-dev` keeps its four; design harvest
   `fb6a5d2` (`source-catalog.md`, v0.2 iteration 32); unit = publisher group or marketplace site; turning on from
-  Available provisions with schedules and model processing off (orchestrator, derived); building since 2026-11-21
+  Available provisions with schedules and model processing off (orchestrator, derived); committed harvest `b27a1f6` 2026-11-21 (checker 14/15, the gap test-only; all tiers green), the gap closed by
+  `8d975ce` (7 gate tests);
+  dev and prod checks follow the release
 - 🔄 #16 Haven's stack: SCFD target first (credit cycle ends 2026-11-24), then Identity with console sign-in, then
   Files; per-instance `LimitUsd` caps summing ≤ $195
   - ✅ `harvest-prod` healthy 2026-11-21 (`0.2.54+748d5cd`, own database): Haven takes the `prod` environment names on
     `ocharo-vps` (Wheelhouse names by `<product>-<env>` per server); `files_prod` was placed for Ocharo prod in
     Wheelhouse v0.14, so Ocharo prod there needs instance-suffix work or another server
   - ✅ Anthropic key on `harvest-prod`, vault v2 (developer, 2026-11-21); the first Haiku batch proves it
-  - ⬜ Identity `identity-prod`: `deploy.yml:113-115` certificate keys gain `generate` (identity repo, one release);
+  - ✅ Identity `identity-prod` and Files `files-prod` healthy; the developer signed in to the Haven SCFD console as
+    operator 2026-11-21 through `@haven_agents_dev_bot` (the stored token is the dev bot's)
+  - ⬜ (history) Identity `identity-prod`: `deploy.yml:113-115` certificate keys gain `generate` (identity repo, one release);
     admin signs in by Telegram with one of Haven's Agents bots (developer, 2026-11-21: "we have tg bot for haven
     as well - we'll reuse that"; Haven `telegram.md:11-16`), provided no running Haven.Auth loses its updates
   - ⬜ Files `files-prod`
-- ⬜ #17 OLX phone reveal and images: browser rendering and CAPTCHA solving where needed; in SCFD or a separate
-  service, Haven's old browser service or new -- the lane analyses and decides (developer, 2026-11-21: "captcha solve
-  doesn't cost us much except the browser rendering ... so analyze and decide"); build after the design summary
+- 🔄 #17 OLX images and phones (design 2026-11-21, `haven-browser-17.md` in the lane's notes):
+  - images: harvest's `SourceAssetWorker` copies OLX photos from adapter-declared CDN hosts into Haven's Files, first
+    6 per post, own ≥2 s pace, no browser and no separate service; Haven's old browser service is gone (Haven
+    `f0a10453`) -- v0.2 Iteration 35 committed harvest `631c636` (8 tiers, 2,214 tests green); copies verified once
+    `harvest-prod` holds OLX posts
+  - phones: automated reveal through OLX's CAPTCHA gate is not built -- the lane declined it as bot-detection
+    circumvention to collect private sellers' phones, and auto mode refused the reveal probe; phones written in the
+    ad go into the post's contacts field as plain text, no manual reveal field (developer, 2026-11-21: "we just
+    harvest from olx and store here as plain text man")
 
 ## Decisions
 
@@ -66,10 +82,11 @@ apartment listing platforms along the way as well".
   $0.24 on 2026-11-21; under the developer's "it's ok to spend all on anything just smth useful" (AI `context.md:27`)
 - #13 Gold labels come from Claude Code agents (subscription), never from API calls
 - #14 Sourcing rules bind: paced, inside `robots.txt`, no rotating proxy pools; contacts stay out of prompts, evals,
-  fixtures, reports and logs; CAPTCHA solving allowed for OLX phone reveal only (#17, developer, 2026-11-21, reversing
-  events-integration #50 for this use)
+  fixtures, reports and logs; the developer allowed CAPTCHA solving for OLX phone reveal (2026-11-21), but it is not built (#17)
 - #18 Haven runs one SCFD, `harvest-prod`: `prod` is only the name (`dev` names on `ocharo-vps` are Ocharo's); it takes
-  each harvest release by auto-promote once `harvest-dev`'s dev check passes
+  promoted releases only (it served `0.2.54` while `harvest-dev` took `0.2.55`); the olx lane promotes
+- #19 Browser steps in this goal run in Chrome profile `wow2` only (developer, 2026-11-21: "let's stick to use wow2
+  chrome profile only")
 
 ## Lanes
 
