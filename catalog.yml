@@ -400,8 +400,8 @@ entries:
     name: Identity
     workspace: wow2-platform
     kind: platform
-    deploy: none
-    status: "Planned"
+    deploy: wheelhouse
+    status: "In progress: first Wheelhouse target `identity-prod` (Haven's instance on ocharo-vps), 2026-11-21"
     purpose: "Our own identity: user store, OIDC provider, hosted sign-in and admin console, shipped as an SDK library, a self-hosted image or a provided service."
     repositories: [wow-two-sdk-beta/wow-two-sdk-beta.identity]
   - slug: ai
