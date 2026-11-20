@@ -1,6 +1,6 @@
 # WoW 2.0 — Platform Apps, In Order
 
-*Last updated: 2026-10-27 02:01 PM*
+*Last updated: 2026-11-20 09:35 AM*
 
 > The order the wow-two platform apps get built and shipped — one list to focus on, top down. Scope: the internal
 > apps every product stands on (ops, observability, backbone services). Products and ventures live in the
@@ -21,7 +21,7 @@
 
 ## Order
 
-| # | App | Repo | What it is | State 2026-09-29 (rows 1 and 8: 2026-10-19; 2 and 3: 2026-10-21; 16: 2026-10-24; 17: 2026-10-25; 4: 2026-10-29) | Ship gate | Needs |
+| # | App | Repo | What it is | State 2026-09-29 (rows 1 and 8: 2026-10-19; 2 and 3: 2026-10-21; 16: 2026-10-24; 17: 2026-10-25; 4: 2026-10-29; 18: 2026-11-20) | Ship gate | Needs |
 |---|---|---|---|---|---|---|
 | 1 | **Wheelhouse** | `wow-two-platform.wheelhouse` | deploy + ops control plane: products, servers, domains, deploys | v0.5 in progress: platform model built; infrastructure automation planned | a product deployed to a VPS from it, with rollback, domain and live logs | — |
 | 2 | **Identity** | `wow-two-sdk-beta.identity` | own user store, OIDC provider, hosted sign-in, admin console; three forms ([spec](https://github.com/wow-two-sdk-beta/wow-two-sdk-beta.identity/blob/main/product/product.md)) | SDK identity steps 1–9 done; no OIDC server; Ocharo first | two apps sign in through it | 1 |
@@ -40,6 +40,7 @@
 | 15 | **AI Gateway** | `wow-two-platform.templates.ai` | shared LLM proxy: keys, routing, caching | skeleton | two apps share keys and a cache through it | 1, 2 |
 | 16 | **Events** | `wow-two-sdk-beta.events` | shared event catalog, sources and harvesting, per-organization tracking; three forms ([spec](../ideas/events-service-spec.md)) | image v0.1.8 on `events-dev`, NuGet `10.0.3-beta`, npm `0.0.3`; Desk reads it | two products track events through it | 2, 17 |
 | 17 | **SCFD** | `wow-two-sdk-beta.harvest` | Source Collection and Feed Delivery. Scheduled pipelines capture, normalize and deliver records ([spec](../ideas/harvest-service-spec.md)) | v0.1.11 released; adapters `v0.1.6` on `harvestadapters-dev` | Events and one other product receive harvested records | 15 |
+| 18 | **Locations** | `wow-two-sdk-beta.locations` (new) | shared places domain: resolves a place through Yandex and Google search and returns map pins for both, flags any place neither finds, and keeps a curated custom locations list every product reads; the UZ address-matching depth is in [uz-geocoder-spec](../ideas/uz-geocoder-spec.md) | idea 2026-11-20 (developer: "many products will need location anyway") | SCFD's processed cards and Ocharo's event cards show pins from it, and an unresolved place lands on the custom list | 16, 17 |
 
 ---
 
