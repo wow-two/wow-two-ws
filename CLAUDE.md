@@ -1,59 +1,50 @@
 # WoW 2.0 — Workspace Root
 
-Full-stack .NET + Vue developer ecosystem. `wow-two-ws` is a meta-repo (workspace config only); managed repos are independent gits under `workbench/` (gitignored as a whole).
-
-## Instruction sources
-
-General response, git, tool and agentic-workflow conventions load for every project from `~/.claude/CLAUDE.md`; `agentic-workflow.md` is the main workflow for every chat here -- how work splits between the chat, agents, forks and lanes, and which model runs each part; `.claude/rules/response-style.md` holds only workspace overrides. Required instruction files load at startup; indexes and domain content remain on demand.
-
-## Response style
-
-Shared source and workspace overrides: `.claude/rules/response-style.md`; reinforced by local hooks.
+Full-stack .NET + Vue developer ecosystem. `wow-two-ws` is a meta-repo (workspace config only); managed repos are independent gits under `workbench/` (gitignored as a whole). Shared conventions load from `~/.claude/CLAUDE.md` -- `agentic-workflow.md` is the main workflow here; `.claude/rules/` holds workspace overrides, reinforced by local hooks.
 
 ## Conventions
 
-- Touching code · repo structure · naming · versioning → read **`conventions/conventions.md` first** (the single index to all conventions), then open only the file you need. Don't pre-read; don't skip.
-- A convention applies to every repo; a repo-level `CLAUDE.md` / `.claude/rules/` overrides for that repo.
-- Frontend selection, React migration and exceptions → [frontend standard](conventions/development/repo/repo-conventions.md#frontend-standard).
+- Touching code, repo structure, naming or versioning → read **`conventions/conventions.md` first** (the index to every convention), then open only the file you need -- never pre-read, never skip
+- A convention applies to every repo; a repo's own `CLAUDE.md` / `.claude/rules/` overrides it for that repo
+- Frontend selection, React migration and exceptions → [frontend standard](conventions/development/repo/repo-conventions.md#frontend-standard)
 
 ## SDK doctrine — build the whole vector
 
-- The SDK's main frame: a product's need is the **trigger** to build a vector, **not** its scope. Ship the essential slice for that product, then **complete the whole vector** in a dedicated pass — inventory every capability, build to completeness — so the *next* product finds it already there. A known domain (forms, validation, auth, tables) is built proactively; the real cost is integration, paid once in the SDK. Full rule: `conventions/development/dev-cycle.md` § *Vector completeness*. Applies to both the be sdk and the fe sdk.
-- **The SDK is ours, and breaking it is cheap.** A product blocked on a missing or wrong SDK API fixes the SDK rather than working around it in the product — add the export, correct the type, widen the prop. Both SDKs are beta-forever: the product chat commits the SDK change, pushes it when the SDK's push flag is ON (main CI bumps and publishes), then re-pins the product to the published version — `conventions/development/dev-cycle.md` § *SDK change loop*. Domain repos (Identity first) follow the same loop — [domain structure](conventions/development/repo/structure/domain-structure.md). After every core SDK push, wait for CI's release commit and `git pull --ff-only` before committing there again — § *SDK release sync*. A workaround in a product is the more expensive outcome, because it hides the gap from every later consumer. Breaking changes in the SDKs and products, their data included, are allowed whenever they improve something while products have no external users — [breaking changes](conventions/development/breaking-changes.md).
+- A product's need is the **trigger** to build a vector, **not** its scope: ship the product's slice, then complete the whole vector in a dedicated pass so the next product finds it there; a known domain (forms, validation, auth, tables) is built proactively -> `conventions/development/dev-cycle.md` § *Vector completeness* (be and fe SDKs)
+- **The SDK is ours, and breaking it is cheap.** A product blocked on a missing or wrong SDK API fixes the SDK, never works around it: commit the SDK change, push when its push flag is ON (main CI bumps and publishes), re-pin the product -> § *SDK change loop*; domain repos (Identity first) follow it -> [domain structure](conventions/development/repo/structure/domain-structure.md)
+- After every core SDK push, wait for CI's release commit and `git pull --ff-only` before the next commit there -> § *SDK release sync*
+- Breaking changes in the SDKs and products, their data included, are allowed whenever they improve something while products have no external users -> [breaking changes](conventions/development/breaking-changes.md)
 
 ## Layout
 
 ```
-CLAUDE.md · catalog.yml (every wow2 repo and app; the wow2 hub) · .claude/repo-registry.md (generated lazy index of every hub) · .claude/rules/ (auto-load: response-style · behavior-rules · templates/) · conventions/ (how we build)
+CLAUDE.md · catalog.yml (every wow2 repo and app; the wow2 hub) · .claude/repo-registry.md (generated lazy index of every hub) · .claude/rules/ (auto-load: response-style · behavior-rules) · .claude/templates/ · .claude/skills/ · conventions/ (how we build)
 docs/ (strategy, playbooks) · system/sessions/ · ideas/ · scripts/ · workbench/ (all repos, gitignored)
 ```
 
 ## Orgs & repos
 
-- 8 orgs, folder = org name: `wow-two` (core) · `-meta` (off-ecosystem) · `-platform` (infra) · `-sdk` (public libs) · `-sdk-beta` (beta libs) · `-kb` (knowledge base) · `-apps` (products) · `-games` (games platform). Source: `catalog.yml` — every wow2 repo and app, one entry per product; ventures and Ocharo keep their own hub catalogs ([catalog](conventions/development/repo/catalog/catalog.md)); `.claude/repo-registry.md` is generated from all three by `scripts/gen-repo-registry.py`.
-- Ventures, client work and Ocharo sit in the owner folders `workbench/maxs-projects/` · `workbench/mfts-projects/` — [workbench layout](conventions/development/repo/layout/workbench-layout.md).
+- 8 orgs, folder = org name: `wow-two` (core) · `-meta` (off-ecosystem) · `-platform` (infra) · `-sdk` (public libs) · `-sdk-beta` (beta libs) · `-kb` (knowledge base) · `-apps` (products) · `-games` (games platform)
+- Source: `catalog.yml` -- every wow2 repo and app, one entry per product; ventures and Ocharo keep their own hub catalogs ([catalog](conventions/development/repo/catalog/catalog.md)); `.claude/repo-registry.md` is generated from all three by `scripts/gen-repo-registry.py`
+- Ventures, client work and Ocharo sit in the owner folders `workbench/maxs-projects/` · `workbench/mfts-projects/` -- [workbench layout](conventions/development/repo/layout/workbench-layout.md)
 
 ## Sessions
 
-- Durable work → `system/sessions/{name}/`: read `context.md` first (state), `session-{name}.md` for the procedure. Update `context.md` at milestones; keep it compact (git log is the journal).
+- Durable work → `system/sessions/{name}/`: read `context.md` first (state), `session-{name}.md` for the procedure; update `context.md` at milestones and keep it compact (git log is the journal)
 
 ## Working rules
 
-- 2–3 related repos per session. Updating a lib → check consumers for breaking changes.
-- Each repo's own `CLAUDE.md` overrides this root. Conventional commits (`feat`/`fix`/`docs`/`refactor`).
-- Passive language — describe where things are; never instruct to pre-read.
-- **Git:** [personal git flags](/Users/max/.claude/conventions/git.md#repository-commit-permission) define two persistent flags per repository, kept in the workspace store `.claude/git-flags.json`. Local integration: [repository git flags](.claude/commit-permission.md). `commit` ON: agents commit and rewrite unpushed history in that repository; `push` ON: agents push in the ordinary form and write to GitHub. Rarely needed risky commands (force pushes, discards, config) never run. The developer sets them with a whole-message `~git_on <kinds> <repo>...` (`*` for the workspace default); no chat-specific confirmation. The shared guard keeps the lane check and the never-run set. Protocol: `conventions/development/repo/version-control/git.md`.
-- **No `README.md` below a repo root.** Folder lead docs use `{folder}.md` (e.g. `Data/Migrations/migrations.md`). See `conventions/development/repo/structure/repo-structure.md` § *Documents*. **Exception:** declared NuGet `PackageReadmeFile` and npm `README.md` beside `package.json` are functional package metadata; preserve them as required by SDK structure.
-- **Skills** (`.claude/skills/`): `open-active` (open the working set in Rider/WebStorm) · `create-repo` (scaffold a conformant repo) · `create-library` (a domain library from template to GitHub, packages, image, catalog and consumer re-pins, via `scripts/release/library.py plan`).
-- **Live state / roadmap:** `workbench/wow-two/wow-two.refinement`.
-- **Platform app order:** `docs/platform-apps.md` — Wheelhouse, Identity, Files, then the rest top down.
-- **Venture product order:** `system/planning/pln-tasks.md` § *Venture product order* — the user-set product queue toward subscription revenue (MRR), with the current product marked.
+- 2–3 related repos per session; updating a lib → check its consumers for breaking changes
+- Each repo's own `CLAUDE.md` overrides this root; conventional commits (`feat` / `fix` / `docs` / `refactor`)
+- Passive language -- describe where things are; never instruct to pre-read
+- **Git:** per-repository flags in the workspace store `.claude/git-flags.json` -> [shared git flags](/Users/max/.claude/conventions/git.md#repository-commit-permission); local adapter [repository git flags](.claude/commit-permission.md); protocol `conventions/development/repo/version-control/git.md`
+- **No `README.md` below a repo root** -- folder lead docs are `{folder}.md` (`Data/Migrations/migrations.md`) -> `conventions/development/repo/structure/repo-structure.md` § *Documents*; exception: a declared NuGet `PackageReadmeFile` and an npm `README.md` beside `package.json`
+- Live state and roadmap: `workbench/wow-two/wow-two.refinement`; platform app order: `docs/platform-apps.md` (Wheelhouse, Identity, Files, then top down); venture product order: `system/planning/pln-tasks.md` § *Venture product order*
 
 ## Agentic workflow (parallel chats)
 
-> The main workflow -- agents, forks, lanes, models -- is the shared `~/.claude/conventions/agentic-workflow.md`, loaded in every chat. This section and `conventions/agentic-workflow/agentic-workflow.md` add the rules for many chats on one tree: multiple chats / agents edit the **same working tree on one branch** at once.
+Many chats and agents edit the **same working tree on one branch** at once; `conventions/agentic-workflow/agentic-workflow.md` adds the rules for that.
 
-- **Assume existing changes are intentional** — another lane's in-flight (or crashed-mid-task) work. A change that looks incomplete / out-of-scope is **not yours to revert**.
-- **Never** `git checkout -- .` / `restore` / `stash` / `reset --hard` to "clean up" changes you didn't author — it silently destroys uncommitted work. Found unexpected changes → **stop and ask the human**.
-- **Stay in your lane** — each agent edits only its allowlisted files; a build break rooted outside your lane is a **hand-off (STOP + report)**, not a repair. Deleting projects / editing `.sln`·`.csproj` is not a controllers / frontend lane's job.
-- **No worktrees** — coordinate by disjoint file sets.
+- **Assume existing changes are intentional** -- another lane's in-flight or crashed work; a change that looks incomplete or out of scope is **not yours to revert**
+- **Never** `git checkout -- .` / `restore` / `stash` / `reset --hard` to clean up changes you didn't author -- unexpected changes → **stop and ask the human**
+- **Stay in your lane** -- edit only your allowlisted files; a build break rooted outside your lane is a hand-off (stop and report), not a repair; deleting projects or editing `.sln` / `.csproj` is not a controllers or frontend lane's job
