@@ -325,3 +325,16 @@ The structural validator does not establish a successful frontend build or corre
   `README.md` inside a folder, rename it to the folder-doc name.
 - `scaffold.sh` refuses to clobber an existing repo dir and won't double-register in `active.sh`.
 - Toolchain check (once): `dotnet --version` (≥ `net{N}`) and `node --version` (≥ 20) before verifying.
+
+## Delegation
+
+Routes per step -> `agentic-workflow.md` § Delegation tables; a step not listed routes by § Models.
+
+| Step | Route | Model · effort | Check |
+|---|---|---|---|
+| Confirm the resolved repo, Brand, org, mode and shape | inline | the chat's tier | the developer's confirmation of the resolved inputs |
+| Run `scaffold.sh` with the confirmed arguments | `haiku-mech` | Haiku · `medium` | the scaffold's output tail; `scripts/active.sh -l` lists the new short name |
+| Add a domain repo's `catalog.yml` entry and regenerate the registry | `haiku-mech` | Haiku · `medium` | `git diff --stat` lists only `catalog.yml` and `.claude/repo-registry.md` |
+| Fill the doc `{{placeholders}}` with the one-liner | `builder` | Sonnet · `medium` | `grep -rn '{{ONE_LINE_WHAT_THIS_IS}}'` prints nothing; each other open placeholder is named |
+| Run the backend and frontend verification commands | `haiku-mech` | Haiku · `medium` | the output tails of `dotnet test`, `pnpm lint`, `pnpm test` and `pnpm build`, verbatim |
+| Report the repo path, ports, test results and open placeholders | inline | the chat's tier | the reply names the path, ports, both test results, the `active.sh` short name and open placeholders |

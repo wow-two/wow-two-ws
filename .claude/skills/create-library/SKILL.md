@@ -132,3 +132,18 @@ Statuses: `done` · `skip` (does not apply) · `next` (yours to run now) · `pen
 - `scripts/release/main-guard.json` — the `main` ruleset: no deletion, no force push, no review rule.
 - `scripts/release/test_library.py` — `python3 -I -m unittest discover -s scripts/release`.
 - `.claude/skills/create-repo/scaffold.sh` — the stamp, reused; `INTO=clone` fills an empty clone.
+
+## Delegation
+
+Routes per step -> `agentic-workflow.md` § Delegation tables; a step not listed routes by § Models.
+
+| Step | Route | Model · effort | Check |
+|---|---|---|---|
+| Run `plan` and return the status table and `Next:` block | `haiku-mech` | Haiku · `medium` | the plan output, verbatim |
+| Confirm the repo, Brand and org before the first write | inline | the chat's tier | the developer's confirmation of the repo, Brand and org |
+| Run each printed write command as its own Bash call | inline | the chat's tier | the re-run `plan` shows the step `done`; no write joined or wrapped |
+| Run the create-repo verification before the scaffold commit | `haiku-mech` | Haiku · `medium` | the output tails of `dotnet test`, the `pnpm` steps and `test-next-version.sh` |
+| Stage and commit the printed paths where the commit flag is ON | `haiku-mech` | Haiku · `medium` | `git var GIT_AUTHOR_IDENT` matching the folder's identity; `git diff --cached --name-only` equal to the printed paths; `git log -1 --stat` |
+| Hand over the commit and push where the flag is OFF | inline | the chat's tier | the developer's word that the GitKraken commit is made; `git log -1 --stat` shows it |
+| Re-pin each stale consumer, then build and test it | `builder` | Sonnet · `medium` | `git diff` shows only the pin lines; the build and test output tails |
+| Relay the hand-step checklist to the developer and stop | inline | the chat's tier | the developer's answer on each hand step; `plan` shows it `done` |
