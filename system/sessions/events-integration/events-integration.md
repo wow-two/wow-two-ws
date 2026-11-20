@@ -704,6 +704,12 @@ Developer, 2026-10-24 to 2026-11-10; not reopened.
   - fe-events `0.0.20` fixes 16 kit rows (events `4bcc971`); `ocharo - events ui` re-pins it in T03. CodeMie credit
     is open for Events tickets UI07, UI08 and UI14, owned by the sources lane.
   - Deferred: the ocharo.com domain. Held: the reminder system's home, a new Notifications domain or inside Events.
+- #77 Scope narrowed (developer, 2026-11-21): "let's park this - our goal should be just getting all sources and their
+  classifications, any improvements - we can do next week".
+  - Parked to next week: OQ-4 (what "new" means on a card, E31), the reminder system and its home, and the Events UI
+    improvement tickets (UI07, UI08 and UI14 on CodeMie, T06 and later).
+  - Continues: the Ocharo source waves and their AI classification (`ocharo - sources and ai processing`), the
+    selector cutover after three daily diffs, and T03's desktop and phone fixes, already running on CodeMie.
 
 ## Contracts
 
