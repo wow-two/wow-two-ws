@@ -3,7 +3,7 @@
 *Started 2026-11-20 by `ev-build`. Procedure: harvest `engineering/development/subscription-selectors.md` § Shadow.*
 
 Each run is `subscriptions diff --subscription ocharo-events --tenant ocharo --against ocharo-fashion-v1 …` through
-Wheelhouse Run on harvest-dev. The switch needs at least three daily rows, with pending at 0 or explained.
+Wheelhouse Run on harvest-dev. The cutover needs at least three daily rows, with pending at 0 or explained.
 
 ## Setup
 

@@ -177,7 +177,7 @@ All paths are relative to the `wow-two-ws` root.
 | Kind (format) | high | Events `kind` | single select | `kinds[]`, chips with counts |
 | Stage | high | Events `stages`/`excludeStages` | select, summary counts | chips with counts that follow the filters; the hidden-stage toggle stays |
 | Priority | medium | Events `priority` | none | "High priority" toggle |
-| Source | high once the selector switch brings 4 more publishers | Events, over `events_event_sources` | none | `sources[]`: each source name, plus `curated` for import and manual entries |
+| Source | high once the selector cutover brings 4 more publishers | Events, over `events_event_sources` | none | `sources[]`: each source name, plus `curated` for import and manual entries |
 | Open deadline | high ("Deadlines first") | Events `deadlineBefore` | panel only | "Deadline within 30 days" toggle |
 | New | high (E31) | Events `publishedSince`; the visit marker per person | "New — review" on untracked | OQ-4 |
 | SCFD subdomain, topic | medium (jewelry, textile, womenswear) | harvest tags → Events column | none | full set, after the payload carries tags |

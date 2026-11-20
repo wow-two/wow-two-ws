@@ -688,6 +688,22 @@ Developer, 2026-10-24 to 2026-11-10; not reopened.
     events ui` takes Ocharo's image route. This supersedes the events-UI OQ-2 pick; the date tile stays the fallback.
   - Also from the developer in that chat: Ocharo's interfaces are English only until the SDK translation layer
     improves (hub `ocharo-ws` `876f9fd`); the event detail page drops the Tracking section.
+- #76 Hand-off and priorities (developer, 2026-11-20/21): "I really want to integrate those 700+ sources and run ai
+  processing first thing in our list"; "as domain I meant ocharo.com - but let's defer this one as well"; "events ui
+  lane is already working in ui so no new agent needed for that btw"; "do the pushes yourself then".
+  - `ev-build` closed: its SCFD, harvest and Events work moved to `ocharo - sources and ai processing`, which now owns
+    harvest, the adapters and Events. The "selector switch" is renamed the "selector cutover"; it stays one-way.
+  - X2 retired `post-tags relevance` in favour of `subscriptions diff` (harvest `4487070`).
+  - Shipped before the hand-off: E17 (events `1be37a8`, rule `title-date-city`, live on events-dev `0.1.37`), E23
+    (`fa38645`) and E18 (`4deb80c`).
+  - Sources plan in [sources/ocharo-sources-plan.md](sources/ocharo-sources-plan.md) (SR01-SR18): 133 pollable channels
+    and ~30 publishers in waves; Sonnet tagging with a Haiku fallback, capped at $140 before the credit cycle ends
+    2026-11-24.
+  - OLX for Haven moved to the developer's `w2 - scfd for haven` orchestrator (2026-11-21: "this chat is an
+    orchestrator for scfd for haven"); harvest B1 `d21cab0` and B2 `8469f53` are pushed, B3 handed over.
+  - fe-events `0.0.20` fixes 16 kit rows (events `4bcc971`); `ocharo - events ui` re-pins it in T03. CodeMie credit
+    is open for Events tickets UI07, UI08 and UI14, owned by the sources lane.
+  - Deferred: the ocharo.com domain. Held: the reminder system's home, a new Notifications domain or inside Events.
 
 ## Contracts
 

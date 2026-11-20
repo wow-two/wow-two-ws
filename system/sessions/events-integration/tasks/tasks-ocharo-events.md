@@ -536,6 +536,6 @@ Gate above all of these, for the developer: the team sees nothing until members 
 ## Notes for the orchestrator
 
 - The 3 off-topic events will not leave on their own. E03 and E04 shipped, but no revision un-matches them, so OE01
-  (or the selector's switch) is the only path.
+  (or the selector's cutover) is the only path.
 - OE02 without OE01 roughly doubles off-topic noise: 4 of the 13 new matches are off-topic.
 - `events_prod` exists on the dev host's PostgreSQL with no tables. O14 has not run.

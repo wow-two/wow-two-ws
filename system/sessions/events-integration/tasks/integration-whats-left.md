@@ -26,10 +26,10 @@ ai `24330fe` (`be-v10.0.5-beta`), ocharo-marketing `1d565d1`. No edits, commits 
 
 | Work | State | Evidence |
 |---|---|---|
-| Subscription selector (SL1-SL9) | built: harvest v0.2 Iteration 21 (`38181c8`..`cefb5c8`, `v0.2.36`-`v0.2.40`); Events SL8a binds one intake source to `selector:{name}` (`d74b1b6`, `v0.1.24`, NuGet `10.0.17-beta`), SL8b replays the golden selector pages (`b3472f9`, unreleased). Left: ≥ 3 daily shadow rows (day 0 on 2026-11-20: 7 both, 10 filter-only, 2 selector-only, 0 pending), the developer's switch (point 13), `adopt`, Events `Sources:0` re-pointed on dev, channel subscriptions archived, `ocharo-fashion-v1` and `ocharo-relevance-v1` retired | `subscription-modes/selector-shadow.md`; harvest `development/subscription-selectors.md` § Provisioning and switching |
+| Subscription selector (SL1-SL9) | built: harvest v0.2 Iteration 21 (`38181c8`..`cefb5c8`, `v0.2.36`-`v0.2.40`); Events SL8a binds one intake source to `selector:{name}` (`d74b1b6`, `v0.1.24`, NuGet `10.0.17-beta`), SL8b replays the golden selector pages (`b3472f9`, unreleased). Left: ≥ 3 daily shadow rows (day 0 on 2026-11-20: 7 both, 10 filter-only, 2 selector-only, 0 pending), the developer's cutover go (point 13), `adopt`, Events `Sources:0` re-pointed on dev, channel subscriptions archived, `ocharo-fashion-v1` and `ocharo-relevance-v1` retired | `subscription-modes/selector-shadow.md`; harvest `development/subscription-selectors.md` § Provisioning and switching |
 | Afisha and ANONS source health | planner, ANONS pacing and console labels (#72); Afisha has read no new post since S37; nothing committed yet (harvest tree clean) | track #72 |
 
-- Check at the switch: the 3 off-topic events already published (Tsereteli, Yalt-Yult, CAEx Build & Co) leave only if
+- Check at the cutover: the 3 off-topic events already published (Tsereteli, Yalt-Yult, CAEx Build & Co) leave only if
   `adopt` emits `post.unmatched` for them under the selector; E04's hold then takes them out of the feed.
 
 ---
@@ -52,13 +52,13 @@ Groups for open ids: (a) Ocharo integration · (b) SCFD-only · (c) Ocharo refin
 | S07 | commit in slices, verify `v0.2.7` on dev | open | harvest row: commits accepted, dev acceptance runs as v0.2 Verification; 4 Haven checks open (OLX, BirBir, `rental-terms@2`, Teplo Fest) | (b), rides the v0.2 close |
 | S08 | filter key in golden pages | shipped | `6fde53b`; Iteration 4 | |
 | S09 | one subscription, many sections | superseded | harvest Iteration 21 | the selector follows sources and tags in one container; Instagram's cross-pipeline need is met by `sources.include` |
-| S10 | `ocharo-fashion-v1` regression set | superseded | Iteration 20 `relevance --filter` (`8f0ea10`), selector `diff` (`bc2b192`) | the rule retires at the switch; its fixtures become tagging eval cases (b) |
+| S10 | `ocharo-fashion-v1` regression set | superseded | Iteration 20 `relevance --filter` (`8f0ea10`), selector `diff` (`bc2b192`) | the rule retires at the cutover; its fixtures become tagging eval cases (b) |
 | S11 | publisher categories as source tags | superseded | Iteration 10 (`51ae0da`) | Layer 1 tags every post with type, domain and topic, which the selector reads; a publisher-category mapping is optional now |
 | S12 | per-subscription pull lag | open | harvest row | (b) |
 | S13 | typed application deadlines | shipped | `89fe25d`; Iteration 4 | |
 | S14 | shared AI layer in the source host | shipped | Iterations 10-19 (`51ae0da`..`1c65b34`); AI on for harvest-dev (#71) | row still says partial |
-| S15 | Ocharo relevance in shadow | superseded | rebuilt on `post-tags` in `174d3cd` | the shadow that gates the switch is now the selector diff (`selector-shadow.md`) |
-| S16 | promote AI relevance into delivery | superseded | `subscription-modes.md` § 4; Iteration 20 | the selector switch replaces `ocharo-relevance-v1` |
+| S15 | Ocharo relevance in shadow | superseded | rebuilt on `post-tags` in `174d3cd` | the shadow that gates the cutover is now the selector diff (`selector-shadow.md`) |
+| S16 | promote AI relevance into delivery | superseded | `subscription-modes.md` § 4; Iteration 20 | the selector cutover replaces `ocharo-relevance-v1` |
 | S17 | estimated dates from the AI pass | shipped | `174d3cd` (`v0.2.22`); Events reads `starts.certainty` (E34 `3597efc`); Ocharo `e01da3c` | row still says Events must read certainty |
 | S18 | ANONS, Craftfair, Uzexpocentre, CAEx | open | ANONS, Uzexpocentre, CAEx on dev on schedule (Iteration 4, `b748364`); Craftfair row waits on the challenge posture | (d), Craftfair only |
 | S19 | trade-fair edition pages | open | harvest row | (b) |
@@ -104,13 +104,13 @@ Groups for open ids: (a) Ocharo integration · (b) SCFD-only · (c) Ocharo refin
 | E14 | dead fact-edit and delete actions removed | shipped | platform `318b3bb` | |
 | E15 | source name, state, posted time | shipped | events `979cfca` | |
 | E16 | source attribution on cards | shipped | platform `eec660d` | |
-| E17 | cross-source duplicates to one event | open | events row | (a) |
-| E18 | tracking moves to the survivor on merge | open | events row | (a) |
+| E17 | cross-source duplicates to one event | shipped | events `1be37a8`; rule `title-date-city`, curated events included; events-dev `0.1.37` | |
+| E18 | tracking moves to the survivor on merge | shipped | events `4deb80c` | |
 | E19 | subscriber lists its tenant's subscriptions | open | harvest row; `SubscriptionsController.List` still refuses a client-credentials `events-read` token | (b); not needed for one Ocharo subscription |
 | E20 | discover intake subscriptions | superseded | § 4 "mostly superseded" | one subscription per catalog |
 | E21 | country lists, untracked counts | shipped | events `6463aea` (`v0.1.21`) | |
 | E22 | filter and page in Events | superseded | platform `1a7fdf5` (OE07) deleted the row | OE07's mirror runs filters and the cursor in Events |
-| E23 | members read intake freshness | open | events row | (a) |
+| E23 | members read intake freshness | shipped | events `fa38645` | |
 | E24 | error, empty, stale states with retry | superseded | `1a7fdf5` deleted the row ("absorbs E24's error panel") | the kit's failure notice covers errors; the stale-state half still needs E23 and has no row |
 | E25 | UI-locale titles | shipped | platform `4cca614` | |
 | E26 | in-memory Events fake | open | events row | (e); Ocharo moved to a pass-through recorder |
@@ -199,10 +199,10 @@ Groups for open ids: (a) Ocharo integration · (b) SCFD-only · (c) Ocharo refin
 
 | Rank | Task | Repo | Why now |
 |---|---|---|---|
-| 1 | E17 cross-source duplicates to one event, matching curated events too (OE review amendment) | events | the selector switch brings ANONS, CAEx and Uzexpocentre into one subscription, so Visa Fashion Week, The Fashion Show Line and Uzbekistan Fashion Week each arrive twice; OE09's entity id outranks the title rule later |
+| 1 | E17 cross-source duplicates to one event, matching curated events too (OE review amendment) | events | the selector cutover brings ANONS, CAEx and Uzexpocentre into one subscription, so Visa Fashion Week, The Fashion Show Line and Uzbekistan Fashion Week each arrive twice; OE09's entity id outranks the title rule later |
 | 2 | E23 members read intake freshness, plus E24's stale-state half (no row since `1a7fdf5`) | events, then ocharo-platform | Afisha has read no new post since S37, and Ocharo's team cannot tell a quiet week from a stalled pull |
 | 3 | E18 tracking moves to the survivor when SCFD merges posts | events | a tracked duplicate stays listed twice after a merge |
-| 4 | E29 local SCFD → Events → Ocharo smoke, re-based on `selector:ocharo-events` | ocharo-platform | no test drives one record through all three services; run it after the switch |
+| 4 | E29 local SCFD → Events → Ocharo smoke, re-based on `selector:ocharo-events` | ocharo-platform | no test drives one record through all three services; run it after the cutover |
 | 5 | Dev read-backs the shipped OE tasks owe: OE03 (add an event as an editor on dev), OE05 (create the reminder preset), OE06 (`en` UI shows the English title) | ocharo-platform, events | each "Done when" names a dev check that is not recorded |
 
 ### (b) SCFD-only, for a later SCFD orchestrator
@@ -236,7 +236,7 @@ Groups for open ids: (a) Ocharo integration · (b) SCFD-only · (c) Ocharo refin
 - S34 IP-lease pools and CAPTCHA solving; S38 what marketplace collectors keep about people.
 - W01 scope of the two `must`s; its email and verdict fixes are mechanical.
 - Craftfair: the challenge-detector posture, then S18's Craftfair half.
-- Not task ids: the selector switch (point 13), prompt-mode subscriptions (point 7), entity model #7 and #8, A02's
+- Not task ids: the selector cutover (point 13), prompt-mode subscriptions (point 7), entity model #7 and #8, A02's
   labels, and members joining Ocharo on dev (the team sees nothing until then).
 
 ### (e) Outside this integration
@@ -272,7 +272,7 @@ Superseded but still listed (14):
 | harvest | `S10 Ocharo filter regression set over every reader's fixtures` | selector; fixtures → eval set |
 | harvest | `S11 Emit item-level publisher categories as source tags` | Layer 1 tags + selector |
 | harvest | `S15 Run Ocharo relevance in shadow on Afisha` | selector shadow |
-| harvest | `S16 Promote AI relevance into Ocharo's delivery` | selector switch |
+| harvest | `S16 Promote AI relevance into Ocharo's delivery` | selector cutover |
 | harvest | `E02 Tighten ocharo-fashion-v1 against off-topic event matches` | selector |
 | harvest | `A05 SCFD relevance pass in shadow on one Afisha pipeline` | Iterations 10-19 + selector shadow |
 | harvest | `Tag and keyword subscriptions` (§ Features, "planned") | selector (keyword dropped, § 4) |
