@@ -35,21 +35,27 @@ apartment listing platforms along the way as well".
   $0.28
 - 🔄 #6 Provisioned on `harvest-prod` 2026-11-21 (`manual`, 7 searches, v5 as prompt version 1, no key issued, no
   schedules); `pipelines pace|run|schedule|show` host verbs committed harvest `60cef0b` (all tiers green), eval record `8d2f28e`;
-  the 15 s pace and first OLX capture on `harvest-prod` follow the release. Plan: `--model-processing manual`, a ~50-listing sanity batch, then `auto`;
+  `v0.2.57` promoted to `harvest-prod` by hand 2026-11-21 (migrate 18 → 19, probe 200, data snapshotted first; dev
+  auto-deploys, prod is promoted); on it the lane sets the 15 s pace, `marketplace setup --profile haven
+  --model-processing auto` and one bounded apartments-rent capture, with schedules after the `24002e8` release. Plan: `--model-processing manual`, a ~50-listing sanity batch, then `auto`;
   volume does not wait for #5 -- prompt iterations draw on the volume answers and the eval set
 - ⬜ #7 Schedules and AI `auto` on every Haven collection source (OLX ×3, Joymee, BirBir), then improve prompts and
   sources from the volume answers (developer, 2026-11-21: "set the schedules, set the ai processing in all sources and
   work on improving them"); after the scheduler UTC hotfix reaches `harvest-prod`
-- ⬜ #8 BirBir, Joymee, Domtut on the same listing route
+- 🔄 #8 BirBir, Joymee, Domtut on the same listing route: BirBir and Joymee `apartments-rent` imply `listing` +
+  `real-estate/apartments`, harvest `50840fb` (v0.2 Iteration 36, every tier green)
 - ⬜ #9 10K listings classified on Haiku 5.5, measured spend inside the cap
-- ⬜ #15 Available sources: the instance turns registered sources on in its database; Sources shows only those, a
+- ✅ #15 Available sources: the instance turns registered sources on in its database; Sources shows only those, a
   separate Available page lists the rest (developer, 2026-11-21: "instance itself will be able to configure which
   sources will be ever turned on - saved in db"); off = disabled, never removed ("like disable not completely
   remove"); Haven's instance turns on listing sources only, Ocharo's `harvest-dev` keeps its four; design harvest
   `fb6a5d2` (`source-catalog.md`, v0.2 iteration 32); unit = publisher group or marketplace site; turning on from
   Available provisions with schedules and model processing off (orchestrator, derived); committed harvest `b27a1f6` 2026-11-21 (checker 14/15, the gap test-only; all tiers green), the gap closed by
   `8d975ce` (7 gate tests);
-  dev and prod checks follow the release
+  `harvest-prod` and `harvest-dev` run `v0.2.57` (= `631c636`, holds #15 and the image copies, not the scheduler fix
+  `24002e8`); checks recorded harvest `152ac92`: `harvest-prod` Sources shows Haven's 4 sites, Available shows the 27
+  Ocharo groups (nothing toggled there); a `harvest-dev` on/off/on toggle survived reloads and a redeploy; evidence
+  in [available-sources/](available-sources/); open backlog row: the Available page shows its lead line twice
 - 🔄 #16 Haven's stack: SCFD target first (credit cycle ends 2026-11-24), then Identity with console sign-in, then
   Files; per-instance `LimitUsd` caps summing ≤ $195
   - ✅ `harvest-prod` healthy 2026-11-21 (`0.2.54+748d5cd`, own database): Haven takes the `prod` environment names on
@@ -71,6 +77,10 @@ apartment listing platforms along the way as well".
     circumvention to collect private sellers' phones, and auto mode refused the reveal probe; phones written in the
     ad go into the post's contacts field as plain text, no manual reveal field (developer, 2026-11-21: "we just
     harvest from olx and store here as plain text man")
+  - phone coverage on the Mac capture `harvest-b4`: 29 of 180 OLX posts (16%) -- 27 in the seller display name, 2 as
+    `tel:` links, 1 in the ad text; the next v0.2 iteration (37, since `50840fb` took 36) adds the seller name and
+    attributes to the E.164 `contacts` rule (`e164-and-email@3`), build go given 2026-11-21; the real
+    coverage is read from `harvest-prod`'s first OLX capture
 
 ## Decisions
 
