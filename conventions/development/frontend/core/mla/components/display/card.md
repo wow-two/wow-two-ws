@@ -1,6 +1,6 @@
 # Card
 
-*Last updated: 2026-09-10*
+*Last updated: 2026-11-20*
 
 > The bordered box — the generic surface the specific cards are built on.
 > What a display is → [display](../../constructs/visual/display.md).
@@ -20,6 +20,7 @@
 | [FeatureCard](featureCard.md) | the box is a marketing feature tile with a tinted icon |
 | [PricingCard](pricingCard.md) | the box is a pricing tier with features and a call to action |
 | [StepCard](stepCard.md) | the box is a numbered step in a how-it-works row |
+| [MediaCard](mediaCard.md) | the box leads with a picture and its text sits over it |
 | [FrameLayout](../layout/frameLayout.md) | the wrapper is reusable chrome rather than a content box |
 | [SectionHeading](sectionHeading.md) | the block needs a header without a box around it |
 

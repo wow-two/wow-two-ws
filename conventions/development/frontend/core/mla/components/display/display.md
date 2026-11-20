@@ -1,6 +1,6 @@
 # Display
 
-*Last updated: 2026-10-01*
+*Last updated: 2026-11-20*
 
 > Which display to reach for, and with what values — the application register over the SDK's `display/` group.
 > Use case — picking between two renders that both work, or fixing the value one carries here.
@@ -49,6 +49,7 @@
 | [KeyboardShortcutText](keyboardShortcutText.md) | a combination of keys renders with connectors |
 | [ListGroup](listGroup.md) | items are bulleted, numbered, or checked |
 | [MarkText](markText.md) | one already-isolated run is tinted inside other copy |
+| [MediaCard](mediaCard.md) | a record leads with a picture, its text on a blurred fade at the foot |
 | [MarqueeGroup](marqueeGroup.md) | a decorative band scrolls itself forever |
 | [MessageGroup](messageGroup.md) | a live conversation grows at the bottom and sticks there |
 | [MetaInlineText](metaInlineText.md) | chips sit left and actions push right in a meta row |
