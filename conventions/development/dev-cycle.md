@@ -1,6 +1,6 @@
 # Development cycle
 
-*Last updated: 2026-11-08*
+*Last updated: 2026-11-21*
 
 > Two cycles per active app — implement a version in-app, then extract its stable blocks to the SDK + conventions and adopt across the active apps.
 > Purpose — mature the apps and the shared SDK in parallel: ship fast in one product, harden once, propagate everywhere — never in isolation.
@@ -139,3 +139,16 @@ runs as one orchestrator chat plus one lane chat per repository, by `~/.claude/c
 - **source** — the app that pioneered a block extracts it (current set: wheelhouse → presentation/controller conventions; forever-pin → the migration layer).
 - **target** — every other active app adopts the block once it is stable.
 - a target that can't yet adopt (different stack) is **noted, not forced** — e.g. an EF/SQLite app waits for the dialect before taking a Postgres-only block.
+
+---
+
+## Harvesting pipelines stay on in development
+
+While a product is in development, its collection runs are how we learn a source -- dev and prod targets alike. A block is data, not a stop sign (developer, 2026-11-21: OLX sat unscheduled on harvest-prod after one blocked run -- "them blocking us doesn't stop us - even that info would have helped us").
+
+- must keep a harvesting pipeline's schedule when its source blocks, challenges or rate-limits it -- each run records when it was refused, after how many requests and with what answer, and that record decides pacing, egress and proxies
+- must slow a struggling pipeline (a longer pace, a wider interval) rather than turn it off
+- must turn one off only when it absolutely has to stop -- the source forbids it (robots.txt or terms), it harms the host, or the developer says so -- and state the reason in one line where the decision is recorded
+- must never read a lane or orchestrator rule such as "stays idle until X" as a reason to leave a harvesting pipeline unscheduled -- raise it with the developer instead
+- processing pipelines (AI calls) are out of scope -- they spend credit and follow their own guards and budgets
+- the sourcing limits still hold while it runs: paced, inside robots.txt, no challenge solving
