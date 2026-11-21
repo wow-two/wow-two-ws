@@ -24,7 +24,9 @@ apartment listing platforms along the way as well".
 - 🔄 #3 OLX reach from `ocharo-vps`: probe 2026-11-21 reached OLX, then HTTP 403 after ~40 requests at a 2 s pace (the
   Mac took 189 with no refusal); 15 s pace picked (developer, 2026-11-21: "yeah let's go with this then"), ~5.7K ads a day; only
   `harvest-prod` fetches OLX, since both instances share the VPS address; still refused → egress (plan D1), the
-  developer's pick
+  developer's pick; `harvest-prod` run `01a1fb56` on `v0.2.57` (2026-11-21) was blocked after 10 requests at 15 s
+  (8 new posts), so the VPS address is refused whatever the pace; OLX idle, schedules off, until D1 is decided;
+  Joymee and BirBir scale meanwhile
 - ✅ #4 Spend guard (plan B3): harvest `98aff1a`, checker pass, backend suite green; settings
   `Harvest:Processing:Budget:{LimitUsd, SoftShare, CycleStartDay, SinceUtc}`, read by `processing budget`; dev values
   set once its release reaches `harvest-dev`
@@ -39,7 +41,10 @@ apartment listing platforms along the way as well".
   auto-deploys, prod is promoted); on it the lane sets the 15 s pace, `marketplace setup --profile haven
   --model-processing auto` and one bounded apartments-rent capture, with schedules after the `24002e8` release. Plan: `--model-processing manual`, a ~50-listing sanity batch, then `auto`;
   volume does not wait for #5 -- prompt iterations draw on the volume answers and the eval set
-- ⬜ #7 Schedules and AI `auto` on every Haven collection source (OLX ×3, Joymee, BirBir), then improve prompts and
+- 🔄 #7 (2026-11-21: `harvest-prod` on `v0.2.61` = `d961ea9`; Joymee capture every 2 h, run `01a1fb82-7211`
+  58 new posts, 0 failed; BirBir answers a challenge on its first request from the VPS, schedule off, folded into
+  D1; OLX idle; 66 `extract-listing` answers, 0 invalid, $0.0378, $0.00057 a listing; Joymee capture reads only its
+  newest ~58, `Sweep`/`Discover` reach checked next) Schedules and AI `auto` on every Haven collection source (OLX ×3, Joymee, BirBir), then improve prompts and
   sources from the volume answers (developer, 2026-11-21: "set the schedules, set the ai processing in all sources and
   work on improving them"); after the scheduler UTC hotfix reaches `harvest-prod`
 - 🔄 #8 BirBir, Joymee, Domtut on the same listing route: BirBir and Joymee `apartments-rent` imply `listing` +
@@ -56,7 +61,7 @@ apartment listing platforms along the way as well".
   `24002e8`); checks recorded harvest `152ac92`: `harvest-prod` Sources shows Haven's 4 sites, Available shows the 27
   Ocharo groups (nothing toggled there); a `harvest-dev` on/off/on toggle survived reloads and a redeploy; evidence
   in [available-sources/](available-sources/); open backlog row: the Available page shows its lead line twice
-- 🔄 #16 Haven's stack: SCFD target first (credit cycle ends 2026-11-24), then Identity with console sign-in, then
+- ✅ #16 Haven's stack: SCFD target first (credit cycle ends 2026-11-24), then Identity with console sign-in, then
   Files; per-instance `LimitUsd` caps summing ≤ $195
   - ✅ `harvest-prod` healthy 2026-11-21 (`0.2.54+748d5cd`, own database): Haven takes the `prod` environment names on
     `ocharo-vps` (Wheelhouse names by `<product>-<env>` per server); `files_prod` was placed for Ocharo prod in
@@ -68,18 +73,26 @@ apartment listing platforms along the way as well".
     admin signs in by Telegram with one of Haven's Agents bots (developer, 2026-11-21: "we have tg bot for haven
     as well - we'll reuse that"; Haven `telegram.md:11-16`), provided no running Haven.Auth loses its updates
   - ⬜ Files `files-prod`
-- 🔄 #17 OLX images and phones (design 2026-11-21, `haven-browser-17.md` in the lane's notes):
+- ✅ #17 (2026-11-21: `assets report` on `v0.2.61`: OLX 46 of 46 images copied, no fetch refusal from
+  `olxcdn.com`; Joymee posts with a phone 28 of 58; the OLX phone share waits on D1, read by the olx lane) OLX images and phones (design 2026-11-21, `haven-browser-17.md` in the lane's notes):
   - images: harvest's `SourceAssetWorker` copies OLX photos from adapter-declared CDN hosts into Haven's Files, first
     6 per post, own ≥2 s pace, no browser and no separate service; Haven's old browser service is gone (Haven
-    `f0a10453`) -- v0.2 Iteration 35 committed harvest `631c636` (8 tiers, 2,214 tests green); copies verified once
-    `harvest-prod` holds OLX posts
+    `f0a10453`) -- v0.2 Iteration 35 committed harvest `631c636` (8 tiers, 2,214 tests green); console read of
+    `harvest-prod` run `01a1fb56` (2026-11-21): copies work, 3 of 16 images copied (JPEG, 525 px, ~52 KB each),
+    13 wait while the OLX host is paused, by design; ~0.3 MB a post at 6 photos; size stays OLX's default until
+    Haven's UI needs larger (`;s=1280x960`, ~3–4× the bytes; orchestrator pick, backlog row)
   - phones: automated reveal through OLX's CAPTCHA gate is not built -- the lane declined it as bot-detection
     circumvention to collect private sellers' phones, and auto mode refused the reveal probe; phones written in the
     ad go into the post's contacts field as plain text, no manual reveal field (developer, 2026-11-21: "we just
     harvest from olx and store here as plain text man")
   - phone coverage on the Mac capture `harvest-b4`: 29 of 180 OLX posts (16%) -- 27 in the seller display name, 2 as
-    `tel:` links, 1 in the ad text; the next v0.2 iteration (37, since `50840fb` took 36) adds the seller name and
-    attributes to the E.164 `contacts` rule (`e164-and-email@3`), build go given 2026-11-21; the real
+    `tel:` links, 1 in the ad text; v0.2 Iteration 38, harvest `b42f8de` (8 tiers, 2,325 tests green, spec
+    checker pass), adds the seller name and attributes to the E.164 `contacts` rule (`e164-and-email@3`); no prompt
+    renders a phone and Haven's delivery stays contact-free; Iteration 37 is Ocharo's Telegram reader `4c10883`;
+    counts come from the read-only host verb `assets report` (v0.2 Iteration 39, harvest `d961ea9`, 8 tiers green;
+    migration `020-asset-outcomes` records each copy's outcome and bytes), since auto mode refused SSH to
+    `ocharo-vps` (2026-11-21, orchestrator pick); 13 of the run's OLX images stayed uncopied after the pause
+    lifted, cause read from `byOutcome` once the release is on `harvest-prod`; the real
     coverage is read from `harvest-prod`'s first OLX capture
 
 ## Decisions
@@ -103,9 +116,9 @@ apartment listing platforms along the way as well".
 | Lane | Session | Repos | Owns |
 |---|---|---|---|
 | `haven - scfd olx listings` | `haven-scfd-olx` `local_cbde7205-874e-42c0-8229-52d3a276f286` | `wow-two-sdk-beta.harvest`; `harvest-dev` settings via `wow2` and Wheelhouse | #3-#9 |
-| `haven - scfd available sources` | `scfd-available-sources` `local_2744267d-65cb-4b24-af2d-2f77b0e48b8e` | `wow-two-sdk-beta.harvest` (console + backend) | #15 |
-| `haven - separate platform stack` | `haven-stack` `local_0f62fb9b-4cc8-4aae-83e7-9b25e566cf48` | Wheelhouse targets for `harvest`, `identity`, `files` on `ocharo-vps` | #16 |
-| `haven - scfd browser and phone reveal` | `haven-browser` `local_10fe89ba-28f5-4147-90a3-b63cd3f9a2a1` | harvest seam; a browser service if separate | #17 |
+| `haven - scfd available sources` | `scfd-available-sources` `local_2744267d-65cb-4b24-af2d-2f77b0e48b8e` | `wow-two-sdk-beta.harvest` (console + backend) | #15 (done, archived 2026-11-21) |
+| `haven - separate platform stack` | `haven-stack` `local_0f62fb9b-4cc8-4aae-83e7-9b25e566cf48` | Wheelhouse targets for `harvest`, `identity`, `files` on `ocharo-vps` | #16 (done, archived 2026-11-21) |
+| `haven - scfd browser and phone reveal` | `haven-browser` `local_10fe89ba-28f5-4147-90a3-b63cd3f9a2a1` | harvest seam; a browser service if separate | #17 (done, archived 2026-11-21; the OLX phone share moved to the olx lane) |
 
 - Other chats on harvest: `ocharo - sources and ai processing` (Ocharo sources), `ocharo - scfd integration build`;
   the OLX slice (plan B3 onward) moved here on 2026-11-21; B3 handed over with no edits at `8469f53`
