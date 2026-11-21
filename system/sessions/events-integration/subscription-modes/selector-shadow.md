@@ -19,6 +19,7 @@ Wheelhouse Run on harvest-dev. The cutover needs at least three daily rows, with
 | Date | Since | Posts | Both | Filter only | Selector only | Neither | Pending | Out of scope |
 |---|---|---|---|---|---|---|---|---|
 | 2026-11-20 | 2026-09-01 | 150 | 7 | 10 | 2 | 131 | 0 | 0 |
+| 2026-11-21 | 2026-11-20 | 440 | 4 | 3 | 0 | 433 | 0 | 0 |
 
 ### 2026-11-20 (day 0)
 
@@ -56,3 +57,13 @@ Notes:
 - Texworld is held as a past event (its 2026 edition ended 14 Oct), as D23 intends; the spec's done-when line that
   names Texworld predates that amendment. Visa Fashion Week and TFT Expo deliver; CAEx Build & Co is held.
 - To watch: the Artikul32 furniture sale passes only on ikat and suzani topics; it is textile-related, but not fashion.
+
+### 2026-11-21 (day 1)
+
+- ~01:53Z, harvest-dev `v0.2.61`, selector version 3: Wave 1 (25 generic-route channels) and Wave 2 (10 Telegram
+  channels) joined the followed publishers through `ocharo setup --selector --selector-reset` on 2026-11-20, so the
+  window holds 440 posts against day 0's 150.
+- Filter only (3): one idem.uz post, "International Circus Festival. The Great Silk Road", counted three times
+  (`no-subject`, upcoming). It is a circus festival, not fashion, so the selector's hold is right and the old filter
+  passes a false positive.
+- Both (4) are not itemised by the verb; selector only 0; pending 0; filter undecided 0.
