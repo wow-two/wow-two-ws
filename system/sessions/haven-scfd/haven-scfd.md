@@ -34,7 +34,20 @@ apartment listing platforms along the way as well".
   Haiku 5.5 is Haven's prompt (`harvest-prod` `extract-listing` version 2): offer 0.988, period 0.950, price 0.912,
   rooms 0.988, terms 0.963, tenants 0.812, author kind 0.600 strict / 0.713 rule 12 / 0.850 coarse (bar 0.90), 0 leaks,
   1/80 schema-invalid, $0.00061 an ad; v8 scored lower; next round reads `harvest-prod` volume answers; evals spent
-  $0.28
+  $0.28; next set `joymee-listings-v1` (~100 Joymee ads captured from the Mac, agent gold labels, contacts scrubbed),
+  since Joymee is the volume source and v7's author rules lean on OLX fields; a version reaches `harvest-prod` only
+  when it beats v7 on both sets and on a held-out ~40-ad Joymee set (orchestrator, 2026-11-21); v7 on
+  `joymee-listings-v1` (80 ads, `harvest-dev` run `01a1fbe2`): offer 1.000, period 0.988, price 0.988, terms 0.982,
+  tenants 0.875, rooms 0.850 and author 0.775 under the bar, 0 invalid, 0 leaks, $0.00052 an ad; misses are rule
+  gaps (`2/4/12` as floors, Uzbek fee wording, "без маклера" owner cues, agency voice) that v9 targets; Joymee's
+  structured attributes and `advertiser_type` never reached the prompt (`PostExtractionContent` read `olx.ad.v1`
+  only): harvest fix reads `joymee.ad.v1` attributes and renders Joymee's own account type into `{{seller}}`
+  (`advertiser_type` 1 → `owner`, 2 → `agent`, else `unknown`; OLX's `private`/`business` unchanged, since OLX
+  `business` stays unknown under rule 12); held-out 40 gold: type 2 agent 26, unknown 12, owner 0; gold rule 15 takes the account type as the poster's statement unless the text says otherwise, like
+  OLX rule 12 (orchestrator, 2026-11-21); harvest `2f3a673` (v0.2 Iteration 41) lifts v7 on `joymee-listings-v2`
+  (inputs as rendered, gold rules 1 + 15), two runs: author 0.950 / 0.925, rooms 1.000 / 0.975, floor 1.000 / 0.975,
+  every bar field passing; v10 ties v7 on both Joymee sets and gains only OLX author (0.771 vs 0.700), so
+  `harvest-prod` keeps v7 and v10 is revisited when OLX runs; v7 swings ±3-4 points a field across runs
 - 🔄 #6 Provisioned on `harvest-prod` 2026-11-21 (`manual`, 7 searches, v5 as prompt version 1, no key issued, no
   schedules); `pipelines pace|run|schedule|show` host verbs committed harvest `60cef0b` (all tiers green), eval record `8d2f28e`;
   `v0.2.57` promoted to `harvest-prod` by hand 2026-11-21 (migrate 18 → 19, probe 200, data snapshotted first; dev
@@ -44,7 +57,10 @@ apartment listing platforms along the way as well".
 - 🔄 #7 (2026-11-21: `harvest-prod` on `v0.2.61` = `d961ea9`; Joymee capture every 2 h, run `01a1fb82-7211`
   58 new posts, 0 failed; BirBir answers a challenge on its first request from the VPS, schedule off, folded into
   D1; OLX idle; 66 `extract-listing` answers, 0 invalid, $0.0378, $0.00057 a listing; Joymee capture reads only its
-  newest ~58, `Sweep`/`Discover` reach checked next) Schedules and AI `auto` on every Haven collection source (OLX ×3, Joymee, BirBir), then improve prompts and
+  newest ~58, so `pipelines run|schedule --kind discover|harvest` reach the catalog, harvest `be193fc` (v0.2
+  Iteration 40, every tier green), live on `harvest-prod` `v0.2.62`: one cycle took Joymee from 58 to 178 posts, no
+  challenge; discover every 30 m, harvest every 15 m; 185 answers, 0 invalid, $0.1021; BirBir schedule off on prod)
+  Schedules and AI `auto` on every Haven collection source (OLX ×3, Joymee, BirBir), then improve prompts and
   sources from the volume answers (developer, 2026-11-21: "set the schedules, set the ai processing in all sources and
   work on improving them"); after the scheduler UTC hotfix reaches `harvest-prod`
 - 🔄 #8 BirBir, Joymee, Domtut on the same listing route: BirBir and Joymee `apartments-rent` imply `listing` +
