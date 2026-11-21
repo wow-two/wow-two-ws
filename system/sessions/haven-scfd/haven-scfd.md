@@ -28,9 +28,24 @@ apartment listing platforms along the way as well".
   (8 new posts), so the VPS address is refused whatever the pace; the orchestrator's "OLX idle until D1" was
   wrong -- harvesting pipelines stay on while blocked (developer, 2026-11-21: "them blocking us doesn't stop us -
   even that info would have helped us"; `conventions/development/dev-cycle.md` § *Harvesting pipelines stay on in
-  development*): OLX captures every 1 h at 15 s, BirBir at its stored interval; D1: the developer buys an IP server
-  billed per GB, one sticky exit, never rotation (#14); from the Mac's home IP OLX's `robots.txt` also answers a
-  CloudFront 403 to harvest's UA and to curl, so the block may key on the client, not only the address
+  development*): BirBir at its stored interval; OLX target: pagination every 5 m and a harvest run every 15 s, each
+  taking the next 50-100 queued listings, capture off (developer, 2026-11-21: "pagination should run every 5 mins
+  ... details harvest runs every in queue every 15s - taking like 100 or 50 listings"; the lane's and orchestrator's
+  first reading, one request every 15 s, was wrong); stage model settled (developer, 2026-11-21: "every 5
+  mins, it checks all pages, since it's not heavy task"; "requests can run in parallel as well - we need a flag in
+  pipeline configs for this"; harvest details "will have both batch size, request limit between the requests as
+  well"): discover walks every page every 5 m, harvest takes per-pipeline `batch`, `gapMs` and `parallel` with
+  intervals down to 15 s (`stage-tuning-spec.md`, olx lane, after the auto-off build); the 15 s pace holds until then; a pipeline turns
+  itself off after N failed runs in a row (default 10, `0` = never; developer's ask): harvest `abf726b` (v0.2
+  Iteration 43, migration 021, `pipelines auto-off --pipeline <id> --after <n>`, every tier green); D1: the
+  developer buys an IP server billed per GB, rotation allowed (#14); from the Mac's home IP OLX's `robots.txt` also answers a
+  CloudFront 403 to harvest's UA and to curl while Chrome on the same address is served, so OLX filters by client
+  (UA and/or TLS fingerprint), not only by address; the VPS stays refused: the 13:47 run was stopped after ~10 requests
+  (`http_refusal`, 8 captured) like the 04:41 one; bytes (Chrome, compressed vs decoded): catalog page 256 KB vs
+  1.95 MB, detail page 144 KB vs 930 KB; harvest sends no `Accept-Encoding` yet; a full walk every 5 m costs ~1.8 GB
+  a day compressed for 3 sections (~55 GB a month), pages 1-2 every 5 m plus an hourly full walk ~0.26 GB (~8 GB),
+  the developer's pick asked by the lane; gzip/br decode, `robots.txt` cache per route and connection reuse queued; OLX ×3 capture every 1 h and BirBir every 2 h are on, BirBir still
+  challenged
 - ✅ #4 Spend guard (plan B3): harvest `98aff1a`, checker pass, backend suite green; settings
   `Harvest:Processing:Budget:{LimitUsd, SoftShare, CycleStartDay, SinceUtc}`, read by `processing budget`; dev values
   set once its release reaches `harvest-dev`
@@ -124,7 +139,9 @@ apartment listing platforms along the way as well".
   `harvest-dev` 60 once Haven's target is live (195 until then), `SoftShare 0.8`, `CycleStartDay 25`; harvest-dev MTD
   $0.24 on 2026-11-21; under the developer's "it's ok to spend all on anything just smth useful" (AI `context.md:27`)
 - #13 Gold labels come from Claude Code agents (subscription), never from API calls
-- #14 Sourcing rules bind: paced, inside `robots.txt`, no rotating proxy pools; contacts stay out of prompts, evals,
+- #14 Sourcing rules bind: paced, inside `robots.txt`; a rotating exit is allowed (developer, 2026-11-21: "rotation
+  is better for reliability anyway", superseding the no-rotation rule); the gap between requests is the
+  developer's call, and `robots.txt` (with any `Crawl-delay`) and no challenge solving still bind; contacts stay out of prompts, evals,
   fixtures, reports and logs; the developer allowed CAPTCHA solving for OLX phone reveal (2026-11-21), but it is not built (#17)
 - #18 Haven runs one SCFD, `harvest-prod`: `prod` is only the name (`dev` names on `ocharo-vps` are Ocharo's); it takes
   promoted releases only (it served `0.2.54` while `harvest-dev` took `0.2.55`); the olx lane promotes
