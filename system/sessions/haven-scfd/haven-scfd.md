@@ -25,8 +25,12 @@ apartment listing platforms along the way as well".
   Mac took 189 with no refusal); 15 s pace picked (developer, 2026-11-21: "yeah let's go with this then"), ~5.7K ads a day; only
   `harvest-prod` fetches OLX, since both instances share the VPS address; still refused → egress (plan D1), the
   developer's pick; `harvest-prod` run `01a1fb56` on `v0.2.57` (2026-11-21) was blocked after 10 requests at 15 s
-  (8 new posts), so the VPS address is refused whatever the pace; OLX idle, schedules off, until D1 is decided;
-  Joymee and BirBir scale meanwhile
+  (8 new posts), so the VPS address is refused whatever the pace; the orchestrator's "OLX idle until D1" was
+  wrong -- harvesting pipelines stay on while blocked (developer, 2026-11-21: "them blocking us doesn't stop us -
+  even that info would have helped us"; `conventions/development/dev-cycle.md` § *Harvesting pipelines stay on in
+  development*): OLX captures every 1 h at 15 s, BirBir at its stored interval; D1: the developer buys an IP server
+  billed per GB, one sticky exit, never rotation (#14); from the Mac's home IP OLX's `robots.txt` also answers a
+  CloudFront 403 to harvest's UA and to curl, so the block may key on the client, not only the address
 - ✅ #4 Spend guard (plan B3): harvest `98aff1a`, checker pass, backend suite green; settings
   `Harvest:Processing:Budget:{LimitUsd, SoftShare, CycleStartDay, SinceUtc}`, read by `processing budget`; dev values
   set once its release reaches `harvest-dev`
